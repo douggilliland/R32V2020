@@ -33,7 +33,6 @@ def lineAssert(condition, num, rawLine, message):
 
 def todo(message = 'something'):
   print "Incomplete TODO:", message
-  exit(1)
 
 def assemblerAssert(condition, message):
   if not condition:
@@ -174,5 +173,5 @@ with open(asmPath, 'r') as f:
 
       writeJump(CATEGORY_CODE['JUMP'], output, opSpec['Operation'], parseAddress(tokens[1]))
 
-with open(sys.argv[1], 'wb') as f:
+with open(sys.argv[2], 'wb') as f:
   todo('Write output for real using `output` variable')
