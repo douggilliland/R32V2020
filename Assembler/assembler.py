@@ -21,7 +21,7 @@ for i in xrange(0, 15):
 def userAssert(condition, message):
   if not condition:
     print message
-    exit()
+    exit(1)
 
 def lineAssert(condition, num, rawLine, message):
   if not condition:
@@ -29,18 +29,18 @@ def lineAssert(condition, num, rawLine, message):
     print ''
     print 'Line', str(num) + ':'
     print rawLine
-    exit()
+    exit(1)
 
 def todo(message = 'something'):
   print "Incomplete TODO:", message
-  exit()
+  exit(1)
 
 def assemblerAssert(condition, message):
   if not condition:
     print message
     print ''
     print '(This is a complier-level error indicating an assembler programmer mistake not an assembler user mistake)'
-    exit()
+    exit(1)
 
 myDir = os.path.dirname(__file__)
 opsPath = os.path.join(myDir, 'ops.csv')
