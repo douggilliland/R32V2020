@@ -95,7 +95,7 @@ def writeALU(aluCode, output, operation, regIn1, regIn2, regOut):
 def writeLoadStore(loadStoreCode, output, operation, register, immediate):
   todo('Load/Store level ops')
 
-def writePeripheral(jumpCode, output, operation, register):
+def writePeripheral(peripheralCode, output, operation, register):
   todo('Peripheral level ops')
 
 def writeJump(jumpCode, output, operation, address):
