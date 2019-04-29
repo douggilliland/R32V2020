@@ -13,12 +13,17 @@ CATEGORY_CODE = {
   'JUMP': 4
 }
 
-def user_assert(condition, message):
+validRegisters = set()
+
+for i in xrange(0, 15):
+  validRegisters.add('R' + str(i))
+
+def userAssert(condition, message):
   if not condition:
     print message
     exit()
 
-def line_assert(condition, num, rawLine, message):
+def lineAssert(condition, num, rawLine, message):
   if not condition:
     print message
     print ''
@@ -26,7 +31,11 @@ def line_assert(condition, num, rawLine, message):
     print rawLine
     exit()
 
-def assembler_assert(condition, message):
+def todo(message = 'something'):
+  print "Incomplete TODO:", message
+  exit()
+
+def assemblerAssert(condition, message):
   if not condition:
     print message
     print ''
@@ -36,19 +45,19 @@ def assembler_assert(condition, message):
 myDir = os.path.dirname(__file__)
 opsPath = os.path.join(myDir, 'ops.csv')
 
-assembler_assert(os.path.isfile(opsPath), 'Expected an ops file at ' + os.path.abspath(opsPath))
+assemblerAssert(os.path.isfile(opsPath), 'Expected an ops file at ' + os.path.abspath(opsPath))
 
-user_assert(len(sys.argv) == 3, 'Usage: python assembler.py <input assembly> <output binary>')
-user_assert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
+userAssert(len(sys.argv) == 3, 'Usage: python assembler.py <input assembly> <output binary>')
+userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
 asmPath = sys.argv[1]
 
 with open(opsPath) as csvfile:
   ops = list(csv.DictReader(csvfile))
 
-op_by_code = {}
+opByCode = {}
 
 # For testing that a code is not repeated within a category
-code_per_category = {
+codePerCategory = {
   'SYSTEM': [],
   'ALU': [],
   'LOAD_STORE': [],
@@ -57,24 +66,67 @@ code_per_category = {
 }
 
 for op in ops:
-  assembler_assert(op['Category'] in CATEGORY_CODE, 'Op ' + op['Opcode'] + ' has unrecognized category ' + op['Category'] + ' (it should be one of ' + ', '.join(list(CATEGORY_CODE)) + ')')
+  assemblerAssert(op['Category'] in CATEGORY_CODE, 'Op ' + op['Opcode'] + ' has unrecognized category ' + op['Category'] + ' (it should be one of ' + ', '.join(list(CATEGORY_CODE)) + ')')
 
-  assembler_assert(op['Operation'] not in code_per_category[op['Category']], 'The Operation ' + op['Operation'] + ' is repeated more than once for the category ' + op['Category'])
+  assemblerAssert(op['Operation'] not in codePerCategory[op['Category']], 'The Operation ' + op['Operation'] + ' is repeated more than once for the category ' + op['Category'])
 
-  code_per_category[op['Category']].append(op['Operation'])
+  codePerCategory[op['Category']].append(op['Operation'])
 
   operation = int(op['Operation'])
 
   op['Operation'] = operation
 
-  assembler_assert(0 <= operation and operation <= 63, 'Op ' + op['Opcode'] + ' must have an Operation between 0 and 63 inclusive')
+  assemblerAssert(0 <= operation and operation <= 63, 'Op ' + op['Opcode'] + ' must have an Operation between 0 and 63 inclusive')
 
   opcode = op['Opcode'].upper()
 
-  assembler_assert(opcode not in op_by_code, 'Op ' + op['Opcode'] + ' is repeated')
+  assemblerAssert(opcode not in opByCode, 'Op ' + op['Opcode'] + ' is repeated')
 
-  op_by_code[opcode] = op
+  opByCode[opcode] = op
 
+output = bytearray()
+
+def writeSystem(systemCode, output, operation):
+  todo('System level ops')
+
+def writeALU(aluCode, output, operation, regIn1, regIn2, regOut):
+  todo('ALU level ops')
+
+def writeLoadStore(loadStoreCode, output, operation, register, immediate):
+  todo('Load/Store level ops')
+
+def writePeripheral(jumpCode, output, operation, register):
+  todo('Peripheral level ops')
+
+def writeJump(jumpCode, output, operation, address):
+  todo('Jump level ops')
+
+def isValidAddress(token):
+  todo('Check whether a token is a valid jump address for real')
+
+def parseAddress(token):
+  todo('Parse a jump address for real')
+
+def isValidRegister(token):
+  return token.upper() in validRegisters
+
+def parseRegister(token):
+  return int(token[1:])
+
+def parseImmediate(token):
+  try:
+    return int(token)
+  except:
+    todo('Parse immediate values (hex, binary, etc...) for real')
+
+def isValidImmediateValue(token):
+  try:
+    int(token)
+    return True
+  except:
+    todo('Check that tokens are valid immediate values (size, hex, binary, etc...) for real')
+
+# Parse and write output
 with open(asmPath, 'r') as f:
   for num, line in enumerate(f):
 
@@ -86,4 +138,41 @@ with open(asmPath, 'r') as f:
 
     op = tokens[0].upper()
 
-    line_assert(op in op_by_code, num, line, 'Unknown op ' + op)
+    lineAssert(op in opByCode, num, line, 'Unknown op ' + op)
+
+    opSpec = opByCode[op]
+
+    if opSpec['Category'] == 'SYSTEM':
+      lineAssert(len(tokens) == 1, num, line, 'Unexpected trailing tokens after SYSTEM op')
+
+      writeSystem(CATEGORY_CODE['SYSTEM'], output, opSpec['Operation'])
+
+    if opSpec['Category'] == 'ALU':
+      lineAssert(len(tokens) == 4, num, line, 'Expected 3 arguments after an ALU op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, line, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, line, tokens[2] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[3]), num, line, tokens[3] + ' is not a valid register')
+
+      writeALU(CATEGORY_CODE['ALU'], output, opSpec['Operation'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3]))
+
+    if opSpec['Category'] == 'LOAD_STORE':
+      lineAssert(len(tokens) == 3, num, line, 'Expected 2 arguments after a Load/Store op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, line, tokens[1] + ' is not a valid register')
+      lineAssert(isValidImmediateValue(tokens[2]), num, line, tokens[2] + ' is not a valid immediate value')
+
+      writeLoadStore(CATEGORY_CODE['LOAD_STORE'], output, opSpec['Operation'], parseRegister(tokens[1]), parseImmediate(tokens[2]))
+
+    if opSpec['Category'] == 'PERIPHERAL':
+      lineAssert(len(tokens) == 2, num, line, 'Expected 1 argument after a Peripheral op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, line, tokens[1] + ' is not a valid register')
+
+      writePeripheral(CATEGORY_CODE['PERIPHERAL'], output, opSpec['Operation'], parseRegister(tokens[1]))
+
+    if opSpec['Category'] == 'JUMP':
+      lineAssert(len(tokens) == 2, num, line, 'Expected 1 argument after a Jump op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidAddress(tokens[1]), num, line, tokens[1] + ' is not a valid jump address')
+
+      writeJump(CATEGORY_CODE['JUMP'], output, opSpec['Operation'], parseAddress(tokens[1]))
+
+with open(sys.argv[1], 'wb') as f:
+  todo('Write output for real using `output` variable')
