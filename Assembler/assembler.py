@@ -116,14 +116,21 @@ def parseImmediate(token):
   try:
     return int(token)
   except:
-    todo('Parse immediate values (hex, binary, etc...) for real')
+    try:
+      return int(token, 0)
+    except:
+      todo('Parse immediate values (binary, etc...) for real')
 
 def isValidImmediateValue(token):
   try:
     v = int(token)
-    return -32768 <= v and v <= 32767
   except:
-    todo('Check that tokens are valid immediate values (size, hex, binary, etc...) for real')
+    try:
+      v = int(token, 0)
+    except:
+      todo('Check that tokens are valid immediate values (size, hex, binary, etc...) for real')
+
+  return -32768 <= v and v <= 32767
 
 # Parse and write output
 with open(asmPath, 'r') as f:
