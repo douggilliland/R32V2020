@@ -1,10 +1,10 @@
-= Land Boards - R32V2020 - 32-Bit RISC on the EP4 FPGA =
+= Land Boards - R32V2020 - 32-Bit RISC on Altera Spartan FPGAs =
 
 * These are the files for the 32-bit RISC FPGA
 
 = Targetting other FPGAs ==
 
-* R32V2020 is a 32-bit RISC core specifically targetted for Altera Spartan FPGA
+* R32V2020 is a 32-bit RISC core specifically targeted at Altera Spartan FPGAs
 * R32V2020 could be targeted to any FPGA that has sufficient Logic Elements and internal RAM blocks
 
 == Advantages ==
@@ -12,6 +12,14 @@
 * There's enough BlockRAM in a Spartan FPGA to have separate Instruction, Data and Stack Memory
 * This makes CPU design much simpler since there's very little multiplexing of address/data for common busses
 * See the Architecture document(s) for details
+
+== Minimum Resource Requirements ==
+
+* Constraints
+** 32-bit data (4 of 1K Blocks in the Spartan FPGAs)
+** Three address spaces (Three spaces times four blocks = 12 blocks minimum)
+** The Spartan EP4 FPGA has 30 of 1KB blocks
+** Peripherals can use some blocks
 
 == Ownership ==
 
