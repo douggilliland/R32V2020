@@ -121,8 +121,8 @@ def parseImmediate(token):
 
 def isValidImmediateValue(token):
   try:
-    int(token)
-    return True
+    v = int(token)
+    return -32768 <= v and v <= 32767
   except:
     todo('Check that tokens are valid immediate values (size, hex, binary, etc...) for real')
 
