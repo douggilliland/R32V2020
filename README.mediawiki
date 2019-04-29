@@ -7,6 +7,12 @@
 * R32V2020 is a 32-bit RISC core specifically targetted for Altera Spartan FPGA
 * R32V2020 could be targeted to any FPGA that has sufficient Logic Elements and internal RAM blocks
 
+== Advantages ==
+
+* There's enough BlockRAM in a Spartan FPGA to have separate Instruction, Data and Stack Memory
+* This makes CPU design much simpler since there's very little multiplexing of address/data for common busses
+* See the Architecture document(s) for details
+
 == Ownership ==
 
 * We all stand on the shoulders of giants.
