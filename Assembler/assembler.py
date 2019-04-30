@@ -145,7 +145,12 @@ def isValidImmediateValue(token):
 
 # Parse and write output
 with open(asmPath, 'r') as f:
-  for num, line in enumerate(f):
+  for num, rawLine in enumerate(f):
+
+    line = rawLine
+
+    if ';' in rawLine:
+      line = rawLine[:rawLine.index(';')]
 
     # Ignore empty lines
     if line.strip() == '':
@@ -155,39 +160,39 @@ with open(asmPath, 'r') as f:
 
     op = tokens[0].upper()
 
-    lineAssert(op in opByCode, num, line, 'Unknown op ' + op)
+    lineAssert(op in opByCode, num, rawLine, 'Unknown op ' + op)
 
     opSpec = opByCode[op]
 
     if opSpec['Category'] == 'SYSTEM':
-      lineAssert(len(tokens) == 1, num, line, 'Unexpected trailing tokens after SYSTEM op')
+      lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after SYSTEM op')
 
       writeSystem(CATEGORY_CODE['SYSTEM'], output, opSpec['Operation'])
 
     if opSpec['Category'] == 'ALU':
-      lineAssert(len(tokens) == 4, num, line, 'Expected 3 arguments after an ALU op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, line, tokens[1] + ' is not a valid register')
-      lineAssert(isValidRegister(tokens[2]), num, line, tokens[2] + ' is not a valid register')
-      lineAssert(isValidRegister(tokens[3]), num, line, tokens[3] + ' is not a valid register')
+      lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after an ALU op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[3]), num, rawLine, tokens[3] + ' is not a valid register')
 
       writeALU(CATEGORY_CODE['ALU'], output, opSpec['Operation'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3]))
 
     if opSpec['Category'] == 'LOAD_STORE':
-      lineAssert(len(tokens) == 3, num, line, 'Expected 2 arguments after a Load/Store op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, line, tokens[1] + ' is not a valid register')
-      lineAssert(isValidImmediateValue(tokens[2]), num, line, tokens[2] + ' is not a valid immediate value')
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after a Load/Store op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
 
       writeLoadStore(CATEGORY_CODE['LOAD_STORE'], output, opSpec['Operation'], parseRegister(tokens[1]), parseImmediate(tokens[2]))
 
     if opSpec['Category'] == 'PERIPHERAL':
-      lineAssert(len(tokens) == 2, num, line, 'Expected 1 argument after a Peripheral op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, line, tokens[1] + ' is not a valid register')
+      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after a Peripheral op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
       writePeripheral(CATEGORY_CODE['PERIPHERAL'], output, opSpec['Operation'], parseRegister(tokens[1]))
 
     if opSpec['Category'] == 'JUMP':
-      lineAssert(len(tokens) == 2, num, line, 'Expected 1 argument after a Jump op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidAddress(tokens[1]), num, line, tokens[1] + ' is not a valid jump address')
+      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after a Jump op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid jump address')
 
       writeJump(CATEGORY_CODE['JUMP'], output, opSpec['Operation'], parseAddress(tokens[1]))
 
