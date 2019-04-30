@@ -38,7 +38,7 @@ def assemblerAssert(condition, message):
   if not condition:
     print message
     print ''
-    print '(This is a complier-level error indicating an assembler programmer mistake not an assembler user mistake)'
+    print '(This is a compiler-level error indicating an assembler programmer mistake not an assembler user mistake)'
     exit(1)
 
 myDir = os.path.dirname(__file__)
@@ -64,6 +64,7 @@ codePerCategory = {
   'JUMP': []
 }
 
+# Building structures and validation
 for op in ops:
   assemblerAssert(op['Category'] in CATEGORY_CODE, 'Op ' + op['Opcode'] + ' has unrecognized category ' + op['Category'] + ' (it should be one of ' + ', '.join(list(CATEGORY_CODE)) + ')')
 
