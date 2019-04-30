@@ -156,7 +156,7 @@ with open(asmPath, 'r') as f:
     if line.strip() == '':
       continue
 
-    tokens = re.split('\s+', line.strip())
+    tokens = re.split('[\s|,]+', line.strip())
 
     op = tokens[0].upper()
 
