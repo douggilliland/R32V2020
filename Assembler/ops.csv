@@ -1,6 +1,10 @@
 Category,Desciption,Opcode,Operation
 SYSTEM,Halt and catch fire,HCF,0
-ALU,Add 2 regs and store in 3rd,ADR,0
-LOAD_STORE,Load reg immediate lower,LIL,32
-PERIPHERAL,Read peripheral,RDP,0
+ALU,Add 2 regs and store in 3rd,ADD,0
+ALU,And 2 regs and store in 3rd,AND,1
+LOAD_STORE,Load reg immediate lower,LRI,32
+PERIPHERAL,Write to peripheral,LDP,0
+PERIPHERAL,Read from peripheral,STP,1
 JUMP,Jump to subroutine,JSR,4
+JUMP,Jumps to the given label when the condition code is zero,BEQ,5
+JUMP,Always jump to the given label,BRA,6

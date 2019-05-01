@@ -1,9 +1,9 @@
-lil r12,41 
+lri r12,41 
 
-LiL R11,1
-LiL R11,B'1000'
-LiL R11,b'1000'
-ADr R10,r11,r12
+LrI R11,1
+LrI R11,B'1000'
+LrI R11,b'1000'
+ADd R10,r11,r12
 
 HCF
 hcf
