@@ -89,7 +89,7 @@ class SystemResolver:
     self.operation = operation
 
   def resolveHex(self, _):
-    return ''
+    return hex(self.operation << 24)
 
 class AluResolver:
   def __init__(self, operation, rOut, r1, r2):
@@ -99,7 +99,7 @@ class AluResolver:
     self.r2 = r2
 
   def resolveHex(self, _):
-    return ''
+    return hex(CATEGORY_CODE['ALU'] << 29 | self.operation << 24 | self.rOut << 20 | self.r1 << 16 | self.r2 << 12)
 
 class LoadStoreResolver:
   def __init__(self, operation, register, immediate):
@@ -108,16 +108,7 @@ class LoadStoreResolver:
     self.immediate = immediate
 
   def resolveHex(self, _):
-    return ''
-
-class LoadStoreResolver:
-  def __init__(self, operation, register, immediate):
-    self.operation = operation
-    self.register = register
-    self.immediate = immediate
-
-  def resolveHex(self, _):
-    return ''
+    return hex(CATEGORY_CODE['LOAD_STORE'] << 29 | self.operation << 24 | self.register << 20 | self.immediate)
 
 class PeripheralResolver:
   def __init__(self, operation, register):
@@ -125,15 +116,18 @@ class PeripheralResolver:
     self.register = register
 
   def resolveHex(self, _):
-    return ''
+    return hex(CATEGORY_CODE['PERIPHERAL'] << 29 | self.operation << 24 | self.register << 20)
 
 class JumpResolver:
-  def __init__(self, operation, address):
+  def __init__(self, operation, address, rawLine, lineNumber):
     self.operation = operation
     self.address = address
+    self.rawLine = rawLine
+    self.lineNumber = lineNumber
 
   def resolveHex(self, addresses):
-    return ''
+    lineAssert(self.address in addresses, self.lineNumber, self.rawLine, self.address + ' is not a valid jump address')
+    return hex(CATEGORY_CODE['PERIPHERAL'] << 29 | self.operation << 24 | addresses[address] << 12)
 
 output = []
 addresses = {}
@@ -245,7 +239,8 @@ with open(asmPath, 'r') as f:
       lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after a Jump op but got ' + str(len(tokens) - 1))
       lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid jump address')
 
-      output.append(JumpResolver(opSpec['Operation'], tokens[1]))
+      output.append(JumpResolver(opSpec['Operation'], tokens[1], rawLine, num))
 
-with open(sys.argv[2], 'wb') as f:
-  todo('Write output for real using `output` variable')
+with open(sys.argv[2], 'w') as f:
+  for resolver in output:
+    f.write(resolver.resolveHex(addresses).replace('0x', '') + '\n')
