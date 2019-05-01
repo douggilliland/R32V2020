@@ -143,7 +143,6 @@ def parseRegister(token):
   return int(token[1:])
 
 def unsafeParseBinary(token):
-  looksLikeBinary = token.startswith("b'") or token.startswith("B'")
   strippedOfBinary = token.replace("'", '').replace('B', '').replace('b', '')
 
   return int(strippedOfBinary, 2)
@@ -169,8 +168,9 @@ def isValidImmediateValue(token):
       valid = True
     except:
       try:
+        looksLikeBinary = token.startswith("b'") or token.startswith("B'")
         v = unsafeParseBinary(token)
-        valid = True
+        valid = looksLikeBinary
       except:
         pass
 
