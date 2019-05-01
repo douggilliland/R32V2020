@@ -4,7 +4,7 @@ HCF ; I'm on the same line as an op but after it
 
 ;; I have multiple ";" characters
 
-; I have invalid code but shouldn't cause things to break: ADR 42 R1 R2
+; I have invalid code but shouldn't cause things to break: ADD 42 R1 R2
 
     ;  I am indented a bit to try and trick the assembler
 

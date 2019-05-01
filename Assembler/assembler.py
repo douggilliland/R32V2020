@@ -123,7 +123,6 @@ class PeripheralResolver:
   def __init__(self, operation, register):
     self.operation = operation
     self.register = register
-    self.immediate = immediate
 
   def resolveHex(self, _):
     return ''
