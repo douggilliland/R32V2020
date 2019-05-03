@@ -1,3 +1,8 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use  IEEE.STD_LOGIC_ARITH.all;
+use  IEEE.STD_LOGIC_UNSIGNED.all;
+
 ENTITY REG_32 IS PORT(
     d   : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     ld  : IN STD_LOGIC; -- load/enable.

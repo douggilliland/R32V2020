@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity MUX_16x32 is port
+entity MUX_16x32 is port (
 	r0 : 	IN  STD_LOGIC_VECTOR(31 downto 0);
     r1 : 	IN  STD_LOGIC_VECTOR(31 downto 0);
     r2 : 	IN  STD_LOGIC_VECTOR(31 downto 0);
@@ -21,6 +21,7 @@ entity MUX_16x32 is port
     r15 : 	IN  STD_LOGIC_VECTOR(31 downto 0);
     sel : 	IN STD_LOGIC_VECTOR(3 downto 0);
     z : 	OUT STD_LOGIC_VECTOR(31 downto 0)
+	 );
 end MUX_16x32;
  
 architecture sim of MUX_16x32 is
