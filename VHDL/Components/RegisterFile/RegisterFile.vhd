@@ -51,9 +51,9 @@ architecture struct of RegisterFile is
 	signal regR14			: std_logic_vector(31 downto 0);
 	signal regR15			: std_logic_vector(31 downto 0);
 	
-	signal wrSelR0			: std_logic;
-	signal wrSelR1			: std_logic;
-	signal wrSelR2			: std_logic;
+--	signal wrSelR0			: std_logic;
+--	signal wrSelR1			: std_logic;
+--	signal wrSelR2			: std_logic;
 	signal wrSelR3			: std_logic;
 	signal wrSelR4			: std_logic;
 	signal wrSelR5			: std_logic;
@@ -70,9 +70,9 @@ architecture struct of RegisterFile is
 	
 begin
 
-wrSelR0 <= '1' when ((wrRegSel = "0000") and (wrStrobe = '1')) else '0';
-wrSelR1 <= '1' when ((wrRegSel = "0001") and (wrStrobe = '1')) else '0';
-wrSelR2 <= '1' when ((wrRegSel = "0010") and (wrStrobe = '1')) else '0';
+--wrSelR0 <= '1' when ((wrRegSel = "0000") and (wrStrobe = '1')) else '0';
+--wrSelR1 <= '1' when ((wrRegSel = "0001") and (wrStrobe = '1')) else '0';
+--wrSelR2 <= '1' when ((wrRegSel = "0010") and (wrStrobe = '1')) else '0';
 wrSelR3 <= '1' when ((wrRegSel = "0011") and (wrStrobe = '1')) else '0';
 wrSelR4 <= '1' when ((wrRegSel = "0100") and (wrStrobe = '1')) else '0';
 wrSelR5 <= '1' when ((wrRegSel = "0101") and (wrStrobe = '1')) else '0';
