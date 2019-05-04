@@ -19,7 +19,9 @@ supportedForms = set([
   'UN_DEST',
   'BIN_R1_DEST',
   'UN_R5_DEST',
-  'UN_R6_DEST'
+  'UN_R6_DEST',
+  'UN_R4_DEST',
+  'R4_DEST'
 ])
 
 for i in xrange(0, 15):
