@@ -143,11 +143,46 @@ class ShortConstant:
   def resolveHex(self):
     return []
 
+class StringConstant:
+  def __init__(self, string):
+    self.string = string
+
+  def resolveHex(self):
+    return []
+
 output = []
 addresses = {}
 currentAddress = 0
 constants = []
 constantByAddress = {}
+
+def isValidString(text):
+  walker = text.strip()
+  justEscaped = False
+
+  if text == '':
+    return True
+
+  if walker[0] != '"':
+    return False
+
+  walker = walker[1:]
+
+  while True:
+    if len(walker) == 0:
+      return False
+
+    if walker[0] == '"':
+      walker = walker[1:]
+      break
+
+    if walker[0:2] == '\\"':
+      walker = walker[2:]
+      continue
+
+    walker = walker[1:]
+
+  return walker.strip() == ''
 
 def isValidAddress(token):
   return token.isalnum()
@@ -212,20 +247,58 @@ def isValidImmediateValue(token):
 
   return valid and -32768 <= v and v <= 32767
 
+def stripComments(line):
+  resultLine = ''
+  inString = False
+  justEscaped = False
+
+  for c in line:
+    if c == ';' and not inString:
+      break
+    elif c == '"' and not inString and not justEscaped:
+      inString = True
+    elif c == '"' and inString and not justEscaped:
+      inString = False
+
+    justEscaped = inString and c == '\\'
+
+    resultLine += c
+
+  return resultLine
+
+# assert stripComments('') == ''
+# assert stripComments('; foo') == ''
+# assert stripComments('add r10,r11,r12; foo') == 'add r10,r11,r12'
+# assert stripComments('hi: .string "foo bar" ; comment') == 'hi: .string "foo bar" '
+# assert stripComments('hi: .string "foo; bar"') == 'hi: .string "foo; bar"'
+# assert stripComments('hi: .string "foo; \\" ; bar"') == 'hi: .string "foo; \\" ; bar"'
+
 # Parse and write output
 with open(asmPath, 'r') as f:
   for num, rawLine in enumerate(f):
 
-    line = rawLine
-
-    if ';' in rawLine:
-      line = rawLine[:rawLine.index(';')]
+    line = stripComments(rawLine)
 
     # Ignore empty lines
     if line.strip() == '':
       continue
 
     tokens = re.split('[\s|,]+', line.strip())
+
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.STRING':
+      address = tokens[0][:-1]
+
+      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+
+      string = line[line.index('.')+7:].strip()
+
+      lineAssert(isValidString(string), num, rawLine, string + ' is not a valid string literal')
+
+      constant = StringConstant(string)
+
+      constants.append(constant)
+      constantByAddress[address] = constant
+      continue
 
     if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
       shorts = []
