@@ -144,10 +144,16 @@ class ByteConstant:
 
 class ShortConstant:
   def __init__(self, shortLiterals):
-    self.shortLiterals = shortLiterals
+    self.shortLiterals = shortLiterals+ [0]*(2 - len(shortLiterals))
 
   def resolveHex(self):
-    return []
+    output = 0
+
+    for byte in self.byteLiterals:
+      output = output << 16
+      output |= byte
+
+    return [hex(output)]
 
 class StringConstant:
   def __init__(self, string):
