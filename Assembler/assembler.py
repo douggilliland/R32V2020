@@ -339,13 +339,13 @@ with open(asmPath, 'r') as f:
 
       output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), constantFormRegister[opSpec['Form']]))
 
-    elif opSpec['Form'] == ['UN_R4_DEST', 'UN_R5_DEST', 'UN_R6_DEST']:
+    elif opSpec['Form'] in ['UN_R4_DEST', 'UN_R5_DEST', 'UN_R6_DEST']:
       lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
       output.append(UnDestResolver(opSpec['CategorizedOp'], constantFormRegister[opSpec['Form']], parseRegister(tokens[1])))
     else:
-      lineAssert(False, rawLine, 'Unexpectedly failed to parse line')
+      lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
 with open(sys.argv[2], 'w') as f:
   for resolver in output:
