@@ -24,6 +24,18 @@ supportedForms = set([
   'UN_R6_DEST'
 ])
 
+constantFormRegister = {
+  'ADDR_R7_DEST': 7,
+  'BIN_CMP': 3,
+  'R4_DEST': 4,
+  'R5_DEST': 5,
+  'R6_DEST': 6,
+  'BIN_R1_DEST': 1,
+  'UN_R4_DEST': 4,
+  'UN_R5_DEST': 5,
+  'UN_R6_DEST': 6
+}
+
 for i in xrange(0, 15):
   validRegisters.add('R' + str(i))
 
@@ -271,21 +283,21 @@ with open(asmPath, 'r') as f:
 
       output.append(NoArgsResolver(opSpec['CategorizedOp']))
 
-    if opSpec['Form'] == 'ADDR':
+    elif opSpec['Form'] == 'ADDR':
       lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
       lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
 
       output.append(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num))
 
-    if opSpec['Form'] == 'ADDR_R7_DEST':
+    elif opSpec['Form'] == 'ADDR_R7_DEST':
       lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
       lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
 
       output.append(AddressDestResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, 7))
 
-    if opSpec['Form'] == 'BIN_DEST':
+    elif opSpec['Form'] == 'BIN_DEST':
       lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
       lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
@@ -293,69 +305,47 @@ with open(asmPath, 'r') as f:
 
       output.append(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
 
-    if opSpec['Form'] == 'BIN_CMP':
+    elif opSpec['Form'] == 'BIN_CMP':
       lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
       lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
       output.append(BinDestResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseRegister(tokens[2])))
 
-    if opSpec['Form'] == 'BIN_R1_DEST':
+    elif opSpec['Form'] == 'BIN_R1_DEST':
       lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
       lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
       output.append(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 1, parseRegister(tokens[2])))
 
-    if opSpec['Form'] == 'IMM_DEST':
+    elif opSpec['Form'] == 'IMM_DEST':
       lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
       lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
 
       output.append(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
 
-    if opSpec['Form'] == 'UN_DEST':
+    elif opSpec['Form'] == 'UN_DEST':
       lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
       lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
       output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2])))
 
-    if opSpec['Form'] == 'R4_DEST':
+    elif opSpec['Form'] in ['R4_DEST', 'R5_DEST', 'R6_DEST']:
       lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
-      output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 4))
+      output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), constantFormRegister[opSpec['Form']]))
 
-    if opSpec['Form'] == 'R5_DEST':
+    elif opSpec['Form'] == ['UN_R4_DEST', 'UN_R5_DEST', 'UN_R6_DEST']:
       lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
-      output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 5))
-
-    if opSpec['Form'] == 'R6_DEST':
-      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-
-      output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 6))
-
-    if opSpec['Form'] == 'UN_R4_DEST':
-      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-
-      output.append(UnDestResolver(opSpec['CategorizedOp'], 4, parseRegister(tokens[1])))
-
-    if opSpec['Form'] == 'UN_R5_DEST':
-      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-
-      output.append(UnDestResolver(opSpec['CategorizedOp'], 5, parseRegister(tokens[1])))
-
-    if opSpec['Form'] == 'UN_R6_DEST':
-      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-
-      output.append(UnDestResolver(opSpec['CategorizedOp'], 6, parseRegister(tokens[1])))
+      output.append(UnDestResolver(opSpec['CategorizedOp'], constantFormRegister[opSpec['Form']], parseRegister(tokens[1])))
+    else:
+      lineAssert(False, rawLine, 'Unexpectedly failed to parse line')
 
 with open(sys.argv[2], 'w') as f:
   for resolver in output:
