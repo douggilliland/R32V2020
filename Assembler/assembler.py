@@ -131,10 +131,16 @@ class JumpResolver:
 
 class ByteConstant:
   def __init__(self, byteLiterals):
-    self.byteLiterals = byteLiterals
+    self.byteLiterals = byteLiterals + [0]*(4 - len(byteLiterals))
 
   def resolveHex(self):
-    return []
+    output = 0
+
+    for byte in self.byteLiterals:
+      output = output << 8
+      output |= byte
+
+    return [hex(output)]
 
 class ShortConstant:
   def __init__(self, shortLiterals):
