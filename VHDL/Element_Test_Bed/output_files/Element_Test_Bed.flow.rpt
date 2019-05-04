@@ -1,5 +1,5 @@
 Flow report for Element_Test_Bed
-Fri May 03 16:33:13 2019
+Sat May 04 13:00:58 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,18 +40,18 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Fri May 03 16:33:07 2019       ;
+; Flow Status                        ; Successful - Sat May 04 13:00:53 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; Element_Test_Bed                            ;
-; Top-level Entity Name              ; Element_Test_Bed                            ;
+; Top-level Entity Name              ; OpCode_Decoder                              ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE75F29C8                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 664 / 75,408 ( < 1 % )                      ;
-;     Total combinational functions  ; 664 / 75,408 ( < 1 % )                      ;
-;     Dedicated logic registers      ; 512 / 75,408 ( < 1 % )                      ;
-; Total registers                    ; 512                                         ;
-; Total pins                         ; 118 / 427 ( 28 % )                          ;
+; Total logic elements               ; 9 / 75,408 ( < 1 % )                        ;
+;     Total combinational functions  ; 9 / 75,408 ( < 1 % )                        ;
+;     Dedicated logic registers      ; 0 / 75,408 ( 0 % )                          ;
+; Total registers                    ; 0                                           ;
+; Total pins                         ; 45 / 427 ( 11 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0 / 2,810,880 ( 0 % )                       ;
 ; Embedded Multiplier 9-bit elements ; 0 / 400 ( 0 % )                             ;
@@ -64,31 +64,33 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/03/2019 16:31:57 ;
+; Start date & time ; 05/04/2019 13:00:11 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Element_Test_Bed    ;
 +-------------------+---------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                        ;
-+-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
-+-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 264216224721306.155691551724648        ; --            ; --          ; --         ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                      ; --            ; --          ; --         ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                      ; --            ; --          ; --         ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                             ; --            ; --          ; --         ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                             ; --            ; --          ; --         ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --            ; --          ; --         ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --         ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                           ; --            ; --          ; --         ;
-+-------------------------------------+----------------------------------------+---------------+-------------+------------+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                              ;
++-------------------------------------+----------------------------------------+------------------+----------------+------------+
+; Assignment Name                     ; Value                                  ; Default Value    ; Entity Name    ; Section Id ;
++-------------------------------------+----------------------------------------+------------------+----------------+------------+
+; COMPILER_SIGNATURE_ID               ; 264216224721306.155698921021040        ; --               ; --             ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --               ; --             ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --               ; --             ; --         ;
+; NUM_PARALLEL_PROCESSORS             ; 2                                      ; --               ; --             ; --         ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                      ; --               ; --             ; --         ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                      ; --               ; --             ; --         ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                             ; --               ; --             ; --         ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                             ; --               ; --             ; --         ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --               ; OpCode_Decoder ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --               ; OpCode_Decoder ; Top        ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --               ; OpCode_Decoder ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --               ; --             ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --               ; --             ; --         ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                           ; --               ; --             ; --         ;
+; TOP_LEVEL_ENTITY                    ; OpCode_Decoder                         ; Element_Test_Bed ; --             ; --         ;
++-------------------------------------+----------------------------------------+------------------+----------------+------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -96,11 +98,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:34     ; 1.0                     ; 683 MB              ; 00:00:33                           ;
-; Fitter               ; 00:00:29     ; 1.0                     ; 1169 MB             ; 00:00:24                           ;
-; Assembler            ; 00:00:05     ; 1.0                     ; 546 MB              ; 00:00:04                           ;
-; Timing Analyzer      ; 00:00:05     ; 1.1                     ; 654 MB              ; 00:00:04                           ;
-; Total                ; 00:01:13     ; --                      ; --                  ; 00:01:05                           ;
+; Analysis & Synthesis ; 00:00:23     ; 1.0                     ; 651 MB              ; 00:00:30                           ;
+; Fitter               ; 00:00:14     ; 1.0                     ; 1166 MB             ; 00:00:16                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 542 MB              ; 00:00:04                           ;
+; Timing Analyzer      ; 00:00:04     ; 1.0                     ; 640 MB              ; 00:00:03                           ;
+; Total                ; 00:00:45     ; --                      ; --                  ; 00:00:53                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
