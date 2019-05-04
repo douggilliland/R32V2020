@@ -24,12 +24,12 @@ Store",Load Data Byte,LDB,0,1,1,0,0,0,0,0,rDest,,,,X,X,X,X,(r6) - points to adr,
 ,Store Data Short,SDS,0,1,1,0,0,0,1,1,(r6) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
 ,Load Data Long,LDL,0,1,1,0,0,1,0,0,rDest,,,,X,X,X,X,(r6) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
 ,Store Data Long,SDL,0,1,1,0,0,1,0,1,(r6) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-Peripheral,Read peripheral byte,RPB,1,0,0,0,0,0,0,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Write peripheral byte,WPB,1,0,0,0,0,0,0,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Read peripheral short,RPS,1,0,0,0,0,0,1,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Write peripheral short,WPS,1,0,0,0,0,0,1,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Read peripheral long,RPL,1,0,0,0,0,1,0,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Write peripheral long,WPL,1,0,0,0,0,1,0,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Peripheral,Load peripheral byte,LPB,1,0,0,0,0,0,0,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
+,Store peripheral byte,SPB,1,0,0,0,0,0,0,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+,Load peripheral short,LPS,1,0,0,0,0,0,1,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
+,Store peripheral short,SPS,1,0,0,0,0,0,1,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+,Load peripheral long,LPL,1,0,0,0,0,1,0,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
+,Store peripheral long,SPL,1,0,0,0,0,1,0,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
 "Flow
 Control",Jump to subroutine,JSR,1,0,1,0,0,0,0,0,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
 ,Return from subroutine,RTS,1,0,1,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
