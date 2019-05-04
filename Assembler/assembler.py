@@ -136,6 +136,13 @@ class ByteConstant:
   def resolveHex(self):
     return []
 
+class ShortConstant:
+  def __init__(self, shortLiterals):
+    self.shortLiterals = shortLiterals
+
+  def resolveHex(self):
+    return []
+
 output = []
 addresses = {}
 currentAddress = 0
@@ -168,10 +175,20 @@ def parseImmediate(token):
 def parseByte(token):
   return int(token, 0)
 
+def parseShort(token):
+  return int(token, 0)
+
 def isValidByte(token):
   try:
     v = int(token, 0)
     return 0 <= v and v <= 255
+  except:
+    return False
+
+def isValidShort(token):
+  try:
+    v = int(token, 0)
+    return 0 <= v and v <= 65535
   except:
     return False
 
@@ -209,6 +226,22 @@ with open(asmPath, 'r') as f:
       continue
 
     tokens = re.split('[\s|,]+', line.strip())
+
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
+      shorts = []
+      address = tokens[0][:-1]
+
+      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+
+      for shortToken in tokens[2:]:
+        lineAssert(isValidShort(shortToken), num, rawLine, shortToken + ' is not a valid short')
+        shorts.append(parseShort(shortToken))
+
+      constant = ShortConstant(shorts)
+
+      constants.append(constant)
+      constantByAddress[address] = constant
+      continue
 
     if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
       bytes = []
