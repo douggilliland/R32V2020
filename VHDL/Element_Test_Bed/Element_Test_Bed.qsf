@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE75F29C8
-set_global_assignment -name TOP_LEVEL_ENTITY Element_Test_Bed
+set_global_assignment -name TOP_LEVEL_ENTITY OpCode_Decoder
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:01:55  MARCH 31, 2019"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -60,18 +60,24 @@ set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS R
 set_global_assignment -name ENABLE_OCT_DONE OFF
 set_global_assignment -name ENABLE_CONFIGURATION_PINS OFF
 set_global_assignment -name ENABLE_BOOT_SEL_PIN OFF
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 2
+set_global_assignment -name VHDL_FILE "../../Hardware Design/Functions in Common/Counters/COUNTER_32.vhd"
+set_global_assignment -name VHDL_FILE "../../Hardware Design/Functions in Common/Multiplexers/MUX_16x32.vhd"
+set_global_assignment -name VHDL_FILE ../Components/RegisterFile/RegisterFile.vhd
+set_global_assignment -name VHDL_FILE "../../Hardware Design/Functions in Common/Registers/REG_32.vhd"
+set_global_assignment -name VHDL_FILE "../../Hardware Design/Functions in Common/ClockGen/VideoClk_SVGA_800x600.vhd"
+set_global_assignment -name VHDL_FILE Element_Test_Bed.vhd
+set_global_assignment -name VHDL_FILE "../../Hardware Design/Functions in Common/Registers/REG_32_CONSTANT.vhd"
+set_global_assignment -name VHDL_FILE ../Components/ALU/ALU.vhd
+set_global_assignment -name VHDL_FILE ../Components/ALU/OpCode_Decoder.vhd
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_reset
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ~ALTERA_DCLK~
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ~ALTERA_FLASH_nCE_nCSO~
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ~ALTERA_ASDO_DATA1~
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ~ALTERA_DATA0~
-set_global_assignment -name VHDL_FILE "../../Hardware Design/Functions in Common/Multiplexers/MUX_16x32.vhd"
-set_global_assignment -name VHDL_FILE ../Components/RegisterFile/RegisterFile.vhd
-set_global_assignment -name VHDL_FILE "../../Hardware Design/Functions in Common/Registers/REG_32.vhd"
-set_global_assignment -name VHDL_FILE "../../Hardware Design/Functions in Common/ClockGen/VideoClk_SVGA_800x600.vhd"
-set_global_assignment -name VHDL_FILE Element_Test_Bed.vhd
+set_global_assignment -name VHDL_FILE ../Components/ALU/OpCode_Cat_Decoder.vhd
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
