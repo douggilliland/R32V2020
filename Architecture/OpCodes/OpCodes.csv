@@ -1,39 +1,39 @@
-Category,Desciption,Opcode,D31,D30,D29,D28,D27,D26,D25,D24,D23,D22,D21,D20,D19,D18,D17,D16,D15,D14,D13,D12,D11,D10,D09,D08,D07,D06,D05,D04,D03,D02,D01,D00
-System,Halt and catch fire,HCF,0,0,0,0,0,0,0,0,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
-,No operation,NOP,0,0,0,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
-,Software Reset CPU,RES,0,0,0,0,0,0,1,0,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
-ALU,Add 2 regs and store in 3rd,ADS,0,0,1,0,0,0,0,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Multiply 2 regs and store in 3rd,MUL,0,0,1,0,0,0,0,1,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Math Other,MAO,0,0,1,0,0,0,1,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,OR 2 regs and store in 3rd,ORS,0,0,1,0,1,0,0,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,AND 2 regs and store in 3rd,ARS,0,0,1,0,1,0,0,1,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,XOR 2 regs and store in 3rd,XRS,0,0,1,0,1,0,1,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Invert register (XOR with r3),INV,0,0,1,0,1,0,1,0,rDest,,,,r3,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Shift left by one,LS1,0,0,1,1,0,0,0,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Shift right by one,RS1,0,0,1,1,0,0,0,1,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Rotate left by one,LR1,0,0,1,1,0,0,1,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Rotate right by one,RR1,0,0,1,1,0,0,1,1,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Right arithmetic shift,RA1,0,0,1,1,0,1,0,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Swap endian,ENS,0,0,1,1,1,0,0,0,rDest,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-Immediate,Load reg immediate lower,LIL,0,1,0,0,0,0,0,0,rDest,,,,X,X,X,X,Immediate Value,,,,,,,,,,,,,,,
-,Load reg immediate upper,LIU,0,1,0,0,0,0,0,1,rDest,,,,X,X,X,X,Immediate Value,,,,,,,,,,,,,,,
+Category,Desciption,Opcode,D31,D30,D29,D28,D27,D26,D25,D24,D23,D22,D21,D20,D19,D18,D17,D16,D15,D14,D13,D12,D11,D10,D09,D08,D07,D06,D05,D04,D03,D02,D01,D00,,
+System,Halt and catch fire,HCF,0,0,0,0,0,0,0,0,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,,
+,No operation,NOP,0,0,0,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Software Reset CPU,RES,0,0,0,0,0,0,1,0,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,,
+ALU,Add 2 regs and store in 3rd,ADS,0,0,1,0,0,0,0,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Multiply 2 regs and store in 3rd,MUL,0,0,1,0,0,0,0,1,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Compare 2 regs and set cond codes,CMP,0,0,1,0,0,0,1,0,r3,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,"cmp r3,r8,r9",r3 bits set/clr
+,OR 2 regs and store in 3rd,ORS,0,0,1,0,1,0,0,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,AND 2 regs and store in 3rd,ARS,0,0,1,0,1,0,0,1,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,XOR 2 regs and store in 3rd,XRS,0,0,1,0,1,0,1,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Invert register (XOR with r3),INV,0,0,1,0,1,0,1,0,rDest,,,,r3,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Shift left by one,LS1,0,0,1,1,0,0,0,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Shift right by one,RS1,0,0,1,1,0,0,0,1,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Rotate left by one,LR1,0,0,1,1,0,0,1,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Rotate right by one,RR1,0,0,1,1,0,0,1,1,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Right arithmetic shift,RA1,0,0,1,1,0,1,0,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Swap endian,ENS,0,0,1,1,1,0,0,0,rDest,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+Immediate,Load reg immediate lower,LIL,0,1,0,0,0,0,0,0,rDest,,,,X,X,X,X,Immediate Value,,,,,,,,,,,,,,,,,
+,Load reg immediate upper,LIU,0,1,0,0,0,0,0,1,rDest,,,,X,X,X,X,Immediate Value,,,,,,,,,,,,,,,,,
 "LoaD/
-Store",Load Data Byte,LDB,0,1,1,0,0,0,0,0,rDest,,,,X,X,X,X,(r6) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Store Data Byte,SDB,0,1,1,0,0,0,0,1,(r6) - points to adr,X,X,X,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Load Data Short,LDS,0,1,1,0,0,0,1,0,rDest,,,,X,X,X,X,(r6) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Store Data Short,SDS,0,1,1,0,0,0,1,1,(r6) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Load Data Long,LDL,0,1,1,0,0,1,0,0,rDest,,,,X,X,X,X,(r6) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Store Data Long,SDL,0,1,1,0,0,1,0,1,(r6) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-Peripheral,Load peripheral byte,LPB,1,0,0,0,0,0,0,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Store peripheral byte,SPB,1,0,0,0,0,0,0,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Load peripheral short,LPS,1,0,0,0,0,0,1,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Store peripheral short,SPS,1,0,0,0,0,0,1,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Load peripheral long,LPL,1,0,0,0,0,1,0,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Store peripheral long,SPL,1,0,0,0,0,1,0,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Store",Load Data Byte,LDB,0,1,1,0,0,0,0,0,rDest,,,,X,X,X,X,(r6) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Store Data Byte,SDB,0,1,1,0,0,0,0,1,(r6) - points to adr,X,X,X,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Load Data Short,LDS,0,1,1,0,0,0,1,0,rDest,,,,X,X,X,X,(r6) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Store Data Short,SDS,0,1,1,0,0,0,1,1,(r6) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Load Data Long,LDL,0,1,1,0,0,1,0,0,rDest,,,,X,X,X,X,(r6) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Store Data Long,SDL,0,1,1,0,0,1,0,1,(r6) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+Peripheral,Load peripheral byte,LPB,1,0,0,0,0,0,0,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Store peripheral byte,SPB,1,0,0,0,0,0,0,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Load peripheral short,LPS,1,0,0,0,0,0,1,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Store peripheral short,SPS,1,0,0,0,0,0,1,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Load peripheral long,LPL,1,0,0,0,0,1,0,0,rDest,,,,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Store peripheral long,SPL,1,0,0,0,0,1,0,1,(rX) - points to adr,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
 "Flow
-Control",Jump to subroutine,JSR,1,0,1,0,0,0,0,0,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Return from subroutine,RTS,1,0,1,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
-,Branch Always,BRA,1,0,1,0,1,0,0,0,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Branch if carry is set,BCS,1,0,1,0,1,0,0,1,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Branch if carry is clear,BCC,1,0,1,0,1,0,1,0,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X
-,Branch Overflow,BOV,1,0,1,0,1,0,1,1,X,X,X,X,X,X,X,X,(rX) - points to adr,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
+Control",Jump to subroutine,JSR,1,0,1,0,0,0,0,0,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Return from subroutine,RTS,1,0,1,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Branch Always,BRA,1,0,1,0,1,0,0,0,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Branch if carry is set,BCS,1,0,1,0,1,0,0,1,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Branch if carry is clear,BCC,1,0,1,0,1,0,1,0,X,X,X,X,X,X,X,X,(rX) - points to adr,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+,Branch Overflow,BOV,1,0,1,0,1,0,1,1,X,X,X,X,X,X,X,X,(rX) - points to adr,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,,
