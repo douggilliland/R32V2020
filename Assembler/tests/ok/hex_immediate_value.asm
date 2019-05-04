@@ -1,1 +1,1 @@
-LRI R10,0x2a 
+LIL R10,0x2a 

@@ -1,1 +1,1 @@
-LRI R10,0x7fff
+LIL R10,0x7fff
