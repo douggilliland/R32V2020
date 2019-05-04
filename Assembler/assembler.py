@@ -129,9 +129,18 @@ class JumpResolver:
     lineAssert(self.address in addresses, self.lineNumber, self.rawLine, self.address + ' is not a valid jump address')
     return hex(CATEGORY_CODE['PERIPHERAL'] << 29 | self.operation << 24 | addresses[address] << 12)
 
+class ByteConstant:
+  def __init__(self, byteLiterals):
+    self.byteLiterals = byteLiterals
+
+  def resolveHex(self):
+    return []
+
 output = []
 addresses = {}
 currentAddress = 0
+constants = []
+constantByAddress = {}
 
 def isValidAddress(token):
   return token.isalnum()
@@ -155,6 +164,16 @@ def parseImmediate(token):
       return int(token, 0)
     except:
       return unsafeParseBinary(token)
+
+def parseByte(token):
+  return int(token, 0)
+
+def isValidByte(token):
+  try:
+    v = int(token, 0)
+    return 0 <= v and v <= 255
+  except:
+    return False
 
 def isValidImmediateValue(token):
   valid = False
@@ -190,6 +209,22 @@ with open(asmPath, 'r') as f:
       continue
 
     tokens = re.split('[\s|,]+', line.strip())
+
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
+      bytes = []
+      address = tokens[0][:-1]
+
+      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+
+      for byteToken in tokens[2:]:
+        lineAssert(isValidByte(byteToken), num, rawLine, byteToken + ' is not a valid byte')
+        bytes.append(parseByte(byteToken))
+
+      constant = ByteConstant(bytes)
+
+      constants.append(constant)
+      constantByAddress[address] = constant
+      continue
 
     if tokens[0][-1] == ':':
       address = tokens[0][:-1]
