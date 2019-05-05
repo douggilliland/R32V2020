@@ -7,19 +7,20 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.std_logic_unsigned.all;
-entity ElapsedTimeCounter_7S4D_LED  is
+entity Loadable_7S4D_LED is
     Port ( clock_50Mhz : in STD_LOGIC;
            reset : in STD_LOGIC; -- reset
+			  displayed_number : in STD_LOGIC_VECTOR (15 downto 0);
            Anode_Activate : out STD_LOGIC_VECTOR (3 downto 0);-- 4 Anode signals
            LED_out : out STD_LOGIC_VECTOR (6 downto 0));-- Cathode patterns of 7-segment display
-end ElapsedTimeCounter_7S4D_LED ;
+end Loadable_7S4D_LED;
 
-architecture Behavioral of ElapsedTimeCounter_7S4D_LED  is
+architecture Behavioral of Loadable_7S4D_LED is
 signal one_second_counter: STD_LOGIC_VECTOR (27 downto 0);
 -- counter for generating 1-second clock enable
 signal one_second_enable: std_logic;
 -- one second enable for counting numbers
-signal displayed_number: STD_LOGIC_VECTOR (15 downto 0);
+--signal displayed_number: STD_LOGIC_VECTOR (15 downto 0);
 -- counting decimal number to be displayed on 4-digit 7-segment display
 signal LED_BCD: STD_LOGIC_VECTOR (3 downto 0);
 signal refresh_counter: STD_LOGIC_VECTOR (19 downto 0);
@@ -35,22 +36,22 @@ begin
 process(LED_BCD)
 begin
     case LED_BCD is
-    when "0000" => LED_out <= "1111110"; -- "0" - bit order is a thru g
-    when "0001" => LED_out <= "0110000"; -- "1" 
-    when "0010" => LED_out <= "1101101"; -- "2" 
-    when "0011" => LED_out <= "1111001"; -- "3" 
-    when "0100" => LED_out <= "0110011"; -- "4" 
-    when "0101" => LED_out <= "1011011"; -- "5" 
-    when "0110" => LED_out <= "1011111"; -- "6" 
-    when "0111" => LED_out <= "1110000"; -- "7" 
-    when "1000" => LED_out <= "1111111"; -- "8"     
-    when "1001" => LED_out <= "1111011"; -- "9" 
-    when "1010" => LED_out <= "1111101"; -- a
-    when "1011" => LED_out <= "0011111"; -- b
-    when "1100" => LED_out <= "1001110"; -- C
-    when "1101" => LED_out <= "0111101"; -- d
-    when "1110" => LED_out <= "1001111"; -- E
-    when "1111" => LED_out <= "1000111"; -- F
+    when x"0" => LED_out <= "1111110"; -- "0" - bit order is a thru g
+    when x"1" => LED_out <= "0110000"; -- "1" 
+    when x"2" => LED_out <= "1101101"; -- "2" 
+    when x"3" => LED_out <= "1111001"; -- "3" 
+    when x"4" => LED_out <= "0110011"; -- "4" 
+    when x"5" => LED_out <= "1011011"; -- "5" 
+    when x"6" => LED_out <= "1011111"; -- "6" 
+    when x"7" => LED_out <= "1110000"; -- "7" 
+    when x"8" => LED_out <= "1111111"; -- "8"     
+    when x"9" => LED_out <= "1111011"; -- "9" 
+    when x"A" => LED_out <= "1111101"; -- a
+    when x"B" => LED_out <= "0011111"; -- b
+    when x"C" => LED_out <= "1001110"; -- C
+    when x"D" => LED_out <= "0111101"; -- d
+    when x"E" => LED_out <= "1001111"; -- E
+    when x"F" => LED_out <= "1000111"; -- F
     end case;
 end process;
 -- 7-segment display controller
@@ -105,14 +106,14 @@ begin
         end if;
 end process;
 one_second_enable <= '1' when one_second_counter=x"2FAF07F" else '0';
-process(clock_50Mhz, reset)
-begin
-        if(reset='1') then
-            displayed_number <= (others => '0');
-        elsif(rising_edge(clock_50Mhz)) then
-             if(one_second_enable='1') then
-                displayed_number <= displayed_number + x"0001";
-             end if;
-        end if;
-end process;
+--process(clock_50Mhz, reset)
+--begin
+--        if(reset='1') then
+--            displayed_number <= (others => '0');
+--        elsif(rising_edge(clock_50Mhz)) then
+--             if(one_second_enable='1') then
+--                displayed_number <= displayed_number + x"0001";
+--             end if;
+--        end if;
+--end process;
 end Behavioral;

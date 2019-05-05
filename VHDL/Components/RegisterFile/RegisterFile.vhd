@@ -51,9 +51,6 @@ architecture struct of RegisterFile is
 	signal regR14			: std_logic_vector(31 downto 0);
 	signal regR15			: std_logic_vector(31 downto 0);
 	
---	signal wrSelR0			: std_logic;
---	signal wrSelR1			: std_logic;
---	signal wrSelR2			: std_logic;
 	signal wrSelR3			: std_logic;
 	signal wrSelR4			: std_logic;
 	signal wrSelR5			: std_logic;
@@ -70,9 +67,6 @@ architecture struct of RegisterFile is
 	
 begin
 
---wrSelR0 <= '1' when ((wrRegSel = "0000") and (wrStrobe = '1')) else '0';
---wrSelR1 <= '1' when ((wrRegSel = "0001") and (wrStrobe = '1')) else '0';
---wrSelR2 <= '1' when ((wrRegSel = "0010") and (wrStrobe = '1')) else '0';
 wrSelR3 <= '1' when ((wrRegSel = "0011") and (wrStrobe = '1')) else '0';
 wrSelR4 <= '1' when ((wrRegSel = "0100") and (wrStrobe = '1')) else '0';
 wrSelR5 <= '1' when ((wrRegSel = "0101") and (wrStrobe = '1')) else '0';
@@ -92,7 +86,7 @@ r0 : work.REG_32_CONSTANT PORT MAP(
     ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
-	 constVal => "00000000000000000000000000000000",	-- r0=zero
+	 constVal => x"0",	-- r0=zero
     q		=> regR0
 );
 
@@ -101,7 +95,7 @@ r1 : work.REG_32_CONSTANT PORT MAP(
     ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
-	 constVal => "00000000000000000000000000000001",	-- r1=1
+	 constVal => x"1",	-- r1=1
     q		=> regR1
 );
 
@@ -110,7 +104,7 @@ r2 : work.REG_32_CONSTANT PORT MAP(
     ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
-	 constVal => "11111111111111111111111111111111",	-- r2=-1
+	 constVal => x"FFFFFFFF",	-- r2=-1
     q		=> regR2
 );
 

@@ -3,31 +3,25 @@ use ieee.std_logic_1164.all;
 use  IEEE.STD_LOGIC_ARITH.all;
 use  IEEE.STD_LOGIC_UNSIGNED.all;
 
-ENTITY COUNT_32 IS PORT(
+ENTITY REG_32 IS PORT(
     d   : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     ld  : IN STD_LOGIC; -- load/enable.
-    inc : IN STD_LOGIC; -- increment counter
-	dec	: IN STD_LOGIC; -- decrement counter
     clr : IN STD_LOGIC; -- async. clear.
     clk : IN STD_LOGIC; -- clock.
     q   : OUT STD_LOGIC_VECTOR(31 DOWNTO 0) -- output
 );
-END COUNT_32;
+END REG_32;
 
-ARCHITECTURE description OF COUNT_32 IS
+ARCHITECTURE description OF REG_32 IS
 
 BEGIN
-    process(clk, clr, inc, ld)
+    process(clk, clr)
     begin
         if clr = '1' then
-            q <= x"00000000";
+            q <= x"0";
         elsif rising_edge(clk) then
             if ld = '1' then
                 q <= d;
-			elsif inc = '1' then	
-				q < q + 1;
-			elsif dec = '1' then
-				q < q - 1;
             end if;
         end if;
     end process;

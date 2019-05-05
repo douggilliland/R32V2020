@@ -48,8 +48,8 @@ ALUResult <=  (regDataA and regDataB) when Op_AND = '1' else
 					(regDataA(0)&regDataA(31 downto 1)) when Op_RR1 = '1' else -- Needs to be rotate not shift
 					(regDataA(31)&regDataA(31 downto 1)) when Op_RA1 = '1';
 
-EqualToZero	<= '1' when ALUResult = "00000000000000000000000000000000" else '0';
-EqualToOne	<= '1' when ALUResult = "00000000000000000000000000000001" else '0';
+EqualToZero	<= '1' when ALUResult = x"0" else '0';
+EqualToOne	<= '1' when ALUResult = x"1" else '0';
 CarrySet		<= '1' when ((Op_Add = '1') and (regDataA(31) = '1') and (regDataB(31) = '1')) else '0';
 EqualCmp    <= '1' when (regDataA = regDataB) else '0';
 
