@@ -1,0 +1,39 @@
+Category,Desciption,Opcode,D31,D30,D29,D28,D27,D26,D25,D24,D23,D22,D21,D20,D19,D18,D17,D16,D15,D14,D13,D12,D11,D10,D09,D08,D07,D06,D05,D04,D03,D02,D01,D00
+System,Halt and catch fire,HCF,0,0,0,0,0,0,0,0,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
+System,No operation,NOP,0,0,0,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
+System,Software Reset CPU,RES,0,0,0,0,0,0,1,0,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Add 2 regs and store in 3rd,ADS,0,0,1,0,0,0,0,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Multiply 2 regs and store in 3rd,MUL,0,0,1,0,0,0,0,1,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Compare 2 regs and set cond codes,CMP,0,0,1,0,0,0,1,0,r3,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,OR 2 regs and store in 3rd,ORS,0,0,1,0,1,0,0,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,AND 2 regs and store in 3rd,ARS,0,0,1,0,1,0,0,1,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,XOR 2 regs and store in 3rd,XRS,0,0,1,0,1,0,1,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Shift left by one,LS1,0,0,1,1,0,0,0,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Shift right by one,RS1,0,0,1,1,0,0,0,1,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Rotate left by one,LR1,0,0,1,1,0,0,1,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Rotate right by one,RR1,0,0,1,1,0,0,1,1,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Right arithmetic shift,RA1,0,0,1,1,0,1,0,0,rDest,,,,r1,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+ALU,Swap endian,ENS,0,0,1,1,1,0,0,0,rDest,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Immed,Load reg immediate lower,LIL,0,1,0,0,0,0,0,0,rDest,,,,X,X,X,X,Immediate Value,,,,,,,,,,,,,,,
+Immed,Load reg immediate upper,LIU,0,1,0,0,0,0,0,1,rDest,,,,X,X,X,X,Immediate Value,,,,,,,,,,,,,,,
+LD_ST,Load Data Byte,LDB,0,1,1,0,0,0,0,0,rDest,,,,X,X,X,X,(r6),,,,X,X,X,X,X,X,X,X,X,X,X,X
+LD_ST,Store Data Byte,SDB,0,1,1,0,0,0,0,1,(r6),X,X,X,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+LD_ST,Load Data Short,LDS,0,1,1,0,0,0,1,0,rDest,,,,X,X,X,X,(r6),,,,X,X,X,X,X,X,X,X,X,X,X,X
+LD_ST,Store Data Short,SDS,0,1,1,0,0,0,1,1,(r6),,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+LD_ST,Load Data Long,LDL,0,1,1,0,0,1,0,0,rDest,,,,X,X,X,X,(r6),,,,X,X,X,X,X,X,X,X,X,X,X,X
+LD_ST,Store Data Long,SDL,0,1,1,0,0,1,0,1,(r6),,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Peripheral,Load peripheral byte,LPB,1,0,0,0,0,0,0,0,rDest,,,,X,X,X,X,(r5),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Peripheral,Store peripheral byte,SPB,1,0,0,0,0,0,0,1,(r5),,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Peripheral,Load peripheral short,LPS,1,0,0,0,0,0,1,0,rDest,,,,X,X,X,X,(r5),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Peripheral,Store peripheral short,SPS,1,0,0,0,0,0,1,1,(r5),,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Peripheral,Load peripheral long,LPL,1,0,0,0,0,1,0,0,rDest,,,,X,X,X,X,(r5),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Peripheral,Store peripheral long,SPL,1,0,0,0,0,1,0,1,(r5),,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Stack,Push Stack,PSS,1,0,1,0,0,0,0,0,(r4),,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Stack,Pull Stack,PUS,1,0,1,0,0,0,0,1,rDest,,,,X,X,X,X,(r4),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Jump to subroutine,JSR,1,1,0,0,0,0,0,0,(r7),X,X,X,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Return from subroutine,RTS,1,1,0,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch Always,BRA,1,1,0,0,1,0,0,0,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch if carry is set,BCS,1,1,0,0,1,0,0,1,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch if carry is clear,BCC,1,1,0,0,1,0,1,0,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch Overflow,BOV,1,1,0,0,1,0,1,1,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch Equal,BEQ,1,1,0,0,1,1,0,0,X,X,X,X,X,X,X,X,(rX),X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
