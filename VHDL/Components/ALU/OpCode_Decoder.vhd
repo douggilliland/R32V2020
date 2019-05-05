@@ -4,12 +4,9 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
-use  IEEE.STD_LOGIC_ARITH.all;
-use  IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity OpCode_Decoder is
 	port (
-		clk			: in std_logic;
 		InstrOpCode	: in std_logic_vector(7 downto 0);
 		-- Category = System
 		Op_HCF		: out std_logic;	-- Halt and Catch Fire
@@ -58,12 +55,12 @@ end OpCode_Decoder;
 
 architecture struct of OpCode_Decoder is
 
-signal	System_OpCode	: std_logic := '0';
-signal	ALU_OpCode		: std_logic := '0';
-signal	Immed_OpCode	: std_logic := '0';
-signal	LdSt_OpCode		: std_logic := '0';
-signal	Perip_OpCode	: std_logic := '0';
-signal	FlowCtl_OpCode	: std_logic := '0';
+signal	System_OpCode	: std_logic;
+signal	ALU_OpCode		: std_logic;
+signal	Immed_OpCode	: std_logic;
+signal	LdSt_OpCode		: std_logic;
+signal	Perip_OpCode	: std_logic;
+signal	FlowCtl_OpCode	: std_logic;
 
 begin
 
@@ -115,7 +112,6 @@ Op_BOV <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "01011")
 Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "01100")) else '0';
 
 opc_Cat_Decoder : work.OpCode_Cat_Decoder port map (
-		clk				=> clk,
 		InstrOpCodeCat	=> InstrOpCode(2 downto 0),
 		System_OpCode	=> System_OpCode,
 		ALU_OpCode		=> ALU_OpCode,

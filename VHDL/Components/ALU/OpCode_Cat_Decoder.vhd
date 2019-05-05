@@ -9,7 +9,6 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity OpCode_Cat_Decoder is
 	port (
-		clk				: in std_logic;
 		InstrOpCodeCat	: in std_logic_vector(2 downto 0);
 		System_OpCode	: out std_logic;
 		ALU_OpCode		: out std_logic;
