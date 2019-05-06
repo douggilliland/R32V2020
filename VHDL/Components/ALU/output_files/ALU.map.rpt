@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ALU
-Sun May 05 07:26:54 2019
+Mon May 06 06:43:03 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -13,10 +13,12 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Post-Synthesis Netlist Statistics for Top Partition
- 10. Elapsed Time Per Partition
- 11. Analysis & Synthesis Messages
+  8. User-Specified and Inferred Latches
+  9. General Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Post-Synthesis Netlist Statistics for Top Partition
+ 12. Elapsed Time Per Partition
+ 13. Analysis & Synthesis Messages
 
 
 
@@ -42,16 +44,16 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun May 05 07:26:54 2019       ;
+; Analysis & Synthesis Status        ; Successful - Mon May 06 06:43:03 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; ALU                                         ;
-; Top-level Entity Name              ; OpCode_Decoder                              ;
+; Top-level Entity Name              ; ALU                                         ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 49                                          ;
-;     Total combinational functions  ; 49                                          ;
+; Total logic elements               ; 232                                         ;
+;     Total combinational functions  ; 232                                         ;
 ;     Dedicated logic registers      ; 0                                           ;
 ; Total registers                    ; 0                                           ;
-; Total pins                         ; 44                                          ;
+; Total pins                         ; 107                                         ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -64,7 +66,8 @@ refer to the applicable agreement for further details.
 +------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                           ; Setting            ; Default Value      ;
 +------------------------------------------------------------------+--------------------+--------------------+
-; Top-level entity name                                            ; OpCode_Decoder     ; ALU                ;
+; Device                                                           ; EP4CE115F29C8      ;                    ;
+; Top-level entity name                                            ; ALU                ; ALU                ;
 ; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
 ; Use smart compilation                                            ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
@@ -153,64 +156,105 @@ refer to the applicable agreement for further details.
 ; Maximum allowed            ; 2           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 2           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                              ;
-+----------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                       ; Library ;
-+----------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
-; OpCode_Decoder.vhd               ; yes             ; User VHDL File  ; C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/OpCode_Decoder.vhd     ;         ;
-; OpCode_Cat_Decoder.vhd           ; yes             ; User VHDL File  ; C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/OpCode_Cat_Decoder.vhd ;         ;
-+----------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------+---------+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                               ;
++----------------------------------+-----------------+-----------------+---------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                        ; Library ;
++----------------------------------+-----------------+-----------------+---------------------------------------------------------------------+---------+
+; ALU.vhd                          ; yes             ; User VHDL File  ; C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd ;         ;
++----------------------------------+-----------------+-----------------+---------------------------------------------------------------------+---------+
 
 
-+--------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                        ;
-+---------------------------------------------+----------------------+
-; Resource                                    ; Usage                ;
-+---------------------------------------------+----------------------+
-; Estimated Total logic elements              ; 49                   ;
-;                                             ;                      ;
-; Total combinational functions               ; 49                   ;
-; Logic element usage by number of LUT inputs ;                      ;
-;     -- 4 input functions                    ; 17                   ;
-;     -- 3 input functions                    ; 25                   ;
-;     -- <=2 input functions                  ; 7                    ;
-;                                             ;                      ;
-; Logic elements by mode                      ;                      ;
-;     -- normal mode                          ; 49                   ;
-;     -- arithmetic mode                      ; 0                    ;
-;                                             ;                      ;
-; Total registers                             ; 0                    ;
-;     -- Dedicated logic registers            ; 0                    ;
-;     -- I/O registers                        ; 0                    ;
-;                                             ;                      ;
-; I/O pins                                    ; 44                   ;
-;                                             ;                      ;
-; Embedded Multiplier 9-bit elements          ; 0                    ;
-;                                             ;                      ;
-; Maximum fan-out node                        ; InstrOpCode[3]~input ;
-; Maximum fan-out                             ; 22                   ;
-; Total fan-out                               ; 237                  ;
-; Average fan-out                             ; 1.73                 ;
-+---------------------------------------------+----------------------+
++------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                ;
++---------------------------------------------+--------------+
+; Resource                                    ; Usage        ;
++---------------------------------------------+--------------+
+; Estimated Total logic elements              ; 232          ;
+;                                             ;              ;
+; Total combinational functions               ; 232          ;
+; Logic element usage by number of LUT inputs ;              ;
+;     -- 4 input functions                    ; 112          ;
+;     -- 3 input functions                    ; 103          ;
+;     -- <=2 input functions                  ; 17           ;
+;                                             ;              ;
+; Logic elements by mode                      ;              ;
+;     -- normal mode                          ; 201          ;
+;     -- arithmetic mode                      ; 31           ;
+;                                             ;              ;
+; Total registers                             ; 0            ;
+;     -- Dedicated logic registers            ; 0            ;
+;     -- I/O registers                        ; 0            ;
+;                                             ;              ;
+; I/O pins                                    ; 107          ;
+;                                             ;              ;
+; Embedded Multiplier 9-bit elements          ; 0            ;
+;                                             ;              ;
+; Maximum fan-out node                        ; Op_ADS~input ;
+; Maximum fan-out                             ; 51           ;
+; Total fan-out                               ; 930          ;
+; Average fan-out                             ; 2.09         ;
++---------------------------------------------+--------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                         ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------+--------------------+--------------+
-; Compilation Hierarchy Node              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                ; Entity Name        ; Library Name ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------+--------------------+--------------+
-; |OpCode_Decoder                         ; 49 (46)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 44   ; 0            ; |OpCode_Decoder                                    ; OpCode_Decoder     ; work         ;
-;    |OpCode_Cat_Decoder:opc_Cat_Decoder| ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |OpCode_Decoder|OpCode_Cat_Decoder:opc_Cat_Decoder ; OpCode_Cat_Decoder ; work         ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------+--------------------+--------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                      ;
++----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
+; |ALU                       ; 232 (232)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 107  ; 0            ; |ALU                ; ALU         ; work         ;
++----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++----------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                ;
++-----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal ; Free of Timing Hazards ;
++-----------------------------------------------------+---------------------+------------------------+
+; ALUResult[0]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[1]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[2]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[3]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[4]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[5]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[6]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[7]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[8]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[9]                                        ; ALUResult[31]       ; yes                    ;
+; ALUResult[10]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[11]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[12]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[13]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[14]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[15]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[16]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[17]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[18]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[19]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[20]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[21]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[22]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[23]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[24]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[25]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[26]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[27]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[28]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[29]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[30]                                       ; ALUResult[31]       ; yes                    ;
+; ALUResult[31]                                       ; ALUResult[31]       ; yes                    ;
+; Number of user-specified and inferred latches = 32  ;                     ;                        ;
++-----------------------------------------------------+---------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
 +------------------------------------------------------+
@@ -228,20 +272,31 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 
 
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; 6:1                ; 30 bits   ; 120 LEs       ; 120 LEs              ; 0 LEs                  ; No         ; |ALU|ALUResult[1]          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+
+
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 44                          ;
-; cycloneiii_lcell_comb ; 49                          ;
-;     normal            ; 49                          ;
-;         2 data inputs ; 7                           ;
-;         3 data inputs ; 25                          ;
-;         4 data inputs ; 17                          ;
+; boundary_port         ; 107                         ;
+; cycloneiii_lcell_comb ; 232                         ;
+;     arith             ; 31                          ;
+;         3 data inputs ; 31                          ;
+;     normal            ; 201                         ;
+;         2 data inputs ; 17                          ;
+;         3 data inputs ; 72                          ;
+;         4 data inputs ; 112                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 3.00                        ;
-; Average LUT depth     ; 2.46                        ;
+; Max LUT depth         ; 7.00                        ;
+; Average LUT depth     ; 5.38                        ;
 +-----------------------+-----------------------------+
 
 
@@ -250,7 +305,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:02     ;
 +----------------+--------------+
 
 
@@ -260,29 +315,124 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sun May 05 07:26:35 2019
+    Info: Processing started: Mon May 06 06:42:43 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ALU -c ALU
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
-Info (12021): Found 2 design units, including 1 entities, in source file opcode_decoder.vhd
-    Info (12022): Found design unit 1: OpCode_Decoder-struct File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/OpCode_Decoder.vhd Line: 56
-    Info (12023): Found entity 1: OpCode_Decoder File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/OpCode_Decoder.vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file opcode_cat_decoder.vhd
-    Info (12022): Found design unit 1: OpCode_Cat_Decoder-struct File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/OpCode_Cat_Decoder.vhd Line: 22
-    Info (12023): Found entity 1: OpCode_Cat_Decoder File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/OpCode_Cat_Decoder.vhd Line: 10
-Info (12127): Elaborating entity "OpCode_Decoder" for the top level hierarchy
-Info (12128): Elaborating entity "OpCode_Cat_Decoder" for hierarchy "OpCode_Cat_Decoder:opc_Cat_Decoder" File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/OpCode_Decoder.vhd Line: 114
+Info (12021): Found 2 design units, including 1 entities, in source file alu.vhd
+    Info (12022): Found design unit 1: ALU-struct File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 31
+    Info (12023): Found entity 1: ALU File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 11
+Info (12127): Elaborating entity "ALU" for the top level hierarchy
+Info (10041): Inferred latch for "ALUResult[0]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[1]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[2]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[3]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[4]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[5]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[6]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[7]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[8]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[9]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[10]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[11]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[12]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[13]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[14]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[15]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[16]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[17]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[18]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[19]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[20]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[21]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[22]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[23]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[24]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[25]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[26]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[27]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[28]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[29]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[30]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "ALUResult[31]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Warning (13012): Latch ALUResult[0] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[1] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[2] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[3] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[4] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[5] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[6] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[7] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[8] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[9] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[10] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[11] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[12] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[13] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[14] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[15] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[16] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[17] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[18] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[19] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[20] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[21] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[22] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[23] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[24] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[25] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[26] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[27] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[28] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[29] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[30] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch ALUResult[31] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 93 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 8 input pins
-    Info (21059): Implemented 36 output pins
-    Info (21061): Implemented 49 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 648 megabytes
-    Info: Processing ended: Sun May 05 07:26:54 2019
-    Info: Elapsed time: 00:00:19
-    Info: Total CPU time (on all processors): 00:00:27
+Warning (21074): Design contains 2 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "Op_MUL" File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 16
+    Warning (15610): No output dependent on input pin "Op_CMP" File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 17
+Info (21057): Implemented 339 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 75 input pins
+    Info (21059): Implemented 32 output pins
+    Info (21061): Implemented 232 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 68 warnings
+    Info: Peak virtual memory: 652 megabytes
+    Info: Processing ended: Mon May 06 06:43:03 2019
+    Info: Elapsed time: 00:00:20
+    Info: Total CPU time (on all processors): 00:00:28
 
 
