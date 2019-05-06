@@ -1,5 +1,5 @@
 Flow report for ALU
-Mon May 06 06:45:11 2019
+Mon May 06 06:54:12 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Mon May 06 06:45:11 2019       ;
+; Flow Status                        ; Successful - Mon May 06 06:54:12 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; ALU                                         ;
 ; Top-level Entity Name              ; ALU                                         ;
@@ -106,7 +106,11 @@ refer to the applicable agreement for further details.
 ; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 502 MB              ; 00:00:01                           ;
 ; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 493 MB              ; 00:00:01                           ;
 ; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 502 MB              ; 00:00:01                           ;
-; Total                ; 00:00:56     ; --                      ; --                  ; 00:01:08                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 493 MB              ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 502 MB              ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 493 MB              ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 502 MB              ; 00:00:01                           ;
+; Total                ; 00:01:00     ; --                      ; --                  ; 00:01:12                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -126,6 +130,10 @@ refer to the applicable agreement for further details.
 ; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
 ; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
 ; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
 +----------------------+------------------+-----------+------------+----------------+
 
 
@@ -137,6 +145,10 @@ quartus_fit --read_settings_files=off --write_settings_files=off ALU -c ALU
 quartus_asm --read_settings_files=off --write_settings_files=off ALU -c ALU
 quartus_sta ALU -c ALU
 quartus_eda --read_settings_files=off --write_settings_files=off ALU -c ALU
+quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/Shift_Ops_Waveform.vwf --testbench_file=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/Shift_Ops_Waveform.vwf.vht
+quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
+quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/Shift_Ops_Waveform.vwf --testbench_file=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/Shift_Ops_Waveform.vwf.vht
+quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
 quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/Shift_Ops_Waveform.vwf --testbench_file=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/Shift_Ops_Waveform.vwf.vht
 quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
 quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/Shift_Ops_Waveform.vwf --testbench_file=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/Shift_Ops_Waveform.vwf.vht
