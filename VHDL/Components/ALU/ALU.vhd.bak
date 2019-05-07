@@ -10,49 +10,52 @@ use IEEE.numeric_std.all;
 
 entity ALU is
 	port (
-		Op_AND		: in std_logic;
-		Op_XOR		: in std_logic;
-		Op_OR			: in std_logic;
-		Op_Add		: in std_logic;
-		Op_LS1		: in std_logic;
-		Op_RS1		: in std_logic;
-		Op_LR1		: in std_logic;
-		Op_RR1		: in std_logic;
-		Op_RA1		: in std_logic;
-		regDataA		: in std_logic_vector(31 downto 0);
-		regDataB		: in std_logic_vector(31 downto 0);
-		ALUDataOut	: out std_logic_vector(31 downto 0);
-		CondCodeBits: out std_logic_vector(31 downto 0)
+		i_regDataA		: in std_logic_vector(31 downto 0) := x"00000000";
+		i_regDataB		: in std_logic_vector(31 downto 0) := x"00000000";
+		i_Op_ADS		: in std_logic := '0';
+		i_Op_MUL		: in std_logic := '0';
+		i_Op_CMP		: in std_logic := '0';
+		i_Op_ARS		: in std_logic := '0';
+		i_Op_XRS		: in std_logic := '0';
+		i_Op_ORS		: in std_logic := '0';
+		i_Op_LS1		: in std_logic := '0';
+		i_Op_RS1		: in std_logic := '0';
+		i_Op_LR1		: in std_logic := '0';
+		i_Op_RR1		: in std_logic := '0';
+		i_Op_RA1		: in std_logic := '0';
+ 		o_ALUDataOut	: out std_logic_vector(31 downto 0);
+		o_CondCodeBits: out std_logic_vector(31 downto 0)
 	);
 end ALU;
 
 architecture struct of ALU is
 
-signal EqualToZero	: std_logic;
-signal EqualToOne		: std_logic;
-signal CarrySet		: std_logic;
-signal CarryClear		: std_logic;
-signal EqualCmp		: std_logic;
-signal ALUResult		: std_logic_vector(31 downto 0);
+signal w_EqualToZero	: std_logic;
+signal w_EqualToOne	: std_logic;
+signal w_CarrySet		: std_logic;
+signal w_CarryClear	: std_logic;
+signal w_EqualCmp		: std_logic;
+signal w_ALUResult	: std_logic_vector(31 downto 0);
 
 begin
 
-ALUDataOut <= ALUResult;
+o_ALUDataOut <= w_ALUResult;
 
-ALUResult <=  (regDataA and regDataB) when Op_AND = '1' else
-					(regDataA or  regDataB) when Op_OR  = '1' else
-					(regDataA xor regDataB) when Op_XOR = '1' else
-					(regDataA(30 downto 0)&'0') when Op_LS1 = '1' else
-					('0'&regDataA(31 downto 1)) when Op_RS1 = '1' else
-					(regDataA(30 downto 0)&regDataA(31)) when Op_LR1 = '1' else -- Needs to be rotate not shift
-					(regDataA(0)&regDataA(31 downto 1)) when Op_RR1 = '1' else -- Needs to be rotate not shift
-					(regDataA(31)&regDataA(31 downto 1)) when Op_RA1 = '1';
+w_ALUResult <=  (i_regDataA + i_regDataB) when i_Op_ADS = '1' else
+					(i_regDataA and i_regDataB) when i_Op_ARS = '1' else
+					(i_regDataA or  i_regDataB) when i_Op_ORS  = '1' else
+					(i_regDataA xor i_regDataB) when i_Op_XRS = '1' else
+					(i_regDataA(30 downto 0)&'0') when i_Op_LS1 = '1' else
+					('0'&i_regDataA(31 downto 1)) when i_Op_RS1 = '1' else
+					(i_regDataA(30 downto 0)&i_regDataA(31)) when i_Op_LR1 = '1' else -- Needs to be rotate not shift
+					(i_regDataA(0)&i_regDataA(31 downto 1)) when i_Op_RR1 = '1' else -- Needs to be rotate not shift
+					(i_regDataA(31)&i_regDataA(31 downto 1)) when i_Op_RA1 = '1';
 
-EqualToZero	<= '1' when ALUResult = x"0" else '0';
-EqualToOne	<= '1' when ALUResult = x"1" else '0';
-CarrySet		<= '1' when ((Op_Add = '1') and (regDataA(31) = '1') and (regDataB(31) = '1')) else '0';
-EqualCmp    <= '1' when (regDataA = regDataB) else '0';
-
-CondCodeBits <= "000000000000000000000000000"&EqualCmp&CarryClear&CarrySet&EqualToOne&EqualToZero;
+w_EqualToZero	<= '1' when w_ALUResult = x"0" else '0';
+w_EqualToOne	<= '1' when w_ALUResult = x"1" else '0';
+w_CarrySet		<= '1' when ((i_Op_ADS = '1') and (i_regDataA(31) = '1') and (i_regDataB(31) = '1')) else '0';
+w_EqualCmp    <= '1' when (i_regDataA = i_regDataB) else '0';
+--
+o_CondCodeBits <= "000000000000000000000000000"&w_EqualCmp&w_CarryClear&w_CarrySet&w_EqualToOne&w_EqualToZero;
 
 end struct;
