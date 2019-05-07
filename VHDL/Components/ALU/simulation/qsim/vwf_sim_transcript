@@ -7,7 +7,7 @@ Note: if both ModelSim-Altera and ModelSim executables are available, ModelSim-A
 
 **** Generating the ModelSim Testbench ****
 
-quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source="C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/Shift_Ops_Waveform.vwf" --testbench_file="C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/Shift_Ops_Waveform.vwf.vht"
+quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source="C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform.vwf" --testbench_file="C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ADD_AND_Waveform.vwf.vht"
 
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
@@ -25,11 +25,10 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Mon May 06 06:15:59 2019
-Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/Shift_Ops_Waveform.vwf --testbench_file=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/Shift_Ops_Waveform.vwf.vht
-Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+    Info: Processing started: Mon May 06 21:48:00 2019
+Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform.vwf --testbench_file=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ADD_AND_Waveform.vwf.vht
 
-01005): Ignoring output pin "ALUDataOut[5]" in vector source file when writing test bench files
+5): Ignoring output pin "o_CondCodeBits[4]" in vector source file when writing test bench files
 
 Completed successfully. 
 
@@ -53,9 +52,8 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Mon May 06 06:16:01 2019
+    Info: Processing started: Mon May 06 21:48:02 2019
 Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
-Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (204019): Generated file ALU_8_1200mv_85c_slow.vho in folder "C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim//" for EDA simulation tool
 Info (204019): Generated file ALU_8_1200mv_0c_slow.vho in folder "C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim//" for EDA simulation tool
 Info (204019): Generated file ALU_min_1200mv_0c_fast.vho in folder "C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim//" for EDA simulation tool
@@ -64,9 +62,9 @@ Info (204019): Generated file ALU_8_1200mv_85c_vhd_slow.sdo in folder "C:/Users/
 Info (204019): Generated file ALU_8_1200mv_0c_vhd_slow.sdo in folder "C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim//" for EDA simulation tool
 Info (204019): Generated file ALU_min_1200mv_0c_vhd_fast.sdo in folder "C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim//" for EDA simulation tool
 Info (204019): Generated file ALU_vhd.sdo in folder "C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim//" for EDA simulation tool
-Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 519 megabytes
-    Info: Processing ended: Mon May 06 06:16:03 2019
+Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 515 megabytes
+    Info: Processing ended: Mon May 06 21:48:04 2019
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:02
 
@@ -90,36 +88,37 @@ Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
 
 # ** Warning: (vlib-34) Library already exists at "work".
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 06:16:04 on May 06,2019
+# Start time: 21:48:05 on May 06,2019
 # vcom -work work ALU.vho 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Loading package VITAL_Timing
 # -- Loading package VITAL_Primitives
+
 # -- Loading package cycloneive_atom_pack
 # -- Loading package cycloneive_components
 # -- Compiling entity hard_block
 # -- Compiling architecture structure of hard_block
-
 # -- Compiling entity ALU
 # -- Compiling architecture structure of ALU
-# End time: 06:16:04 on May 06,2019, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
 
+# End time: 21:48:05 on May 06,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 06:16:04 on May 06,2019
-# vcom -work work Shift_Ops_Waveform.vwf.vht 
+# Start time: 21:48:05 on May 06,2019
+# vcom -work work ADD_AND_Waveform.vwf.vht 
+
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity ALU_vhd_vec_tst
 # -- Compiling architecture ALU_arch of ALU_vhd_vec_tst
-# End time: 06:16:04 on May 06,2019, Elapsed time: 0:00:00
+# End time: 21:48:05 on May 06,2019, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 
 # vsim -novopt -c -t 1ps -sdfmax ALU_vhd_vec_tst/i1=ALU_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.ALU_vhd_vec_tst 
-# Start time: 06:16:04 on May 06,2019
+# Start time: 21:48:05 on May 06,2019
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -140,26 +139,26 @@ Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
 # Loading cycloneive.cycloneive_ena_reg(behave)
 # Loading instances from ALU_vhd.sdo
 # Loading timing data from ALU_vhd.sdo
-# ** Warning: Design size of 34338 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 40824 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 # ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
-#    Time: 0 ps  Iteration: 0  Instance: /alu_vhd_vec_tst File: Shift_Ops_Waveform.vwf.vht
+#    Time: 0 ps  Iteration: 0  Instance: /alu_vhd_vec_tst File: ADD_AND_Waveform.vwf.vht
 # after#33
 
-# End time: 06:16:05 on May 06,2019, Elapsed time: 0:00:01
+# End time: 21:48:06 on May 06,2019, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 1
 
 Completed successfully. 
 
 **** Converting ModelSim VCD to vector waveform ****
 
-Reading C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/Shift_Ops_Waveform.vwf...
+Reading C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform.vwf...
 
 Reading C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ALU.msim.vcd...
 
 Processing channel transitions... 
 
-Writing the resulting VWF to C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ALU_20190506061605.sim.vwf
+Writing the resulting VWF to C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ALU_20190506214806.sim.vwf
 
 Finished VCD to VWF conversion.
 
