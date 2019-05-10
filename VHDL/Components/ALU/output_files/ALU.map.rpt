@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ALU
-Mon May 06 21:44:45 2019
+Thu May 09 06:49:23 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -44,7 +44,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon May 06 21:44:45 2019       ;
+; Analysis & Synthesis Status        ; Successful - Thu May 09 06:49:23 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; ALU                                         ;
 ; Top-level Entity Name              ; ALU                                         ;
@@ -69,7 +69,7 @@ refer to the applicable agreement for further details.
 ; Device                                                           ; EP4CE115F29C8      ;                    ;
 ; Top-level entity name                                            ; ALU                ; ALU                ;
 ; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
-; Maximum processors allowed for parallel compilation              ; 2                  ;                    ;
+; Maximum processors allowed for parallel compilation              ; 4                  ;                    ;
 ; Restructure Multiplexers                                         ; Off                ; Auto               ;
 ; Use smart compilation                                            ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
@@ -153,25 +153,25 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 2           ;
-; Maximum allowed            ; 2           ;
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 2           ;
+; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
+;     Processors 2-4         ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                               ;
-+----------------------------------+-----------------+-----------------+---------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                        ; Library ;
-+----------------------------------+-----------------+-----------------+---------------------------------------------------------------------+---------+
-; ALU.vhd                          ; yes             ; User VHDL File  ; C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd ;         ;
-+----------------------------------+-----------------+-----------------+---------------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                 ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                          ; Library ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------+---------+
+; ALU.vhd                          ; yes             ; User VHDL File  ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd ;         ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -317,138 +317,138 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Mon May 06 21:44:23 2019
+    Info: Processing started: Thu May 09 06:49:05 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ALU -c ALU
 Info (16303): Aggressive Performance optimization mode selected -- timing performance will be prioritized at the potential cost of increased logic area and compilation time
-Info (20032): Parallel compilation is enabled and will use up to 2 processors
+Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (12021): Found 2 design units, including 1 entities, in source file alu.vhd
-    Info (12022): Found design unit 1: ALU-struct File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 31
-    Info (12023): Found entity 1: ALU File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 11
+    Info (12022): Found design unit 1: ALU-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 31
+    Info (12023): Found entity 1: ALU File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 11
 Info (12127): Elaborating entity "ALU" for the top level hierarchy
-Info (10041): Inferred latch for "w_ALUResult[0]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[1]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[2]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[3]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[4]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[5]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[6]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[7]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[8]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[9]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[10]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[11]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[12]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[13]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[14]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[15]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[16]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[17]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[18]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[19]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[20]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[21]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[22]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[23]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[24]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[25]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[26]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[27]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[28]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[29]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[30]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Info (10041): Inferred latch for "w_ALUResult[31]" at ALU.vhd(44) File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-Warning (13012): Latch w_ALUResult[0] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[1] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[2] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[3] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[4] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[5] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[6] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[7] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[8] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[9] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[10] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[11] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[12] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[13] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[14] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[15] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[16] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[17] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[18] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[19] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[20] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[21] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[22] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[23] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[24] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[25] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[26] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[27] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[28] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[29] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[30] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
-Warning (13012): Latch w_ALUResult[31] has unsafe behavior File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Info (10041): Inferred latch for "w_ALUResult[0]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[1]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[2]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[3]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[4]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[5]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[6]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[7]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[8]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[9]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[10]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[11]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[12]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[13]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[14]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[15]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[16]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[17]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[18]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[19]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[20]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[21]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[22]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[23]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[24]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[25]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[26]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[27]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[28]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[29]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[30]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Info (10041): Inferred latch for "w_ALUResult[31]" at ALU.vhd(44) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+Warning (13012): Latch w_ALUResult[0] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[1] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[2] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[3] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[4] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[5] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[6] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[7] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[8] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[9] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[10] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[11] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[12] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[13] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[14] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[15] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[16] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[17] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[18] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[19] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[20] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[21] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[22] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[23] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[24] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[25] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[26] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[27] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[28] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[29] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[30] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
+Warning (13012): Latch w_ALUResult[31] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal i_Op_ADS File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 15
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "o_CondCodeBits[5]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[6]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[7]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[8]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[9]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[10]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[11]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[12]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[13]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[14]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[15]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[16]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[17]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[18]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[19]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[20]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[21]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[22]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[23]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[24]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[25]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[26]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[27]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[28]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[29]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[30]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
-    Warning (13410): Pin "o_CondCodeBits[31]" is stuck at GND File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[5]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[6]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[7]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[8]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[9]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[10]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[11]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[12]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[13]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[14]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[15]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[16]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[17]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[18]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[19]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[20]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[21]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[22]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[23]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[24]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[25]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[26]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[27]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[28]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[29]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[30]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
+    Warning (13410): Pin "o_CondCodeBits[31]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 27
 Info (286030): Timing-Driven Synthesis is running
 Info (128000): Starting physical synthesis optimizations for speed
 Warning (335093): The Timing Analyzer is analyzing 32 combinational loops as latches. For more details, run the Check Timing command in the Timing Analyzer or view the "User-Specified and Inferred Latches" table in the Analysis & Synthesis report.
@@ -470,16 +470,16 @@ Info (128001): Physical synthesis optimizations for speed complete: elapsed time
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 2 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "i_Op_MUL" File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 16
-    Warning (15610): No output dependent on input pin "i_Op_CMP" File: C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 17
+    Warning (15610): No output dependent on input pin "i_Op_MUL" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 16
+    Warning (15610): No output dependent on input pin "i_Op_CMP" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 17
 Info (21057): Implemented 431 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 75 input pins
     Info (21059): Implemented 64 output pins
     Info (21061): Implemented 292 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 97 warnings
-    Info: Peak virtual memory: 734 megabytes
-    Info: Processing ended: Mon May 06 21:44:45 2019
-    Info: Elapsed time: 00:00:22
-    Info: Total CPU time (on all processors): 00:00:32
+    Info: Peak virtual memory: 4926 megabytes
+    Info: Processing ended: Thu May 09 06:49:23 2019
+    Info: Elapsed time: 00:00:18
+    Info: Total CPU time (on all processors): 00:00:30
 
 

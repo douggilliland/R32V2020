@@ -1,5 +1,5 @@
 Flow report for ALU
-Mon May 06 21:48:04 2019
+Thu May 09 06:50:25 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Mon May 06 21:48:04 2019       ;
+; Flow Status                        ; Successful - Thu May 09 06:50:25 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; ALU                                         ;
 ; Top-level Entity Name              ; ALU                                         ;
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/06/2019 21:44:23 ;
+; Start date & time ; 05/09/2019 06:49:06 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; ALU                 ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------+----------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                      ; Value                                  ; Default Value ; Entity Name ; Section Id     ;
 +--------------------------------------+----------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 264216224721306.155719346342396        ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                ; 198690285320223.155739894604320        ; --            ; --          ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Vhdl                                   ; --            ; --          ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (VHDL)                 ; <None>        ; --          ; --             ;
 ; EDA_TIME_SCALE                       ; 1 ps                                   ; --            ; --          ; eda_simulation ;
@@ -83,7 +83,7 @@ refer to the applicable agreement for further details.
 ; MAX_CORE_JUNCTION_TEMP               ; 85                                     ; --            ; --          ; --             ;
 ; MIN_CORE_JUNCTION_TEMP               ; 0                                      ; --            ; --          ; --             ;
 ; MUX_RESTRUCTURE                      ; Off                                    ; Auto          ; --          ; --             ;
-; NUM_PARALLEL_PROCESSORS              ; 2                                      ; --            ; --          ; --             ;
+; NUM_PARALLEL_PROCESSORS              ; 4                                      ; --            ; --          ; --             ;
 ; OPTIMIZATION_MODE                    ; Aggressive Performance                 ; Balanced      ; --          ; --             ;
 ; PARTITION_COLOR                      ; -- (Not supported for targeted family) ; --            ; --          ; Top            ;
 ; PARTITION_FITTER_PRESERVATION_LEVEL  ; -- (Not supported for targeted family) ; --            ; --          ; Top            ;
@@ -103,34 +103,26 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:22     ; 1.0                     ; 734 MB              ; 00:00:31                           ;
-; Fitter               ; 00:00:46     ; 1.0                     ; 1329 MB             ; 00:00:52                           ;
-; Assembler            ; 00:00:06     ; 1.0                     ; 546 MB              ; 00:00:05                           ;
-; Timing Analyzer      ; 00:00:04     ; 1.0                     ; 678 MB              ; 00:00:04                           ;
-; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 517 MB              ; 00:00:02                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 496 MB              ; 00:00:01                           ;
-; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 518 MB              ; 00:00:02                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 496 MB              ; 00:00:01                           ;
-; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 515 MB              ; 00:00:02                           ;
-; Total                ; 00:01:27     ; --                      ; --                  ; 00:01:40                           ;
+; Analysis & Synthesis ; 00:00:17     ; 1.0                     ; 4926 MB             ; 00:00:29                           ;
+; Fitter               ; 00:00:47     ; 1.0                     ; 5778 MB             ; 00:00:56                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 4701 MB             ; 00:00:04                           ;
+; Timing Analyzer      ; 00:00:04     ; 1.0                     ; 4865 MB             ; 00:00:03                           ;
+; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 4675 MB             ; 00:00:02                           ;
+; Total                ; 00:01:14     ; --                      ; --                  ; 00:01:34                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+-----------------------------------------------------------------------------------+
-; Flow OS Summary                                                                   ;
-+----------------------+------------------+-----------+------------+----------------+
-; Module Name          ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
-+----------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-; Fitter               ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-; Assembler            ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-; Timing Analyzer      ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer   ; DougsDell-PC     ; Windows 7 ; 6.1        ; x86_64         ;
-+----------------------+------------------+-----------+------------+----------------+
++------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                    ;
++----------------------+------------------+------------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
++----------------------+------------------+------------+------------+----------------+
+; Analysis & Synthesis ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
++----------------------+------------------+------------+------------+----------------+
 
 
 ------------
@@ -141,10 +133,6 @@ quartus_fit --read_settings_files=off --write_settings_files=off ALU -c ALU
 quartus_asm --read_settings_files=off --write_settings_files=off ALU -c ALU
 quartus_sta ALU -c ALU
 quartus_eda --read_settings_files=off --write_settings_files=off ALU -c ALU
-quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform.vwf --testbench_file=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ADD_AND_Waveform.vwf.vht
-quartus_eda --write_settings_files=off --simulation=on --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
-quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform.vwf --testbench_file=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ADD_AND_Waveform.vwf.vht
-quartus_eda --write_settings_files=off --simulation=on --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/Doug/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
 
 
 
