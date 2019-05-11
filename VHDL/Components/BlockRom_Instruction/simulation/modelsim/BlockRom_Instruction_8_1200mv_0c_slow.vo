@@ -1,0 +1,856 @@
+// Copyright (C) 2018  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details.
+
+// VENDOR "Altera"
+// PROGRAM "Quartus Prime"
+// VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
+
+// DATE "05/10/2019 20:16:26"
+
+// 
+// Device: Altera EP4CE6E22C8 Package TQFP144
+// 
+
+// 
+// This Verilog file should be used for ModelSim-Altera (Verilog) only
+// 
+
+`timescale 1 ps/ 1 ps
+
+module BlockRom_Instruction (
+	address,
+	clock,
+	q);
+input 	[7:0] address;
+input 	clock;
+output 	[31:0] q;
+
+// Design Ports Information
+// q[0]	=>  Location: PIN_76,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[1]	=>  Location: PIN_115,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[2]	=>  Location: PIN_67,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[3]	=>  Location: PIN_51,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[4]	=>  Location: PIN_83,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[5]	=>  Location: PIN_65,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[6]	=>  Location: PIN_60,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[7]	=>  Location: PIN_77,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[8]	=>  Location: PIN_80,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[9]	=>  Location: PIN_52,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[10]	=>  Location: PIN_105,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[11]	=>  Location: PIN_84,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[12]	=>  Location: PIN_58,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[13]	=>  Location: PIN_100,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[14]	=>  Location: PIN_114,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[15]	=>  Location: PIN_68,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[16]	=>  Location: PIN_71,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[17]	=>  Location: PIN_59,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[18]	=>  Location: PIN_121,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[19]	=>  Location: PIN_72,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[20]	=>  Location: PIN_64,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[21]	=>  Location: PIN_66,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[22]	=>  Location: PIN_86,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[23]	=>  Location: PIN_128,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[24]	=>  Location: PIN_50,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[25]	=>  Location: PIN_73,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[26]	=>  Location: PIN_99,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[27]	=>  Location: PIN_75,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[28]	=>  Location: PIN_34,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[29]	=>  Location: PIN_85,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[30]	=>  Location: PIN_54,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// q[31]	=>  Location: PIN_120,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// clock	=>  Location: PIN_23,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// address[0]	=>  Location: PIN_113,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// address[1]	=>  Location: PIN_53,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// address[2]	=>  Location: PIN_74,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// address[3]	=>  Location: PIN_69,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// address[4]	=>  Location: PIN_87,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// address[5]	=>  Location: PIN_98,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// address[6]	=>  Location: PIN_70,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// address[7]	=>  Location: PIN_55,	 I/O Standard: 2.5 V,	 Current Strength: Default
+
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+tri1 devclrn;
+tri1 devpor;
+tri1 devoe;
+// synopsys translate_off
+initial $sdf_annotate("BlockRom_Instruction_8_1200mv_0c_v_slow.sdo");
+// synopsys translate_on
+
+wire \q[0]~output_o ;
+wire \q[1]~output_o ;
+wire \q[2]~output_o ;
+wire \q[3]~output_o ;
+wire \q[4]~output_o ;
+wire \q[5]~output_o ;
+wire \q[6]~output_o ;
+wire \q[7]~output_o ;
+wire \q[8]~output_o ;
+wire \q[9]~output_o ;
+wire \q[10]~output_o ;
+wire \q[11]~output_o ;
+wire \q[12]~output_o ;
+wire \q[13]~output_o ;
+wire \q[14]~output_o ;
+wire \q[15]~output_o ;
+wire \q[16]~output_o ;
+wire \q[17]~output_o ;
+wire \q[18]~output_o ;
+wire \q[19]~output_o ;
+wire \q[20]~output_o ;
+wire \q[21]~output_o ;
+wire \q[22]~output_o ;
+wire \q[23]~output_o ;
+wire \q[24]~output_o ;
+wire \q[25]~output_o ;
+wire \q[26]~output_o ;
+wire \q[27]~output_o ;
+wire \q[28]~output_o ;
+wire \q[29]~output_o ;
+wire \q[30]~output_o ;
+wire \q[31]~output_o ;
+wire \clock~input_o ;
+wire \clock~inputclkctrl_outclk ;
+wire \address[0]~input_o ;
+wire \address[1]~input_o ;
+wire \address[2]~input_o ;
+wire \address[3]~input_o ;
+wire \address[4]~input_o ;
+wire \address[5]~input_o ;
+wire \address[6]~input_o ;
+wire \address[7]~input_o ;
+wire [31:0] \altsyncram_component|auto_generated|q_a ;
+
+wire [35:0] \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus ;
+
+assign \altsyncram_component|auto_generated|q_a [0] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [0];
+assign \altsyncram_component|auto_generated|q_a [1] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [1];
+assign \altsyncram_component|auto_generated|q_a [2] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [2];
+assign \altsyncram_component|auto_generated|q_a [3] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [3];
+assign \altsyncram_component|auto_generated|q_a [4] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [4];
+assign \altsyncram_component|auto_generated|q_a [5] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [5];
+assign \altsyncram_component|auto_generated|q_a [6] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [6];
+assign \altsyncram_component|auto_generated|q_a [7] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [7];
+assign \altsyncram_component|auto_generated|q_a [8] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [8];
+assign \altsyncram_component|auto_generated|q_a [9] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [9];
+assign \altsyncram_component|auto_generated|q_a [10] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [10];
+assign \altsyncram_component|auto_generated|q_a [11] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [11];
+assign \altsyncram_component|auto_generated|q_a [12] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [12];
+assign \altsyncram_component|auto_generated|q_a [13] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [13];
+assign \altsyncram_component|auto_generated|q_a [14] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [14];
+assign \altsyncram_component|auto_generated|q_a [15] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [15];
+assign \altsyncram_component|auto_generated|q_a [16] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [16];
+assign \altsyncram_component|auto_generated|q_a [17] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [17];
+assign \altsyncram_component|auto_generated|q_a [18] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [18];
+assign \altsyncram_component|auto_generated|q_a [19] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [19];
+assign \altsyncram_component|auto_generated|q_a [20] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [20];
+assign \altsyncram_component|auto_generated|q_a [21] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [21];
+assign \altsyncram_component|auto_generated|q_a [22] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [22];
+assign \altsyncram_component|auto_generated|q_a [23] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [23];
+assign \altsyncram_component|auto_generated|q_a [24] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [24];
+assign \altsyncram_component|auto_generated|q_a [25] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [25];
+assign \altsyncram_component|auto_generated|q_a [26] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [26];
+assign \altsyncram_component|auto_generated|q_a [27] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [27];
+assign \altsyncram_component|auto_generated|q_a [28] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [28];
+assign \altsyncram_component|auto_generated|q_a [29] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [29];
+assign \altsyncram_component|auto_generated|q_a [30] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [30];
+assign \altsyncram_component|auto_generated|q_a [31] = \altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus [31];
+
+hard_block auto_generated_inst(
+	.devpor(devpor),
+	.devclrn(devclrn),
+	.devoe(devoe));
+
+// Location: IOOBUF_X34_Y4_N23
+cycloneive_io_obuf \q[0]~output (
+	.i(\altsyncram_component|auto_generated|q_a [0]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[0]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[0]~output .bus_hold = "false";
+defparam \q[0]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X28_Y24_N23
+cycloneive_io_obuf \q[1]~output (
+	.i(\altsyncram_component|auto_generated|q_a [1]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[1]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[1]~output .bus_hold = "false";
+defparam \q[1]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X30_Y0_N23
+cycloneive_io_obuf \q[2]~output (
+	.i(\altsyncram_component|auto_generated|q_a [2]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[2]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[2]~output .bus_hold = "false";
+defparam \q[2]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X16_Y0_N23
+cycloneive_io_obuf \q[3]~output (
+	.i(\altsyncram_component|auto_generated|q_a [3]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[3]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[3]~output .bus_hold = "false";
+defparam \q[3]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y9_N23
+cycloneive_io_obuf \q[4]~output (
+	.i(\altsyncram_component|auto_generated|q_a [4]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[4]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[4]~output .bus_hold = "false";
+defparam \q[4]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X28_Y0_N23
+cycloneive_io_obuf \q[5]~output (
+	.i(\altsyncram_component|auto_generated|q_a [5]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[5]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[5]~output .bus_hold = "false";
+defparam \q[5]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X23_Y0_N9
+cycloneive_io_obuf \q[6]~output (
+	.i(\altsyncram_component|auto_generated|q_a [6]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[6]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[6]~output .bus_hold = "false";
+defparam \q[6]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y4_N16
+cycloneive_io_obuf \q[7]~output (
+	.i(\altsyncram_component|auto_generated|q_a [7]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[7]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[7]~output .bus_hold = "false";
+defparam \q[7]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y7_N9
+cycloneive_io_obuf \q[8]~output (
+	.i(\altsyncram_component|auto_generated|q_a [8]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[8]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[8]~output .bus_hold = "false";
+defparam \q[8]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X16_Y0_N9
+cycloneive_io_obuf \q[9]~output (
+	.i(\altsyncram_component|auto_generated|q_a [9]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[9]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[9]~output .bus_hold = "false";
+defparam \q[9]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y19_N16
+cycloneive_io_obuf \q[10]~output (
+	.i(\altsyncram_component|auto_generated|q_a [10]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[10]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[10]~output .bus_hold = "false";
+defparam \q[10]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y9_N16
+cycloneive_io_obuf \q[11]~output (
+	.i(\altsyncram_component|auto_generated|q_a [11]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[11]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[11]~output .bus_hold = "false";
+defparam \q[11]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X21_Y0_N9
+cycloneive_io_obuf \q[12]~output (
+	.i(\altsyncram_component|auto_generated|q_a [12]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[12]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[12]~output .bus_hold = "false";
+defparam \q[12]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y17_N2
+cycloneive_io_obuf \q[13]~output (
+	.i(\altsyncram_component|auto_generated|q_a [13]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[13]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[13]~output .bus_hold = "false";
+defparam \q[13]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X28_Y24_N16
+cycloneive_io_obuf \q[14]~output (
+	.i(\altsyncram_component|auto_generated|q_a [14]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[14]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[14]~output .bus_hold = "false";
+defparam \q[14]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X30_Y0_N9
+cycloneive_io_obuf \q[15]~output (
+	.i(\altsyncram_component|auto_generated|q_a [15]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[15]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[15]~output .bus_hold = "false";
+defparam \q[15]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X32_Y0_N16
+cycloneive_io_obuf \q[16]~output (
+	.i(\altsyncram_component|auto_generated|q_a [16]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[16]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[16]~output .bus_hold = "false";
+defparam \q[16]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X23_Y0_N16
+cycloneive_io_obuf \q[17]~output (
+	.i(\altsyncram_component|auto_generated|q_a [17]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[17]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[17]~output .bus_hold = "false";
+defparam \q[17]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X23_Y24_N16
+cycloneive_io_obuf \q[18]~output (
+	.i(\altsyncram_component|auto_generated|q_a [18]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[18]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[18]~output .bus_hold = "false";
+defparam \q[18]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X32_Y0_N9
+cycloneive_io_obuf \q[19]~output (
+	.i(\altsyncram_component|auto_generated|q_a [19]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[19]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[19]~output .bus_hold = "false";
+defparam \q[19]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X25_Y0_N2
+cycloneive_io_obuf \q[20]~output (
+	.i(\altsyncram_component|auto_generated|q_a [20]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[20]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[20]~output .bus_hold = "false";
+defparam \q[20]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X28_Y0_N2
+cycloneive_io_obuf \q[21]~output (
+	.i(\altsyncram_component|auto_generated|q_a [21]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[21]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[21]~output .bus_hold = "false";
+defparam \q[21]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y9_N2
+cycloneive_io_obuf \q[22]~output (
+	.i(\altsyncram_component|auto_generated|q_a [22]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[22]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[22]~output .bus_hold = "false";
+defparam \q[22]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X16_Y24_N16
+cycloneive_io_obuf \q[23]~output (
+	.i(\altsyncram_component|auto_generated|q_a [23]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[23]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[23]~output .bus_hold = "false";
+defparam \q[23]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X13_Y0_N2
+cycloneive_io_obuf \q[24]~output (
+	.i(\altsyncram_component|auto_generated|q_a [24]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[24]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[24]~output .bus_hold = "false";
+defparam \q[24]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y2_N23
+cycloneive_io_obuf \q[25]~output (
+	.i(\altsyncram_component|auto_generated|q_a [25]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[25]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[25]~output .bus_hold = "false";
+defparam \q[25]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y17_N16
+cycloneive_io_obuf \q[26]~output (
+	.i(\altsyncram_component|auto_generated|q_a [26]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[26]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[26]~output .bus_hold = "false";
+defparam \q[26]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y3_N23
+cycloneive_io_obuf \q[27]~output (
+	.i(\altsyncram_component|auto_generated|q_a [27]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[27]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[27]~output .bus_hold = "false";
+defparam \q[27]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X0_Y5_N16
+cycloneive_io_obuf \q[28]~output (
+	.i(\altsyncram_component|auto_generated|q_a [28]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[28]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[28]~output .bus_hold = "false";
+defparam \q[28]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y9_N9
+cycloneive_io_obuf \q[29]~output (
+	.i(\altsyncram_component|auto_generated|q_a [29]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[29]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[29]~output .bus_hold = "false";
+defparam \q[29]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X18_Y0_N23
+cycloneive_io_obuf \q[30]~output (
+	.i(\altsyncram_component|auto_generated|q_a [30]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[30]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[30]~output .bus_hold = "false";
+defparam \q[30]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X23_Y24_N9
+cycloneive_io_obuf \q[31]~output (
+	.i(\altsyncram_component|auto_generated|q_a [31]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\q[31]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \q[31]~output .bus_hold = "false";
+defparam \q[31]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y11_N8
+cycloneive_io_ibuf \clock~input (
+	.i(clock),
+	.ibar(gnd),
+	.o(\clock~input_o ));
+// synopsys translate_off
+defparam \clock~input .bus_hold = "false";
+defparam \clock~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: CLKCTRL_G2
+cycloneive_clkctrl \clock~inputclkctrl (
+	.ena(vcc),
+	.inclk({vcc,vcc,vcc,\clock~input_o }),
+	.clkselect(2'b00),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.outclk(\clock~inputclkctrl_outclk ));
+// synopsys translate_off
+defparam \clock~inputclkctrl .clock_type = "global clock";
+defparam \clock~inputclkctrl .ena_register_mode = "none";
+// synopsys translate_on
+
+// Location: IOIBUF_X28_Y24_N8
+cycloneive_io_ibuf \address[0]~input (
+	.i(address[0]),
+	.ibar(gnd),
+	.o(\address[0]~input_o ));
+// synopsys translate_off
+defparam \address[0]~input .bus_hold = "false";
+defparam \address[0]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X16_Y0_N1
+cycloneive_io_ibuf \address[1]~input (
+	.i(address[1]),
+	.ibar(gnd),
+	.o(\address[1]~input_o ));
+// synopsys translate_off
+defparam \address[1]~input .bus_hold = "false";
+defparam \address[1]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X34_Y2_N15
+cycloneive_io_ibuf \address[2]~input (
+	.i(address[2]),
+	.ibar(gnd),
+	.o(\address[2]~input_o ));
+// synopsys translate_off
+defparam \address[2]~input .bus_hold = "false";
+defparam \address[2]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X30_Y0_N1
+cycloneive_io_ibuf \address[3]~input (
+	.i(address[3]),
+	.ibar(gnd),
+	.o(\address[3]~input_o ));
+// synopsys translate_off
+defparam \address[3]~input .bus_hold = "false";
+defparam \address[3]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X34_Y10_N8
+cycloneive_io_ibuf \address[4]~input (
+	.i(address[4]),
+	.ibar(gnd),
+	.o(\address[4]~input_o ));
+// synopsys translate_off
+defparam \address[4]~input .bus_hold = "false";
+defparam \address[4]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X34_Y17_N22
+cycloneive_io_ibuf \address[5]~input (
+	.i(address[5]),
+	.ibar(gnd),
+	.o(\address[5]~input_o ));
+// synopsys translate_off
+defparam \address[5]~input .bus_hold = "false";
+defparam \address[5]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X32_Y0_N22
+cycloneive_io_ibuf \address[6]~input (
+	.i(address[6]),
+	.ibar(gnd),
+	.o(\address[6]~input_o ));
+// synopsys translate_off
+defparam \address[6]~input .bus_hold = "false";
+defparam \address[6]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X18_Y0_N15
+cycloneive_io_ibuf \address[7]~input (
+	.i(address[7]),
+	.ibar(gnd),
+	.o(\address[7]~input_o ));
+// synopsys translate_off
+defparam \address[7]~input .bus_hold = "false";
+defparam \address[7]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: M9K_X27_Y4_N0
+cycloneive_ram_block \altsyncram_component|auto_generated|ram_block1a0 (
+	.portawe(vcc),
+	.portare(vcc),
+	.portaaddrstall(gnd),
+	.portbwe(gnd),
+	.portbre(vcc),
+	.portbaddrstall(gnd),
+	.clk0(\clock~inputclkctrl_outclk ),
+	.clk1(gnd),
+	.ena0(vcc),
+	.ena1(vcc),
+	.ena2(vcc),
+	.ena3(vcc),
+	.clr0(gnd),
+	.clr1(gnd),
+	.portadatain(36'b000000000000000000000000000000000000),
+	.portaaddr({\address[7]~input_o ,\address[6]~input_o ,\address[5]~input_o ,\address[4]~input_o ,\address[3]~input_o ,\address[2]~input_o ,\address[1]~input_o ,\address[0]~input_o }),
+	.portabyteenamasks(1'b1),
+	.portbdatain(36'b000000000000000000000000000000000000),
+	.portbaddr(8'b00000000),
+	.portbbyteenamasks(1'b1),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.portadataout(\altsyncram_component|auto_generated|ram_block1a0_PORTADATAOUT_bus ),
+	.portbdataout());
+// synopsys translate_off
+defparam \altsyncram_component|auto_generated|ram_block1a0 .data_interleave_offset_in_bits = 1;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .data_interleave_width_in_bits = 1;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .init_file = "../../../../MultiComp/MultiComp (VHDL Template)/Components/ROMs/OSI/BASIC.HEX";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .init_file_layout = "port_a";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .logical_ram_name = "altsyncram:altsyncram_component|altsyncram_3214:auto_generated|ALTSYNCRAM";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .operation_mode = "rom";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_address_clear = "none";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_address_width = 8;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_byte_enable_clock = "none";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_data_out_clear = "none";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_data_out_clock = "clock0";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_data_width = 36;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_first_address = 0;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_first_bit_number = 0;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_last_address = 255;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_logical_ram_depth = 256;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_logical_ram_width = 32;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_read_during_write_mode = "new_data_with_nbe_read";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_a_write_enable_clock = "none";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_b_address_width = 8;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .port_b_data_width = 36;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .ram_block_type = "M9K";
+defparam \altsyncram_component|auto_generated|ram_block1a0 .mem_init4 = 1024'h0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000A85448450CE5350430A854CF460D7544142041D;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .mem_init3 = 2048'h24E450D4434C450D44C49530D4434F4E00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005052494E0504F4BC50C54445C60C45341560D44C4F410CC5741490CE4E554C0544FD04F000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .mem_init2 = 2048'h00000000000000000000000005245CD530545552CE055C252450C5474F53053544F52049C652450CF5255CE0D4474F54000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000041C44C45049CD524505055D444054C1494E058D4444104FD24E450454EC4460AB6495AC00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .mem_init1 = 2048'h00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000EEBA5AD704665AC7D0BA5068AC0CCB67FB507BFDB57B0B47957B4047B3796E010B33CB300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009BB3FCB208CB0BDB301EB48CB304CBC99BC0FCBB03BC0BDB51BBB0ACBAC0BB0ADAFCEAF0000000000000000000000000000000000000000000000000000000000000000;
+defparam \altsyncram_component|auto_generated|ram_block1a0 .mem_init0 = 2048'h000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F5B70A000D8B762B808BA660A4060A6B4A4028B42EA80F6FFDDAF031B4F3FF05EA77AA600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004EA737A609BA6E5A603BA719A60B8A690A604EA9B8A7022A900AD03FAA0BA7039A655A5;
+// synopsys translate_on
+
+assign q[0] = \q[0]~output_o ;
+
+assign q[1] = \q[1]~output_o ;
+
+assign q[2] = \q[2]~output_o ;
+
+assign q[3] = \q[3]~output_o ;
+
+assign q[4] = \q[4]~output_o ;
+
+assign q[5] = \q[5]~output_o ;
+
+assign q[6] = \q[6]~output_o ;
+
+assign q[7] = \q[7]~output_o ;
+
+assign q[8] = \q[8]~output_o ;
+
+assign q[9] = \q[9]~output_o ;
+
+assign q[10] = \q[10]~output_o ;
+
+assign q[11] = \q[11]~output_o ;
+
+assign q[12] = \q[12]~output_o ;
+
+assign q[13] = \q[13]~output_o ;
+
+assign q[14] = \q[14]~output_o ;
+
+assign q[15] = \q[15]~output_o ;
+
+assign q[16] = \q[16]~output_o ;
+
+assign q[17] = \q[17]~output_o ;
+
+assign q[18] = \q[18]~output_o ;
+
+assign q[19] = \q[19]~output_o ;
+
+assign q[20] = \q[20]~output_o ;
+
+assign q[21] = \q[21]~output_o ;
+
+assign q[22] = \q[22]~output_o ;
+
+assign q[23] = \q[23]~output_o ;
+
+assign q[24] = \q[24]~output_o ;
+
+assign q[25] = \q[25]~output_o ;
+
+assign q[26] = \q[26]~output_o ;
+
+assign q[27] = \q[27]~output_o ;
+
+assign q[28] = \q[28]~output_o ;
+
+assign q[29] = \q[29]~output_o ;
+
+assign q[30] = \q[30]~output_o ;
+
+assign q[31] = \q[31]~output_o ;
+
+endmodule
+
+module hard_block (
+
+	devpor,
+	devclrn,
+	devoe);
+
+// Design Ports Information
+// ~ALTERA_ASDO_DATA1~	=>  Location: PIN_6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_FLASH_nCE_nCSO~	=>  Location: PIN_8,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_DCLK~	=>  Location: PIN_12,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_DATA0~	=>  Location: PIN_13,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_nCEO~	=>  Location: PIN_101,	 I/O Standard: 2.5 V,	 Current Strength: 8mA
+
+input 	devpor;
+input 	devclrn;
+input 	devoe;
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+wire \~ALTERA_ASDO_DATA1~~padout ;
+wire \~ALTERA_FLASH_nCE_nCSO~~padout ;
+wire \~ALTERA_DATA0~~padout ;
+wire \~ALTERA_ASDO_DATA1~~ibuf_o ;
+wire \~ALTERA_FLASH_nCE_nCSO~~ibuf_o ;
+wire \~ALTERA_DATA0~~ibuf_o ;
+
+
+endmodule

@@ -1,5 +1,4 @@
--- Implements Grant Searle's modifications for 64x32 screens as described here:
--- http://searle.hostei.com/grant/uk101FPGA/index.html#Modification3
+-- Top Level Entity for R32V2020
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -50,15 +49,127 @@ signal peripheralDataOut	: std_logic_vector(31 downto 0);
 begin
 
 	-- Peripheral Address decoder
-	n_kbCS 			<= '0' when peripheralAddress(15 downto 11) = "00000" else '1';	-- x0000-x07FF (2KB)
-	n_dispRamCS 	<= '0' when peripheralAddress(15 downto 11) = "00001" else '1';	-- x0800-x0FFF (2KB)
-	n_aciaCS 		<= '0' when peripheralAddress(15 downto 11) = "00010" else '1';	-- x1000-x1FFF (2KB)
- 
+	n_dispRamCS 	<= '0' when peripheralAddress(15 downto 11) = "00000" else '1';	-- x0000-x07FF (2KB)
+	n_kbCS 			<= '0' when peripheralAddress(15 downto 11) = "00001" else '1';	-- x0800-x0FFF (2KB)
+	n_aciaCS 		<= '0' when peripheralAddress(15 downto 11) = "00010" else '1';	-- x1000-x17FF (2KB)
+
+	VoutVect <=	video&video&video&video&video&			-- Red
+					video&video&video&video&video&video&	-- Grn
+					"00000"&											-- Blu
+					hSync&vSync;
+	
 	peripheralDataIn <=
 		aciaData when n_aciaCS = '0' else
 		dispRamDataOutA when n_dispRamCS = '0' else
 		kbReadData when n_kbCS='0' else 
 		x"FF";
+	
+	opcodeDecoder : entity work.OpCodeDecoder
+	port map (
+		InstrOpCode => ,
+		-- Category = System
+		Op_HCF => ,
+		Op_NOP => ,
+		Op_RES => ,
+		-- Category = ALU
+		Op_ADS => ,
+		Op_MUL => ,
+		Op_MAO => ,
+		Op_ORS => ,
+		Op_ARS => ,
+		Op_XRS => ,
+		Op_LS1 => ,
+		Op_RS1 => ,
+		Op_LR1 => ,
+		Op_RR1 => ,
+		Op_RA1 => ,
+		Op_ENS => ,
+		-- Category = Immediate values
+		Op_LIL => ,
+		Op_LIU => ,
+		-- Category = Load/Store
+		Op_LDB => ,
+		Op_SDB => ,
+		Op_LDS => ,
+		Op_SDS => ,
+		Op_SDL => ,
+		-- Category = Peripheral I/O
+		Op_LPB => ,
+		Op_SPB => ,
+		Op_LPS => ,
+		Op_SPS => ,
+		Op_LPL => ,
+		Op_SPL => ,
+		-- Category = Stack
+		Op_PSS => ,
+		Op_PUS => ,
+		-- Category = Flow Control
+		Op_JSR => ,
+		Op_RTS => ,
+		Op_BRA => ,
+		Op_BCS => ,
+		Op_BCC => ,
+		Op_BOV => ,
+		Op_BEQ => 
+	);
+	
+	ALU : entity work.ALU
+	port map (
+		i_regDataA => ,
+		i_regDataB => ,
+		i_Op_ADS => ,
+		i_Op_MUL => ,
+		i_Op_CMP => ,
+		i_Op_ARS => ,
+		i_Op_XRS => ,
+		i_Op_ORS => ,
+		i_Op_LS1 => ,
+		i_Op_RS1 => ,
+		i_Op_LR1 => ,
+		i_Op_RR1 => ,
+		i_Op_RA1 => ,
+ 		o_ALUDataOut => ,
+		o_CondCodeBits => 
+	);
+
+	Instr_ROM : ENTITY work.BlockRom_Instruction
+	PORT MAP (
+		address => ,
+		clock => ,
+		q => 
+	);
+
+	StackRAM : ENTITY work.BlockRam_Stack
+	PORT MAP	(
+		address => ,
+		clock => ,
+		data => ,
+		wren => ,
+		q => 
+	);
+
+	RegisterFile : entity work.RegisterFile
+	port map (
+		clk			=> ,
+		clear			=> ,
+		wrStrobe		=> ,
+		wrRegSel		=> ,
+		rdRegSelA	=> ,
+		rdRegSelB	=> ,
+		regDataIn	=> ,
+		regDataOutA	=> ,
+		regDataOutB	=> 
+	);
+
+	DataRAM : ENTITY work.BlockRam_Data
+	PORT MAP (
+		clock => ,
+		data => ,
+		rdaddress => ,
+		wraddress => ,
+		wren => ,
+		q => 
+	);
 	
 	UART : entity work.bufferedUART
 		port map(
@@ -77,7 +188,7 @@ begin
 			n_rts => rts
 		);
 
-	u6 : entity work.UK101TextDisplay_svga_800x600
+	Display : entity work.UK101TextDisplay_svga_800x600
 	port map (
 		charAddr => charAddr,
 		charData => charData,
@@ -89,14 +200,8 @@ begin
 		hSync => hSync
 	);
 	
-	VoutVect <=	video&video&video&video&video&			-- Red
-					video&video&video&video&video&video&	-- Grn
-					"00000"&											-- Blu
-					hSync&vSync;
-	
-	u8: entity work.DisplayRam2k 
-	port map
-	(
+	DisplayRAM : entity work.DisplayRam2k 
+	port map	(
 		address_a => peripheralAddress(10 downto 0),
 		address_b => dispAddrB,
 		clock	=> CLOCK_50,
@@ -108,7 +213,7 @@ begin
 		q_b => dispRamDataOutB
 	);
 	
-	u9 : entity work.UK101keyboard
+	Keyboard : entity work.UK101keyboard
 	port map(
 		CLK => CLOCK_50,
 		nRESET => n_reset,

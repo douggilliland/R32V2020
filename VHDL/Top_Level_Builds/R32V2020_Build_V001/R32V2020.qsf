@@ -112,10 +112,25 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ps2Clk
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ps2Data
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/CounterLoadable.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/Counter.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Multiplexers/MUX_16x32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_LD_At_Reset.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_CONSTANT.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_1.vhd
+set_global_assignment -name VHDL_FILE ../../Components/RegisterFile/RegisterFile.vhd
+set_global_assignment -name VHDL_FILE ../../Components/OpCodeDecoder/OpCodeDecoder.vhd
+set_global_assignment -name VHDL_FILE ../../Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd
+set_global_assignment -name VHDL_FILE ../../Components/ALU/ALU.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Stack/BlockRam_Stack.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data.vhd
 set_global_assignment -name VHDL_FILE ../../Components/UART/bufferedUART.vhd
 set_global_assignment -name VHDL_FILE ../../Components/DisplayRAM/DisplayRam2k.vhd
 set_global_assignment -name VHDL_FILE ../../Components/TV/VideoClk_SVGA_800x600.vhd
 set_global_assignment -name VHDL_FILE ../../Components/TV/UK101TextDisplay_svga_800x600.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_intf.vhd
 set_global_assignment -name VHDL_FILE R32V2020.vhd
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
