@@ -5,16 +5,38 @@ import os
 import sys
 import re
 
-CATEGORY_CODE = {
-  'System': 0,
-  'ALU': 1,
-  'Immed': 2,
-  'LD_ST': 3,
-  'Peripheral': 4,
-  'Flow_Ctrl': 5
-}
-
 validRegisters = set()
+
+supportedForms = set([
+  'ADDR',
+  'ADDR_R7_DEST',
+  'BIN_CMP',
+  'BIN_DEST',
+  'IMM_DEST',
+  'NO_ARGS',
+  'R4_DEST',
+  'R5_DEST',
+  'R6_DEST',
+  'UN_DEST',
+  'BIN_R1_DEST',
+  'UN_R1_DEST',
+  'UN_R4_DEST',
+  'UN_R5_DEST',
+  'UN_R6_DEST'
+])
+
+constantFormRegister = {
+  'ADDR_R7_DEST': 7,
+  'BIN_CMP': 3,
+  'R4_DEST': 4,
+  'R5_DEST': 5,
+  'R6_DEST': 6,
+  'BIN_R1_DEST': 1,
+  'UN_R1_DEST': 1,
+  'UN_R4_DEST': 4,
+  'UN_R5_DEST': 5,
+  'UN_R6_DEST': 6
+}
 
 for i in xrange(0, 15):
   validRegisters.add('R' + str(i))
@@ -56,31 +78,25 @@ with open(opsPath) as csvfile:
 
 opByCode = {}
 
-# For testing that a code is not repeated within a category
-codePerCategory = {
-  'System': [],
-  'ALU': [],
-  'Immed': [],
-  'LD_ST': [],
-  'Peripheral': [],
-  'Flow_Ctrl': []
-}
+fullInstructions = set()
+
+formText = ', '.join(supportedForms)
 
 # Building structures and validation
 for op in ops:
-  assemblerAssert(op['Category'] in CATEGORY_CODE, 'Op ' + op['Opcode'] + ' has unrecognized category ' + op['Category'] + ' (it should be one of ' + ', '.join(list(CATEGORY_CODE)) + ')')
+  op['Category'] = int(op['D31'] + op['D30'] + op['D29'], 2)
 
   op['Operation'] = int(op['D28'] + op['D27'] + op['D26'] + op['D25'] + op['D24'], 2)
 
-  assemblerAssert(op['Operation'] not in codePerCategory[op['Category']], 'The Operation ' + str(op['Operation']) + ' is repeated more than once for the category ' + op['Category'])
+  fullInstruction = (op['Category'] << 5) | op['Operation']
 
-  codePerCategory[op['Category']].append(op['Operation'])
+  assemblerAssert(op['Form'] in supportedForms, 'Op ' + op['Opcode'] + '\'s form ' + op['Form'] + ' is not a supported form (must be one of ' + formText + ')')
 
-  operation = int(op['Operation'])
+  assemblerAssert(fullInstruction not in fullInstructions, 'Op ' + op['Opcode'] + ' has a non-distinct combination of operation and category codes')
 
-  op['Operation'] = operation
+  fullInstructions.add(fullInstruction)
 
-  assemblerAssert(0 <= operation and operation <= 63, 'Op ' + op['Opcode'] + ' must have an Operation between 0 and 63 inclusive')
+  op['CategorizedOp'] = fullInstruction
 
   opcode = op['Opcode'].upper()
 
@@ -88,12 +104,63 @@ for op in ops:
 
   opByCode[opcode] = op
 
-class SystemResolver:
+class NoArgsResolver:
   def __init__(self, operation):
     self.operation = operation
 
   def resolveHex(self, _):
     return hex(self.operation << 24)
+
+class AddressResolver:
+  def __init__(self, operation, address, rawLine, lineNumber):
+    self.operation = operation
+    self.address = address
+    self.rawLine = rawLine
+    self.lineNumber = lineNumber
+
+  def resolveHex(self, addresses):
+    lineAssert(self.address in addresses, self.lineNumber, self.rawLine, 'Address ' + self.address + ' is not defined')
+    return hex(self.operation << 24 | addresses[address] << 12)
+
+class AddressDestResolver:
+  def __init__(self, operation, address, rawLine, lineNumber, register):
+    self.operation = operation
+    self.address = address
+    self.rawLine = rawLine
+    self.lineNumber = lineNumber
+    self.register = register
+
+  def resolveHex(self, addresses):
+    lineAssert(self.address in addresses, self.lineNumber, self.rawLine, 'Address ' + self.address + ' is not defined')
+    return hex(self.operation << 24 | self.register << 20 | addresses[address] << 12)
+
+class BinDestResolver:
+  def __init__(self, operation, rOut, r1, r2):
+    self.operation = operation
+    self.rOut = rOut
+    self.r1 = r1
+    self.r2 = r2
+
+  def resolveHex(self, _):
+    return hex(self.operation << 24 | self.rOut << 20 | self.r1 << 16 | self.r2 << 12)
+
+class UnDestResolver:
+  def __init__(self, operation, rOut, r):
+    self.operation = operation
+    self.rOut = rOut
+    self.r = r
+
+  def resolveHex(self, _):
+    return hex(self.operation << 24 | self.rOut << 20 | self.r << 12)
+
+class ImmDestResolver:
+  def __init__(self, operation, register, immediate):
+    self.operation = operation
+    self.register = register
+    self.immediate = immediate
+
+  def resolveHex(self, _):
+    return hex(self.operation << 24 | self.register << 20 | self.immediate)
 
 class AluResolver:
   def __init__(self, operation, rOut, r1, r2):
@@ -103,7 +170,7 @@ class AluResolver:
     self.r2 = r2
 
   def resolveHex(self, _):
-    return hex(CATEGORY_CODE['ALU'] << 29 | self.operation << 24 | self.rOut << 20 | self.r1 << 16 | self.r2 << 12)
+    return hex(self.operation << 24 | self.rOut << 20 | self.r1 << 16 | self.r2 << 12)
 
 class LoadStoreResolver:
   def __init__(self, operation, register, immediate):
@@ -112,7 +179,7 @@ class LoadStoreResolver:
     self.immediate = immediate
 
   def resolveHex(self, _):
-    return hex(CATEGORY_CODE['LD_ST'] << 29 | self.operation << 24 | self.register << 20 | self.immediate)
+    return hex(self.operation << 24 | self.register << 20 | self.immediate)
 
 class PeripheralResolver:
   def __init__(self, operation, register):
@@ -120,7 +187,7 @@ class PeripheralResolver:
     self.register = register
 
   def resolveHex(self, _):
-    return hex(CATEGORY_CODE['Peripheral'] << 29 | self.operation << 24 | self.register << 20)
+    return hex(self.operation << 24 | self.register << 20)
 
 class JumpResolver:
   def __init__(self, operation, address, rawLine, lineNumber):
@@ -131,7 +198,7 @@ class JumpResolver:
 
   def resolveHex(self, addresses):
     lineAssert(self.address in addresses, self.lineNumber, self.rawLine, self.address + ' is not a valid jump address')
-    return hex(CATEGORY_CODE['Flow_Ctrl'] << 29 | self.operation << 24 | addresses[address] << 12)
+    return hex(self.operation << 24 | addresses[address] << 12)
 
 class ByteConstant:
   def __init__(self, byteLiterals):
@@ -366,44 +433,74 @@ with open(asmPath, 'r') as f:
 
     opSpec = opByCode[op]
 
-    if opSpec['Category'].upper() == 'System':
-      lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after SYSTEM op')
+    if opSpec['Form'] == 'NO_ARGS':
+      lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
 
-      output.append(SystemResolver(opSpec['Operation']))
+      output.append(NoArgsResolver(opSpec['CategorizedOp']))
 
-    if opSpec['Category'] == 'ALU':
-      lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after an ALU op but got ' + str(len(tokens) - 1))
+    elif opSpec['Form'] == 'ADDR':
+      lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
+
+      lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
+
+      output.append(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num))
+
+    elif opSpec['Form'] == 'ADDR_R7_DEST':
+      lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
+
+      lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
+
+      output.append(AddressDestResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, 7))
+
+    elif opSpec['Form'] == 'BIN_DEST':
+      lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
       lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
       lineAssert(isValidRegister(tokens[3]), num, rawLine, tokens[3] + ' is not a valid register')
 
-      output.append(AluResolver(opSpec['Operation'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
+      output.append(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
 
-    if opSpec['Category'] == 'LD_ST':
-      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after a Load/Store op but got ' + str(len(tokens) - 1))
+    elif opSpec['Form'] == 'BIN_CMP':
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+
+      output.append(BinDestResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseRegister(tokens[2])))
+
+    elif opSpec['Form'] == 'BIN_R1_DEST':
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+
+      output.append(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 1, parseRegister(tokens[2])))
+
+    elif opSpec['Form'] == 'IMM_DEST':
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
       lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
 
-      output.append(LoadStoreResolver(opSpec['Operation'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
+      output.append(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
 
-    if opSpec['Category'] == 'Immed':
-      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after an immediate op but got ' + str(len(tokens) - 1))
+    elif opSpec['Form'] == 'UN_DEST':
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-      lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
-      output.append(LoadStoreResolver(opSpec['Operation'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
+      output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2])))
 
-    if opSpec['Category'] == 'Peripheral':
-      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after a Peripheral op but got ' + str(len(tokens) - 1))
+    elif opSpec['Form'] in ['R4_DEST', 'R5_DEST', 'R6_DEST']:
+      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
-      output.append(PeripheralResolver(opSpec['Operation'], parseRegister(tokens[1])))
+      output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), constantFormRegister[opSpec['Form']]))
 
-    if opSpec['Category'] == 'Flow_Ctrl':
-      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after a Jump op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid jump address')
+    elif opSpec['Form'] in ['UN_R1_DEST', 'UN_R4_DEST', 'UN_R5_DEST', 'UN_R6_DEST']:
+      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
-      output.append(JumpResolver(opSpec['Operation'], tokens[1], rawLine, num))
+      output.append(UnDestResolver(opSpec['CategorizedOp'], constantFormRegister[opSpec['Form']], parseRegister(tokens[1])))
+    else:
+      lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
 with open(sys.argv[2], 'w') as f:
   for resolver in output:
