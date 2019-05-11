@@ -69,10 +69,6 @@ opsPath = os.path.join(myDir, 'ops.csv')
 
 assemblerAssert(os.path.isfile(opsPath), 'Expected an ops file at ' + os.path.abspath(opsPath))
 
-userAssert(len(sys.argv) == 4, 'Usage: python assembler.py <input assembly> <output binary> <output data>')
-userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
-asmPath = sys.argv[1]
-
 with open(opsPath) as csvfile:
   ops = list(csv.DictReader(csvfile))
 
@@ -161,44 +157,6 @@ class ImmDestResolver:
 
   def resolveHex(self, _):
     return hex(self.operation << 24 | self.register << 20 | self.immediate)
-
-class AluResolver:
-  def __init__(self, operation, rOut, r1, r2):
-    self.operation = operation
-    self.rOut = rOut
-    self.r1 = r1
-    self.r2 = r2
-
-  def resolveHex(self, _):
-    return hex(self.operation << 24 | self.rOut << 20 | self.r1 << 16 | self.r2 << 12)
-
-class LoadStoreResolver:
-  def __init__(self, operation, register, immediate):
-    self.operation = operation
-    self.register = register
-    self.immediate = immediate
-
-  def resolveHex(self, _):
-    return hex(self.operation << 24 | self.register << 20 | self.immediate)
-
-class PeripheralResolver:
-  def __init__(self, operation, register):
-    self.operation = operation
-    self.register = register
-
-  def resolveHex(self, _):
-    return hex(self.operation << 24 | self.register << 20)
-
-class JumpResolver:
-  def __init__(self, operation, address, rawLine, lineNumber):
-    self.operation = operation
-    self.address = address
-    self.rawLine = rawLine
-    self.lineNumber = lineNumber
-
-  def resolveHex(self, addresses):
-    lineAssert(self.address in addresses, self.lineNumber, self.rawLine, self.address + ' is not a valid jump address')
-    return hex(self.operation << 24 | addresses[address] << 12)
 
 class ByteConstant:
   def __init__(self, byteLiterals):
@@ -379,180 +337,179 @@ def stripComments(line):
 
   return resultLine
 
-# assert stripComments('') == ''
-# assert stripComments('; foo') == ''
-# assert stripComments('add r10,r11,r12; foo') == 'add r10,r11,r12'
-# assert stripComments('hi: .string "foo bar" ; comment') == 'hi: .string "foo bar" '
-# assert stripComments('hi: .string "foo; bar"') == 'hi: .string "foo; bar"'
-# assert stripComments('hi: .string "foo; \\" ; bar"') == 'hi: .string "foo; \\" ; bar"'
+if __name__ == '__main__':
+  userAssert(len(sys.argv) == 4, 'Usage: python assembler.py <input assembly> <output binary> <output data>')
+  userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
 
-# Parse and write output
-with open(asmPath, 'r') as f:
-  for num, rawLine in enumerate(f):
+  asmPath = sys.argv[1]
 
-    line = stripComments(rawLine)
+  # Parse and write output
+  with open(asmPath, 'r') as f:
+    for num, rawLine in enumerate(f):
 
-    # Ignore empty lines
-    if line.strip() == '':
-      continue
+      line = stripComments(rawLine)
 
-    tokens = re.split('[\s|,]+', line.strip())
+      # Ignore empty lines
+      if line.strip() == '':
+        continue
 
-    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.STRING':
-      address = tokens[0][:-1]
+      tokens = re.split('[\s|,]+', line.strip())
 
-      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+      if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.STRING':
+        address = tokens[0][:-1]
 
-      string = line[line.index('.')+7:].strip()
+        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
 
-      lineAssert(isValidString(string), num, rawLine, string + ' is not a valid string literal')
+        string = line[line.index('.')+7:].strip()
 
-      constant = StringConstant(string)
+        lineAssert(isValidString(string), num, rawLine, string + ' is not a valid string literal')
 
-      constants.append(constant)
-      constantByAddress[address] = constant
-      continue
+        constant = StringConstant(string)
 
-    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
-      shorts = []
-      address = tokens[0][:-1]
+        constants.append(constant)
+        constantByAddress[address] = constant
+        continue
 
-      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+      if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
+        shorts = []
+        address = tokens[0][:-1]
 
-      longToken = tokens[2]
+        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
 
-      lineAssert(isValidLong(longToken), num, rawLine, longToken + ' is not a valid long')
+        longToken = tokens[2]
 
-      constant = LongConstant(longToken)
+        lineAssert(isValidLong(longToken), num, rawLine, longToken + ' is not a valid long')
 
-      constants.append(constant)
-      constantByAddress[address] = constant
-      continue
+        constant = LongConstant(longToken)
 
-    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
-      shorts = []
-      address = tokens[0][:-1]
+        constants.append(constant)
+        constantByAddress[address] = constant
+        continue
 
-      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+      if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
+        shorts = []
+        address = tokens[0][:-1]
 
-      for shortToken in tokens[2:]:
-        lineAssert(isValidShort(shortToken), num, rawLine, shortToken + ' is not a valid short')
-        shorts.append(parseShort(shortToken))
+        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
 
-      constant = ShortConstant(shorts)
+        for shortToken in tokens[2:]:
+          lineAssert(isValidShort(shortToken), num, rawLine, shortToken + ' is not a valid short')
+          shorts.append(parseShort(shortToken))
 
-      constants.append(constant)
-      constantByAddress[address] = constant
-      continue
+        constant = ShortConstant(shorts)
 
-    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
-      bytes = []
-      address = tokens[0][:-1]
+        constants.append(constant)
+        constantByAddress[address] = constant
+        continue
 
-      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+      if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
+        bytes = []
+        address = tokens[0][:-1]
 
-      for byteToken in tokens[2:]:
-        lineAssert(isValidByte(byteToken), num, rawLine, byteToken + ' is not a valid byte')
-        bytes.append(parseByte(byteToken))
+        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
 
-      constant = ByteConstant(bytes)
+        for byteToken in tokens[2:]:
+          lineAssert(isValidByte(byteToken), num, rawLine, byteToken + ' is not a valid byte')
+          bytes.append(parseByte(byteToken))
 
-      constants.append(constant)
-      constantByAddress[address] = constant
-      continue
+        constant = ByteConstant(bytes)
 
-    if tokens[0][-1] == ':':
-      address = tokens[0][:-1]
+        constants.append(constant)
+        constantByAddress[address] = constant
+        continue
 
-      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
-      lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after label')
+      if tokens[0][-1] == ':':
+        address = tokens[0][:-1]
 
-      addresses[address] = currentAddress
+        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+        lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after label')
 
-      continue
+        addresses[address] = currentAddress
 
-    op = tokens[0].upper()
+        continue
 
-    lineAssert(op in opByCode, num, rawLine, 'Unknown op ' + op)
+      op = tokens[0].upper()
 
-    currentAddress += 1
+      lineAssert(op in opByCode, num, rawLine, 'Unknown op ' + op)
 
-    opSpec = opByCode[op]
+      currentAddress += 1
 
-    if opSpec['Form'] == 'NO_ARGS':
-      lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
+      opSpec = opByCode[op]
 
-      output.append(NoArgsResolver(opSpec['CategorizedOp']))
+      if opSpec['Form'] == 'NO_ARGS':
+        lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
 
-    elif opSpec['Form'] == 'ADDR':
-      lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
+        output.append(NoArgsResolver(opSpec['CategorizedOp']))
 
-      lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
+      elif opSpec['Form'] == 'ADDR':
+        lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
-      output.append(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num))
+        lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
 
-    elif opSpec['Form'] == 'ADDR_R7_DEST':
-      lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
+        output.append(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num))
 
-      lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
+      elif opSpec['Form'] == 'ADDR_R7_DEST':
+        lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
-      output.append(AddressDestResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, 7))
+        lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
 
-    elif opSpec['Form'] == 'BIN_DEST':
-      lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
-      lineAssert(isValidRegister(tokens[3]), num, rawLine, tokens[3] + ' is not a valid register')
+        output.append(AddressDestResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, 7))
 
-      output.append(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
+      elif opSpec['Form'] == 'BIN_DEST':
+        lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+        lineAssert(isValidRegister(tokens[3]), num, rawLine, tokens[3] + ' is not a valid register')
 
-    elif opSpec['Form'] == 'BIN_CMP':
-      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+        output.append(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
 
-      output.append(BinDestResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseRegister(tokens[2])))
+      elif opSpec['Form'] == 'BIN_CMP':
+        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
-    elif opSpec['Form'] == 'BIN_R1_DEST':
-      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+        output.append(BinDestResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseRegister(tokens[2])))
 
-      output.append(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 1, parseRegister(tokens[2])))
+      elif opSpec['Form'] == 'BIN_R1_DEST':
+        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
-    elif opSpec['Form'] == 'IMM_DEST':
-      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-      lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
+        output.append(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 1, parseRegister(tokens[2])))
 
-      output.append(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
+      elif opSpec['Form'] == 'IMM_DEST':
+        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
 
-    elif opSpec['Form'] == 'UN_DEST':
-      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+        output.append(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
 
-      output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2])))
+      elif opSpec['Form'] == 'UN_DEST':
+        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
-    elif opSpec['Form'] in ['R4_DEST', 'R5_DEST', 'R6_DEST']:
-      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2])))
 
-      output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), constantFormRegister[opSpec['Form']]))
+      elif opSpec['Form'] in ['R4_DEST', 'R5_DEST', 'R6_DEST']:
+        lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
-    elif opSpec['Form'] in ['UN_R1_DEST', 'UN_R4_DEST', 'UN_R5_DEST', 'UN_R6_DEST']:
-      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
-      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        output.append(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), constantFormRegister[opSpec['Form']]))
 
-      output.append(UnDestResolver(opSpec['CategorizedOp'], constantFormRegister[opSpec['Form']], parseRegister(tokens[1])))
-    else:
-      lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
+      elif opSpec['Form'] in ['UN_R1_DEST', 'UN_R4_DEST', 'UN_R5_DEST', 'UN_R6_DEST']:
+        lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
-with open(sys.argv[2], 'w') as f:
-  for resolver in output:
-    f.write(resolver.resolveHex(addresses).replace('0x', '') + '\n')
+        output.append(UnDestResolver(opSpec['CategorizedOp'], constantFormRegister[opSpec['Form']], parseRegister(tokens[1])))
+      else:
+        lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
-with open(sys.argv[3], 'w') as f:
-  for constant in constants:
-    for line in constant.resolveHex():
-      f.write(line.replace('0x', '') + '\n')
+  with open(sys.argv[2], 'w') as f:
+    for resolver in output:
+      f.write(resolver.resolveHex(addresses).replace('0x', '') + '\n')
+
+  with open(sys.argv[3], 'w') as f:
+    for constant in constants:
+      for line in constant.resolveHex():
+        f.write(line.replace('0x', '') + '\n')
