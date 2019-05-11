@@ -69,7 +69,7 @@ opsPath = os.path.join(myDir, 'ops.csv')
 
 assemblerAssert(os.path.isfile(opsPath), 'Expected an ops file at ' + os.path.abspath(opsPath))
 
-userAssert(len(sys.argv) == 3, 'Usage: python assembler.py <input assembly> <output binary>')
+userAssert(len(sys.argv) == 4, 'Usage: python assembler.py <input assembly> <output binary> <output data>')
 userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
 asmPath = sys.argv[1]
 
@@ -220,18 +220,32 @@ class ShortConstant:
   def resolveHex(self):
     output = 0
 
-    for byte in self.byteLiterals:
+    for byte in self.shortLiterals:
       output = output << 16
       output |= byte
 
     return [hex(output)]
+
+def hexOfAsciiCode(char):
+  return hex(ord(char))[2:]
 
 class StringConstant:
   def __init__(self, string):
     self.string = string
 
   def resolveHex(self):
-    return []
+    if self.string == '':
+      return ['0000']
+    chunks = []
+    for i in xrange(0, len(self.string), 2):
+      hex = hexOfAsciiCode(self.string[i])
+      if i+1 < len(self.string):
+        hex += hexOfAsciiCode(self.string[i+1])
+      else:
+        hex += '00'
+      chunks.append(hex)
+
+    return chunks
 
 output = []
 addresses = {}
@@ -505,3 +519,8 @@ with open(asmPath, 'r') as f:
 with open(sys.argv[2], 'w') as f:
   for resolver in output:
     f.write(resolver.resolveHex(addresses).replace('0x', '') + '\n')
+
+with open(sys.argv[3], 'w') as f:
+  for constant in constants:
+    for line in constant.resolveHex():
+      f.write(line.replace('0x', '') + '\n')
