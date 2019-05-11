@@ -69,7 +69,7 @@ opsPath = os.path.join(myDir, 'ops.csv')
 
 assemblerAssert(os.path.isfile(opsPath), 'Expected an ops file at ' + os.path.abspath(opsPath))
 
-userAssert(len(sys.argv) == 3, 'Usage: python assembler.py <input assembly> <output binary>')
+userAssert(len(sys.argv) == 4, 'Usage: python assembler.py <input assembly> <output binary> <output data>')
 userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
 asmPath = sys.argv[1]
 
@@ -200,9 +200,95 @@ class JumpResolver:
     lineAssert(self.address in addresses, self.lineNumber, self.rawLine, self.address + ' is not a valid jump address')
     return hex(self.operation << 24 | addresses[address] << 12)
 
+class ByteConstant:
+  def __init__(self, byteLiterals):
+    self.byteLiterals = byteLiterals + [0]*(4 - len(byteLiterals))
+
+  def resolveHex(self):
+    output = 0
+
+    for byte in self.byteLiterals:
+      output = output << 8
+      output |= byte
+
+    return [hex(output)]
+
+class ShortConstant:
+  def __init__(self, shortLiterals):
+    self.shortLiterals = shortLiterals + [0]*(2 - len(shortLiterals))
+
+  def resolveHex(self):
+    output = 0
+
+    for byte in self.shortLiterals:
+      output = output << 16
+      output |= byte
+
+    return [hex(output)]
+
+class LongConstant:
+  def __init__(self, longToken):
+    self.longToken = longToken[2:]
+
+  def resolveHex(self):
+    return [self.longToken + ((8 - len(self.longToken))*'0')]
+
+def hexOfAsciiCode(char):
+  return hex(ord(char))[2:]
+
+class StringConstant:
+  def __init__(self, string):
+    self.string = string
+
+  def resolveHex(self):
+    if self.string == '':
+      return ['0000']
+    chunks = []
+    for i in xrange(0, len(self.string), 4):
+      hex = ''
+
+      for j in xrange(i, i+4):
+        if j < len(self.string):
+          hex += hexOfAsciiCode(self.string[j])
+        else:
+          hex += '00'
+      chunks.append(hex)
+
+    return chunks
+
 output = []
 addresses = {}
 currentAddress = 0
+constants = []
+constantByAddress = {}
+
+def isValidString(text):
+  walker = text.strip()
+  justEscaped = False
+
+  if text == '':
+    return True
+
+  if walker[0] != '"':
+    return False
+
+  walker = walker[1:]
+
+  while True:
+    if len(walker) == 0:
+      return False
+
+    if walker[0] == '"':
+      walker = walker[1:]
+      break
+
+    if walker[0:2] == '\\"':
+      walker = walker[2:]
+      continue
+
+    walker = walker[1:]
+
+  return walker.strip() == ''
 
 def isValidAddress(token):
   return token.isalnum()
@@ -227,6 +313,33 @@ def parseImmediate(token):
     except:
       return unsafeParseBinary(token)
 
+def parseByte(token):
+  return int(token, 0)
+
+def parseShort(token):
+  return int(token, 0)
+
+def isValidByte(token):
+  try:
+    v = int(token, 0)
+    return 0 <= v and v <= 255
+  except:
+    return False
+
+def isValidShort(token):
+  try:
+    v = int(token, 0)
+    return 0 <= v and v <= 65535
+  except:
+    return False
+
+def isValidLong(token):
+  try:
+    v = int(token, 0)
+    return 0 <= v and v <= 4294967296
+  except:
+    return False
+
 def isValidImmediateValue(token):
   valid = False
 
@@ -247,20 +360,106 @@ def isValidImmediateValue(token):
 
   return valid and -32768 <= v and v <= 32767
 
+def stripComments(line):
+  resultLine = ''
+  inString = False
+  justEscaped = False
+
+  for c in line:
+    if c == ';' and not inString:
+      break
+    elif c == '"' and not inString and not justEscaped:
+      inString = True
+    elif c == '"' and inString and not justEscaped:
+      inString = False
+
+    justEscaped = inString and c == '\\'
+
+    resultLine += c
+
+  return resultLine
+
+# assert stripComments('') == ''
+# assert stripComments('; foo') == ''
+# assert stripComments('add r10,r11,r12; foo') == 'add r10,r11,r12'
+# assert stripComments('hi: .string "foo bar" ; comment') == 'hi: .string "foo bar" '
+# assert stripComments('hi: .string "foo; bar"') == 'hi: .string "foo; bar"'
+# assert stripComments('hi: .string "foo; \\" ; bar"') == 'hi: .string "foo; \\" ; bar"'
+
 # Parse and write output
 with open(asmPath, 'r') as f:
   for num, rawLine in enumerate(f):
 
-    line = rawLine
-
-    if ';' in rawLine:
-      line = rawLine[:rawLine.index(';')]
+    line = stripComments(rawLine)
 
     # Ignore empty lines
     if line.strip() == '':
       continue
 
     tokens = re.split('[\s|,]+', line.strip())
+
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.STRING':
+      address = tokens[0][:-1]
+
+      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+
+      string = line[line.index('.')+7:].strip()
+
+      lineAssert(isValidString(string), num, rawLine, string + ' is not a valid string literal')
+
+      constant = StringConstant(string)
+
+      constants.append(constant)
+      constantByAddress[address] = constant
+      continue
+
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
+      shorts = []
+      address = tokens[0][:-1]
+
+      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+
+      longToken = tokens[2]
+
+      lineAssert(isValidLong(longToken), num, rawLine, longToken + ' is not a valid long')
+
+      constant = LongConstant(longToken)
+
+      constants.append(constant)
+      constantByAddress[address] = constant
+      continue
+
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
+      shorts = []
+      address = tokens[0][:-1]
+
+      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+
+      for shortToken in tokens[2:]:
+        lineAssert(isValidShort(shortToken), num, rawLine, shortToken + ' is not a valid short')
+        shorts.append(parseShort(shortToken))
+
+      constant = ShortConstant(shorts)
+
+      constants.append(constant)
+      constantByAddress[address] = constant
+      continue
+
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
+      bytes = []
+      address = tokens[0][:-1]
+
+      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+
+      for byteToken in tokens[2:]:
+        lineAssert(isValidByte(byteToken), num, rawLine, byteToken + ' is not a valid byte')
+        bytes.append(parseByte(byteToken))
+
+      constant = ByteConstant(bytes)
+
+      constants.append(constant)
+      constantByAddress[address] = constant
+      continue
 
     if tokens[0][-1] == ':':
       address = tokens[0][:-1]
@@ -352,3 +551,8 @@ with open(asmPath, 'r') as f:
 with open(sys.argv[2], 'w') as f:
   for resolver in output:
     f.write(resolver.resolveHex(addresses).replace('0x', '') + '\n')
+
+with open(sys.argv[3], 'w') as f:
+  for constant in constants:
+    for line in constant.resolveHex():
+      f.write(line.replace('0x', '') + '\n')
