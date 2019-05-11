@@ -430,9 +430,17 @@ if __name__ == '__main__':
 
       op = tokens[0].upper()
 
-      lineAssert(op in opByCode, num, rawLine, 'Unknown op ' + op)
+      lineAssert(op in opByCode or op == 'INV', num, rawLine, 'Unknown op ' + op)
 
       currentAddress += 1
+
+      if op == 'INV':
+        lineAssert(len(tokens) == 3, num, rawLine, 'Unexpected trailing tokens after op')
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+
+        output.append(BinDestResolver(opByCode['XRS']['CategorizedOp'], parseRegister(tokens[1]), 3, parseRegister(tokens[2])))
+        continue
 
       opSpec = opByCode[op]
 
