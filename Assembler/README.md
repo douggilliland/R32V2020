@@ -5,14 +5,17 @@
 python assembler.py <path to assembly file> <path to output file>
 ```
 
-## Adding/Updating Ops 
+## Adding/Updating Ops
 Modify `ops.csv` to add or change any operations.
 
 ## Running Tests
-To run the tests, from a bash prompt (e.g. Git BASH) run
+To run the "end-to-end" tests, from a bash prompt (e.g. Git BASH) run
 ```bash
 ./tests/run.sh
 ```
+
+To run the unit tests, run `assemblerSpecs.py`
+
 ## Opcodes
 https://github.com/douggilliland/R32V2020/blob/master/Architecture/OpCodes/OpCodes.csv
 
