@@ -1,3 +1,18 @@
+------------------------------------------------------------------
+-- Register file
+-- https://github.com/douggilliland/R32V2020/wiki/Register-File
+-- 16 Registers
+-- 32-bits wide
+-- r0 - Always 0x0
+-- r1 - Always 0x1
+-- r2 - Always 0xffffffff
+-- r3 - Condition Code Register
+-- r4 - Stack Address Pointer
+-- r5 - Peripheral Address Pointer
+-- r6 - Data Address Pointer
+-- r7 - Instruction Counter
+-- r8-r15 - General Purpose Registers 
+
 library ieee;
 use ieee.std_logic_1164.all;
 use  IEEE.STD_LOGIC_ARITH.all;
@@ -36,9 +51,6 @@ architecture struct of RegisterFile is
 	signal regR14			: std_logic_vector(31 downto 0);
 	signal regR15			: std_logic_vector(31 downto 0);
 	
-	signal wrSelR0			: std_logic;
-	signal wrSelR1			: std_logic;
-	signal wrSelR2			: std_logic;
 	signal wrSelR3			: std_logic;
 	signal wrSelR4			: std_logic;
 	signal wrSelR5			: std_logic;
@@ -55,9 +67,6 @@ architecture struct of RegisterFile is
 	
 begin
 
-wrSelR0 <= '1' when ((wrRegSel = "0000") and (wrStrobe = '1')) else '0';
-wrSelR1 <= '1' when ((wrRegSel = "0001") and (wrStrobe = '1')) else '0';
-wrSelR2 <= '1' when ((wrRegSel = "0010") and (wrStrobe = '1')) else '0';
 wrSelR3 <= '1' when ((wrRegSel = "0011") and (wrStrobe = '1')) else '0';
 wrSelR4 <= '1' when ((wrRegSel = "0100") and (wrStrobe = '1')) else '0';
 wrSelR5 <= '1' when ((wrRegSel = "0101") and (wrStrobe = '1')) else '0';
@@ -72,27 +81,30 @@ wrSelR13 <= '1' when ((wrRegSel = "1101") and (wrStrobe = '1')) else '0';
 wrSelR14 <= '1' when ((wrRegSel = "1110") and (wrStrobe = '1')) else '0';
 wrSelR15 <= '1' when ((wrRegSel = "1111") and (wrStrobe = '1')) else '0';
 
-r0 : work.REG_32 PORT MAP(
+r0 : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
-    ld 	=> wrSelR0,
+    ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
+	 constVal => x"0",	-- r0=zero
     q		=> regR0
 );
 
-r1 : work.REG_32 PORT MAP(
+r1 : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
-    ld 	=> wrSelR1,
+    ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
+	 constVal => x"1",	-- r1=1
     q		=> regR1
 );
 
-r2 : work.REG_32 PORT MAP(
+r2 : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
-    ld 	=> wrSelR2,
+    ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
+	 constVal => x"FFFFFFFF",	-- r2=-1
     q		=> regR2
 );
 
@@ -104,35 +116,43 @@ r3 : work.REG_32 PORT MAP(
     q		=> regR3
 );
 
-r4 : work.REG_32 PORT MAP(
+r4 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR4,
     clr 	=> clear,
     clk	=> clk,
+    inc => '0',
+    dec => '0',
     q		=> regR4
 );
 
-r5 : work.REG_32 PORT MAP(
+r5 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR5,
     clr 	=> clear,
     clk	=> clk,
+    inc => '0',
+    dec => '0',
     q		=> regR5
 );
 
-r6 : work.REG_32 PORT MAP(
+r6 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR6,
     clr 	=> clear,
     clk	=> clk,
+    inc => '0',
+    dec => '0',
     q		=> regR6
 );
 
-r7 : work.REG_32 PORT MAP(
+r7 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR7,
     clr 	=> clear,
     clk	=> clk,
+    inc => '0',
+    dec => '0',
     q		=> regR7
 );
 

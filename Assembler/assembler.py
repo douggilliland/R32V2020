@@ -6,11 +6,12 @@ import sys
 import re
 
 CATEGORY_CODE = {
-  'SYSTEM': 0,
+  'System': 0,
   'ALU': 1,
-  'LOAD_STORE': 2,
-  'PERIPHERAL': 3,
-  'JUMP': 4
+  'Immed': 2,
+  'LD_ST': 3,
+  'Peripheral': 4,
+  'Flow_Ctrl': 5
 }
 
 validRegisters = set()
@@ -57,18 +58,21 @@ opByCode = {}
 
 # For testing that a code is not repeated within a category
 codePerCategory = {
-  'SYSTEM': [],
+  'System': [],
   'ALU': [],
-  'LOAD_STORE': [],
-  'PERIPHERAL': [],
-  'JUMP': []
+  'Immed': [],
+  'LD_ST': [],
+  'Peripheral': [],
+  'Flow_Ctrl': []
 }
 
 # Building structures and validation
 for op in ops:
   assemblerAssert(op['Category'] in CATEGORY_CODE, 'Op ' + op['Opcode'] + ' has unrecognized category ' + op['Category'] + ' (it should be one of ' + ', '.join(list(CATEGORY_CODE)) + ')')
 
-  assemblerAssert(op['Operation'] not in codePerCategory[op['Category']], 'The Operation ' + op['Operation'] + ' is repeated more than once for the category ' + op['Category'])
+  op['Operation'] = int(op['D28'] + op['D27'] + op['D26'] + op['D25'] + op['D24'], 2)
+
+  assemblerAssert(op['Operation'] not in codePerCategory[op['Category']], 'The Operation ' + str(op['Operation']) + ' is repeated more than once for the category ' + op['Category'])
 
   codePerCategory[op['Category']].append(op['Operation'])
 
@@ -108,7 +112,7 @@ class LoadStoreResolver:
     self.immediate = immediate
 
   def resolveHex(self, _):
-    return hex(CATEGORY_CODE['LOAD_STORE'] << 29 | self.operation << 24 | self.register << 20 | self.immediate)
+    return hex(CATEGORY_CODE['LD_ST'] << 29 | self.operation << 24 | self.register << 20 | self.immediate)
 
 class PeripheralResolver:
   def __init__(self, operation, register):
@@ -116,7 +120,7 @@ class PeripheralResolver:
     self.register = register
 
   def resolveHex(self, _):
-    return hex(CATEGORY_CODE['PERIPHERAL'] << 29 | self.operation << 24 | self.register << 20)
+    return hex(CATEGORY_CODE['Peripheral'] << 29 | self.operation << 24 | self.register << 20)
 
 class JumpResolver:
   def __init__(self, operation, address, rawLine, lineNumber):
@@ -127,7 +131,7 @@ class JumpResolver:
 
   def resolveHex(self, addresses):
     lineAssert(self.address in addresses, self.lineNumber, self.rawLine, self.address + ' is not a valid jump address')
-    return hex(CATEGORY_CODE['PERIPHERAL'] << 29 | self.operation << 24 | addresses[address] << 12)
+    return hex(CATEGORY_CODE['Flow_Ctrl'] << 29 | self.operation << 24 | addresses[address] << 12)
 
 class ByteConstant:
   def __init__(self, byteLiterals):
@@ -362,7 +366,7 @@ with open(asmPath, 'r') as f:
 
     opSpec = opByCode[op]
 
-    if opSpec['Category'] == 'SYSTEM':
+    if opSpec['Category'].upper() == 'System':
       lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after SYSTEM op')
 
       output.append(SystemResolver(opSpec['Operation']))
@@ -375,20 +379,27 @@ with open(asmPath, 'r') as f:
 
       output.append(AluResolver(opSpec['Operation'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
 
-    if opSpec['Category'] == 'LOAD_STORE':
+    if opSpec['Category'] == 'LD_ST':
       lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after a Load/Store op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
       lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
 
       output.append(LoadStoreResolver(opSpec['Operation'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
 
-    if opSpec['Category'] == 'PERIPHERAL':
+    if opSpec['Category'] == 'Immed':
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after an immediate op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
+
+      output.append(LoadStoreResolver(opSpec['Operation'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
+
+    if opSpec['Category'] == 'Peripheral':
       lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after a Peripheral op but got ' + str(len(tokens) - 1))
       lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
 
       output.append(PeripheralResolver(opSpec['Operation'], parseRegister(tokens[1])))
 
-    if opSpec['Category'] == 'JUMP':
+    if opSpec['Category'] == 'Flow_Ctrl':
       lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after a Jump op but got ' + str(len(tokens) - 1))
       lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid jump address')
 
