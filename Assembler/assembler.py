@@ -237,12 +237,14 @@ class StringConstant:
     if self.string == '':
       return ['0000']
     chunks = []
-    for i in xrange(0, len(self.string), 2):
-      hex = hexOfAsciiCode(self.string[i])
-      if i+1 < len(self.string):
-        hex += hexOfAsciiCode(self.string[i+1])
-      else:
-        hex += '00'
+    for i in xrange(0, len(self.string), 4):
+      hex = ''
+
+      for j in xrange(i, i+4):
+        if j < len(self.string):
+          hex += hexOfAsciiCode(self.string[j])
+        else:
+          hex += '00'
       chunks.append(hex)
 
     return chunks
