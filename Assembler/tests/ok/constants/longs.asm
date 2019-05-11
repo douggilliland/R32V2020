@@ -1,1 +1,2 @@
-someLong: .long 0x98765432,1234578
+someLong: .long 0x98765432
+shorterLong: .long 0x98

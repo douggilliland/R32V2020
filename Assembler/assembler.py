@@ -215,7 +215,7 @@ class ByteConstant:
 
 class ShortConstant:
   def __init__(self, shortLiterals):
-    self.shortLiterals = shortLiterals+ [0]*(2 - len(shortLiterals))
+    self.shortLiterals = shortLiterals + [0]*(2 - len(shortLiterals))
 
   def resolveHex(self):
     output = 0
@@ -225,6 +225,13 @@ class ShortConstant:
       output |= byte
 
     return [hex(output)]
+
+class LongConstant:
+  def __init__(self, longToken):
+    self.longToken = longToken[2:]
+
+  def resolveHex(self):
+    return [self.longToken + ((8 - len(self.longToken))*'0')]
 
 def hexOfAsciiCode(char):
   return hex(ord(char))[2:]
@@ -326,6 +333,13 @@ def isValidShort(token):
   except:
     return False
 
+def isValidLong(token):
+  try:
+    v = int(token, 0)
+    return 0 <= v and v <= 4294967296
+  except:
+    return False
+
 def isValidImmediateValue(token):
   valid = False
 
@@ -394,6 +408,22 @@ with open(asmPath, 'r') as f:
       lineAssert(isValidString(string), num, rawLine, string + ' is not a valid string literal')
 
       constant = StringConstant(string)
+
+      constants.append(constant)
+      constantByAddress[address] = constant
+      continue
+
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
+      shorts = []
+      address = tokens[0][:-1]
+
+      lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+
+      longToken = tokens[2]
+
+      lineAssert(isValidLong(longToken), num, rawLine, longToken + ' is not a valid long')
+
+      constant = LongConstant(longToken)
 
       constants.append(constant)
       constantByAddress[address] = constant
