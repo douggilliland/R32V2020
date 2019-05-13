@@ -8,7 +8,7 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 entity R32V2020 is
 	port(
 		n_reset		: in std_logic;
-		CLK_50		: in std_logic;
+		CLOCK_50		: in std_logic;
 		
 		rxd			: in std_logic;
 		txd			: out std_logic;
@@ -38,230 +38,214 @@ end R32V2020;
 
 architecture struct of R32V2020 is
 
--- Peripheral Signals
-signal n_kbCS 					:	std_logic;
-signal n_dispRamCS 			:	std_logic;
-signal n_aciaCS 				:	std_logic;
-signal peripheralAddress	: std_logic_vector(31 downto 0);
-signal peripheralDataIn		: std_logic_vector(31 downto 0);
-signal peripheralDataOut	: std_logic_vector(31 downto 0);
+signal	Op_HCF : std_logic;
+signal	Op_NOP : std_logic;
+signal	Op_RES : std_logic;
+signal	Op_ADS : std_logic;
+signal	Op_CMP : std_logic;
+signal	Op_MUL : std_logic;
+signal	Op_MAO : std_logic;
+signal	Op_ORS  : std_logic;
+signal	Op_ARS  : std_logic;
+signal	Op_XRS  : std_logic;
+signal	Op_LS1  : std_logic;
+signal	Op_RS1  : std_logic;
+signal	Op_LR1  : std_logic;
+signal	Op_RR1  : std_logic;
+signal	Op_RA1  : std_logic;
+signal	Op_ENS  : std_logic;
+signal	Op_LIL  : std_logic;
+signal	Op_LIU  : std_logic;
+signal	Op_LDB  : std_logic;
+signal	Op_SDB  : std_logic;
+signal	Op_LDS  : std_logic;
+signal	Op_SDS  : std_logic;
+signal	Op_SDL  : std_logic;
+signal	Op_LPB  : std_logic;
+signal	Op_SPB  : std_logic;
+signal	Op_LPS  : std_logic;
+signal	Op_SPS  : std_logic;
+signal	Op_LPL  : std_logic;
+signal	Op_SPL  : std_logic;
+signal	Op_PSS  : std_logic;
+signal	Op_PUS  : std_logic;
+signal	Op_JSR  : std_logic;
+signal	Op_RTS  : std_logic;
+signal	Op_BRA  : std_logic;
+signal	Op_BCS  : std_logic;
+signal	Op_BCC  : std_logic;
+signal	Op_BOV  : std_logic;
+signal	Op_BEQ  : std_logic;
+
+signal	Video_Clk	: std_logic;
+
+signal	regDataA		: std_logic_vector(31 downto 0);
+signal	regDataB		: std_logic_vector(31 downto 0);
+signal	ALUDataOut	: std_logic_vector(31 downto 0);
+signal	CondCodeBits: std_logic_vector(31 downto 0);
+signal	CCR			: std_logic_vector(31 downto 0);
+
+signal	writeRegFileStrobe	: std_logic;
+signal	dataIntoRegisterFile	: std_logic_vector(31 downto 0);
+
+signal	InstructionAddress	: std_logic_vector(31 downto 0);
+signal	BlockInstructionRamData					: std_logic_vector(31 downto 0);
+
+signal	StackAddress	: std_logic_vector(31 downto 0);
+signal	dataToStackRam			: std_logic_vector(31 downto 0);
+signal	writeStackRam			: std_logic;
+signal	dataFromStackRam		: std_logic_vector(31 downto 0);
+
+signal	dataToDataRam				: std_logic_vector(31 downto 0);
+signal	DataAddress		: std_logic_vector(31 downto 0);
+signal	dataRamWriteAddress		: std_logic_vector(31 downto 0);
+signal	writeToDataRamEnable		: std_logic;
+signal	dataFromDataRam			: std_logic_vector(31 downto 0);
+
+signal	peripheralAddress		: std_logic_vector(31 downto 0);
+signal	peripheralDataIn		: std_logic_vector(31 downto 0);
+signal	peripheralDataOut		: std_logic_vector(31 downto 0);
+signal	peripheralRdStrobe	: std_logic;
+signal	peripheralWrStrobe	: std_logic;
 
 begin
 
-	-- Peripheral Address decoder
-	n_dispRamCS 	<= '0' when peripheralAddress(15 downto 11) = "00000" else '1';	-- x0000-x07FF (2KB)
-	n_kbCS 			<= '0' when peripheralAddress(15 downto 11) = "00001" else '1';	-- x0800-x0FFF (2KB)
-	n_aciaCS 		<= '0' when peripheralAddress(15 downto 11) = "00010" else '1';	-- x1000-x17FF (2KB)
-
-	VoutVect <=	video&video&video&video&video&			-- Red
-					video&video&video&video&video&video&	-- Grn
-					"00000"&											-- Blu
-					hSync&vSync;
-	
-	peripheralDataIn <=
-		aciaData when n_aciaCS = '0' else
-		dispRamDataOutA when n_dispRamCS = '0' else
-		kbReadData when n_kbCS='0' else 
-		x"FF";
+	clockGen : ENTITY work.VideoClk_SVGA_800x600
+	PORT map 	(
+		areset	=> not n_reset,
+		inclk0	=> CLOCK_50,
+		c0			=> Video_Clk
+	);
 	
 	opcodeDecoder : entity work.OpCodeDecoder
 	port map (
-		InstrOpCode => ,
+		InstrOpCode => BlockInstructionRamData(31 downto 24),
 		-- Category = System
-		Op_HCF => ,
-		Op_NOP => ,
-		Op_RES => ,
+		Op_HCF => Op_HCF,
+		Op_NOP => Op_NOP,
+		Op_RES => Op_RES,
 		-- Category = ALU
-		Op_ADS => ,
-		Op_MUL => ,
-		Op_MAO => ,
-		Op_ORS => ,
-		Op_ARS => ,
-		Op_XRS => ,
-		Op_LS1 => ,
-		Op_RS1 => ,
-		Op_LR1 => ,
-		Op_RR1 => ,
-		Op_RA1 => ,
-		Op_ENS => ,
+		Op_ADS => Op_ADS,
+		Op_MUL => Op_MUL,
+		Op_MAO => Op_MAO,
+		Op_ORS => Op_ORS,
+		Op_ARS => Op_ARS,
+		Op_XRS => Op_XRS,
+		Op_LS1 => Op_LS1,
+		Op_RS1 => Op_RS1,
+		Op_LR1 => Op_LR1,
+		Op_RR1 => Op_RR1,
+		Op_RA1 => Op_RA1,
+		Op_ENS => Op_ENS,
 		-- Category = Immediate values
-		Op_LIL => ,
-		Op_LIU => ,
+		Op_LIL => Op_LIL,
+		Op_LIU => Op_LIU,
 		-- Category = Load/Store
-		Op_LDB => ,
-		Op_SDB => ,
-		Op_LDS => ,
-		Op_SDS => ,
-		Op_SDL => ,
+		Op_LDB => Op_LDB,
+		Op_SDB => Op_SDB,
+		Op_LDS => Op_LDS,
+		Op_SDS => Op_SDS,
+		Op_SDL => Op_SDL,
 		-- Category = Peripheral I/O
-		Op_LPB => ,
-		Op_SPB => ,
-		Op_LPS => ,
-		Op_SPS => ,
-		Op_LPL => ,
-		Op_SPL => ,
+		Op_LPB => Op_LPB,
+		Op_SPB => Op_SPB,
+		Op_LPS => Op_LPS,
+		Op_SPS => Op_SPS,
+		Op_LPL => Op_LPL,
+		Op_SPL => Op_SPL,
 		-- Category = Stack
-		Op_PSS => ,
-		Op_PUS => ,
+		Op_PSS => Op_PSS,
+		Op_PUS => Op_PUS,
 		-- Category = Flow Control
-		Op_JSR => ,
-		Op_RTS => ,
-		Op_BRA => ,
-		Op_BCS => ,
-		Op_BCC => ,
-		Op_BOV => ,
-		Op_BEQ => 
+		Op_JSR => Op_JSR,
+		Op_RTS => Op_RTS,
+		Op_BRA => Op_BRA,
+		Op_BCS => Op_BCS,
+		Op_BCC => Op_BCC,
+		Op_BOV => Op_BOV,
+		Op_BEQ => Op_BEQ
 	);
 	
 	ALU : entity work.ALU
 	port map (
-		i_regDataA => ,
-		i_regDataB => ,
-		i_Op_ADS => ,
-		i_Op_MUL => ,
-		i_Op_CMP => ,
-		i_Op_ARS => ,
-		i_Op_XRS => ,
-		i_Op_ORS => ,
-		i_Op_LS1 => ,
-		i_Op_RS1 => ,
-		i_Op_LR1 => ,
-		i_Op_RR1 => ,
-		i_Op_RA1 => ,
- 		o_ALUDataOut => ,
-		o_CondCodeBits => 
+		i_regDataA => regDataA,
+		i_regDataB => regDataB,
+		i_Op_ADS => Op_ADS,
+		i_Op_MUL => Op_MUL,
+		i_Op_CMP => Op_CMP,
+		i_Op_ARS => Op_ARS,
+		i_Op_XRS => Op_XRS,
+		i_Op_ORS => Op_ORS,
+		i_Op_LS1 => Op_LS1,
+		i_Op_RS1 => Op_RS1,
+		i_Op_LR1 => Op_LR1,
+		i_Op_RR1 => Op_RR1,
+		i_Op_RA1 => Op_RA1,
+ 		o_ALUDataOut => ALUDataOut,
+		o_CondCodeBits => CondCodeBits
 	);
 
 	Instr_ROM : ENTITY work.BlockRom_Instruction
 	PORT MAP (
-		address => ,
-		clock => ,
-		q => 
+		address => InstructionAddress(7 downto 0),
+		clock => CLOCK_50,
+		q => BlockInstructionRamData
 	);
 
 	StackRAM : ENTITY work.BlockRam_Stack
 	PORT MAP	(
-		address => ,
-		clock => ,
-		data => ,
-		wren => ,
-		q => 
+		address => StackAddress(7 downto 0),
+		clock => CLOCK_50,
+		data => dataToStackRam,
+		wren => writeStackRam,
+		q => dataFromStackRam
 	);
 
 	RegisterFile : entity work.RegisterFile
 	port map (
-		clk			=> ,
-		clear			=> ,
-		wrStrobe		=> ,
-		wrRegSel		=> ,
-		rdRegSelA	=> ,
-		rdRegSelB	=> ,
-		regDataIn	=> ,
-		regDataOutA	=> ,
-		regDataOutB	=> 
+		clk			=> CLOCK_50,
+		clear			=> not n_reset,
+		wrStrobe		=> writeRegFileStrobe,
+		wrRegSel		=> BlockInstructionRamData(23 downto 20),
+		rdRegSelA	=> BlockInstructionRamData(15 downto 12),
+		rdRegSelB	=> BlockInstructionRamData(19 downto 16),
+		regDataIn	=> dataIntoRegisterFile,
+		regDataOutA	=> regDataA,
+		regDataOutB	=> regDataB,
+		i_CCR						=> CondCodeBits,
+		o_StackAddress			=> StackAddress,
+		o_PeripheralAddress	=> PeripheralAddress,
+		o_DataAddress			=> DataAddress,
+		o_InstructionAddress	=> InstructionAddress,
+		o_CCR						=> CCR
 	);
 
 	DataRAM : ENTITY work.BlockRam_Data
 	PORT MAP (
-		clock => ,
-		data => ,
-		rdaddress => ,
-		wraddress => ,
-		wren => ,
-		q => 
+		clock => CLOCK_50,
+		data => dataToDataRam,
+		rdaddress => DataAddress(7 downto 0),
+		wraddress => DataAddress(7 downto 0),
+		wren => writeToDataRamEnable,
+		q => dataFromDataRam
 	);
-	
-	UART : entity work.bufferedUART
-		port map(
-			clk => CLOCK_50,
-			n_wr => n_aciaCS or cpuClock or n_WR,
-			n_rd => n_aciaCS or cpuClock or (not n_WR),
-			regSel => peripheralAddress(0),
-			dataIn => peripheralDataOut,
-			dataOut => aciaData,
-			rxClkEn => serialClkEn,
-			txClkEn => serialClkEn,
-			rxd => rxd,
-			txd => txdBuff,
-			n_cts => '0',
-			n_dcd => '0',
-			n_rts => rts
+
+	Peripherals : entity work.PeripheralInterface
+	port MAP (
+		n_reset					=> n_reset,
+		CLOCK_50					=> CLOCK_50,
+		Video_Clk				=> Video_Clk,
+		peripheralAddress		=> peripheralAddress,
+		peripheralDataIn		=> peripheralDataIn,
+		peripheralDataOut		=> peripheralDataOut,
+		peripheralRdStrobe	=> peripheralRdStrobe,
+		peripheralWrStrobe	=> peripheralWrStrobe,
+		rxd						=> rxd,
+		txd						=> txd,
+		VoutVect					=> VoutVect,
+		PS2_CLK					=> ps2Clk,
+		PS2_DATA					=> ps2Data
+
 		);
-
-	Display : entity work.UK101TextDisplay_svga_800x600
-	port map (
-		charAddr => charAddr,
-		charData => charData,
-		dispAddr => dispAddrB,
-		dispData => dispRamDataOutB,
-		clk => Video_Clk_25p6,
-		video => video,
-		vSync => vSync,
-		hSync => hSync
-	);
-	
-	DisplayRAM : entity work.DisplayRam2k 
-	port map	(
-		address_a => peripheralAddress(10 downto 0),
-		address_b => dispAddrB,
-		clock	=> CLOCK_50,
-		data_a => peripheralDataOut,
-		data_b => (others => '0'),
-		wren_a => not(n_memWR or n_dispRamCS),
-		wren_b => '0',
-		q_a => dispRamDataOutA,
-		q_b => dispRamDataOutB
-	);
-	
-	Keyboard : entity work.UK101keyboard
-	port map(
-		CLK => CLOCK_50,
-		nRESET => n_reset,
-		PS2_CLK	=> ps2Clk,
-		PS2_DATA	=> ps2Data,
-		A	=> kbRowSel,
-		KEYB	=> kbReadData
-	);
-	
-	process (n_kbCS,n_memWR)
-	begin
-		if	n_kbCS='0' and n_memWR = '0' then
-			kbRowSel <= peripheralDataOut;
-		end if;
-	end process;
-	
-	-- ____________________________________________________________________________________
-	-- Baud Rate Clock Signals
-	-- Serial clock DDS
-	-- 50MHz master input clock:
-	-- f = (increment x 50,000,000) / 65,536 = 16X baud rate
-	-- Baud Increment
-	-- 115200 2416
-	-- 38400 805
-	-- 19200 403
-	-- 9600 201
-	-- 4800 101
-	-- 2400 50
-	-- 1200 25
-	-- 600 13
-	-- 300 6
-
-	baud_div: process (serialClkCount_d, serialClkCount)
-		begin
-			serialClkCount_d <= serialClkCount + 6;		-- 300 baud
-		end process;
-
-	--Single clock wide baud rate enable
-	baud_clk: process(CLOCK_50)
-		begin
-			if rising_edge(CLOCK_50) then
-					serialClkCount <= serialClkCount_d;
-				if serialClkCount(15) = '0' and serialClkCount_d(15) = '1' then
-					serialClkEn <= '1';
-				else
-					serialClkEn <= '0';
-				end if;
-        end if;
-    end process;
 
 end;
