@@ -18,7 +18,7 @@
 -- the top level entity of the current Quartus project .The user can use this   
 -- testbench to simulate his design using a third-party simulation tool .       
 -- *****************************************************************************
--- Generated on "05/06/2019 21:40:11"
+-- Generated on "05/10/2019 12:54:47"
                                                              
 -- Vhdl Test Bench(with test vectors) for design  :          ALU
 -- 
@@ -63,8 +63,8 @@ COMPONENT ALU
 	i_Op_XRS : IN STD_LOGIC;
 	i_regDataA : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
 	i_regDataB : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-	o_ALUDataOut : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-	o_CondCodeBits : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
+	o_ALUDataOut : BUFFER STD_LOGIC_VECTOR(31 DOWNTO 0);
+	o_CondCodeBits : BUFFER STD_LOGIC_VECTOR(31 DOWNTO 0)
 	);
 END COMPONENT;
 BEGIN

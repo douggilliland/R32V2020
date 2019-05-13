@@ -20,28 +20,34 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity RegisterFile is
 	port (
-		clk			: in std_logic;
-		clear			: in std_logic;
-		wrStrobe		: in std_logic;
-		wrRegSel		: in std_logic_vector(3 downto 0);
-		rdRegSelA	: in std_logic_vector(3 downto 0);
-		rdRegSelB	: in std_logic_vector(3 downto 0);
-		regDataIn	: in std_logic_vector(31 downto 0);
-		regDataOutA	: out std_logic_vector(31 downto 0);
-		regDataOutB	: out std_logic_vector(31 downto 0)
+		clk							: in std_logic;
+		clear							: in std_logic;
+		wrStrobe						: in std_logic;
+		wrRegSel						: in std_logic_vector(3 downto 0);
+		rdRegSelA					: in std_logic_vector(3 downto 0);
+		rdRegSelB					: in std_logic_vector(3 downto 0);
+		regDataIn					: in std_logic_vector(31 downto 0);
+		i_CCR							: in std_logic_vector(31 downto 0);
+		regDataOutA					: out std_logic_vector(31 downto 0);
+		regDataOutB					: out std_logic_vector(31 downto 0);
+		o_StackAddress				: buffer std_logic_vector(31 downto 0);
+		o_PeripheralAddress		: buffer std_logic_vector(31 downto 0);
+		o_DataAddress				: buffer std_logic_vector(31 downto 0);
+		o_InstructionAddress		: buffer std_logic_vector(31 downto 0);
+		o_CCR							: buffer std_logic_vector(31 downto 0)
 	);
 end RegisterFile;
 
 architecture struct of RegisterFile is
 
-	signal regR0			: std_logic_vector(31 downto 0);
-	signal regR1			: std_logic_vector(31 downto 0);
-	signal regR2			: std_logic_vector(31 downto 0);
-	signal regR3			: std_logic_vector(31 downto 0);
-	signal regR4			: std_logic_vector(31 downto 0);
-	signal regR5			: std_logic_vector(31 downto 0);
-	signal regR6			: std_logic_vector(31 downto 0);
-	signal regR7			: std_logic_vector(31 downto 0);
+	signal regR0					: std_logic_vector(31 downto 0);
+	signal regR1					: std_logic_vector(31 downto 0);
+	signal regR2					: std_logic_vector(31 downto 0);
+	signal CCR						: std_logic_vector(31 downto 0);
+--	signal o_StackAddress		: std_logic_vector(31 downto 0);
+--	signal o_PeripheralAddress	: std_logic_vector(31 downto 0);
+--	signal o_DataAddress			: std_logic_vector(31 downto 0);
+--	signal o_InstructionAddress	: std_logic_vector(31 downto 0);
 	signal regR8			: std_logic_vector(31 downto 0);
 	signal regR9			: std_logic_vector(31 downto 0);
 	signal regR10			: std_logic_vector(31 downto 0);
@@ -86,7 +92,7 @@ r0 : work.REG_32_CONSTANT PORT MAP(
     ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
-	 constVal => x"0",	-- r0=zero
+	 constVal => x"00000000",	-- r0=zero
     q		=> regR0
 );
 
@@ -95,7 +101,7 @@ r1 : work.REG_32_CONSTANT PORT MAP(
     ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
-	 constVal => x"1",	-- r1=1
+	 constVal => x"00000001",	-- r1=1
     q		=> regR1
 );
 
@@ -109,11 +115,11 @@ r2 : work.REG_32_CONSTANT PORT MAP(
 );
 
 r3 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
+    d 	=> i_CCR,
     ld 	=> wrSelR3,
     clr 	=> clear,
     clk	=> clk,
-    q		=> regR3
+    q		=> o_CCR
 );
 
 r4 : work.COUNT_32 PORT MAP(
@@ -123,7 +129,7 @@ r4 : work.COUNT_32 PORT MAP(
     clk	=> clk,
     inc => '0',
     dec => '0',
-    q		=> regR4
+    q		=> o_StackAddress
 );
 
 r5 : work.COUNT_32 PORT MAP(
@@ -133,7 +139,7 @@ r5 : work.COUNT_32 PORT MAP(
     clk	=> clk,
     inc => '0',
     dec => '0',
-    q		=> regR5
+    q		=> o_PeripheralAddress
 );
 
 r6 : work.COUNT_32 PORT MAP(
@@ -143,7 +149,7 @@ r6 : work.COUNT_32 PORT MAP(
     clk	=> clk,
     inc => '0',
     dec => '0',
-    q		=> regR6
+    q		=> o_DataAddress
 );
 
 r7 : work.COUNT_32 PORT MAP(
@@ -153,7 +159,7 @@ r7 : work.COUNT_32 PORT MAP(
     clk	=> clk,
     inc => '0',
     dec => '0',
-    q		=> regR7
+    q		=> o_InstructionAddress
 );
 
 r8 : work.REG_32 PORT MAP(
@@ -224,11 +230,11 @@ muxA : work.MUX_16x32 PORT MAP (
 	r0 => regR0,
    r1 => regR1,
    r2 => regR2,
-   r3 => regR3,
-   r4 => regR4,
-   r5 => regR5,
-   r6 => regR6,
-   r7 => regR7,
+   r3 => CCR,
+   r4 => o_StackAddress,
+   r5 => o_PeripheralAddress,
+   r6 => o_DataAddress,
+   r7 => o_InstructionAddress,
    r8 => regR8,
    r9 => regR9,
    r10 => regR10,
@@ -245,11 +251,11 @@ muxB : work.MUX_16x32 PORT MAP (
 	r0 => regR0,
    r1 => regR1,
    r2 => regR2,
-   r3 => regR3,
-   r4 => regR4,
-   r5 => regR5,
-   r6 => regR6,
-   r7 => regR7,
+   r3 => CCR,
+   r4 => o_StackAddress,
+   r5 => o_PeripheralAddress,
+   r6 => o_DataAddress,
+   r7 => o_InstructionAddress,
    r8 => regR8,
    r9 => regR9,
    r10 => regR10,

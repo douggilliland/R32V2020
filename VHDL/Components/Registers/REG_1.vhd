@@ -1,3 +1,6 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
 ENTITY REG_1 IS PORT(
     d   : IN STD_LOGIC;
     ld  : IN STD_LOGIC; -- load/enable.
