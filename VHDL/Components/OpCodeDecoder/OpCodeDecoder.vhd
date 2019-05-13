@@ -15,7 +15,6 @@ entity OpCodeDecoder is
 		-- Category = ALU
 		Op_ADS		: out std_logic;	-- Add and store in reg
 		Op_MUL		: out std_logic;	-- Multiply and store in reg
-		Op_MAO		: out std_logic;	-- Math/Other and store in reg
 		Op_ORS		: out std_logic;	-- Logical OR registers and store in reg
 		Op_ARS		: out std_logic;	-- Logical AND registers and store in reg
 		Op_XRS		: out std_logic;	-- Logical XOR registers and store in reg
@@ -28,14 +27,14 @@ entity OpCodeDecoder is
 		-- Category = Immediate values
 		Op_LIL		: out std_logic;	-- Load Immediate lower short
 		Op_LIU		: out std_logic;	-- Load Immediate upper short
-		-- Category = Load/Store
+		-- Category = Load/Store to/from Data Memory
 		Op_LDB		: out std_logic;	-- Load byte from data memory (read on d7..d0)
 		Op_SDB		: out std_logic;	-- Store byte to data memory (write on d7..d0)
 		Op_LDS		: out std_logic;	-- Load short from data memory (read on d15..d0)
 		Op_SDS		: out std_logic;	-- Store short to data memory (write on d15..d0)
 		Op_LDL		: out std_logic;	-- Load long from data memory (read on d31..d0)
 		Op_SDL		: out std_logic;	-- Store long to data memory (write on d31..d0)
-		-- Category = Peripheral I/O
+		-- Category = Load/Store to/from Peripheral I/O space
 		Op_LPB		: out std_logic;	-- Load byte from peripheral interface (read on d7..d0)
 		Op_SPB		: out std_logic;	-- Store byte to peripheral interface (write on d7..d0)
 		Op_LPS		: out std_logic;	-- Load short from peripheral interface (read on d15..d0)
@@ -52,7 +51,7 @@ entity OpCodeDecoder is
 		Op_BCS 		: out std_logic;	-- Branch if Carry Set
 		Op_BCC 		: out std_logic;	-- Branch if Carry Clear
 		Op_BOV 		: out std_logic;	-- Branch if Overflow
-		Op_BEQ 		: out std_logic	-- Branch if Equal
+		Op_BEQ 		: out std_logic		-- Branch if Equal
 	);
 end OpCodeDecoder;
 
@@ -76,7 +75,6 @@ Op_RES <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = "00010"))
 -- ALU Opcodes - Arithmetic
 Op_ADS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "00000")) else '0';
 Op_MUL <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "00001")) else '0';
-Op_MAO <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "00010")) else '0';
 -- ALU Opcodes - Logical
 Op_ORS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "01000")) else '0';
 Op_ARS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "01001")) else '0';
