@@ -1,5 +1,6 @@
 -- Master State Machine for the R32V2020 CPU
 -- State Machine implements a 6-bit, 1 hot state machine
+-- States are 0>1>3>2>6>4
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -28,6 +29,7 @@ BEGIN
     begin
         if clr = '1' then
             Pre_Q <= "000";
+			state <= "000001";
         elsif rising_edge(clk) then
             if 		Pre_Q = '000' then PreQ <= "001"
 			elsif	Pre_Q = '001' then PreQ <= "011"
