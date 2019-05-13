@@ -1,3 +1,9 @@
+-- Master State Machine for the R32V2020 CPU
+-- State Machine implements a 6-bit, 1 hot state machine
+
+library ieee;
+use ieee.std_logic_1164.all;
+
 ENTITY MasterStateMachine IS PORT
 (
     clk 	: IN STD_LOGIC; -- clock.
@@ -29,9 +35,7 @@ BEGIN
 			elsif	Pre_Q = '001' then PreQ <= "011"
 			elsif	Pre_Q = '011' then PreQ <= "010"
 			elsif	Pre_Q = '010' then PreQ <= "110"
-			elsif	Pre_Q = '110' then PreQ <= "111"
-			elsif	Pre_Q = '111' then PreQ <= "101"
-			elsif	Pre_Q = '101' then PreQ <= "100"
+			elsif	Pre_Q = '110' then PreQ <= "100"
 			elsif	Pre_Q = '100' then PreQ <= "000";
             end if;
         end if;
