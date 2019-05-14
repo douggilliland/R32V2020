@@ -9,35 +9,35 @@ ENTITY MasterStateMachine IS PORT
 (
     clk 	: IN STD_LOGIC; -- clock.
     clr 	: IN STD_LOGIC; -- async. clear.
-    state   : OUT STD_LOGIC_LOGIC(5 downto 0) -- output.
+    state   : OUT STD_LOGIC_VECTOR(5 downto 0) -- output.
 );
 END MasterStateMachine;
 
-ARCHITECTURE description OF MasterStateMachine IS
+ARCHITECTURE rtl OF MasterStateMachine IS
 
 signal	Pre_Q	: STD_LOGIC_VECTOR (2 downto 0);
-signal	state	: STD_LOGIC_VECTOR (5 downto 0);
 
 BEGIN
-	if 		Pre_Q = '000' then state <= "000001"
-	elsif	Pre_Q = '001' then state <= "000010"
-	elsif	Pre_Q = '011' then state <= "000100"
-	elsif	Pre_Q = '010' then state <= "001000"
-	elsif	Pre_Q = '110' then state <= "010000"
-	elsif	Pre_Q = '100' then state <= "100000";
-    process(clk, clr, Pre_Q)
+    StateGen: process(clk, clr, Pre_Q)
     begin
         if clr = '1' then
             Pre_Q <= "000";
 			state <= "000001";
         elsif rising_edge(clk) then
-            if 		Pre_Q = '000' then PreQ <= "001"
-			elsif	Pre_Q = '001' then PreQ <= "011"
-			elsif	Pre_Q = '011' then PreQ <= "010"
-			elsif	Pre_Q = '010' then PreQ <= "110"
-			elsif	Pre_Q = '110' then PreQ <= "100"
-			elsif	Pre_Q = '100' then PreQ <= "000";
+            if 		Pre_Q = "000" then Pre_Q <= "001";
+			elsif	Pre_Q = "001" then Pre_Q <= "011";
+			elsif	Pre_Q = "011" then Pre_Q <= "010";
+			elsif	Pre_Q = "010" then Pre_Q <= "110";
+			elsif	Pre_Q = "110" then Pre_Q <= "100";
+			elsif	Pre_Q = "100" then Pre_Q <= "000";
             end if;
         end if;
+    state(0) <= (not Pre_Q(2)) and (not Pre_Q(1)) and (not Pre_Q(0));
+    state(1) <= (not Pre_Q(2)) and (not Pre_Q(1)) and (Pre_Q(0));
+    state(2) <= (not Pre_Q(2)) and (Pre_Q(1)) and (Pre_Q(0));
+    state(3) <= (not Pre_Q(2)) and (Pre_Q(1)) and (not Pre_Q(0));
+    state(4) <= (Pre_Q(2)) and (Pre_Q(1)) and (not Pre_Q(0));
+    state(5) <= (Pre_Q(2)) and (not Pre_Q(1)) and (not Pre_Q(0));
     end process;
-END description;
+        
+END rtl;
