@@ -3,19 +3,20 @@
 -- Uses a three-bit gray-code counter which is decoded for states
 -- States are 0>1>3>7>5>4
 -- clr resets the state machine and holds it in clear
+-- States are used as clock enables for various pipeline stages
 
 library ieee;
 use ieee.std_logic_1164.all;
 
-ENTITY MasterStateMachine IS PORT
+ENTITY OneHotStateMachine IS PORT
 (
     clk 	: IN STD_LOGIC; -- clock.
     clr 	: IN STD_LOGIC; -- async. clear.
     state   : OUT STD_LOGIC_VECTOR(5 downto 0) -- output.
 );
-END MasterStateMachine;
+END OneHotStateMachine;
 
-ARCHITECTURE rtl OF MasterStateMachine IS
+ARCHITECTURE rtl OF OneHotStateMachine IS
 
 signal	Pre_Q	: STD_LOGIC_VECTOR (5 downto 0);
 
@@ -32,8 +33,9 @@ BEGIN
 			elsif	Pre_Q = "000100" then Pre_Q <= "001000";	-- State(3) asserted next cycle
 			elsif	Pre_Q = "001000" then Pre_Q <= "010000";	-- State(4) asserted next cycle
 			elsif	Pre_Q = "010000" then Pre_Q <= "100000";	-- State(5) asserted next cycle
+			elsif	Pre_Q = "100000" then Pre_Q <= "000001";	-- State(5) asserted next cycle
             end if;
+			state <= Pre_Q;
         end if;
     end process;
-	state <= Pre_Q;
 END rtl;
