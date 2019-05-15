@@ -41,7 +41,7 @@ begin
 	ResetGen: process
 		begin
 			CLEAR <= '1';
-			wait for 20 NS;
+			wait for 40 NS;
 			CLEAR <= '0';
 			wait for 120 NS;
 			Stop <= TRUE;
