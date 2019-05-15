@@ -3,7 +3,7 @@
 -- Uses a three-bit gray-code counter which is decoded for states
 -- States are 0>1>3>7>5>4
 -- clr resets the state machine and holds it in clear
--- States are used as clock enables for various pipeline stages
+-- One-Hot-State bits are used as clock enables for the pipeline stages
 
 library ieee;
 use ieee.std_logic_1164.all;
