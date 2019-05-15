@@ -30,10 +30,10 @@ entity RegisterFile is
 		i_CCR							: in std_logic_vector(31 downto 0);
 		regDataOutA					: out std_logic_vector(31 downto 0);
 		regDataOutB					: out std_logic_vector(31 downto 0);
-		o_StackAddress				: buffer std_logic_vector(31 downto 0);
+		o_StackRamAddress				: buffer std_logic_vector(31 downto 0);
 		o_PeripheralAddress		: buffer std_logic_vector(31 downto 0);
-		o_DataAddress				: buffer std_logic_vector(31 downto 0);
-		o_InstructionAddress		: buffer std_logic_vector(31 downto 0);
+		o_DataRamAddress				: buffer std_logic_vector(31 downto 0);
+		o_InstructionRomAddress		: buffer std_logic_vector(31 downto 0);
 		o_CCR							: buffer std_logic_vector(31 downto 0)
 	);
 end RegisterFile;
@@ -46,8 +46,8 @@ architecture struct of RegisterFile is
 	signal CCR						: std_logic_vector(31 downto 0);
 --	signal o_StackAddress		: std_logic_vector(31 downto 0);
 --	signal o_PeripheralAddress	: std_logic_vector(31 downto 0);
---	signal o_DataAddress			: std_logic_vector(31 downto 0);
---	signal o_InstructionAddress	: std_logic_vector(31 downto 0);
+--	signal o_DataRamAddress			: std_logic_vector(31 downto 0);
+--	signal o_InstructionRomAddress	: std_logic_vector(31 downto 0);
 	signal regR8			: std_logic_vector(31 downto 0);
 	signal regR9			: std_logic_vector(31 downto 0);
 	signal regR10			: std_logic_vector(31 downto 0);
@@ -129,7 +129,7 @@ r4 : work.COUNT_32 PORT MAP(
     clk	=> clk,
     inc => '0',
     dec => '0',
-    q		=> o_StackAddress
+    q		=> o_StackRamAddress
 );
 
 r5 : work.COUNT_32 PORT MAP(
@@ -149,7 +149,7 @@ r6 : work.COUNT_32 PORT MAP(
     clk	=> clk,
     inc => '0',
     dec => '0',
-    q		=> o_DataAddress
+    q		=> o_DataRamAddress
 );
 
 r7 : work.COUNT_32 PORT MAP(
@@ -159,7 +159,7 @@ r7 : work.COUNT_32 PORT MAP(
     clk	=> clk,
     inc => '0',
     dec => '0',
-    q		=> o_InstructionAddress
+    q		=> o_InstructionRomAddress
 );
 
 r8 : work.REG_32 PORT MAP(
@@ -231,10 +231,10 @@ muxA : work.MUX_16x32 PORT MAP (
    r1 => regR1,
    r2 => regR2,
    r3 => CCR,
-   r4 => o_StackAddress,
+   r4 => o_StackRamAddress,
    r5 => o_PeripheralAddress,
-   r6 => o_DataAddress,
-   r7 => o_InstructionAddress,
+   r6 => o_DataRamAddress,
+   r7 => o_InstructionRomAddress,
    r8 => regR8,
    r9 => regR9,
    r10 => regR10,
@@ -252,10 +252,10 @@ muxB : work.MUX_16x32 PORT MAP (
    r1 => regR1,
    r2 => regR2,
    r3 => CCR,
-   r4 => o_StackAddress,
+   r4 => o_StackRamAddress,
    r5 => o_PeripheralAddress,
-   r6 => o_DataAddress,
-   r7 => o_InstructionAddress,
+   r6 => o_DataRamAddress,
+   r7 => o_InstructionRomAddress,
    r8 => regR8,
    r9 => regR9,
    r10 => regR10,

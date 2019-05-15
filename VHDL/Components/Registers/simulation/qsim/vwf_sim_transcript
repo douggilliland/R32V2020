@@ -1,0 +1,174 @@
+Determining the location of the ModelSim executable...
+
+Using: C:\intelFPGA\18.1\modelsim_ase\win32aloem
+
+To specify a ModelSim executable directory, select: Tools -> Options -> EDA Tool Options
+Note: if both ModelSim-Altera and ModelSim executables are available, ModelSim-Altera will be used.
+
+**** Generating the ModelSim Testbench ****
+
+quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off REG_32_LD_At_Reset -c REG_32_LD_At_Reset --vector_source="C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/Waveform.vwf" --testbench_file="C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim/Waveform.vwf.vht"
+
+Info: *******************************************************************
+Info: Running Quartus Prime EDA Netlist Writer
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Copyright (C) 2018  Intel Corporation. All rights reserved.
+    Info: Your use of Intel Corporation's design tools, logic functions 
+    Info: and other software and tools, and its AMPP partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Intel Program License 
+    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
+    Info: the Intel FPGA IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Intel and sold by Intel or its authorized distributors.  Please
+    Info: refer to the applicable agreement for further details.
+    Info: Processing started: Wed May 15 16:44:35 2019
+Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off REG_32_LD_At_Reset -c REG_32_LD_At_Reset --vector_source=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/Waveform.vwf --testbench_file=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim/Waveform.vwf.vht
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+
+es
+
+Completed successfully. 
+
+**** Generating the timing simulation netlist ****
+
+quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim/" REG_32_LD_At_Reset -c REG_32_LD_At_Reset
+
+Info: *******************************************************************
+Info: Running Quartus Prime EDA Netlist Writer
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Copyright (C) 2018  Intel Corporation. All rights reserved.
+    Info: Your use of Intel Corporation's design tools, logic functions 
+    Info: and other software and tools, and its AMPP partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Intel Program License 
+    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
+    Info: the Intel FPGA IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Intel and sold by Intel or its authorized distributors.  Please
+    Info: refer to the applicable agreement for further details.
+    Info: Processing started: Wed May 15 16:44:37 2019
+Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim/ REG_32_LD_At_Reset -c REG_32_LD_At_Reset
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (204019): Generated file REG_32_LD_At_Reset_6_1200mv_85c_slow.vho in folder "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file REG_32_LD_At_Reset_6_1200mv_0c_slow.vho in folder "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file REG_32_LD_At_Reset_min_1200mv_0c_fast.vho in folder "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file REG_32_LD_At_Reset.vho in folder "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file REG_32_LD_At_Reset_6_1200mv_85c_vhd_slow.sdo in folder "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file REG_32_LD_At_Reset_6_1200mv_0c_vhd_slow.sdo in folder "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file REG_32_LD_At_Reset_min_1200mv_0c_vhd_fast.sdo in folder "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file REG_32_LD_At_Reset_vhd.sdo in folder "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim//" for EDA simulation tool
+Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4661 megabytes
+    Info: Processing ended: Wed May 15 16:44:38 2019
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+Completed successfully. 
+
+**** Generating the ModelSim .do script ****
+
+C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim/REG_32_LD_At_Reset.do generated.
+
+Completed successfully. 
+
+**** Running the ModelSim simulation ****
+
+C:/intelFPGA/18.1/modelsim_ase/win32aloem/vsim -c -do REG_32_LD_At_Reset.do
+
+Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+
+# do REG_32_LD_At_Reset.do
+# ** Warning: (vlib-34) Library already exists at "work".
+
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:44:39 on May 15,2019
+# vcom -work work REG_32_LD_At_Reset.vho 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Compiling entity hard_block
+# -- Compiling architecture structure of hard_block
+# -- Loading package dffeas_pack
+# -- Loading package altera_primitives_components
+# -- Compiling entity REG_32_LD_At_Reset
+# -- Compiling architecture structure of REG_32_LD_At_Reset
+
+# End time: 16:44:39 on May 15,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:44:39 on May 15,2019
+# vcom -work work Waveform.vwf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity REG_32_LD_At_Reset_vhd_vec_tst
+# -- Compiling architecture REG_32_LD_At_Reset_arch of REG_32_LD_At_Reset_vhd_vec_tst
+
+# End time: 16:44:39 on May 15,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+
+# vsim -novopt -c -t 1ps -sdfmax REG_32_LD_At_Reset_vhd_vec_tst/i1=REG_32_LD_At_Reset_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.REG_32_LD_At_Reset_vhd_vec_tst 
+# Start time: 16:44:39 on May 15,2019
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.reg_32_ld_at_reset_vhd_vec_tst(reg_32_ld_at_reset_arch)
+# SDF 10.5b Compiler 2016.10 Oct  5 2016
+# 
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading altera.dffeas_pack
+# Loading altera.altera_primitives_components
+# Loading cycloneive.cycloneive_atom_pack(body)
+# Loading cycloneive.cycloneive_components
+# Loading work.reg_32_ld_at_reset(structure)
+# Loading work.hard_block(structure)
+# Loading ieee.std_logic_arith(body)
+# Loading cycloneive.cycloneive_io_obuf(arch)
+# Loading cycloneive.cycloneive_io_ibuf(arch)
+# Loading cycloneive.cycloneive_clkctrl(vital_clkctrl)
+# Loading cycloneive.cycloneive_ena_reg(behave)
+# Loading altera.dffeas(vital_dffeas)
+# Loading cycloneive.cycloneive_lcell_comb(vital_lcell_comb)
+# Loading instances from REG_32_LD_At_Reset_vhd.sdo
+# Loading timing data from REG_32_LD_At_Reset_vhd.sdo
+# ** Warning: Design size of 12105 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Instance: /reg_32_ld_at_reset_vhd_vec_tst File: Waveform.vwf.vht
+# after#35
+
+# End time: 16:44:40 on May 15,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 1
+
+Completed successfully. 
+
+**** Converting ModelSim VCD to vector waveform ****
+
+Reading C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/Waveform.vwf...
+
+Reading C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim/REG_32_LD_At_Reset.msim.vcd...
+
+Processing channel transitions... 
+
+Writing the resulting VWF to C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Registers/simulation/qsim/REG_32_LD_At_Reset_20190515164440.sim.vwf
+
+Finished VCD to VWF conversion.
+
+Completed successfully. 
+
+All completed.

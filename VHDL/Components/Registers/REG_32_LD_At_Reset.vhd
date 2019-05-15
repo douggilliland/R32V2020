@@ -18,7 +18,7 @@ BEGIN
     process(clk, clr)
     begin
         if clr = '1' then
-            q <= x"0";
+            q <= x"00000000";
         elsif rising_edge(clk) then
             if ld = '1' then
                 q <= d;

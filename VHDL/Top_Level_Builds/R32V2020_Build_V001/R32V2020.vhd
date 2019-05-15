@@ -108,6 +108,8 @@ signal	peripheralDataOut		: std_logic_vector(31 downto 0);
 signal	peripheralRdStrobe	: std_logic;
 signal	peripheralWrStrobe	: std_logic;
 
+signal	OneHotState				: std_logic_vector(5 downto 0);
+
 begin
 
 	clockGen : ENTITY work.VideoClk_SVGA_800x600
@@ -115,6 +117,14 @@ begin
 		areset	=> not n_reset,
 		inclk0	=> CLOCK_50,
 		c0			=> Video_Clk
+	);
+	
+	StateMachine : entity work.OneHotStateMachine
+	PORT map (
+		clk 	=> CLOCK_50,
+		clr 	=> not n_reset,
+		hold	=> '0',
+		state	=> OneHotState
 	);
 	
 	opcodeDecoder : entity work.OpCodeDecoder
