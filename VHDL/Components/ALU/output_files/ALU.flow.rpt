@@ -1,5 +1,5 @@
 Flow report for ALU
-Fri May 10 15:08:39 2019
+Thu May 16 07:48:37 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Fri May 10 15:08:39 2019       ;
+; Flow Status                        ; Successful - Thu May 16 07:48:37 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; ALU                                         ;
 ; Top-level Entity Name              ; ALU                                         ;
@@ -160,7 +160,12 @@ refer to the applicable agreement for further details.
 ; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 4676 MB             ; 00:00:02                           ;
 ; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4654 MB             ; 00:00:01                           ;
 ; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 4673 MB             ; 00:00:02                           ;
-; Total                ; 00:02:50     ; --                      ; --                  ; 00:02:40                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4650 MB             ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4654 MB             ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 4673 MB             ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4654 MB             ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 4673 MB             ; 00:00:01                           ;
+; Total                ; 00:02:57     ; --                      ; --                  ; 00:02:45                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -226,6 +231,11 @@ refer to the applicable agreement for further details.
 ; EDA Netlist Writer   ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; EDA Netlist Writer   ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; EDA Netlist Writer   ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -289,6 +299,11 @@ quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_f
 quartus_eda --write_settings_files=off --simulation=on --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
 quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform-2.vwf --testbench_file=C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ADD_AND_Waveform-2.vwf.vht
 quartus_eda --write_settings_files=off --simulation=on --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
+quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform-2.vwf --testbench_file=C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ADD_AND_Waveform-2.vwf.vht
+quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform-2.vwf --testbench_file=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ADD_AND_Waveform-2.vwf.vht
+quartus_eda --write_settings_files=off --simulation=on --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
+quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ALU -c ALU --vector_source=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/ALU/ADD_AND_Waveform-2.vwf --testbench_file=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ADD_AND_Waveform-2.vwf.vht
+quartus_eda --write_settings_files=off --simulation=on --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/ALU/simulation/qsim/ ALU -c ALU
 
 
 

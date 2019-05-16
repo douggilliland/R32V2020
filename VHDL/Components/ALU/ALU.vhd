@@ -36,12 +36,17 @@ signal w_CarrySet		: std_logic;
 signal w_CarryClear	: std_logic;
 signal w_EqualCmp		: std_logic;
 signal w_ALUResult	: std_logic_vector(31 downto 0);
+signal multResult	: std_logic_vector(63 downto 0);
+signal multResultLong : std_logic_vector(31 downto 0);
 
 begin
 
 o_ALUDataOut <= w_ALUResult;
+multResult <= i_regDataA * i_regDataB;
+multResultLong <= multResult(31 downto 0);
 
 w_ALUResult <=  (i_regDataA + i_regDataB) when i_Op_ADS = '1' else
+					multResultLong when i_Op_MUL = '1' else		-- added multiply
 					(i_regDataA and i_regDataB) when i_Op_ARS = '1' else
 					(i_regDataA or  i_regDataB) when i_Op_ORS  = '1' else
 					(i_regDataA xor i_regDataB) when i_Op_XRS = '1' else
