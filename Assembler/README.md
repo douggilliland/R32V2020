@@ -17,5 +17,4 @@ To run the "end-to-end" tests, from a bash prompt (e.g. Git BASH) run
 To run the unit tests, run `assemblerSpecs.py`
 
 ## Opcodes
-https://github.com/douggilliland/R32V2020/blob/master/Architecture/OpCodes/OpCodes.csv
-
+https://github.com/douggilliland/R32V2020/tree/master/Architecture/OpCodes
