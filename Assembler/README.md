@@ -2,7 +2,7 @@
 
 ## Running
 ```bash
-python assembler.py <path to assembly file> <path to output file>
+python assembler.py <path to assembly file> <path to instruction output file> <path to data output file>
 ```
 
 ## Adding/Updating Ops
