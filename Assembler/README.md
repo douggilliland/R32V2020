@@ -1,6 +1,6 @@
 # Assembler
 
-The assembler allows easy updates to the opcodes by reading the opcode table every time the assembler is run.
+The assembler allows easy updates to the opcodes by reading the opcode table every time the assembler itself is run.
 
 ## Running
 ```bash
