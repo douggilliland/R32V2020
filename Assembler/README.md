@@ -1,5 +1,7 @@
 # Assembler
 
+The assembler allows easy updates to the opcodes by reading the opcode table every time the assembler is run.
+
 ## Running
 ```bash
 python assembler.py <path to assembly file> <path to instruction output file> <path to data output file>
