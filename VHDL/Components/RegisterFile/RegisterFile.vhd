@@ -22,7 +22,7 @@ entity RegisterFile is
 	port (
 		clk							: in std_logic;
 		clear							: in std_logic;
-		wrStrobe						: in std_logic;
+		wrLdStrobe					: in std_logic;
 		wrRegSel						: in std_logic_vector(3 downto 0);
 		rdRegSelA					: in std_logic_vector(3 downto 0);
 		rdRegSelB					: in std_logic_vector(3 downto 0);
@@ -73,47 +73,51 @@ architecture struct of RegisterFile is
 	
 begin
 
-wrSelR3 <= '1' when ((wrRegSel = "0011") and (wrStrobe = '1')) else '0';
-wrSelR4 <= '1' when ((wrRegSel = "0100") and (wrStrobe = '1')) else '0';
-wrSelR5 <= '1' when ((wrRegSel = "0101") and (wrStrobe = '1')) else '0';
-wrSelR6 <= '1' when ((wrRegSel = "0110") and (wrStrobe = '1')) else '0';
-wrSelR7 <= '1' when ((wrRegSel = "0111") and (wrStrobe = '1')) else '0';
-wrSelR8 <= '1' when ((wrRegSel = "1000") and (wrStrobe = '1')) else '0';
-wrSelR9 <= '1' when ((wrRegSel = "1001") and (wrStrobe = '1')) else '0';
-wrSelR10 <= '1' when ((wrRegSel = "1010") and (wrStrobe = '1')) else '0';
-wrSelR11 <= '1' when ((wrRegSel = "1011") and (wrStrobe = '1')) else '0';
-wrSelR12 <= '1' when ((wrRegSel = "1100") and (wrStrobe = '1')) else '0';
-wrSelR13 <= '1' when ((wrRegSel = "1101") and (wrStrobe = '1')) else '0';
-wrSelR14 <= '1' when ((wrRegSel = "1110") and (wrStrobe = '1')) else '0';
-wrSelR15 <= '1' when ((wrRegSel = "1111") and (wrStrobe = '1')) else '0';
+wrSelR3 <= '1' when ((wrRegSel = "0011") and (wrLdStrobe = '1')) else '0';
+wrSelR4 <= '1' when ((wrRegSel = "0100") and (wrLdStrobe = '1')) else '0';
+wrSelR5 <= '1' when ((wrRegSel = "0101") and (wrLdStrobe = '1')) else '0';
+wrSelR6 <= '1' when ((wrRegSel = "0110") and (wrLdStrobe = '1')) else '0';
+wrSelR7 <= '1' when ((wrRegSel = "0111") and (wrLdStrobe = '1')) else '0';
+wrSelR8 <= '1' when ((wrRegSel = "1000") and (wrLdStrobe = '1')) else '0';
+wrSelR9 <= '1' when ((wrRegSel = "1001") and (wrLdStrobe = '1')) else '0';
+wrSelR10 <= '1' when ((wrRegSel = "1010") and (wrLdStrobe = '1')) else '0';
+wrSelR11 <= '1' when ((wrRegSel = "1011") and (wrLdStrobe = '1')) else '0';
+wrSelR12 <= '1' when ((wrRegSel = "1100") and (wrLdStrobe = '1')) else '0';
+wrSelR13 <= '1' when ((wrRegSel = "1101") and (wrLdStrobe = '1')) else '0';
+wrSelR14 <= '1' when ((wrRegSel = "1110") and (wrLdStrobe = '1')) else '0';
+wrSelR15 <= '1' when ((wrRegSel = "1111") and (wrLdStrobe = '1')) else '0';
 
+-- r0=zero
 r0 : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
     ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
-	 constVal => x"00000000",	-- r0=zero
+	 constVal => x"00000000",
     q		=> regR0
 );
 
+-- r1=1
 r1 : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
     ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
-	 constVal => x"00000001",	-- r1=1
+	 constVal => x"00000001",
     q		=> regR1
 );
 
+-- r2=-1
 r2 : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
     ld 	=> '0',
     clr 	=> clear,
     clk	=> clk,
-	 constVal => x"FFFFFFFF",	-- r2=-1
+	 constVal => x"FFFFFFFF",
     q		=> regR2
 );
 
+-- r4 = Condition Code Register
 r3 : work.REG_32 PORT MAP(
     d 	=> i_CCR,
     ld 	=> wrSelR3,
@@ -122,6 +126,7 @@ r3 : work.REG_32 PORT MAP(
     q		=> o_CCR
 );
 
+-- r4 = Stack RAM Address
 r4 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR4,
@@ -132,6 +137,7 @@ r4 : work.COUNT_32 PORT MAP(
     q		=> o_StackRamAddress
 );
 
+-- r5 = Peripheral Address
 r5 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR5,
@@ -142,6 +148,7 @@ r5 : work.COUNT_32 PORT MAP(
     q		=> o_PeripheralAddress
 );
 
+-- r6 = Data RAM Address
 r6 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR6,
@@ -152,16 +159,18 @@ r6 : work.COUNT_32 PORT MAP(
     q		=> o_DataRamAddress
 );
 
+-- r7 = Program Counter (Instruction RAM Address)
 r7 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR7,
     clr 	=> clear,
     clk	=> clk,
-    inc => '0',
+    inc => wrLdStrobe,
     dec => '0',
     q		=> o_InstructionRomAddress
 );
 
+-- r8-r15 = General Purpose Registers
 r8 : work.REG_32 PORT MAP(
     d 	=> regDataIn,
     ld 	=> wrSelR8,

@@ -16,12 +16,6 @@ entity Loadable_7S4D_LED is
 end Loadable_7S4D_LED;
 
 architecture Behavioral of Loadable_7S4D_LED is
-signal one_second_counter: STD_LOGIC_VECTOR (27 downto 0);
--- counter for generating 1-second clock enable
-signal one_second_enable: std_logic;
--- one second enable for counting numbers
---signal displayed_number: STD_LOGIC_VECTOR (15 downto 0);
--- counting decimal number to be displayed on 4-digit 7-segment display
 signal LED_BCD: STD_LOGIC_VECTOR (3 downto 0);
 signal refresh_counter: STD_LOGIC_VECTOR (19 downto 0);
 -- creating 10.5ms refresh period
@@ -91,29 +85,5 @@ begin
         -- the fourth hex digit of the 16-bit number    
     end case;
 end process;
--- Counting the number to be displayed on 4-digit 7-segment Display 
--- on Basys 3 FPGA board
-process(clock_50Mhz, reset)
-begin
-        if(reset='1') then
-            one_second_counter <= (others => '0');
-        elsif(rising_edge(clock_50Mhz)) then
-            if(one_second_counter>=x"2FAF07F") then
-                one_second_counter <= (others => '0');
-            else
-                one_second_counter <= one_second_counter + "0000001";
-            end if;
-        end if;
-end process;
-one_second_enable <= '1' when one_second_counter=x"2FAF07F" else '0';
---process(clock_50Mhz, reset)
---begin
---        if(reset='1') then
---            displayed_number <= (others => '0');
---        elsif(rising_edge(clock_50Mhz)) then
---             if(one_second_enable='1') then
---                displayed_number <= displayed_number + x"0001";
---             end if;
---        end if;
---end process;
+
 end Behavioral;

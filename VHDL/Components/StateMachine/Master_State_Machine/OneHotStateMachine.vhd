@@ -1,3 +1,4 @@
+-----------------------------------------------------------------------
 -- Master State Machine for the R32V2020 CPU
 -- State Machine implements a 6-bit, 1 hot state machine
 -- Uses a three-bit gray-code counter which is decoded for states
@@ -10,9 +11,9 @@ use ieee.std_logic_1164.all;
 
 ENTITY OneHotStateMachine IS PORT
 (
-    clk 	: IN STD_LOGIC := '0'; -- clock.
-    clr 	: IN STD_LOGIC := '0'; -- async. clear.
-	 hold	: IN STD_LOGIC := '0';
+    clk 		: IN STD_LOGIC := '0'; -- clock.
+    clr 		: IN STD_LOGIC := '0'; -- async. clear.
+	 hold		: IN STD_LOGIC := '0';
     state   : OUT STD_LOGIC_VECTOR(5 downto 0)  := "000000" -- output.
 );
 END OneHotStateMachine;

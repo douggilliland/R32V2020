@@ -26,10 +26,10 @@ BEGIN
         elsif rising_edge(clk) then
             if ld = '1' then
                 Pre_Q <= d;
-			elsif inc = '1' then	
-				Pre_Q <= Pre_Q + 1;
-			elsif dec = '1' then
-				Pre_Q <= Pre_Q - 1;
+				elsif inc = '1' then	
+					Pre_Q <= Pre_Q + 1;
+				elsif dec = '1' then
+					Pre_Q <= Pre_Q - 1;
             end if;
         end if;
     end process;

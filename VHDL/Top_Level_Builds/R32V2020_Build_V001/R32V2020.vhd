@@ -88,8 +88,10 @@ signal	CCR			: std_logic_vector(31 downto 0);
 signal	writeRegFileStrobe	: std_logic;
 signal	dataIntoRegisterFile	: std_logic_vector(31 downto 0);
 
-signal	InstructionRomAddress	: std_logic_vector(31 downto 0);
-signal	InstructionRomData					: std_logic_vector(31 downto 0);
+--signal	InstructionRomAddress	: std_logic_vector(31 downto 0);
+signal	o_InstructionRomAddress	: std_logic_vector(31 downto 0);
+signal	InstructionRomData		: std_logic_vector(31 downto 0);
+signal	q_InstructionRomData		: std_logic_vector(31 downto 0);
 
 signal	StackRamAddress	: std_logic_vector(31 downto 0);
 signal	dataToStackRam			: std_logic_vector(31 downto 0);
@@ -101,6 +103,8 @@ signal	dataToDataRam				: std_logic_vector(31 downto 0);
 signal	dataRamWriteAddress		: std_logic_vector(31 downto 0);
 signal	writeToDataRamEnable		: std_logic;
 signal	dataFromDataRam			: std_logic_vector(31 downto 0);
+
+signal	q_displayed_number		: std_logic_vector(15 downto 0);
 
 signal	peripheralAddress		: std_logic_vector(31 downto 0);
 signal	peripheralDataIn		: std_logic_vector(31 downto 0);
@@ -123,16 +127,34 @@ begin
 	PORT map (
 		clk 	=> CLOCK_50,
 		clr 	=> not n_reset,
-		hold	=> '0',
+		hold	=> OneHotState(4) and Op_HCF and not n_reset,
 		state	=> OneHotState
+	);
+	
+	SevenSegDisplay : entity work.Loadable_7S4D_LED
+    Port map ( 
+		clock_50Mhz 		=> CLOCK_50,
+      reset					=> not n_reset,
+		displayed_number	=> q_displayed_number,
+      Anode_Activate		=> Anode_Activate,
+      LED_out 				=> LED_out		-- Cathode patterns of 7-segment display
+	);
+
+	SevenSegmentDisplayLatch : ENTITY work.REG_16
+	PORT MAP (
+    d   	=> InstructionRomData(31 downto 24)&o_InstructionRomAddress(7 downto 0),
+    ld  	=> OneHotState(4),
+    clr 	=> not n_reset,
+    clk 	=> CLOCK_50,
+    q		=> q_displayed_number
 	);
 	
 	opcodeDecoder : entity work.OpCodeDecoder
 	port map (
-		InstrOpCode => InstructionRomData(31 downto 24),
+		InstrOpCode => q_InstructionRomData(31 downto 24),
 		-- Category = System
-		Op_HCF => Op_HCF,
 		Op_NOP => Op_NOP,
+		Op_HCF => Op_HCF,
 		Op_RES => Op_RES,
 		-- Category = ALU
 		Op_ADS => Op_ADS,
@@ -196,9 +218,19 @@ begin
 
 	Instr_ROM : ENTITY work.BlockRom_Instruction
 	PORT MAP (
-		address => InstructionRomAddress(7 downto 0),
-		clock => CLOCK_50,
-		q => InstructionRomData
+		address				=> o_InstructionRomAddress(7 downto 0),
+		clken					=> OneHotState(5),
+		clock 				=> CLOCK_50,
+		q 						=> InstructionRomData
+	);
+	
+	InstructionROMDataOutputLatch : ENTITY work.REG_32
+	PORT MAP (
+    d   	=> InstructionRomData,
+    ld  	=> OneHotState(1),
+    clr 	=> '0',
+    clk 	=> CLOCK_50,
+    q		=> q_InstructionRomData
 	);
 
 	Stack_RAM : ENTITY work.BlockRam_Stack
@@ -219,24 +251,30 @@ begin
 		wren => writeToDataRamEnable,
 		q => dataFromDataRam
 	);
+	
+	dataIntoRegisterFile <= 
+		dataFromDataRam when ((Op_LDB = '1') or (Op_LDS = '1') or (Op_LPL = '1')) else
+		dataFromStackRam when (Op_PUS = '1') else
+		peripheralDataIn when ((Op_LPB = '1') or (Op_LPS = '1') or (Op_LPL = '1')) else
+		ALUDataOut;
 
 	RegisterFile : entity work.RegisterFile
 	port map (
 		clk			=> CLOCK_50,
 		clear			=> not n_reset,
-		wrStrobe		=> writeRegFileStrobe,
+		wrLdStrobe	=> OneHotState(4),
 		wrRegSel		=> InstructionRomData(23 downto 20),
 		rdRegSelA	=> InstructionRomData(15 downto 12),
 		rdRegSelB	=> InstructionRomData(19 downto 16),
 		regDataIn	=> dataIntoRegisterFile,
 		regDataOutA	=> regDataA,
 		regDataOutB	=> regDataB,
-		i_CCR						=> CondCodeBits,
+		i_CCR							=> CondCodeBits,
 		o_StackRamAddress			=> StackRamAddress,
-		o_PeripheralAddress	=> PeripheralAddress,
+		o_PeripheralAddress		=> PeripheralAddress,
 		o_DataRamAddress			=> DataRamAddress,
-		o_InstructionRomAddress	=> InstructionRomAddress,
-		o_CCR						=> CCR
+		o_InstructionRomAddress	=> o_InstructionRomAddress,
+		o_CCR							=> CCR
 	);
 
 	Peripherals : entity work.PeripheralInterface

@@ -68,8 +68,8 @@ signal	FlowCtl_OpCode	: std_logic;
 begin
 
 -- System Opcodes
-Op_HCF <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = "00000")) else '0';
-Op_NOP <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = "00001")) else '0';
+Op_NOP <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = "00000")) else '0';
+Op_HCF <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = "00001")) else '0';
 Op_RES <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = "00010")) else '0';
 
 -- ALU Opcodes - Arithmetic
