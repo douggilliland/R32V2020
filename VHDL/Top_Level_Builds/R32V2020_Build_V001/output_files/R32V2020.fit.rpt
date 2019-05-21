@@ -1,5 +1,5 @@
 Fitter report for R32V2020
-Mon May 20 13:08:41 2019
+Mon May 20 21:05:12 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -72,7 +72,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Mon May 20 13:08:41 2019       ;
+; Fitter Status                      ; Successful - Mon May 20 21:05:11 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020                                    ;
@@ -160,14 +160,14 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.11        ;
+; Average used               ; 1.10        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   4.0%      ;
-;     Processor 3            ;   3.8%      ;
-;     Processor 4            ;   3.7%      ;
+;     Processor 2            ;   3.3%      ;
+;     Processor 3            ;   3.2%      ;
+;     Processor 4            ;   3.1%      ;
 +----------------------------+-------------+
 
 
@@ -228,7 +228,7 @@ refer to the applicable agreement for further details.
 +--------------+
 ; Pin-Out File ;
 +--------------+
-The pin-out file can be found in C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/output_files/R32V2020.pin.
+The pin-out file can be found in C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/output_files/R32V2020.pin.
 
 
 +-------------------------------------------------------------------------+
@@ -1439,8 +1439,8 @@ Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (119006): Selected device EP4CE6E22C8 for design "R32V2020"
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
-Info (15535): Implemented PLL "VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|pll1" as Cyclone IV E PLL type File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v Line: 46
-    Info (15099): Implementing clock multiplication of 64, clock division of 125, and phase shift of 0 degrees (0 ps) for VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] port File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v Line: 46
+Info (15535): Implemented PLL "VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|pll1" as Cyclone IV E PLL type File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v Line: 46
+    Info (15099): Implementing clock multiplication of 64, clock division of 125, and phase shift of 0 degrees (0 ps) for VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] port File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v Line: 46
 Warning (18550): Found RAM instances implemented as ROM because the write logic is disabled. One instance is listed below as an example.
     Info (119043): Atom "PeripheralInterface:Peripherals|Mem_Mapped_SVGA:SVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_b0q3:auto_generated|ram_block1a2" is instantiated as RAM, but it is actually implemented as ROM function because the write logic is always disabled
 Info (171003): Fitter is performing an Auto Fit compilation, which may decrease Fitter effort to reduce compilation time
@@ -1477,15 +1477,15 @@ Info (332111): Found 1 clocks
     Info (332111):   Period   Clock Name
     Info (332111): ======== ============
     Info (332111):  100.000 altera_reserved_tck
-Info (176353): Automatically promoted node CLOCK_50~input (placed in PIN 24 (CLK2, DIFFCLK_1p)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 11
+Info (176353): Automatically promoted node CLOCK_50~input (placed in PIN 24 (CLK2, DIFFCLK_1p)) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 11
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G4
-Info (176353): Automatically promoted node VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] (placed in counter C0 of PLL_1) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v Line: 80
+Info (176353): Automatically promoted node VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] (placed in counter C0 of PLL_1) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v Line: 80
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G3
 Info (176353): Automatically promoted node altera_internal_jtag~TCKUTAP 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node ALU:ALU|w_ALUResult[31]~12  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 48
+Info (176353): Automatically promoted node ALU:ALU|w_ALUResult[31]~12  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 48
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node n_reset~input (placed in PIN 89 (CLK6, DIFFCLK_3p)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 10
+Info (176353): Automatically promoted node n_reset~input (placed in PIN 89 (CLK6, DIFFCLK_3p)) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 10
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G9
 Info (176353): Automatically promoted node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|reset_all  File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_signaltap_impl.vhd Line: 882
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
@@ -1517,7 +1517,7 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "switch1" is assigned to location or region, but does not exist in design
     Warning (15706): Node "switch2" is assigned to location or region, but does not exist in design
     Warning (15706): Node "txd" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:02
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:03
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
@@ -1530,31 +1530,31 @@ Info (170195): Router estimated average interconnect usage is 7% of the availabl
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
-Info (11888): Total time spent on timing analysis during the Fitter is 0.56 seconds.
+Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
+Info (11888): Total time spent on timing analysis during the Fitter is 0.92 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:01
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:03
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 5 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin ps2Clk uses I/O standard 3.3-V LVTTL at 99 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 33
-    Info (169178): Pin ps2Data uses I/O standard 3.3-V LVTTL at 98 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 34
-    Info (169178): Pin CLOCK_50 uses I/O standard 3.3-V LVCMOS at 24 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 11
-    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at 89 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 10
-    Info (169178): Pin SerRxd uses I/O standard 3.3-V LVCMOS at 129 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 24
-Info (144001): Generated suppressed messages file C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/output_files/R32V2020.fit.smsg
+    Info (169178): Pin ps2Clk uses I/O standard 3.3-V LVTTL at 99 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 33
+    Info (169178): Pin ps2Data uses I/O standard 3.3-V LVTTL at 98 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 34
+    Info (169178): Pin CLOCK_50 uses I/O standard 3.3-V LVCMOS at 24 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 11
+    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at 89 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 10
+    Info (169178): Pin SerRxd uses I/O standard 3.3-V LVCMOS at 129 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 24
+Info (144001): Generated suppressed messages file C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/output_files/R32V2020.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 23 warnings
-    Info: Peak virtual memory: 5576 megabytes
-    Info: Processing ended: Mon May 20 13:08:42 2019
-    Info: Elapsed time: 00:00:11
-    Info: Total CPU time (on all processors): 00:00:14
+    Info: Peak virtual memory: 5559 megabytes
+    Info: Processing ended: Mon May 20 21:05:14 2019
+    Info: Elapsed time: 00:00:20
+    Info: Total CPU time (on all processors): 00:00:20
 
 
 +----------------------------+
 ; Fitter Suppressed Messages ;
 +----------------------------+
-The suppressed messages can be found in C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/output_files/R32V2020.fit.smsg.
+The suppressed messages can be found in C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/output_files/R32V2020.fit.smsg.
 
 
