@@ -218,10 +218,10 @@ begin
 
 	Instr_ROM : ENTITY work.BlockRom_Instruction
 	PORT MAP (
-		address				=> o_InstructionRomAddress(7 downto 0),
-		clken					=> OneHotState(5),
-		clock 				=> CLOCK_50,
-		q 						=> InstructionRomData
+		address		=> o_InstructionRomAddress(7 downto 0),
+		clken			=> OneHotState(5),
+		clock 		=> CLOCK_50,
+		q 				=> InstructionRomData
 	);
 	
 	InstructionROMDataOutputLatch : ENTITY work.REG_32
@@ -260,15 +260,15 @@ begin
 
 	RegisterFile : entity work.RegisterFile
 	port map (
-		clk			=> CLOCK_50,
-		clear			=> not n_reset,
-		wrLdStrobe	=> OneHotState(4),
-		wrRegSel		=> InstructionRomData(23 downto 20),
-		rdRegSelA	=> InstructionRomData(15 downto 12),
-		rdRegSelB	=> InstructionRomData(19 downto 16),
-		regDataIn	=> dataIntoRegisterFile,
-		regDataOutA	=> regDataA,
-		regDataOutB	=> regDataB,
+		clk							=> CLOCK_50,
+		clear							=> not n_reset,
+		enable						=> OneHotState(4),
+		wrRegSel						=> InstructionRomData(23 downto 20),
+		rdRegSelA					=> InstructionRomData(15 downto 12),
+		rdRegSelB					=> InstructionRomData(19 downto 16),
+		regDataIn					=> dataIntoRegisterFile,
+		regDataOutA					=> regDataA,
+		regDataOutB					=> regDataB,
 		i_CCR							=> CondCodeBits,
 		o_StackRamAddress			=> StackRamAddress,
 		o_PeripheralAddress		=> PeripheralAddress,
@@ -279,7 +279,7 @@ begin
 
 	Peripherals : entity work.PeripheralInterface
 	port MAP (
-		n_reset					=> n_reset,
+		n_reset					=>  n_reset,
 		CLOCK_50					=> CLOCK_50,
 		Video_Clk				=> Video_Clk,
 		peripheralAddress		=> peripheralAddress,

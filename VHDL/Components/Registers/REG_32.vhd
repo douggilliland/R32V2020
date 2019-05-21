@@ -4,10 +4,10 @@ use  IEEE.STD_LOGIC_ARITH.all;
 use  IEEE.STD_LOGIC_UNSIGNED.all;
 
 ENTITY REG_32 IS PORT(
+    clk : IN STD_LOGIC; -- clock.
+    clr : IN STD_LOGIC; -- async. clear.
     d   : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     ld  : IN STD_LOGIC; -- load/enable.
-    clr : IN STD_LOGIC; -- async. clear.
-    clk : IN STD_LOGIC; -- clock.
     q   : OUT STD_LOGIC_VECTOR(31 DOWNTO 0) -- output
 );
 END REG_32;

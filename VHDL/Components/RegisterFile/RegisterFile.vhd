@@ -22,7 +22,7 @@ entity RegisterFile is
 	port (
 		clk							: in std_logic;
 		clear							: in std_logic;
-		wrLdStrobe					: in std_logic;
+		enable						: in std_logic;
 		wrRegSel						: in std_logic_vector(3 downto 0);
 		rdRegSelA					: in std_logic_vector(3 downto 0);
 		rdRegSelB					: in std_logic_vector(3 downto 0);
@@ -73,19 +73,19 @@ architecture struct of RegisterFile is
 	
 begin
 
-wrSelR3 <= '1' when ((wrRegSel = "0011") and (wrLdStrobe = '1')) else '0';
-wrSelR4 <= '1' when ((wrRegSel = "0100") and (wrLdStrobe = '1')) else '0';
-wrSelR5 <= '1' when ((wrRegSel = "0101") and (wrLdStrobe = '1')) else '0';
-wrSelR6 <= '1' when ((wrRegSel = "0110") and (wrLdStrobe = '1')) else '0';
-wrSelR7 <= '1' when ((wrRegSel = "0111") and (wrLdStrobe = '1')) else '0';
-wrSelR8 <= '1' when ((wrRegSel = "1000") and (wrLdStrobe = '1')) else '0';
-wrSelR9 <= '1' when ((wrRegSel = "1001") and (wrLdStrobe = '1')) else '0';
-wrSelR10 <= '1' when ((wrRegSel = "1010") and (wrLdStrobe = '1')) else '0';
-wrSelR11 <= '1' when ((wrRegSel = "1011") and (wrLdStrobe = '1')) else '0';
-wrSelR12 <= '1' when ((wrRegSel = "1100") and (wrLdStrobe = '1')) else '0';
-wrSelR13 <= '1' when ((wrRegSel = "1101") and (wrLdStrobe = '1')) else '0';
-wrSelR14 <= '1' when ((wrRegSel = "1110") and (wrLdStrobe = '1')) else '0';
-wrSelR15 <= '1' when ((wrRegSel = "1111") and (wrLdStrobe = '1')) else '0';
+wrSelR3 <= '1' when (wrRegSel = "0011") else '0';
+wrSelR4 <= '1' when (wrRegSel = "0100") else '0';
+wrSelR5 <= '1' when (wrRegSel = "0101") else '0';
+wrSelR6 <= '1' when (wrRegSel = "0110") else '0';
+wrSelR7 <= '1' when (wrRegSel = "0111") else '0';
+wrSelR8 <= '1' when (wrRegSel = "1000") else '0';
+wrSelR9 <= '1' when (wrRegSel = "1001") else '0';
+wrSelR10 <= '1' when (wrRegSel = "1010") else '0';
+wrSelR11 <= '1' when (wrRegSel = "1011") else '0';
+wrSelR12 <= '1' when (wrRegSel = "1100") else '0';
+wrSelR13 <= '1' when (wrRegSel = "1101") else '0';
+wrSelR14 <= '1' when (wrRegSel = "1110") else '0';
+wrSelR15 <= '1' when (wrRegSel = "1111") else '0';
 
 -- r0=zero
 r0 : work.REG_32_CONSTANT PORT MAP(
@@ -120,7 +120,7 @@ r2 : work.REG_32_CONSTANT PORT MAP(
 -- r4 = Condition Code Register
 r3 : work.REG_32 PORT MAP(
     d 	=> i_CCR,
-    ld 	=> wrSelR3,
+    ld 	=> enable,
     clr 	=> clear,
     clk	=> clk,
     q		=> o_CCR
@@ -128,30 +128,30 @@ r3 : work.REG_32 PORT MAP(
 
 -- r4 = Stack RAM Address
 r4 : work.COUNT_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR4,
-    clr 	=> clear,
-    clk	=> clk,
-    inc => '0',
-    dec => '0',
-    q		=> o_StackRamAddress
+    clk		=> clk,
+    clr 		=> clear,
+    d 		=> regDataIn,
+    enable	=> wrSelR4,
+    inc		=> '0',
+    dec		=> '0',
+    q			=> o_StackRamAddress
 );
 
 -- r5 = Peripheral Address
 r5 : work.COUNT_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR5,
-    clr 	=> clear,
-    clk	=> clk,
-    inc => '0',
-    dec => '0',
-    q		=> o_PeripheralAddress
+    clk		=> clk,
+    clr 		=> clear,
+    d 		=> regDataIn,
+    enable	=> wrSelR5,
+    inc 		=> '0',
+    dec 		=> '0',
+    q			=> o_PeripheralAddress
 );
 
 -- r6 = Data RAM Address
 r6 : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
-    ld 	=> wrSelR6,
+    enable 	=> wrSelR6,
     clr 	=> clear,
     clk	=> clk,
     inc => '0',
@@ -161,77 +161,77 @@ r6 : work.COUNT_32 PORT MAP(
 
 -- r7 = Program Counter (Instruction RAM Address)
 r7 : work.COUNT_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR7,
-    clr 	=> clear,
-    clk	=> clk,
-    inc => wrLdStrobe,
-    dec => '0',
-    q		=> o_InstructionRomAddress
+    clk		=> clk,
+    clr 		=> clear,
+    d 		=> regDataIn,
+    enable 	=> enable,
+    inc 		=> not wrSelR7,
+    dec 		=> '0',
+    q			=> o_InstructionRomAddress
 );
 
 -- r8-r15 = General Purpose Registers
 r8 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR8,
-    clr 	=> clear,
     clk	=> clk,
+    clr	=> clear,
+    d 	=> regDataIn,
+    ld 	=> wrSelR8 and enable,
     q		=> regR8
 );
 
 r9 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR9,
-    clr 	=> clear,
     clk	=> clk,
+    clr 	=> clear,
+    d 	=> regDataIn,
+    ld 	=> wrSelR9 and enable,
     q		=> regR9
 );
 
 r10 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR10,
-    clr 	=> clear,
     clk	=> clk,
+    clr 	=> clear,
+    d 	=> regDataIn,
+    ld 	=> wrSelR10 and enable,
     q		=> regR10
 );
 
 r11 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR11,
-    clr 	=> clear,
     clk	=> clk,
+    clr 	=> clear,
+    d 	=> regDataIn,
+    ld 	=> wrSelR11 and enable,
     q		=> regR11
 );
 
 r12 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR12,
-    clr 	=> clear,
     clk	=> clk,
+    clr 	=> clear,
+    d 	=> regDataIn,
+    ld 	=> wrSelR12 and enable,
     q		=> regR12
 );
 
 r13 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR13,
-    clr 	=> clear,
     clk	=> clk,
+    clr 	=> clear,
+    d 	=> regDataIn,
+    ld 	=> wrSelR13 and enable,
     q		=> regR13
 );
 
 r14 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR14,
-    clr 	=> clear,
     clk	=> clk,
+    clr 	=> clear,
+    d 	=> regDataIn,
+    ld 	=> wrSelR14 and enable,
     q		=> regR14
 );
 
 r15 : work.REG_32 PORT MAP(
-    d 	=> regDataIn,
-    ld 	=> wrSelR15,
-    clr 	=> clear,
     clk	=> clk,
+    clr 	=> clear,
+    d 	=> regDataIn,
+    ld 	=> wrSelR15 and enable,
     q		=> regR15
 );
 
