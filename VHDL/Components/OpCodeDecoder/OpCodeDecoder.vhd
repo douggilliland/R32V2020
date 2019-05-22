@@ -9,8 +9,8 @@ entity OpCodeDecoder is
 	port (
 		InstrOpCode	: in std_logic_vector(7 downto 0);
 		-- Category = System
-		Op_HCF		: out std_logic;	-- Halt and Catch Fire
 		Op_NOP		: out std_logic;	-- No Operation
+		Op_HCF		: out std_logic;	-- Halt and Catch Fire
 		Op_RES		: out std_logic;	-- Reset CPU
 		-- Category = ALU
 		Op_ADS		: out std_logic;	-- Add and store in reg
@@ -86,7 +86,7 @@ Op_LR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "10010")) el
 Op_RR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "10011")) else '0';
 Op_RA1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "10100")) else '0';
 -- ALU Opcodes - Endian
-Op_ENS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = x"18")) else '0';
+Op_ENS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "11000")) else '0';
 -- Immediate Opcodes
 Op_LIL <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = "00000")) else '0';
 Op_LIU <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = "00001")) else '0';

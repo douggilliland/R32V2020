@@ -37,8 +37,8 @@ end R32V2020;
 
 architecture struct of R32V2020 is
 
-signal	Op_HCF : std_logic;		-- Halt and Catch Fire
 signal	Op_NOP : std_logic;		-- No operation
+signal	Op_HCF : std_logic;		-- Halt and Catch Fire
 signal	Op_RES : std_logic;		-- Reset CPU
 signal	Op_ADS : std_logic;		-- Add 2 regs and store in 3rd
 signal	Op_CMP : std_logic;		-- Compare 2 regs and set cond codes
@@ -114,7 +114,11 @@ signal	peripheralWrStrobe	: std_logic;
 
 signal	OneHotState				: std_logic_vector(5 downto 0);
 
+signal	holdHaltCatchFire		: std_logic;
+
 begin
+
+	holdHaltCatchFire	<= '1' when OneHotState(3) = '1' and Op_HCF = '1' and n_reset = '1' else '0';
 
 	clockGen : ENTITY work.VideoClk_SVGA_800x600
 	PORT map 	(
@@ -127,7 +131,7 @@ begin
 	PORT map (
 		clk 	=> CLOCK_50,
 		clr 	=> not n_reset,
-		hold	=> OneHotState(4) and Op_HCF and not n_reset,
+		hold	=> holdHaltCatchFire,
 		state	=> OneHotState
 	);
 	
@@ -218,17 +222,17 @@ begin
 
 	Instr_ROM : ENTITY work.BlockRom_Instruction
 	PORT MAP (
-		address				=> o_InstructionRomAddress(7 downto 0),
-		clken					=> OneHotState(5),
-		clock 				=> CLOCK_50,
-		q 						=> InstructionRomData
+		address		=> o_InstructionRomAddress(7 downto 0),
+		clken			=> OneHotState(5),
+		clock 		=> CLOCK_50,
+		q 				=> InstructionRomData
 	);
 	
 	InstructionROMDataOutputLatch : ENTITY work.REG_32
 	PORT MAP (
     d   	=> InstructionRomData,
     ld  	=> OneHotState(1),
-    clr 	=> '0',
+    clr 	=> not n_reset,
     clk 	=> CLOCK_50,
     q		=> q_InstructionRomData
 	);
@@ -260,15 +264,15 @@ begin
 
 	RegisterFile : entity work.RegisterFile
 	port map (
-		clk			=> CLOCK_50,
-		clear			=> not n_reset,
-		wrLdStrobe	=> OneHotState(4),
-		wrRegSel		=> InstructionRomData(23 downto 20),
-		rdRegSelA	=> InstructionRomData(15 downto 12),
-		rdRegSelB	=> InstructionRomData(19 downto 16),
-		regDataIn	=> dataIntoRegisterFile,
-		regDataOutA	=> regDataA,
-		regDataOutB	=> regDataB,
+		clk							=> CLOCK_50,
+		clear							=> not n_reset,
+		enable						=> OneHotState(4),
+		wrRegSel						=> InstructionRomData(23 downto 20),
+		rdRegSelA					=> InstructionRomData(15 downto 12),
+		rdRegSelB					=> InstructionRomData(19 downto 16),
+		regDataIn					=> dataIntoRegisterFile,
+		regDataOutA					=> regDataA,
+		regDataOutB					=> regDataB,
 		i_CCR							=> CondCodeBits,
 		o_StackRamAddress			=> StackRamAddress,
 		o_PeripheralAddress		=> PeripheralAddress,
@@ -279,7 +283,7 @@ begin
 
 	Peripherals : entity work.PeripheralInterface
 	port MAP (
-		n_reset					=> n_reset,
+		n_reset					=>  n_reset,
 		CLOCK_50					=> CLOCK_50,
 		Video_Clk				=> Video_Clk,
 		peripheralAddress		=> peripheralAddress,
