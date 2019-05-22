@@ -40,14 +40,10 @@ end RegisterFile;
 
 architecture struct of RegisterFile is
 
-	signal regR0					: std_logic_vector(31 downto 0);
-	signal regR1					: std_logic_vector(31 downto 0);
-	signal regR2					: std_logic_vector(31 downto 0);
-	signal CCR						: std_logic_vector(31 downto 0);
---	signal o_StackAddress		: std_logic_vector(31 downto 0);
---	signal o_PeripheralAddress	: std_logic_vector(31 downto 0);
---	signal o_DataRamAddress			: std_logic_vector(31 downto 0);
---	signal o_InstructionRomAddress	: std_logic_vector(31 downto 0);
+	signal regR0			: std_logic_vector(31 downto 0);
+	signal regR1			: std_logic_vector(31 downto 0);
+	signal regR2			: std_logic_vector(31 downto 0);
+	signal CCR				: std_logic_vector(31 downto 0);
 	signal regR8			: std_logic_vector(31 downto 0);
 	signal regR9			: std_logic_vector(31 downto 0);
 	signal regR10			: std_logic_vector(31 downto 0);
@@ -88,7 +84,7 @@ wrSelR14 <= '1' when (wrRegSel = "1110") else '0';
 wrSelR15 <= '1' when (wrRegSel = "1111") else '0';
 
 -- r0=zero
-r0 : work.REG_32_CONSTANT PORT MAP(
+zeroReg : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
     ld 	=> '0',
     clr 	=> clear,
@@ -98,7 +94,7 @@ r0 : work.REG_32_CONSTANT PORT MAP(
 );
 
 -- r1=1
-r1 : work.REG_32_CONSTANT PORT MAP(
+oneReg : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
     ld 	=> '0',
     clr 	=> clear,
@@ -108,7 +104,7 @@ r1 : work.REG_32_CONSTANT PORT MAP(
 );
 
 -- r2=-1
-r2 : work.REG_32_CONSTANT PORT MAP(
+minusOneReg : work.REG_32_CONSTANT PORT MAP(
     d 	=> regDataIn,
     ld 	=> '0',
     clr 	=> clear,
@@ -117,8 +113,8 @@ r2 : work.REG_32_CONSTANT PORT MAP(
     q		=> regR2
 );
 
--- r4 = Condition Code Register
-r3 : work.REG_32 PORT MAP(
+-- r3 = Condition Code Register
+conditionCodeRegister : work.REG_32 PORT MAP(
     d 	=> i_CCR,
     ld 	=> enable,
     clr 	=> clear,
@@ -127,7 +123,7 @@ r3 : work.REG_32 PORT MAP(
 );
 
 -- r4 = Stack RAM Address
-r4 : work.COUNT_32 PORT MAP(
+stackAddress : work.COUNT_32 PORT MAP(
     clk		=> clk,
     clr 		=> clear,
     d 		=> regDataIn,
@@ -138,7 +134,7 @@ r4 : work.COUNT_32 PORT MAP(
 );
 
 -- r5 = Peripheral Address
-r5 : work.COUNT_32 PORT MAP(
+peripheralAddress : work.COUNT_32 PORT MAP(
     clk		=> clk,
     clr 		=> clear,
     d 		=> regDataIn,
@@ -149,7 +145,7 @@ r5 : work.COUNT_32 PORT MAP(
 );
 
 -- r6 = Data RAM Address
-r6 : work.COUNT_32 PORT MAP(
+dataRamAddress : work.COUNT_32 PORT MAP(
     d 	=> regDataIn,
     enable 	=> wrSelR6,
     clr 	=> clear,
@@ -160,7 +156,7 @@ r6 : work.COUNT_32 PORT MAP(
 );
 
 -- r7 = Program Counter (Instruction RAM Address)
-r7 : work.COUNT_32 PORT MAP(
+programCounter : work.COUNT_32 PORT MAP(
     clk		=> clk,
     clr 		=> clear,
     d 		=> regDataIn,

@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Tue May 21 16:15:41 2019
+Wed May 22 13:07:40 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Tue May 21 16:15:37 2019       ;
+; Flow Status                        ; Successful - Wed May 22 13:07:36 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020                                    ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 2,737 / 22,320 ( 12 % )                     ;
-;     Total combinational functions  ; 2,486 / 22,320 ( 11 % )                     ;
-;     Dedicated logic registers      ; 1,116 / 22,320 ( 5 % )                      ;
-; Total registers                    ; 1116                                        ;
+; Total logic elements               ; 3,628 / 22,320 ( 16 % )                     ;
+;     Total combinational functions  ; 2,574 / 22,320 ( 12 % )                     ;
+;     Dedicated logic registers      ; 2,003 / 22,320 ( 9 % )                      ;
+; Total registers                    ; 2003                                        ;
 ; Total pins                         ; 36 / 154 ( 23 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 43,904 / 608,256 ( 7 % )                    ;
+; Total memory bits                  ; 64,256 / 608,256 ( 11 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 6 / 132 ( 5 % )                             ;
 ; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
 +------------------------------------+---------------------------------------------+
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/21/2019 16:14:38 ;
+; Start date & time ; 05/22/2019 13:06:34 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                     ; Value                                         ; Default Value ; Entity Name ; Section Id       ;
 +-------------------------------------+-----------------------------------------------+---------------+-------------+------------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                        ; Auto          ; --          ; --               ;
-; COMPILER_SIGNATURE_ID               ; 193569097813697.155846967708708               ; --            ; --          ; --               ;
+; COMPILER_SIGNATURE_ID               ; 193569097813697.155854479421020               ; --            ; --          ; --               ;
 ; ENABLE_SIGNALTAP                    ; On                                            ; --            ; --          ; --               ;
 ; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                           ; On            ; --          ; --               ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                            ; --            ; --          ; --               ;
@@ -99,7 +99,6 @@ refer to the applicable agreement for further details.
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_NODE_INFO=805334528                       ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_POWER_UP_TRIGGER=0                        ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0 ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SEGMENT_SIZE=128                          ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ATTRIBUTE_MEM_MODE=OFF                    ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_FLOW_USE_GENERATED=0                ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_BITS=11                             ; --            ; --          ; auto_signaltap_0 ;
@@ -107,19 +106,20 @@ refer to the applicable agreement for further details.
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_CURRENT_RESOURCE_WIDTH=1                  ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INCREMENTAL_ROUTING=1                     ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL=1                           ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SAMPLE_DEPTH=128                          ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_IN_ENABLED=0                      ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_PIPELINE=0                        ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_PIPELINE=0                            ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_COUNTER_PIPELINE=0                        ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ADVANCED_TRIGGER_ENTITY=basic,1,          ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL_PIPELINE=1                  ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ENABLE_ADVANCED_TRIGGER=0                 ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_BITS=1                            ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK=000000000000000000000000   ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK_LENGTH=24                  ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_DATA_BITS=23                              ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_BITS=23                 ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SEGMENT_SIZE=256                          ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SAMPLE_DEPTH=256                          ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_PIPELINE=4                            ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK=0000000000000000000000000  ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK_LENGTH=25                  ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_DATA_BITS=91                              ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_BITS=91                 ; --            ; --          ; auto_signaltap_0 ;
 ; USE_SIGNALTAP_FILE                  ; output_files/stp3.stp                         ; --            ; --          ; --               ;
 +-------------------------------------+-----------------------------------------------+---------------+-------------+------------------+
 
@@ -129,12 +129,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:40     ; 1.0                     ; 4886 MB             ; 00:01:04                           ;
-; Partition Merge      ; 00:00:02     ; 1.0                     ; 4718 MB             ; 00:00:01                           ;
-; Fitter               ; 00:00:10     ; 1.1                     ; 5582 MB             ; 00:00:14                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4701 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:03     ; 1.1                     ; 4832 MB             ; 00:00:03                           ;
-; Total                ; 00:00:57     ; --                      ; --                  ; 00:01:24                           ;
+; Analysis & Synthesis ; 00:00:41     ; 1.0                     ; 4894 MB             ; 00:01:03                           ;
+; Partition Merge      ; 00:00:02     ; 1.0                     ; 4725 MB             ; 00:00:02                           ;
+; Fitter               ; 00:00:12     ; 1.1                     ; 5592 MB             ; 00:00:16                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4707 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:03     ; 1.2                     ; 4840 MB             ; 00:00:04                           ;
+; Total                ; 00:01:00     ; --                      ; --                  ; 00:01:27                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

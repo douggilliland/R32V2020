@@ -146,7 +146,7 @@ begin
 
 	SevenSegmentDisplayLatch : ENTITY work.REG_16
 	PORT MAP (
-    d   	=> InstructionRomData(31 downto 24)&o_InstructionRomAddress(7 downto 0),
+    d   	=> q_InstructionRomData(31 downto 24)&o_InstructionRomAddress(7 downto 0),
     ld  	=> OneHotState(4),
     clr 	=> not n_reset,
     clk 	=> CLOCK_50,
@@ -267,9 +267,9 @@ begin
 		clk							=> CLOCK_50,
 		clear							=> not n_reset,
 		enable						=> OneHotState(4),
-		wrRegSel						=> InstructionRomData(23 downto 20),
-		rdRegSelA					=> InstructionRomData(15 downto 12),
-		rdRegSelB					=> InstructionRomData(19 downto 16),
+		wrRegSel						=> q_InstructionRomData(23 downto 20),
+		rdRegSelA					=> q_InstructionRomData(15 downto 12),
+		rdRegSelB					=> q_InstructionRomData(19 downto 16),
 		regDataIn					=> dataIntoRegisterFile,
 		regDataOutA					=> regDataA,
 		regDataOutB					=> regDataB,
