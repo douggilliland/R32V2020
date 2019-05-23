@@ -318,6 +318,21 @@ def isValidImmediateValue(token):
 
   return valid and -32768 <= v and v <= 32767
 
+ZERO_FOUR = 73786976294838206464
+
+def checksum(withoutChecksum):
+  checksum = 0
+  while withoutChecksum != 0:
+    checksum += withoutChecksum & 255
+    withoutChecksum = withoutChecksum >> 8
+
+  return ((checksum^255) + 1) & 255
+
+def formatHex(address, resolver, addresses):
+  op = int(resolver.resolveHex(addresses), 0)
+  withoutChecksum = ZERO_FOUR | op << 8 | address << 40
+  return ':0' + hex(withoutChecksum | checksum(withoutChecksum))[2:-1].upper()
+
 def stripComments(line):
   resultLine = ''
   inString = False
@@ -526,8 +541,8 @@ if __name__ == '__main__':
         lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
   with open(sys.argv[2], 'w') as f:
-    for resolver in output:
-      f.write(resolver.resolveHex(addresses).replace('0x', '') + '\n')
+    for currentAddress, resolver in enumerate(output):
+      f.write(formatHex(currentAddress, resolver, addresses) + '\n')
 
   with open(sys.argv[3], 'w') as f:
     for constant in constants:
