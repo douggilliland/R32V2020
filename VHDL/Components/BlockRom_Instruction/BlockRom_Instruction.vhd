@@ -42,10 +42,10 @@ USE altera_mf.altera_mf_components.all;
 ENTITY BlockRom_Instruction IS
 	PORT
 	(
-		address	: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		address		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
 		clken		: IN STD_LOGIC  := '1';
 		clock		: IN STD_LOGIC  := '1';
-		q			: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+		q		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 	);
 END BlockRom_Instruction;
 
@@ -62,7 +62,7 @@ BEGIN
 		address_aclr_a => "NONE",
 		clock_enable_input_a => "NORMAL",
 		clock_enable_output_a => "BYPASS",
-		init_file => "../../../../Assembler/Programs/NOP_JMP_Self.hex",
+		init_file => "../../../Assembler/Programs/C001-JMP_Instruction/C001-NOP_JMP_0_Code.HEX",
 		intended_device_family => "Cyclone IV E",
 		lpm_hint => "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=NONE",
 		lpm_type => "altsyncram",
@@ -105,7 +105,7 @@ END SYN;
 -- Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "1"
 -- Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 -- Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
--- Retrieval info: PRIVATE: MIFfilename STRING "../../../../Assembler/Programs/NOP_JMP_Self.hex"
+-- Retrieval info: PRIVATE: MIFfilename STRING "../../../Assembler/Programs/C001-JMP_Instruction/C001-NOP_JMP_0_Code.HEX"
 -- Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "256"
 -- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 -- Retrieval info: PRIVATE: RegAddr NUMERIC "1"
@@ -120,7 +120,7 @@ END SYN;
 -- Retrieval info: CONSTANT: ADDRESS_ACLR_A STRING "NONE"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "NORMAL"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
--- Retrieval info: CONSTANT: INIT_FILE STRING "../../../../Assembler/Programs/NOP_JMP_Self.hex"
+-- Retrieval info: CONSTANT: INIT_FILE STRING "../../../Assembler/Programs/C001-JMP_Instruction/C001-NOP_JMP_0_Code.HEX"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 -- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=NONE"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"

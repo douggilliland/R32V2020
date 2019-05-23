@@ -12,8 +12,8 @@ entity PeripheralInterface is
 		CLOCK_50					: in std_logic;
 		Video_Clk				: in std_logic;
 		peripheralAddress		: in std_logic_vector(31 downto 0);
-		peripheralDataIn		: in std_logic_vector(31 downto 0);
-		peripheralDataOut		: out std_logic_vector(31 downto 0);
+		dataToPeripherals		: in std_logic_vector(31 downto 0);
+		dataFromPeripherals	: out std_logic_vector(31 downto 0);
 		peripheralRdStrobe	: in std_logic;
 		peripheralWrStrobe	: in std_logic;
 		rxd						: in std_logic;	-- Serial receive
@@ -31,7 +31,7 @@ architecture struct of PeripheralInterface is
 	signal n_dispRamCS 			:	std_logic;
 	signal n_kbCS 					:	std_logic;
 	signal n_aciaCS 				:	std_logic;
-	signal dataFromPeripheral	: 	std_logic_vector(31 downto 0);
+--	signal dataFromPeripheral	: 	std_logic_vector(31 downto 0);
 	signal serialClkCount		: std_logic_vector(15 downto 0); 
 	signal serialClkCount_d    : std_logic_vector(15 downto 0);
 	signal serialClkEn			: std_logic;
@@ -50,10 +50,11 @@ begin
 	n_kbCS 		<= '0' when peripheralAddress(15 downto 11) = "00001" else '1';	-- x0800-x0FFF (2KB)
 	n_aciaCS 	<= '0' when peripheralAddress(15 downto 11) = "00010" else '1';	-- x1000-x17FF (2KB)
 
-	dataFromPeripheral <=
+	dataFromPeripherals <=
 		"000000000000000000000000"&dispRamDataOutA 	when n_dispRamCS = '0' else
-		"0000000000000000000000"&kbdDataStatus			when n_kbCS='0' else 
+		"0000000000000000000000"&kbdDataStatus			when peripheralAddress(0) = '1' and n_kbCS='0' else 
 		"000000000000000000000000"&aciaData 			when n_aciaCS = '0' else
+		"000000000000000000000000"&kbReadData 			when peripheralAddress(0) = '1' and n_kbCS='0' else
 		x"FFFFFFFF";
 	
 	UART : entity work.bufferedUART
@@ -62,7 +63,7 @@ begin
 			n_wr 		=> n_aciaCS or (not peripheralWrStrobe),
 			n_rd 		=> n_aciaCS or (not peripheralRdStrobe),
 			regSel 	=> peripheralAddress(0),
-			dataIn 	=> peripheralDataIn(7 downto 0),
+			dataIn 	=> dataToPeripherals(7 downto 0),
 			dataOut 	=> aciaData,
 			rxClkEn 	=> serialClkEn,
 			txClkEn 	=> serialClkEn,
@@ -81,7 +82,7 @@ begin
 			n_dispRamCS	=> n_dispRamCS,
 			n_memWR		=> n_dispRamCS or n_dispRamCS or (not peripheralWrStrobe),
 			cpuAddress	=> peripheralAddress(10 downto 0),
-			cpuDataOut	=> peripheralDataIn(7 downto 0),
+			cpuDataOut	=> dataToPeripherals(7 downto 0),
 			dataOut		=> dispRamDataOutA,
 			VoutVect		=> VoutVect
 			);

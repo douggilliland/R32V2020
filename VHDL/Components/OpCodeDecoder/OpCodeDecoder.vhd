@@ -7,7 +7,8 @@ use ieee.std_logic_1164.all;
 
 entity OpCodeDecoder is
 	port (
-		InstrOpCode	: in std_logic_vector(7 downto 0);
+		InstrOpCode	: in std_logic_vector(7 downto 0) := x"00";
+		CCR			: in std_logic_vector(31 downto 0) := x"00000000";
 		-- Category = System
 		Op_NOP		: out std_logic;	-- No Operation
 		Op_HCF		: out std_logic;	-- Halt and Catch Fire
@@ -24,6 +25,7 @@ entity OpCodeDecoder is
 		Op_RR1		: out std_logic;	-- Logical Rotate register Right by 1 and store in reg
 		Op_RA1		: out std_logic;	-- Arithmetic shift register Right by 1 and store in reg
 		Op_ENS		: out std_logic;	-- Swap Endian of register and store in reg
+		Op_CMP		: out std_logic;	-- Compare two registers and set CCR bits accordingly
 		-- Category = Immediate values
 		Op_LIL		: out std_logic;	-- Load Immediate lower short
 		Op_LIU		: out std_logic;	-- Load Immediate upper short
@@ -44,14 +46,18 @@ entity OpCodeDecoder is
 		-- Category = Stack
 		Op_PSS		: out std_logic;	-- Stack push
 		Op_PUS		: out std_logic;	-- Stack pull
+		Op_SSS		: out std_logic;	-- Store to Stack memory
+		Op_LSS		: out std_logic;	-- Load from Stack memory
 		-- Category = Flow Control
 		Op_JSR 		: out std_logic;	-- Jump Subroutine
 		Op_RTS 		: out std_logic;	-- Return Subroutine
 		Op_BRA 		: out std_logic;	-- Branch Always
 		Op_BCS 		: out std_logic;	-- Branch if Carry Set
 		Op_BCC 		: out std_logic;	-- Branch if Carry Clear
+		Op_BEZ 		: out std_logic;	-- Branch if ALU result is Equal to Zero
+		Op_BE1 		: out std_logic;	-- Branch if ALU result is Equal to One
 		Op_BOV 		: out std_logic;	-- Branch if Overflow
-		Op_BEQ 		: out std_logic		-- Branch if Equal
+		Op_BEQ 		: out std_logic	-- Branch if Equal
 	);
 end OpCodeDecoder;
 
@@ -75,6 +81,7 @@ Op_RES <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = "00010"))
 -- ALU Opcodes - Arithmetic
 Op_ADS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "00000")) else '0';
 Op_MUL <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "00001")) else '0';
+Op_CMP <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "00010")) else '0';
 -- ALU Opcodes - Logical
 Op_ORS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "01000")) else '0';
 Op_ARS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = "01001")) else '0';
@@ -107,14 +114,19 @@ Op_SPL <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = "00101")) 
 -- Stack Opcodes
 Op_PSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = "00000")) else '0';
 Op_PUS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = "00001")) else '0';
+Op_SSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = "00010")) else '0';
+Op_LSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = "00011")) else '0';
+
 -- Flow Control
 Op_JSR <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "00000")) else '0';
 Op_RTS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "00001")) else '0';
-Op_BRA <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "01000")) else '0';
-Op_BCS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "01001")) else '0';
-Op_BCC <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "01010")) else '0';
-Op_BOV <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "01011")) else '0';
-Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "01100")) else '0';
+Op_BRA <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "10000")) else '0';
+Op_BCS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "10001")) else '0';
+Op_BCC <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "10010")) else '0';
+Op_BEZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "10011")) else '0';
+Op_BE1 <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "10100")) else '0';
+Op_BOV <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "10101")) else '0';
+Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = "10110")) else '0';
 
 opc_Cat_Decoder : work.OpCode_Cat_Decoder port map (
 		InstrOpCodeCat	=> InstrOpCode(7 downto 5),

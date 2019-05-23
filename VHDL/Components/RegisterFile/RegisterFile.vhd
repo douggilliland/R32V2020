@@ -43,7 +43,7 @@ architecture struct of RegisterFile is
 	signal regR0			: std_logic_vector(31 downto 0);
 	signal regR1			: std_logic_vector(31 downto 0);
 	signal regR2			: std_logic_vector(31 downto 0);
-	signal CCR				: std_logic_vector(31 downto 0);
+	--signal o_CCR				: std_logic_vector(31 downto 0);
 	signal regR8			: std_logic_vector(31 downto 0);
 	signal regR9			: std_logic_vector(31 downto 0);
 	signal regR10			: std_logic_vector(31 downto 0);
@@ -53,7 +53,7 @@ architecture struct of RegisterFile is
 	signal regR14			: std_logic_vector(31 downto 0);
 	signal regR15			: std_logic_vector(31 downto 0);
 	
-	signal wrSelR3			: std_logic;
+	--signal wrSelR3			: std_logic;
 	signal wrSelR4			: std_logic;
 	signal wrSelR5			: std_logic;
 	signal wrSelR6			: std_logic;
@@ -69,7 +69,7 @@ architecture struct of RegisterFile is
 	
 begin
 
-wrSelR3 <= '1' when (wrRegSel = "0011") else '0';
+--wrSelR3 <= '1' when (wrRegSel = "0011") else '0';
 wrSelR4 <= '1' when (wrRegSel = "0100") else '0';
 wrSelR5 <= '1' when (wrRegSel = "0101") else '0';
 wrSelR6 <= '1' when (wrRegSel = "0110") else '0';
@@ -235,7 +235,7 @@ muxA : work.MUX_16x32 PORT MAP (
 	r0 => regR0,
    r1 => regR1,
    r2 => regR2,
-   r3 => CCR,
+   r3 => o_CCR,
    r4 => o_StackRamAddress,
    r5 => o_PeripheralAddress,
    r6 => o_DataRamAddress,
@@ -256,7 +256,7 @@ muxB : work.MUX_16x32 PORT MAP (
 	r0 => regR0,
    r1 => regR1,
    r2 => regR2,
-   r3 => CCR,
+   r3 => o_CCR,
    r4 => o_StackRamAddress,
    r5 => o_PeripheralAddress,
    r6 => o_DataRamAddress,

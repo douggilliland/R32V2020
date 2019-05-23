@@ -10,21 +10,21 @@ use IEEE.numeric_std.all;
 
 entity ALU is
 	port (
-		i_regDataA	: in std_logic_vector(31 downto 0) := x"00000000";
-		i_regDataB	: in std_logic_vector(31 downto 0) := x"00000000";
-		i_Op_ADS		: in std_logic := '0';
-		i_Op_MUL		: in std_logic := '0';
-		i_Op_CMP		: in std_logic := '0';
-		i_Op_ARS		: in std_logic := '0';
-		i_Op_XRS		: in std_logic := '0';
-		i_Op_ORS		: in std_logic := '0';
-		i_Op_LS1		: in std_logic := '0';
-		i_Op_RS1		: in std_logic := '0';
-		i_Op_LR1		: in std_logic := '0';
-		i_Op_RR1		: in std_logic := '0';
-		i_Op_RA1		: in std_logic := '0';
+		i_regDataA		: in std_logic_vector(31 downto 0) := x"00000000";
+		i_regDataB		: in std_logic_vector(31 downto 0) := x"00000000";
+		i_Op_ADS			: in std_logic := '0';
+		i_Op_MUL			: in std_logic := '0';
+		i_Op_CMP			: in std_logic := '0';
+		i_Op_ARS			: in std_logic := '0';
+		i_Op_XRS			: in std_logic := '0';
+		i_Op_ORS			: in std_logic := '0';
+		i_Op_LS1			: in std_logic := '0';
+		i_Op_RS1			: in std_logic := '0';
+		i_Op_LR1			: in std_logic := '0';
+		i_Op_RR1			: in std_logic := '0';
+		i_Op_RA1			: in std_logic := '0';
  		o_ALUDataOut	: out std_logic_vector(31 downto 0);
-		o_CondCodeBits: out std_logic_vector(31 downto 0)
+		o_CondCodeBits	: out std_logic_vector(31 downto 0)
 	);
 end ALU;
 
