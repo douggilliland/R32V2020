@@ -543,6 +543,7 @@ if __name__ == '__main__':
   with open(sys.argv[2], 'w') as f:
     for currentAddress, resolver in enumerate(output):
       f.write(formatHex(currentAddress, resolver, addresses) + '\n')
+    f.write(':00000001FF')
 
   with open(sys.argv[3], 'w') as f:
     for constant in constants:
