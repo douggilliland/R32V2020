@@ -330,7 +330,7 @@ def checksum(withoutChecksum):
 
 def formatHex(address, resolver, addresses):
   op = int(resolver.resolveHex(addresses), 0)
-  withoutChecksum = ZERO_FOUR | op << 8 | address << 40
+  withoutChecksum = ZERO_FOUR | op << 8 | address << 48
   return ':0' + hex(withoutChecksum | checksum(withoutChecksum))[2:-1].upper()
 
 def stripComments(line):
