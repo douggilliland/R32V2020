@@ -37,271 +37,277 @@ end R32V2020;
 
 architecture struct of R32V2020 is
 
-signal	Op_NOP : std_logic := '0';		-- No operation
-signal	Op_HCF : std_logic := '0';		-- Halt and Catch Fire
-signal	Op_RES : std_logic := '0';		-- Reset CPU
-signal	Op_ADS : std_logic := '0';		-- Add 2 regs and store in 3rd
-signal	Op_CMP : std_logic := '0';		-- Compare 2 regs and set cond codes
-signal	Op_MUL : std_logic := '0';		-- Multiply 2 regs and store in 3rd
+signal	w_Op_NOP : std_logic := '0';		-- No operation
+signal	w_Op_HCF : std_logic := '0';		-- Halt and Catch Fire
+signal	w_Op_RES : std_logic := '0';		-- Reset CPU
+signal	w_Op_ADS : std_logic := '0';		-- Add 2 regs and store in 3rd
+signal	w_Op_CMP : std_logic := '0';		-- Compare 2 regs and set cond codes
+signal	w_Op_MUL : std_logic := '0';		-- Multiply 2 regs and store in 3rd
 --signal	Op_MAO : std_logic;
-signal	Op_ORS  : std_logic := '0';	-- OR 2 regs and store in 3rd
-signal	Op_ARS  : std_logic := '0';	-- AND 2 regs and store in 3rd
-signal	Op_XRS  : std_logic := '0';	-- XOR 2 regs and store in 3rd
-signal	Op_LS1  : std_logic := '0';	-- Logical Shift left by 1
-signal	Op_RS1  : std_logic := '0';	-- Logical Shift right by 1
-signal	Op_LR1  : std_logic := '0';	-- Rotate left by 1
-signal	Op_RR1  : std_logic := '0';	-- Rotate right by 12
-signal	Op_RA1  : std_logic := '0';	-- Right arithmetic shift
-signal	Op_ENS  : std_logic := '0';	-- Swap endian
-signal	Op_LIL  : std_logic := '0';	-- Load Register Immediate Lower
-signal	Op_LIU  : std_logic := '0';	-- Load Register Immediate Upper
-signal	Op_LDB  : std_logic := '0';	-- Load Data Byte
-signal	Op_SDB  : std_logic := '0';	-- Store Data Byte
-signal	Op_LDS  : std_logic := '0';	-- Load Data Short
-signal	Op_SDS  : std_logic := '0';	-- Store Data Short
-signal	Op_LDL  : std_logic := '0';	-- Load Data Long
-signal	Op_SDL  : std_logic := '0';	-- Store Data Long
-signal	Op_LPB  : std_logic := '0';	-- Load Peripheral Byte
-signal	Op_SPB  : std_logic := '0';	-- Store Peripheral Byte
-signal	Op_LPS  : std_logic := '0';	-- Load Peripheral Short
-signal	Op_SPS  : std_logic := '0';	-- Store Peripheral Short
-signal	Op_LPL  : std_logic := '0';	-- Load Peripheral Long
-signal	Op_SPL  : std_logic := '0';	-- Store Peripheral Long
-signal	Op_PSS  : std_logic := '0';	-- Push register to Stack
-signal	Op_PUS  : std_logic := '0';	-- Pull register from Stack
-signal	Op_SSS  : std_logic := '0';	-- Store to stack memory
-signal	Op_SUS  : std_logic := '0';	-- Load from stack memory
-signal	Op_LSS  : std_logic := '0';	-- Store to stack memory
-signal	Op_JSR  : std_logic := '0';	-- Jump to Subroutine
-signal	Op_RTS  : std_logic := '0';	-- Return from Subroutine
-signal	Op_BRA  : std_logic := '0';	-- Branch Always
-signal	Op_BCS  : std_logic := '0';	-- Branch if carry is set
-signal	Op_BCC  : std_logic := '0';	-- Branch if carry is clear
-signal	Op_BEZ  : std_logic := '0';	-- Branch if equal to zero
-signal	Op_BE1  : std_logic := '0';	-- Branch if equal to one
-signal	Op_BOV  : std_logic := '0';	-- Branch if overflow
-signal	Op_BEQ  : std_logic := '0';	-- Branch if equal
+signal	w_Op_ORS  : std_logic := '0';	-- OR 2 regs and store in 3rd
+signal	w_Op_ARS  : std_logic := '0';	-- AND 2 regs and store in 3rd
+signal	w_Op_XRS  : std_logic := '0';	-- XOR 2 regs and store in 3rd
+signal	w_Op_LS1  : std_logic := '0';	-- Logical Shift left by 1
+signal	w_Op_RS1  : std_logic := '0';	-- Logical Shift right by 1
+signal	w_Op_LR1  : std_logic := '0';	-- Rotate left by 1
+signal	w_Op_RR1  : std_logic := '0';	-- Rotate right by 12
+signal	w_Op_RA1  : std_logic := '0';	-- Right arithmetic shift
+signal	w_Op_ENS  : std_logic := '0';	-- Swap endian
+signal	w_Op_LIL  : std_logic := '0';	-- Load Register Immediate Lower
+signal	w_Op_LIU  : std_logic := '0';	-- Load Register Immediate Upper
+signal	w_Op_LDB  : std_logic := '0';	-- Load Data Byte
+signal	w_Op_SDB  : std_logic := '0';	-- Store Data Byte
+signal	w_Op_LDS  : std_logic := '0';	-- Load Data Short
+signal	w_Op_SDS  : std_logic := '0';	-- Store Data Short
+signal	w_Op_LDL  : std_logic := '0';	-- Load Data Long
+signal	w_Op_SDL  : std_logic := '0';	-- Store Data Long
+signal	w_Op_LPB  : std_logic := '0';	-- Load Peripheral Byte
+signal	w_Op_SPB  : std_logic := '0';	-- Store Peripheral Byte
+signal	w_Op_LPS  : std_logic := '0';	-- Load Peripheral Short
+signal	w_Op_SPS  : std_logic := '0';	-- Store Peripheral Short
+signal	w_Op_LPL  : std_logic := '0';	-- Load Peripheral Long
+signal	w_Op_SPL  : std_logic := '0';	-- Store Peripheral Long
+signal	w_Op_PSS  : std_logic := '0';	-- Push register to Stack
+signal	w_Op_PUS  : std_logic := '0';	-- Pull register from Stack
+signal	w_Op_SSS  : std_logic := '0';	-- Store to stack memory
+signal	w_Op_SUS  : std_logic := '0';	-- Load from stack memory
+signal	w_Op_LSS  : std_logic := '0';	-- Store to stack memory
+signal	w_Op_JSR  : std_logic := '0';	-- Jump to Subroutine
+signal	w_Op_RTS  : std_logic := '0';	-- Return from Subroutine
+signal	w_Op_BRA  : std_logic := '0';	-- Branch Always
+signal	w_Op_BCS  : std_logic := '0';	-- Branch if carry is set
+signal	w_Op_BCC  : std_logic := '0';	-- Branch if carry is clear
+signal	w_Op_BEZ  : std_logic := '0';	-- Branch if equal to zero
+signal	w_Op_BE1  : std_logic := '0';	-- Branch if equal to one
+signal	w_Op_BOV  : std_logic := '0';	-- Branch if overflow
+signal	w_Op_BEQ  : std_logic := '0';	-- Branch if equal
 
-signal	Video_Clk	: std_logic := '0';
+signal	w_Video_Clk	: std_logic := '0';
 
-signal	regDataA		: std_logic_vector(31 downto 0) := x"00000000";
-signal	regDataB		: std_logic_vector(31 downto 0) := x"00000000";
-signal	ALUDataOut	: std_logic_vector(31 downto 0) := x"00000000";
-signal	CondCodeBits: std_logic_vector(31 downto 0) := x"00000000";
-signal	CCR			: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_regDataA		: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_regDataB		: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_ALUDataOut	: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_CondCodeBits: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_CCR			: std_logic_vector(31 downto 0) := x"00000000";
 
-signal	ldDestRegister			: std_logic := '0';
-signal	dataIntoRegisterFile	: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_ldDestRegister			: std_logic := '0';
+signal	w_dataIntoRegisterFile	: std_logic_vector(31 downto 0) := x"00000000";
 
-signal	o_InstructionRomAddress	: std_logic_vector(31 downto 0) := x"00000000";
-signal	InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_InstructionRomAddress	: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
 signal	q_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
 
-signal	StackRamAddress		: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_StackRamAddress		: std_logic_vector(31 downto 0) := x"00000000";
 --signal	dataToStackRam			: std_logic_vector(31 downto 0) := x"00000000";
-signal	writeStackRamEn		: std_logic := '0';
-signal	dataFromStackRam		: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_writeStackRamEn		: std_logic := '0';
+signal	w_dataFromStackRam		: std_logic_vector(31 downto 0) := x"00000000";
 
-signal	DataRamAddress				: std_logic_vector(31 downto 0) := x"00000000";
-signal	dataToDataRam				: std_logic_vector(31 downto 0) := x"00000000";
-signal	dataRamWriteAddress		: std_logic_vector(31 downto 0) := x"00000000";
-signal	writeToDataRamEnable		: std_logic;
-signal	dataFromDataRam			: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_DataRamAddress				: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_dataToDataRam				: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_dataRamWriteAddress		: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_writeToDataRamEnable		: std_logic;
+signal	w_dataFromDataRam			: std_logic_vector(31 downto 0) := x"00000000";
 
-signal	q_displayed_number		: std_logic_vector(15 downto 0) := x"0000";
+signal	w_displayed_number		: std_logic_vector(15 downto 0) := x"0000";
 
-signal	peripheralAddress		: std_logic_vector(31 downto 0) := x"00000000";
-signal	dataFromPeripherals	: std_logic_vector(31 downto 0) := x"00000000";
-signal	dataToPeripherals		: std_logic_vector(31 downto 0) := x"00000000";
-signal	peripheralRdStrobe	: std_logic;
-signal	peripheralWrStrobe	: std_logic;
+signal	w_peripheralAddress		: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_dataFromPeripherals	: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_dataToPeripherals		: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_peripheralRdStrobe		: std_logic;
+signal	w_peripheralWrStrobe		: std_logic;
 
-signal	OneHotState				: std_logic_vector(5 downto 0) := "000000";
+signal	w_OneHotState				: std_logic_vector(5 downto 0) := "000000";
+signal	w_save_CCR_bits			: std_logic := '0';
 
-signal	holdHaltCatchFire		: std_logic := '0';
+signal	w_holdHaltCatchFire		: std_logic := '0';
+signal	w_wrRegFile					: std_logic := '0';
+attribute syn_keep: boolean;
+attribute syn_keep of w_wrRegFile: signal is true;
 
-signal	Inc1Branch0				: std_logic := '0';
+signal	w_TakeBranch				: std_logic := '0';
+--attribute syn_keep: boolean;
+attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
 
-	holdHaltCatchFire	<= '1' when OneHotState(3) = '1' and Op_HCF = '1' and n_reset = '1' else '0';
-	ldDestRegister <= '1' when (OneHotState(3) = '1' and Inc1Branch0 = '0' and n_reset = '1') else '0';
-	writeStackRamEn <= '1' when (OneHotState(3) = '1' and (Op_PSS = '1' or Op_SSS = '1') and n_reset = '1') else '0';
+	w_holdHaltCatchFire	<= '1' when w_OneHotState(3) = '1' and w_Op_HCF = '1' and n_reset = '1' else '0';
+	w_writeStackRamEn <= '1' when (w_OneHotState(3) = '1' and (w_Op_PSS = '1' or w_Op_SSS = '1') and n_reset = '1') else '0';
 
 	clockGen : ENTITY work.VideoClk_SVGA_800x600
 	PORT map 	(
 		areset	=> not n_reset,
 		inclk0	=> CLOCK_50,
-		c0			=> Video_Clk
+		c0			=> w_Video_Clk
 	);
 	
 	StateMachine : entity work.OneHotStateMachine
 	PORT map (
 		clk 	=> CLOCK_50,
 		clr 	=> not n_reset,
-		hold	=> holdHaltCatchFire,
-		state	=> OneHotState
+		hold	=> w_holdHaltCatchFire,
+		state	=> w_OneHotState
 	);
 	
 	SevenSegDisplay : entity work.Loadable_7S4D_LED
     Port map ( 
 		i_clock_50Mhz 			=> CLOCK_50,
       i_reset					=> not n_reset,
-		i_displayed_number	=> q_displayed_number,
+		i_displayed_number	=> w_displayed_number,
       o_Anode_Activate		=> Anode_Activate,
       o_LED_out 				=> LED_out		-- Cathode patterns of 7-segment display
 	);
 
 	SevenSegmentDisplayLatch : ENTITY work.REG_16
 	PORT MAP (
-    d   	=> q_InstructionRomData(31 downto 24)&o_InstructionRomAddress(7 downto 0),
-    ld  	=> OneHotState(4),
+    d   	=> q_InstructionRomData(31 downto 24)&w_InstructionRomAddress(7 downto 0),
+    ld  	=> w_OneHotState(4),
     clr 	=> not n_reset,
     clk 	=> CLOCK_50,
-    q		=> q_displayed_number
+    q		=> w_displayed_number
 	);
 	
 	opcodeDecoder : entity work.OpCodeDecoder
 	port map (
 		InstrOpCode => q_InstructionRomData(31 downto 24),
 		-- Category = System
-		Op_NOP => Op_NOP,
-		Op_HCF => Op_HCF,
-		Op_RES => Op_RES,
+		Op_NOP => w_Op_NOP,
+		Op_HCF => w_Op_HCF,
+		Op_RES => w_Op_RES,
 		-- Category = ALU
-		Op_ADS => Op_ADS,
-		Op_MUL => Op_MUL,
-		Op_CMP => Op_CMP,
-		Op_ORS => Op_ORS,
-		Op_ARS => Op_ARS,
-		Op_XRS => Op_XRS,
-		Op_LS1 => Op_LS1,
-		Op_RS1 => Op_RS1,
-		Op_LR1 => Op_LR1,
-		Op_RR1 => Op_RR1,
-		Op_RA1 => Op_RA1,
-		Op_ENS => Op_ENS,
+		Op_ADS => w_Op_ADS,
+		Op_MUL => w_Op_MUL,
+		Op_CMP => w_Op_CMP,
+		Op_ORS => w_Op_ORS,
+		Op_ARS => w_Op_ARS,
+		Op_XRS => w_Op_XRS,
+		Op_LS1 => w_Op_LS1,
+		Op_RS1 => w_Op_RS1,
+		Op_LR1 => w_Op_LR1,
+		Op_RR1 => w_Op_RR1,
+		Op_RA1 => w_Op_RA1,
+		Op_ENS => w_Op_ENS,
 		-- Category = Immediate values
-		Op_LIL => Op_LIL,
-		Op_LIU => Op_LIU,
+		Op_LIL => w_Op_LIL,
+		Op_LIU => w_Op_LIU,
 		-- Category = Load/Store
-		Op_LDB => Op_LDB,
-		Op_SDB => Op_SDB,
-		Op_LDS => Op_LDS,
-		Op_SDS => Op_SDS,
-		Op_LDL => Op_LDL,
-		Op_SDL => Op_SDL,
+		Op_LDB => w_Op_LDB,
+		Op_SDB => w_Op_SDB,
+		Op_LDS => w_Op_LDS,
+		Op_SDS => w_Op_SDS,
+		Op_LDL => w_Op_LDL,
+		Op_SDL => w_Op_SDL,
 		-- Category = Peripheral I/O
-		Op_LPB => Op_LPB,
-		Op_SPB => Op_SPB,
-		Op_LPS => Op_LPS,
-		Op_SPS => Op_SPS,
-		Op_LPL => Op_LPL,
-		Op_SPL => Op_SPL,
+		Op_LPB => w_Op_LPB,
+		Op_SPB => w_Op_SPB,
+		Op_LPS => w_Op_LPS,
+		Op_SPS => w_Op_SPS,
+		Op_LPL => w_Op_LPL,
+		Op_SPL => w_Op_SPL,
 		-- Category = Stack
-		Op_PSS => Op_PSS,
-		Op_PUS => Op_PUS,
-		Op_SSS => Op_SSS,
-		Op_LSS => Op_LSS,		
+		Op_PSS => w_Op_PSS,
+		Op_PUS => w_Op_PUS,
+		Op_SSS => w_Op_SSS,
+		Op_LSS => w_Op_LSS,		
 		-- Category = Flow Control
-		Op_JSR => Op_JSR,
-		Op_RTS => Op_RTS,
-		Op_BRA => Op_BRA,
-		Op_BCS => Op_BCS,
-		Op_BCC => Op_BCC,
-		Op_BEZ => Op_BEZ,
-		Op_BE1 => Op_BE1,
-		Op_BOV => Op_BOV,
-		Op_BEQ => Op_BEQ
+		Op_JSR => w_Op_JSR,
+		Op_RTS => w_Op_RTS,
+		Op_BRA => w_Op_BRA,
+		Op_BCS => w_Op_BCS,
+		Op_BCC => w_Op_BCC,
+		Op_BEZ => w_Op_BEZ,
+		Op_BE1 => w_Op_BE1,
+		Op_BOV => w_Op_BOV,
+		Op_BEQ => w_Op_BEQ,
+		o_WrRegFile => w_wrRegFile
 	);
 	
 flowControl : ENTITY work.CCRControl PORT map 
 	(
-	CCR		=> CCR,
-	Op_NOP => Op_NOP,
-	Op_HCF => Op_HCF,
-	Op_RES => Op_RES,
+	CCR		=> w_CCR,
+	Op_NOP => w_Op_NOP,
+	Op_HCF => w_Op_HCF,
+	Op_RES => w_Op_RES,
 	-- Category = ALU
-	Op_ADS => Op_ADS,
-	Op_MUL => Op_MUL,
-	Op_ORS => Op_ORS,
-	Op_ARS => Op_ARS,
-	Op_XRS => Op_XRS,
-	Op_LS1 => Op_LS1,
-	Op_RS1 => Op_RS1,
-	Op_LR1 => Op_LR1,
-	Op_RR1 => Op_RR1,
-	Op_RA1 => Op_RA1,
-	Op_ENS => Op_ENS,
-	Op_CMP => Op_CMP,
+	Op_ADS => w_Op_ADS,
+	Op_MUL => w_Op_MUL,
+	Op_ORS => w_Op_ORS,
+	Op_ARS => w_Op_ARS,
+	Op_XRS => w_Op_XRS,
+	Op_LS1 => w_Op_LS1,
+	Op_RS1 => w_Op_RS1,
+	Op_LR1 => w_Op_LR1,
+	Op_RR1 => w_Op_RR1,
+	Op_RA1 => w_Op_RA1,
+	Op_ENS => w_Op_ENS,
+	Op_CMP => w_Op_CMP,
 	-- Category = Immediate values
-	Op_LIL => Op_LIL,
-	Op_LIU => Op_LIU,
+	Op_LIL => w_Op_LIL,
+	Op_LIU => w_Op_LIU,
 	-- Category = Load/Store to/from Data Memory
-	Op_LDB => Op_LDB,
-	Op_SDB => Op_SDB,
-	Op_LDS => Op_LDS,
-	Op_SDS => Op_SDS,
-	Op_LDL => Op_LDL,
-	Op_SDL => Op_SDL,
+	Op_LDB => w_Op_LDB,
+	Op_SDB => w_Op_SDB,
+	Op_LDS => w_Op_LDS,
+	Op_SDS => w_Op_SDS,
+	Op_LDL => w_Op_LDL,
+	Op_SDL => w_Op_SDL,
 	-- Category = Load/Store to/from Peripheral I/O space
-	Op_LPB => Op_LPB,
-	Op_SPB => Op_SPB,
-	Op_LPS => Op_LPS,
-	Op_SPS => Op_SPS,
-	Op_LPL => Op_LPL,
-	Op_SPL => Op_SPL,
+	Op_LPB => w_Op_LPB,
+	Op_SPB => w_Op_SPB,
+	Op_LPS => w_Op_LPS,
+	Op_SPS => w_Op_SPS,
+	Op_LPL => w_Op_LPL,
+	Op_SPL => w_Op_SPL,
 	-- Category = Stack
-	Op_PSS => Op_PSS,
-	Op_PUS => Op_PUS,
-	Op_SSS => Op_SSS,
-	Op_LSS => Op_LSS,
+	Op_PSS => w_Op_PSS,
+	Op_PUS => w_Op_PUS,
+	Op_SSS => w_Op_SSS,
+	Op_LSS => w_Op_LSS,
 	-- Category = Flow Control
-	Op_JSR => Op_JSR,
-	Op_RTS => Op_RTS,
-	Op_BRA => Op_BRA,
-	Op_BCS => Op_BCS,
-	Op_BCC => Op_BCC,
-	Op_BEZ => Op_BEZ,
-	Op_BE1 => Op_BE1,
-	Op_BOV => Op_BOV,
-	Op_BEQ => Op_BEQ,
+	Op_JSR => w_Op_JSR,
+	Op_RTS => w_Op_RTS,
+	Op_BRA => w_Op_BRA,
+	Op_BCS => w_Op_BCS,
+	Op_BCC => w_Op_BCC,
+	Op_BEZ => w_Op_BEZ,
+	Op_BE1 => w_Op_BE1,
+	Op_BOV => w_Op_BOV,
+	Op_BEQ => w_Op_BEQ,
+	o_save_CCR_bits => w_save_CCR_bits,
 	-- increment or branch?
-	o_Inc1Branch0 => Inc1Branch0
+	o_TakeBranch => w_TakeBranch
 	);
 
 	ALU : entity work.ALU
 	port map (
-		i_regDataA => regDataA,
-		i_regDataB => regDataB,
-		i_Op_ADS => Op_ADS,
-		i_Op_MUL => Op_MUL,
-		i_Op_CMP => Op_CMP,
-		i_Op_ARS => Op_ARS,
-		i_Op_XRS => Op_XRS,
-		i_Op_ORS => Op_ORS,
-		i_Op_LS1 => Op_LS1,
-		i_Op_RS1 => Op_RS1,
-		i_Op_LR1 => Op_LR1,
-		i_Op_RR1 => Op_RR1,
-		i_Op_RA1 => Op_RA1,
-		
- 		o_ALUDataOut => ALUDataOut,
-		o_CondCodeBits => CondCodeBits
+		i_regDataA => w_regDataA,
+		i_regDataB => w_regDataB,
+		i_Op_ADS => w_Op_ADS,
+		i_Op_MUL => w_Op_MUL,
+		i_Op_CMP => w_Op_CMP,
+		i_Op_ARS => w_Op_ARS,
+		i_Op_XRS => w_Op_XRS,
+		i_Op_ORS => w_Op_ORS,
+		i_Op_LS1 => w_Op_LS1,
+		i_Op_RS1 => w_Op_RS1,
+		i_Op_LR1 => w_Op_LR1,
+		i_Op_RR1 => w_Op_RR1,
+		i_Op_RA1 => w_Op_RA1,
+ 		o_ALUDataOut => w_ALUDataOut,
+		o_CondCodeBits => w_CondCodeBits
 	);
 
 	Instr_ROM : ENTITY work.BlockRom_Instruction
 	PORT MAP (
-		address		=> o_InstructionRomAddress(7 downto 0),
-		clken			=> OneHotState(5),
+		address		=> w_InstructionRomAddress(7 downto 0),
+		clken			=> w_OneHotState(5),
 		clock 		=> CLOCK_50,
-		q 				=> InstructionRomData
+		q 				=> w_InstructionRomData
 	);
 	
 	InstructionROMDataOutputLatch : ENTITY work.REG_32
 	PORT MAP (
-    d   	=> InstructionRomData,
-    ld  	=> OneHotState(1),
+    d   	=> w_InstructionRomData,
+    ld  	=> w_OneHotState(1),
     clr 	=> not n_reset,
     clk 	=> CLOCK_50,
     q		=> q_InstructionRomData
@@ -309,62 +315,64 @@ flowControl : ENTITY work.CCRControl PORT map
 	
 	Stack_RAM : ENTITY work.BlockRam_Stack
 	PORT MAP	(
-		address => StackRamAddress(7 downto 0),
+		address => w_StackRamAddress(7 downto 0),
 		clock => CLOCK_50,
-		data => regDataA,
-		wren => writeStackRamEn,
-		q => dataFromStackRam
+		data => w_regDataA,
+		wren => w_writeStackRamEn,
+		q => w_dataFromStackRam
 	);
 
-	writeToDataRamEnable <= '1' when (OneHotState(5) = '1' and (Op_SDB = '1' or Op_SDS = '1' or Op_SDL = '1')) else '0';
+	w_writeToDataRamEnable <= '1' when (w_OneHotState(5) = '1' and (w_Op_SDB = '1' or w_Op_SDS = '1' or w_Op_SDL = '1')) else '0';
 	
 	Data_RAM : ENTITY work.BlockRam_Data
 	PORT MAP (
 		clock => CLOCK_50,
-		data => regDataA,
-		rdaddress => DataRamAddress(7 downto 0),
-		wraddress => DataRamAddress(7 downto 0),
-		wren => writeToDataRamEnable,
-		q => dataFromDataRam
+		data => w_regDataA,
+		rdaddress => w_DataRamAddress(7 downto 0),
+		wraddress => w_DataRamAddress(7 downto 0),
+		wren => w_writeToDataRamEnable,
+		q => w_dataFromDataRam
 	);
 	
-	dataIntoRegisterFile <= 
-		dataFromDataRam when ((Op_LDB = '1') or (Op_LDS = '1') or (Op_LPL = '1')) else
-		dataFromStackRam when (Op_PUS = '1') else
-		dataFromPeripherals when ((Op_LPB = '1') or (Op_LPS = '1') or (Op_LPL = '1')) else
-		ALUDataOut;
-
+	w_dataIntoRegisterFile <= 
+		w_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LPL = '1')) else
+		w_dataFromStackRam when (w_Op_PUS = '1') else
+		w_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
+		w_ALUDataOut;
+	
 	RegisterFile : entity work.RegisterFile
 	port map (
-		clk							=> CLOCK_50,
-		clear							=> not n_reset,
-		enable						=> ldDestRegister and OneHotState(4),
-		wrRegSel						=> q_InstructionRomData(23 downto 20),
-		rdRegSelA					=> q_InstructionRomData(15 downto 12),
-		rdRegSelB					=> q_InstructionRomData(19 downto 16),
-		regDataIn					=> dataIntoRegisterFile,
-		regDataOutA					=> regDataA,
-		regDataOutB					=> regDataB,
-		i_CCR							=> CondCodeBits,
-		o_StackRamAddress			=> StackRamAddress,
-		o_PeripheralAddress		=> PeripheralAddress,
-		o_DataRamAddress			=> DataRamAddress,
-		o_InstructionRomAddress	=> o_InstructionRomAddress,
-		o_CCR							=> CCR
+		i_clk							=> CLOCK_50,
+		i_clear						=> not n_reset,
+		i_enable						=> w_OneHotState(4),
+		i_TakeBranch				=> w_TakeBranch,
+		i_wrRegSel					=> q_InstructionRomData(23 downto 20),
+		i_rdRegSelA					=> q_InstructionRomData(15 downto 12),
+		i_rdRegSelB					=> q_InstructionRomData(19 downto 16),
+		i_regDataIn					=> w_dataIntoRegisterFile,
+		i_CCR							=> w_CondCodeBits,
+		o_regDataOutA				=> w_regDataA,
+		o_regDataOutB				=> w_regDataB,
+		o_StackRamAddress			=> w_StackRamAddress,
+		o_PeripheralAddress		=> w_PeripheralAddress,
+		o_DataRamAddress			=> w_DataRamAddress,
+		o_InstructionRomAddress	=> w_InstructionRomAddress,
+		i_save_CCR_bits			=> w_save_CCR_bits,
+		o_CCR							=> w_CCR
 	);
 
-	peripheralRdStrobe <= '1' when (OneHotState(5) = '1' and (Op_LPB = '1' or Op_LPS = '1' or Op_LPL = '1')) else '0';
-	peripheralWrStrobe <= '1' when (OneHotState(5) = '1' and (Op_SPB = '1' or Op_SPS = '1' or Op_SPL = '1')) else '0';
+	w_peripheralRdStrobe <= '1' when (w_OneHotState(5) = '1' and (w_Op_LPB = '1' or w_Op_LPS = '1' or w_Op_LPL = '1')) else '0';
+	w_peripheralWrStrobe <= '1' when (w_OneHotState(5) = '1' and (w_Op_SPB = '1' or w_Op_SPS = '1' or w_Op_SPL = '1')) else '0';
 	Peripherals : entity work.PeripheralInterface
 	port MAP (
 		n_reset					=>  n_reset,
 		CLOCK_50					=> CLOCK_50,
-		Video_Clk				=> Video_Clk,
-		peripheralAddress		=> peripheralAddress,
-		dataToPeripherals		=> regDataA,
-		dataFromPeripherals	=> dataFromPeripherals,
-		peripheralRdStrobe	=> peripheralRdStrobe,
-		peripheralWrStrobe	=> peripheralWrStrobe,
+		Video_Clk				=> w_Video_Clk,
+		peripheralAddress		=> w_peripheralAddress,
+		dataToPeripherals		=> w_regDataA,
+		dataFromPeripherals	=> w_dataFromPeripherals,
+		peripheralRdStrobe	=> w_peripheralRdStrobe,
+		peripheralWrStrobe	=> w_peripheralWrStrobe,
 		rxd						=> SerRxd,
 		txd						=> SerTxd,
 		rts						=> SerRts,

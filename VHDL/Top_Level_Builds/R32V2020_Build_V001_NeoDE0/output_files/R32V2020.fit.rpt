@@ -1,5 +1,5 @@
 Fitter report for R32V2020
-Thu May 23 15:56:16 2019
+Fri May 24 03:40:42 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -73,7 +73,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Thu May 23 15:56:16 2019       ;
+; Fitter Status                      ; Successful - Fri May 24 03:40:42 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020                                    ;
@@ -168,7 +168,7 @@ refer to the applicable agreement for further details.
 ;     Processor 1            ; 100.0%      ;
 ;     Processor 2            ;   2.8%      ;
 ;     Processor 3            ;   2.7%      ;
-;     Processor 4            ;   2.6%      ;
+;     Processor 4            ;   2.7%      ;
 +----------------------------+-------------+
 
 
@@ -214,7 +214,7 @@ refer to the applicable agreement for further details.
 +--------------+
 ; Pin-Out File ;
 +--------------+
-The pin-out file can be found in C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.pin.
+The pin-out file can be found in C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.pin.
 
 
 +-------------------------------------------------------------------------+
@@ -2046,8 +2046,8 @@ Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (119006): Selected device EP4CE22F17C6 for design "R32V2020"
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
-Info (15535): Implemented PLL "VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|pll1" as Cyclone IV E PLL type File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 46
-    Info (15099): Implementing clock multiplication of 64, clock division of 125, and phase shift of 0 degrees (0 ps) for VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] port File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 46
+Info (15535): Implemented PLL "VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|pll1" as Cyclone IV E PLL type File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 46
+    Info (15099): Implementing clock multiplication of 64, clock division of 125, and phase shift of 0 degrees (0 ps) for VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] port File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 46
 Info (171003): Fitter is performing an Auto Fit compilation, which may decrease Fitter effort to reduce compilation time
 Warning (292013): Feature LogicLock is only available with a valid subscription license. You can purchase a software subscription to gain full access to this feature.
 Info (176444): Device migration not selected. If you intend to use device migration later, you may need to change the pin assignments as they may be incompatible with other devices
@@ -2081,13 +2081,13 @@ Info (332111): Found 1 clocks
     Info (332111):   Period   Clock Name
     Info (332111): ======== ============
     Info (332111):  100.000 altera_reserved_tck
-Info (176353): Automatically promoted node CLOCK_50~input (placed in PIN R8 (CLK15, DIFFCLK_6p)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 11
+Info (176353): Automatically promoted node CLOCK_50~input (placed in PIN R8 (CLK15, DIFFCLK_6p)) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 11
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G15
-Info (176353): Automatically promoted node VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] (placed in counter C0 of PLL_4) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 80
+Info (176353): Automatically promoted node VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] (placed in counter C0 of PLL_4) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 80
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G18
 Info (176353): Automatically promoted node altera_internal_jtag~TCKUTAP 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node ALU:ALU|w_ALUResult[31]~15  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 48
+Info (176353): Automatically promoted node ALU:ALU|w_ALUResult[31]~15  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 48
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
 Info (176353): Automatically promoted node PeripheralInterface:Peripherals|comb~0 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
@@ -2101,19 +2101,19 @@ Info (176353): Automatically promoted node sld_signaltap:auto_signaltap_0|sld_si
         Info (176357): Destination node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|last_buffer_write_address_sig[0]~0 File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_buffer_manager.vhd Line: 356
         Info (176357): Destination node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|acq_buf_read_reset~0 File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_buffer_manager.vhd Line: 638
         Info (176357): Destination node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|acq_buf_read_reset File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_buffer_manager.vhd Line: 638
-Info (176353): Automatically promoted node PeripheralInterface:Peripherals|bufferedUART:UART|func_reset  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 77
+Info (176353): Automatically promoted node PeripheralInterface:Peripherals|bufferedUART:UART|func_reset  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 77
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[3] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[6] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[2] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[5] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[4] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|txd~0 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 41
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[0] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[1] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[7] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|rxBuffer~22 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 80
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[3] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[6] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[2] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[5] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[4] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|txd~0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 41
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[0] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[1] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[7] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|rxBuffer~22 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 80
         Info (176358): Non-global destination nodes limited to 10 nodes
 Info (176233): Starting register packing
 Info (176235): Finished register packing
@@ -2132,29 +2132,29 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
-Info (11888): Total time spent on timing analysis during the Fitter is 0.82 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 1.01 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
 Warning (169177): 5 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin CLOCK_50 uses I/O standard 3.3-V LVCMOS at R8 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 11
-    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at J15 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 10
-    Info (169178): Pin ps2Data uses I/O standard 3.3-V LVTTL at B16 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 34
-    Info (169178): Pin SerRxd uses I/O standard 3.3-V LVCMOS at C16 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 24
-    Info (169178): Pin ps2Clk uses I/O standard 3.3-V LVTTL at A14 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 33
-Info (144001): Generated suppressed messages file C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.fit.smsg
+    Info (169178): Pin CLOCK_50 uses I/O standard 3.3-V LVCMOS at R8 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 11
+    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at J15 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 10
+    Info (169178): Pin ps2Data uses I/O standard 3.3-V LVTTL at B16 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 34
+    Info (169178): Pin SerRxd uses I/O standard 3.3-V LVCMOS at C16 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 24
+    Info (169178): Pin ps2Clk uses I/O standard 3.3-V LVTTL at A14 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 33
+Info (144001): Generated suppressed messages file C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 12 warnings
     Info: Peak virtual memory: 5590 megabytes
-    Info: Processing ended: Thu May 23 15:56:17 2019
-    Info: Elapsed time: 00:00:13
-    Info: Total CPU time (on all processors): 00:00:19
+    Info: Processing ended: Fri May 24 03:40:44 2019
+    Info: Elapsed time: 00:00:17
+    Info: Total CPU time (on all processors): 00:00:22
 
 
 +----------------------------+
 ; Fitter Suppressed Messages ;
 +----------------------------+
-The suppressed messages can be found in C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.fit.smsg.
+The suppressed messages can be found in C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.fit.smsg.
 
 

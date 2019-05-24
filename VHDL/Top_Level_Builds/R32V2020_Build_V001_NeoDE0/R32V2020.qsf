@@ -255,7 +255,7 @@ set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[87] -to "RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[7]" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[88] -to "RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[8]" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[89] -to "RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[9]" -section_id auto_signaltap_0
-set_global_assignment -name VHDL_FILE output_files/CCRControl.vhd
+set_global_assignment -name VHDL_FILE ../../Components/ALU/CCRControl.vhd
 set_global_assignment -name VHDL_FILE ../R32V2020_Build_V001/R32V2020.vhd
 set_global_assignment -name VHDL_FILE ../../Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd
 set_global_assignment -name VHDL_FILE ../../Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd

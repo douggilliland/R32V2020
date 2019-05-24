@@ -32,9 +32,11 @@ Stack,Push Stack,PSS,1,0,1,0,0,0,0,0,(r4),,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,
 Stack,Pull Stack,PUS,1,0,1,0,0,0,0,1,rDest,,,,X,X,X,X,(r4),,,,X,X,X,X,X,X,X,X,X,X,X,X
 Flow_Ctrl,Jump to subroutine,JSR,1,1,0,0,0,0,0,0,(r7),X,X,X,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X
 Flow_Ctrl,Return from subroutine,RTS,1,1,0,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
-Flow_Ctrl,Jump,JMP,1,1,0,0,0,0,1,1,(r7),X,X,X,X,X,X,X,rSrc1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
-Flow_Ctrl,Branch Always,BRA,1,1,0,0,1,0,0,0,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
-Flow_Ctrl,Branch if carry is set,BCS,1,1,0,0,1,0,0,1,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
-Flow_Ctrl,Branch if carry is clear,BCC,1,1,0,0,1,0,1,0,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
-Flow_Ctrl,Branch Overflow,BOV,1,1,0,0,1,0,1,1,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
-Flow_Ctrl,Branch Equal,BEQ,1,1,0,0,1,1,0,0,X,X,X,X,X,X,X,X,(rX),X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Jump,JMP,1,1,0,0,0,0,1,0,(r7),X,X,X,X,X,X,X,rSrc1,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch Always,BRA,1,1,0,1,0,0,0,0,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch if carry is set,BCS,1,1,0,1,0,0,0,1,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch if carry is clear,BCC,1,1,0,1,0,0,1,0,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch Equal to Zero,BEZ,1,1,0,1,0,0,1,1,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch Equal to One,BE1,1,1,0,1,0,1,0,0,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch Overflow,BOV,1,1,0,1,0,1,0,1,X,X,X,X,X,X,X,X,(rX),,,,X,X,X,X,X,X,X,X,X,X,X,X
+Flow_Ctrl,Branch Equal,BEQ,1,1,0,1,0,1,1,0,X,X,X,X,X,X,X,X,(rX),X,X,X,X,X,X,X,X,X,X,X,X,X,X,X
