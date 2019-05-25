@@ -351,6 +351,8 @@ flowControl : ENTITY work.CCRControl PORT map
 		i_rdRegSelB					=> q_InstructionRomData(19 downto 16),
 		i_regDataIn					=> w_dataIntoRegisterFile,
 		i_CCR							=> w_CondCodeBits,
+		i_OP_LIL						=> w_Op_LIL,
+		i_OP_LIU						=> w_Op_LIU,
 		o_regDataOutA				=> w_regDataA,
 		o_regDataOutB				=> w_regDataB,
 		o_StackRamAddress			=> w_StackRamAddress,

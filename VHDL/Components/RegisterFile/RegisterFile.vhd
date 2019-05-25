@@ -29,6 +29,8 @@ entity RegisterFile is
 		i_rdRegSelB					: in std_logic_vector(3 downto 0);
 		i_regDataIn					: in std_logic_vector(31 downto 0);
 		i_CCR							: in std_logic_vector(31 downto 0);
+		i_OP_LIL						: in std_logic := '0';
+		i_OP_LIU						: in std_logic := '0';
 		o_regDataOutA				: out std_logic_vector(31 downto 0);
 		o_regDataOutB				: out std_logic_vector(31 downto 0);
 		o_StackRamAddress			: buffer std_logic_vector(31 downto 0);
@@ -60,30 +62,46 @@ architecture struct of RegisterFile is
 	signal wrSelR5			: std_logic;
 	signal wrSelR6			: std_logic;
 	signal wrSelR7			: std_logic;
-	signal wrSelR8			: std_logic;
-	signal wrSelR9			: std_logic;
-	signal wrSelR10		: std_logic;
-	signal wrSelR11		: std_logic;
-	signal wrSelR12		: std_logic;
-	signal wrSelR13		: std_logic;
-	signal wrSelR14		: std_logic;
-	signal wrSelR15		: std_logic;
-	
+	signal wrSelR8Upper	: std_logic;
+	signal wrSelR8Lower	: std_logic;
+	signal wrSelR9Upper	: std_logic;
+	signal wrSelR9Lower	: std_logic;
+	signal wrSelR10Upper	: std_logic;
+	signal wrSelR10Lower	: std_logic;
+	signal wrSelR11Upper	: std_logic;
+	signal wrSelR11Lower	: std_logic;
+	signal wrSelR12Upper	: std_logic;
+	signal wrSelR12Lower	: std_logic;
+	signal wrSelR13Upper	: std_logic;
+	signal wrSelR13Lower	: std_logic;
+	signal wrSelR14Upper	: std_logic;
+	signal wrSelR14Lower	: std_logic;
+	signal wrSelR15Upper	: std_logic;
+	signal wrSelR15Lower	: std_logic;
+
 begin
 
 --wrSelR3 <= '1' when (i_wrRegSel = "0011") else '0';
-wrSelR4 <= '1' when (i_wrRegSel = "0100") else '0';
-wrSelR5 <= '1' when (i_wrRegSel = "0101") else '0';
-wrSelR6 <= '1' when (i_wrRegSel = "0110") else '0';
-wrSelR7 <= '1' when (i_wrRegSel = "0111") else '0';
-wrSelR8 <= '1' when (i_wrRegSel = "1000") else '0';
-wrSelR9 <= '1' when (i_wrRegSel = "1001") else '0';
-wrSelR10 <= '1' when (i_wrRegSel = "1010") else '0';
-wrSelR11 <= '1' when (i_wrRegSel = "1011") else '0';
-wrSelR12 <= '1' when (i_wrRegSel = "1100") else '0';
-wrSelR13 <= '1' when (i_wrRegSel = "1101") else '0';
-wrSelR14 <= '1' when (i_wrRegSel = "1110") else '0';
-wrSelR15 <= '1' when (i_wrRegSel = "1111") else '0';
+wrSelR4 			<= '1' when (i_wrRegSel = "0100") else '0';
+wrSelR5 			<= '1' when (i_wrRegSel = "0101") else '0';
+wrSelR6 			<= '1' when (i_wrRegSel = "0110") else '0';
+wrSelR7 			<= '1' when (i_wrRegSel = "0111") else '0';
+wrSelR8Upper 	<= '1' when ((i_wrRegSel = "1000") and (i_OP_LIL = '0')) else '0';
+wrSelR8Lower	<= '1' when ((i_wrRegSel = "1000") and (i_OP_LIU = '0')) else '0';
+wrSelR9Upper	<= '1' when ((i_wrRegSel = "1001") and (i_OP_LIL = '0')) else '0';
+wrSelR9Lower	<= '1' when ((i_wrRegSel = "1001") and (i_OP_LIU = '0')) else '0';
+wrSelR10Upper	<= '1' when ((i_wrRegSel = "1010") and (i_OP_LIL = '0')) else '0';
+wrSelR10Lower	<= '1' when ((i_wrRegSel = "1010") and (i_OP_LIU = '0')) else '0';
+wrSelR11Upper	<= '1' when ((i_wrRegSel = "1011") and (i_OP_LIL = '0')) else '0';
+wrSelR11Lower	<= '1' when ((i_wrRegSel = "1011") and (i_OP_LIU = '0')) else '0';
+wrSelR12Upper	<= '1' when ((i_wrRegSel = "1100") and (i_OP_LIL = '0')) else '0';
+wrSelR12Lower	<= '1' when ((i_wrRegSel = "1100") and (i_OP_LIL = '0')) else '0';
+wrSelR13Upper	<= '1' when ((i_wrRegSel = "1101") and (i_OP_LIL = '0')) else '0';
+wrSelR13Lower	<= '1' when ((i_wrRegSel = "1101") and (i_OP_LIU = '0')) else '0';
+wrSelR14Upper	<= '1' when ((i_wrRegSel = "1110") and (i_OP_LIL = '0')) else '0';
+wrSelR14Lower	<= '1' when ((i_wrRegSel = "1110") and (i_OP_LIU = '0')) else '0';
+wrSelR15Upper	<= '1' when ((i_wrRegSel = "1111") and (i_OP_LIL = '0')) else '0';
+wrSelR15Lower	<= '1' when ((i_wrRegSel = "1111") and (i_OP_LIU = '0')) else '0';
 
 -- r0=zero
 zeroReg : work.REG_32_CONSTANT PORT MAP(
@@ -171,68 +189,132 @@ programCounter : work.COUNT_32 PORT MAP(
 );
 
 -- r8-r15 = General Purpose Registers
-r8 : work.REG_32 PORT MAP(
+r8Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr	=> i_clear,
-    d 	=> i_regDataIn,
-    ld 	=> wrSelR8 and i_enable,
-    q		=> regR8
+    d 	=> i_regDataIn(31 downto 16),
+    ld 	=> wrSelR8Upper and i_enable,
+    q		=> regR8(31 downto 16)
 );
 
-r9 : work.REG_32 PORT MAP(
+r8Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
-    clr 	=> i_clear,
-    d 	=> i_regDataIn,
-    ld 	=> wrSelR9 and i_enable,
-    q		=> regR9
+    clr	=> i_clear,
+    d 	=> i_regDataIn(15 downto 0),
+    ld 	=> wrSelR8Lower and i_enable,
+    q		=> regR8(15 downto 0)
 );
 
-r10 : work.REG_32 PORT MAP(
+r9Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
-    d 	=> i_regDataIn,
-    ld 	=> wrSelR10 and i_enable,
-    q		=> regR10
+    d 	=> i_regDataIn(31 downto 16),
+    ld 	=> wrSelR9Upper and i_enable,
+    q		=> regR9(31 downto 16)
 );
 
-r11 : work.REG_32 PORT MAP(
+r9Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
-    d 	=> i_regDataIn,
-    ld 	=> wrSelR11 and i_enable,
-    q		=> regR11
+    d 	=> i_regDataIn(15 downto 0),
+    ld 	=> wrSelR9Lower and i_enable,
+    q		=> regR9(15 downto 0)
 );
 
-r12 : work.REG_32 PORT MAP(
+r10Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
-    d 	=> i_regDataIn,
-    ld 	=> wrSelR12 and i_enable,
-    q		=> regR12
+    d 	=> i_regDataIn(31 downto 16),
+    ld 	=> wrSelR10Upper and i_enable,
+    q		=> regR10(31 downto 16)
 );
 
-r13 : work.REG_32 PORT MAP(
+r10Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
-    d 	=> i_regDataIn,
-    ld 	=> wrSelR13 and i_enable,
-    q		=> regR13
+    d 	=> i_regDataIn(15 downto 0),
+    ld 	=> wrSelR10Lower and i_enable,
+    q		=> regR10(15 downto 0)
 );
 
-r14 : work.REG_32 PORT MAP(
+r11Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
-    d 	=> i_regDataIn,
-    ld 	=> wrSelR14 and i_enable,
-    q		=> regR14
+    d 	=> i_regDataIn(31 downto 16),
+    ld 	=> wrSelR11Upper and i_enable,
+    q		=> regR11(31 downto 16)
 );
 
-r15 : work.REG_32 PORT MAP(
+r11Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
-    d 	=> i_regDataIn,
-    ld 	=> wrSelR15 and i_enable,
-    q		=> regR15
+    d 	=> i_regDataIn(15 downto 0),
+    ld 	=> wrSelR11Lower and i_enable,
+    q		=> regR11(15 downto 0)
+);
+
+r12Upper : work.REG_16 PORT MAP(
+    clk	=> i_clk,
+    clr 	=> i_clear,
+    d 	=> i_regDataIn(31 downto 16),
+    ld 	=> wrSelR12Upper and i_enable,
+    q		=> regR12(31 downto 16)
+);
+
+r12Lower : work.REG_16 PORT MAP(
+    clk	=> i_clk,
+    clr 	=> i_clear,
+    d 	=> i_regDataIn(15 downto 0),
+    ld 	=> wrSelR12Lower and i_enable,
+    q		=> regR12(15 downto 0)
+);
+
+r13Upper : work.REG_16 PORT MAP(
+    clk	=> i_clk,
+    clr 	=> i_clear,
+    d 	=> i_regDataIn(31 downto 16),
+    ld 	=> wrSelR13Upper and i_enable,
+    q		=> regR13(31 downto 16)
+);
+
+r13Lower : work.REG_16 PORT MAP(
+    clk	=> i_clk,
+    clr 	=> i_clear,
+    d 	=> i_regDataIn(15 downto 0),
+    ld 	=> wrSelR13Lower and i_enable,
+    q		=> regR13(15 downto 0)
+);
+
+r14Upper : work.REG_16 PORT MAP(
+    clk	=> i_clk,
+    clr 	=> i_clear,
+    d 	=> i_regDataIn(31 downto 16),
+    ld 	=> wrSelR14Upper and i_enable,
+    q		=> regR14(31 downto 16)
+);
+
+r14Lower : work.REG_16 PORT MAP(
+    clk	=> i_clk,
+    clr 	=> i_clear,
+    d 	=> i_regDataIn(15 downto 0),
+    ld 	=> wrSelR14Lower and i_enable,
+    q		=> regR14(15 downto 0)
+);
+
+r15Upper : work.REG_16 PORT MAP(
+    clk	=> i_clk,
+    clr 	=> i_clear,
+    d 	=> i_regDataIn(31 downto 16),
+    ld 	=> wrSelR15Upper and i_enable,
+    q		=> regR15(31 downto 16)
+);
+
+r15Lower : work.REG_16 PORT MAP(
+    clk	=> i_clk,
+    clr 	=> i_clear,
+    d 	=> i_regDataIn(15 downto 0),
+    ld 	=> wrSelR15Lower and i_enable,
+    q		=> regR15(15 downto 0)
 );
 
 muxA : work.MUX_16x32 PORT MAP (
