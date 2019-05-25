@@ -353,6 +353,18 @@ def stripComments(line):
   return resultLine
 
 if __name__ == '__main__':
+  if '--gen-constants' in sys.argv:
+    with open(os.path.join(myDir, 'OpCodeConstants.vhd'), 'w') as f:
+      for op in ops:
+
+        code = bin(op['CategorizedOp'])[2:]
+
+        padded = '0'*(8 - len(code)) + code
+
+        f.write('constant ' + op['Opcode'].upper() + ' : std_Logic_Vector(7 downto 0) := "' + padded + '";\n')
+      print 'Constants written to OpCodeConstants.vhd'
+      exit()
+
   userAssert(len(sys.argv) == 4, 'Usage: python assembler.py <input assembly> <output binary> <output data>')
   userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
 
