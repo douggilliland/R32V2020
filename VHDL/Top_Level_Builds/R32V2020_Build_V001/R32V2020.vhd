@@ -121,11 +121,11 @@ signal	w_save_CCR_bits			: std_logic := '0';
 
 signal	w_holdHaltCatchFire		: std_logic := '0';
 signal	w_wrRegFile					: std_logic := '0';
-attribute syn_keep: boolean;
-attribute syn_keep of w_wrRegFile: signal is true;
+--attribute syn_keep: boolean;
+--attribute syn_keep of w_wrRegFile: signal is true;
 
 signal	w_TakeBranch				: std_logic := '0';
---attribute syn_keep: boolean;
+attribute syn_keep: boolean;
 attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
@@ -159,10 +159,10 @@ begin
 
 	SevenSegmentDisplayLatch : ENTITY work.REG_16
 	PORT MAP (
+    clk 	=> CLOCK_50,
     d   	=> q_InstructionRomData(31 downto 24)&w_InstructionRomAddress(7 downto 0),
     ld  	=> w_OneHotState(4),
     clr 	=> not n_reset,
-    clk 	=> CLOCK_50,
     q		=> w_displayed_number
 	);
 	
@@ -298,7 +298,7 @@ flowControl : ENTITY work.CCRControl PORT map
 
 	Instr_ROM : ENTITY work.BlockRom_Instruction
 	PORT MAP (
-		address		=> w_InstructionRomAddress(7 downto 0),
+		address		=> w_InstructionRomAddress(8 downto 0),
 		clken			=> w_OneHotState(5),
 		clock 		=> CLOCK_50,
 		q 				=> w_InstructionRomData
