@@ -15,7 +15,7 @@ END REG_32;
 ARCHITECTURE description OF REG_32 IS
 
 BEGIN
-    process(clk, clr)
+    process(clk,clr,ld)
     begin
         if clr = '1' then
             q <= x"00000000";
