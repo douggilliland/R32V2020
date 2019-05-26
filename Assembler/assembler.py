@@ -569,7 +569,7 @@ if __name__ == '__main__':
           instF.write(instData + '\n')
           addr = hex(line.instructionAddress)[2:]
           paddedAddr = '0'*(8 - len(addr)) + addr
-          listF.write(paddedAddr + '\t' + instData + '\t')
+          listF.write(paddedAddr + '\t' + instData[9:17] + '\t')
         listF.write(line.rawLine)
       instF.write(':00000001FF\n')
 

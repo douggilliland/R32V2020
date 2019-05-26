@@ -1,6 +1,6 @@
 start:
-00000000	:0400000000000000FC		nop
-00000001	:0400010000000000FB		nop
+00000000	00000000		nop
+00000001	00000000		nop
 next:
-00000002	:0400020000000000FA		nop
-00000003	:04000300C0FFFFFD3E		bra start		; Relative branch (-3 in this case)
+00000002	00000000		nop
+00000003	C0FFFFFD		bra start		; Relative branch (-3 in this case)
