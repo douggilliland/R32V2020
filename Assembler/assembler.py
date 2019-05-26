@@ -561,11 +561,17 @@ if __name__ == '__main__':
         lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
 #  with open(sys.argv[2], 'w') as f:
-  with open(insFile, 'w') as f:
-    for line in output:
-      if line.instruction != None:
-        f.write(formatHex(line.instructionAddress, line.instruction, addresses) + '\n')
-    f.write(':00000001FF\n')
+  with open(insFile, 'w') as instF:
+    with open(lstFile, 'w') as listF:
+      for line in output:
+        if line.instruction != None:
+          instData = formatHex(line.instructionAddress, line.instruction, addresses)
+          instF.write(instData + '\n')
+          addr = hex(line.instructionAddress)[2:]
+          paddedAddr = '0'*(8 - len(addr)) + addr
+          listF.write(paddedAddr + '\t' + instData + '\t')
+        listF.write(line.rawLine)
+      instF.write(':00000001FF\n')
 
 #  with open(sys.argv[3], 'w') as f:
   with open(datFile, 'w') as f:
