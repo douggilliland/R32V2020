@@ -1,0 +1,67 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do R32V2020_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db {C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:52:35 on May 25,2019
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db" C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v 
+# -- Compiling module VideoClk_SVGA_800x600_altpll
+# 
+# Top level modules:
+# 	VideoClk_SVGA_800x600_altpll
+# End time: 13:52:35 on May 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/CCRControl.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:52:35 on May 25,2019
+# vcom -reportprogress 300 -93 -work work C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/CCRControl.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity CCRControl
+# -- Compiling architecture description of CCRControl
+# End time: 13:52:36 on May 25,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:52:36 on May 25,2019
+# vcom -reportprogress 300 -93 -work work C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity Loadable_7S4D_LED
+# -- Compiling architecture Behavioral of Loadable_7S4D_LED
+# ** Error: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd(31): (vcom-1339) Case statement choices cover only 16 out of 6561 cases.
+# ** Error: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd(64): (vcom-1339) Case statement choices cover only 4 out of 81 cases.
+# ** Error: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd(87): VHDL Compiler exiting
+# End time: 13:52:36 on May 25,2019, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
+# ** Error: C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./R32V2020_run_msim_rtl_vhdl.do line 10
+# C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -work work {C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd}"
+vsim work.ccrcontrol
+# vsim work.ccrcontrol 
+# Start time: 13:52:46 on May 25,2019
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.ccrcontrol(description)
+run
+run -all
