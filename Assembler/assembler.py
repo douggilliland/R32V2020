@@ -365,10 +365,13 @@ if __name__ == '__main__':
       print 'Constants written to OpCodeConstants.vhd'
       exit()
 
-  userAssert(len(sys.argv) == 4, 'Usage: python assembler.py <input assembly> <output binary> <output data>')
-  userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
-
-  asmPath = sys.argv[1]
+  if len(sys.argv) == 2:
+    asmPath = sys.argv[1]
+    insFile = asmPath[0:-4]+'_ins.HEX'
+    datFile = asmPath[0:-4]+'_dat.HEX'
+#  userAssert(len(sys.argv) == 4, 'Usage: python assembler.py <input assembly> <output binary> <output data>')
+#  userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
+#  asmPath = sys.argv[1]
 
   # Parse and write output
   with open(asmPath, 'r') as f:
@@ -552,12 +555,14 @@ if __name__ == '__main__':
       else:
         lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
-  with open(sys.argv[2], 'w') as f:
+#  with open(sys.argv[2], 'w') as f:
+  with open(insFile, 'w') as f:
     for currentAddress, resolver in enumerate(output):
       f.write(formatHex(currentAddress, resolver, addresses) + '\n')
     f.write(':00000001FF\n')
 
-  with open(sys.argv[3], 'w') as f:
+#  with open(sys.argv[3], 'w') as f:
+  with open(datFile, 'w') as f:
     for constant in constants:
       for line in constant.resolveHex():
         f.write(line.replace('0x', '') + '\n')
