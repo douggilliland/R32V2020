@@ -365,13 +365,13 @@ if __name__ == '__main__':
       print 'Constants written to OpCodeConstants.vhd'
       exit()
 
-  if len(sys.argv) == 2:
-    asmPath = sys.argv[1]
-    insFile = asmPath[0:-4]+'_ins.HEX'
-    datFile = asmPath[0:-4]+'_dat.HEX'
-#  userAssert(len(sys.argv) == 4, 'Usage: python assembler.py <input assembly> <output binary> <output data>')
-#  userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
-#  asmPath = sys.argv[1]
+
+  userAssert(len(sys.argv) == 3, 'Usage: python assembler.py <input assembly> <output binary>')
+  userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
+
+  asmPath = sys.argv[1]
+  insFile = asmPath[0:-4]+'_ins.HEX'
+  datFile = asmPath[0:-4]+'_dat.HEX'
 
   # Parse and write output
   with open(asmPath, 'r') as f:

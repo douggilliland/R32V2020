@@ -44,7 +44,7 @@ class FormatHexSpecs(unittest.TestCase):
   def test_the_address_is_encoded(self):
     resolver = assembler.BinDestResolver(32, 7, 0, 0)
     address = 4267
-    self.assertEqual(assembler.formatHex(address, resolver, {})[5:9], '10AB')
+    self.assertEqual(assembler.formatHex(address, resolver, {})[-4:], '10AB')
 
 if __name__ == '__main__':
   unittest.main()
