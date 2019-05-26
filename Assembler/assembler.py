@@ -377,13 +377,13 @@ if __name__ == '__main__':
       print 'Constants written to OpCodeConstants.vhd'
       exit()
 
-
   userAssert(len(sys.argv) == 2, 'Usage: python assembler.py <input assembly>')
   userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
 
   asmPath = sys.argv[1]
   insFile = asmPath[0:-4]+'_ins.HEX'
   datFile = asmPath[0:-4]+'_dat.HEX'
+  lstFile = asmPath[0:-4]+'.lst'
 
   # Parse and write output
   with open(asmPath, 'r') as f:
@@ -472,29 +472,9 @@ if __name__ == '__main__':
 
       op = tokens[0].upper()
 
-      lineAssert(op in opByCode or op == 'INV' or op == 'JPS', num, rawLine, 'Unknown op ' + op)
+      lineAssert(op in opByCode, num, rawLine, 'Unknown op ' + op)
 
       currentAddress += 1
-
-      if op == 'JPS':
-        lineAssert(len(tokens) == 3, num, rawLine, 'Unexpected trailing tokens after op')
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidAddress(tokens[2]), num, rawLine, tokens[2] + ' is not a valid address')
-
-        output.append(UnDestResolver(opByCode['PSS']['CategorizedOp'], 4, parseRegister(tokens[1])))
-        output.append(AddressDestResolver(opByCode['JSR']['CategorizedOp'], tokens[2], rawLine, num, 7))
-
-        # Since we're writing 2 operations
-        currentAddress += 1
-        continue
-
-      if op == 'INV':
-        lineAssert(len(tokens) == 3, num, rawLine, 'Unexpected trailing tokens after op')
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
-
-        output.append(BinDestResolver(opByCode['XRS']['CategorizedOp'], parseRegister(tokens[1]), 3, parseRegister(tokens[2])))
-        continue
 
       opSpec = opByCode[op]
 
