@@ -107,16 +107,28 @@ class NoArgsResolver:
   def resolveHex(self, _):
     return hex(self.operation << 24)
 
+TWOS_COMP_24 = 16777215
+
+def twosComp24(inputValue):
+  return (inputValue ^ TWOS_COMP_24) + 1
+
 class AddressResolver:
-  def __init__(self, operation, address, rawLine, lineNumber):
+  def __init__(self, operation, address, rawLine, lineNumber, currentAddress):
     self.operation = operation
     self.address = address
     self.rawLine = rawLine
     self.lineNumber = lineNumber
+    self.currentAddress = currentAddress
 
   def resolveHex(self, addresses):
     lineAssert(self.address in addresses, self.lineNumber, self.rawLine, 'Address ' + self.address + ' is not defined')
-    return hex(self.operation << 24 | addresses[address] << 12)
+
+    offset = addresses[self.address] - self.currentAddress
+
+    if offset < 0:
+      offset = twosComp24(abs(offset))
+
+    return hex(self.operation << 24 | (offset & TWOS_COMP_24))
 
 class AddressDestResolver:
   def __init__(self, operation, address, rawLine, lineNumber, register):
@@ -366,7 +378,7 @@ if __name__ == '__main__':
       exit()
 
 
-  userAssert(len(sys.argv) == 3, 'Usage: python assembler.py <input assembly> <output binary>')
+  userAssert(len(sys.argv) == 2, 'Usage: python assembler.py <input assembly>')
   userAssert(os.path.isfile(sys.argv[1]), 'Expected the path to an assembly file as the first argument')
 
   asmPath = sys.argv[1]
@@ -496,7 +508,7 @@ if __name__ == '__main__':
 
         lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
 
-        output.append(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num))
+        output.append(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, currentAddress-1))
 
       elif opSpec['Form'] == 'ADDR_R7_DEST':
         lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
