@@ -63,6 +63,8 @@ w_EqualToZero	<= '1' when w_ALUResult = x"00000000" else '0';
 w_EqualToOne	<= '1' when w_ALUResult = x"00000001" else '0';
 w_CarrySet		<= '1' when ((i_Op_ADS = '1') and (i_regDataA(31) = '1') and (i_regDataB(31) = '1')) else '0';
 w_CarryClear	<= '1' when ((i_Op_ADS = '1') and ((i_regDataA(31) = '0') or  (i_regDataB(31) = '0'))) else '0';
+w_GreaterThan  <= '1' when (i_regDataA > i_regDataB) else '0';
+w_LessThan  	<= '1' when (i_regDataA < i_regDataB) else '0';
 w_EqualCmp    	<= '1' when (i_regDataA = i_regDataB) else '0';
 --
 o_CondCodeBits <= x"000000" & '0' & w_EqualCmp & w_GreaterThan & w_LessThan & w_CarrySet & w_CarryClear & w_EqualToOne & w_EqualToZero;
