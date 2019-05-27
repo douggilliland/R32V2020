@@ -46,14 +46,13 @@ ENTITY CCRControl IS PORT(
 	Op_LSS			: IN std_logic;	-- Load from Stack space
 	Op_SSS			: IN std_logic;	-- Store to Stack space
 	-- Category = Flow Control
-	Op_JSR 			: IN std_logic;	-- Jump Subroutine
-	Op_RTS 			: IN std_logic;	-- Return Subroutine
 	Op_BRA 			: IN std_logic;	-- Branch Always
 	Op_BCS 			: IN std_logic;	-- Branch if ALU result has Carry Set
 	Op_BCC 			: IN std_logic;	-- Branch if ALU result has Carry Clear
 	Op_BEZ 			: IN std_logic;	-- Branch if ALU result is Equal to Zero
 	Op_BE1 			: IN std_logic;	-- Branch if ALU result is Equal to One
-	Op_BOV 			: IN std_logic;	-- Branch if ALU result is an Overflow
+	Op_BGT 			: IN std_logic;	-- Branch if ALU result is Greater Than
+	Op_BLT 			: IN std_logic;	-- Branch if ALU result is Less Than
 	Op_BEQ 			: IN std_logic;	-- Branch if ALU result is Equal
 	
 	o_save_CCR_bits: OUT STD_LOGIC;	-- CCR bits are modified
@@ -63,17 +62,24 @@ END CCRControl;
 
 ARCHITECTURE description OF CCRControl IS
 
+constant CCR_BEZ : integer := 0;
+constant CCR_BE1 : integer := 1;
+constant CCR_BCC : integer := 2;
+constant CCR_BCS : integer := 3;
+constant CCR_BLT : integer := 4;
+constant CCR_BGT : integer := 5;
+constant CCR_BEQ : integer := 6;
+
 BEGIN
 		o_TakeBranch <= '1' when (
-			Op_JSR = '1' or
-			Op_RTS = '1' or
 			Op_BRA = '1' or
-			(Op_BEZ = '1' and CCR(0) = '1') or
-			(Op_BE1 = '1' and CCR(1) = '1') or
-			(Op_BCS = '1' and CCR(2) = '1') or
-			(Op_BCC = '1' and CCR(3) = '1') or
---		(Op_BOV = '1' and CCR() = '1') or
-			(Op_BEQ = '1' and CCR(4) = '1'))
+			(Op_BEZ = '1' and CCR(CCR_BEZ) = '1') or
+			(Op_BE1 = '1' and CCR(CCR_BE1) = '1') or
+			(Op_BCC = '1' and CCR(CCR_BCC) = '1') or
+			(Op_BCS = '1' and CCR(CCR_BCS) = '1') or
+			(Op_BLT = '1' and CCR(CCR_BLT) = '1') or
+			(Op_BGT = '1' and CCR(CCR_BGT) = '1') or
+			(Op_BEQ = '1' and CCR(CCR_BEQ) = '1'))
 		else '0';
 		
 		o_save_CCR_bits <= '1' when 

@@ -32,9 +32,12 @@ architecture struct of ALU is
 
 signal w_EqualToZero	: std_logic;
 signal w_EqualToOne	: std_logic;
-signal w_CarrySet		: std_logic;
 signal w_CarryClear	: std_logic;
+signal w_CarrySet		: std_logic;
+signal w_GreaterThan	: std_logic;
+signal w_LessThan		: std_logic;
 signal w_EqualCmp		: std_logic;
+
 signal w_ALUResult	: std_logic_vector(31 downto 0);
 signal multResult	: std_logic_vector(63 downto 0);
 signal multResultLong : std_logic_vector(31 downto 0);
@@ -62,6 +65,6 @@ w_CarrySet		<= '1' when ((i_Op_ADS = '1') and (i_regDataA(31) = '1') and (i_regD
 w_CarryClear	<= '1' when ((i_Op_ADS = '1') and ((i_regDataA(31) = '0') or  (i_regDataB(31) = '0'))) else '0';
 w_EqualCmp    	<= '1' when (i_regDataA = i_regDataB) else '0';
 --
-o_CondCodeBits <= "000000000000000000000000000"&w_EqualCmp&w_CarryClear&w_CarrySet&w_EqualToOne&w_EqualToZero;
+o_CondCodeBits <= x"000000" & '0' & w_EqualCmp & w_GreaterThan & w_LessThan & w_CarrySet & w_CarryClear & w_EqualToOne & w_EqualToZero;
 
 end struct;
