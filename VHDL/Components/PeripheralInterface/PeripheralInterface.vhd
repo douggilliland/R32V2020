@@ -46,9 +46,9 @@ architecture struct of PeripheralInterface is
 begin
 	
 	-- Peripheral Address decoder
-	n_dispRamCS <= '0' when peripheralAddress(15 downto 11) = "00000" else '1';	-- x0000-x07FF (2KB)
-	n_kbCS 		<= '0' when peripheralAddress(15 downto 11) = "00001" else '1';	-- x0800-x0FFF (2KB)
-	n_aciaCS 	<= '0' when peripheralAddress(15 downto 11) = "00010" else '1';	-- x1000-x17FF (2KB)
+	n_dispRamCS <= '0' when peripheralAddress(15 downto 11) = '0'&x"0" else '1';	-- x0000-x07FF (2KB)
+	n_kbCS 		<= '0' when peripheralAddress(15 downto 11) = '0'&x"1" else '1';	-- x0800-x0FFF (2KB)
+	n_aciaCS 	<= '0' when peripheralAddress(15 downto 11) = '0'&x"2" else '1';	-- x1000-x17FF (2KB)
 
 	dataFromPeripherals <=
 		"000000000000000000000000"&dispRamDataOutA 	when n_dispRamCS = '0' else

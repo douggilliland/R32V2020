@@ -111,22 +111,24 @@ signal	w_dataFromDataRam			: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_displayed_number		: std_logic_vector(15 downto 0) := x"0000";
 
+attribute syn_keep: boolean;
+
 signal	w_peripheralAddress		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataFromPeripherals	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataToPeripherals		: std_logic_vector(31 downto 0) := x"00000000";
-signal	w_peripheralRdStrobe		: std_logic;
-signal	w_peripheralWrStrobe		: std_logic;
+signal	w_peripheralRdStrobe		: std_logic := '0';
+signal	w_peripheralWrStrobe		: std_logic := '0';
+
+attribute syn_keep of w_peripheralRdStrobe: signal is true;
+attribute syn_keep of w_peripheralWrStrobe: signal is true;
 
 signal	w_OneHotState				: std_logic_vector(5 downto 0) := "000000";
 signal	w_save_CCR_bits			: std_logic := '0';
 
 signal	w_holdHaltCatchFire		: std_logic := '0';
 signal	w_wrRegFile					: std_logic := '0';
---attribute syn_keep: boolean;
---attribute syn_keep of w_wrRegFile: signal is true;
 
 signal	w_TakeBranch				: std_logic := '0';
-attribute syn_keep: boolean;
 attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
@@ -363,6 +365,7 @@ flowControl : ENTITY work.CCRControl PORT map
 		i_OP_LIL						=> w_Op_LIL,
 		i_OP_LIU						=> w_Op_LIU,
 		i_save_CCR_bits			=> w_save_CCR_bits,
+		i_wrRegFile					=> w_wrRegFile,
 		o_regDataOutA				=> w_regDataA,
 		o_regDataOutB				=> w_regDataB,
 		o_StackRamAddress			=> w_StackRamAddress,
@@ -372,8 +375,8 @@ flowControl : ENTITY work.CCRControl PORT map
 		o_CCR							=> w_CCR
 	);
 
-	w_peripheralRdStrobe <= '1' when (w_OneHotState(5) = '1' and (w_Op_LPB = '1' or w_Op_LPS = '1' or w_Op_LPL = '1')) else '0';
-	w_peripheralWrStrobe <= '1' when (w_OneHotState(5) = '1' and (w_Op_SPB = '1' or w_Op_SPS = '1' or w_Op_SPL = '1')) else '0';
+	w_peripheralRdStrobe <= '1' when (w_OneHotState(4) = '1' and (w_Op_LPB = '1' or w_Op_LPS = '1' or w_Op_LPL = '1')) else '0';
+	w_peripheralWrStrobe <= '1' when (w_OneHotState(4) = '1' and (w_Op_SPB = '1' or w_Op_SPS = '1' or w_Op_SPL = '1')) else '0';
 	Peripherals : entity work.PeripheralInterface
 	port MAP (
 		n_reset					=>  n_reset,

@@ -32,6 +32,7 @@ entity RegisterFile is
 		i_OP_LIL						: in std_logic := '0';
 		i_OP_LIU						: in std_logic := '0';
 		i_BranchAddress			: in std_logic_vector(31 downto 0);
+		i_wrRegFile					: in std_logic := '0';
 		o_regDataOutA				: out std_logic_vector(31 downto 0);
 		o_regDataOutB				: out std_logic_vector(31 downto 0);
 		o_StackRamAddress			: buffer std_logic_vector(31 downto 0);
@@ -84,26 +85,26 @@ architecture struct of RegisterFile is
 begin
 
 --wrSelR3 <= '1' when (i_wrRegSel = "0011") else '0';
-wrSelR4 			<= '1' when (i_wrRegSel = "0100") else '0';
-wrSelR5 			<= '1' when (i_wrRegSel = "0101") else '0';
-wrSelR6 			<= '1' when (i_wrRegSel = "0110") else '0';
-wrSelR7 			<= '1' when (i_wrRegSel = "0111") else '0';
-wrSelR8Upper 	<= '1' when ((i_wrRegSel = "1000") and (i_OP_LIL = '0')) else '0';
-wrSelR8Lower	<= '1' when ((i_wrRegSel = "1000") and (i_OP_LIU = '0')) else '0';
-wrSelR9Upper	<= '1' when ((i_wrRegSel = "1001") and (i_OP_LIL = '0')) else '0';
-wrSelR9Lower	<= '1' when ((i_wrRegSel = "1001") and (i_OP_LIU = '0')) else '0';
-wrSelR10Upper	<= '1' when ((i_wrRegSel = "1010") and (i_OP_LIL = '0')) else '0';
-wrSelR10Lower	<= '1' when ((i_wrRegSel = "1010") and (i_OP_LIU = '0')) else '0';
-wrSelR11Upper	<= '1' when ((i_wrRegSel = "1011") and (i_OP_LIL = '0')) else '0';
-wrSelR11Lower	<= '1' when ((i_wrRegSel = "1011") and (i_OP_LIU = '0')) else '0';
-wrSelR12Upper	<= '1' when ((i_wrRegSel = "1100") and (i_OP_LIL = '0')) else '0';
-wrSelR12Lower	<= '1' when ((i_wrRegSel = "1100") and (i_OP_LIL = '0')) else '0';
-wrSelR13Upper	<= '1' when ((i_wrRegSel = "1101") and (i_OP_LIL = '0')) else '0';
-wrSelR13Lower	<= '1' when ((i_wrRegSel = "1101") and (i_OP_LIU = '0')) else '0';
-wrSelR14Upper	<= '1' when ((i_wrRegSel = "1110") and (i_OP_LIL = '0')) else '0';
-wrSelR14Lower	<= '1' when ((i_wrRegSel = "1110") and (i_OP_LIU = '0')) else '0';
-wrSelR15Upper	<= '1' when ((i_wrRegSel = "1111") and (i_OP_LIL = '0')) else '0';
-wrSelR15Lower	<= '1' when ((i_wrRegSel = "1111") and (i_OP_LIU = '0')) else '0';
+wrSelR4 			<= '1' when (i_wrRegSel = x"4") else '0';
+wrSelR5 			<= '1' when (i_wrRegSel = x"5") else '0';
+wrSelR6 			<= '1' when (i_wrRegSel = x"6") else '0';
+wrSelR7 			<= '1' when (i_wrRegSel = x"7") else '0';
+wrSelR8Upper 	<= '1' when ((i_wrRegSel = x"8") and (i_OP_LIL = '0')) else '0';
+wrSelR8Lower	<= '1' when ((i_wrRegSel = x"8") and (i_OP_LIU = '0')) else '0';
+wrSelR9Upper	<= '1' when ((i_wrRegSel = x"9") and (i_OP_LIL = '0')) else '0';
+wrSelR9Lower	<= '1' when ((i_wrRegSel = x"9") and (i_OP_LIU = '0')) else '0';
+wrSelR10Upper	<= '1' when ((i_wrRegSel = x"A") and (i_OP_LIL = '0')) else '0';
+wrSelR10Lower	<= '1' when ((i_wrRegSel = x"A") and (i_OP_LIU = '0')) else '0';
+wrSelR11Upper	<= '1' when ((i_wrRegSel = x"B") and (i_OP_LIL = '0')) else '0';
+wrSelR11Lower	<= '1' when ((i_wrRegSel = x"B") and (i_OP_LIU = '0')) else '0';
+wrSelR12Upper	<= '1' when ((i_wrRegSel = x"C") and (i_OP_LIL = '0')) else '0';
+wrSelR12Lower	<= '1' when ((i_wrRegSel = x"C") and (i_OP_LIL = '0')) else '0';
+wrSelR13Upper	<= '1' when ((i_wrRegSel = x"D") and (i_OP_LIL = '0')) else '0';
+wrSelR13Lower	<= '1' when ((i_wrRegSel = x"D") and (i_OP_LIU = '0')) else '0';
+wrSelR14Upper	<= '1' when ((i_wrRegSel = x"E") and (i_OP_LIL = '0')) else '0';
+wrSelR14Lower	<= '1' when ((i_wrRegSel = x"E") and (i_OP_LIU = '0')) else '0';
+wrSelR15Upper	<= '1' when ((i_wrRegSel = x"F") and (i_OP_LIL = '0')) else '0';
+wrSelR15Lower	<= '1' when ((i_wrRegSel = x"F") and (i_OP_LIU = '0')) else '0';
 
 -- r0=zero
 zeroReg : work.REG_32_CONSTANT PORT MAP(
@@ -160,7 +161,7 @@ peripheralAddress : work.COUNT_32 PORT MAP(
     clk		=> i_clk,
     clr 		=> i_clear,
     d 		=> i_regDataIn,
-    enable	=> wrSelR5,
+    enable	=> wrSelR5 and i_wrRegFile and i_enable,
     inc 		=> '0',
     dec 		=> '0',
     q			=> o_PeripheralAddress
@@ -169,7 +170,7 @@ peripheralAddress : work.COUNT_32 PORT MAP(
 -- r6 = Data RAM Address
 dataRamAddress : work.COUNT_32 PORT MAP(
     d 	=> i_regDataIn,
-    enable 	=> wrSelR6,
+    enable 	=> wrSelR6 and i_enable,
     clr 	=> i_clear,
     clk	=> i_clk,
     inc => '0',
