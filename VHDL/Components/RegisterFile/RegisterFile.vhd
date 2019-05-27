@@ -31,6 +31,7 @@ entity RegisterFile is
 		i_CCR							: in std_logic_vector(31 downto 0);
 		i_OP_LIL						: in std_logic := '0';
 		i_OP_LIU						: in std_logic := '0';
+		i_BranchAddress			: in std_logic_vector(31 downto 0);
 		o_regDataOutA				: out std_logic_vector(31 downto 0);
 		o_regDataOutB				: out std_logic_vector(31 downto 0);
 		o_StackRamAddress			: buffer std_logic_vector(31 downto 0);
@@ -56,6 +57,7 @@ architecture struct of RegisterFile is
 	signal regR13			: std_logic_vector(31 downto 0);
 	signal regR14			: std_logic_vector(31 downto 0);
 	signal regR15			: std_logic_vector(31 downto 0);
+	signal w_nextPC		: std_logic_vector(31 downto 0);
 	
 	--signal wrSelR3			: std_logic;
 	signal wrSelR4			: std_logic;
@@ -177,11 +179,14 @@ dataRamAddress : work.COUNT_32 PORT MAP(
 
 -- r7 = Program Counter (Instruction RAM Address)
 -- wrSelR7 - when the destination register is r7
+
+w_nextPC <= i_BranchAddress when i_TakeBranch = '1'
+else			i_regDataIn when i_TakeBranch = '0';
 -- 
 programCounter : work.COUNT_32 PORT MAP(
     clk		=> i_clk,
     clr 		=> i_clear,
-    d 		=> i_regDataIn,
+    d 		=> w_nextPC,
     enable 	=> i_enable,
     inc 		=> (not i_TakeBranch) and (not wrSelR7),
     dec 		=> '0',

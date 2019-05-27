@@ -183,16 +183,14 @@ Op_PSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PSS(4 down
 Op_PUS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PUS(4 downto 0))) else '0';
 Op_SSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = SSS(4 downto 0))) else '0';
 Op_LSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = LSS(4 downto 0))) else '0';
-
 -- Flow Control
-Op_JSR <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = JSR(4 downto 0))) else '0';
-Op_RTS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = RTS(4 downto 0))) else '0';
 Op_BRA <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BRA(4 downto 0))) else '0';
 Op_BCS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BCS(4 downto 0))) else '0';
 Op_BCC <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BCC(4 downto 0))) else '0';
 Op_BEZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEZ(4 downto 0))) else '0';
 Op_BE1 <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BE1(4 downto 0))) else '0';
-Op_BOV <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BOV(4 downto 0))) else '0';
+Op_BGT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BGT(4 downto 0))) else '0';
+Op_BLT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BLT(4 downto 0))) else '0';
 Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEQ(4 downto 0))) else '0';
 
 opc_Cat_Decoder : work.OpCode_Cat_Decoder port map (
