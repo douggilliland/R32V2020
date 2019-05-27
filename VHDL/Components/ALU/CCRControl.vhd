@@ -54,6 +54,7 @@ ENTITY CCRControl IS PORT(
 	Op_BGT 			: IN std_logic;	-- Branch if ALU result is Greater Than
 	Op_BLT 			: IN std_logic;	-- Branch if ALU result is Less Than
 	Op_BEQ 			: IN std_logic;	-- Branch if ALU result is Equal
+	Op_BNE 			: IN std_logic;	-- Branch if ALU result is Equal
 	
 	o_save_CCR_bits: OUT STD_LOGIC;	-- CCR bits are modified
 	o_TakeBranch	: OUT STD_LOGIC	-- Instruction results in a branch
@@ -69,6 +70,7 @@ constant CCR_BCS : integer := 3;
 constant CCR_BLT : integer := 4;
 constant CCR_BGT : integer := 5;
 constant CCR_BEQ : integer := 6;
+constant CCR_BNE : integer := 7;
 
 BEGIN
 		o_TakeBranch <= '1' when (
@@ -79,7 +81,8 @@ BEGIN
 			(Op_BCS = '1' and CCR(CCR_BCS) = '1') or
 			(Op_BLT = '1' and CCR(CCR_BLT) = '1') or
 			(Op_BGT = '1' and CCR(CCR_BGT) = '1') or
-			(Op_BEQ = '1' and CCR(CCR_BEQ) = '1'))
+			(Op_BEQ = '1' and CCR(CCR_BEQ) = '1') or
+			(Op_BNE = '1' and CCR(CCR_BNE) = '1'))
 		else '0';
 		
 		o_save_CCR_bits <= '1' when 
@@ -92,7 +95,8 @@ BEGIN
 			Op_RS1 = '1' or
 			Op_LR1 = '1' or
 			Op_RR1 = '1' or
-			Op_RA1 = '1'
+			Op_RA1 = '1' or
+			Op_CMP = '1'
 		else '0';
 		
 END description;

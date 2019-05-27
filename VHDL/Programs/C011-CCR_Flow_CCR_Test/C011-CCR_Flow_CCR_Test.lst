@@ -1,0 +1,16 @@
+; Code that jumps all over the place
+start:
+00000000	22300000		cmp r0,r0
+00000001	C8000008		bne flagFail
+00000002	C7000002		beq	skip1
+00000003	C0000006		bra	flagFail
+skip1:
+00000004	22301000		cmp r0,r1
+00000005	C7000004		beq flagFail
+00000006	C8000002		bne	skip2
+00000007	C0000002		bra	flagFail
+skip2:
+00000008	C0FFFFF8		bra start
+flagFail:
+00000009	01000000		hcf
+	

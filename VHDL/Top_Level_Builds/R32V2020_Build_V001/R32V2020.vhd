@@ -80,6 +80,7 @@ signal	w_Op_BE1  : std_logic := '0';	-- Branch if equal to one
 signal	w_Op_BGT  : std_logic := '0';	-- Branch if greater than
 signal	w_Op_BLT  : std_logic := '0';	-- Branch if less than
 signal	w_Op_BEQ  : std_logic := '0';	-- Branch if equal
+signal	w_Op_BNE  : std_logic := '0';	-- Branch if not equal
 
 signal	w_Video_Clk	: std_logic := '0';
 
@@ -217,6 +218,7 @@ begin
 		Op_BGT => w_Op_BGT,
 		Op_BLT => w_Op_BLT,
 		Op_BEQ => w_Op_BEQ,
+		Op_BNE => w_Op_BNE,
 		o_WrRegFile => w_wrRegFile
 	);
 	
@@ -270,6 +272,7 @@ flowControl : ENTITY work.CCRControl PORT map
 	Op_BGT => w_Op_BGT,
 	Op_BLT => w_Op_BLT,
 	Op_BEQ => w_Op_BEQ,
+	Op_BNE => w_Op_BNE,
 	o_save_CCR_bits => w_save_CCR_bits,
 	-- increment or branch?
 	o_TakeBranch => w_TakeBranch
@@ -290,6 +293,7 @@ flowControl : ENTITY work.CCRControl PORT map
 		i_Op_LR1 => w_Op_LR1,
 		i_Op_RR1 => w_Op_RR1,
 		i_Op_RA1 => w_Op_RA1,
+		i_Op_ENS => w_Op_ENS,
  		o_ALUDataOut => w_ALUDataOut,
 		o_CondCodeBits => w_CondCodeBits
 	);
@@ -358,13 +362,13 @@ flowControl : ENTITY work.CCRControl PORT map
 		i_CCR							=> w_CondCodeBits,
 		i_OP_LIL						=> w_Op_LIL,
 		i_OP_LIU						=> w_Op_LIU,
+		i_save_CCR_bits			=> w_save_CCR_bits,
 		o_regDataOutA				=> w_regDataA,
 		o_regDataOutB				=> w_regDataB,
 		o_StackRamAddress			=> w_StackRamAddress,
 		o_PeripheralAddress		=> w_PeripheralAddress,
 		o_DataRamAddress			=> w_DataRamAddress,
 		o_InstructionRomAddress	=> w_InstructionRomAddress,
-		i_save_CCR_bits			=> w_save_CCR_bits,
 		o_CCR							=> w_CCR
 	);
 
