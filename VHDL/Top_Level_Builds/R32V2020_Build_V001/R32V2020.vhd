@@ -72,14 +72,13 @@ signal	w_Op_PUS  : std_logic := '0';	-- Pull register from Stack
 signal	w_Op_SSS  : std_logic := '0';	-- Store to stack memory
 signal	w_Op_SUS  : std_logic := '0';	-- Load from stack memory
 signal	w_Op_LSS  : std_logic := '0';	-- Store to stack memory
-signal	w_Op_JSR  : std_logic := '0';	-- Jump to Subroutine
-signal	w_Op_RTS  : std_logic := '0';	-- Return from Subroutine
 signal	w_Op_BRA  : std_logic := '0';	-- Branch Always
 signal	w_Op_BCS  : std_logic := '0';	-- Branch if carry is set
 signal	w_Op_BCC  : std_logic := '0';	-- Branch if carry is clear
 signal	w_Op_BEZ  : std_logic := '0';	-- Branch if equal to zero
 signal	w_Op_BE1  : std_logic := '0';	-- Branch if equal to one
-signal	w_Op_BOV  : std_logic := '0';	-- Branch if overflow
+signal	w_Op_BGT  : std_logic := '0';	-- Branch if greater than
+signal	w_Op_BLT  : std_logic := '0';	-- Branch if less than
 signal	w_Op_BEQ  : std_logic := '0';	-- Branch if equal
 
 signal	w_Video_Clk	: std_logic := '0';
@@ -92,6 +91,7 @@ signal	w_CCR			: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_ldDestRegister			: std_logic := '0';
 signal	w_dataIntoRegisterFile	: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_BranchAddress			: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_InstructionRomAddress	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
@@ -209,14 +209,13 @@ begin
 		Op_SSS => w_Op_SSS,
 		Op_LSS => w_Op_LSS,		
 		-- Category = Flow Control
-		Op_JSR => w_Op_JSR,
-		Op_RTS => w_Op_RTS,
 		Op_BRA => w_Op_BRA,
 		Op_BCS => w_Op_BCS,
 		Op_BCC => w_Op_BCC,
 		Op_BEZ => w_Op_BEZ,
 		Op_BE1 => w_Op_BE1,
-		Op_BOV => w_Op_BOV,
+		Op_BGT => w_Op_BGT,
+		Op_BLT => w_Op_BLT,
 		Op_BEQ => w_Op_BEQ,
 		o_WrRegFile => w_wrRegFile
 	);
@@ -263,14 +262,13 @@ flowControl : ENTITY work.CCRControl PORT map
 	Op_SSS => w_Op_SSS,
 	Op_LSS => w_Op_LSS,
 	-- Category = Flow Control
-	Op_JSR => w_Op_JSR,
-	Op_RTS => w_Op_RTS,
 	Op_BRA => w_Op_BRA,
 	Op_BCS => w_Op_BCS,
 	Op_BCC => w_Op_BCC,
 	Op_BEZ => w_Op_BEZ,
 	Op_BE1 => w_Op_BE1,
-	Op_BOV => w_Op_BOV,
+	Op_BGT => w_Op_BGT,
+	Op_BLT => w_Op_BLT,
 	Op_BEQ => w_Op_BEQ,
 	o_save_CCR_bits => w_save_CCR_bits,
 	-- increment or branch?
@@ -341,6 +339,10 @@ flowControl : ENTITY work.CCRControl PORT map
 		w_dataFromStackRam when (w_Op_PUS = '1') else
 		w_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
 		w_ALUDataOut;
+		
+	w_BranchAddress <=  (q_InstructionRomData(23) &  q_InstructionRomData(23) &  q_InstructionRomData(23) &  q_InstructionRomData(23) &  -- sign extend
+								q_InstructionRomData(23) &  q_InstructionRomData(23) &  q_InstructionRomData(23) &  q_InstructionRomData(23) &  
+								q_InstructionRomData(23 downto 0)) + w_InstructionRomAddress;
 	
 	RegisterFile : entity work.RegisterFile
 	port map (
@@ -348,6 +350,7 @@ flowControl : ENTITY work.CCRControl PORT map
 		i_clear						=> not n_reset,
 		i_enable						=> w_OneHotState(4),
 		i_TakeBranch				=> w_TakeBranch,
+		i_BranchAddress			=> w_BranchAddress,
 		i_wrRegSel					=> q_InstructionRomData(23 downto 20),
 		i_rdRegSelA					=> q_InstructionRomData(15 downto 12),
 		i_rdRegSelB					=> q_InstructionRomData(19 downto 16),
