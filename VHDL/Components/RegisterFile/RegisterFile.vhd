@@ -169,13 +169,13 @@ peripheralAddress : work.COUNT_32 PORT MAP(
 
 -- r6 = Data RAM Address
 dataRamAddress : work.COUNT_32 PORT MAP(
-    d 	=> i_regDataIn,
-    enable 	=> wrSelR6 and i_enable,
-    clr 	=> i_clear,
-    clk	=> i_clk,
-    inc => '0',
-    dec => '0',
-    q		=> o_DataRamAddress
+    clk		=> i_clk,
+    clr 		=> i_clear,
+    d 		=> i_regDataIn,
+    enable 	=> wrSelR6 and i_wrRegFile and i_enable,
+	inc 		=> '0',
+    dec 		=> '0',
+    q			=> o_DataRamAddress
 );
 
 -- r7 = Program Counter (Instruction RAM Address)
@@ -199,7 +199,7 @@ r8Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR8Upper and i_enable,
+    ld 	=> wrSelR8Upper and i_wrRegFile and i_enable,
     q		=> regR8(31 downto 16)
 );
 
@@ -207,7 +207,7 @@ r8Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR8Lower and i_enable,
+    ld 	=> wrSelR8Lower and i_wrRegFile and i_enable,
     q		=> regR8(15 downto 0)
 );
 
@@ -215,7 +215,7 @@ r9Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR9Upper and i_enable,
+    ld 	=> wrSelR9Upper and i_wrRegFile and i_enable,
     q		=> regR9(31 downto 16)
 );
 
@@ -223,7 +223,7 @@ r9Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR9Lower and i_enable,
+    ld 	=> wrSelR9Lower and i_wrRegFile and i_enable,
     q		=> regR9(15 downto 0)
 );
 
@@ -231,7 +231,7 @@ r10Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR10Upper and i_enable,
+    ld 	=> wrSelR10Upper and i_wrRegFile and i_enable,
     q		=> regR10(31 downto 16)
 );
 
@@ -239,7 +239,7 @@ r10Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR10Lower and i_enable,
+    ld 	=> wrSelR10Lower and i_wrRegFile and i_enable,
     q		=> regR10(15 downto 0)
 );
 
@@ -247,7 +247,7 @@ r11Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR11Upper and i_enable,
+    ld 	=> wrSelR11Upper and i_wrRegFile and i_enable,
     q		=> regR11(31 downto 16)
 );
 
@@ -255,7 +255,7 @@ r11Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR11Lower and i_enable,
+    ld 	=> wrSelR11Lower and i_wrRegFile and i_enable,
     q		=> regR11(15 downto 0)
 );
 
@@ -263,7 +263,7 @@ r12Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR12Upper and i_enable,
+    ld 	=> wrSelR12Upper and i_wrRegFile and i_enable,
     q		=> regR12(31 downto 16)
 );
 
@@ -271,7 +271,7 @@ r12Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR12Lower and i_enable,
+    ld 	=> wrSelR12Lower and i_wrRegFile and i_enable,
     q		=> regR12(15 downto 0)
 );
 
@@ -279,7 +279,7 @@ r13Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR13Upper and i_enable,
+    ld 	=> wrSelR13Upper and i_wrRegFile and i_enable,
     q		=> regR13(31 downto 16)
 );
 
@@ -287,7 +287,7 @@ r13Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR13Lower and i_enable,
+    ld 	=> wrSelR13Lower and i_wrRegFile and i_enable,
     q		=> regR13(15 downto 0)
 );
 
@@ -295,7 +295,7 @@ r14Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR14Upper and i_enable,
+    ld 	=> wrSelR14Upper and i_wrRegFile and i_enable,
     q		=> regR14(31 downto 16)
 );
 
@@ -303,7 +303,7 @@ r14Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR14Lower and i_enable,
+    ld 	=> wrSelR14Lower and i_wrRegFile and i_enable,
     q		=> regR14(15 downto 0)
 );
 
@@ -311,7 +311,7 @@ r15Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR15Upper and i_enable,
+    ld 	=> wrSelR15Upper and i_wrRegFile and i_enable,
     q		=> regR15(31 downto 16)
 );
 
@@ -319,7 +319,7 @@ r15Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR15Lower and i_enable,
+    ld 	=> wrSelR15Lower and i_wrRegFile and i_enable,
     q		=> regR15(15 downto 0)
 );
 
