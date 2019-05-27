@@ -3,4 +3,4 @@ start:
 	nop
 next:
 	nop
-	bra start		; Relative branch (-3 in this case)
+	bra next		; Relative branch (-1 in this case)
