@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Mon May 27 19:56:34 2019
+Tue May 28 05:39:00 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -25,7 +25,7 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
  17. Inverted Register Statistics
  18. Multiplexer Restructuring Statistics (Restructuring Performed)
  19. Source assignments for Top-level Entity: |R32V2020
- 20. Source assignments for BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|altsyncram_8433:altsyncram1
+ 20. Source assignments for BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|altsyncram_o833:altsyncram1
  21. Source assignments for BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_d7p3:auto_generated
  22. Source assignments for BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_dvn3:auto_generated
  23. Source assignments for PeripheralInterface:Peripherals|Mem_Mapped_SVGA:SVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_b0q3:auto_generated
@@ -88,13 +88,13 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon May 27 19:56:33 2019       ;
+; Analysis & Synthesis Status        ; Successful - Tue May 28 05:39:00 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020                                    ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 4,080                                       ;
-;     Total combinational functions  ; 2,962                                       ;
+; Total logic elements               ; 4,076                                       ;
+;     Total combinational functions  ; 2,958                                       ;
 ;     Dedicated logic registers      ; 1,822                                       ;
 ; Total registers                    ; 1822                                        ;
 ; Total pins                         ; 36                                          ;
@@ -205,9 +205,9 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processor 3            ;   0.0%      ;
-;     Processor 4            ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.1%      ;
+;     Processor 4            ;   0.1%      ;
 +----------------------------+-------------+
 
 
@@ -254,9 +254,9 @@ refer to the applicable agreement for further details.
 ; altrom.inc                                                                ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altrom.inc                                                                                      ;             ;
 ; altram.inc                                                                ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altram.inc                                                                                      ;             ;
 ; altdpram.inc                                                              ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altdpram.inc                                                                                    ;             ;
-; db/altsyncram_al24.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_al24.tdf                                             ;             ;
-; db/altsyncram_8433.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_8433.tdf                                             ;             ;
-; ../../Programs/C014-Screen_Test/C014-Screen_Test_ins.HEX                  ; yes             ; Auto-Found Memory Initialization File        ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Programs/C014-Screen_Test/C014-Screen_Test_ins.HEX                                                      ;             ;
+; db/altsyncram_qp24.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_qp24.tdf                                             ;             ;
+; db/altsyncram_o833.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_o833.tdf                                             ;             ;
+; ../../Programs/C015-Screen_Clear/C015-Screen_Clear_ins.HEX                ; yes             ; Auto-Found Memory Initialization File        ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Programs/C015-Screen_Clear/C015-Screen_Clear_ins.HEX                                                    ;             ;
 ; sld_mod_ram_rom.vhd                                                       ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd                                                                             ;             ;
 ; sld_jtag_endpoint_adapter.vhd                                             ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd                                                                   ;             ;
 ; sld_jtag_endpoint_adapter_impl.sv                                         ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter_impl.sv                                                               ;             ;
@@ -323,16 +323,16 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 4,080          ;
+; Estimated Total logic elements              ; 4,076          ;
 ;                                             ;                ;
-; Total combinational functions               ; 2962           ;
+; Total combinational functions               ; 2958           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 1889           ;
-;     -- 3 input functions                    ; 726            ;
-;     -- <=2 input functions                  ; 347            ;
+;     -- 4 input functions                    ; 1885           ;
+;     -- 3 input functions                    ; 725            ;
+;     -- <=2 input functions                  ; 348            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 2621           ;
+;     -- normal mode                          ; 2617           ;
 ;     -- arithmetic mode                      ; 341            ;
 ;                                             ;                ;
 ; Total registers                             ; 1822           ;
@@ -349,7 +349,7 @@ refer to the applicable agreement for further details.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
 ; Maximum fan-out                             ; 1507           ;
-; Total fan-out                               ; 20643          ;
+; Total fan-out                               ; 20626          ;
 ; Average fan-out                             ; 4.05           ;
 +---------------------------------------------+----------------+
 
@@ -359,7 +359,7 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 ; Compilation Hierarchy Node                                                                                                              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                                                                                                                                                                                                  ; Entity Name                       ; Library Name ;
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
-; |R32V2020                                                                                                                               ; 2962 (160)          ; 1822 (0)                  ; 107136      ; 6            ; 0       ; 3         ; 36   ; 0            ; |R32V2020                                                                                                                                                                                                                                                                                                                                            ; R32V2020                          ; work         ;
+; |R32V2020                                                                                                                               ; 2958 (160)          ; 1822 (0)                  ; 107136      ; 6            ; 0       ; 3         ; 36   ; 0            ; |R32V2020                                                                                                                                                                                                                                                                                                                                            ; R32V2020                          ; work         ;
 ;    |ALU:ALU|                                                                                                                            ; 389 (359)           ; 0 (0)                     ; 0           ; 6            ; 0       ; 3         ; 0    ; 0            ; |R32V2020|ALU:ALU                                                                                                                                                                                                                                                                                                                                    ; ALU                               ; work         ;
 ;       |lpm_mult:Mult0|                                                                                                                  ; 30 (0)              ; 0 (0)                     ; 0           ; 6            ; 0       ; 3         ; 0    ; 0            ; |R32V2020|ALU:ALU|lpm_mult:Mult0                                                                                                                                                                                                                                                                                                                     ; lpm_mult                          ; work         ;
 ;          |mult_7dt:auto_generated|                                                                                                      ; 30 (30)             ; 0 (0)                     ; 0           ; 6            ; 0       ; 3         ; 0    ; 0            ; |R32V2020|ALU:ALU|lpm_mult:Mult0|mult_7dt:auto_generated                                                                                                                                                                                                                                                                                             ; mult_7dt                          ; work         ;
@@ -371,10 +371,10 @@ refer to the applicable agreement for further details.
 ;          |altsyncram_d7p3:auto_generated|                                                                                               ; 0 (0)               ; 0 (0)                     ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_d7p3:auto_generated                                                                                                                                                                                                                                                    ; altsyncram_d7p3                   ; work         ;
 ;    |BlockRom_Instruction:Instr_ROM|                                                                                                     ; 88 (0)              ; 64 (0)                    ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM                                                                                                                                                                                                                                                                                                             ; BlockRom_Instruction              ; work         ;
 ;       |altsyncram:altsyncram_component|                                                                                                 ; 88 (0)              ; 64 (0)                    ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component                                                                                                                                                                                                                                                                             ; altsyncram                        ; work         ;
-;          |altsyncram_al24:auto_generated|                                                                                               ; 88 (0)              ; 64 (0)                    ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated                                                                                                                                                                                                                                              ; altsyncram_al24                   ; work         ;
-;             |altsyncram_8433:altsyncram1|                                                                                               ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|altsyncram_8433:altsyncram1                                                                                                                                                                                                                  ; altsyncram_8433                   ; work         ;
-;             |sld_mod_ram_rom:mgl_prim2|                                                                                                 ; 88 (72)             ; 64 (56)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2                                                                                                                                                                                                                    ; sld_mod_ram_rom                   ; work         ;
-;                |sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|                                                                  ; 16 (16)             ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr                                                                                                                                                              ; sld_rom_sr                        ; work         ;
+;          |altsyncram_qp24:auto_generated|                                                                                               ; 88 (0)              ; 64 (0)                    ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated                                                                                                                                                                                                                                              ; altsyncram_qp24                   ; work         ;
+;             |altsyncram_o833:altsyncram1|                                                                                               ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|altsyncram_o833:altsyncram1                                                                                                                                                                                                                  ; altsyncram_o833                   ; work         ;
+;             |sld_mod_ram_rom:mgl_prim2|                                                                                                 ; 88 (72)             ; 64 (56)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2                                                                                                                                                                                                                    ; sld_mod_ram_rom                   ; work         ;
+;                |sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|                                                                  ; 16 (16)             ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr                                                                                                                                                              ; sld_rom_sr                        ; work         ;
 ;    |CCRControl:flowControl|                                                                                                             ; 9 (9)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|CCRControl:flowControl                                                                                                                                                                                                                                                                                                                     ; CCRControl                        ; work         ;
 ;    |Loadable_7S4D_LED:SevenSegDisplay|                                                                                                  ; 39 (39)             ; 20 (20)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|Loadable_7S4D_LED:SevenSegDisplay                                                                                                                                                                                                                                                                                                          ; Loadable_7S4D_LED                 ; work         ;
 ;    |OneHotStateMachine:StateMachine|                                                                                                    ; 12 (12)             ; 10 (10)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|OneHotStateMachine:StateMachine                                                                                                                                                                                                                                                                                                            ; OneHotStateMachine                ; work         ;
@@ -419,12 +419,12 @@ refer to the applicable agreement for further details.
 ;    |VideoClk_SVGA_800x600:clockGen|                                                                                                     ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|VideoClk_SVGA_800x600:clockGen                                                                                                                                                                                                                                                                                                             ; VideoClk_SVGA_800x600             ; work         ;
 ;       |altpll:altpll_component|                                                                                                         ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component                                                                                                                                                                                                                                                                                     ; altpll                            ; work         ;
 ;          |VideoClk_SVGA_800x600_altpll:auto_generated|                                                                                  ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated                                                                                                                                                                                                                                         ; VideoClk_SVGA_800x600_altpll      ; work         ;
-;    |sld_hub:auto_hub|                                                                                                                   ; 183 (1)             ; 120 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                           ; sld_hub                           ; altera_sld   ;
-;       |alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric| ; 182 (0)             ; 120 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric                                                                                                                                                                                           ; alt_sld_fab_with_jtag_input       ; altera_sld   ;
-;          |alt_sld_fab:instrumentation_fabric|                                                                                           ; 182 (0)             ; 120 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                                                                                        ; alt_sld_fab                       ; alt_sld_fab  ;
-;             |alt_sld_fab_alt_sld_fab:alt_sld_fab|                                                                                       ; 182 (1)             ; 120 (6)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab                                                                                                                    ; alt_sld_fab_alt_sld_fab           ; alt_sld_fab  ;
-;                |alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|                                                                            ; 181 (0)             ; 114 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric                                                                        ; alt_sld_fab_alt_sld_fab_sldfabric ; alt_sld_fab  ;
-;                   |sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|                                                                        ; 181 (142)           ; 114 (86)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub                           ; sld_jtag_hub                      ; work         ;
+;    |sld_hub:auto_hub|                                                                                                                   ; 179 (1)             ; 120 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                           ; sld_hub                           ; altera_sld   ;
+;       |alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric| ; 178 (0)             ; 120 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric                                                                                                                                                                                           ; alt_sld_fab_with_jtag_input       ; altera_sld   ;
+;          |alt_sld_fab:instrumentation_fabric|                                                                                           ; 178 (0)             ; 120 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                                                                                        ; alt_sld_fab                       ; alt_sld_fab  ;
+;             |alt_sld_fab_alt_sld_fab:alt_sld_fab|                                                                                       ; 178 (1)             ; 120 (6)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab                                                                                                                    ; alt_sld_fab_alt_sld_fab           ; alt_sld_fab  ;
+;                |alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|                                                                            ; 177 (0)             ; 114 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric                                                                        ; alt_sld_fab_alt_sld_fab_sldfabric ; alt_sld_fab  ;
+;                   |sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|                                                                        ; 177 (138)           ; 114 (86)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub                           ; sld_jtag_hub                      ; work         ;
 ;                      |sld_rom_sr:hub_info_reg|                                                                                          ; 21 (21)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_rom_sr:hub_info_reg   ; sld_rom_sr                        ; work         ;
 ;                      |sld_shadow_jsm:shadow_jsm|                                                                                        ; 18 (18)             ; 19 (19)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_shadow_jsm:shadow_jsm ; sld_shadow_jsm                    ; altera_sld   ;
 ;    |sld_signaltap:auto_signaltap_0|                                                                                                     ; 439 (2)             ; 997 (114)                 ; 57856       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020|sld_signaltap:auto_signaltap_0                                                                                                                                                                                                                                                                                                             ; sld_signaltap                     ; work         ;
@@ -466,18 +466,18 @@ refer to the applicable agreement for further details.
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                                                                                                                               ;
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------------------------------------------------+
-; Name                                                                                                                                                                                                  ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF                                                      ;
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------------------------------------------------+
-; BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_dvn3:auto_generated|ALTSYNCRAM                                                                                                      ; AUTO ; Simple Dual Port ; 256          ; 32           ; 256          ; 32           ; 8192  ; None                                                     ;
-; BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_d7p3:auto_generated|ALTSYNCRAM                                                                                                    ; AUTO ; Single Port      ; 256          ; 32           ; --           ; --           ; 8192  ; None                                                     ;
-; BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|altsyncram_8433:altsyncram1|ALTSYNCRAM                                                                  ; AUTO ; True Dual Port   ; 512          ; 32           ; 512          ; 32           ; 16384 ; ../../Programs/C014-Screen_Test/C014-Screen_Test_ins.HEX ;
-; PeripheralInterface:Peripherals|Mem_Mapped_SVGA:SVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_b0q3:auto_generated|ALTSYNCRAM                                                ; AUTO ; True Dual Port   ; 2048         ; 8            ; 2048         ; 8            ; 16384 ; None                                                     ;
-; PeripheralInterface:Peripherals|bufferedUART:UART|altsyncram:rxBuffer_rtl_0|altsyncram_3ce1:auto_generated|ALTSYNCRAM                                                                                 ; AUTO ; Simple Dual Port ; 16           ; 8            ; 16           ; 8            ; 128   ; None                                                     ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|altsyncram:\stp_non_zero_ram_gen:stp_buffer_ram|altsyncram_v724:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 512          ; 113          ; 512          ; 113          ; 57856 ; None                                                     ;
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                                                                                                                                 ;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------------------------------------------------------------+
+; Name                                                                                                                                                                                                  ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF                                                        ;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------------------------------------------------------------+
+; BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_dvn3:auto_generated|ALTSYNCRAM                                                                                                      ; AUTO ; Simple Dual Port ; 256          ; 32           ; 256          ; 32           ; 8192  ; None                                                       ;
+; BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_d7p3:auto_generated|ALTSYNCRAM                                                                                                    ; AUTO ; Single Port      ; 256          ; 32           ; --           ; --           ; 8192  ; None                                                       ;
+; BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|altsyncram_o833:altsyncram1|ALTSYNCRAM                                                                  ; AUTO ; True Dual Port   ; 512          ; 32           ; 512          ; 32           ; 16384 ; ../../Programs/C015-Screen_Clear/C015-Screen_Clear_ins.HEX ;
+; PeripheralInterface:Peripherals|Mem_Mapped_SVGA:SVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_b0q3:auto_generated|ALTSYNCRAM                                                ; AUTO ; True Dual Port   ; 2048         ; 8            ; 2048         ; 8            ; 16384 ; None                                                       ;
+; PeripheralInterface:Peripherals|bufferedUART:UART|altsyncram:rxBuffer_rtl_0|altsyncram_3ce1:auto_generated|ALTSYNCRAM                                                                                 ; AUTO ; Simple Dual Port ; 16           ; 8            ; 16           ; 8            ; 128   ; None                                                       ;
+; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|altsyncram:\stp_non_zero_ram_gen:stp_buffer_ram|altsyncram_v724:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 512          ; 113          ; 512          ; 113          ; 57856 ; None                                                       ;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -710,22 +710,22 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                                                                                                              ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[2]                                        ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[27]                                                  ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[2]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[27]                                                  ;
 ; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |R32V2020|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[4]                                                                                                                                    ;
-; 3:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[4]                                                   ;
+; 3:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[4]                                                   ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|ps2_intf:ps2Keyboard|bit_count[2]                                                                                                                             ;
 ; 3:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[4]                                                                                                                                  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[1]                                                                                                                                  ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[0] ;
 ; 5:1                ; 6 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|bufferedUART:UART|rxClockCount[2]                                                                                                                             ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|ps2_intf:ps2Keyboard|ERROR                                                                                                                                    ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[2]      ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[2]      ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|bufferedUART:UART|rxBitCount[3]                                                                                                                               ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|bufferedUART:UART|txBitCount[2]                                                                                                                               ;
 ; 5:1                ; 7 bits    ; 21 LEs        ; 7 LEs                ; 14 LEs                 ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|bufferedUART:UART|txBuffer[1]                                                                                                                                 ;
 ; 6:1                ; 6 bits    ; 24 LEs        ; 6 LEs                ; 18 LEs                 ; Yes        ; |R32V2020|PeripheralInterface:Peripherals|bufferedUART:UART|txClockCount[5]                                                                                                                             ;
-; 18:1               ; 2 bits    ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[1]      ;
+; 18:1               ; 2 bits    ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |R32V2020|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[1]      ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |R32V2020|Loadable_7S4D_LED:SevenSegDisplay|Mux12                                                                                                                                                       ;
 ; 16:1               ; 24 bits   ; 240 LEs       ; 240 LEs              ; 0 LEs                  ; No         ; |R32V2020|RegisterFile:RegisterFile|MUX_16x32:muxA|Mux3                                                                                                                                                 ;
 ; 16:1               ; 8 bits    ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |R32V2020|RegisterFile:RegisterFile|MUX_16x32:muxA|Mux26                                                                                                                                                ;
@@ -756,7 +756,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-; Source assignments for BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|altsyncram_8433:altsyncram1 ;
+; Source assignments for BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|altsyncram_o833:altsyncram1 ;
 +---------------------------------+--------------------+------+------------------------------------------------------------------------------------+
 ; Assignment                      ; Value              ; From ; To                                                                                 ;
 +---------------------------------+--------------------+------+------------------------------------------------------------------------------------+
@@ -1183,64 +1183,64 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+----------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component    ;
-+------------------------------------+----------------------------------------------------------+----------------+
-; Parameter Name                     ; Value                                                    ; Type           ;
-+------------------------------------+----------------------------------------------------------+----------------+
-; BYTE_SIZE_BLOCK                    ; 8                                                        ; Untyped        ;
-; AUTO_CARRY_CHAINS                  ; ON                                                       ; AUTO_CARRY     ;
-; IGNORE_CARRY_BUFFERS               ; OFF                                                      ; IGNORE_CARRY   ;
-; AUTO_CASCADE_CHAINS                ; ON                                                       ; AUTO_CASCADE   ;
-; IGNORE_CASCADE_BUFFERS             ; OFF                                                      ; IGNORE_CASCADE ;
-; WIDTH_BYTEENA                      ; 1                                                        ; Untyped        ;
-; OPERATION_MODE                     ; ROM                                                      ; Untyped        ;
-; WIDTH_A                            ; 32                                                       ; Signed Integer ;
-; WIDTHAD_A                          ; 9                                                        ; Signed Integer ;
-; NUMWORDS_A                         ; 512                                                      ; Signed Integer ;
-; OUTDATA_REG_A                      ; UNREGISTERED                                             ; Untyped        ;
-; ADDRESS_ACLR_A                     ; NONE                                                     ; Untyped        ;
-; OUTDATA_ACLR_A                     ; NONE                                                     ; Untyped        ;
-; WRCONTROL_ACLR_A                   ; NONE                                                     ; Untyped        ;
-; INDATA_ACLR_A                      ; NONE                                                     ; Untyped        ;
-; BYTEENA_ACLR_A                     ; NONE                                                     ; Untyped        ;
-; WIDTH_B                            ; 1                                                        ; Signed Integer ;
-; WIDTHAD_B                          ; 1                                                        ; Signed Integer ;
-; NUMWORDS_B                         ; 0                                                        ; Signed Integer ;
-; INDATA_REG_B                       ; CLOCK1                                                   ; Untyped        ;
-; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                   ; Untyped        ;
-; RDCONTROL_REG_B                    ; CLOCK1                                                   ; Untyped        ;
-; ADDRESS_REG_B                      ; CLOCK1                                                   ; Untyped        ;
-; OUTDATA_REG_B                      ; UNREGISTERED                                             ; Untyped        ;
-; BYTEENA_REG_B                      ; CLOCK1                                                   ; Untyped        ;
-; INDATA_ACLR_B                      ; NONE                                                     ; Untyped        ;
-; WRCONTROL_ACLR_B                   ; NONE                                                     ; Untyped        ;
-; ADDRESS_ACLR_B                     ; NONE                                                     ; Untyped        ;
-; OUTDATA_ACLR_B                     ; NONE                                                     ; Untyped        ;
-; RDCONTROL_ACLR_B                   ; NONE                                                     ; Untyped        ;
-; BYTEENA_ACLR_B                     ; NONE                                                     ; Untyped        ;
-; WIDTH_BYTEENA_A                    ; 1                                                        ; Signed Integer ;
-; WIDTH_BYTEENA_B                    ; 1                                                        ; Signed Integer ;
-; RAM_BLOCK_TYPE                     ; AUTO                                                     ; Untyped        ;
-; BYTE_SIZE                          ; 8                                                        ; Signed Integer ;
-; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                ; Untyped        ;
-; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                     ; Untyped        ;
-; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                     ; Untyped        ;
-; INIT_FILE                          ; ../../Programs/C014-Screen_Test/C014-Screen_Test_ins.HEX ; Untyped        ;
-; INIT_FILE_LAYOUT                   ; PORT_A                                                   ; Untyped        ;
-; MAXIMUM_DEPTH                      ; 0                                                        ; Signed Integer ;
-; CLOCK_ENABLE_INPUT_A               ; NORMAL                                                   ; Untyped        ;
-; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                   ; Untyped        ;
-; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                                                   ; Untyped        ;
-; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                   ; Untyped        ;
-; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                          ; Untyped        ;
-; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                          ; Untyped        ;
-; ENABLE_ECC                         ; FALSE                                                    ; Untyped        ;
-; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                    ; Untyped        ;
-; WIDTH_ECCSTATUS                    ; 3                                                        ; Signed Integer ;
-; DEVICE_FAMILY                      ; Cyclone IV E                                             ; Untyped        ;
-; CBXI_PARAMETER                     ; altsyncram_al24                                          ; Untyped        ;
-+------------------------------------+----------------------------------------------------------+----------------+
++------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component      ;
++------------------------------------+------------------------------------------------------------+----------------+
+; Parameter Name                     ; Value                                                      ; Type           ;
++------------------------------------+------------------------------------------------------------+----------------+
+; BYTE_SIZE_BLOCK                    ; 8                                                          ; Untyped        ;
+; AUTO_CARRY_CHAINS                  ; ON                                                         ; AUTO_CARRY     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                                        ; IGNORE_CARRY   ;
+; AUTO_CASCADE_CHAINS                ; ON                                                         ; AUTO_CASCADE   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                                        ; IGNORE_CASCADE ;
+; WIDTH_BYTEENA                      ; 1                                                          ; Untyped        ;
+; OPERATION_MODE                     ; ROM                                                        ; Untyped        ;
+; WIDTH_A                            ; 32                                                         ; Signed Integer ;
+; WIDTHAD_A                          ; 9                                                          ; Signed Integer ;
+; NUMWORDS_A                         ; 512                                                        ; Signed Integer ;
+; OUTDATA_REG_A                      ; UNREGISTERED                                               ; Untyped        ;
+; ADDRESS_ACLR_A                     ; NONE                                                       ; Untyped        ;
+; OUTDATA_ACLR_A                     ; NONE                                                       ; Untyped        ;
+; WRCONTROL_ACLR_A                   ; NONE                                                       ; Untyped        ;
+; INDATA_ACLR_A                      ; NONE                                                       ; Untyped        ;
+; BYTEENA_ACLR_A                     ; NONE                                                       ; Untyped        ;
+; WIDTH_B                            ; 1                                                          ; Signed Integer ;
+; WIDTHAD_B                          ; 1                                                          ; Signed Integer ;
+; NUMWORDS_B                         ; 0                                                          ; Signed Integer ;
+; INDATA_REG_B                       ; CLOCK1                                                     ; Untyped        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                     ; Untyped        ;
+; RDCONTROL_REG_B                    ; CLOCK1                                                     ; Untyped        ;
+; ADDRESS_REG_B                      ; CLOCK1                                                     ; Untyped        ;
+; OUTDATA_REG_B                      ; UNREGISTERED                                               ; Untyped        ;
+; BYTEENA_REG_B                      ; CLOCK1                                                     ; Untyped        ;
+; INDATA_ACLR_B                      ; NONE                                                       ; Untyped        ;
+; WRCONTROL_ACLR_B                   ; NONE                                                       ; Untyped        ;
+; ADDRESS_ACLR_B                     ; NONE                                                       ; Untyped        ;
+; OUTDATA_ACLR_B                     ; NONE                                                       ; Untyped        ;
+; RDCONTROL_ACLR_B                   ; NONE                                                       ; Untyped        ;
+; BYTEENA_ACLR_B                     ; NONE                                                       ; Untyped        ;
+; WIDTH_BYTEENA_A                    ; 1                                                          ; Signed Integer ;
+; WIDTH_BYTEENA_B                    ; 1                                                          ; Signed Integer ;
+; RAM_BLOCK_TYPE                     ; AUTO                                                       ; Untyped        ;
+; BYTE_SIZE                          ; 8                                                          ; Signed Integer ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                  ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                       ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                       ; Untyped        ;
+; INIT_FILE                          ; ../../Programs/C015-Screen_Clear/C015-Screen_Clear_ins.HEX ; Untyped        ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                                     ; Untyped        ;
+; MAXIMUM_DEPTH                      ; 0                                                          ; Signed Integer ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                                     ; Untyped        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                     ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                                                     ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                     ; Untyped        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                            ; Untyped        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                            ; Untyped        ;
+; ENABLE_ECC                         ; FALSE                                                      ; Untyped        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                      ; Untyped        ;
+; WIDTH_ECCSTATUS                    ; 3                                                          ; Signed Integer ;
+; DEVICE_FAMILY                      ; Cyclone IV E                                               ; Untyped        ;
+; CBXI_PARAMETER                     ; altsyncram_qp24                                            ; Untyped        ;
++------------------------------------+------------------------------------------------------------+----------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -1854,7 +1854,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+-------------+-------+-------+------------+-----------------------------------------------------------------------------------------------+
 ; Instance Index ; Instance ID ; Width ; Depth ; Mode       ; Hierarchy Location                                                                            ;
 +----------------+-------------+-------+-------+------------+-----------------------------------------------------------------------------------------------+
-; 0              ; NONE        ; 32    ; 512   ; Read/Write ; BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated ;
+; 0              ; NONE        ; 32    ; 512   ; Read/Write ; BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated ;
 +----------------+-------------+-------+-------+------------+-----------------------------------------------------------------------------------------------+
 
 
@@ -1898,7 +1898,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:13     ;
+; Top            ; 00:00:15     ;
 +----------------+--------------+
 
 
@@ -2063,7 +2063,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Mon May 27 19:55:46 2019
+    Info: Processing started: Tue May 28 05:38:09 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/alu/ccrcontrol.vhd
@@ -2291,7 +2291,7 @@ Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncr
     Info (12134): Parameter "indata_aclr_a" = "UNUSED"
     Info (12134): Parameter "indata_aclr_b" = "NONE"
     Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "../../Programs/C014-Screen_Test/C014-Screen_Test_ins.HEX"
+    Info (12134): Parameter "init_file" = "../../Programs/C015-Screen_Clear/C015-Screen_Clear_ins.HEX"
     Info (12134): Parameter "init_file_layout" = "PORT_A"
     Info (12134): Parameter "maximum_depth" = "0"
     Info (12134): Parameter "numwords_a" = "512"
@@ -2321,16 +2321,16 @@ Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncr
     Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
     Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=NONE"
     Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_al24.tdf
-    Info (12023): Found entity 1: altsyncram_al24 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_al24.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_al24" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_8433.tdf
-    Info (12023): Found entity 1: altsyncram_8433 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_8433.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_8433" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|altsyncram_8433:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_al24.tdf Line: 35
-Critical Warning (127005): Memory depth (512) in the design file differs from memory depth (53) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Programs/C014-Screen_Test/C014-Screen_Test_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_al24.tdf Line: 36
-Info (12130): Elaborated megafunction instantiation "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_al24.tdf Line: 36
-Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_al24.tdf Line: 36
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_qp24.tdf
+    Info (12023): Found entity 1: altsyncram_qp24 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_qp24.tdf Line: 27
+Info (12128): Elaborating entity "altsyncram_qp24" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_o833.tdf
+    Info (12023): Found entity 1: altsyncram_o833 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_o833.tdf Line: 27
+Info (12128): Elaborating entity "altsyncram_o833" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|altsyncram_o833:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_qp24.tdf Line: 35
+Critical Warning (127005): Memory depth (512) in the design file differs from memory depth (60) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Programs/C015-Screen_Clear/C015-Screen_Clear_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
+Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_qp24.tdf Line: 36
+Info (12130): Elaborated megafunction instantiation "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_qp24.tdf Line: 36
+Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_qp24.tdf Line: 36
     Info (12134): Parameter "CVALUE" = "00000000000000000000000000000000"
     Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
     Info (12134): Parameter "IS_READABLE" = "1"
@@ -2339,9 +2339,9 @@ Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncr
     Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
     Info (12134): Parameter "WIDTH_WORD" = "32"
     Info (12134): Parameter "WIDTHAD" = "9"
-Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 302
-Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
-Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_al24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 799
+Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 302
+Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
+Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_qp24:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 799
 Info (12128): Elaborating entity "REG_32" for hierarchy "REG_32:InstructionROMDataOutputLatch" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 311
 Info (12128): Elaborating entity "BlockRam_Stack" for hierarchy "BlockRam_Stack:Stack_RAM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 320
 Info (12128): Elaborating entity "altsyncram" for hierarchy "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
@@ -2546,7 +2546,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr
     Info (12023): Found entity 1: cmpr_ngc File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/cmpr_ngc.tdf Line: 22
 Info (12033): Analysis and Synthesis generated Signal Tap or debug node instance "auto_signaltap_0"
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2019.05.27.19:56:09 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2019.05.28.05:38:33 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -2704,17 +2704,17 @@ Info (35024): Successfully connected in-system debug instance "auto_signaltap_0"
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (15899): PLL "VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|pll1" has parameters clk1_multiply_by and clk1_divide_by specified but port CLK[1] is not connected File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v Line: 46
-Info (21057): Implemented 4412 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 4408 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 8 input pins
     Info (21059): Implemented 32 output pins
-    Info (21061): Implemented 4139 logic cells
+    Info (21061): Implemented 4135 logic cells
     Info (21064): Implemented 225 RAM segments
     Info (21065): Implemented 1 PLLs
     Info (21062): Implemented 6 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 79 warnings
-    Info: Peak virtual memory: 4894 megabytes
-    Info: Processing ended: Mon May 27 19:56:34 2019
-    Info: Elapsed time: 00:00:48
-    Info: Total CPU time (on all processors): 00:01:13
+    Info: Peak virtual memory: 4895 megabytes
+    Info: Processing ended: Tue May 28 05:39:00 2019
+    Info: Elapsed time: 00:00:51
+    Info: Total CPU time (on all processors): 00:01:18
 
 
