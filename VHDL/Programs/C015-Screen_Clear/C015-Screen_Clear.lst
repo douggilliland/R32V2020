@@ -1,71 +1,70 @@
 ; Peripheral Test
 ; Put characters on the screen
 start:
-00000000	00000000		nop				; need a nop until I fix the first fetch
-00000001	C000002E		bra	clearScreen
+;	ads	r8,r0,r0	; need a nop until I fix the first fetch
+00000000	C000002E		bra	clearScreen
 doneClear:
-00000002	20500000		ads r5,r0,r0	; start of screen character memory
-00000003	20800000		ads r8,r0,r0	; clear the character
-00000004	40800048		lil	r8,0x0048	; ASCII 'H'
-00000005	20971000		ads	r9,r7,r1	; calling address
-00000006	C0000033		bra	putChar
-00000007	40800065		lil	r8,0x0065	; ASCII 'e'
-00000005	20971000		ads	r9,r7,r1	; calling address
-00000009	C0000030		bra	putChar
-0000000a	4080006C		lil	r8,0x006C	; ASCII 'l'
-00000005	20971000		ads	r9,r7,r1	; calling address
-0000000c	C000002D		bra	putChar
-0000000d	4080006C		lil	r8,0x006C	; ASCII 'l'
-00000005	20971000		ads	r9,r7,r1	; calling address
-0000000f	C000002A		bra	putChar
-00000010	4080006F		lil	r8,0x006F	; ASCII 'o'
-00000005	20971000		ads	r9,r7,r1	; calling address
-00000012	C0000027		bra	putChar
-00000013	4080002C		lil	r8,0x002C	; ASCII ','
-00000005	20971000		ads	r9,r7,r1	; calling address
-00000015	C0000024		bra	putChar
-00000016	40800020		lil	r8,0x0020	; ASCII ' '
-00000005	20971000		ads	r9,r7,r1	; calling address
-00000018	C0000021		bra	putChar
-00000019	40800057		lil	r8,0x0057	; ASCII 'W'
-00000005	20971000		ads	r9,r7,r1	; calling address
-0000001b	C000001E		bra	putChar
-0000001c	4080006F		lil	r8,0x006F	; ASCII 'o'
-00000005	20971000		ads	r9,r7,r1	; calling address
-0000001e	C000001B		bra	putChar
-0000001f	40800072		lil	r8,0x0072	; ASCII 'r'
-00000005	20971000		ads	r9,r7,r1	; calling address
-00000021	C0000018		bra	putChar
-00000022	4080006C		lil	r8,0x006C	; ASCII 'l'
-00000005	20971000		ads	r9,r7,r1	; calling address
-00000024	C0000015		bra	putChar
-00000025	40800064		lil	r8,0x0064	; ASCII 'd'
-00000005	20971000		ads	r9,r7,r1	; calling address
-00000027	C0000012		bra	putChar
-00000028	40800021		lil	r8,0x0021	; ASCII '!'
-00000005	20971000		ads	r9,r7,r1	; calling address
-0000002a	C000000F		bra	putChar
-0000002b	40800020		lil	r8,0x0020	; ASCII ' '
-00000005	20971000		ads	r9,r7,r1	; calling address
-0000002d	C000000C		bra	putChar
-0000002e	01000000		hcf
+00000001	20500000		ads r5,r0,r0	; start of screen character memory
+00000002	20800000		ads r8,r0,r0	; clear the character
+00000003	40800048		lil	r8,0x0048	; ASCII 'H'
+00000004	20971000		ads	r9,r7,r1
+00000005	C0000033		bra	putChar
+00000006	40800065		lil	r8,0x0065	; ASCII 'e'
+00000007	20971000		ads	r9,r7,r1
+00000008	C0000030		bra	putChar
+00000009	4080006C		lil	r8,0x006C	; ASCII 'l'
+0000000a	20971000		ads	r9,r7,r1
+0000000b	C000002D		bra	putChar
+0000000c	4080006C		lil	r8,0x006C	; ASCII 'l'
+0000000d	20971000		ads	r9,r7,r1
+0000000e	C000002A		bra	putChar
+0000000f	4080006F		lil	r8,0x006F	; ASCII 'o'
+00000010	20971000		ads	r9,r7,r1
+00000011	C0000027		bra	putChar
+00000012	4080002C		lil	r8,0x002C	; ASCII ','
+00000013	20971000		ads	r9,r7,r1
+00000014	C0000024		bra	putChar
+00000015	40800020		lil	r8,0x0020	; ASCII ' '
+00000016	20971000		ads	r9,r7,r1
+00000017	C0000021		bra	putChar
+00000018	40800057		lil	r8,0x0057	; ASCII 'W'
+00000019	20971000		ads	r9,r7,r1
+0000001a	C000001E		bra	putChar
+0000001b	4080006F		lil	r8,0x006F	; ASCII 'o'
+0000001c	20971000		ads	r9,r7,r1
+0000001d	C000001B		bra	putChar
+0000001e	40800072		lil	r8,0x0072	; ASCII 'r'
+0000001f	20971000		ads	r9,r7,r1
+00000020	C0000018		bra	putChar
+00000021	4080006C		lil	r8,0x006C	; ASCII 'l'
+00000022	20971000		ads	r9,r7,r1
+00000023	C0000015		bra	putChar
+00000024	40800064		lil	r8,0x0064	; ASCII 'd'
+00000025	20971000		ads	r9,r7,r1
+00000026	C0000012		bra	putChar
+00000027	40800021		lil	r8,0x0021	; ASCII '!'
+00000028	20971000		ads	r9,r7,r1
+00000029	C000000F		bra	putChar
+0000002a	40800020		lil	r8,0x0020	; ASCII ' '
+0000002b	20971000		ads	r9,r7,r1
+0000002c	C000000C		bra	putChar
+0000002d	01000000		hcf
 ; Clear the screen routine
 clearScreen:
-0000002f	20500000		ads r5,r0,r0	; start of screen character memory
-00000030	20800000		ads r8,r0,r0	; clear the character
-00000031	40800020		lil	r8,0x0020	; fill with spaces
-00000032	20900000		ads r9,r0,r0	; screen count
-00000033	409007FE		lil r9,0x7FE	; loopCount	
+0000002e	20500000		ads r5,r0,r0	; start of screen character memory
+0000002f	20800000		ads r8,r0,r0	; clear the character
+00000030	40800020		lil	r8,0x0020	; fill with spaces
+00000031	20900000		ads r9,r0,r0	; screen count
+00000032	409007FE		lil r9,0x7FE	; loopCount	
 looper:
-00000034	81508000		spb r8			; put the character to the screen
-00000035	20551000		ads	r5,r5,r1	; Increment screen pointer
-00000036	20992000		ads r9,r9,r2	; decrement character counter
-00000037	C8FFFFFD		bne	looper		; loop until complete
-00000038	C0FFFFCA		bra	doneClear
+00000033	81508000		spb r8			; put the character to the screen
+00000034	20551000		ads	r5,r5,r1	; Increment screen pointer
+00000035	20992000		ads r9,r9,r2	; decrement character counter
+00000036	C8FFFFFD		bne	looper		; loop until complete
+00000037	C0FFFFCA		bra	doneClear
 ; put a character to the screen and increment the address
-; r8 has the character to put to the screen
-; r9 has the calling address
 putChar:
-00000039	81508000		spb	r8			; write character to peripheral bus
-0000003a	20551000		ads	r5,r5,r1	; Go to the next character position	
-0000003b	20791000		ads	r7,r9,r1	; return to calling routine (r9 is the calling address)
+00000038	81508000		spb	r8			; write character to peripheral bus
+00000039	20551000		ads	r5,r5,r1	; Go to the next character position	
+0000003a	20791000		ads	r7,r9,r1	; return to calling routine (r9 is the calling address)
+	

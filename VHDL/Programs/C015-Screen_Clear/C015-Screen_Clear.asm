@@ -1,7 +1,7 @@
 ; Peripheral Test
 ; Put characters on the screen
 start:
-	nop				; need a nop until I fix the first fetch
+;	ads	r8,r0,r0	; need a nop until I fix the first fetch
 	bra	clearScreen
 doneClear:
 	ads r5,r0,r0	; start of screen character memory

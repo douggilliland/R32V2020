@@ -133,11 +133,11 @@ attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
 
-	w_holdHaltCatchFire	<= '1' when w_OneHotState(3) = '1' and w_Op_HCF = '1' and n_reset = '1' else '0';
-	w_writeStackRamEn <= '1' when (w_OneHotState(3) = '1' and (w_Op_PSS = '1' or w_Op_SSS = '1') and n_reset = '1') else '0';
+ 	w_holdHaltCatchFire	<= '1' when (w_OneHotState(3) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
+	w_writeStackRamEn		<= '1' when (w_OneHotState(3) = '1' and (w_Op_PSS = '1' or  w_Op_SSS = '1') and n_reset = '1') else '0';
 
 	clockGen : ENTITY work.VideoClk_SVGA_800x600
-	PORT map 	(
+	PORT map (
 		areset	=> not n_reset,
 		inclk0	=> CLOCK_50,
 		c0			=> w_Video_Clk
@@ -164,7 +164,7 @@ begin
 	PORT MAP (
     clk 	=> CLOCK_50,
     d   	=> q_InstructionRomData(31 downto 24)&w_InstructionRomAddress(7 downto 0),
-    ld  	=> w_OneHotState(4),
+    ld  	=> w_OneHotState(3),
     clr 	=> not n_reset,
     q		=> w_displayed_number
 	);
@@ -303,7 +303,7 @@ flowControl : ENTITY work.CCRControl PORT map
 	Instr_ROM : ENTITY work.BlockRom_Instruction
 	PORT MAP (
 		address		=> w_InstructionRomAddress(8 downto 0),
-		clken			=> w_OneHotState(5) or (not n_reset),
+		clken			=> w_OneHotState(0) or (not n_reset),
 		clock 		=> CLOCK_50,
 		q 				=> w_InstructionRomData
 	);
@@ -311,8 +311,8 @@ flowControl : ENTITY work.CCRControl PORT map
 	InstructionROMDataOutputLatch : ENTITY work.REG_32
 	PORT MAP (
     d   	=> w_InstructionRomData,
-    ld  	=> w_OneHotState(1),
-    clr 	=> not n_reset,
+    ld  	=> w_OneHotState(1) or (not n_reset),
+    clr 	=> '0',
     clk 	=> CLOCK_50,
     q		=> q_InstructionRomData
 	);
@@ -354,7 +354,7 @@ flowControl : ENTITY work.CCRControl PORT map
 	port map (
 		i_clk							=> CLOCK_50,
 		i_clear						=> not n_reset,
-		i_enable						=> w_OneHotState(4),
+		i_enable						=> w_OneHotState(3),
 		i_TakeBranch				=> w_TakeBranch,
 		i_BranchAddress			=> w_BranchAddress,
 		i_wrRegSel					=> q_InstructionRomData(23 downto 20),
