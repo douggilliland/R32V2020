@@ -7,6 +7,25 @@ import re
 
 validRegisters = set()
 
+REGISTER_ALIASES = {
+  'ZERO': 0,
+  'ONE': 1,
+  'MINUS1': 2,
+  'CCR': 3,
+  'SAR': 4,
+  'PAR': 5,
+  'DAR': 6,
+  'PC': 7,
+  'GP0': 8,
+  'GP1': 9,
+  'GP2': 10,
+  'GP3': 11,
+  'GP4': 12,
+  'GP5': 13,
+  'GP6': 14,
+  'GP7': 15
+}
+
 supportedForms = set([
   'ADDR',
   'ADDR_R7_DEST',
@@ -40,6 +59,9 @@ constantFormRegister = {
 
 for i in xrange(0, 16):
   validRegisters.add('R' + str(i))
+
+for alias in REGISTER_ALIASES:
+  validRegisters.add(alias)
 
 def userAssert(condition, message):
   if not condition:
@@ -276,6 +298,9 @@ def isValidRegister(token):
   return token.upper() in validRegisters
 
 def parseRegister(token):
+  if token.upper() in REGISTER_ALIASES:
+    return REGISTER_ALIASES[token.upper()]
+
   return int(token[1:])
 
 def unsafeParseBinary(token):
