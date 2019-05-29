@@ -1,5 +1,5 @@
 Fitter report for R32V2020
-Wed May 29 15:36:17 2019
+Wed May 29 16:41:36 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -76,7 +76,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Wed May 29 15:36:17 2019       ;
+; Fitter Status                      ; Successful - Wed May 29 16:41:35 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
@@ -169,9 +169,9 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   4.4%      ;
-;     Processor 3            ;   4.2%      ;
-;     Processor 4            ;   4.1%      ;
+;     Processor 2            ;   4.7%      ;
+;     Processor 3            ;   4.4%      ;
+;     Processor 4            ;   4.3%      ;
 +----------------------------+-------------+
 
 
@@ -1722,7 +1722,7 @@ Info (332111): Found 1 clocks
     Info (332111):   Period   Clock Name
     Info (332111): ======== ============
     Info (332111):  100.000 altera_reserved_tck
-Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN 23 (CLK1, DIFFCLK_0n)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 11
+Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN 23 (CLK1, DIFFCLK_0n)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 11
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G2
 Info (176353): Automatically promoted node PeripheralInterface:Peripherals|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] (placed in counter C0 of PLL_1) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/videoclk_svga_800x600_altpll.v Line: 80
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G3
@@ -1738,14 +1738,14 @@ Info (176353): Automatically promoted node PeripheralInterface:Peripherals|comb~
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
         Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|process_1~0
-Info (176353): Automatically promoted node n_reset~input (placed in PIN 89 (CLK6, DIFFCLK_3p)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 10
+Info (176353): Automatically promoted node n_reset~input (placed in PIN 89 (CLK6, DIFFCLK_3p)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 10
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G9
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node R32V2020:RISC_CPU|o_clkInstrRomData File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 17
-        Info (176357): Destination node R32V2020:RISC_CPU|w_holdHaltCatchFire~0 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 121
-        Info (176357): Destination node R32V2020:RISC_CPU|o_clkInstrRomAddr File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 16
-        Info (176357): Destination node R32V2020:RISC_CPU|o_writeToDataRamEnable~0 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 26
-        Info (176357): Destination node R32V2020:RISC_CPU|o_writeStackRamEn~0 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/R32V2020.vhd Line: 21
+        Info (176357): Destination node R32V2020:RISC_CPU|o_clkInstrRomData File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 17
+        Info (176357): Destination node R32V2020:RISC_CPU|w_holdHaltCatchFire~0 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 121
+        Info (176357): Destination node R32V2020:RISC_CPU|o_clkInstrRomAddr File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 16
+        Info (176357): Destination node R32V2020:RISC_CPU|o_writeToDataRamEnable~0 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 26
+        Info (176357): Destination node R32V2020:RISC_CPU|o_writeStackRamEn~0 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 21
         Info (176357): Destination node sld_signaltap:auto_signaltap_0|acq_trigger_in_reg[0] File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_signaltap.vhd Line: 407
         Info (176357): Destination node sld_signaltap:auto_signaltap_0|acq_data_in_reg[110] File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_signaltap.vhd Line: 407
 Info (176353): Automatically promoted node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|reset_all  File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_signaltap_impl.vhd Line: 882
@@ -1838,7 +1838,7 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
-Info (11888): Total time spent on timing analysis during the Fitter is 0.97 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.99 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -1846,19 +1846,19 @@ Info (334004): Delay annotation completed successfully
 Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 8 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVCMOS at 23 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 11
-    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at 89 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 10
-    Info (169178): Pin i_switch[0] uses I/O standard 3.3-V LVCMOS at 24 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 13
-    Info (169178): Pin i_switch[1] uses I/O standard 3.3-V LVCMOS at 25 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 13
-    Info (169178): Pin i_switch[2] uses I/O standard 3.3-V LVCMOS at 54 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 13
-    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVCMOS at 55 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 27
-    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVCMOS at 51 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 17
-    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVCMOS at 119 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/top.vhd Line: 26
+    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVCMOS at 23 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 11
+    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at 89 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 10
+    Info (169178): Pin i_switch[0] uses I/O standard 3.3-V LVCMOS at 24 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 13
+    Info (169178): Pin i_switch[1] uses I/O standard 3.3-V LVCMOS at 25 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 13
+    Info (169178): Pin i_switch[2] uses I/O standard 3.3-V LVCMOS at 54 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 13
+    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVCMOS at 55 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 27
+    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVCMOS at 51 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 17
+    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVCMOS at 119 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 26
 Info (144001): Generated suppressed messages file C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/output_files/R32V2020.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 54 warnings
     Info: Peak virtual memory: 5569 megabytes
-    Info: Processing ended: Wed May 29 15:36:18 2019
-    Info: Elapsed time: 00:00:14
+    Info: Processing ended: Wed May 29 16:41:37 2019
+    Info: Elapsed time: 00:00:13
     Info: Total CPU time (on all processors): 00:00:18
 
 
