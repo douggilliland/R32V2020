@@ -7,19 +7,12 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity R32V2020 is
 	port(
-		n_reset		: in std_logic;
-		CLOCK_50		: in std_logic;
+		n_reset			: in std_logic;
+		CLOCK_50			: in std_logic;
 		
-		-- switch0		: in std_logic;
-		-- switch1		: in std_logic;
-		-- switch2		: in std_logic;
-
-		-- LED1			: out std_logic;
-		-- LED2			: out std_logic;
-		-- LED3			: out std_logic;
-		-- LED4			: out std_logic;
-
-		-- BUZZER		: out std_logic;
+		i_switch			: in std_logic_vector(2 downto 0);
+		o_LED				: out std_logic(3 downto 0);
+		o_BUZZER			: out std_logic;
 
 		SerRxd			: in std_logic;
 		SerTxd			: out std_logic;
@@ -382,6 +375,9 @@ flowControl : ENTITY work.CCRControl PORT map
 		n_reset					=>  n_reset,
 		CLOCK_50					=> CLOCK_50,
 		Video_Clk				=> w_Video_Clk,
+		i_switch					=> i_switch
+		o_LED						=> o_LED
+		o_BUZZER					=> o_BUZZER
 		peripheralAddress		=> w_peripheralAddress,
 		dataToPeripherals		=> w_regDataA,
 		dataFromPeripherals	=> w_dataFromPeripherals,
