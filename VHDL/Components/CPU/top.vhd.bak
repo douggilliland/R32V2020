@@ -11,12 +11,12 @@ entity top is
 		i_CLOCK_50			: in std_logic;
 		-- Switches, LEDs, Buzzer pins
 		i_switch				: in std_logic_vector(2 downto 0) := "111";
-		--o_LED					: out std_logic_vector(3 downto 0);
+		o_LED					: out std_logic_vector(3 downto 0);
 		o_BUZZER				: out std_logic;
 		-- Serial port pins
 		i_SerRxd				: in std_logic;
 		o_SerTxd				: out std_logic;
-		--o_SerRts				: out std_logic;
+		o_SerRts				: out std_logic;
 		-- VGA pins
 		o_VideoVect			: out std_logic_vector(17 downto 0); -- rrrrr,gggggg,bbbbb,hsync,vsync
 		-- Seven Segment LED pins
@@ -139,13 +139,13 @@ begin
 		i_peripheralWrStrobe		=> w_peripheralWrEn,
 		-- Physical connections to/from the FPGA pins
 		i_switch						=> i_switch,
-		--o_LED							=> o_LED,
+		o_LED							=> o_LED,
 		o_BUZZER						=> o_BUZZER,
 		o_Anode_Activate 			=> o_Anode_Activate,
 		o_LED_out					=> o_LED_out,
 		i_rxd							=> i_SerRxd,
 		o_txd							=> o_SerTxd,
-		--o_rts							=> o_SerRts,
+		o_rts							=> o_SerRts,
 		o_VoutVect					=> o_VideoVect,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
