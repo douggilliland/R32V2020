@@ -8,116 +8,165 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity PeripheralInterface is
 	port(
-		n_reset					: in std_logic;
-		CLOCK_50					: in std_logic;
-		Video_Clk				: in std_logic;
-		i_switch					: in std_logic_vector(2 downto 0);
-		o_LED						: out std_logic(3 downto 0);
-		o_BUZZER					: out std_logic;
-		peripheralAddress		: in std_logic_vector(31 downto 0);
-		dataToPeripherals		: in std_logic_vector(31 downto 0);
-		dataFromPeripherals	: out std_logic_vector(31 downto 0);
-		peripheralRdStrobe	: in std_logic;
-		peripheralWrStrobe	: in std_logic;
-		rxd						: in std_logic;	-- Serial receive
-		txd						: out std_logic;	-- Serial transmit
-		rts						: out std_logic;	
-		VoutVect					: out std_logic_vector(17 downto 0);
-		PS2_CLK					: in std_logic;	-- PS/2 Clock
-		PS2_DATA					: in std_logic		-- PS/2 Data
+		n_reset						: in std_logic := '1';
+		i_CLOCK_50					: in std_logic := '1';
+		-- Peripheral Memory Mapped Space Address/Data/Control lines
+		i_peripheralAddress		: in std_logic_vector(31 downto 0) := x"00000000";
+		i_dataToPeripherals		: in std_logic_vector(31 downto 0) := x"00000000";
+		o_dataFromPeripherals	: out std_logic_vector(31 downto 0) := x"00000000";
+		i_peripheralRdStrobe		: in std_logic := '1';
+		i_peripheralWrStrobe		: in std_logic := '1';
+		-- Physical connections to/from the FPGA pins
+		i_switch						: in std_logic_vector(2 downto 0) := "111";			-- Switches
+		o_LED							: out std_logic_vector(3 downto 0) := "1111";		-- LEDs (mutually exclusive w 7 Seg LED)
+		o_BUZZER						: out std_logic := '1';										-- Buzzer
+		o_Anode_Activate 			: out std_logic_vector(3 downto 0) := "1111";		-- Seven Segment LED
+		o_LED_out					: out std_logic_vector(6 downto 0) := "1111111";	-- Seven Segment LED
+		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
+		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
+		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
+		o_VoutVect					: out std_logic_vector(17 downto 0);					-- VGA lines
+		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
+		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
 		);
 	end PeripheralInterface;
 	
 architecture struct of PeripheralInterface is
 
 	-- Peripheral Signals
-	signal n_dispRamCS 			:	std_logic;
-	signal n_kbCS 					:	std_logic;
-	signal n_aciaCS 				:	std_logic;
-	signal n_aciaCS 				:	std_logic;
-	signal n_SwitchesCS			:	std_logic;
-	signal n_LEDsCS				:	std_logic;
---	signal dataFromPeripheral	: 	std_logic_vector(31 downto 0);
-	signal serialClkCount		: std_logic_vector(15 downto 0); 
-	signal serialClkCount_d    : std_logic_vector(15 downto 0);
-	signal serialClkEn			: std_logic;
-	signal serialClock			: std_logic;
-	signal kbdDataStatus			: std_logic_vector(9 downto 0);
-	signal aciaData				: std_logic_vector(7 downto 0);
-	signal kbReadData				: std_logic_vector(7 downto 0);
-	signal dispRamDataOutA		: std_logic_vector(7 downto 0);
-	signal kbDataValid			: std_logic;
-	signal kbError					: std_logic;
+	signal w_n_dispRamCS 		:	std_logic;
+	signal w_n_kbDatCS 			:	std_logic;
+	signal w_n_kbStatCS			:	std_logic;
+	signal w_n_aciaCS 			:	std_logic;
+	signal w_n_SwitchesCS		:	std_logic;
+	signal w_n_LEDsCS				:	std_logic;
+	signal w_n_7SEGCS				:	std_logic;
+	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
+	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
+	signal w_serialClkEn			:	std_logic;
+	signal w_serialClock			:	std_logic;
+	signal w_kbdDataStatus		:	std_logic_vector(9 downto 0);
+	signal w_aciaData				:	std_logic_vector(7 downto 0);
+	signal w_kbReadData			:	std_logic_vector(7 downto 0);
+	signal w_dispRamDataOutA	:	std_logic_vector(7 downto 0);
+	signal w_kbDataValid			:	std_logic;
+	signal w_kbError				:	std_logic;
+	signal w_Video_Clk			: 	std_logic := '0';
+	signal w_displayed_number	: 	std_logic_vector(15 downto 0); 
+	signal w_LatData				:	std_logic_vector(7 downto 0);
 
 	constant SVGA_BASE 	: std_Logic_Vector(4 downto 0) := "00000";
-	constant KBD_BASE 	: std_Logic_Vector(4 downto 0) := "00001";
-	constant ACIA_BASE 	: std_Logic_Vector(4 downto 0) := "00010";
-	constant SWS_BASE 	: std_Logic_Vector(4 downto 0) := "00011";
-	constant LEDS_BASE 	: std_Logic_Vector(4 downto 0) := "00100";
+	constant KBDAT_BASE 	: std_Logic_Vector(4 downto 0) := "00001";
+	constant KBST_BASE 	: std_Logic_Vector(4 downto 0) := "00010";
+	constant ACIA_BASE 	: std_Logic_Vector(4 downto 0) := "00011";
+	constant SWS_BASE 	: std_Logic_Vector(4 downto 0) := "00100";
+	constant LEDS_BASE 	: std_Logic_Vector(4 downto 0) := "00101";
+	constant SEGS7_BASE 	: std_Logic_Vector(4 downto 0) := "00110";
 
 
 begin
 	
 	-- Peripheral Address decoder
-	n_dispRamCS 	<= '0' when peripheralAddress(15 downto 11) = SVGA_BASE	else '1';	-- x0000-x07FF (2KB)
-	n_kbCS 			<= '0' when peripheralAddress(15 downto 11) = KBD_BASE	else '1';	-- x0800-x0FFF (2KB)
-	n_aciaCS 		<= '0' when peripheralAddress(15 downto 11) = ACIA_BASE	else '1';	-- x1000-x17FF (2KB)
-	n_SwitchesCS	<= '0' when peripheralAddress(15 downto 11) = SWS_BASE	else '1';	-- x1800-x1FFF (2KB)
-	n_LEDsCS			<= '0' when peripheralAddress(15 downto 11) = LEDS_BASE	else '1';	-- x2000-x27FF (2KB)
-
-	dataFromPeripherals <=
-		x"000000"		&dispRamDataOutA 		when n_dispRamCS = '0' else
-		x"00000"&"00"	&kbdDataStatus			when peripheralAddress(0) = '1' and n_kbCS='0' else 
-		x"000000"		&kbReadData 			when peripheralAddress(0) = '0' and n_kbCS='0' else
-		x"000000"		&aciaData 				when n_aciaCS = '0' else
+	-- Currently only uses 16-bits of address
+	w_n_dispRamCS 	<= '0' when i_peripheralAddress(15 downto 11) = SVGA_BASE	else '1';	-- x0000-x07FF (2KB)
+	w_n_kbDatCS 	<= '0' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '1';	-- x0800-x0FFF (2KB)
+	w_n_kbStatCS 	<= '0' when i_peripheralAddress(15 downto 11) = KBST_BASE	else '1';	-- x1000-x17FF (2KB)
+	w_n_aciaCS 		<= '0' when i_peripheralAddress(15 downto 11) = ACIA_BASE	else '1';	-- x1800-x1FFF (2KB)
+	w_n_SwitchesCS	<= '0' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '1';	-- x2000-x27FF (2KB)
+	w_n_LEDsCS		<= '0' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '1';	-- x2800-x2FFF (2KB)
+	w_n_7SEGCS		<= '0' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '1';	-- x3000-x37FF (2KB)
+	
+	o_dataFromPeripherals <=
+		x"000000"		&w_dispRamDataOutA 		when	w_n_dispRamCS 	= '0' else
+		x"00000"&"00"	&w_kbdDataStatus			when	w_n_kbStatCS	= '0' else 
+		x"000000"		&w_kbReadData	 			when	w_n_kbDatCS		= '0' else
+		x"000000"		&w_aciaData 				when	w_n_aciaCS 		= '0' else
+		x"0000000"&'0'	&i_switch 					when	w_n_SwitchesCS = '0' else
 		x"FFFFFFFF";
+	
+	SevenSegDisplay : entity work.Loadable_7S4D_LED
+    Port map ( 
+		i_CLOCK_50Mhz 			=> i_CLOCK_50,
+      i_reset					=> not n_reset,
+		i_displayed_number	=> w_displayed_number,
+      o_Anode_Activate		=> o_Anode_Activate,
+      o_LED_out 				=> o_LED_out		-- Cathode patterns of 7-segment display
+	);
+	
+	SevenSegmentDisplayLatch : ENTITY work.REG_16
+	PORT MAP (
+    clk 	=> i_CLOCK_50,
+    d   	=> i_dataToPeripherals(15 downto 0),
+    ld  	=> i_peripheralWrStrobe and (not w_n_7SEGCS),
+    clr 	=> not n_reset,
+    q		=> w_displayed_number
+	);
+	
+	LedLatch	: ENTITY work.REG_8 
+	PORT MAP (
+    clk 	=> i_CLOCK_50,
+    d 	=> i_dataToPeripherals(7 downto 0),
+    ld 	=> i_peripheralWrStrobe and (not w_n_LEDsCS),
+    clr  => not n_reset,
+    q    => w_LatData
+	);
+	
+	o_LED <= w_LatData(3 downto 0);
+	o_BUZZER <= w_LatData(4);
 	
 	UART : entity work.bufferedUART
 		port map(
-			clk 		=> CLOCK_50,
-			n_wr 		=> n_aciaCS or (not peripheralWrStrobe),
-			n_rd 		=> n_aciaCS or (not peripheralRdStrobe),
-			regSel 	=> peripheralAddress(0),
-			dataIn 	=> dataToPeripherals(7 downto 0),
-			dataOut 	=> aciaData,
-			rxClkEn 	=> serialClkEn,
-			txClkEn 	=> serialClkEn,
-			rxd 		=> rxd,
-			txd 		=> txd,
+			clk 		=> i_CLOCK_50,
+			n_wr 		=> w_n_aciaCS or (not i_peripheralWrStrobe),
+			n_rd 		=> w_n_aciaCS or (not i_peripheralRdStrobe),
+			regSel 	=> i_peripheralAddress(0),
+			dataIn 	=> i_dataToPeripherals(7 downto 0),
+			dataOut 	=> w_aciaData,
+			rxClkEn 	=> w_serialClkEn,
+			txClkEn 	=> w_serialClkEn,
+			rxd 		=> i_rxd,
+			txd 		=> o_txd,
 			n_cts 	=> '0',
 			n_dcd 	=> '0',
-			n_rts 	=> rts
+			n_rts 	=> o_rts
 		);
 
+	clockGen : ENTITY work.VideoClk_SVGA_800x600
+	PORT map (
+		areset	=> not n_reset,
+		inclk0	=> i_CLOCK_50,
+		c0			=> w_Video_Clk
+	);
+	
 	SVGA : entity work.Mem_Mapped_SVGA
 		port map (
 			n_reset		=> n_reset,
-			Video_Clk	=> Video_Clk,
-			CLK_50		=> CLOCK_50,
-			n_dispRamCS	=> n_dispRamCS,
-			n_memWR		=> n_dispRamCS or n_dispRamCS or (not peripheralWrStrobe),
-			cpuAddress	=> peripheralAddress(10 downto 0),
-			cpuDataOut	=> dataToPeripherals(7 downto 0),
-			dataOut		=> dispRamDataOutA,
-			VoutVect		=> VoutVect
+			Video_Clk	=> w_Video_Clk,
+			CLK_50		=> i_CLOCK_50,
+			n_dispRamCS	=> w_n_dispRamCS,
+			n_memWR		=> w_n_dispRamCS or (not i_peripheralWrStrobe),
+			cpuAddress	=> i_peripheralAddress(10 downto 0),
+			cpuDataOut	=> i_dataToPeripherals(7 downto 0),
+			dataOut		=> w_dispRamDataOutA,
+			VoutVect		=> o_VoutVect
 			);
 	
 	ps2Keyboard : entity work.ps2_intf
 	port map (
-		CLK		=> CLOCK_50,
+		CLK		=> i_CLOCK_50,
 		nRESET	=> n_reset,
-		PS2_CLK	=> PS2_CLK,
-		PS2_DATA	=> PS2_DATA,	
-		DATA		=> kbReadData,
-		VALID		=> kbDataValid,
-		ERROR		=> kbError
+		PS2_CLK	=> i_PS2_CLK,
+		PS2_DATA	=> i_PS2_DATA,	
+		DATA		=> w_kbReadData,
+		VALID		=> w_kbDataValid,
+		ERROR		=> w_kbError
 	);
 	
-	process (CLOCK_50, kbReadData, kbDataValid, kbError)
+	process (i_CLOCK_50, w_kbReadData, W_kbDataValid, w_kbError)
 	begin
-		if rising_edge(CLOCK_50)  then
-			if kbDataValid = '1' or kbError = '1' then
-				kbdDataStatus <= "0000000" & kbError & kbDataValid & PS2_DATA;
+		if rising_edge(i_CLOCK_50)  then
+			if w_kbDataValid = '1' or w_kbError = '1' then
+				w_kbdDataStatus <= "0000000" & w_kbError & w_kbDataValid & i_PS2_DATA;
 			end if;
 		end if;
 	end process;
@@ -138,20 +187,20 @@ begin
 	-- 600 13
 	-- 300 6
 
-	baud_div: process (serialClkCount_d, serialClkCount)
+	baud_div: process (w_serialClkCount_d, w_serialClkCount)
 		begin
-			serialClkCount_d <= serialClkCount + 6;		-- 300 baud
+			w_serialClkCount_d <= w_serialClkCount + 6;		-- 300 baud
 		end process;
 
 	--Single clock wide baud rate enable
-	baud_clk: process(CLOCK_50)
+	baud_clk: process(i_CLOCK_50)
 		begin
-			if rising_edge(CLOCK_50) then
-					serialClkCount <= serialClkCount_d;
-				if serialClkCount(15) = '0' and serialClkCount_d(15) = '1' then
-					serialClkEn <= '1';
+			if rising_edge(i_CLOCK_50) then
+					w_serialClkCount <= w_serialClkCount_d;
+				if w_serialClkCount(15) = '0' and w_serialClkCount_d(15) = '1' then
+					w_serialClkEn <= '1';
 				else
-					serialClkEn <= '0';
+					w_serialClkEn <= '0';
 				end if;
         end if;
     end process;
