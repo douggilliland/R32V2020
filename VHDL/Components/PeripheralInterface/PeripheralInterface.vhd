@@ -34,13 +34,14 @@ entity PeripheralInterface is
 architecture struct of PeripheralInterface is
 
 	-- Peripheral Signals
-	signal w_n_dispRamCS 		:	std_logic;
-	signal w_n_kbDatCS 			:	std_logic;
-	signal w_n_kbStatCS			:	std_logic;
-	signal w_n_aciaCS 			:	std_logic;
-	signal w_n_SwitchesCS		:	std_logic;
-	signal w_n_LEDsCS				:	std_logic;
-	signal w_n_7SEGCS				:	std_logic;
+	signal w_dispRamCS 			:	std_logic;
+	signal w_kbDatCS 				:	std_logic;
+	signal w_kbStatCS				:	std_logic;
+	signal w_aciaCS 				:	std_logic;
+	signal w_SwitchesCS			:	std_logic;
+	signal w_LEDsCS				:	std_logic;
+	signal w_7SEGCS				:	std_logic;
+	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
 	signal w_serialClkEn			:	std_logic;
@@ -55,33 +56,33 @@ architecture struct of PeripheralInterface is
 	signal w_displayed_number	: 	std_logic_vector(15 downto 0); 
 	signal w_LatData				:	std_logic_vector(7 downto 0);
 
-	constant SVGA_BASE 	: std_Logic_Vector(4 downto 0) := "00000";
-	constant KBDAT_BASE 	: std_Logic_Vector(4 downto 0) := "00001";
-	constant KBST_BASE 	: std_Logic_Vector(4 downto 0) := "00010";
-	constant ACIA_BASE 	: std_Logic_Vector(4 downto 0) := "00011";
-	constant SWS_BASE 	: std_Logic_Vector(4 downto 0) := "00100";
-	constant LEDS_BASE 	: std_Logic_Vector(4 downto 0) := "00101";
-	constant SEGS7_BASE 	: std_Logic_Vector(4 downto 0) := "00110";
+	constant SVGA_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"0";
+	constant KBDAT_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"1";
+	constant KBST_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"2";
+	constant ACIA_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"3";
+	constant SWS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"4";
+	constant LEDS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"5";
+	constant SEGS7_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"6";
 
 
 begin
 	
 	-- Peripheral Address decoder
 	-- Currently only uses 16-bits of address
-	w_n_dispRamCS 	<= '0' when i_peripheralAddress(15 downto 11) = SVGA_BASE	else '1';	-- x0000-x07FF (2KB)
-	w_n_kbDatCS 	<= '0' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '1';	-- x0800-x0FFF (2KB)
-	w_n_kbStatCS 	<= '0' when i_peripheralAddress(15 downto 11) = KBST_BASE	else '1';	-- x1000-x17FF (2KB)
-	w_n_aciaCS 		<= '0' when i_peripheralAddress(15 downto 11) = ACIA_BASE	else '1';	-- x1800-x1FFF (2KB)
-	w_n_SwitchesCS	<= '0' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '1';	-- x2000-x27FF (2KB)
-	w_n_LEDsCS		<= '0' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '1';	-- x2800-x2FFF (2KB)
-	w_n_7SEGCS		<= '0' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '1';	-- x3000-x37FF (2KB)
+	w_dispRamCS 	<= '1' when i_peripheralAddress(15 downto 11) = SVGA_BASE	else '0';	-- x0000-x07FF (2KB)
+	w_kbDatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '0';	-- x0800-x0FFF (2KB)
+	w_kbStatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBST_BASE	else '0';	-- x1000-x17FF (2KB)
+	w_aciaCS 		<= '1' when i_peripheralAddress(15 downto 11) = ACIA_BASE	else '0';	-- x1800-x1FFF (2KB)
+	w_SwitchesCS	<= '1' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '0';	-- x2000-x27FF (2KB)
+	w_LEDsCS			<= '1' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '0';	-- x2800-x2FFF (2KB)
+	w_7SEGCS			<= '1' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '0';	-- x3000-x37FF (2KB)
 	
 	o_dataFromPeripherals <=
-		x"000000"		&w_dispRamDataOutA 		when	w_n_dispRamCS 	= '0' else
-		x"00000"&"00"	&w_kbdDataStatus			when	w_n_kbStatCS	= '0' else 
-		x"000000"		&w_kbReadData	 			when	w_n_kbDatCS		= '0' else
-		x"000000"		&w_aciaData 				when	w_n_aciaCS 		= '0' else
-		x"0000000"&'0'	&i_switch 					when	w_n_SwitchesCS = '0' else
+		x"000000"		&w_dispRamDataOutA 		when	w_dispRamCS 	= '1' else
+		x"000000"		&w_kbReadData	 			when	w_kbDatCS		= '1' else
+		x"00000"&"00"	&w_kbdDataStatus			when	w_kbStatCS		= '1' else 
+		x"000000"		&w_aciaData 				when	w_aciaCS 		= '1' else
+		x"0000000"&'0'	&i_switch 					when	w_SwitchesCS 	= '1' else
 		x"FFFFFFFF";
 	
 	SevenSegDisplay : entity work.Loadable_7S4D_LED
@@ -97,7 +98,7 @@ begin
 	PORT MAP (
     clk 	=> i_CLOCK_50,
     d   	=> i_dataToPeripherals(15 downto 0),
-    ld  	=> i_peripheralWrStrobe and (not w_n_7SEGCS),
+    ld  	=> i_peripheralWrStrobe and w_7SEGCS,
     clr 	=> not n_reset,
     q		=> w_displayed_number
 	);
@@ -106,7 +107,7 @@ begin
 	PORT MAP (
     clk 	=> i_CLOCK_50,
     d 	=> i_dataToPeripherals(7 downto 0),
-    ld 	=> i_peripheralWrStrobe and (not w_n_LEDsCS),
+    ld 	=> i_peripheralWrStrobe and w_LEDsCS,
     clr  => not n_reset,
     q    => w_LatData
 	);
@@ -117,8 +118,8 @@ begin
 	UART : entity work.bufferedUART
 		port map(
 			clk 		=> i_CLOCK_50,
-			n_wr 		=> w_n_aciaCS or (not i_peripheralWrStrobe),
-			n_rd 		=> w_n_aciaCS or (not i_peripheralRdStrobe),
+			n_wr 		=> (not w_aciaCS) or (not i_peripheralWrStrobe),
+			n_rd 		=> (not w_aciaCS) or (not i_peripheralRdStrobe),
 			regSel 	=> i_peripheralAddress(0),
 			dataIn 	=> i_dataToPeripherals(7 downto 0),
 			dataOut 	=> w_aciaData,
@@ -143,8 +144,8 @@ begin
 			n_reset		=> n_reset,
 			Video_Clk	=> w_Video_Clk,
 			CLK_50		=> i_CLOCK_50,
-			n_dispRamCS	=> w_n_dispRamCS,
-			n_memWR		=> w_n_dispRamCS or (not i_peripheralWrStrobe),
+			n_dispRamCS	=> not w_dispRamCS,
+			n_memWR		=> (not w_dispRamCS) or (not i_peripheralWrStrobe),
 			cpuAddress	=> i_peripheralAddress(10 downto 0),
 			cpuDataOut	=> i_dataToPeripherals(7 downto 0),
 			dataOut		=> w_dispRamDataOutA,

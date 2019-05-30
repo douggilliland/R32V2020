@@ -109,8 +109,7 @@ begin
 			-- Video Output Mux/Shift Register
 			if horizCount(9)='0' and vertLineCount(9)='0' then
 				video <= charData(7-to_integer(unsigned(horizCount(3 downto 0))));	-- 8:1 mux
---				hAct <= '1';	-- white-on-blue
-				hAct <= '0';	-- amber
+				hAct <= '1';	-- white-on-blue
 			else
 				video <= '0';
 				hAct <= '0';
