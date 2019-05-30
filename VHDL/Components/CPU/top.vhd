@@ -56,8 +56,8 @@ signal	w_dataToPeripherals		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_peripheralRdEn			: std_logic := '0';
 signal	w_peripheralWrEn			: std_logic := '0';
 
---attribute syn_keep: boolean;
---attribute syn_keep of w_peripheralWrEn: signal is true;
+attribute syn_keep: boolean;
+attribute syn_keep of w_dataFromPeripherals: signal is true;
 
 begin
 

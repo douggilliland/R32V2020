@@ -34,6 +34,8 @@ end R32V2020;
 
 architecture struct of R32V2020 is
 
+attribute syn_keep: boolean;
+
 signal	w_Op_NOP : std_logic := '0';		-- No operation
 signal	w_Op_HCF : std_logic := '0';		-- Halt and Catch Fire
 signal	w_Op_RES : std_logic := '0';		-- Reset CPU
@@ -85,14 +87,13 @@ signal	w_CCR							: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_ldDestRegister			: std_logic := '0';
 signal	w_dataIntoRegisterFile	: std_logic_vector(31 downto 0) := x"00000000";
+attribute syn_keep of w_dataIntoRegisterFile: signal is true;
+
 signal	w_BranchAddress			: std_logic_vector(31 downto 0) := x"00000000";
 
---signal	w_InstructionRomAddress	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
---signal	i_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_StackRamAddress			: std_logic_vector(31 downto 0) := x"00000000";
---signal	dataToStackRam				: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_writeStackRamEn			: std_logic := '0';
 signal	w_dataFromStackRam		: std_logic_vector(31 downto 0) := x"00000000";
 
@@ -103,8 +104,6 @@ signal	w_writeToDataRamEnable	: std_logic;
 signal	w_dataFromDataRam			: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_displayed_number		: std_logic_vector(15 downto 0) := x"0000";
-
-attribute syn_keep: boolean;
 
 signal	w_peripheralAddress		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataFromPeripherals	: std_logic_vector(31 downto 0) := x"00000000";
@@ -122,7 +121,6 @@ signal	w_holdHaltCatchFire		: std_logic := '0';
 signal	w_wrRegFile					: std_logic := '0';
 
 signal	w_TakeBranch				: std_logic := '0';
-attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
 
@@ -282,7 +280,7 @@ flowControl : ENTITY work.CCRControl PORT map
 	w_dataIntoRegisterFile <= 
 		i_InstructionRomData(15 downto 0)&x"0000" when (w_Op_LIU = '1') else		-- Load Immediate into upper half of register - other half gets ignored
 		x"0000"&i_InstructionRomData(15 downto 0) when (w_Op_LIL = '1') else		-- Load Immediate into lower half of register - other half gets ignored
-		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LPL = '1')) else
+		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1')) else
 		i_dataFromStackRam when (w_Op_PUS = '1') else
 		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
 		w_ALUDataOut;
