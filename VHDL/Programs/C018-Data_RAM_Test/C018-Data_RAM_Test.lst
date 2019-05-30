@@ -1,0 +1,15 @@
+; Data RAM Test
+start:
+00000000	20600000		ads	dar,r0,r0	; set the data address register to 0x0
+00000001	41801234		liu	r8,0x1234	; data test pattern
+00000002	40805678		lil	r8,0x5678
+ramTestLoop:
+00000003	65608000		sdl	r8			; store r8 into the data space memory
+00000004	00000000		nop
+00000005	64906000		ldl	r9			; read the data space memory into r9
+00000006	22389000		cmp	r8,r9		; compare what was written to what was read
+00000007	C8000003		bne	halt		; if they are different, then halt
+00000008	2A882000		xrs	r8,r8,r2	; invert the test pattern value
+00000009	C0FFFFFA		bra	ramTestLoop
+halt:
+0000000a	01000000		hcf

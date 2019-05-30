@@ -49,7 +49,6 @@ architecture struct of RegisterFile is
 	signal regR0			: std_logic_vector(31 downto 0);
 	signal regR1			: std_logic_vector(31 downto 0);
 	signal regR2			: std_logic_vector(31 downto 0);
-	--signal o_CCR				: std_logic_vector(31 downto 0);
 	signal regR8			: std_logic_vector(31 downto 0);
 	signal regR9			: std_logic_vector(31 downto 0);
 	signal regR10			: std_logic_vector(31 downto 0);
@@ -60,7 +59,6 @@ architecture struct of RegisterFile is
 	signal regR15			: std_logic_vector(31 downto 0);
 	signal w_nextPC		: std_logic_vector(31 downto 0);
 	
-	--signal wrSelR3			: std_logic;
 	signal wrSelR4			: std_logic;
 	signal wrSelR5			: std_logic;
 	signal wrSelR6			: std_logic;
@@ -84,7 +82,6 @@ architecture struct of RegisterFile is
 
 begin
 
---wrSelR3 <= '1' when (i_wrRegSel = "0011") else '0';
 wrSelR4 			<= '1' when (i_wrRegSel = x"4") else '0';
 wrSelR5 			<= '1' when (i_wrRegSel = x"5") else '0';
 wrSelR6 			<= '1' when (i_wrRegSel = x"6") else '0';
@@ -106,35 +103,10 @@ wrSelR14Lower	<= '1' when ((i_wrRegSel = x"E") and (i_OP_LIU = '0')) else '0';
 wrSelR15Upper	<= '1' when ((i_wrRegSel = x"F") and (i_OP_LIL = '0')) else '0';
 wrSelR15Lower	<= '1' when ((i_wrRegSel = x"F") and (i_OP_LIU = '0')) else '0';
 
--- r0=zero
-zeroReg : work.REG_32_CONSTANT PORT MAP(
-    d 	=> i_regDataIn,
-    ld 	=> '0',
-    clr 	=> i_clear,
-    clk	=> i_clk,
-	 constVal => x"00000000",
-    q		=> regR0
-);
-
--- r1=1
-oneReg : work.REG_32_CONSTANT PORT MAP(
-    d 	=> i_regDataIn,
-    ld 	=> '0',
-    clr 	=> i_clear,
-    clk	=> i_clk,
-	 constVal => x"00000001",
-    q		=> regR1
-);
-
--- r2=-1
-minusOneReg : work.REG_32_CONSTANT PORT MAP(
-    d 	=> i_regDataIn,
-    ld 	=> '0',
-    clr 	=> i_clear,
-    clk	=> i_clk,
-	 constVal => x"FFFFFFFF",
-    q		=> regR2
-);
+-- Register File Registers
+regR0 <= x"00000000";		-- r0 = zero
+regR1 <= x"00000001";		-- r1 = 1
+regR2 <= x"FFFFFFFF";		-- r2 = -1
 
 -- r3 = Condition Code Register
 conditionCodeRegister : work.REG_32 PORT MAP(
@@ -150,7 +122,7 @@ stackAddress : work.COUNT_32 PORT MAP(
     clk		=> i_clk,
     clr 		=> i_clear,
     d 		=> i_regDataIn,
-    enable	=> wrSelR4,
+    enable	=> wrSelR4 and i_wrRegFile and i_enable,
     inc		=> '0',
     dec		=> '0',
     q			=> o_StackRamAddress
@@ -158,31 +130,31 @@ stackAddress : work.COUNT_32 PORT MAP(
 
 -- r5 = Peripheral Address
 peripheralAddress : work.COUNT_32 PORT MAP(
-    clk		=> i_clk,
-    clr 		=> i_clear,
-    d 		=> i_regDataIn,
-    enable	=> wrSelR5 and i_wrRegFile and i_enable,
-    inc 		=> '0',
-    dec 		=> '0',
-    q			=> o_PeripheralAddress
+	clk		=> i_clk,
+	clr 		=> i_clear,
+	d 		=> i_regDataIn,
+	enable	=> wrSelR5 and i_wrRegFile and i_enable,
+	inc 		=> '0',
+	dec 		=> '0',
+	q			=> o_PeripheralAddress
 );
 
 -- r6 = Data RAM Address
 dataRamAddress : work.COUNT_32 PORT MAP(
-    clk		=> i_clk,
-    clr 		=> i_clear,
-    d 		=> i_regDataIn,
-    enable 	=> wrSelR6 and i_wrRegFile and i_enable,
+	clk		=> i_clk,
+	clr 		=> i_clear,
+	d 		=> i_regDataIn,
+	enable 	=> wrSelR6 and i_wrRegFile and i_enable,
 	inc 		=> '0',
-    dec 		=> '0',
-    q			=> o_DataRamAddress
+	dec 		=> '0',
+	q			=> o_DataRamAddress
 );
 
 -- r7 = Program Counter (Instruction RAM Address)
 -- wrSelR7 - when the destination register is r7
 
-w_nextPC <= i_BranchAddress when i_TakeBranch = '1'
-else			i_regDataIn when i_TakeBranch = '0';
+w_nextPC <= i_BranchAddress 	when i_TakeBranch = '1' else			
+				i_regDataIn 		when i_TakeBranch = '0';
 -- 
 programCounter : work.COUNT_32 PORT MAP(
     clk		=> i_clk,
