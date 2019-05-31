@@ -1,7 +1,5 @@
-; Peripheral Test
-; Put characters on the screen
+; Read UART status and put it to the Seven Segment Display
 start:
-;	ads	r8,r0,r0	; need a nop until I fix the first fetch
 	bra	clearScreen
 doneClear:
 	ads r5,r0,r0	; start of screen character memory
@@ -15,13 +13,16 @@ doneClear:
 	lil	r8,0x0065	; ASCII 'e'
 	ads	r9,r7,r1
 	bra	putChar
-readSws:
-	lil	r5,0x2000	; Switches address
-	lpl	r9			; Read switches into r9
-wr7SegDisplay:
-	lil	r5,0x1800	; ACIA Status address
-	spb	r9			; Write to the Seven Segment display
-	bra	readSws
+readUartStatus:
+	lil	r5,0x1800	; UART Status
+	lpl	r9			; Read Status into r9
+	ars r9,r9,r1
+	bez readUartStatus
+	lil r5,0x1801
+	lpl	r10
+	lil	r5,0x3000	; Seven Segment Display address
+	spl	r10			; Write to the Seven Segment display
+	bra	readUartStatus
 ; Clear the screen routine
 clearScreen:
 	ads r5,r0,r0	; start of screen character memory

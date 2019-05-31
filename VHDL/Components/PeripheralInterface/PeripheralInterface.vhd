@@ -78,11 +78,11 @@ begin
 	w_7SEGCS			<= '1' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '0';	-- x3000-x37FF (2KB)
 	
 	o_dataFromPeripherals <=
-		x"000000"		&w_dispRamDataOutA 		when	w_dispRamCS 	= '1' else
-		x"000000"		&w_kbReadData	 			when	w_kbDatCS		= '1' else
-		x"00000"&"00"	&w_kbdDataStatus			when	w_kbStatCS		= '1' else 
-		x"000000"		&w_aciaData 				when	w_aciaCS 		= '1' else
-		x"0000000"&'0'	&i_switch 					when	w_SwitchesCS 	= '1' else
+		x"000000"		& w_dispRamDataOutA 	when	w_dispRamCS 	= '1' else
+		x"000000"		& w_kbReadData	 		when	w_kbDatCS		= '1' else
+		x"00000"&"00"	& w_kbdDataStatus		when	w_kbStatCS		= '1' else 
+		x"000000"		& w_aciaData 			when	w_aciaCS 		= '1' else
+		x"0000000"&'0'	& i_switch 				when	w_SwitchesCS 	= '1' else
 		x"FFFFFFFF";
 	
 	SevenSegDisplay : entity work.Loadable_7S4D_LED
@@ -118,8 +118,8 @@ begin
 	UART : entity work.bufferedUART
 		port map(
 			clk 		=> i_CLOCK_50,
-			n_wr 		=> (not w_aciaCS) or (not i_peripheralWrStrobe),
-			n_rd 		=> (not w_aciaCS) or (not i_peripheralRdStrobe),
+			n_wr 		=> not (w_aciaCS and i_peripheralWrStrobe),
+			n_rd 		=> not (w_aciaCS and i_peripheralRdStrobe),
 			regSel 	=> i_peripheralAddress(0),
 			dataIn 	=> i_dataToPeripherals(7 downto 0),
 			dataOut 	=> w_aciaData,

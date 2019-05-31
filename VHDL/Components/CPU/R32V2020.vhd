@@ -289,7 +289,7 @@ flowControl : ENTITY work.CCRControl PORT map
 	port map (
 		i_clk							=> i_CLOCK_50,
 		i_clear						=> not n_reset,
-		i_enable						=> w_OneHotState(3),
+		i_enable						=> w_OneHotState(4),
 		i_TakeBranch				=> w_TakeBranch,
 		i_BranchAddress			=> w_BranchAddress,
 		i_wrRegSel					=> i_InstructionRomData(23 downto 20),
