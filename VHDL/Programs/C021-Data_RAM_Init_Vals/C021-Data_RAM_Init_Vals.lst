@@ -1,0 +1,46 @@
+nums1:  .LONG 0x12345678,0xffff00000,
+nums2:  .SHORT 0xff00,0x4321
+nums3:  .BYTE 0x55,0xde,0xbe,0xef,0x99
+hi: .string "I have a comment after" ; I am that comment
+hi2: .string "Look out for ; character"
+empty: .string "foobar"
+empty2: .string "Programmers like to say \"Hello world\""
+empty3: .string "foobar,spameggs"
+; Data RAM Ramp Test
+start:
+00000000	20600000		ads	dar,r0,r0	; set the data address register to 0x0
+00000001	20800000		ads	r8,r0,r0	; set the data pattern to match
+00000002	20900000		ads	r9,r0,r0	; clear end count
+00000003	409000FE		lil	r9,0xfe		; memory size-2
+ramWriteLoop:
+00000004	65608000		sdl	r8			; store r8 into the data space memory
+00000005	20661000		ads	dar,dar,r1	; increment the data address register
+00000006	20881000		ads	r8,r8,r1	; increment the data pattern value
+00000007	20993000		ads	r9,r9,r3	; subtract one from the end count
+00000008	C9FFFFFC		bnz	ramWriteLoop	; loop more	
+; Check the values that were written
+00000009	20600000		ads	dar,r0,r0	; set the data address register to 0x0
+0000000a	20800000		ads	r8,r0,r0	; set the data pattern to match
+0000000b	20900000		ads	r9,r0,r0	; clear end count
+0000000c	409000FE		lil	r9,0xfe		; memory size-2
+ramReadLoop:
+0000000d	64806000		ldl	r8			; read the first location 
+0000000e	22368000		cmp	dar,r8		; compare address to the data read
+0000000f	C800000A		bne	failedRead	; failed
+00000010	20661000		ads	dar,dar,r1	; increment the address
+00000011	20993000		ads	r9,r9,r3	; subtract one from the end count
+00000012	C9FFFFFB		bnz	ramReadLoop	; check the next location
+passed:
+00000013	20B00000		ads	r11,r0,r0
+00000014	40B03000		lil	r11,0x3000
+00000015	205B0000		ads	par,r11,r0
+00000016	40A00001		lil	r10,0x0001
+00000017	8550A000		spl	r10
+00000018	01000000		hcf
+failedRead:
+00000019	20B00000		ads	r11,r0,r0
+0000001a	40B03000		lil	r11,0x3000
+0000001b	205B0000		ads	par,r11,r0
+0000001c	40A07FFF		lil	r10,0x7FFF
+0000001d	8550A000		spl	r10
+0000001e	01000000		hcf
