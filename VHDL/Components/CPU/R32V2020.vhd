@@ -78,6 +78,7 @@ signal	w_Op_BGT  : std_logic := '0';		-- Branch if greater than
 signal	w_Op_BLT  : std_logic := '0';		-- Branch if less than
 signal	w_Op_BEQ  : std_logic := '0';		-- Branch if equal
 signal	w_Op_BNE  : std_logic := '0';		-- Branch if not equal
+signal	w_Op_BNZ  : std_logic := '0';		-- Branch if not zero
 
 --signal	w_regDataA					: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_regDataB					: std_logic_vector(31 downto 0) := x"00000000";
@@ -198,6 +199,7 @@ begin
 		Op_BLT => w_Op_BLT,
 		Op_BEQ => w_Op_BEQ,
 		Op_BNE => w_Op_BNE,
+		Op_BNZ => w_Op_BNZ,
 		o_WrRegFile => w_wrRegFile
 	);
 	
@@ -252,6 +254,7 @@ flowControl : ENTITY work.CCRControl PORT map
 	Op_BLT	=> w_Op_BLT,
 	Op_BEQ	=> w_Op_BEQ,
 	Op_BNE	=> w_Op_BNE,
+	Op_BNZ	=> w_Op_BNZ,
 	o_save_CCR_bits => w_save_CCR_bits,
 	-- increment or branch?
 	o_TakeBranch => w_TakeBranch

@@ -58,6 +58,7 @@ entity OpCodeDecoder is
 		Op_BLT 		: out std_logic;	-- Branch if Less Than
 		Op_BEQ 		: out std_logic;	-- Branch if Equal
 		Op_BNE 		: out std_logic;	-- Branch if Not Equal
+		Op_BNZ 		: out std_logic;	-- Branch if Not Zero
 		o_WrRegFile	: out std_logic	-- Register File gets output of opcode
 	);
 end OpCodeDecoder;

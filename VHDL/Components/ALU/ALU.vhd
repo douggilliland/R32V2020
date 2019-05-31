@@ -32,6 +32,7 @@ end ALU;
 architecture struct of ALU is
 
 signal w_EqualToZero	: std_logic;
+signal w_NotZero		: std_logic;
 signal w_EqualToOne	: std_logic;
 signal w_CarryClear	: std_logic;
 signal w_CarrySet		: std_logic;
@@ -50,7 +51,7 @@ o_ALUDataOut <= w_ALUResult(31 downto 0);
 multResult <= i_regDataA * i_regDataB;
 multResultLong <= multResult(32 downto 0);
 
-w_ALUResult <=  ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when i_Op_ADS = '1' else
+w_ALUResult <= ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when i_Op_ADS = '1' else
 					multResultLong when i_Op_MUL = '1' else		-- added multiply
 					(('0'&i_regDataA) and i_regDataB) when i_Op_ARS = '1' else
 					(('0'&i_regDataA) or  i_regDataB) when i_Op_ORS  = '1' else
@@ -63,6 +64,7 @@ w_ALUResult <=  ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when
 					('0'&i_regDataA(7 downto 0)&i_regDataA(15 downto 8)&i_regDataA(23 downto 16)&i_regDataA(31 downto 24)) when i_Op_ENS = '1';
 
 w_EqualToZero	<= '1' when w_ALUResult = '0'&x"00000000" else '0';
+w_NotZero		<= '1' when w_ALUResult /= '0'&x"00000000" else '0';
 w_EqualToOne	<= '1' when w_ALUResult = '0'&x"00000001" else '0';
 w_CarrySet		<= '1' when ((i_Op_ADS = '1') and (w_ALUResult(32) = '1')) else '0';
 w_CarryClear	<= '1' when ((i_Op_ADS = '1') and (w_ALUResult(32) = '0')) else '0';
@@ -71,6 +73,15 @@ w_LessThan  	<= '1' when (i_regDataA < i_regDataB) else '0';
 w_EqualCmp    	<= '1' when (i_regDataA = i_regDataB) else '0';
 w_NotEqualCmp  <= '1' when (i_regDataA /= i_regDataB) else '0';
 
-o_CondCodeBits <= x"000000" &w_NotEqualCmp& w_EqualCmp & w_GreaterThan & w_LessThan & w_CarrySet & w_CarryClear & w_EqualToOne & w_EqualToZero;
+o_CondCodeBits <= x"00000"&"000" &
+						w_NotZero &
+						w_NotEqualCmp &
+						w_EqualCmp &
+						w_GreaterThan &
+						w_LessThan &
+						w_CarrySet &
+						w_CarryClear &
+						w_EqualToOne &
+						w_EqualToZero;
 
 end struct;
