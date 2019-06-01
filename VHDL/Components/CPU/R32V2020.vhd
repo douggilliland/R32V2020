@@ -283,7 +283,7 @@ flowControl : ENTITY work.CCRControl PORT map
 		i_InstructionRomData(15 downto 0)&x"0000" when (w_Op_LIU = '1') else		-- Load Immediate into upper half of register - other half gets ignored
 		x"0000"&i_InstructionRomData(15 downto 0) when (w_Op_LIL = '1') else		-- Load Immediate into lower half of register - other half gets ignored
 		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1')) else
-		i_dataFromStackRam when (w_Op_PUS = '1') else
+		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1')) else
 		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
 		w_ALUDataOut;
 		
