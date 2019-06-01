@@ -66,8 +66,8 @@ w_ALUResult <= ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when 
 w_EqualToZero	<= '1' when w_ALUResult = '0'&x"00000000" else '0';
 w_NotZero		<= '1' when w_ALUResult /= '0'&x"00000000" else '0';
 w_EqualToOne	<= '1' when w_ALUResult = '0'&x"00000001" else '0';
-w_CarrySet		<= '1' when ((i_Op_ADS = '1') and (w_ALUResult(32) = '1')) else '0';
-w_CarryClear	<= '1' when ((i_Op_ADS = '1') and (w_ALUResult(32) = '0')) else '0';
+w_CarrySet		<= '1' when (((i_Op_ADS = '1') and (w_ALUResult(32) = '1')) or ((multResult(63 downto 32) /= "00000000") and (i_Op_MUL = '1'))) else '0';
+w_CarryClear	<= '1' when (((i_Op_ADS = '1') and (w_ALUResult(32) = '0')) or ((multResult(63 downto 32)  = "00000000") and (i_Op_MUL = '1')))  else '0';
 w_GreaterThan  <= '1' when (i_regDataA > i_regDataB) else '0';
 w_LessThan  	<= '1' when (i_regDataA < i_regDataB) else '0';
 w_EqualCmp    	<= '1' when (i_regDataA = i_regDataB) else '0';
