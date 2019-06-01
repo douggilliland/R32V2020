@@ -1,0 +1,64 @@
+; Bxx Checks
+; Test all branches with both sets of conditions
+start:
+00000000	22300000		cmp r0,r0		; test cmp and bne/beq
+00000001	D200002A		bne failed		; bne not taken
+00000002	D1000002		beq	skip1		; beq taken
+00000003	C0000028		bra	failed
+skip1:
+00000004	22301000		cmp r0,r1		; test cmp and beq/bne
+00000005	D1000026		beq	failed		; beq not taken
+00000006	D2000002		bne skip2		; bne taken
+00000007	C0000024		bra	failed
+skip2:
+00000008	20801000		ads	r8,r0,r1	; test ads and bez/be1
+00000009	C3000022		bez	failed		; bez not taken
+0000000a	C4000002		be1	skip3		; be1 taken
+0000000b	C0000020		bra	failed
+skip3:
+0000000c	20800000		ads	r8,r0,r0	; test
+0000000d	C400001E		be1	failed		; be1 not taken
+0000000e	C3000002		bez	skip4		; bez taken
+0000000f	C000001C		bra	failed
+skip4:
+00000010	20801000		ads	r8,r0,r1	; test ads and bez/be1
+00000011	C7000002		bnz	skip5		; bnz taken
+00000012	C0000019		bra failed
+skip5:
+00000013	20800000		ads	r8,r0,r0	; test bcc/bcs
+00000014	C7000017		bnz	failed		; bnz should not have been taken
+testBCCBCS:
+00000015	20800000		ads	r8,r0,r0	; test carry clear
+00000016	CB000015		bcs	failed		; bcs should not have been taken
+00000017	C8000002		bcc	skip6		; bcc taken
+00000018	C0000013		bra	failed		
+skip6:
+00000019	20822000		ads r8,MINUS1,MINUS1	; should set carry
+0000001a	C8000011		bcc	failed		; should not take bcc
+0000001b	CB000002		bcs	skip7		; should take bcs
+0000001c	C000000F		bra	failed
+skip7:
+0000001d	22301000		cmp	r0,r1		; test blt/bgt
+0000001e	CC00000D		blt	failed		; should not take blt
+0000001f	CF000002		bgt	skip8		; should take bgt
+00000020	C000000B		bra	failed
+skip8:
+00000021	22310000		cmp	r1,r0		; test blt/bgt
+00000022	CF000009		bgt	failed		; should not take bgt
+00000023	CC000002		blt	skip9		; should take blt
+00000024	C0000007		bra	failed
+skip9:
+passed:		; send GOOD to the 7 Segment LED
+00000025	20B00000		ads	r11,r0,r0
+00000026	40B03000		lil	r11,0x3000
+00000027	205B0000		ads	par,r11,r0
+00000028	40A0900D		lil	r10,0x900D
+00000029	8550A000		spl	r10
+0000002a	01000000		hcf
+failed:		; send 0BAD to the 7 Segment LED
+0000002b	20B00000		ads	r11,r0,r0
+0000002c	40B03000		lil	r11,0x3000
+0000002d	205B0000		ads	par,r11,r0
+0000002e	40A00BAD		lil	r10,0x0BAD
+0000002f	8550A000		spl	r10
+00000030	01000000		hcf
