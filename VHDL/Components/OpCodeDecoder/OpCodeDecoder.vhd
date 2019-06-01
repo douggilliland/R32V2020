@@ -115,6 +115,7 @@ constant BGT : std_Logic_Vector(7 downto 0) := "11000101";
 constant BLT : std_Logic_Vector(7 downto 0) := "11000110";
 constant BEQ : std_Logic_Vector(7 downto 0) := "11000111";
 constant BNE : std_Logic_Vector(7 downto 0) := "11001000";
+constant BNZ : std_Logic_Vector(7 downto 0) := "11001001";
 
 begin
 
@@ -196,6 +197,7 @@ Op_BGT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BGT(4 do
 Op_BLT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BLT(4 downto 0))) else '0';
 Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEQ(4 downto 0))) else '0';
 Op_BNE <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNE(4 downto 0))) else '0';
+Op_BNZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNZ(4 downto 0))) else '0';
 
 opc_Cat_Decoder : work.OpCode_Cat_Decoder port map (
 		InstrOpCodeCat	=> InstrOpCode(7 downto 5),
