@@ -47,15 +47,15 @@ ENTITY CCRControl IS PORT(
 	Op_SSS			: IN std_logic;	-- Store to Stack space
 	-- Category = Flow Control
 	Op_BRA 			: IN std_logic;	-- Branch Always
-	Op_BCS 			: IN std_logic;	-- Branch if ALU result has Carry Set
-	Op_BCC 			: IN std_logic;	-- Branch if ALU result has Carry Clear
 	Op_BEZ 			: IN std_logic;	-- Branch if ALU result is Equal to Zero
 	Op_BE1 			: IN std_logic;	-- Branch if ALU result is Equal to One
-	Op_BGT 			: IN std_logic;	-- Branch if ALU result is Greater Than
+	Op_BNZ 			: IN std_logic;	-- Branch if ALU result is not zero
+	Op_BCC 			: IN std_logic;	-- Branch if ALU result has Carry Clear
+	Op_BCS 			: IN std_logic;	-- Branch if ALU result has Carry Set
 	Op_BLT 			: IN std_logic;	-- Branch if ALU result is Less Than
+	Op_BGT 			: IN std_logic;	-- Branch if ALU result is Greater Than
 	Op_BEQ 			: IN std_logic;	-- Branch if ALU result is Equal
 	Op_BNE 			: IN std_logic;	-- Branch if ALU result is Equal
-	Op_BNZ 			: IN std_logic;	-- Branch if ALU result is not zero
 	o_save_CCR_bits: OUT STD_LOGIC;	-- CCR bits are modified
 	o_TakeBranch	: OUT STD_LOGIC	-- Instruction results in a branch
 );
@@ -65,41 +65,27 @@ ARCHITECTURE description OF CCRControl IS
 
 constant CCR_BEZ : integer := 0;
 constant CCR_BE1 : integer := 1;
-constant CCR_BCC : integer := 2;
-constant CCR_BCS : integer := 3;
-constant CCR_BLT : integer := 4;
-constant CCR_BGT : integer := 5;
-constant CCR_BEQ : integer := 6;
-constant CCR_BNE : integer := 7;
-constant CCR_BNZ : integer := 8;
+constant CCR_BNZ : integer := 2;
+constant CCR_BCC : integer := 3;
+constant CCR_BCS : integer := 4;
+constant CCR_BLT : integer := 5;
+constant CCR_BGT : integer := 6;
+constant CCR_BEQ : integer := 7;
+constant CCR_BNE : integer := 8;
 
 BEGIN
-		o_TakeBranch <= '1' when (
-			Op_BRA = '1' or
-			(Op_BEZ = '1' and CCR(CCR_BEZ) = '1') or
-			(Op_BE1 = '1' and CCR(CCR_BE1) = '1') or
-			(Op_BCC = '1' and CCR(CCR_BCC) = '1') or
-			(Op_BCS = '1' and CCR(CCR_BCS) = '1') or
-			(Op_BLT = '1' and CCR(CCR_BLT) = '1') or
-			(Op_BGT = '1' and CCR(CCR_BGT) = '1') or
-			(Op_BEQ = '1' and CCR(CCR_BEQ) = '1') or
-			(Op_BNE = '1' and CCR(CCR_BNE) = '1') or
-			(Op_BNZ = '1' and CCR(CCR_BNZ) = '1'))
-		else '0';
+		o_TakeBranch <= (Op_BRA or
+			(Op_BEZ and CCR(CCR_BEZ)) or
+			(Op_BE1 and CCR(CCR_BE1)) or
+			(Op_BNZ and CCR(CCR_BNZ)) or
+			(Op_BCC and CCR(CCR_BCC)) or
+			(Op_BCS and CCR(CCR_BCS)) or
+			(Op_BLT and CCR(CCR_BLT)) or
+			(Op_BGT and CCR(CCR_BGT)) or
+			(Op_BEQ and CCR(CCR_BEQ)) or
+			(Op_BNE and CCR(CCR_BNE)));
 		
 		-- Opcodes that store the CCR bits
-		o_save_CCR_bits <= '1' when 
-			Op_ADS = '1' or
-			Op_MUL = '1' or
-			Op_ORS = '1' or
-			Op_ARS = '1' or
-			Op_XRS = '1' or
-			Op_LS1 = '1' or
-			Op_RS1 = '1' or
-			Op_LR1 = '1' or
-			Op_RR1 = '1' or
-			Op_RA1 = '1' or
-			Op_CMP = '1'
-		else '0';
+		o_save_CCR_bits <= Op_ADS or Op_MUL or Op_ORS or Op_ARS or Op_XRS or Op_LS1 or Op_RS1 or Op_LR1 or Op_RR1 or Op_RA1 or Op_CMP;
 		
 END description;

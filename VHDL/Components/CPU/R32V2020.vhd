@@ -112,8 +112,8 @@ signal	w_dataToPeripherals		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_peripheralRdStrobe		: std_logic := '0';
 signal	w_peripheralWrStrobe		: std_logic := '0';
 
-attribute syn_keep of w_peripheralRdStrobe: signal is true;
-attribute syn_keep of w_peripheralWrStrobe: signal is true;
+--attribute syn_keep of w_peripheralRdStrobe: signal is true;
+--attribute syn_keep of w_peripheralWrStrobe: signal is true;
 
 signal	w_OneHotState				: std_logic_vector(5 downto 0) := "000000";
 signal	w_save_CCR_bits			: std_logic := '0';
@@ -122,11 +122,11 @@ signal	w_holdHaltCatchFire		: std_logic := '0';
 signal	w_wrRegFile					: std_logic := '0';
 
 signal	w_TakeBranch				: std_logic := '0';
+attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
 
  	w_holdHaltCatchFire	<= '1' when (w_OneHotState(3) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
---	w_writeStackRamEn		<= '1' when (w_OneHotState(3) = '1' and (w_Op_PSS = '1' or  w_Op_SSS = '1') and n_reset = '1') else '0';
 	o_writeStackRamEn <= '1' when w_OneHotState(3) = '1' and (w_Op_PSS = '1' or w_Op_SSS = '1') and n_reset = '1' else '0';
 	o_peripheralRdStrobe <= '1' when (w_OneHotState(4) = '1' and (w_Op_LPB = '1' or w_Op_LPS = '1' or w_Op_LPL = '1')) else '0';
 	o_peripheralWrStrobe <= '1' when (w_OneHotState(4) = '1' and (w_Op_SPB = '1' or w_Op_SPS = '1' or w_Op_SPL = '1')) else '0';
@@ -138,7 +138,6 @@ begin
 								i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  
 								i_InstructionRomData(23 downto 0)) + o_InstructionRomAddress;
 	
-
 	StateMachine : entity work.OneHotStateMachine
 	PORT map (
 		clk 	=> i_CLOCK_50,
@@ -246,15 +245,15 @@ flowControl : ENTITY work.CCRControl PORT map
 	Op_LSS	=> w_Op_LSS,
 	-- Category = Flow Control
 	Op_BRA	=> w_Op_BRA,
-	Op_BCS	=> w_Op_BCS,
-	Op_BCC	=> w_Op_BCC,
 	Op_BEZ	=> w_Op_BEZ,
+	Op_BNZ	=> w_Op_BNZ,
 	Op_BE1	=> w_Op_BE1,
-	Op_BGT	=> w_Op_BGT,
+	Op_BCC	=> w_Op_BCC,
+	Op_BCS	=> w_Op_BCS,
 	Op_BLT	=> w_Op_BLT,
+	Op_BGT	=> w_Op_BGT,
 	Op_BEQ	=> w_Op_BEQ,
 	Op_BNE	=> w_Op_BNE,
-	Op_BNZ	=> w_Op_BNZ,
 	o_save_CCR_bits => w_save_CCR_bits,
 	-- increment or branch?
 	o_TakeBranch => w_TakeBranch

@@ -73,15 +73,16 @@ w_LessThan  	<= '1' when (i_regDataA < i_regDataB) else '0';
 w_EqualCmp    	<= '1' when (i_regDataA = i_regDataB) else '0';
 w_NotEqualCmp  <= '1' when (i_regDataA /= i_regDataB) else '0';
 
-o_CondCodeBits <= x"00000"&"000" &
-						w_NotZero &
-						w_NotEqualCmp &
-						w_EqualCmp &
-						w_GreaterThan &
-						w_LessThan &
-						w_CarrySet &
-						w_CarryClear &
-						w_EqualToOne &
-						w_EqualToZero;
+o_CondCodeBits <= x"00000"&
+						"000" &				-- bits 8-11
+						w_NotEqualCmp 	&	-- bit 8
+						w_EqualCmp 		&	-- bit 7
+						w_GreaterThan 	&	-- bit 6
+						w_LessThan 		&	-- bit 5
+						w_CarrySet 		&	-- bit 4
+						w_CarryClear 	&	-- bit 3
+						w_NotZero 		&	-- bit 2
+						w_EqualToOne 	&	-- bit 1
+						w_EqualToZero;		-- bit 0
 
 end struct;
