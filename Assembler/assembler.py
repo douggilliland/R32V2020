@@ -344,6 +344,8 @@ def isValidLong(token):
   except:
     return False
 
+MAX_LONG = 18446744073709551616
+
 def isValidImmediateValue(token):
   valid = False
 
@@ -362,7 +364,7 @@ def isValidImmediateValue(token):
       except:
         pass
 
-  return valid and -32768 <= v and v <= 32767
+  return valid and 0 <= v and v <= MAX_LONG
 
 ZERO_FOUR = 73786976294838206464
 
