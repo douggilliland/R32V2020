@@ -21,7 +21,9 @@ entity OpCodeDecoder is
 		Op_ARS		: buffer std_logic;	-- Logical AND registers and store in reg
 		Op_XRS		: buffer std_logic;	-- Logical XOR registers and store in reg
 		Op_LS1		: buffer std_logic;	-- Logical Shift register Left by 1 and store in reg
+		Op_LS8		: buffer std_logic;	-- Logical Shift register Left by 8 and store in reg
 		Op_RS1		: buffer std_logic;	-- Logical Shift register Right by 1 and store in reg
+		Op_RS8		: buffer std_logic;	-- Logical Shift register Right by 8 and store in reg
 		Op_LR1		: buffer std_logic;	-- Logical Rotate register Left by 1 and store in reg
 		Op_RR1		: buffer std_logic;	-- Logical Rotate register Right by 1 and store in reg
 		Op_RA1		: buffer std_logic;	-- Arithmetic shift register Right by 1 and store in reg
@@ -78,16 +80,18 @@ constant HCF : std_Logic_Vector(7 downto 0) := "00000001";
 constant RES : std_Logic_Vector(7 downto 0) := "00000010";
 constant ADS : std_Logic_Vector(7 downto 0) := "00100000";
 constant MUL : std_Logic_Vector(7 downto 0) := "00100001";
-constant CMP : std_Logic_Vector(7 downto 0) := "00100010";
-constant ORS : std_Logic_Vector(7 downto 0) := "00101000";
-constant ARS : std_Logic_Vector(7 downto 0) := "00101001";
-constant XRS : std_Logic_Vector(7 downto 0) := "00101010";
-constant LS1 : std_Logic_Vector(7 downto 0) := "00110000";
-constant RS1 : std_Logic_Vector(7 downto 0) := "00110001";
-constant LR1 : std_Logic_Vector(7 downto 0) := "00110010";
-constant RR1 : std_Logic_Vector(7 downto 0) := "00110011";
-constant RA1 : std_Logic_Vector(7 downto 0) := "00110100";
-constant ENS : std_Logic_Vector(7 downto 0) := "00111000";
+constant ORS : std_Logic_Vector(7 downto 0) := "00100010";
+constant ARS : std_Logic_Vector(7 downto 0) := "00100011";
+constant XRS : std_Logic_Vector(7 downto 0) := "00100100";
+constant LS1 : std_Logic_Vector(7 downto 0) := "00100101";
+constant LS8 : std_Logic_Vector(7 downto 0) := "00100110";
+constant RS1 : std_Logic_Vector(7 downto 0) := "00100111";
+constant RS8 : std_Logic_Vector(7 downto 0) := "00101000";
+constant LR1 : std_Logic_Vector(7 downto 0) := "00101001";
+constant RR1 : std_Logic_Vector(7 downto 0) := "00101010";
+constant RA1 : std_Logic_Vector(7 downto 0) := "00101011";
+constant CMP : std_Logic_Vector(7 downto 0) := "00110000";
+constant ENS : std_Logic_Vector(7 downto 0) := "00110001";
 constant LIL : std_Logic_Vector(7 downto 0) := "01000000";
 constant LIU : std_Logic_Vector(7 downto 0) := "01000001";
 constant LDB : std_Logic_Vector(7 downto 0) := "01100000";
@@ -126,7 +130,9 @@ o_WrRegFile <= '1' when (
 	Op_ARS = '1' or
 	Op_XRS = '1' or
 	Op_LS1 = '1' or
+	Op_LS8 = '1' or
 	Op_RS1 = '1' or
+	Op_RS8 = '1' or
 	Op_LR1 = '1' or
 	Op_RR1 = '1' or
 	Op_RA1 = '1' or
@@ -159,7 +165,9 @@ Op_ARS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ARS(4 downto
 Op_XRS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = XRS(4 downto 0))) else '0';
 -- ALU Opcodes - Shift
 Op_LS1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = LS1(4 downto 0))) else '0';
+Op_LS8 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = LS8(4 downto 0))) else '0';
 Op_RS1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = RS1(4 downto 0))) else '0';
+Op_RS8 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = RS8(4 downto 0))) else '0';
 Op_LR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = LR1(4 downto 0))) else '0';
 Op_RR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = RR1(4 downto 0))) else '0';
 Op_RA1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = RA1(4 downto 0))) else '0';

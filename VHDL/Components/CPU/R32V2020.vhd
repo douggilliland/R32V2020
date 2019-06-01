@@ -46,7 +46,9 @@ signal	w_Op_ORS  : std_logic := '0';		-- OR 2 regs and store in 3rd
 signal	w_Op_ARS  : std_logic := '0';		-- AND 2 regs and store in 3rd
 signal	w_Op_XRS  : std_logic := '0';		-- XOR 2 regs and store in 3rd
 signal	w_Op_LS1  : std_logic := '0';		-- Logical Shift left by 1
+signal	w_Op_LS8  : std_logic := '0';		-- Logical Shift left by 8
 signal	w_Op_RS1  : std_logic := '0';		-- Logical Shift right by 1
+signal	w_Op_RS8  : std_logic := '0';		-- Logical Shift right by 8
 signal	w_Op_LR1  : std_logic := '0';		-- Rotate left by 1
 signal	w_Op_RR1  : std_logic := '0';		-- Rotate right by 12
 signal	w_Op_RA1  : std_logic := '0';		-- Right arithmetic shift
@@ -126,13 +128,13 @@ attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
 
- 	w_holdHaltCatchFire	<= '1' when (w_OneHotState(3) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
-	o_writeStackRamEn <= '1' when w_OneHotState(3) = '1' and (w_Op_PSS = '1' or w_Op_SSS = '1') and n_reset = '1' else '0';
-	o_peripheralRdStrobe <= '1' when (w_OneHotState(4) = '1' and (w_Op_LPB = '1' or w_Op_LPS = '1' or w_Op_LPL = '1')) else '0';
-	o_peripheralWrStrobe <= '1' when (w_OneHotState(4) = '1' and (w_Op_SPB = '1' or w_Op_SPS = '1' or w_Op_SPL = '1')) else '0';
-	o_clkInstrRomAddr 	<= w_OneHotState(0) or (not n_reset);
-	o_clkInstrRomData 	<= w_OneHotState(1) or (not n_reset);
-	o_writeToDataRamEnable <= '1' when w_OneHotState(3) = '1' and (w_Op_SDB = '1' or w_Op_SDS = '1'or w_Op_SDL = '1') and n_reset = '1' else '0';
+ 	w_holdHaltCatchFire		<= '1' when (w_OneHotState(3) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
+	o_writeStackRamEn 		<= '1' when w_OneHotState(3) = '1' and (w_Op_PSS = '1' or w_Op_SSS = '1') and n_reset = '1' else '0';
+	o_peripheralRdStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_LPB = '1' or w_Op_LPS = '1' or w_Op_LPL = '1')) else '0';
+	o_peripheralWrStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_SPB = '1' or w_Op_SPS = '1' or w_Op_SPL = '1')) else '0';
+	o_clkInstrRomAddr 		<= w_OneHotState(0) or (not n_reset);
+	o_clkInstrRomData 		<= w_OneHotState(1) or (not n_reset);
+	o_writeToDataRamEnable 	<= '1' when w_OneHotState(3) = '1' and (w_Op_SDB = '1' or w_Op_SDS = '1'or w_Op_SDL = '1') and n_reset = '1' else '0';
 
 	w_BranchAddress <=  (i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  -- sign extend
 								i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  
@@ -161,7 +163,9 @@ begin
 		Op_ARS => w_Op_ARS,
 		Op_XRS => w_Op_XRS,
 		Op_LS1 => w_Op_LS1,
+		Op_LS8 => w_Op_LS8,
 		Op_RS1 => w_Op_RS1,
+		Op_RS8 => w_Op_RS8,
 		Op_LR1 => w_Op_LR1,
 		Op_RR1 => w_Op_RR1,
 		Op_RA1 => w_Op_RA1,
@@ -215,7 +219,9 @@ flowControl : ENTITY work.CCRControl PORT map
 	Op_ARS	=> w_Op_ARS,
 	Op_XRS	=> w_Op_XRS,
 	Op_LS1	=> w_Op_LS1,
+	Op_LS8	=> w_Op_LS8,
 	Op_RS1	=> w_Op_RS1,
+	Op_RS8	=> w_Op_RS8,
 	Op_LR1	=> w_Op_LR1,
 	Op_RR1	=> w_Op_RR1,
 	Op_RA1	=> w_Op_RA1,
@@ -270,7 +276,9 @@ flowControl : ENTITY work.CCRControl PORT map
 		i_Op_XRS => w_Op_XRS,
 		i_Op_ORS => w_Op_ORS,
 		i_Op_LS1 => w_Op_LS1,
+		i_Op_LS8 => w_Op_LS8,
 		i_Op_RS1 => w_Op_RS1,
+		i_Op_RS8 => w_Op_RS8,
 		i_Op_LR1 => w_Op_LR1,
 		i_Op_RR1 => w_Op_RR1,
 		i_Op_RA1 => w_Op_RA1,

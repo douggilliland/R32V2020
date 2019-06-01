@@ -17,7 +17,9 @@ ENTITY CCRControl IS PORT(
 	Op_ARS			: IN std_logic;	-- Logical AND registers and store in reg
 	Op_XRS			: IN std_logic;	-- Logical XOR registers and store in reg
 	Op_LS1			: IN std_logic;	-- Logical Shift register Left by 1 and store in reg
+	Op_LS8			: IN std_logic;	-- Logical Shift register Left by 8 and store in reg
 	Op_RS1			: IN std_logic;	-- Logical Shift register Right by 1 and store in reg
+	Op_RS8			: IN std_logic;	-- Logical Shift register Right by 8 and store in reg
 	Op_LR1			: IN std_logic;	-- Logical Rotate register Left by 1 and store in reg
 	Op_RR1			: IN std_logic;	-- Logical Rotate register Right by 1 and store in reg
 	Op_RA1			: IN std_logic;	-- Arithmetic shift register Right by 1 and store in reg
@@ -86,6 +88,6 @@ BEGIN
 			(Op_BNE and CCR(CCR_BNE)));
 		
 		-- Opcodes that store the CCR bits
-		o_save_CCR_bits <= Op_ADS or Op_MUL or Op_ORS or Op_ARS or Op_XRS or Op_LS1 or Op_RS1 or Op_LR1 or Op_RR1 or Op_RA1 or Op_CMP;
+		o_save_CCR_bits <= Op_ADS or Op_MUL or Op_ORS or Op_ARS or Op_XRS or Op_LS1 or Op_LS8 or Op_RS1 or Op_RS8 or Op_LR1 or Op_RR1 or Op_RA1 or Op_CMP;
 		
 END description;
