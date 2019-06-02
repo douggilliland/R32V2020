@@ -130,5 +130,21 @@ class RegisterParsingAndValidationSpecs(unittest.TestCase):
   def test_GP8_is_not_a_valid_register(self):
     self.assertFalse(assembler.isValidRegister('GP8'))
 
+class ValidAddressSpecs(unittest.TestCase):
+  def test_lower_is_valid(self):
+    self.assertTrue(assembler.isValidAddress('hi'))
+
+  def test_upper_is_valid(self):
+    self.assertTrue(assembler.isValidAddress('HI'))
+
+  def test_numbers_alone_are_valid(self):
+    self.assertTrue(assembler.isValidAddress('42'))
+ 
+  def test_underscores_are_valid(self):
+    self.assertTrue(assembler.isValidAddress('____'))
+
+  def test_intermixing_is_valid(self):
+    self.assertTrue(assembler.isValidAddress('test_BCC_BCS_42'))
+
 if __name__ == '__main__':
   unittest.main()
