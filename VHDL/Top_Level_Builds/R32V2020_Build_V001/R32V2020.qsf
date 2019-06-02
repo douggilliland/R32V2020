@@ -107,7 +107,7 @@ set_global_assignment -name ENABLE_SIGNALTAP ON
 set_global_assignment -name USE_SIGNALTAP_FILE "../../Programs/C033-PS2_Kbd_to_Screen/C033-PS2_Kbd_to_Screen.stp"
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
-set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_99 -to i_ps2Clk
@@ -158,37 +158,6 @@ set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_global_assignment -name VHDL_FILE ../../Components/CPU/top.vhd
-set_global_assignment -name VHDL_FILE ../../Components/CPU/R32V2020.vhd
-set_global_assignment -name QIP_FILE ../../Components/BlockRam_Data/BlockRam_Data.qip
-set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_8.vhd
-set_global_assignment -name VHDL_FILE ../../Components/ALU/CCRControl.vhd
-set_global_assignment -name VHDL_FILE ../../Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd
-set_global_assignment -name VHDL_FILE ../../Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd
-set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd
-set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/Video_SVGA_64x32.vhd
-set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/Mem_Mapped_SVGA.vhd
-set_global_assignment -name VHDL_FILE "../../Components/VGA/Mem_Mapped_SVGA/Element_Test_Bed (Mem_Mapped_SVGA).vhd"
-set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/DisplayRam2k.vhd
-set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/CharRom.VHD
-set_global_assignment -name VHDL_FILE ../../Components/COUNTER/CounterLoadable.vhd
-set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32.vhd
-set_global_assignment -name VHDL_FILE ../../Components/COUNTER/Counter.vhd
-set_global_assignment -name VHDL_FILE ../../Components/Multiplexers/MUX_16x32.vhd
-set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_LD_At_Reset.vhd
-set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_CONSTANT.vhd
-set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32.vhd
-set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_1.vhd
-set_global_assignment -name VHDL_FILE ../../Components/RegisterFile/RegisterFile.vhd
-set_global_assignment -name VHDL_FILE ../../Components/OpCodeDecoder/OpCodeDecoder.vhd
-set_global_assignment -name VHDL_FILE ../../Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd
-set_global_assignment -name VHDL_FILE ../../Components/ALU/ALU.vhd
-set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction.vhd
-set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Stack/BlockRam_Stack.vhd
-set_global_assignment -name VHDL_FILE ../../Components/UART/bufferedUART.vhd
-set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_intf.vhd
-set_global_assignment -name VHDL_FILE ../../Components/PeripheralInterface/PeripheralInterface.vhd
-set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_16.vhd
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
@@ -234,7 +203,6 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=33" 
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=122" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_global_assignment -name SIGNALTAP_FILE "../../Programs/C033-PS2_Kbd_to_Screen/C033-PS2_Kbd_to_Screen.stp"
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "PeripheralInterface:Peripherals|w_kbdStatus[0]" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "PeripheralInterface:Peripherals|w_kbdStatus[1]" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[98] -to "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[0]" -section_id auto_signaltap_0
@@ -400,5 +368,39 @@ set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[95] -to "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r12Upper|q[7]" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[96] -to "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r12Upper|q[8]" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[97] -to "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r12Upper|q[9]" -section_id auto_signaltap_0
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard_to_ascii.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii/debounce.vhd
+set_global_assignment -name VHDL_FILE ../../Components/CPU/top.vhd
+set_global_assignment -name VHDL_FILE ../../Components/CPU/R32V2020.vhd
+set_global_assignment -name QIP_FILE ../../Components/BlockRam_Data/BlockRam_Data.qip
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_8.vhd
+set_global_assignment -name VHDL_FILE ../../Components/ALU/CCRControl.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd
+set_global_assignment -name VHDL_FILE ../../Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/Video_SVGA_64x32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/Mem_Mapped_SVGA.vhd
+set_global_assignment -name VHDL_FILE "../../Components/VGA/Mem_Mapped_SVGA/Element_Test_Bed (Mem_Mapped_SVGA).vhd"
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/DisplayRam2k.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_SVGA/CharRom.VHD
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/CounterLoadable.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/Counter.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Multiplexers/MUX_16x32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_LD_At_Reset.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_CONSTANT.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_1.vhd
+set_global_assignment -name VHDL_FILE ../../Components/RegisterFile/RegisterFile.vhd
+set_global_assignment -name VHDL_FILE ../../Components/OpCodeDecoder/OpCodeDecoder.vhd
+set_global_assignment -name VHDL_FILE ../../Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd
+set_global_assignment -name VHDL_FILE ../../Components/ALU/ALU.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Stack/BlockRam_Stack.vhd
+set_global_assignment -name VHDL_FILE ../../Components/UART/bufferedUART.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PeripheralInterface/PeripheralInterface.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_16.vhd
+set_global_assignment -name SIGNALTAP_FILE "../../Programs/C033-PS2_Kbd_to_Screen/C033-PS2_Kbd_to_Screen.stp"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SLD_FILE "db/C033-PS2_Kbd_to_Screen_auto_stripped.stp"

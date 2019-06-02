@@ -49,7 +49,7 @@ architecture struct of PeripheralInterface is
 	signal w_serialClock			:	std_logic;
 	signal w_kbdStatus			:	std_logic_vector(31 downto 0);
 	signal w_aciaData				:	std_logic_vector(7 downto 0);
-	signal w_kbReadData			:	std_logic_vector(7 downto 0);
+	signal w_kbReadData			:	std_logic_vector(6 downto 0);
 	signal q_kbReadData			:	std_logic_vector(31 downto 0);
 	signal w_dispRamDataOutA	:	std_logic_vector(7 downto 0);
 	signal w_kbDataValid			:	std_logic;
@@ -170,29 +170,27 @@ begin
 			VoutVect		=> o_VoutVect
 			);
 	
-	ps2Keyboard : entity work.ps2_intf
+	ps2Keyboard : entity work.ps2_keyboard_to_ascii
 	port map (
-		CLK		=> i_CLOCK_50,
-		nRESET	=> n_reset,
-		PS2_CLK	=> i_PS2_CLK,
-		PS2_DATA	=> i_PS2_DATA,	
-		DATA		=> w_kbReadData,
-		VALID		=> w_kbDataValid,
-		ERROR		=> w_kbError
+		clk			=> i_CLOCK_50,
+		ps2_clk		=> i_PS2_CLK,
+		ps2_data		=> i_PS2_DATA,	
+		ascii_code	=> w_kbReadData,
+		ascii_new	=> w_kbDataValid
 	);
 	
-	process (i_CLOCK_50, W_kbDataValid, w_kbError, w_kbReadData, w_kbDatCS)
+	process (i_CLOCK_50, W_kbDataValid, w_kbReadData, w_kbDatCS)
 	begin
 		if rising_edge(i_CLOCK_50)  then
 			if w_kbDatCS = '1' then 
 				w_kbdStatus <= x"00000000";
-			elsif w_kbDataValid = '1' or w_kbError = '1' then
-				w_kbdStatus <= x"0000000" & "00" & w_kbError & w_kbDataValid;
+			elsif w_kbDataValid = '1' then
+				w_kbdStatus <= x"0000000" & "000" & w_kbDataValid;
 			end if;
 		end if;
 		if rising_edge(i_CLOCK_50)  then
-			if w_kbDataValid = '1' or w_kbError = '1' then
-				q_kbReadData <= x"000000" & w_kbReadData;
+			if w_kbDataValid = '1' then
+				q_kbReadData <= x"000000" & '0' & w_kbReadData;
 			end if;
 		end if;
 	end process;
