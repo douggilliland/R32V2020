@@ -104,10 +104,10 @@ set_global_assignment -name INFER_RAMS_FROM_RAW_LOGIC OFF
 set_global_assignment -name AUTO_SHIFT_REGISTER_RECOGNITION ALWAYS
 set_location_assignment PIN_24 -to i_CLOCK_50
 set_global_assignment -name ENABLE_SIGNALTAP ON
-set_global_assignment -name USE_SIGNALTAP_FILE "../../Programs/C030-Uart_to_Screen/C030-Uart_to_Screen.stp"
+set_global_assignment -name USE_SIGNALTAP_FILE "../../Programs/C031-Uart_to_Screen_Loopback/C031-Uart_to_Screen_Loopback.stp"
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
-set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_99 -to i_ps2Clk
@@ -229,7 +229,6 @@ set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_global_assignment -name SIGNALTAP_FILE "../../Programs/C030-Uart_to_Screen/C030-Uart_to_Screen.stp"
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[0]" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[10]" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[11]" -section_id auto_signaltap_0
@@ -398,5 +397,6 @@ set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[160] -to n_reset -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=161" -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=161" -section_id auto_signaltap_0
+set_global_assignment -name SIGNALTAP_FILE "../../Programs/C031-Uart_to_Screen_Loopback/C031-Uart_to_Screen_Loopback.stp"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name SLD_FILE "db/C030-Uart_to_Screen_auto_stripped.stp"
+set_global_assignment -name SLD_FILE "db/C031-Uart_to_Screen_Loopback_auto_stripped.stp"
