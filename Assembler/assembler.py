@@ -126,7 +126,7 @@ class NoArgsResolver:
   def __init__(self, operation):
     self.operation = operation
 
-  def resolveHex(self, _):
+  def resolveHex(self, _, __):
     return hex(self.operation << 24)
 
 TWOS_COMP_24 = 16777215
@@ -142,7 +142,7 @@ class AddressResolver:
     self.lineNumber = lineNumber
     self.currentAddress = currentAddress
 
-  def resolveHex(self, addresses):
+  def resolveHex(self, addresses, __):
     lineAssert(self.address in addresses, self.lineNumber, self.rawLine, 'Address ' + self.address + ' is not defined')
 
     offset = addresses[self.address] - self.currentAddress
@@ -152,7 +152,7 @@ class AddressResolver:
 
     return hex(self.operation << 24 | (offset & TWOS_COMP_24))
 
-class AddressDestResolver:
+class JumpDestResolver:
   def __init__(self, operation, address, rawLine, lineNumber, register):
     self.operation = operation
     self.address = address
@@ -160,7 +160,7 @@ class AddressDestResolver:
     self.lineNumber = lineNumber
     self.register = register
 
-  def resolveHex(self, addresses):
+  def resolveHex(self, addresses, _):
     lineAssert(self.address in addresses, self.lineNumber, self.rawLine, 'Address ' + self.address + ' is not defined')
     return hex(self.operation << 24 | self.register << 20 | addresses[address] << 12)
 
@@ -171,7 +171,7 @@ class BinDestResolver:
     self.r1 = r1
     self.r2 = r2
 
-  def resolveHex(self, _):
+  def resolveHex(self, _, __):
     return hex(self.operation << 24 | self.rOut << 20 | self.r1 << 16 | self.r2 << 12)
 
 class UnDestResolver:
@@ -180,7 +180,7 @@ class UnDestResolver:
     self.rOut = rOut
     self.r = r
 
-  def resolveHex(self, _):
+  def resolveHex(self, _, __):
     return hex(self.operation << 24 | self.rOut << 20 | self.r << 12)
 
 class ImmDestResolver:
@@ -189,8 +189,32 @@ class ImmDestResolver:
     self.register = register
     self.immediate = immediate
 
-  def resolveHex(self, _):
+  def resolveHex(self, _, __):
     return hex(self.operation << 24 | self.register << 20 | self.immediate)
+
+class DataLabelReferenceDestResolver:
+  def __init__(self, operation, register, labelRef, lineNumber, rawLine):
+    self.operation = operation
+    self.register = register
+    self.labelRef = labelRef
+    self.lineNumber = lineNumber
+    self.rawLine = rawLine
+
+  def resolveHex(self, _, dataAddresses):
+    parts = self.labelRef.split('.')
+
+    isUpper = parts[1].upper() == 'UPPER'
+
+    lineAssert(parts[0] in dataAddresses, self.lineNumber, self.rawLine, 'Data address reference ' + self.labelRef + ' does not reference an existing address')
+
+    address = dataAddresses[parts[0]]
+
+    if isUpper:
+      address = address >> 16
+
+    address = address & 65535
+
+    return hex(self.operation << 24 | self.register << 20 | address)
 
 class ByteConstant:
   def __init__(self, byteLiterals):
@@ -230,7 +254,7 @@ def hexOfAsciiCode(char):
 
 class StringConstant:
   def __init__(self, string):
-    self.string = string
+    self.string = string[1:-1]
 
   def resolveHex(self):
     if self.string == '':
@@ -261,7 +285,7 @@ output = []
 addresses = {}
 currentAddress = 0
 constants = []
-constantByAddress = {}
+addressByConstant = {}
 
 def isValidString(text):
   walker = text.strip()
@@ -297,6 +321,11 @@ def isValidAddress(token):
       return False
 
   return True
+
+def isValidDataLabelReference(token):
+  parts = token.split('.')
+
+  return len(parts) == 2 and isValidAddress(parts[0]) and parts[1].upper() in ['UPPER', 'LOWER']
 
 def formatAddressError(badAddress):
   return badAddress + ' is not a valid address (must be alpha-numeric, can contain underscores)'
@@ -383,8 +412,8 @@ def checksum(withoutChecksum):
 
   return ((checksum^255) + 1) & 255
 
-def formatInstructionHex(address, resolver, addresses):
-  op = int(resolver.resolveHex(addresses), 0)
+def formatInstructionHex(address, resolver, addresses, dataAddresses):
+  op = int(resolver.resolveHex(addresses, dataAddresses), 0)
   withoutChecksum = ZERO_FOUR | op << 8 | address << 48
   return ':0' + hex(withoutChecksum | checksum(withoutChecksum))[2:-1].upper()
 
@@ -460,7 +489,7 @@ if __name__ == '__main__':
         constant = StringConstant(string)
 
         constants.append(constant)
-        constantByAddress[address] = constant
+        addressByConstant[constant] = address
         continue
 
       if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
@@ -476,7 +505,7 @@ if __name__ == '__main__':
         constant = LongConstant(longToken)
 
         constants.append(constant)
-        constantByAddress[address] = constant
+        addressByConstant[constant] = address
         continue
 
       if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
@@ -492,7 +521,7 @@ if __name__ == '__main__':
         constant = ShortConstant(shorts)
 
         constants.append(constant)
-        constantByAddress[address] = constant
+        addressByConstant[constant] = address
         continue
 
       if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
@@ -508,7 +537,7 @@ if __name__ == '__main__':
         constant = ByteConstant(bytes)
 
         constants.append(constant)
-        constantByAddress[address] = constant
+        addressByConstant[constant] = address
         continue
 
       if tokens[0][-1] == ':':
@@ -546,7 +575,7 @@ if __name__ == '__main__':
 
         lineAssert(isValidAddress(tokens[1]), num, rawLine, formatAddressError(tokens[1]))
 
-        outputLine.setInstruction(AddressDestResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, 7))
+        outputLine.setInstruction(JumpDestResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, 7))
 
       elif opSpec['Form'] == 'BIN_DEST':
         lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
@@ -573,9 +602,17 @@ if __name__ == '__main__':
       elif opSpec['Form'] == 'IMM_DEST':
         lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
         lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
+        lineAssert(
+          isValidImmediateValue(tokens[2]) or isValidDataLabelReference(tokens[2]),
+          num,
+          rawLine,
+          tokens[2] + ' is neither a valid immediate value or a valid data label reference'
+        )
 
-        outputLine.setInstruction(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
+        if isValidImmediateValue(tokens[2]):
+          outputLine.setInstruction(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
+        else:
+          outputLine.setInstruction(DataLabelReferenceDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), tokens[2], num, rawLine))
 
       elif opSpec['Form'] == 'UN_DEST':
         lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
@@ -598,23 +635,26 @@ if __name__ == '__main__':
       else:
         lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
+  dataAddresses = {}
+
+  with open(datFile, 'w') as f:
+    currentAddress = 0
+    for constant in constants:
+      dataAddresses[addressByConstant[constant]] = currentAddress
+      for data in constant.resolveHex():
+        f.write(formatDataHex(currentAddress, data) + '\n')
+        currentAddress += 1
+
+    f.write(':00000001FF\n')
+
   with open(insFile, 'w') as instF:
     with open(lstFile, 'w') as listF:
       for line in output:
         if line.instruction != None:
-          instData = formatInstructionHex(line.instructionAddress, line.instruction, addresses)
+          instData = formatInstructionHex(line.instructionAddress, line.instruction, addresses, dataAddresses)
           instF.write(instData + '\n')
           addr = hex(line.instructionAddress)[2:]
           paddedAddr = '0'*(8 - len(addr)) + addr
           listF.write(paddedAddr + '\t' + instData[9:17] + '\t')
         listF.write(line.rawLine)
       instF.write(':00000001FF\n')
-
-  with open(datFile, 'w') as f:
-    currentAddress = 0
-    for constant in constants:
-      for data in constant.resolveHex():
-        f.write(formatDataHex(currentAddress, data) + '\n')
-        currentAddress += 1
-
-    f.write(':00000001FF\n')

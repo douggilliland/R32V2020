@@ -25,11 +25,11 @@ class StripCommentsSpecs(unittest.TestCase):
 class FormatHexSpecs(unittest.TestCase):
   def test_a_case_that_looks_like_an_add_instruction_at_addres_0_works(self):
     resolver = assembler.BinDestResolver(32, 7, 0, 0)
-    self.assertTrue(assembler.formatInstructionHex(0, resolver, {}).startswith(':0400000020700000'))
+    self.assertTrue(assembler.formatInstructionHex(0, resolver, {}, {}).startswith(':0400000020700000'))
 
   def test_a_result_has_the_correct_length(self):
     resolver = assembler.BinDestResolver(32, 7, 0, 0)
-    self.assertEqual(len(assembler.formatInstructionHex(0, resolver, {})), 19)
+    self.assertEqual(len(assembler.formatInstructionHex(0, resolver, {}, {})), 19)
 
   def test_checksum_value_itself_is_correct(self):
     self.assertEqual(assembler.checksum(int('040000002070000000', 16)), 108)
@@ -39,12 +39,12 @@ class FormatHexSpecs(unittest.TestCase):
 
   def test_the_checksum_bits_are_correct(self):
     resolver = assembler.BinDestResolver(32, 7, 0, 0)
-    self.assertEqual(assembler.formatInstructionHex(0, resolver, {})[-2:], '6C')
+    self.assertEqual(assembler.formatInstructionHex(0, resolver, {}, {})[-2:], '6C')
 
   def test_the_address_is_encoded(self):
     resolver = assembler.BinDestResolver(32, 7, 0, 0)
     address = 4267
-    answer = assembler.formatInstructionHex(address, resolver, {})
+    answer = assembler.formatInstructionHex(address, resolver, {}, {})
     self.assertEqual(answer[3:7], '10AB')
 
 class TwosCompSpecs(unittest.TestCase):
@@ -146,9 +146,22 @@ class ValidAddressSpecs(unittest.TestCase):
   def test_intermixing_is_valid(self):
     self.assertTrue(assembler.isValidAddress('test_BCC_BCS_42'))
 
+class ValidDataLabelReferenceSpecs(unittest.TestCase):
+  def test_lowercase_upper_reference_is_valid(self):
+    self.assertTrue(assembler.isValidDataLabelReference('label.upper'))
+
+  def test_lowercase_lower_reference_is_valid(self):
+    self.assertTrue(assembler.isValidDataLabelReference('label.lower'))
+
+  def test_mixed_case_lower_reference_is_valid(self):
+    self.assertTrue(assembler.isValidDataLabelReference('LaBel.LoWer'))
+
+  def test_stuff_that_usually_works_in_labels_works_in_the_reference(self):
+    self.assertTrue(assembler.isValidDataLabelReference('lAb3l__hi42.LoWer'))
+
 class DataHexFormatSpecs(unittest.TestCase):
   def test_formatting_a_simple_string_constant(self):
-    results = assembler.StringConstant('Hell').resolveHex()
+    results = assembler.StringConstant('"Hell"').resolveHex()
     self.assertEqual(assembler.formatDataHex(0, results[0]), ':0400000048656C6C77')
 
   def test_full_hello_world_works(self):
@@ -158,7 +171,7 @@ class DataHexFormatSpecs(unittest.TestCase):
       ':040002006F726C6449'
     ]
 
-    results = assembler.StringConstant('Hello, World').resolveHex()
+    results = assembler.StringConstant('"Hello, World"').resolveHex()
 
     lines = []
 
@@ -168,11 +181,11 @@ class DataHexFormatSpecs(unittest.TestCase):
     self.assertEqual(lines, expected)
 
   def test_four_character_strings_dont_flow_into_the_next_line(self):
-    results = assembler.StringConstant('Hell').resolveHex()
+    results = assembler.StringConstant('"Hell"').resolveHex()
     self.assertEqual(len(results), 1)
 
   def test_padding_adds_zeroes_to_the_right(self):
-    results = assembler.StringConstant('H').resolveHex()
+    results = assembler.StringConstant('"H"').resolveHex()
     self.assertEqual(assembler.formatDataHex(0, results[0])[:-2], ':0400000048000000')
 
   def test_byte_filling_works(self):
