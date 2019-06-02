@@ -3,6 +3,7 @@
 --   FileName:         ps2_keyboard_to_ascii.vhd
 --   Dependencies:     ps2_keyboard.vhd, debounce.vhd
 --   Design Software:  Quartus II 32-bit Version 12.1 Build 177 SJ Full Version
+--		https://www.digikey.com/eewiki/pages/viewpage.action?pageId=28279002
 --
 --   HDL CODE IS PROVIDED "AS IS."  DIGI-KEY EXPRESSLY DISCLAIMS ANY
 --   WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT
