@@ -203,7 +203,7 @@ class ByteConstant:
       output = output << 8
       output |= byte
 
-    return [hex(output)]
+    return [output]
 
 class ShortConstant:
   def __init__(self, shortLiterals):
@@ -216,14 +216,14 @@ class ShortConstant:
       output = output << 16
       output |= byte
 
-    return [hex(output)]
+    return [output]
 
 class LongConstant:
   def __init__(self, longToken):
     self.longToken = longToken[2:]
 
   def resolveHex(self):
-    return [self.longToken + ((8 - len(self.longToken))*'0')]
+    return [int(self.longToken, 16)]
 
 def hexOfAsciiCode(char):
   return hex(ord(char))[2:]
@@ -234,7 +234,7 @@ class StringConstant:
 
   def resolveHex(self):
     if self.string == '':
-      return ['0000']
+      return [0]
     chunks = []
     for i in xrange(0, len(self.string), 4):
       hex = ''
@@ -244,7 +244,7 @@ class StringConstant:
           hex += hexOfAsciiCode(self.string[j])
         else:
           hex += '00'
-      chunks.append(hex)
+      chunks.append(int(hex, 16))
 
     return chunks
 
@@ -383,9 +383,13 @@ def checksum(withoutChecksum):
 
   return ((checksum^255) + 1) & 255
 
-def formatHex(address, resolver, addresses):
+def formatInstructionHex(address, resolver, addresses):
   op = int(resolver.resolveHex(addresses), 0)
   withoutChecksum = ZERO_FOUR | op << 8 | address << 48
+  return ':0' + hex(withoutChecksum | checksum(withoutChecksum))[2:-1].upper()
+
+def formatDataHex(address, data):
+  withoutChecksum = ZERO_FOUR | data << 8 | address << 48
   return ':0' + hex(withoutChecksum | checksum(withoutChecksum))[2:-1].upper()
 
 def stripComments(line):
@@ -594,12 +598,11 @@ if __name__ == '__main__':
       else:
         lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
-#  with open(sys.argv[2], 'w') as f:
   with open(insFile, 'w') as instF:
     with open(lstFile, 'w') as listF:
       for line in output:
         if line.instruction != None:
-          instData = formatHex(line.instructionAddress, line.instruction, addresses)
+          instData = formatInstructionHex(line.instructionAddress, line.instruction, addresses)
           instF.write(instData + '\n')
           addr = hex(line.instructionAddress)[2:]
           paddedAddr = '0'*(8 - len(addr)) + addr
@@ -607,8 +610,11 @@ if __name__ == '__main__':
         listF.write(line.rawLine)
       instF.write(':00000001FF\n')
 
-#  with open(sys.argv[3], 'w') as f:
   with open(datFile, 'w') as f:
+    currentAddress = 0
     for constant in constants:
-      for line in constant.resolveHex():
-        f.write(line.replace('0x', '') + '\n')
+      for data in constant.resolveHex():
+        f.write(formatDataHex(currentAddress, data) + '\n')
+        currentAddress += 1
+
+    f.write(':00000001FF\n')

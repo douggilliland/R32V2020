@@ -17,7 +17,7 @@ ramWriteLoop:
 00000005	20661000		ads	dar,dar,r1	; increment the data address register
 00000006	20881000		ads	r8,r8,r1	; increment the data pattern value
 00000007	20993000		ads	r9,r9,r3	; subtract one from the end count
-00000008	C9FFFFFC		bnz	ramWriteLoop	; loop more	
+00000008	C7FFFFFC		bnz	ramWriteLoop	; loop more	
 ; Check the values that were written
 00000009	20600000		ads	dar,r0,r0	; set the data address register to 0x0
 0000000a	20800000		ads	r8,r0,r0	; set the data pattern to match
@@ -25,11 +25,11 @@ ramWriteLoop:
 0000000c	409000FE		lil	r9,0xfe		; memory size-2
 ramReadLoop:
 0000000d	64806000		ldl	r8			; read the first location 
-0000000e	22368000		cmp	dar,r8		; compare address to the data read
-0000000f	C800000A		bne	failedRead	; failed
+0000000e	30368000		cmp	dar,r8		; compare address to the data read
+0000000f	D200000A		bne	failedRead	; failed
 00000010	20661000		ads	dar,dar,r1	; increment the address
 00000011	20993000		ads	r9,r9,r3	; subtract one from the end count
-00000012	C9FFFFFB		bnz	ramReadLoop	; check the next location
+00000012	C7FFFFFB		bnz	ramReadLoop	; check the next location
 passed:
 00000013	20B00000		ads	r11,r0,r0
 00000014	40B03000		lil	r11,0x3000
