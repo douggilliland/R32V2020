@@ -17,6 +17,7 @@ constant CMP : std_Logic_Vector(7 downto 0) := "00110000";
 constant ENS : std_Logic_Vector(7 downto 0) := "00110001";
 constant LIL : std_Logic_Vector(7 downto 0) := "01000000";
 constant LIU : std_Logic_Vector(7 downto 0) := "01000001";
+constant LIX : std_Logic_Vector(7 downto 0) := "01000010";
 constant LDB : std_Logic_Vector(7 downto 0) := "01100000";
 constant SDB : std_Logic_Vector(7 downto 0) := "01100001";
 constant LDS : std_Logic_Vector(7 downto 0) := "01100010";

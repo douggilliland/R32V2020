@@ -31,6 +31,7 @@ entity RegisterFile is
 		i_CCR							: in std_logic_vector(31 downto 0);
 		i_OP_LIL						: in std_logic := '0';
 		i_OP_LIU						: in std_logic := '0';
+		i_OP_LIX						: in std_logic := '0';
 		i_BranchAddress			: in std_logic_vector(31 downto 0);
 		i_wrRegFile					: in std_logic := '0';
 		o_regDataOutA				: out std_logic_vector(31 downto 0);

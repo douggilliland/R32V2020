@@ -31,6 +31,7 @@ entity OpCodeDecoder is
 		-- Category = Immediate values
 		Op_LIL		: buffer std_logic;	-- Load Immediate lower short
 		Op_LIU		: buffer std_logic;	-- Load Immediate upper short
+		Op_LIX		: buffer std_logic;	-- Load Immediate lower short sign extended up
 		-- Category = Load/Store to/from Data Memory
 		Op_LDB		: buffer std_logic;	-- Load byte from data memory (read on d7..d0)
 		Op_SDB		: out std_logic;	-- Store byte to data memory (write on d7..d0)
@@ -94,6 +95,7 @@ constant CMP : std_Logic_Vector(7 downto 0) := "00110000";
 constant ENS : std_Logic_Vector(7 downto 0) := "00110001";
 constant LIL : std_Logic_Vector(7 downto 0) := "01000000";
 constant LIU : std_Logic_Vector(7 downto 0) := "01000001";
+constant LIX : std_Logic_Vector(7 downto 0) := "01000010";
 constant LDB : std_Logic_Vector(7 downto 0) := "01100000";
 constant SDB : std_Logic_Vector(7 downto 0) := "01100001";
 constant LDS : std_Logic_Vector(7 downto 0) := "01100010";
@@ -139,6 +141,7 @@ o_WrRegFile <= '1' when (
 	Op_ENS = '1' or
 	Op_LIL = '1' or
 	Op_LIU = '1' or
+	Op_LIX = '1' or
 	Op_LDB = '1' or
 	Op_LDS = '1' or
 	Op_LDL = '1' or

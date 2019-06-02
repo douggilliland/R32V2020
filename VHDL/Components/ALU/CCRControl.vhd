@@ -28,6 +28,7 @@ ENTITY CCRControl IS PORT(
 	-- Category = Immediate values
 	Op_LIL			: IN std_logic;	-- Load Immediate lower short
 	Op_LIU			: IN std_logic;	-- Load Immediate upper short
+	Op_LIX			: IN std_logic;	-- Load Immediate lower short extended
 	-- Category = Load/Store to/from Data Memory
 	Op_LDB			: IN std_logic;	-- Load byte from data memory (read on d7..d0)
 	Op_SDB			: IN std_logic;	-- Store byte to data memory (write on d7..d0)

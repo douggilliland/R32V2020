@@ -55,6 +55,7 @@ signal	w_Op_RA1  : std_logic := '0';		-- Right arithmetic shift
 signal	w_Op_ENS  : std_logic := '0';		-- Swap endian
 signal	w_Op_LIL  : std_logic := '0';		-- Load Register Immediate Lower
 signal	w_Op_LIU  : std_logic := '0';		-- Load Register Immediate Upper
+signal	w_Op_LIX  : std_logic := '0';		-- Load Register Immediate Extend Lower
 signal	w_Op_LDB  : std_logic := '0';		-- Load Data Byte
 signal	w_Op_SDB  : std_logic := '0';		-- Store Data Byte
 signal	w_Op_LDS  : std_logic := '0';		-- Load Data Short
@@ -173,6 +174,7 @@ begin
 		-- Category = Immediate values
 		Op_LIL => w_Op_LIL,
 		Op_LIU => w_Op_LIU,
+		Op_LIX => w_Op_LIX,
 		-- Category = Load/Store
 		Op_LDB => w_Op_LDB,
 		Op_SDB => w_Op_SDB,
@@ -230,6 +232,7 @@ flowControl : ENTITY work.CCRControl PORT map
 	-- Category = Immediate values
 	Op_LIL	=> w_Op_LIL,
 	Op_LIU	=> w_Op_LIU,
+	Op_LIX	=> w_Op_LIX,
 	-- Category = Load/Store to/from Data Memory
 	Op_LDB	=> w_Op_LDB,
 	Op_SDB	=> w_Op_SDB,
@@ -290,6 +293,10 @@ flowControl : ENTITY work.CCRControl PORT map
 	w_dataIntoRegisterFile <= 
 		i_InstructionRomData(15 downto 0)&x"0000" when (w_Op_LIU = '1') else		-- Load Immediate into upper half of register - other half gets ignored
 		x"0000"&i_InstructionRomData(15 downto 0) when (w_Op_LIL = '1') else		-- Load Immediate into lower half of register - other half gets ignored
+		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) &
+		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) &
+		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) &
+		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15 downto 0) when (w_Op_LIX = '1') else	
 		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1')) else
 		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1')) else
 		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
@@ -309,6 +316,7 @@ flowControl : ENTITY work.CCRControl PORT map
 		i_CCR							=> w_CondCodeBits,
 		i_OP_LIL						=> w_Op_LIL,
 		i_OP_LIU						=> w_Op_LIU,
+		i_OP_LIX						=> w_Op_LIX,
 		i_save_CCR_bits			=> w_save_CCR_bits,
 		i_wrRegFile					=> w_wrRegFile,
 		o_regDataOutA				=> o_DataOutFromRegA,
