@@ -292,7 +292,14 @@ def isValidString(text):
   return walker.strip() == ''
 
 def isValidAddress(token):
-  return token.isalnum()
+  for char in token:
+    if not (char.isalnum() or char == '_'):
+      return False
+
+  return True
+
+def formatAddressError(badAddress):
+  return badAddress + ' is not a valid address (must be alpha-numeric, can contain underscores)'
 
 def isValidRegister(token):
   return token.upper() in validRegisters
@@ -440,7 +447,7 @@ if __name__ == '__main__':
       if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.STRING':
         address = tokens[0][:-1]
 
-        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
 
         string = line[line.index('.')+7:].strip()
 
@@ -456,7 +463,7 @@ if __name__ == '__main__':
         shorts = []
         address = tokens[0][:-1]
 
-        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
 
         longToken = tokens[2]
 
@@ -472,7 +479,7 @@ if __name__ == '__main__':
         shorts = []
         address = tokens[0][:-1]
 
-        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
 
         for shortToken in tokens[2:]:
           lineAssert(isValidShort(shortToken), num, rawLine, shortToken + ' is not a valid short')
@@ -488,7 +495,7 @@ if __name__ == '__main__':
         bytes = []
         address = tokens[0][:-1]
 
-        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
 
         for byteToken in tokens[2:]:
           lineAssert(isValidByte(byteToken), num, rawLine, byteToken + ' is not a valid byte')
@@ -503,7 +510,7 @@ if __name__ == '__main__':
       if tokens[0][-1] == ':':
         address = tokens[0][:-1]
 
-        lineAssert(isValidAddress(address), num, rawLine, address + ' is not a valid address (must be alpha-numeric)')
+        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
         lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after label')
 
         addresses[address] = currentAddress
@@ -526,14 +533,14 @@ if __name__ == '__main__':
       elif opSpec['Form'] == 'ADDR':
         lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
-        lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
+        lineAssert(isValidAddress(tokens[1]), num, rawLine, formatAddressError(tokens[1]))
 
         outputLine.setInstruction(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, currentAddress-1))
 
       elif opSpec['Form'] == 'ADDR_R7_DEST':
         lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
-        lineAssert(isValidAddress(tokens[1]), num, rawLine, tokens[1] + ' is not a valid address')
+        lineAssert(isValidAddress(tokens[1]), num, rawLine, formatAddressError(tokens[1]))
 
         outputLine.setInstruction(AddressDestResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, 7))
 
