@@ -1,0 +1,84 @@
+; Read UART character and put it to the SVGA Display
+start:
+00000000	20400000		ads	SAR,r0,r0	; Initialize Stack Pointer (used for return address)
+00000001	A2407000		sss	r7			; push the call address -1
+00000002	C0000029		bra	clearScreen
+00000003	20500000		ads	par,r0,r0	; start of screen
+readDataMemory:
+00000004	20600000		ads	dar,r0,r0	; clear the data memory addr pointer
+00000005	64806000		ldl	r8			; get the long again
+00000006	31808000		ens r8,r8		; endian swap for right byte order
+00000007	A2407000		sss	r7			; store PC on the stack
+00000008	C000002F		bra	putChar
+00000009	28818000		rs8	r8,r1,r8
+0000000a	A2407000		sss	r7
+0000000b	C000002C		bra	putChar
+0000000c	28818000		rs8	r8,r1,r8
+0000000d	A2407000		sss	r7
+0000000e	C0000029		bra	putChar
+0000000f	28818000		rs8	r8,r1,r8
+00000010	A2407000		sss	r7
+00000011	C0000026		bra	putChar
+00000012	20661000		ads	dar,dar,r1	; increment the data pointer
+00000013	64806000		ldl	r8			; get the long again
+00000014	31808000		ens r8,r8		; endian swap for right byte order
+00000015	A2407000		sss	r7			; store PC on the stack
+00000016	C0000021		bra	putChar
+00000017	28818000		rs8	r8,r1,r8
+00000018	A2407000		sss	r7
+00000019	C000001E		bra	putChar
+0000001a	28818000		rs8	r8,r1,r8
+0000001b	A2407000		sss	r7
+0000001c	C000001B		bra	putChar
+0000001d	28818000		rs8	r8,r1,r8
+0000001e	A2407000		sss	r7
+0000001f	C0000018		bra	putChar
+readETCounter:
+00000020	20800000		ads	r8,r0,r0	; r8 will contain the counter address
+00000021	40803800		lil	r8,0x3800
+00000022	20900000		ads	r9,r0,r0	; r9 will contain the 7 Seg Display address
+00000023	40903000		lil	r9,0x3000
+loopETCounter:
+00000024	20580000		ads	par,r8,r0	; counter address
+00000025	84A05000		lpl	r10			; get the counter value
+00000026	28A1A000		rs8	r10,r1,r10	; get the top 16-bits of the counter
+00000027	28A1A000		rs8	r10,r1,r10
+00000028	20590000		ads par,r9,r0	; Seven Segment Address
+00000029	8550A000		spl	r10			; store value
+0000002a	C0FFFFFA		bra	loopETCounter
+;
+; clearScreen - Clear the screen routine
+; Fills the screen with space characters
+; Screen is memory mapped
+; Screen is 64 columns by 32 rows = 2KB total space
+; Return address (-1) is on the stack - need to increment before return
+;
+
+clearScreen:
+0000002b	20500000		ads par,r0,r0	; start of screen character memory
+0000002c	20800000		ads r8,r0,r0	; clear the character
+0000002d	40800020		lil	r8,0x0020	; fill with spaces
+0000002e	20900000		ads r9,r0,r0	; screen count
+0000002f	409007FE		lil r9,0x7FE	; loopCount	(1K minus 1)
+looper:
+00000030	81508000		spb r8			; put the character to the screen
+00000031	20551000		ads	par,par,r1	; Increment screen pointer
+00000032	20992000		ads r9,r9,r2	; decrement character counter
+00000033	D2FFFFFD		bne	looper		; loop until complete
+00000034	A3A04000		lss	r10			; load calling address
+00000035	20AA1000		ads	r10,r10,r1	; skip the call
+00000036	207A1000		ads	r7,r10,r1	; jump to the next address (rts)
+
+;
+; putChar - Put a character to the screen and increment the address
+; Character to put to screen is in r8
+; Return address (-1) is on the stack - need to increment before return
+;
+
+putChar:
+00000037	81508000		spb	r8			; write character to peripheral bus
+00000038	20551000		ads	par,par,r1	; Go to the next character position	
+00000039	A3A04000		lss	r10			; load calling address
+0000003a	20AA1000		ads	r10,r10,r1	; inc by 1 to skip the call
+0000003b	207A1000		ads	r7,r10,r1	; jump to the next address (rts)
+	
