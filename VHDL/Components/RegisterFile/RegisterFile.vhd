@@ -95,7 +95,7 @@ wrSelR10Lower	<= '1' when ((i_wrRegSel = x"A") and (i_OP_LIU = '0')) else '0';
 wrSelR11Upper	<= '1' when ((i_wrRegSel = x"B") and (i_OP_LIL = '0')) else '0';
 wrSelR11Lower	<= '1' when ((i_wrRegSel = x"B") and (i_OP_LIU = '0')) else '0';
 wrSelR12Upper	<= '1' when ((i_wrRegSel = x"C") and (i_OP_LIL = '0')) else '0';
-wrSelR12Lower	<= '1' when ((i_wrRegSel = x"C") and (i_OP_LIL = '0')) else '0';
+wrSelR12Lower	<= '1' when ((i_wrRegSel = x"C") and (i_OP_LIU = '0')) else '0';
 wrSelR13Upper	<= '1' when ((i_wrRegSel = x"D") and (i_OP_LIL = '0')) else '0';
 wrSelR13Lower	<= '1' when ((i_wrRegSel = x"D") and (i_OP_LIU = '0')) else '0';
 wrSelR14Upper	<= '1' when ((i_wrRegSel = x"E") and (i_OP_LIL = '0')) else '0';
