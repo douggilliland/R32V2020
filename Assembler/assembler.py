@@ -68,11 +68,11 @@ def userAssert(condition, message):
     print message
     exit(1)
 
-def lineAssert(condition, num, rawLine, message):
+def lineAssert(condition, baseZeroLineNumber, rawLine, message):
   if not condition:
     print message
     print ''
-    print 'Line', str(num) + ':'
+    print 'Line', str(baseZeroLineNumber + 1) + ':'
     print rawLine
     exit(1)
 
@@ -587,7 +587,7 @@ if __name__ == '__main__':
         outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
 
       elif opSpec['Form'] == 'BIN_CMP':
-        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
         lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
         lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
