@@ -168,7 +168,8 @@ class DataHexFormatSpecs(unittest.TestCase):
     expected = [
       ':0400000048656C6C77',
       ':040001006F2C2057E9',
-      ':040002006F726C6449'
+      ':040002006F726C6449',
+      ':0400030000000000F9'
     ]
 
     results = assembler.StringConstant('"Hello, World"').resolveHex()
@@ -180,9 +181,13 @@ class DataHexFormatSpecs(unittest.TestCase):
 
     self.assertEqual(lines, expected)
 
-  def test_four_character_strings_dont_flow_into_the_next_line(self):
-    results = assembler.StringConstant('"Hell"').resolveHex()
+  def test_three_character_strings_dont_flow_into_the_next_line(self):
+    results = assembler.StringConstant('"Hel"').resolveHex()
     self.assertEqual(len(results), 1)
+
+  def test_three_character_strings_are_automatically_null_terminated(self):
+    results = assembler.StringConstant('"Hel"').resolveHex()
+    self.assertEqual(assembler.formatDataHex(0, results[0])[-4:-2], '00')
 
   def test_padding_adds_zeroes_to_the_right(self):
     results = assembler.StringConstant('"H"').resolveHex()

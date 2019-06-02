@@ -257,8 +257,6 @@ class StringConstant:
     self.string = string[1:-1]
 
   def resolveHex(self):
-    if self.string == '':
-      return [0]
     chunks = []
     for i in xrange(0, len(self.string), 4):
       hex = ''
@@ -269,6 +267,9 @@ class StringConstant:
         else:
           hex += '00'
       chunks.append(int(hex, 16))
+
+    if len(self.string) % 4 == 0:
+      chunks.append(0)
 
     return chunks
 
