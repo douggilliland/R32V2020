@@ -34,14 +34,15 @@ entity PeripheralInterface is
 architecture struct of PeripheralInterface is
 
 	-- Peripheral Signals
-	signal w_dispRamCS 			:	std_logic;
-	signal w_kbDatCS 				:	std_logic;
-	signal w_kbStatCS				:	std_logic;
-	signal w_aciaCS 				:	std_logic;
-	signal w_SwitchesCS			:	std_logic;
-	signal w_LEDsCS				:	std_logic;
-	signal w_7SEGCS				:	std_logic;
-	signal w_ETCounterCS			:	std_logic;
+	signal w_dispRamCS 			:	std_logic := '0';
+	signal w_kbDatCS 				:	std_logic := '0';
+	signal w_kbStatCS				:	std_logic := '0';
+	signal w_aciaCS 				:	std_logic := '0';
+	signal w_SwitchesCS			:	std_logic := '0';
+	signal w_LEDsCS				:	std_logic := '0';
+	signal w_7SEGCS				:	std_logic := '0';
+	signal w_ETCounterCS			:	std_logic := '0';
+	signal w_NoteCS				:	std_logic := '0';
 	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
@@ -57,8 +58,11 @@ architecture struct of PeripheralInterface is
 	signal w_Video_Clk			: 	std_logic := '0';
 	signal w_displayed_number	: 	std_logic_vector(15 downto 0); 
 	signal w_LatData				:	std_logic_vector(7 downto 0);
+	signal w_NoteData				:	std_logic_vector(18 downto 0);
 
 	signal w_ElapsedTimeCount	:	std_logic_vector(31 downto 0); 
+	
+	signal w_BUZZER				: 	std_logic := '0';
 
 	constant SVGA_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"0";
 	constant KBDAT_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"1";
@@ -68,6 +72,7 @@ architecture struct of PeripheralInterface is
 	constant LEDS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"5";
 	constant SEGS7_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"6";
 	constant ETCTR_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"7";
+	constant NOTE_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"8";
 
 
 begin
@@ -82,6 +87,7 @@ begin
 	w_LEDsCS			<= '1' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '0';	-- x2800-x2FFF (2KB)
 	w_7SEGCS			<= '1' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '0';	-- x3000-x37FF (2KB)
 	w_ETCounterCS	<= '1' when i_peripheralAddress(15 downto 11) = ETCTR_BASE	else '0';	-- x3800-x3FFF (2KB)
+	w_NoteCS			<= '1' when i_peripheralAddress(15 downto 11) = NOTE_BASE	else '0';	-- x4000-x47FF (2KB)
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_dispRamDataOutA 	when	w_dispRamCS 	= '1' else
@@ -91,6 +97,7 @@ begin
 		x"0000000"&'0'	& i_switch 				when	w_SwitchesCS 	= '1' else
 		x"000000"		& w_LatData				when	w_LEDsCS 		= '1' else
 		w_ElapsedTimeCount 						when	w_ETCounterCS	= '1' else
+		x"000"&'0' 	& w_NoteData			when	w_NoteCS 		= '1' else
 		x"FFFFFFFF";
 	
 	ElapsedTimeCounter : entity work.COUNT_32
@@ -102,6 +109,15 @@ begin
     inc 		=> '1',
     dec		=> '0',
     q   		=> w_ElapsedTimeCount
+	 );
+	 
+	MusicNoteCounter : entity work.CounterLoadable
+    Port map (
+    clock		=> i_CLOCK_50,
+    clear		=> not n_reset,
+    loadVal		=> i_dataToPeripherals(7 downto 0),
+	 soundOut	=> w_BUZZER,
+    q				=> w_NoteData
 	 );
 	 
 	SevenSegDisplay : entity work.Loadable_7S4D_LED
@@ -132,7 +148,7 @@ begin
 	);
 	
 	o_LED <= w_LatData(3 downto 0);
-	o_BUZZER <= w_LatData(4);
+	o_BUZZER <= w_LatData(4) and w_BUZZER;
 	
 	UART : entity work.bufferedUART
 		port map(
