@@ -89,6 +89,7 @@ begin
 		w_kbdStatus									when	w_kbStatCS		= '1' else 
 		x"000000"		& w_aciaData 			when	w_aciaCS 		= '1' else
 		x"0000000"&'0'	& i_switch 				when	w_SwitchesCS 	= '1' else
+		x"000000"		& w_LatData				when	w_LEDsCS 		= '1' else
 		w_ElapsedTimeCount 						when	w_ETCounterCS	= '1' else
 		x"FFFFFFFF";
 	
@@ -163,7 +164,7 @@ begin
 			Video_Clk	=> w_Video_Clk,
 			CLK_50		=> i_CLOCK_50,
 			n_dispRamCS	=> not w_dispRamCS,
-			n_memWR		=> (not w_dispRamCS) or (not i_peripheralWrStrobe),
+			n_memWR		=> not (w_dispRamCS and i_peripheralWrStrobe),
 			cpuAddress	=> i_peripheralAddress(10 downto 0),
 			cpuDataOut	=> i_dataToPeripherals(7 downto 0),
 			dataOut		=> w_dispRamDataOutA,
