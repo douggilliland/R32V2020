@@ -10,13 +10,13 @@ readDataMemory:
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
 	ads	dar,dar,r1	; increment the data pointer
@@ -24,22 +24,19 @@ readDataMemory:
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
 readKBStat:
-	ads	r14,r0,r0	; r14 will contain the Keyboard data port address
-	lil	r14,0x0800
-	ads	r12,r0,r0	; r12 will contain the keyboard status address
-	lil	r12,0x1000
-	ads	r13,r0,r0	; r13 will contain the screen address
-	lil	r13,0x0010	; 16th column on the screen (middle of the first line)
+	lix	r14,0x0800
+	lix	r12,0x1000
+	lix	r13,0x0010	; 16th column on the screen (middle of the first line)
 loopStatRead:
 	ads	par,r12,r0	; kb status address
 loopReadKbStat:
@@ -64,10 +61,8 @@ storeToScreen:
 
 clearScreen:
 	ads par,r0,r0	; start of screen character memory
-	ads r8,r0,r0	; clear the character
-	lil	r8,0x0020	; fill with spaces
-	ads r9,r0,r0	; screen count
-	lil r9,0x7FE	; loopCount	(1K minus 1)
+	lix	r8,0x0020	; fill with spaces
+	lix r9,0x7FE	; loopCount	(1K minus 1)
 looper:
 	spb r8			; put the character to the screen
 	ads	par,par,r1	; Increment screen pointer

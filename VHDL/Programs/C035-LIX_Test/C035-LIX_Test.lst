@@ -1,0 +1,9 @@
+; Fast Screen test
+start:
+00000000	418004D2		liu	r8,01234
+00000001	40805678		lil	r8,0x5678
+00000002	42807DEF		lix	r8,0x7def
+00000003	00000000		nop
+self:
+00000004	C0000000		bra	self
+	

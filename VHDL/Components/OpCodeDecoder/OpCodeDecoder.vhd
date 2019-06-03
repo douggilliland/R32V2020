@@ -179,6 +179,7 @@ Op_ENS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ENS(4 downto
 -- Immediate Opcodes
 Op_LIL <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIL(4 downto 0))) else '0';
 Op_LIU <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIU(4 downto 0))) else '0';
+Op_LIX <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIX(4 downto 0))) else '0';
 -- Load/Store Data Memory Opcodes
 Op_LDB <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDB(4 downto 0))) else '0';
 Op_SDB <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDB(4 downto 0))) else '0';

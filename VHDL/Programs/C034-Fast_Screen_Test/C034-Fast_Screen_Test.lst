@@ -2,30 +2,29 @@
 start:
 00000000	20400000		ads	SAR,r0,r0	; Initialize Stack Pointer (used for return address)
 00000001	A2407000		sss	r7			; push the call address -1
-00000002	C0000014		bra	clearScreen
+00000002	C0000012		bra	clearScreen
 00000003	A2407000		sss	r7			; push the call address -1
-00000004	C0000002		bra	fastFillScreen
-00000005	C0FFFFFB		bra	start
+00000004	C0000003		bra	fastFillScreen
+stopHere:
+00000005	00000000		nop
+00000006	C0FFFFFA		bra	start
 
 ; fastFillScreen - Fills the screen with test pattern
 fastFillScreen:
-00000006	20500000		ads par,r0,r0	; start of screen character memory
-00000007	20800000		ads r8,r0,r0	; clear the character
-00000008	40800000		lil	r8,0x0000	; fill with spaces
-00000009	20900000		ads r9,r0,r0	; screen count
-0000000a	409007FE		lil r9,0x7FE	; loopCount	(1K minus 1)
-0000000b	20A00000		ads	r10,r0,r0	; character mask
-0000000c	40A000FF		lil	r10,0xff
+00000007	20500000		ads par,r0,r0	; start of screen character memory
+00000008	42800000		lix	r8,0x0		; start with 0x0
+00000009	42900800		lix r9,0x800	; loopCount	(1K minus 1)
+0000000a	42A000FF		lix	r10,0xff
 looperFast:
-0000000d	81508000		spb r8			; put the character to the screen
-0000000e	20551000		ads	par,par,r1	; Increment screen pointer
+0000000b	81508000		spb r8			; put the character to the screen
+0000000c	20551000		ads	par,par,r1	; Increment screen pointer
+0000000d	20881000		ads	r8,r8,r1	; increment the character to the screen
+0000000e	2388A000		ars	r8,r8,r10	; make sure 8-bits only
 0000000f	20992000		ads r9,r9,r2	; decrement character counter
-00000010	20881000		ads	r8,r8,r1	; increment the character to the screen
-00000011	2388A000		ars	r8,r8,r10
-00000012	D2FFFFFB		bne	looperFast		; loop until complete
-00000013	A3904000		lss	r9			; load calling address
-00000014	20991000		ads	r9,r9,r1	; skip the call
-00000015	20791000		ads	r7,r9,r1	; jump to the next address (rts)
+00000010	C7FFFFFB		bnz	looperFast	; loop until complete
+00000011	A3904000		lss	r9			; load calling address
+00000012	20991000		ads	r9,r9,r1	; skip the call
+00000013	20791000		ads	r7,r9,r1	; jump to the next address (rts)
 
 ;
 ; clearScreen - Clear the screen routine
@@ -36,19 +35,17 @@ looperFast:
 ;
 
 clearScreen:
-00000016	20500000		ads par,r0,r0	; start of screen character memory
-00000017	20800000		ads r8,r0,r0	; clear the character
-00000018	40800020		lil	r8,0x0020	; fill with spaces
-00000019	20900000		ads r9,r0,r0	; screen count
-0000001a	409007FE		lil r9,0x7FE	; loopCount	(1K minus 1)
+00000014	20500000		ads par,r0,r0	; start of screen character memory
+00000015	42800020		lix	r8,0x0020	; fill with spaces
+00000016	429007FE		lix r9,0x7FE	; loopCount	(1K minus 1)
 looper:
-0000001b	81508000		spb r8			; put the character to the screen
-0000001c	20551000		ads	par,par,r1	; Increment screen pointer
-0000001d	20992000		ads r9,r9,r2	; decrement character counter
-0000001e	D2FFFFFD		bne	looper		; loop until complete
-0000001f	A3904000		lss	r9			; load calling address
-00000020	20991000		ads	r9,r9,r1	; skip the call
-00000021	20791000		ads	r7,r9,r1	; jump to the next address (rts)
+00000017	81508000		spb r8			; put the character to the screen
+00000018	20551000		ads	par,par,r1	; Increment screen pointer
+00000019	20992000		ads r9,r9,r2	; decrement character counter
+0000001a	D2FFFFFD		bne	looper		; loop until complete
+0000001b	A3904000		lss	r9			; load calling address
+0000001c	20991000		ads	r9,r9,r1	; skip the call
+0000001d	20791000		ads	r7,r9,r1	; jump to the next address (rts)
 
 ;
 ; putChar - Put a character to the screen and increment the address
@@ -57,9 +54,9 @@ looper:
 ;
 
 putChar:
-00000022	81508000		spb	r8			; write character to peripheral bus
-00000023	20551000		ads	par,par,r1	; Go to the next character position	
-00000024	A3904000		lss	r9			; load calling address
-00000025	20991000		ads	r9,r9,r1	; inc by 1 to skip the call
-00000026	20791000		ads	r7,r9,r1	; jump to the next address (rts)
+0000001e	81508000		spb	r8			; write character to peripheral bus
+0000001f	20551000		ads	par,par,r1	; Go to the next character position	
+00000020	A3904000		lss	r9			; load calling address
+00000021	20991000		ads	r9,r9,r1	; inc by 1 to skip the call
+00000022	20791000		ads	r7,r9,r1	; jump to the next address (rts)
 	

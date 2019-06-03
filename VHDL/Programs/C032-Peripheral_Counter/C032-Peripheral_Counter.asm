@@ -1,6 +1,8 @@
-; Read UART character and put it to the SVGA Display
+helloWorld: 	.string "R32V2020"
+; Read 32-bit elapsed time counter and put to 7 seg display
 start:
-	ads	SAR,r0,r0	; Initialize Stack Pointer (used for return address)
+	lix	SAR,helloWorld.LOWER
+;	ads	SAR,r0,r0	; Initialize Stack Pointer (used for return address)
 	sss	r7			; push the call address -1
 	bra	clearScreen
 	ads	par,r0,r0	; start of screen
@@ -10,13 +12,13 @@ readDataMemory:
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
 	ads	dar,dar,r1	; increment the data pointer
@@ -24,25 +26,23 @@ readDataMemory:
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
 readETCounter:
-	ads	r8,r0,r0	; r8 will contain the counter address
-	lil	r8,0x3800
-	ads	r9,r0,r0	; r9 will contain the 7 Seg Display address
-	lil	r9,0x3000
+	lix	r8,0x3800
+	lix	r9,0x3000
 loopETCounter:
 	ads	par,r8,r0	; counter address
 	lpl	r10			; get the counter value
-	rs8	r10,r1,r10	; get the top 16-bits of the counter
-	rs8	r10,r1,r10
+	rs8	r10,r10	; get the top 16-bits of the counter
+	rs8	r10,r10
 	ads par,r9,r0	; Seven Segment Address
 	spl	r10			; store value
 	bra	loopETCounter
@@ -56,10 +56,8 @@ loopETCounter:
 
 clearScreen:
 	ads par,r0,r0	; start of screen character memory
-	ads r8,r0,r0	; clear the character
-	lil	r8,0x0020	; fill with spaces
-	ads r9,r0,r0	; screen count
-	lil r9,0x7FE	; loopCount	(1K minus 1)
+	lix	r8,0x0020	; fill with spaces
+	lix r9,0x7FE	; loopCount	(1K minus 1)
 looper:
 	spb r8			; put the character to the screen
 	ads	par,par,r1	; Increment screen pointer

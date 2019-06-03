@@ -5,24 +5,23 @@ start:
 	bra	clearScreen
 	sss	r7			; push the call address -1
 	bra	fastFillScreen
+stopHere:
+	nop
 	bra	start
 
 ; fastFillScreen - Fills the screen with test pattern
 fastFillScreen:
 	ads par,r0,r0	; start of screen character memory
-	ads r8,r0,r0	; clear the character
-	lil	r8,0x0000	; fill with spaces
-	ads r9,r0,r0	; screen count
-	lil r9,0x7FE	; loopCount	(1K minus 1)
-	ads	r10,r0,r0	; character mask
-	lil	r10,0xff
+	lix	r8,0x0		; start with 0x0
+	lix r9,0x800	; loopCount	(1K minus 1)
+	lix	r10,0xff
 looperFast:
 	spb r8			; put the character to the screen
 	ads	par,par,r1	; Increment screen pointer
-	ads r9,r9,r2	; decrement character counter
 	ads	r8,r8,r1	; increment the character to the screen
-	ars	r8,r8,r10
-	bne	looperFast		; loop until complete
+	ars	r8,r8,r10	; make sure 8-bits only
+	ads r9,r9,r2	; decrement character counter
+	bnz	looperFast	; loop until complete
 	lss	r9			; load calling address
 	ads	r9,r9,r1	; skip the call
 	ads	r7,r9,r1	; jump to the next address (rts)
@@ -37,10 +36,8 @@ looperFast:
 
 clearScreen:
 	ads par,r0,r0	; start of screen character memory
-	ads r8,r0,r0	; clear the character
-	lil	r8,0x0020	; fill with spaces
-	ads r9,r0,r0	; screen count
-	lil r9,0x7FE	; loopCount	(1K minus 1)
+	lix	r8,0x0020	; fill with spaces
+	lix r9,0x7FE	; loopCount	(1K minus 1)
 looper:
 	spb r8			; put the character to the screen
 	ads	par,par,r1	; Increment screen pointer
