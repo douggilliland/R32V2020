@@ -65,7 +65,7 @@ BEGIN
 		clock_enable_output_a => "BYPASS",
 		init_file => "../../../Programs/C032-Peripheral_Counter/C032-Peripheral_Counter_dat.HEX",
 		intended_device_family => "Cyclone IV E",
-		lpm_hint => "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=NONE",
+		lpm_hint => "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=DATA",
 		lpm_type => "altsyncram",
 		numwords_a => 256,
 		operation_mode => "SINGLE_PORT",
@@ -110,7 +110,7 @@ END SYN;
 -- Retrieval info: PRIVATE: INIT_TO_SIM_X NUMERIC "0"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 -- Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "1"
--- Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
+-- Retrieval info: PRIVATE: JTAG_ID STRING "DATA"
 -- Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
 -- Retrieval info: PRIVATE: MIFfilename STRING "../../../Programs/C032-Peripheral_Counter/C032-Peripheral_Counter_dat.HEX"
 -- Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "256"
@@ -131,7 +131,7 @@ END SYN;
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 -- Retrieval info: CONSTANT: INIT_FILE STRING "../../../Programs/C032-Peripheral_Counter/C032-Peripheral_Counter_dat.HEX"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
--- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=NONE"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=DATA"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
 -- Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "256"
 -- Retrieval info: CONSTANT: OPERATION_MODE STRING "SINGLE_PORT"
