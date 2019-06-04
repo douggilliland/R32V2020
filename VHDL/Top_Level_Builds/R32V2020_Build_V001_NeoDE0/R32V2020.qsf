@@ -326,6 +326,9 @@ set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_location_assignment PIN_F3 -to o_LED_out[5]
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/debounce.vhd
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/top.vhd
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/RegisterFile.vhd
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020.vhd
@@ -335,9 +338,6 @@ set_global_assignment -name VHDL_FILE ../../Components/R32V2020/OneHotStateMachi
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/FlowControl.vhd
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/CCRControl.vhd
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/ALU.vhd
-set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard_to_ascii.vhd
-set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd
-set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii/debounce.vhd
 set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data.vhd
 set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_8.vhd
 set_global_assignment -name VHDL_FILE ../../Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd
@@ -358,7 +358,6 @@ set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_1.vhd
 set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction.vhd
 set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Stack/BlockRam_Stack.vhd
 set_global_assignment -name VHDL_FILE ../../Components/UART/bufferedUART.vhd
-set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_intf.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PeripheralInterface/PeripheralInterface.vhd
 set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_16.vhd
 set_global_assignment -name SIGNALTAP_FILE output_files/DataRAM.stp

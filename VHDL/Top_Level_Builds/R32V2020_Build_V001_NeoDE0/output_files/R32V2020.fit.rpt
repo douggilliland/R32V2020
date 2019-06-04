@@ -1,5 +1,5 @@
 Fitter report for R32V2020
-Tue Jun 04 06:57:27 2019
+Tue Jun 04 07:38:37 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -76,7 +76,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Tue Jun 04 06:57:26 2019       ;
+; Fitter Status                      ; Successful - Tue Jun 04 07:38:37 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
@@ -164,14 +164,14 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.11        ;
+; Average used               ; 1.09        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   3.8%      ;
-;     Processor 3            ;   3.6%      ;
-;     Processor 4            ;   3.5%      ;
+;     Processor 2            ;   3.2%      ;
+;     Processor 3            ;   3.0%      ;
+;     Processor 4            ;   2.9%      ;
 +----------------------------+-------------+
 
 
@@ -266,7 +266,7 @@ refer to the applicable agreement for further details.
 +--------------+
 ; Pin-Out File ;
 +--------------+
-The pin-out file can be found in C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.pin.
+The pin-out file can be found in C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.pin.
 
 
 +--------------------------------------------------------------------------+
@@ -2273,8 +2273,8 @@ Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (119006): Selected device EP4CE22F17C6 for design "R32V2020"
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
-Info (15535): Implemented PLL "PeripheralInterface:Peripherals|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|pll1" as Cyclone IV E PLL type File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 46
-    Info (15099): Implementing clock multiplication of 64, clock division of 125, and phase shift of 0 degrees (0 ps) for PeripheralInterface:Peripherals|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] port File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 46
+Info (15535): Implemented PLL "PeripheralInterface:Peripherals|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|pll1" as Cyclone IV E PLL type File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 46
+    Info (15099): Implementing clock multiplication of 64, clock division of 125, and phase shift of 0 degrees (0 ps) for PeripheralInterface:Peripherals|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] port File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 46
 Info (171003): Fitter is performing an Auto Fit compilation, which may decrease Fitter effort to reduce compilation time
 Warning (292013): Feature LogicLock is only available with a valid subscription license. You can purchase a software subscription to gain full access to this feature.
 Info (176444): Device migration not selected. If you intend to use device migration later, you may need to change the pin assignments as they may be incompatible with other devices
@@ -2311,13 +2311,13 @@ Info (332111): Found 1 clocks
     Info (332111):   Period   Clock Name
     Info (332111): ======== ============
     Info (332111):  100.000 altera_reserved_tck
-Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN R8 (CLK15, DIFFCLK_6p)) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 11
+Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN R8 (CLK15, DIFFCLK_6p)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 11
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G15
-Info (176353): Automatically promoted node PeripheralInterface:Peripherals|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] (placed in counter C0 of PLL_4) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 80
+Info (176353): Automatically promoted node PeripheralInterface:Peripherals|VideoClk_SVGA_800x600:clockGen|altpll:altpll_component|VideoClk_SVGA_800x600_altpll:auto_generated|wire_pll1_clk[0] (placed in counter C0 of PLL_4) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/db/videoclk_svga_800x600_altpll.v Line: 80
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G18
 Info (176353): Automatically promoted node altera_internal_jtag~TCKUTAP 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder|o_WrRegFile~2  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 65
+Info (176353): Automatically promoted node R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder|o_WrRegFile~2  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 65
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
         Info (176357): Destination node R32V2020:RISC_CPU|RegisterFile:RegisterFile|comb~0
@@ -2327,19 +2327,19 @@ Info (176353): Automatically promoted node PeripheralInterface:Peripherals|comb~
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
         Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|process_1~0
-Info (176353): Automatically promoted node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk|result  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/debounce.vhd Line: 33
+Info (176353): Automatically promoted node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk|result  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/debounce.vhd Line: 33
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[0] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[1] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[2] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[3] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[4] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[5] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[6] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[7] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[8] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[9] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[0] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[1] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[2] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[3] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[4] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[5] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[6] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[7] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[8] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[9] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
         Info (176358): Non-global destination nodes limited to 10 nodes
 Info (176353): Automatically promoted node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|reset_all  File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_signaltap_impl.vhd Line: 882
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
@@ -2347,19 +2347,19 @@ Info (176353): Automatically promoted node sld_signaltap:auto_signaltap_0|sld_si
         Info (176357): Destination node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|last_buffer_write_address_sig[0]~0 File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_buffer_manager.vhd Line: 356
         Info (176357): Destination node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|acq_buf_read_reset~0 File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_buffer_manager.vhd Line: 638
         Info (176357): Destination node sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|acq_buf_read_reset File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_buffer_manager.vhd Line: 638
-Info (176353): Automatically promoted node PeripheralInterface:Peripherals|bufferedUART:UART|func_reset  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 77
+Info (176353): Automatically promoted node PeripheralInterface:Peripherals|bufferedUART:UART|func_reset  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 77
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[4] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[3] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[6] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[2] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[5] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|txd~0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 41
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[0] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[1] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[7] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|rxBuffer~22 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 80
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[4] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[3] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[6] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[2] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[5] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|txd~0 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 41
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[0] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[1] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[7] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node PeripheralInterface:Peripherals|bufferedUART:UART|rxBuffer~22 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 80
         Info (176358): Non-global destination nodes limited to 10 nodes
 Info (176233): Starting register packing
 Info (176235): Finished register packing
@@ -2379,7 +2379,7 @@ Info (176215): I/O bank details before I/O pin placement
         Info (176213): I/O bank number 8 does not use VREF pins and has undetermined VCCIO pins. 0 total pin(s) used --  24 pins available
 Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "SerRts" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:04
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:03
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
@@ -2392,34 +2392,34 @@ Info (170195): Router estimated average interconnect usage is 5% of the availabl
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (170194): Fitter routing operations ending: elapsed time is 00:00:03
-Info (11888): Total time spent on timing analysis during the Fitter is 1.93 seconds.
+Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
+Info (11888): Total time spent on timing analysis during the Fitter is 1.19 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:03
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 8 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVCMOS at R8 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 11
-    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at J15 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 10
-    Info (169178): Pin i_switch[0] uses I/O standard 3.3-V LVCMOS at E1 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 13
-    Info (169178): Pin i_switch[1] uses I/O standard 3.3-V LVCMOS at R9 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 13
-    Info (169178): Pin i_switch[2] uses I/O standard 3.3-V LVCMOS at T9 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 13
-    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVCMOS at C16 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 17
-    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVCMOS at A14 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 26
-    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVCMOS at B16 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 27
-Info (144001): Generated suppressed messages file C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.fit.smsg
+    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVCMOS at R8 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 11
+    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at J15 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 10
+    Info (169178): Pin i_switch[0] uses I/O standard 3.3-V LVCMOS at E1 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 13
+    Info (169178): Pin i_switch[1] uses I/O standard 3.3-V LVCMOS at R9 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 13
+    Info (169178): Pin i_switch[2] uses I/O standard 3.3-V LVCMOS at T9 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 13
+    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVCMOS at C16 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 17
+    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVCMOS at A14 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 26
+    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVCMOS at B16 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 27
+Info (144001): Generated suppressed messages file C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 17 warnings
-    Info: Peak virtual memory: 5610 megabytes
-    Info: Processing ended: Tue Jun 04 06:57:29 2019
-    Info: Elapsed time: 00:00:22
-    Info: Total CPU time (on all processors): 00:00:28
+    Info: Peak virtual memory: 5615 megabytes
+    Info: Processing ended: Tue Jun 04 07:38:38 2019
+    Info: Elapsed time: 00:00:17
+    Info: Total CPU time (on all processors): 00:00:23
 
 
 +----------------------------+
 ; Fitter Suppressed Messages ;
 +----------------------------+
-The suppressed messages can be found in C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.fit.smsg.
+The suppressed messages can be found in C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_NeoDE0/output_files/R32V2020.fit.smsg.
 
 
