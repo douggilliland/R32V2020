@@ -97,12 +97,12 @@ begin
 		x"0000000"&'0'	& i_switch 				when	w_SwitchesCS 	= '1' else
 		x"000000"		& w_LatData				when	w_LEDsCS 		= '1' else
 		w_ElapsedTimeCount 						when	w_ETCounterCS	= '1' else
-		x"000"&'0' 	& w_NoteData			when	w_NoteCS 		= '1' else
+		x"000"&'0' 		& w_NoteData			when	w_NoteCS 		= '1' else
 		x"FFFFFFFF";
 	
 	ElapsedTimeCounter : entity work.COUNT_32
     Port map (
-    clk 		 => i_CLOCK_50,
+    clk 		=> i_CLOCK_50,
     clr 		=> not n_reset,
     d   		=> x"00000000",
     enable	=> '1',
