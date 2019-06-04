@@ -682,7 +682,7 @@ Stack_OpCode <= Equal5.DB_MAX_OUTPUT_PORT_TYPE
 FlowCtl_OpCode <= Equal6.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top|R32V2020:RISC_CPU|CCRControl:flowControl
+|top|R32V2020:RISC_CPU|FlowControl:FlowControl
 CCR[0] => o_TakeBranch.IN0
 CCR[1] => o_TakeBranch.IN0
 CCR[2] => o_TakeBranch.IN0
@@ -715,9 +715,21 @@ CCR[28] => ~NO_FANOUT~
 CCR[29] => ~NO_FANOUT~
 CCR[30] => ~NO_FANOUT~
 CCR[31] => ~NO_FANOUT~
-Op_NOP => ~NO_FANOUT~
-Op_HCF => ~NO_FANOUT~
-Op_RES => ~NO_FANOUT~
+Op_BRA => o_TakeBranch.IN1
+Op_BEZ => o_TakeBranch.IN1
+Op_BE1 => o_TakeBranch.IN1
+Op_BNZ => o_TakeBranch.IN1
+Op_BCC => o_TakeBranch.IN1
+Op_BCS => o_TakeBranch.IN1
+Op_BLT => o_TakeBranch.IN1
+Op_BGT => o_TakeBranch.IN1
+Op_BEQ => o_TakeBranch.IN1
+Op_BNE => o_TakeBranch.IN1
+o_save_CCR_bits <= comb.DB_MAX_OUTPUT_PORT_TYPE
+o_TakeBranch <= o_TakeBranch.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|R32V2020:RISC_CPU|CCRControl:CCR_Store
 Op_ADS => o_save_CCR_bits.IN0
 Op_MUL => o_save_CCR_bits.IN1
 Op_ORS => o_save_CCR_bits.IN1
@@ -730,39 +742,8 @@ Op_RS8 => o_save_CCR_bits.IN1
 Op_LR1 => o_save_CCR_bits.IN1
 Op_RR1 => o_save_CCR_bits.IN1
 Op_RA1 => o_save_CCR_bits.IN1
-Op_ENS => ~NO_FANOUT~
 Op_CMP => o_save_CCR_bits.IN1
-Op_LIL => ~NO_FANOUT~
-Op_LIU => ~NO_FANOUT~
-Op_LIX => ~NO_FANOUT~
-Op_LDB => ~NO_FANOUT~
-Op_SDB => ~NO_FANOUT~
-Op_LDS => ~NO_FANOUT~
-Op_SDS => ~NO_FANOUT~
-Op_LDL => ~NO_FANOUT~
-Op_SDL => ~NO_FANOUT~
-Op_LPB => ~NO_FANOUT~
-Op_SPB => ~NO_FANOUT~
-Op_LPS => ~NO_FANOUT~
-Op_SPS => ~NO_FANOUT~
-Op_LPL => ~NO_FANOUT~
-Op_SPL => ~NO_FANOUT~
-Op_PSS => ~NO_FANOUT~
-Op_PUS => ~NO_FANOUT~
-Op_LSS => ~NO_FANOUT~
-Op_SSS => ~NO_FANOUT~
-Op_BRA => o_TakeBranch.IN1
-Op_BEZ => o_TakeBranch.IN1
-Op_BE1 => o_TakeBranch.IN1
-Op_BNZ => o_TakeBranch.IN1
-Op_BCC => o_TakeBranch.IN1
-Op_BCS => o_TakeBranch.IN1
-Op_BLT => o_TakeBranch.IN1
-Op_BGT => o_TakeBranch.IN1
-Op_BEQ => o_TakeBranch.IN1
-Op_BNE => o_TakeBranch.IN1
 o_save_CCR_bits <= o_save_CCR_bits.DB_MAX_OUTPUT_PORT_TYPE
-o_TakeBranch <= o_TakeBranch.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |top|R32V2020:RISC_CPU|ALU:ALU
