@@ -208,12 +208,26 @@ begin
 		o_WrRegFile => w_wrRegFile
 	);
 	
-flowControl : ENTITY work.CCRControl PORT map 
+FlowControl : ENTITY work.FlowControl PORT MAP
+(
+	CCR				=> w_CCR,
+	-- Category = Flow Control
+	Op_BRA			=> w_Op_BRA,
+	Op_BEZ 			=> w_Op_BEZ,
+	Op_BE1 			=> w_Op_BE1,
+	Op_BNZ 			=> w_Op_BNZ,
+	Op_BCC 			=> w_Op_BCC,
+	Op_BCS 			=> w_Op_BCS,
+	Op_BLT 			=> w_Op_BLT,
+	Op_BGT 			=> w_Op_BGT,
+	Op_BEQ 			=> w_Op_BEQ,
+	Op_BNE 			=> w_Op_BNE,
+	-- increment or branch?
+	o_TakeBranch	=> w_TakeBranch
+);
+
+CCR_Store : ENTITY work.CCRControl PORT map 
 	(
-	CCR		=> w_CCR,
-	Op_NOP	=> w_Op_NOP,
-	Op_HCF	=> w_Op_HCF,
-	Op_RES	=> w_Op_RES,
 	-- Category = ALU
 	Op_ADS	=> w_Op_ADS,
 	Op_MUL	=> w_Op_MUL,
@@ -227,45 +241,8 @@ flowControl : ENTITY work.CCRControl PORT map
 	Op_LR1	=> w_Op_LR1,
 	Op_RR1	=> w_Op_RR1,
 	Op_RA1	=> w_Op_RA1,
-	Op_ENS	=> w_Op_ENS,
 	Op_CMP	=> w_Op_CMP,
-	-- Category = Immediate values
-	Op_LIL	=> w_Op_LIL,
-	Op_LIU	=> w_Op_LIU,
-	Op_LIX	=> w_Op_LIX,
-	-- Category = Load/Store to/from Data Memory
-	Op_LDB	=> w_Op_LDB,
-	Op_SDB	=> w_Op_SDB,
-	Op_LDS	=> w_Op_LDS,
-	Op_SDS	=> w_Op_SDS,
-	Op_LDL	=> w_Op_LDL,
-	Op_SDL	=> w_Op_SDL,
-	-- Category = Load/Store to/from Peripheral I/O space
-	Op_LPB	=> w_Op_LPB,
-	Op_SPB	=> w_Op_SPB,
-	Op_LPS	=> w_Op_LPS,
-	Op_SPS	=> w_Op_SPS,
-	Op_LPL	=> w_Op_LPL,
-	Op_SPL	=> w_Op_SPL,
-	-- Category = Stack
-	Op_PSS	=> w_Op_PSS,
-	Op_PUS	=> w_Op_PUS,
-	Op_SSS	=> w_Op_SSS,
-	Op_LSS	=> w_Op_LSS,
-	-- Category = Flow Control
-	Op_BRA	=> w_Op_BRA,
-	Op_BEZ	=> w_Op_BEZ,
-	Op_BNZ	=> w_Op_BNZ,
-	Op_BE1	=> w_Op_BE1,
-	Op_BCC	=> w_Op_BCC,
-	Op_BCS	=> w_Op_BCS,
-	Op_BLT	=> w_Op_BLT,
-	Op_BGT	=> w_Op_BGT,
-	Op_BEQ	=> w_Op_BEQ,
-	Op_BNE	=> w_Op_BNE,
-	o_save_CCR_bits => w_save_CCR_bits,
-	-- increment or branch?
-	o_TakeBranch => w_TakeBranch
+	o_save_CCR_bits => w_save_CCR_bits
 	);
 
 	ALU : entity work.ALU

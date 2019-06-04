@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Mon Jun 03 21:00:52 2019
+Tue Jun 04 06:26:40 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -60,15 +60,16 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
  52. Port Connectivity Checks: "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:dataRamAddress"
  53. Port Connectivity Checks: "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:peripheralAddress"
  54. Port Connectivity Checks: "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:stackAddress"
- 55. Port Connectivity Checks: "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder"
- 56. Port Connectivity Checks: "R32V2020:RISC_CPU|OneHotStateMachine:StateMachine"
- 57. Port Connectivity Checks: "R32V2020:RISC_CPU"
- 58. Signal Tap Logic Analyzer Settings
- 59. In-System Memory Content Editor Settings
- 60. Post-Synthesis Netlist Statistics for Top Partition
- 61. Elapsed Time Per Partition
- 62. Connections to In-System Debugging Instance "auto_signaltap_0"
- 63. Analysis & Synthesis Messages
+ 55. Port Connectivity Checks: "R32V2020:RISC_CPU|FlowControl:FlowControl"
+ 56. Port Connectivity Checks: "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder"
+ 57. Port Connectivity Checks: "R32V2020:RISC_CPU|OneHotStateMachine:StateMachine"
+ 58. Port Connectivity Checks: "R32V2020:RISC_CPU"
+ 59. Signal Tap Logic Analyzer Settings
+ 60. In-System Memory Content Editor Settings
+ 61. Post-Synthesis Netlist Statistics for Top Partition
+ 62. Elapsed Time Per Partition
+ 63. Connections to In-System Debugging Instance "auto_signaltap_0"
+ 64. Analysis & Synthesis Messages
 
 
 
@@ -94,7 +95,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Jun 03 21:00:52 2019       ;
+; Analysis & Synthesis Status        ; Successful - Tue Jun 04 06:26:40 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
@@ -222,17 +223,22 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------------------+-----------------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
 ; File Name with User-Entered Path                                          ; Used in Netlist ; File Type                                    ; File Name with Absolute Path                                                                                                                           ; Library     ;
 +---------------------------------------------------------------------------+-----------------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
+; ../../Components/R32V2020/top.vhd                                         ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd                                                                             ;             ;
+; ../../Components/R32V2020/RegisterFile.vhd                                ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd                                                                    ;             ;
+; ../../Components/R32V2020/R32V2020.vhd                                    ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd                                                                        ;             ;
+; ../../Components/R32V2020/OpCodeDecoder.vhd                               ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd                                                                   ;             ;
+; ../../Components/R32V2020/OpCode_Cat_Decoder.vhd                          ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCode_Cat_Decoder.vhd                                                              ;             ;
+; ../../Components/R32V2020/OneHotStateMachine.vhd                          ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd                                                              ;             ;
+; ../../Components/R32V2020/FlowControl.vhd                                 ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd                                                                     ;             ;
+; ../../Components/R32V2020/CCRControl.vhd                                  ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/CCRControl.vhd                                                                      ;             ;
+; ../../Components/R32V2020/ALU.vhd                                         ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd                                                                             ;             ;
 ; ../../Components/SoundGen/CounterLoadable.vhd                             ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SoundGen/CounterLoadable.vhd                                                                 ;             ;
 ; ../../Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard_to_ascii.vhd    ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard_to_ascii.vhd                                        ;             ;
 ; ../../Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd             ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd                                                 ;             ;
 ; ../../Components/PS2KB/ps2_keyboard_to_ascii/debounce.vhd                 ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/debounce.vhd                                                     ;             ;
-; ../../Components/CPU/top.vhd                                              ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd                                                                                  ;             ;
-; ../../Components/CPU/R32V2020.vhd                                         ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd                                                                             ;             ;
 ; ../../Components/BlockRam_Data/BlockRam_Data.vhd                          ; yes             ; User Wizard-Generated File                   ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd                                                              ;             ;
 ; ../../Components/Registers/REG_8.vhd                                      ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_8.vhd                                                                          ;             ;
-; ../../Components/ALU/CCRControl.vhd                                       ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/CCRControl.vhd                                                                           ;             ;
 ; ../../Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd                  ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd                                                      ;             ;
-; ../../Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd                                     ;             ;
 ; ../../Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd            ; yes             ; User Wizard-Generated File                   ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd                                                ;             ;
 ; ../../Components/VGA/Mem_Mapped_SVGA/Video_SVGA_64x32.vhd                 ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/Video_SVGA_64x32.vhd                                                     ;             ;
 ; ../../Components/VGA/Mem_Mapped_SVGA/Mem_Mapped_SVGA.vhd                  ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/Mem_Mapped_SVGA.vhd                                                      ;             ;
@@ -241,10 +247,6 @@ refer to the applicable agreement for further details.
 ; ../../Components/COUNTER/COUNTER_32.vhd                                   ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/COUNTER_32.vhd                                                                       ;             ;
 ; ../../Components/Multiplexers/MUX_16x32.vhd                               ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Multiplexers/MUX_16x32.vhd                                                                   ;             ;
 ; ../../Components/Registers/REG_32.vhd                                     ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd                                                                         ;             ;
-; ../../Components/RegisterFile/RegisterFile.vhd                            ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/RegisterFile/RegisterFile.vhd                                                                ;             ;
-; ../../Components/OpCodeDecoder/OpCodeDecoder.vhd                          ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/OpCodeDecoder/OpCodeDecoder.vhd                                                              ;             ;
-; ../../Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd                     ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd                                                         ;             ;
-; ../../Components/ALU/ALU.vhd                                              ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd                                                                                  ;             ;
 ; ../../Components/BlockRom_Instruction/BlockRom_Instruction.vhd            ; yes             ; User Wizard-Generated File                   ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd                                                ;             ;
 ; ../../Components/BlockRam_Stack/BlockRam_Stack.vhd                        ; yes             ; User Wizard-Generated File                   ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd                                                            ;             ;
 ; ../../Components/UART/bufferedUART.vhd                                    ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd                                                                        ;             ;
@@ -324,6 +326,14 @@ refer to the applicable agreement for further details.
 ; lpm_mult.tdf                                                              ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_mult.tdf                                                                                    ;             ;
 ; multcore.inc                                                              ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/multcore.inc                                                                                    ;             ;
 ; db/mult_7dt.tdf                                                           ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/mult_7dt.tdf                                                    ;             ;
+; ../../Components/CPU/top.vhd                                              ; yes             ; User VHDL File                               ; ../../Components/CPU/top.vhd                                                                                                                           ;             ;
+; ../../Components/CPU/R32V2020.vhd                                         ; yes             ; User VHDL File                               ; ../../Components/CPU/R32V2020.vhd                                                                                                                      ;             ;
+; ../../Components/ALU/CCRControl.vhd                                       ; yes             ; User VHDL File                               ; ../../Components/ALU/CCRControl.vhd                                                                                                                    ;             ;
+; ../../Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd ; yes             ; User VHDL File                               ; C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd                                     ;             ;
+; ../../Components/RegisterFile/RegisterFile.vhd                            ; yes             ; User VHDL File                               ; ../../Components/RegisterFile/RegisterFile.vhd                                                                                                         ;             ;
+; ../../Components/OpCodeDecoder/OpCodeDecoder.vhd                          ; yes             ; User VHDL File                               ; ../../Components/OpCodeDecoder/OpCodeDecoder.vhd                                                                                                       ;             ;
+; ../../Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd                     ; yes             ; User VHDL File                               ; ../../Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd                                                                                                  ;             ;
+; ../../Components/ALU/ALU.vhd                                              ; yes             ; User VHDL File                               ; ../../Components/ALU/ALU.vhd                                                                                                                           ;             ;
 +---------------------------------------------------------------------------+-----------------+----------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
 
 
@@ -409,7 +419,7 @@ refer to the applicable agreement for further details.
 ;       |ALU:ALU|                                                                                                                         ; 528 (449)           ; 0 (0)                     ; 0           ; 8            ; 0       ; 4         ; 0    ; 0            ; |top|R32V2020:RISC_CPU|ALU:ALU                                                                                                                                                                                                                                                                                                                  ; ALU                               ; work         ;
 ;          |lpm_mult:Mult0|                                                                                                               ; 79 (0)              ; 0 (0)                     ; 0           ; 8            ; 0       ; 4         ; 0    ; 0            ; |top|R32V2020:RISC_CPU|ALU:ALU|lpm_mult:Mult0                                                                                                                                                                                                                                                                                                   ; lpm_mult                          ; work         ;
 ;             |mult_7dt:auto_generated|                                                                                                   ; 79 (79)             ; 0 (0)                     ; 0           ; 8            ; 0       ; 4         ; 0    ; 0            ; |top|R32V2020:RISC_CPU|ALU:ALU|lpm_mult:Mult0|mult_7dt:auto_generated                                                                                                                                                                                                                                                                           ; mult_7dt                          ; work         ;
-;       |CCRControl:flowControl|                                                                                                          ; 9 (9)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|R32V2020:RISC_CPU|CCRControl:flowControl                                                                                                                                                                                                                                                                                                   ; CCRControl                        ; work         ;
+;       |FlowControl:FlowControl|                                                                                                         ; 9 (9)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|R32V2020:RISC_CPU|FlowControl:FlowControl                                                                                                                                                                                                                                                                                                  ; FlowControl                       ; work         ;
 ;       |OneHotStateMachine:StateMachine|                                                                                                 ; 12 (12)             ; 10 (10)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|R32V2020:RISC_CPU|OneHotStateMachine:StateMachine                                                                                                                                                                                                                                                                                          ; OneHotStateMachine                ; work         ;
 ;       |OpCodeDecoder:opcodeDecoder|                                                                                                     ; 17 (12)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder                                                                                                                                                                                                                                                                                              ; OpCodeDecoder                     ; work         ;
 ;          |OpCode_Cat_Decoder:opc_Cat_Decoder|                                                                                           ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder|OpCode_Cat_Decoder:opc_Cat_Decoder                                                                                                                                                                                                                                                           ; OpCode_Cat_Decoder                ; work         ;
@@ -2030,13 +2040,24 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------+-------+----------+---------------------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------+
-; Port Connectivity Checks: "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder" ;
-+------+-------+----------+-------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                         ;
-+------+-------+----------+-------------------------------------------------+
-; ccr  ; Input ; Info     ; Stuck at GND                                    ;
-+------+-------+----------+-------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "R32V2020:RISC_CPU|FlowControl:FlowControl"                                                     ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port            ; Type   ; Severity ; Details                                                                             ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; o_save_ccr_bits ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder"                                        ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; Port   ; Type   ; Severity ; Details                                                                             ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; ccr    ; Input  ; Info     ; Stuck at GND                                                                        ;
+; op_nop ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; op_res ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------+
@@ -2119,7 +2140,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:25     ;
+; Top            ; 00:00:19     ;
 +----------------+--------------+
 
 
@@ -2332,10 +2353,36 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Mon Jun 03 20:59:46 2019
+    Info: Processing started: Tue Jun 04 06:25:41 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/top.vhd
+    Info (12022): Found design unit 1: top-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 31
+    Info (12023): Found entity 1: top File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/registerfile.vhd
+    Info (12022): Found design unit 1: RegisterFile-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 48
+    Info (12023): Found entity 1: RegisterFile File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 21
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/r32v2020.vhd
+    Info (12022): Found design unit 1: R32V2020-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 35
+    Info (12023): Found entity 1: R32V2020 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/opcodedecoder.vhd
+    Info (12022): Found design unit 1: OpCodeDecoder-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 69
+    Info (12023): Found entity 1: OpCodeDecoder File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/opcode_cat_decoder.vhd
+    Info (12022): Found design unit 1: OpCode_Cat_Decoder-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCode_Cat_Decoder.vhd Line: 23
+    Info (12023): Found entity 1: OpCode_Cat_Decoder File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCode_Cat_Decoder.vhd Line: 10
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/onehotstatemachine.vhd
+    Info (12022): Found design unit 1: OneHotStateMachine-rtl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd Line: 21
+    Info (12023): Found entity 1: OneHotStateMachine File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd Line: 12
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/flowcontrol.vhd
+    Info (12022): Found design unit 1: FlowControl-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd Line: 26
+    Info (12023): Found entity 1: FlowControl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/ccrcontrol.vhd
+    Info (12022): Found design unit 1: CCRControl-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/CCRControl.vhd Line: 26
+    Info (12023): Found entity 1: CCRControl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/CCRControl.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/alu.vhd
+    Info (12022): Found design unit 1: ALU-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 34
+    Info (12023): Found entity 1: ALU File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 11
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/soundgen/counterloadable.vhd
     Info (12022): Found design unit 1: counterLoadable-behv File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SoundGen/CounterLoadable.vhd Line: 25
     Info (12023): Found entity 1: counterLoadable File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SoundGen/CounterLoadable.vhd Line: 12
@@ -2348,27 +2395,15 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/ps2kb/ps2_keyboard_to_ascii/debounce.vhd
     Info (12022): Found design unit 1: debounce-logic File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/debounce.vhd Line: 36
     Info (12023): Found entity 1: debounce File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/debounce.vhd Line: 27
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/cpu/top.vhd
-    Info (12022): Found design unit 1: top-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 31
-    Info (12023): Found entity 1: top File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/cpu/r32v2020.vhd
-    Info (12022): Found design unit 1: R32V2020-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 35
-    Info (12023): Found entity 1: R32V2020 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 8
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/blockram_data/blockram_data.vhd
     Info (12022): Found design unit 1: blockram_data-SYN File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 55
     Info (12023): Found entity 1: BlockRam_Data File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 42
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registers/reg_8.vhd
     Info (12022): Found design unit 1: REG_8-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_8.vhd Line: 15
     Info (12023): Found entity 1: REG_8 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_8.vhd Line: 6
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/alu/ccrcontrol.vhd
-    Info (12022): Found design unit 1: CCRControl-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/CCRControl.vhd Line: 67
-    Info (12023): Found entity 1: CCRControl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/CCRControl.vhd Line: 8
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/seven_seg_4_digit/loadable_7s4d_led.vhd
     Info (12022): Found design unit 1: Loadable_7S4D_LED-Behavioral File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd Line: 18
     Info (12023): Found entity 1: Loadable_7S4D_LED File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd Line: 10
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/statemachine/master_state_machine/onehotstatemachine.vhd
-    Info (12022): Found design unit 1: OneHotStateMachine-rtl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd Line: 21
-    Info (12023): Found entity 1: OneHotStateMachine File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/StateMachine/Master_State_Machine/OneHotStateMachine.vhd Line: 12
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/vga/mem_mapped_svga/videoclk_svga_800x600.vhd
     Info (12022): Found design unit 1: VideoClk_SVGA_800x600-SYN File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd Line: 55
     Info (12023): Found entity 1: VideoClk_SVGA_800x600 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd Line: 42
@@ -2410,18 +2445,6 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registers/reg_1.vhd
     Info (12022): Found design unit 1: REG_1-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_1.vhd Line: 13
     Info (12023): Found entity 1: REG_1 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_1.vhd Line: 4
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registerfile/registerfile.vhd
-    Info (12022): Found design unit 1: RegisterFile-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/RegisterFile/RegisterFile.vhd Line: 48
-    Info (12023): Found entity 1: RegisterFile File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/RegisterFile/RegisterFile.vhd Line: 21
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/opcodedecoder/opcodedecoder.vhd
-    Info (12022): Found design unit 1: OpCodeDecoder-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/OpCodeDecoder/OpCodeDecoder.vhd Line: 69
-    Info (12023): Found entity 1: OpCodeDecoder File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/OpCodeDecoder/OpCodeDecoder.vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/opcodedecoder/opcode_cat_decoder.vhd
-    Info (12022): Found design unit 1: OpCode_Cat_Decoder-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd Line: 23
-    Info (12023): Found entity 1: OpCode_Cat_Decoder File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/OpCodeDecoder/OpCode_Cat_Decoder.vhd Line: 10
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/alu/alu.vhd
-    Info (12022): Found design unit 1: ALU-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 34
-    Info (12023): Found entity 1: ALU File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 11
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/blockrom_instruction/blockrom_instruction.vhd
     Info (12022): Found design unit 1: blockrom_instruction-SYN File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 53
     Info (12023): Found entity 1: BlockRom_Instruction File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 42
@@ -2438,51 +2461,55 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
     Info (12022): Found design unit 1: REG_16-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_16.vhd Line: 15
     Info (12023): Found entity 1: REG_16 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_16.vhd Line: 6
 Info (12127): Elaborating entity "top" for the top level hierarchy
-Info (12128): Elaborating entity "R32V2020" for hierarchy "R32V2020:RISC_CPU" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 65
-Info (12128): Elaborating entity "OneHotStateMachine" for hierarchy "R32V2020:RISC_CPU|OneHotStateMachine:StateMachine" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 144
-Info (12128): Elaborating entity "OpCodeDecoder" for hierarchy "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 152
-Info (12128): Elaborating entity "OpCode_Cat_Decoder" for hierarchy "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder|OpCode_Cat_Decoder:opc_Cat_Decoder" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/OpCodeDecoder/OpCodeDecoder.vhd Line: 214
-Info (12128): Elaborating entity "CCRControl" for hierarchy "R32V2020:RISC_CPU|CCRControl:flowControl" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 211
-Info (12128): Elaborating entity "ALU" for hierarchy "R32V2020:RISC_CPU|ALU:ALU" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 271
-Info (10041): Inferred latch for "w_ALUResult[0]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[1]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[2]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[3]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[4]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[5]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[6]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[7]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[8]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[9]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[10]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[11]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[12]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[13]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[14]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[15]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[16]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[17]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[18]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[19]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[20]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[21]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[22]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[23]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[24]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[25]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[26]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[27]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[28]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[29]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[30]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[31]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[32]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
-Info (12128): Elaborating entity "RegisterFile" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/R32V2020.vhd Line: 305
-Info (12128): Elaborating entity "REG_32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_32:conditionCodeRegister" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/RegisterFile/RegisterFile.vhd Line: 113
-Info (12128): Elaborating entity "COUNT_32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:stackAddress" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/RegisterFile/RegisterFile.vhd Line: 122
-Info (12128): Elaborating entity "REG_16" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r8Upper" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/RegisterFile/RegisterFile.vhd Line: 171
-Info (12128): Elaborating entity "MUX_16x32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|MUX_16x32:muxA" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/RegisterFile/RegisterFile.vhd Line: 299
-Info (12128): Elaborating entity "BlockRom_Instruction" for hierarchy "BlockRom_Instruction:Instr_ROM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 92
+Info (12128): Elaborating entity "R32V2020" for hierarchy "R32V2020:RISC_CPU" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 65
+Warning (10036): Verilog HDL or VHDL warning at R32V2020.vhd(39): object "w_Op_NOP" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 39
+Warning (10036): Verilog HDL or VHDL warning at R32V2020.vhd(41): object "w_Op_RES" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 41
+Info (12128): Elaborating entity "OneHotStateMachine" for hierarchy "R32V2020:RISC_CPU|OneHotStateMachine:StateMachine" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 144
+Info (12128): Elaborating entity "OpCodeDecoder" for hierarchy "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 152
+Info (12128): Elaborating entity "OpCode_Cat_Decoder" for hierarchy "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder|OpCode_Cat_Decoder:opc_Cat_Decoder" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 214
+Info (12128): Elaborating entity "FlowControl" for hierarchy "R32V2020:RISC_CPU|FlowControl:FlowControl" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 211
+Warning (10541): VHDL Signal Declaration warning at FlowControl.vhd(21): used implicit default value for signal "o_save_CCR_bits" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd Line: 21
+Info (12128): Elaborating entity "CCRControl" for hierarchy "R32V2020:RISC_CPU|CCRControl:CCR_Store" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 229
+Info (12128): Elaborating entity "ALU" for hierarchy "R32V2020:RISC_CPU|ALU:ALU" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 248
+Info (10041): Inferred latch for "w_ALUResult[0]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[1]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[2]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[3]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[4]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[5]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[6]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[7]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[8]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[9]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[10]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[11]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[12]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[13]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[14]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[15]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[16]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[17]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[18]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[19]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[20]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[21]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[22]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[23]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[24]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[25]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[26]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[27]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[28]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[29]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[30]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[31]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (10041): Inferred latch for "w_ALUResult[32]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
+Info (12128): Elaborating entity "RegisterFile" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 282
+Info (12128): Elaborating entity "REG_32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_32:conditionCodeRegister" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 113
+Info (12128): Elaborating entity "COUNT_32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:stackAddress" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 122
+Info (12128): Elaborating entity "REG_16" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r8Upper" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 171
+Info (12128): Elaborating entity "MUX_16x32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|MUX_16x32:muxA" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 299
+Info (12128): Elaborating entity "BlockRom_Instruction" for hierarchy "BlockRom_Instruction:Instr_ROM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 92
 Info (12128): Elaborating entity "altsyncram" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
 Info (12130): Elaborated megafunction instantiation "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
 Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
@@ -2557,7 +2584,7 @@ Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncr
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_an34:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 302
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_an34:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
 Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_an34:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 828
-Info (12128): Elaborating entity "BlockRam_Stack" for hierarchy "BlockRam_Stack:Stack_RAM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 109
+Info (12128): Elaborating entity "BlockRam_Stack" for hierarchy "BlockRam_Stack:Stack_RAM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 109
 Info (12128): Elaborating entity "altsyncram" for hierarchy "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
 Info (12130): Elaborated megafunction instantiation "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
 Info (12133): Instantiated megafunction "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
@@ -2614,7 +2641,7 @@ Info (12133): Instantiated megafunction "BlockRam_Stack:Stack_RAM|altsyncram:alt
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_d7p3.tdf
     Info (12023): Found entity 1: altsyncram_d7p3 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_d7p3.tdf Line: 27
 Info (12128): Elaborating entity "altsyncram_d7p3" for hierarchy "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_d7p3:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12128): Elaborating entity "BlockRam_Data" for hierarchy "BlockRam_Data:Data_RAM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 119
+Info (12128): Elaborating entity "BlockRam_Data" for hierarchy "BlockRam_Data:Data_RAM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 119
 Info (12128): Elaborating entity "altsyncram" for hierarchy "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
 Info (12130): Elaborated megafunction instantiation "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
 Info (12133): Instantiated megafunction "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
@@ -2686,7 +2713,7 @@ Info (12133): Instantiated megafunction "BlockRam_Data:Data_RAM|altsyncram:altsy
     Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
     Info (12134): Parameter "WIDTH_WORD" = "32"
     Info (12134): Parameter "WIDTHAD" = "8"
-Info (12128): Elaborating entity "PeripheralInterface" for hierarchy "PeripheralInterface:Peripherals" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/CPU/top.vhd Line: 130
+Info (12128): Elaborating entity "PeripheralInterface" for hierarchy "PeripheralInterface:Peripherals" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 130
 Info (12128): Elaborating entity "counterLoadable" for hierarchy "PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 114
 Info (12128): Elaborating entity "Loadable_7S4D_LED" for hierarchy "PeripheralInterface:Peripherals|Loadable_7S4D_LED:SevenSegDisplay" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 123
 Info (12128): Elaborating entity "REG_8" for hierarchy "PeripheralInterface:Peripherals|REG_8:LedLatch" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 141
@@ -2827,7 +2854,6 @@ Info (12128): Elaborating entity "CharRom" for hierarchy "PeripheralInterface:Pe
 Info (12128): Elaborating entity "ps2_keyboard_to_ascii" for hierarchy "PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 190
 Info (12128): Elaborating entity "ps2_keyboard" for hierarchy "PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard_to_ascii.vhd Line: 70
 Info (12128): Elaborating entity "debounce" for hierarchy "PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii/ps2_keyboard.vhd Line: 67
-Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_f824.tdf
     Info (12023): Found entity 1: altsyncram_f824 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_f824.tdf Line: 27
 Info (12021): Found 1 design units, including 1 entities, in source file db/mux_0tc.tdf
@@ -2850,7 +2876,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr
     Info (12023): Found entity 1: cmpr_ngc File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/cmpr_ngc.tdf Line: 22
 Info (12033): Analysis and Synthesis generated Signal Tap or debug node instance "auto_signaltap_0"
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2019.06.03.21:00:14 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2019.06.04.06:26:08 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -2925,71 +2951,71 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/mult
     Info (12023): Found entity 1: mult_7dt File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/mult_7dt.tdf Line: 30
 Info (13014): Ignored 222 buffer(s)
     Info (13019): Ignored 222 SOFT buffer(s)
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[32] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[32] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[28] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[1] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[1] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[0] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[0] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[28] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[3] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[3] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[2] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[2] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[4] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[4] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[5] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[5] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[6] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[6] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[7] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[7] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[8] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[8] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[31] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[9] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[9] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[31] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[10] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[10] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[31] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[11] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[11] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[31] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[12] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[12] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[31] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[13] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[13] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[31] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[14] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[14] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[31] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[15] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[15] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[31] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[16] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[16] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[17] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[17] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[18] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[18] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[19] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[19] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[20] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[20] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[21] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[21] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[22] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[22] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[23] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[23] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[24] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[24] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[25] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[25] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[26] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[26] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[27] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[27] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[28] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[28] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[29] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[29] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[30] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[30] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[29] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
-Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[31] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/ALU/ALU.vhd Line: 56
+Warning (13012): Latch R32V2020:RISC_CPU|ALU:ALU|w_ALUResult[31] has unsafe behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
     Warning (13013): Ports D and ENA on the latch are fed by the same signal REG_32:InstructionROMDataOutputLatch|q[28] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 20
 Info (286031): Timing-Driven Synthesis is running on partition "Top"
 Info (35024): Successfully connected in-system debug instance "auto_signaltap_0" to all 195 required data inputs, trigger inputs, acquisition clocks, and dynamic pins
@@ -3003,10 +3029,10 @@ Info (21057): Implemented 5870 device resources after synthesis - the final reso
     Info (21064): Implemented 241 RAM segments
     Info (21065): Implemented 1 PLLs
     Info (21062): Implemented 8 DSP elements
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 72 warnings
-    Info: Peak virtual memory: 4908 megabytes
-    Info: Processing ended: Mon Jun 03 21:00:52 2019
-    Info: Elapsed time: 00:01:06
-    Info: Total CPU time (on all processors): 00:01:39
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 73 warnings
+    Info: Peak virtual memory: 4907 megabytes
+    Info: Processing ended: Tue Jun 04 06:26:40 2019
+    Info: Elapsed time: 00:00:59
+    Info: Total CPU time (on all processors): 00:01:30
 
 
