@@ -94,16 +94,17 @@ begin
 		address		=> w_InstructionRomAddress(8 downto 0),
 		clken			=> w_clkInstrRomAddr,
 		clock 		=> i_CLOCK_50,
-		q 				=> w_InstructionRomData
+		q 				=> q_InstructionRomData
 	);
-	InstructionROMDataOutputLatch : entity work.REG_32
-	PORT MAP (
-    d   	=> w_InstructionRomData,
-    ld  	=> w_clkInstrRomData,
-    clr 	=> '0',
-    clk 	=> i_CLOCK_50,
-    q		=> q_InstructionRomData
-	);
+	
+--	InstructionROMDataOutputLatch : entity work.REG_32
+--	PORT MAP (
+--    d   	=> w_InstructionRomData,
+--    ld  	=> w_clkInstrRomData,
+--    clr 	=> '0',
+--    clk 	=> i_CLOCK_50,
+--    q		=> q_InstructionRomData
+--	);
 	
 	-- Stack RAM
 	Stack_RAM : entity work.BlockRam_Stack
