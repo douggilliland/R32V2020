@@ -125,33 +125,14 @@ constant BNE : std_Logic_Vector(7 downto 0) := "11010010";
 
 begin
 
-o_WrRegFile <= '1' when (
-	Op_ADS = '1' or
-	Op_MUL = '1' or
-	Op_ORS = '1' or
-	Op_ARS = '1' or
-	Op_XRS = '1' or
-	Op_LS1 = '1' or
-	Op_LS8 = '1' or
-	Op_RS1 = '1' or
-	Op_RS8 = '1' or
-	Op_LR1 = '1' or
-	Op_RR1 = '1' or
-	Op_RA1 = '1' or
-	Op_ENS = '1' or
-	Op_LIL = '1' or
-	Op_LIU = '1' or
-	Op_LIX = '1' or
-	Op_LDB = '1' or
-	Op_LDS = '1' or
-	Op_LDL = '1' or
-	Op_LPB = '1' or
-	Op_LPS = '1' or
-	Op_LPL = '1' or
-	Op_PUS = '1' or
-	Op_LSS = '1'	 
-	)
-	else '0';
+o_WrRegFile <= Op_ADS or Op_MUL or Op_ORS or
+	Op_ARS or Op_XRS or 	Op_LS1 or Op_LS8 or Op_RS1 or Op_RS8 or
+	Op_LR1 or Op_RR1 or Op_RA1 or
+	Op_ENS or
+	Op_LIL or Op_LIU or Op_LIX or 
+	Op_LDB or Op_LDS or Op_LDL or 
+	Op_LPB or Op_LPS or Op_LPL or 
+	Op_PUS or Op_LSS;
 
 -- System Opcodes
 Op_NOP <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = NOP(4 downto 0))) else '0';

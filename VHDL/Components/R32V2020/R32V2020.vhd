@@ -82,6 +82,7 @@ signal	w_Op_BLT  : std_logic := '0';		-- Branch if less than
 signal	w_Op_BEQ  : std_logic := '0';		-- Branch if equal
 signal	w_Op_BNE  : std_logic := '0';		-- Branch if not equal
 signal	w_Op_BNZ  : std_logic := '0';		-- Branch if not zero
+attribute syn_keep of w_Op_PUS: signal is true;
 
 signal	w_regDataB					: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_ALUDataOut				: std_logic_vector(31 downto 0) := x"00000000";
@@ -122,9 +123,10 @@ signal	w_save_CCR_bits			: std_logic := '0';
 
 signal	w_holdHaltCatchFire		: std_logic := '0';
 signal	w_wrRegFile					: std_logic := '0';
+attribute syn_keep of w_wrRegFile : signal is true;
 
 signal	w_TakeBranch				: std_logic := '0';
-attribute syn_keep of w_TakeBranch: signal is true;
+-- attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
 
