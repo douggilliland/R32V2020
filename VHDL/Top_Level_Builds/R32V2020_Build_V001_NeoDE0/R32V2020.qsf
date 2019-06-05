@@ -326,6 +326,7 @@ set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_location_assignment PIN_F3 -to o_LED_out[5]
+set_global_assignment -name SIGNALTAP_FILE "../../Programs/C036-Delay_mS_uS_Test/C036-Delay_mS_uS_Test.stp"
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/debounce.vhd
@@ -360,6 +361,5 @@ set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Stack/BlockRam_S
 set_global_assignment -name VHDL_FILE ../../Components/UART/bufferedUART.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PeripheralInterface/PeripheralInterface.vhd
 set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_16.vhd
-set_global_assignment -name SIGNALTAP_FILE output_files/DataRAM.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SLD_FILE db/DataRAM_auto_stripped.stp
