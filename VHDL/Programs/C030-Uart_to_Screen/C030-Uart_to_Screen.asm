@@ -1,4 +1,5 @@
 ; Read UART character and put it to the SVGA Display
+; Read UART character and put it to the SVGA Display
 start:
 	ads	SAR,r0,r0	; Use Stack for return address
 	sss	r7			; push the call address -1
@@ -9,13 +10,13 @@ start:
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
 	ads	dar,dar,r1	; increment the data pointer

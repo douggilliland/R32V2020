@@ -10,7 +10,7 @@ looper:
 00000005	81508000		spb r8			; put the character to the screen
 00000006	20551000		ads	r5,r5,r1	; Increment screen pointer
 00000007	20992000		ads r9,r9,r2	; decrement character counter
-00000008	C8FFFFFD		bne	looper		; loop until complete
+00000008	D2FFFFFD		bne	looper		; loop until complete
 doneClear:
 00000009	20500000		ads r5,r0,r0	; start of screen character memory
 0000000a	20800000		ads r8,r0,r0	; clear the character

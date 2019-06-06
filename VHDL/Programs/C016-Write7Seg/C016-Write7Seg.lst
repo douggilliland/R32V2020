@@ -2,40 +2,41 @@
 ; Put characters on the screen
 start:
 ;	ads	r8,r0,r0	; need a nop until I fix the first fetch
-00000000	C0000010		bra	clearScreen
+00000000	C0000011		bra	clearScreen
 doneClear:
 00000001	20500000		ads r5,r0,r0	; start of screen character memory
 00000002	20800000		ads r8,r0,r0	; clear the character
 00000003	40800048		lil	r8,0x0048	; ASCII 'H'
 00000004	20971000		ads	r9,r7,r1
-00000005	C0000015		bra	putChar
+00000005	C0000016		bra	putChar
 00000006	40800065		lil	r8,0x0065	; ASCII 'e'
 00000007	20971000		ads	r9,r7,r1
-00000008	C0000012		bra	putChar
+00000008	C0000013		bra	putChar
 00000009	40800065		lil	r8,0x0065	; ASCII 'e'
 0000000a	20971000		ads	r9,r7,r1
-0000000b	C000000F		bra	putChar
+0000000b	C0000010		bra	putChar
 wr7SegDisplay:
 0000000c	40503000		lil	r5,0x3000	; Seven Segment Display address
-0000000d	40901234		lil	r9,0x1234	; Value to write to display
-0000000e	81509000		spb	r9			; Write to the Seven Segment display
-0000000f	01000000		hcf
+0000000d	41901234		liu	r9,0x1234
+0000000e	40905678		lil	r9,0x5678	; Value to write to display
+0000000f	81509000		spb	r9			; Write to the Seven Segment display
+00000010	01000000		hcf
 ; Clear the screen routine
 clearScreen:
-00000010	20500000		ads r5,r0,r0	; start of screen character memory
-00000011	20800000		ads r8,r0,r0	; clear the character
-00000012	40800020		lil	r8,0x0020	; fill with spaces
-00000013	20900000		ads r9,r0,r0	; screen count
-00000014	409007FE		lil r9,0x7FE	; loopCount	
+00000011	20500000		ads r5,r0,r0	; start of screen character memory
+00000012	20800000		ads r8,r0,r0	; clear the character
+00000013	40800020		lil	r8,0x0020	; fill with spaces
+00000014	20900000		ads r9,r0,r0	; screen count
+00000015	409007FE		lil r9,0x7FE	; loopCount	
 looper:
-00000015	81508000		spb r8			; put the character to the screen
-00000016	20551000		ads	r5,r5,r1	; Increment screen pointer
-00000017	20992000		ads r9,r9,r2	; decrement character counter
-00000018	C8FFFFFD		bne	looper		; loop until complete
-00000019	C0FFFFE8		bra	doneClear
+00000016	81508000		spb r8			; put the character to the screen
+00000017	20551000		ads	r5,r5,r1	; Increment screen pointer
+00000018	20992000		ads r9,r9,r2	; decrement character counter
+00000019	D2FFFFFD		bne	looper		; loop until complete
+0000001a	C0FFFFE7		bra	doneClear
 ; put a character to the screen and increment the address
 putChar:
-0000001a	81508000		spb	r8			; write character to peripheral bus
-0000001b	20551000		ads	r5,r5,r1	; Go to the next character position	
-0000001c	20791000		ads	r7,r9,r1	; return to calling routine (r9 is the calling address)
+0000001b	81508000		spb	r8			; write character to peripheral bus
+0000001c	20551000		ads	r5,r5,r1	; Go to the next character position	
+0000001d	20791000		ads	r7,r9,r1	; return to calling routine (r9 is the calling address)
 	

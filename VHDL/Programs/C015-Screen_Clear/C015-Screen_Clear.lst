@@ -60,7 +60,7 @@ looper:
 00000033	81508000		spb r8			; put the character to the screen
 00000034	20551000		ads	r5,r5,r1	; Increment screen pointer
 00000035	20992000		ads r9,r9,r2	; decrement character counter
-00000036	C8FFFFFD		bne	looper		; loop until complete
+00000036	D2FFFFFD		bne	looper		; loop until complete
 00000037	C0FFFFCA		bra	doneClear
 ; put a character to the screen and increment the address
 putChar:

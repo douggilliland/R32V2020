@@ -11,7 +11,7 @@ entity top is
 		i_CLOCK_50			: in std_logic;
 		-- Switches, LEDs, Buzzer pins
 		i_switch				: in std_logic_vector(2 downto 0) := "111";
-		--o_LED					: out std_logic_vector(3 downto 0);
+		--o_LED				: out std_logic_vector(3 downto 0);
 		o_BUZZER				: out std_logic;
 		-- Serial port pins
 		i_SerRxd				: in std_logic;
@@ -20,8 +20,8 @@ entity top is
 		-- VGA pins
 		o_VideoVect			: out std_logic_vector(17 downto 0); -- rrrrr,gggggg,bbbbb,hsync,vsync
 		-- Seven Segment LED pins
-		o_Anode_Activate 	: out std_logic_vector(3 downto 0) := "0000";
-		o_LED_out			: out std_logic_vector(6 downto 0) := "0000000";
+		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := "00000000";
+		o_LED_out			: out std_logic_vector(7 downto 0) := "00000000";
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -143,18 +143,3 @@ begin
 	);
 
 end;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

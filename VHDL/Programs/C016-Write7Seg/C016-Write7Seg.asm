@@ -17,7 +17,8 @@ doneClear:
 	bra	putChar
 wr7SegDisplay:
 	lil	r5,0x3000	; Seven Segment Display address
-	lil	r9,0x1234	; Value to write to display
+	liu	r9,0x1234
+	lil	r9,0x5678	; Value to write to display
 	spb	r9			; Write to the Seven Segment display
 	hcf
 ; Clear the screen routine

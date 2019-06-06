@@ -22,27 +22,13 @@ readDataMemory:
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
-	sss	r7
-	bra	putChar
-	ads	dar,dar,r1	; increment the data pointer
-	ldl	r8			; get the long again
-	ens r8,r8		; endian swap for right byte order
-	sss	r7			; store PC on the stack
-	bra	putChar
-	rs8	r8,r1,r8
-	sss	r7
-	bra	putChar
-	rs8	r8,r1,r8
-	sss	r7
-	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
 	ads	dar,dar,r1	; increment the data pointer
@@ -50,13 +36,27 @@ readDataMemory:
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r1,r8
+	rs8	r8,r8
+	sss	r7
+	bra	putChar
+	ads	dar,dar,r1	; increment the data pointer
+	ldl	r8			; get the long again
+	ens r8,r8		; endian swap for right byte order
+	sss	r7			; store PC on the stack
+	bra	putChar
+	rs8	r8,r8
+	sss	r7
+	bra	putChar
+	rs8	r8,r8
+	sss	r7
+	bra	putChar
+	rs8	r8,r8
 	sss	r7
 	bra	putChar
 	

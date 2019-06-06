@@ -10,13 +10,13 @@ readDataMemory:
 00000006	31808000		ens r8,r8		; endian swap for right byte order
 00000007	A2407000		sss	r7			; store PC on the stack
 00000008	C0000031		bra	putChar
-00000009	28818000		rs8	r8,r1,r8
+00000009	28808000		rs8	r8,r8
 0000000a	A2407000		sss	r7
 0000000b	C000002E		bra	putChar
-0000000c	28818000		rs8	r8,r1,r8
+0000000c	28808000		rs8	r8,r8
 0000000d	A2407000		sss	r7
 0000000e	C000002B		bra	putChar
-0000000f	28818000		rs8	r8,r1,r8
+0000000f	28808000		rs8	r8,r8
 00000010	A2407000		sss	r7
 00000011	C0000028		bra	putChar
 00000012	20661000		ads	dar,dar,r1	; increment the data pointer
@@ -24,13 +24,13 @@ readDataMemory:
 00000014	31808000		ens r8,r8		; endian swap for right byte order
 00000015	A2407000		sss	r7			; store PC on the stack
 00000016	C0000023		bra	putChar
-00000017	28818000		rs8	r8,r1,r8
+00000017	28808000		rs8	r8,r8
 00000018	A2407000		sss	r7
 00000019	C0000020		bra	putChar
-0000001a	28818000		rs8	r8,r1,r8
+0000001a	28808000		rs8	r8,r8
 0000001b	A2407000		sss	r7
 0000001c	C000001D		bra	putChar
-0000001d	28818000		rs8	r8,r1,r8
+0000001d	28808000		rs8	r8,r8
 0000001e	A2407000		sss	r7
 0000001f	C000001A		bra	putChar
 screenStuff:

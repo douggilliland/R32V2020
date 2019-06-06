@@ -20,8 +20,8 @@ entity PeripheralInterface is
 		i_switch						: in std_logic_vector(2 downto 0) := "111";			-- Switches
 		o_LED							: out std_logic_vector(3 downto 0) := "1111";		-- LEDs (mutually exclusive w 7 Seg LED)
 		o_BUZZER						: out std_logic := '1';										-- Buzzer
-		o_Anode_Activate 			: out std_logic_vector(3 downto 0) := "1111";		-- Seven Segment LED
-		o_LED_out					: out std_logic_vector(6 downto 0) := "1111111";	-- Seven Segment LED
+		o_Anode_Activate 			: out std_logic_vector(7 downto 0) := "11111111";	-- Seven Segment LED
+		o_LED_out					: out std_logic_vector(7 downto 0) := "11111111";	-- Seven Segment LED
 		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
 		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
 		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
@@ -56,7 +56,7 @@ architecture struct of PeripheralInterface is
 	signal w_kbDataValid			:	std_logic;
 	signal w_kbError				:	std_logic;
 	signal w_Video_Clk			: 	std_logic := '0';
-	signal w_displayed_number	: 	std_logic_vector(15 downto 0); 
+	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
 	signal w_LatData				:	std_logic_vector(7 downto 0);
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
 
@@ -120,7 +120,7 @@ begin
     q				=> w_NoteData
 	 );
 	 
-	SevenSegDisplay : entity work.Loadable_7S4D_LED
+	SevenSegDisplay : entity work.Loadable_7S8D_LED
     Port map ( 
 		i_CLOCK_50Mhz 			=> i_CLOCK_50,
       i_reset					=> not n_reset,
@@ -129,10 +129,10 @@ begin
       o_LED_out 				=> o_LED_out		-- Cathode patterns of 7-segment display
 	);
 	
-	SevenSegmentDisplayLatch : ENTITY work.REG_16
+	SevenSegmentDisplayLatch : ENTITY work.REG_32
 	PORT MAP (
     clk 	=> i_CLOCK_50,
-    d   	=> i_dataToPeripherals(15 downto 0),
+    d   	=> i_dataToPeripherals,
     ld  	=> i_peripheralWrStrobe and w_7SEGCS,
     clr 	=> not n_reset,
     q		=> w_displayed_number

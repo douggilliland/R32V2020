@@ -1,0 +1,6 @@
+; r0 is 0 which is also the start of the program
+start:
+00000000	20800000		ads r8,r0,r0	; clears r8
+loopsBackToHere:
+00000001	20881000		ads r8,r8,r1	; keep adding one to r8 every time it loops
+00000002	20710000		ads r7,r1,r0	; jump back to previous line

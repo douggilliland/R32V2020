@@ -36,7 +36,7 @@ readDataMemory:
 readKBStat:
 00000020	42E00800		lix	r14,0x0800
 00000021	42C01000		lix	r12,0x1000
-00000022	42D00010		lix	r13,0x0010	; 16th column on the screen (1/4 of the way of the first line)
+00000022	42D00010		lix	r13,0x0010	; 16th column on the screen (middle of the first line)
 loopStatRead:
 00000023	205C0000		ads	par,r12,r0	; kb status address
 loopReadKbStat:

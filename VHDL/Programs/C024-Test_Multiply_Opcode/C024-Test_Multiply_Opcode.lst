@@ -1,13 +1,13 @@
 ; Test Multiply
 start:
 00000000	21811000		mul	r8,r1,r1	; should be 1
-00000001	22381000		cmp	r8,r1
+00000001	30381000		cmp	r8,r1
 00000002	D2000012		bne	failed
 00000003	CB000011		bcs	failed
 00000004	20811000		ads	r8,r1,r1	; two
 00000005	21988000		mul	r9,r8,r8	; four
 00000006	20A88000		ads	r10,r8,r8	; four
-00000007	2239A000		cmp	r9,r10
+00000007	3039A000		cmp	r9,r10
 00000008	D200000C		bne	failed
 00000009	CB00000B		bcs	failed
 0000000a	21822000		mul	r8,r2,r2	; should cause carry set

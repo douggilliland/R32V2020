@@ -5,13 +5,13 @@ start:
 	ens r9,r8
 	spl	r9
 	ads	par,par,r1	; next screen character
-	rs8	r9,r1,r9
+	rs8	r9,r9
 	spl	r9
 	ads	par,par,r1	; next screen character
-	rs8	r9,r1,r9
+	rs8	r9,r9
 	spl	r9
 	ads	par,par,r1	; next screen character
-	rs8	r9,r1,r9
+	rs8	r9,r9
 	spl	r9
 loop:
 	bra	loop

@@ -16,7 +16,7 @@ doneClear:
 readUartStatus:
 0000000c	40501800		lil	r5,0x1800	; UART Status
 0000000d	84905000		lpl	r9			; Read Status into r9
-0000000e	29991000		ars r9,r9,r1
+0000000e	23991000		ars r9,r9,r1
 0000000f	C3FFFFFD		bez readUartStatus
 00000010	40501801		lil r5,0x1801
 00000011	84A05000		lpl	r10
@@ -34,7 +34,7 @@ looper:
 0000001a	81508000		spb r8			; put the character to the screen
 0000001b	20551000		ads	r5,r5,r1	; Increment screen pointer
 0000001c	20992000		ads r9,r9,r2	; decrement character counter
-0000001d	C8FFFFFD		bne	looper		; loop until complete
+0000001d	D2FFFFFD		bne	looper		; loop until complete
 0000001e	C0FFFFE3		bra	doneClear
 ; put a character to the screen and increment the address
 putChar:

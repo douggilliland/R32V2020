@@ -3,4 +3,4 @@ start:
 00000001	00000000		nop
 next:
 00000002	00000000		nop
-00000003	C0FFFFFD		bra start		; Relative branch (-3 in this case)
+00000003	C0FFFFFF		bra next		; Relative branch (-1 in this case)
