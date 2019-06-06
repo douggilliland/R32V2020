@@ -41,10 +41,10 @@ signal	w_Op_HCF : std_logic := '0';		-- Halt and Catch Fire
 signal	w_Op_RES : std_logic := '0';		-- Reset CPU
 signal	w_Op_ADS : std_logic := '0';		-- Add 2 regs and store in 3rd
 signal	w_Op_CMP : std_logic := '0';		-- Compare 2 regs and set cond codes
-signal	w_Op_MUL : std_logic := '0';		-- Multiply 2 regs and store in 3rd
-signal	w_Op_ORS  : std_logic := '0';		-- OR 2 regs and store in 3rd
-signal	w_Op_ARS  : std_logic := '0';		-- AND 2 regs and store in 3rd
-signal	w_Op_XRS  : std_logic := '0';		-- XOR 2 regs and store in 3rd
+signal	w_Op_MUL	: std_logic := '0';		-- Multiply 2 regs and store in 3rd
+signal	w_Op_ORS	: std_logic := '0';		-- OR 2 regs and store in 3rd
+signal	w_Op_ARS	: std_logic := '0';		-- AND 2 regs and store in 3rd
+signal	w_Op_XRS	: std_logic := '0';		-- XOR 2 regs and store in 3rd
 signal	w_Op_LS1  : std_logic := '0';		-- Logical Shift left by 1
 signal	w_Op_LS8  : std_logic := '0';		-- Logical Shift left by 8
 signal	w_Op_RS1  : std_logic := '0';		-- Logical Shift right by 1
@@ -93,7 +93,7 @@ signal	w_CCR							: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_ldDestRegister			: std_logic := '0';
 signal	w_dataIntoRegisterFile	: std_logic_vector(31 downto 0) := x"00000000";
-attribute syn_keep of w_dataIntoRegisterFile: signal is true;
+--attribute syn_keep of w_dataIntoRegisterFile: signal is true;
 
 signal	w_BranchAddress			: std_logic_vector(31 downto 0) := x"00000000";
 
@@ -125,7 +125,7 @@ signal	w_save_CCR_bits			: std_logic := '0';
 
 signal	w_holdHaltCatchFire		: std_logic := '0';
 signal	w_wrRegFile					: std_logic := '0';
-attribute syn_keep of w_wrRegFile : signal is true;
+--attribute syn_keep of w_wrRegFile : signal is true;
 
 signal	w_TakeBranch				: std_logic := '0';
 -- attribute syn_keep of w_TakeBranch: signal is true;
