@@ -34,22 +34,22 @@ entity OpCodeDecoder is
 		Op_LIX		: buffer std_logic;	-- Load Immediate lower short sign extended up
 		-- Category = Load/Store to/from Data Memory
 		Op_LDB		: buffer std_logic;	-- Load byte from data memory (read on d7..d0)
-		Op_SDB		: out std_logic;	-- Store byte to data memory (write on d7..d0)
+		Op_SDB		: out std_logic;		-- Store byte to data memory (write on d7..d0)
 		Op_LDS		: buffer std_logic;	-- Load short from data memory (read on d15..d0)
-		Op_SDS		: out std_logic;	-- Store short to data memory (write on d15..d0)
+		Op_SDS		: out std_logic;		-- Store short to data memory (write on d15..d0)
 		Op_LDL		: buffer std_logic;	-- Load long from data memory (read on d31..d0)
-		Op_SDL		: out std_logic;	-- Store long to data memory (write on d31..d0)
+		Op_SDL		: out std_logic;		-- Store long to data memory (write on d31..d0)
 		-- Category = Load/Store to/from Peripheral I/O space
 		Op_LPB		: buffer std_logic;	-- Load byte from peripheral interface (read on d7..d0)
-		Op_SPB		: out std_logic;	-- Store byte to peripheral interface (write on d7..d0)
+		Op_SPB		: out std_logic;		-- Store byte to peripheral interface (write on d7..d0)
 		Op_LPS		: buffer std_logic;	-- Load short from peripheral interface (read on d15..d0)
-		Op_SPS		: out std_logic;	-- Store short to peripheral interface (write on d15..d0)
+		Op_SPS		: out std_logic;		-- Store short to peripheral interface (write on d15..d0)
 		Op_LPL		: buffer std_logic;	-- Load long from peripheral interface (read on d31..d0)
-		Op_SPL		: out std_logic;	-- Store long to peripheral interface (write on d31..d0)
+		Op_SPL		: out std_logic;		-- Store long to peripheral interface (write on d31..d0)
 		-- Category = Stack
-		Op_PSS		: out std_logic;	-- Stack push
+		Op_PSS		: out std_logic;		-- Stack push
 		Op_PUS		: buffer std_logic;	-- Stack pull
-		Op_SSS		: out std_logic;	-- Store to Stack memory
+		Op_SSS		: out std_logic;		-- Store to Stack memory
 		Op_LSS		: buffer std_logic;	-- Load from Stack memory
 		-- Category = Flow Control
 		Op_BRA 		: out std_logic;	-- Branch Always
@@ -62,6 +62,8 @@ entity OpCodeDecoder is
 		Op_BEQ 		: out std_logic;	-- Branch if Equal
 		Op_BNE 		: out std_logic;	-- Branch if Not Equal
 		Op_BNZ 		: out std_logic;	-- Branch if Not Zero
+		Op_BSR 		: out std_logic;	-- Branch Subroutine
+		Op_RTS 		: out std_logic;	-- ReTurn from Subroutine
 		o_WrRegFile	: out std_logic	-- Register File gets output of opcode
 	);
 end OpCodeDecoder;
@@ -122,6 +124,8 @@ constant BLT : std_Logic_Vector(7 downto 0) := "11001100";
 constant BGT : std_Logic_Vector(7 downto 0) := "11001111";
 constant BEQ : std_Logic_Vector(7 downto 0) := "11010001";
 constant BNE : std_Logic_Vector(7 downto 0) := "11010010";
+constant BSR : std_Logic_Vector(7 downto 0) := "11010100";
+constant RTS : std_Logic_Vector(7 downto 0) := "11010101";
 
 begin
 
@@ -191,6 +195,8 @@ Op_BLT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BLT(4 do
 Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEQ(4 downto 0))) else '0';
 Op_BNE <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNE(4 downto 0))) else '0';
 Op_BNZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNZ(4 downto 0))) else '0';
+Op_BSR <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BSR(4 downto 0))) else '0';
+Op_RTS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = RTS(4 downto 0))) else '0';
 
 opc_Cat_Decoder : work.OpCode_Cat_Decoder port map (
 		InstrOpCodeCat	=> InstrOpCode(7 downto 5),

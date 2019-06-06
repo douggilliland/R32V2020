@@ -82,7 +82,9 @@ signal	w_Op_BLT  : std_logic := '0';		-- Branch if less than
 signal	w_Op_BEQ  : std_logic := '0';		-- Branch if equal
 signal	w_Op_BNE  : std_logic := '0';		-- Branch if not equal
 signal	w_Op_BNZ  : std_logic := '0';		-- Branch if not zero
-attribute syn_keep of w_Op_PUS: signal is true;
+signal	w_Op_BSR  : std_logic := '0';		-- Branch to subroutine
+signal	w_Op_RTS  : std_logic := '0';		-- Return from subroutine
+--attribute syn_keep of w_Op_PUS: signal is true;
 
 signal	w_regDataB					: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_ALUDataOut				: std_logic_vector(31 downto 0) := x"00000000";
@@ -206,6 +208,8 @@ begin
 		Op_BEQ => w_Op_BEQ,
 		Op_BNE => w_Op_BNE,
 		Op_BNZ => w_Op_BNZ,
+		Op_BSR => w_Op_BSR,
+		Op_RTS => w_Op_RTS,
 		o_WrRegFile => w_wrRegFile
 	);
 	
@@ -223,6 +227,7 @@ FlowControl : ENTITY work.FlowControl PORT MAP
 	Op_BGT 			=> w_Op_BGT,
 	Op_BEQ 			=> w_Op_BEQ,
 	Op_BNE 			=> w_Op_BNE,
+	Op_BSR 			=> w_Op_BSR,
 	-- increment or branch?
 	o_TakeBranch	=> w_TakeBranch
 );
@@ -276,7 +281,7 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) &
 		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15 downto 0) when (w_Op_LIX = '1') else	
 		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1')) else
-		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1')) else
+		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1') or (w_Op_RTS = '1')) else
 		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
 		w_ALUDataOut;
 		

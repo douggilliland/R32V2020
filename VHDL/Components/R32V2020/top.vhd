@@ -33,14 +33,13 @@ architecture struct of top is
 -- Instruction Space Controls
 signal	w_InstructionRomAddress	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
-signal	q_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
+--signal	q_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_clkInstrRomAddr			: std_logic := '0';
 signal	w_clkInstrRomData			: std_logic := '0';
 
 -- Stack Space controls
 signal	w_StackRamAddress			: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataFromStackRam		: std_logic_vector(31 downto 0) := x"00000000";
-signal	w_dataToStackRam			: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_CPUDataOut				: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_writeStackRamEn			: std_logic := '0';
 
@@ -68,7 +67,7 @@ begin
 		-- Clock
 		i_CLOCK_50 					=> i_CLOCK_50,
 		-- Instruction ROM connections
-		i_InstructionRomData		=> q_InstructionRomData,
+		i_InstructionRomData		=> w_InstructionRomData,
 		o_InstructionRomAddress	=> w_InstructionRomAddress,
 		o_clkInstrRomAddr			=> w_clkInstrRomAddr,
 		o_clkInstrRomData			=>	w_clkInstrRomData,
@@ -94,17 +93,8 @@ begin
 		address		=> w_InstructionRomAddress(8 downto 0),
 		clken			=> w_clkInstrRomAddr,
 		clock 		=> i_CLOCK_50,
-		q 				=> q_InstructionRomData
+		q 				=> w_InstructionRomData
 	);
-	
---	InstructionROMDataOutputLatch : entity work.REG_32
---	PORT MAP (
---    d   	=> w_InstructionRomData,
---    ld  	=> w_clkInstrRomData,
---    clr 	=> '0',
---    clk 	=> i_CLOCK_50,
---    q		=> q_InstructionRomData
---	);
 	
 	-- Stack RAM
 	Stack_RAM : entity work.BlockRam_Stack

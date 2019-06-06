@@ -18,6 +18,7 @@ ENTITY FlowControl IS PORT(
 	Op_BGT 			: IN std_logic;	-- Branch if ALU result is Greater Than
 	Op_BEQ 			: IN std_logic;	-- Branch if ALU result is Equal
 	Op_BNE 			: IN std_logic;	-- Branch if ALU result is Equal
+	Op_BSR 			: IN std_logic;	-- Branch to subroutine
 	o_save_CCR_bits: OUT STD_LOGIC;	-- CCR bits are modified
 	o_TakeBranch	: OUT STD_LOGIC	-- Instruction results in a branch
 );
@@ -36,7 +37,7 @@ constant CCR_BEQ : integer := 7;
 constant CCR_BNE : integer := 8;
 
 BEGIN
-		o_TakeBranch <= (Op_BRA or
+		o_TakeBranch <= ((Op_BRA or Op_BSR) or
 			(Op_BEZ and CCR(CCR_BEZ)) or
 			(Op_BE1 and CCR(CCR_BE1)) or
 			(Op_BNZ and CCR(CCR_BNZ)) or
