@@ -17,6 +17,7 @@ entity R32V2020 is
 		o_clkInstrRomData			: out std_logic := '0';
 		-- Stack RAM connections
 		o_StackRamAddress			: out std_logic_vector(31 downto 0) := x"00000000";
+		o_dataToStackRam			: out std_logic_vector(31 downto 0) := x"00000000";
 		i_dataFromStackRam		: in std_logic_vector(31 downto 0) := x"00000000";
 		o_writeStackRamEn			: out std_logic := '0';
 		-- Data RAM connections
@@ -98,13 +99,14 @@ signal	w_dataIntoRegisterFile	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_BranchAddress			: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
+attribute syn_keep of w_InstructionRomData : signal is true;
 
 signal	w_StackRamAddress			: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_writeStackRamEn			: std_logic := '0';
 signal	w_dataFromStackRam		: std_logic_vector(31 downto 0) := x"00000000";
 
 signal	w_DataRamAddress			: std_logic_vector(31 downto 0) := x"00000000";
-signal	w_dataToDataRam			: std_logic_vector(31 downto 0) := x"00000000";
+-- signal	w_dataToDataRam			: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataRamWriteAddress	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_writeToDataRamEnable	: std_logic;
 signal	w_dataFromDataRam			: std_logic_vector(31 downto 0) := x"00000000";
@@ -133,7 +135,7 @@ signal	w_TakeBranch				: std_logic := '0';
 begin
 
  	w_holdHaltCatchFire		<= '1' when (w_OneHotState(3) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
-	o_writeStackRamEn 		<= '1' when  w_OneHotState(3) = '1' and (w_Op_PSS = '1' or  w_Op_SSS = '1') and n_reset  = '1'   else '0';
+	o_writeStackRamEn 		<= '1' when  w_OneHotState(3) = '1' and (w_Op_PSS = '1' or  w_Op_SSS = '1' or  w_Op_BSR = '1') and n_reset  = '1'   else '0';
 	o_peripheralRdStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_LPB = '1' or  w_Op_LPS = '1'  or  w_Op_LPL = '1')) else '0';
 	o_peripheralWrStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_SPB = '1' or  w_Op_SPS = '1'  or  w_Op_SPL = '1')) else '0';
 	o_clkInstrRomAddr 		<= w_OneHotState(0) or (not n_reset);
@@ -285,6 +287,9 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
 		w_ALUDataOut;
 		
+	o_dataToStackRam <= o_DataOutFromRegA when (w_Op_BSR = '0') else
+							(o_InstructionRomAddress + 1) when (w_Op_BSR = '1') ;
+		
 	RegisterFile : entity work.RegisterFile
 	port map (
 		i_clk							=> i_CLOCK_50,
@@ -302,6 +307,8 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_OP_LIX						=> w_Op_LIX,
 		i_OP_PSS						=> w_Op_PSS,
 		i_OP_PUS						=> w_Op_PUS,
+		i_OP_BSR						=> w_Op_BSR,
+		i_OP_RTS						=> w_Op_RTS,
 		i_save_CCR_bits			=> w_save_CCR_bits,
 		i_wrRegFile					=> w_wrRegFile,
 		o_regDataOutA				=> o_DataOutFromRegA,

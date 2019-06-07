@@ -40,8 +40,10 @@ signal	w_clkInstrRomData			: std_logic := '0';
 -- Stack Space controls
 signal	w_StackRamAddress			: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataFromStackRam		: std_logic_vector(31 downto 0) := x"00000000";
-signal	w_CPUDataOut				: std_logic_vector(31 downto 0) := x"00000000";
+signal	w_dataToStackRam			: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_writeStackRamEn			: std_logic := '0';
+
+signal	w_CPUDataOut				: std_logic_vector(31 downto 0) := x"00000000";
 
 -- Data Space Controls
 signal	w_DataRamAddress			: std_logic_vector(31 downto 0) := x"00000000";
@@ -73,6 +75,7 @@ begin
 		o_clkInstrRomData			=>	w_clkInstrRomData,
 		-- Stack RAM connections
 		o_StackRamAddress			=> w_StackRamAddress,
+		o_dataToStackRam			=> w_dataToStackRam,
 		i_dataFromStackRam		=> w_dataFromStackRam,
 		o_writeStackRamEn			=>	w_writeStackRamEn,
 		-- Data RAM connections		
@@ -101,7 +104,7 @@ begin
 	PORT MAP	(
 		address	=> w_StackRamAddress(7 downto 0),
 		clock		=> i_CLOCK_50,
-		data		=> w_CPUDataOut,
+		data		=> w_dataToStackRam,
 		wren		=> w_writeStackRamEn,
 		q			=> w_dataFromStackRam
 	);

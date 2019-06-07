@@ -4,6 +4,6 @@ start:
 loop:
 	bra	loop
 testBsr:
-	rts	; need no param version
+	rts	; patch r7 as destination
 didntRTS:
 	bra	didntRTS

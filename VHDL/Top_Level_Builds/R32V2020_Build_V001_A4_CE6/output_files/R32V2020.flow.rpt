@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Thu Jun 06 17:52:37 2019
+Fri Jun 07 12:06:18 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Jun 06 17:52:29 2019       ;
+; Flow Status                        ; Successful - Fri Jun 07 12:06:12 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE6E22C6                                 ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 5,123 / 6,272 ( 82 % )                      ;
-;     Total combinational functions  ; 4,179 / 6,272 ( 67 % )                      ;
-;     Dedicated logic registers      ; 2,160 / 6,272 ( 34 % )                      ;
-; Total registers                    ; 2160                                        ;
+; Total logic elements               ; 4,943 / 6,272 ( 79 % )                      ;
+;     Total combinational functions  ; 4,203 / 6,272 ( 67 % )                      ;
+;     Dedicated logic registers      ; 1,967 / 6,272 ( 31 % )                      ;
+; Total registers                    ; 1967                                        ;
 ; Total pins                         ; 44 / 92 ( 48 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 66,560 / 276,480 ( 24 % )                   ;
+; Total memory bits                  ; 62,464 / 276,480 ( 23 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 8 / 30 ( 27 % )                             ;
 ; Total PLLs                         ; 1 / 2 ( 50 % )                              ;
 +------------------------------------+---------------------------------------------+
@@ -64,65 +64,65 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/06/2019 17:50:38 ;
+; Start date & time ; 06/07/2019 12:04:48 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                     ;
-+-------------------------------------+-----------------------------------------------+---------------+-------------+------------------+
-; Assignment Name                     ; Value                                         ; Default Value ; Entity Name ; Section Id       ;
-+-------------------------------------+-----------------------------------------------+---------------+-------------+------------------+
-; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                        ; Auto          ; --          ; --               ;
-; COMPILER_SIGNATURE_ID               ; 198690285320223.155985783710532               ; --            ; --          ; --               ;
-; ENABLE_SIGNALTAP                    ; On                                            ; --            ; --          ; --               ;
-; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                           ; On            ; --          ; --               ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                            ; --            ; --          ; --               ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                             ; --            ; --          ; --               ;
-; NUM_PARALLEL_PROCESSORS             ; 4                                             ; --            ; --          ; --               ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                             ; --            ; --          ; --               ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                             ; --            ; --          ; --               ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                    ; --            ; --          ; --               ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                    ; --            ; --          ; --               ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family)        ; --            ; top         ; Top              ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)        ; --            ; top         ; Top              ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)        ; --            ; top         ; Top              ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                           ; --            ; --          ; --               ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW         ; --            ; --          ; --               ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                                  ; --            ; --          ; --               ;
-; SLD_FILE                            ; db/DataRAM_auto_stripped.stp                  ; --            ; --          ; --               ;
-; SLD_NODE_CREATOR_ID                 ; 110                                           ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_ENTITY_NAME                ; sld_signaltap                                 ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_BLOCK_TYPE=AUTO                       ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_BITS=1                            ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_NODE_INFO=805334528                       ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_POWER_UP_TRIGGER=0                        ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK=000000000000000000000000   ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK_LENGTH=24                  ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0 ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SEGMENT_SIZE=128                          ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ATTRIBUTE_MEM_MODE=OFF                    ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_FLOW_USE_GENERATED=0                ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_BITS=11                             ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_BUFFER_FULL_STOP=1                        ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_CURRENT_RESOURCE_WIDTH=1                  ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INCREMENTAL_ROUTING=1                     ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL=1                           ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SAMPLE_DEPTH=128                          ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_IN_ENABLED=0                      ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_PIPELINE=0                        ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_PIPELINE=0                            ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_COUNTER_PIPELINE=0                        ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ADVANCED_TRIGGER_ENTITY=basic,1,          ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL_PIPELINE=1                  ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ENABLE_ADVANCED_TRIGGER=0                 ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_DATA_BITS=135                             ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_BITS=135                ; --            ; --          ; auto_signaltap_0 ;
-; TOP_LEVEL_ENTITY                    ; top                                           ; R32V2020      ; --          ; --               ;
-; USE_SIGNALTAP_FILE                  ; output_files/DataRAM.stp                      ; --            ; --          ; --               ;
-+-------------------------------------+-----------------------------------------------+---------------+-------------+------------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                              ;
++-------------------------------------+--------------------------------------------------------+---------------+-------------+------------------+
+; Assignment Name                     ; Value                                                  ; Default Value ; Entity Name ; Section Id       ;
++-------------------------------------+--------------------------------------------------------+---------------+-------------+------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                 ; Auto          ; --          ; --               ;
+; COMPILER_SIGNATURE_ID               ; 198690285320223.155992348803144                        ; --            ; --          ; --               ;
+; ENABLE_SIGNALTAP                    ; On                                                     ; --            ; --          ; --               ;
+; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                    ; On            ; --          ; --               ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                                     ; --            ; --          ; --               ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                                      ; --            ; --          ; --               ;
+; NUM_PARALLEL_PROCESSORS             ; 4                                                      ; --            ; --          ; --               ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                      ; --            ; --          ; --               ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                      ; --            ; --          ; --               ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                             ; --            ; --          ; --               ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                             ; --            ; --          ; --               ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family)                 ; --            ; top         ; Top              ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                 ; --            ; top         ; Top              ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                 ; --            ; top         ; Top              ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                    ; --            ; --          ; --               ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                  ; --            ; --          ; --               ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                                           ; --            ; --          ; --               ;
+; SLD_FILE                            ; db/C040-BSR_RTS_Test_auto_stripped.stp                 ; --            ; --          ; --               ;
+; SLD_NODE_CREATOR_ID                 ; 110                                                    ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_ENTITY_NAME                ; sld_signaltap                                          ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_BLOCK_TYPE=AUTO                                ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_BITS=1                                     ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_NODE_INFO=805334528                                ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_POWER_UP_TRIGGER=0                                 ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK=000000000000000000000000            ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK_LENGTH=24                           ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0          ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SEGMENT_SIZE=128                                   ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ATTRIBUTE_MEM_MODE=OFF                             ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_FLOW_USE_GENERATED=0                         ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_BITS=11                                      ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_BUFFER_FULL_STOP=1                                 ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_CURRENT_RESOURCE_WIDTH=1                           ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INCREMENTAL_ROUTING=1                              ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL=1                                    ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SAMPLE_DEPTH=128                                   ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_IN_ENABLED=0                               ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_PIPELINE=0                                 ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_PIPELINE=0                                     ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_COUNTER_PIPELINE=0                                 ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ADVANCED_TRIGGER_ENTITY=basic,1,                   ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL_PIPELINE=1                           ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ENABLE_ADVANCED_TRIGGER=0                          ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_DATA_BITS=103                                      ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_BITS=103                         ; --            ; --          ; auto_signaltap_0 ;
+; TOP_LEVEL_ENTITY                    ; top                                                    ; R32V2020      ; --          ; --               ;
+; USE_SIGNALTAP_FILE                  ; ../../Programs/C040-BSR_RTS_Test/C040-BSR_RTS_Test.stp ; --            ; --          ; --               ;
++-------------------------------------+--------------------------------------------------------+---------------+-------------+------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -130,11 +130,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:14     ; 1.0                     ; 4910 MB             ; 00:01:45                           ;
-; Fitter               ; 00:00:26     ; 1.1                     ; 5585 MB             ; 00:00:31                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4707 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:07     ; 1.2                     ; 4841 MB             ; 00:00:07                           ;
-; Total                ; 00:01:50     ; --                      ; --                  ; 00:02:26                           ;
+; Analysis & Synthesis ; 00:00:55     ; 1.0                     ; 4911 MB             ; 00:01:23                           ;
+; Partition Merge      ; 00:00:02     ; 1.0                     ; 4725 MB             ; 00:00:02                           ;
+; Fitter               ; 00:00:16     ; 1.1                     ; 5583 MB             ; 00:00:23                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4709 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:05     ; 1.2                     ; 4837 MB             ; 00:00:05                           ;
+; Total                ; 00:01:20     ; --                      ; --                  ; 00:01:55                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -144,6 +145,7 @@ refer to the applicable agreement for further details.
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
 ; Analysis & Synthesis ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Partition Merge      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
@@ -154,6 +156,7 @@ refer to the applicable agreement for further details.
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020 --merge=on
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020

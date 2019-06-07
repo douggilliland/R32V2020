@@ -34,6 +34,8 @@ entity RegisterFile is
 		i_OP_LIX						: in std_logic := '0';
 		i_OP_PSS						: in std_logic := '0';
 		i_OP_PUS						: in std_logic := '0';
+		i_OP_BSR						: in std_logic := '0';
+		i_OP_RTS						: in std_logic := '0';
 		i_BranchAddress			: in std_logic_vector(31 downto 0);
 		i_wrRegFile					: in std_logic := '0';
 		o_regDataOutA				: out std_logic_vector(31 downto 0);
@@ -126,9 +128,13 @@ stackAddress : work.COUNT_32 PORT MAP(
     clk		=> i_clk,
     clr 		=> i_clear,
     d 		=> i_regDataIn,
-    enable	=> (wrSelR4 and i_wrRegFile and i_OneHotState(4)) or (i_OP_PSS and i_OneHotState(4)) or (i_OP_PUS and i_OneHotState(2)),
-    inc		=> i_OP_PSS,
-    dec		=> i_OP_PUS,
+    enable	=> (wrSelR4 and i_wrRegFile and i_OneHotState(4)) 
+					or (i_OP_PSS and i_OneHotState(4)) 
+					or (i_OP_PUS and i_OneHotState(2)) 
+					or (i_OP_BSR and i_OneHotState(4)) 
+					or (i_OP_RTS and i_OneHotState(2)),
+    inc		=> i_OP_PSS or i_OP_BSR,
+    dec		=> i_OP_PUS or i_OP_RTS,
     q			=> o_StackRamAddress
 );
 
