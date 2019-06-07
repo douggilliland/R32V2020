@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP4CE6E22) Path("C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/output_files/") File("R32V2020.sof") MfrSpec(OpMask(1));
+		Device PartName(EP4CE6E22) Path("C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/output_files/") File("R32V2020.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 
