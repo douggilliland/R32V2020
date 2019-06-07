@@ -4,6 +4,6 @@ start:
 loop:
 00000001	C0000000		bra	loop
 testBsr:
-00000002	D6740000		rts	r7,SAR,r0	; need no param version
+00000002	D6000000		rts	; need no param version
 didntRTS:
 00000003	C0000000		bra	didntRTS
