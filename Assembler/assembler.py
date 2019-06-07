@@ -30,13 +30,13 @@ supportedForms = set([
   'ADDR',
   'ADDR_R7_DEST',
   'BIN_CMP',
+  'BIN_CONST',
   'BIN_DEST',
   'IMM_DEST',
   'NO_ARGS',
   'R4_DEST',
   'R5_DEST',
   'R6_DEST',
-  'R7_DEST',
   'UN_DEST',
   'BIN_R1_DEST',
   'UN_R1_DEST',
@@ -51,7 +51,6 @@ constantFormRegister = {
   'R4_DEST': 4,
   'R5_DEST': 5,
   'R6_DEST': 6,
-  'R7_DEST': 7,
   'BIN_R1_DEST': 1,
   'UN_R1_DEST': 1,
   'UN_R4_DEST': 4,
@@ -102,6 +101,9 @@ fullInstructions = set()
 
 formText = ', '.join(supportedForms)
 
+def isValidRegister(token):
+  return token.upper() in validRegisters
+
 # Building structures and validation
 for op in ops:
   op['Category'] = int(op['D31'] + op['D30'] + op['D29'], 2)
@@ -111,6 +113,11 @@ for op in ops:
   fullInstruction = (op['Category'] << 5) | op['Operation']
 
   assemblerAssert(op['Form'] in supportedForms, 'Op ' + op['Opcode'] + '\'s form ' + op['Form'] + ' is not a supported form (must be one of ' + formText + ')')
+
+  if op['Form'] == 'BIN_CONST':
+    assemblerAssert(isValidRegister(op['D23']), 'D23 must be a valid register in BIN_CONST-formed operations')
+    assemblerAssert(isValidRegister(op['D19']), 'D19 must be a valid register in BIN_CONST-formed operations')
+    assemblerAssert(isValidRegister(op['D15']), 'D15 must be a valid register in BIN_CONST-formed operations')
 
   assemblerAssert(fullInstruction not in fullInstructions, 'Op ' + op['Opcode'] + ' has a non-distinct combination of operation and category codes')
 
@@ -332,9 +339,6 @@ def isValidDataLabelReference(token):
 
 def formatAddressError(badAddress):
   return badAddress + ' is not a valid address (must be alpha-numeric, can contain underscores)'
-
-def isValidRegister(token):
-  return token.upper() in validRegisters
 
 def parseRegister(token):
   if token.upper() in REGISTER_ALIASES:
@@ -566,11 +570,11 @@ if __name__ == '__main__':
 
         outputLine.setInstruction(NoArgsResolver(opSpec['CategorizedOp']))
 
-      elif opSpec['Form'] == 'R7_DEST':
+      elif opSpec['Form'] == 'BIN_CONST':
         lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
-		
-        outputLine.setInstruction(NoArgsResolver(opSpec['CategorizedOp']))
-		
+
+        outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(opSpec['D23']), parseRegister(opSpec['D19']), parseRegister(opSpec['D15'])))
+
       elif opSpec['Form'] == 'ADDR':
         lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
