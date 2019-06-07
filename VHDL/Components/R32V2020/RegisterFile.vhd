@@ -123,7 +123,6 @@ conditionCodeRegister : work.REG_32 PORT MAP(
 );
 
 -- r4 = Stack RAM Address
--- i_OP_PSS, i_OP_PUS
 stackAddress : work.COUNT_32 PORT MAP(
     clk		=> i_clk,
     clr 		=> i_clear,
@@ -160,9 +159,6 @@ dataRamAddress : work.COUNT_32 PORT MAP(
 	q			=> o_DataRamAddress
 );
 
--- r7 = Program Counter (Instruction RAM Address)
--- wrSelR7 - when the destination register is r7
-
 w_nextPC <= i_BranchAddress 	when i_TakeBranch = '1' else			
 				i_regDataIn 		when i_TakeBranch = '0';
 -- 
@@ -171,7 +167,7 @@ programCounter : work.COUNT_32 PORT MAP(
     clr 		=> i_clear,
     d 		=> w_nextPC,
     enable 	=> i_OneHotState(4),
-    inc 		=> (not i_TakeBranch) and (not wrSelR7),
+    inc 		=> (not i_TakeBranch) and (not wrSelR7),	-- Increment PC  if not these conditions
     dec 		=> '0',
     q			=> o_InstructionRomAddress
 );

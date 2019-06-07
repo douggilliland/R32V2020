@@ -63,7 +63,7 @@ entity OpCodeDecoder is
 		Op_BNE 		: out std_logic;	-- Branch if Not Equal
 		Op_BNZ 		: out std_logic;	-- Branch if Not Zero
 		Op_BSR 		: out std_logic;	-- Branch Subroutine
-		Op_RTS 		: out std_logic;	-- ReTurn from Subroutine
+		Op_RTS 		: buffer std_logic;	-- ReTurn from Subroutine
 		o_WrRegFile	: out std_logic	-- Register File gets output of opcode
 	);
 end OpCodeDecoder;
@@ -136,7 +136,7 @@ o_WrRegFile <= Op_ADS or Op_MUL or Op_ORS or
 	Op_LIL or Op_LIU or Op_LIX or 
 	Op_LDB or Op_LDS or Op_LDL or 
 	Op_LPB or Op_LPS or Op_LPL or 
-	Op_PUS or Op_LSS;
+	Op_PUS or Op_LSS or Op_RTS;
 
 -- System Opcodes
 Op_NOP <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = NOP(4 downto 0))) else '0';
