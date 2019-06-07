@@ -561,11 +561,16 @@ if __name__ == '__main__':
 
       opSpec = opByCode[op]
 
-      if opSpec['Form'] == 'NO_ARGS':
+      if opSpec['Form'] ==['NO_ARGS']:
         lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
 
         outputLine.setInstruction(NoArgsResolver(opSpec['CategorizedOp']))
 
+      elif opSpec['Form'] == 'R7_DEST':
+        lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
+		
+        outputLine.setInstruction(NoArgsResolver(opSpec['CategorizedOp']))
+		
       elif opSpec['Form'] == 'ADDR':
         lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
