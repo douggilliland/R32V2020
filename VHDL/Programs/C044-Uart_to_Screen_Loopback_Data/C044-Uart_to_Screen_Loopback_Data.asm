@@ -64,7 +64,7 @@ looper:
 	bne	looper			; loop until complete
 	pus	r8
 	pus	r9
-	pus	r7				; rts
+	pus	PC				; rts
 
 ;
 ; putChar - Put a character to the screen and increment the address
@@ -87,7 +87,7 @@ putChar:
 	pus DAR					; restore r9
 	pus r9					; restore r9
 	pus r10					; restore r10
-	pus	r7					; rts
+	pus	PC					; rts
 
 ; setCharPos - Move to x,y position
 ; x,y value is passed in r8
@@ -110,4 +110,4 @@ setCharPos:
 	sdl	r10						; store new screen address
 	pus r10						; restore r10
 	pus r9						; restore r9
-	pus	r7						; rts
+	pus	PC						; rts
