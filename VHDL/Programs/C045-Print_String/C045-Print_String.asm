@@ -1,4 +1,4 @@
-hello:	.string "R32V2020"
+hello:	.string "R32V2020> "
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
 ; Read UART character and put it to the SVGA Display
@@ -10,8 +10,6 @@ readDataMemory:
 	liu	r8,hello.upper
 	lil	r8,hello.lower
 	bsr	printString
-	lix	r8,0xa			; Move cursor past banner
-	bsr	setCharPos
 readUartStatus:
 	lil	par,0x1800	; UART Status
 waitUartRxChar:
