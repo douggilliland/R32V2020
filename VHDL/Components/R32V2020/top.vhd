@@ -20,8 +20,10 @@ entity top is
 		-- VGA pins
 		o_VideoVect			: out std_logic_vector(17 downto 0); -- rrrrr,gggggg,bbbbb,hsync,vsync
 		-- Seven Segment LED pins
-		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := "00000000";
-		o_LED_out			: out std_logic_vector(7 downto 0) := "00000000";
+		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
+		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
+		-- LED Ring
+		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -136,9 +138,10 @@ begin
 		--o_LED							=> o_LED,
 		o_BUZZER						=> o_BUZZER,
 		o_Anode_Activate 			=> o_Anode_Activate,
-		o_LED_out					=> o_LED_out,
+		o_LED7Seg_out				=> o_LED7Seg_out,
 		i_rxd							=> i_SerRxd,
 		o_txd							=> o_SerTxd,
+		o_LEDRing_out				=> o_LEDRing_out,
 		--o_rts							=> o_SerRts,
 		o_VoutVect					=> o_VideoVect,
 		i_PS2_CLK					=> i_ps2Clk,

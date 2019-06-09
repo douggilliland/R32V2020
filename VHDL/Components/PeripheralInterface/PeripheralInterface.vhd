@@ -21,7 +21,8 @@ entity PeripheralInterface is
 		o_LED							: out std_logic_vector(3 downto 0) := "1111";		-- LEDs (mutually exclusive w 7 Seg LED)
 		o_BUZZER						: out std_logic := '1';										-- Buzzer
 		o_Anode_Activate 			: out std_logic_vector(7 downto 0) := "11111111";	-- Seven Segment LED
-		o_LED_out					: out std_logic_vector(7 downto 0) := "11111111";	-- Seven Segment LED
+		o_LED7Seg_out				: out std_logic_vector(7 downto 0) := "11111111";	-- Seven Segment LED
+		o_LEDRing_out				: buffer std_logic_vector(11 downto 0) := x"000";		-- LED Ring
 		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
 		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
 		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
@@ -44,6 +45,7 @@ architecture struct of PeripheralInterface is
 	signal w_7SEGCS				:	std_logic := '0';
 	signal w_ETCounterCS			:	std_logic := '0';
 	signal w_NoteCS				:	std_logic := '0';
+	signal w_LEDRingCS			:	std_logic := '0';
 	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
@@ -60,6 +62,7 @@ architecture struct of PeripheralInterface is
 	signal w_kbError				:	std_logic;
 	signal w_Video_Clk			: 	std_logic := '0';
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
+	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0); 
 	signal w_LatData				:	std_logic_vector(7 downto 0);
 	attribute syn_keep of w_LatData : signal is true;
 
@@ -78,7 +81,7 @@ architecture struct of PeripheralInterface is
 	constant SEGS7_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"6";
 	constant ETCTR_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"7";
 	constant NOTE_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"8";
-
+	constant LEDRNG_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"9";
 
 begin
 	
@@ -93,6 +96,7 @@ begin
 	w_7SEGCS			<= '1' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '0';	-- x3000-x37FF (2KB)
 	w_ETCounterCS	<= '1' when i_peripheralAddress(15 downto 11) = ETCTR_BASE	else '0';	-- x3800-x3FFF (2KB)
 	w_NoteCS			<= '1' when i_peripheralAddress(15 downto 11) = NOTE_BASE	else '0';	-- x4000-x47FF (2KB)
+	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_dispRamDataOutA 	when	w_dispRamCS 	= '1' else
@@ -131,7 +135,7 @@ begin
       i_reset					=> not n_reset,
 		i_displayed_number	=> w_displayed_number,
       o_Anode_Activate		=> o_Anode_Activate,
-      o_LED_out 				=> o_LED_out		-- Cathode patterns of 7-segment display
+      o_LED7Seg_out			=> o_LED7Seg_out		-- Cathode patterns of 7-segment display
 	);
 	
 	SevenSegmentDisplayLatch : ENTITY work.REG_32
@@ -143,7 +147,7 @@ begin
     q		=> w_displayed_number
 	);
 	
-	LedLatch	: ENTITY work.REG_8 
+	LedLatch	: ENTITY work.REG_8
 	PORT MAP (
     clk 	=> i_CLOCK_50,
     d 	=> i_dataToPeripherals(7 downto 0),
@@ -151,6 +155,17 @@ begin
     clr  => not n_reset,
     q    => w_LatData
 	);
+	
+	o_LEDRing_out <= not w_LEDRing_out;
+	LedRing	: ENTITY work.REG_16
+	PORT MAP (
+    clk 					=> i_CLOCK_50,
+    d 					=> i_dataToPeripherals(15 downto 0),
+    ld 					=> w_LEDRingCS and i_peripheralWrStrobe,
+    clr  				=> not n_reset,
+    q(11 downto 0)	=> w_LEDRing_out
+	);
+	
 	
 	o_LED <= w_LatData(3 downto 0);
 	o_BUZZER <= not(w_LatData(4) and w_BUZZER);

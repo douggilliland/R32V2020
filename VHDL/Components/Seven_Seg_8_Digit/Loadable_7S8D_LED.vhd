@@ -13,7 +13,7 @@ entity Loadable_7S8D_LED is
 		i_reset 					: in STD_LOGIC; -- i_reset
 		i_displayed_number 	: in STD_LOGIC_VECTOR (31 downto 0);
 		o_Anode_Activate 		: out STD_LOGIC_VECTOR (7 downto 0);-- 8 Anode signals
-		o_LED_out 				: out STD_LOGIC_VECTOR (7 downto 0));-- Cathode patterns of 7-segment display with Decimal Point
+		o_LED7Seg_out 			: out STD_LOGIC_VECTOR (7 downto 0));-- Cathode patterns of 7-segment display with Decimal Point
 end Loadable_7S8D_LED;
 
 architecture Behavioral of Loadable_7S8D_LED is
@@ -30,22 +30,22 @@ begin
 process(w_LED_HEX)
 begin
     case w_LED_HEX is
-    when x"0" => o_LED_out <= "11000000"; -- "0" - bit order is dp - g thru a
-    when x"1" => o_LED_out <= "11111001"; -- "1" 
-    when x"2" => o_LED_out <= "10100100"; -- "2" 
-    when x"3" => o_LED_out <= "10110000"; -- "3" 
-    when x"4" => o_LED_out <= "10011001"; -- "4" 
-    when x"5" => o_LED_out <= "10010010"; -- "5" 
-    when x"6" => o_LED_out <= "10000010"; -- "6" 
-    when x"7" => o_LED_out <= "11111000"; -- "7" 
-    when x"8" => o_LED_out <= "10000000"; -- "8"     
-    when x"9" => o_LED_out <= "10010000"; -- "9" 
-    when x"A" => o_LED_out <= "10001000"; -- "A"
-    when x"B" => o_LED_out <= "10000011"; -- "B"
-    when x"C" => o_LED_out <= "11000110"; -- "C"
-    when x"D" => o_LED_out <= "10100001"; -- "D"
-    when x"E" => o_LED_out <= "10000110"; -- "E"
-    when x"F" => o_LED_out <= "10001110"; -- "F"
+    when x"0" => o_LED7Seg_out <= "11000000"; -- "0" - bit order is dp - g thru a
+    when x"1" => o_LED7Seg_out <= "11111001"; -- "1" 
+    when x"2" => o_LED7Seg_out <= "10100100"; -- "2" 
+    when x"3" => o_LED7Seg_out <= "10110000"; -- "3" 
+    when x"4" => o_LED7Seg_out <= "10011001"; -- "4" 
+    when x"5" => o_LED7Seg_out <= "10010010"; -- "5" 
+    when x"6" => o_LED7Seg_out <= "10000010"; -- "6" 
+    when x"7" => o_LED7Seg_out <= "11111000"; -- "7" 
+    when x"8" => o_LED7Seg_out <= "10000000"; -- "8"     
+    when x"9" => o_LED7Seg_out <= "10010000"; -- "9" 
+    when x"A" => o_LED7Seg_out <= "10001000"; -- "A"
+    when x"B" => o_LED7Seg_out <= "10000011"; -- "B"
+    when x"C" => o_LED7Seg_out <= "11000110"; -- "C"
+    when x"D" => o_LED7Seg_out <= "10100001"; -- "D"
+    when x"E" => o_LED7Seg_out <= "10000110"; -- "E"
+    when x"F" => o_LED7Seg_out <= "10001110"; -- "F"
     end case;
 end process;
 -- 7-segment display controller
