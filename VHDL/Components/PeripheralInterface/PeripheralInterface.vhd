@@ -59,10 +59,11 @@ architecture struct of PeripheralInterface is
 	signal w_Video_Clk			: 	std_logic := '0';
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
 	signal w_LatData				:	std_logic_vector(7 downto 0);
+	attribute syn_keep of w_LatData : signal is true;
+
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
 
 	signal w_ElapsedTimeCount	:	std_logic_vector(31 downto 0); 
-	attribute syn_keep of w_ElapsedTimeCount: signal is true;
 	
 	signal w_BUZZER				: 	std_logic := '0';
 
@@ -135,7 +136,7 @@ begin
 	PORT MAP (
     clk 	=> i_CLOCK_50,
     d   	=> i_dataToPeripherals,
-    ld  	=> i_peripheralWrStrobe and w_7SEGCS,
+    ld  	=> w_7SEGCS and i_peripheralWrStrobe,
     clr 	=> not n_reset,
     q		=> w_displayed_number
 	);
@@ -144,7 +145,7 @@ begin
 	PORT MAP (
     clk 	=> i_CLOCK_50,
     d 	=> i_dataToPeripherals(7 downto 0),
-    ld 	=> i_peripheralWrStrobe and w_LEDsCS,
+    ld 	=> w_LEDsCS and i_peripheralWrStrobe,
     clr  => not n_reset,
     q    => w_LatData
 	);
