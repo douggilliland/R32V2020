@@ -11,6 +11,7 @@ entity top is
 		i_CLOCK_50			: in std_logic;
 		-- Switches, LEDs, Buzzer pins
 		i_switch				: in std_logic_vector(2 downto 0) := "111";
+		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
 		--o_LED				: out std_logic_vector(3 downto 0);
 		o_BUZZER				: out std_logic;
 		-- Serial port pins
@@ -135,6 +136,7 @@ begin
 		i_peripheralWrStrobe		=> w_peripheralWrEn,
 		-- Physical connections to/from the FPGA pins
 		i_switch						=> i_switch,
+		i_DIP_switch				=> i_dipSwitch,
 		--o_LED							=> o_LED,
 		o_BUZZER						=> o_BUZZER,
 		o_Anode_Activate 			=> o_Anode_Activate,

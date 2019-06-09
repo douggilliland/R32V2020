@@ -15,14 +15,15 @@ entity PeripheralInterface is
 		i_dataToPeripherals		: in std_logic_vector(31 downto 0) := x"00000000";
 		o_dataFromPeripherals	: out std_logic_vector(31 downto 0) := x"00000000";
 		i_peripheralRdStrobe		: in std_logic := '1';
-		i_peripheralWrStrobe		: in std_logic := '1';
+ 		i_peripheralWrStrobe		: in std_logic := '1';
 		-- Physical connections to/from the FPGA pins
 		i_switch						: in std_logic_vector(2 downto 0) := "111";			-- Switches
-		o_LED							: out std_logic_vector(3 downto 0) := "1111";		-- LEDs (mutually exclusive w 7 Seg LED)
+		i_DIP_switch				: in std_logic_vector(7 downto 0) := x"00";			-- DIP Switches
+		o_LED							: out std_logic_vector(3 downto 0) := x"1";			-- LEDs (mutually exclusive w 7 Seg LED)
 		o_BUZZER						: out std_logic := '1';										-- Buzzer
-		o_Anode_Activate 			: out std_logic_vector(7 downto 0) := "11111111";	-- Seven Segment LED
-		o_LED7Seg_out				: out std_logic_vector(7 downto 0) := "11111111";	-- Seven Segment LED
-		o_LEDRing_out				: buffer std_logic_vector(11 downto 0) := x"000";		-- LED Ring
+		o_Anode_Activate 			: out std_logic_vector(7 downto 0) := x"11";			-- Seven Segment LED
+		o_LED7Seg_out				: out std_logic_vector(7 downto 0) := x"11";			-- Seven Segment LED
+		o_LEDRing_out				: buffer std_logic_vector(11 downto 0) := x"000";	-- LED Ring
 		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
 		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
 		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
@@ -99,14 +100,14 @@ begin
 	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)
 	
 	o_dataFromPeripherals <=
-		x"000000"		& w_dispRamDataOutA 	when	w_dispRamCS 	= '1' else
-		q_kbReadData	 							when	w_kbDatCS		= '1' else
-		w_kbdStatus									when	w_kbStatCS		= '1' else 
-		x"000000"		& w_aciaData 			when	w_aciaCS 		= '1' else
-		x"0000000"&'0'	& i_switch 				when	w_SwitchesCS 	= '1' else
-		x"000000"		& w_LatData				when	w_LEDsCS 		= '1' else
-		w_ElapsedTimeCount 						when	w_ETCounterCS	= '1' else
-		x"000"&'0' 		& w_NoteData			when	w_NoteCS 		= '1' else
+		x"000000"		& w_dispRamDataOutA 			when	w_dispRamCS 	= '1' else
+		q_kbReadData	 									when	w_kbDatCS		= '1' else
+		w_kbdStatus											when	w_kbStatCS		= '1' else 
+		x"000000"		& w_aciaData 					when	w_aciaCS 		= '1' else
+		x"00000"&'0'	& i_DIP_switch & i_switch 	when	w_SwitchesCS 	= '1' else
+		x"000000"		& w_LatData						when	w_LEDsCS 		= '1' else
+		w_ElapsedTimeCount 								when	w_ETCounterCS	= '1' else
+		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
 		x"FFFFFFFF";
 	
 	ElapsedTimeCounter : entity work.COUNT_32
