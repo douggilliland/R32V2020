@@ -142,9 +142,10 @@ begin
 	o_clkInstrRomData 		<= w_OneHotState(1) or (not n_reset);
 	o_writeToDataRamEnable 	<= '1' when w_OneHotState(3) = '1' and (w_Op_SDB = '1' or w_Op_SDS = '1'or w_Op_SDL = '1') and n_reset = '1' else '0';
 
-	w_BranchAddress <=  (i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  -- sign extend
-								i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  i_InstructionRomData(23) &  
-								i_InstructionRomData(23 downto 0)) + o_InstructionRomAddress;
+	w_BranchAddress <=  (i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  -- sign extend
+								i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  
+								i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  
+								i_InstructionRomData(19 downto 0)) + o_InstructionRomAddress;
 	
 	StateMachine : entity work.OneHotStateMachine
 	PORT map (
@@ -278,10 +279,9 @@ CCR_Store : ENTITY work.CCRControl PORT map
 	w_dataIntoRegisterFile <= 
 		i_InstructionRomData(15 downto 0)&x"0000" when (w_Op_LIU = '1') else		-- Load Immediate into upper half of register - other half gets ignored
 		x"0000"&i_InstructionRomData(15 downto 0) when (w_Op_LIL = '1') else		-- Load Immediate into lower half of register - other half gets ignored
-		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) &
-		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) &
-		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) &
-		i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15) & i_InstructionRomData(15 downto 0) when (w_Op_LIX = '1') else	
+		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) &
+		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) &
+		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19 downto 0) when (w_Op_LIX = '1') else	
 		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1')) else
 		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1') or (w_Op_RTS = '1')) else
 		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else

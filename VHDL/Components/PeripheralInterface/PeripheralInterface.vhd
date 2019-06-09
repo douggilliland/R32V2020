@@ -33,6 +33,7 @@ entity PeripheralInterface is
 	
 architecture struct of PeripheralInterface is
 
+	attribute syn_keep: boolean;
 	-- Peripheral Signals
 	signal w_dispRamCS 			:	std_logic := '0';
 	signal w_kbDatCS 				:	std_logic := '0';
@@ -61,6 +62,7 @@ architecture struct of PeripheralInterface is
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
 
 	signal w_ElapsedTimeCount	:	std_logic_vector(31 downto 0); 
+	attribute syn_keep of w_ElapsedTimeCount: signal is true;
 	
 	signal w_BUZZER				: 	std_logic := '0';
 

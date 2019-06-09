@@ -1,0 +1,43 @@
+dataPlaceHolder:	.string "R32V2020> "
+secsCount:	.long 0x0
+; delay_mS Test
+start:
+00000000	41600000		liu	DAR,secsCount.upper
+00000001	40600003		lil	DAR,secsCount.lower
+00000002	64806000		ldl	r8
+00000003	D4000015		bsr	wr7Seg8Dig
+00000004	A0408000		pss	r8				; save the counter
+00000005	428003E8		lix	r8,1000			; count for 1 Sec
+00000006	D4000005		bsr	delay_mS		; call delay_ms
+00000007	A1804000		pus	r8				; restore r8
+00000008	20881000		ads	r8,r8,ONE
+00000009	65608000		sdl	r8
+0000000a	C0FFFFF6		bra	start
+
+; delay_mS - delay for the number of mSecs passed in r8
+; pass mSec delay in r8
+; Uses routine uses r9
+
+delay_mS:
+0000000b	A0409000		pss	r9 
+0000000c	A0408000		pss	r8
+0000000d	4290C350		lix	r9,50000	; Count for 50,000 counts = 1 mSec count
+0000000e	21889000		mul	r8,r8,r9	; total number of clocks to count
+0000000f	42503800		lix	PAR,0x3800	; address of the elapsed time counter
+00000010	84905000		lpl	r9			; read the peripheral counter into r9
+00000011	20898000		ads	r8,r9,r8	; terminal counter to wait until is in r8
+loop_delay_mS:
+00000012	84905000		lpl	r9			; check the elapsed time counter
+00000013	30398000		cmp	r9,r8
+00000014	CFFFFFFE		bgt	loop_delay_mS
+00000015	A1804000		pus	r8
+00000016	A1904000		pus	r9
+00000017	A1704000		pus	PC
+	
+; wr7Seg8Dig
+; passed r8 - value to send to the 7 seg display
+
+wr7Seg8Dig:
+00000018	42503000		lix	PAR,0x3000		; Seven Segment LED lines
+00000019	85508000		spl	r8				; Write out LED bits
+0000001a	A1704000		pus	PC
