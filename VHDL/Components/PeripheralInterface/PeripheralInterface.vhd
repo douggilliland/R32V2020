@@ -55,6 +55,8 @@ architecture struct of PeripheralInterface is
 	signal q_kbReadData			:	std_logic_vector(31 downto 0);
 	signal w_dispRamDataOutA	:	std_logic_vector(7 downto 0);
 	signal w_kbDataValid			:	std_logic;
+	signal w_latKbDV1				:	std_logic := '0';
+	signal w_latKbStat			:	std_logic_vector(31 downto 0) := x"00000000";
 	signal w_kbError				:	std_logic;
 	signal w_Video_Clk			: 	std_logic := '0';
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
@@ -199,18 +201,19 @@ begin
 		ascii_new	=> w_kbDataValid
 	);
 	
-	process (i_CLOCK_50, W_kbDataValid, w_kbReadData, w_kbDatCS)
+	-- w_latKbDV1, w_latKbDV2
+	process (i_CLOCK_50, W_kbDataValid, w_kbReadData, w_kbDatCS, w_latKbStat)
 	begin
-		if rising_edge(i_CLOCK_50)  then
-			if w_kbDatCS = '1' then 
-				w_kbdStatus <= x"00000000";
-			elsif w_kbDataValid = '1' then
-				w_kbdStatus <= x"0000000" & "000" & w_kbDataValid;
-			end if;
-		end if;
-		if rising_edge(i_CLOCK_50)  then
-			if w_kbDataValid = '1' then
+		if n_reset = '0' then
+			w_latKbDV1 <= '0';
+			w_kbdStatus <= x"00000000";
+		elsif rising_edge(i_CLOCK_50)  then
+			w_latKbDV1 <= W_kbDataValid;
+			if W_kbDataValid = '1' and w_latKbDV1 = '0' then
+				w_kbdStatus <= x"00000001";			-- set at edge of dataValid
 				q_kbReadData <= x"000000" & '0' & w_kbReadData;
+			elsif w_kbDatCS = '1' then
+				w_kbdStatus <= x"00000000";
 			end if;
 		end if;
 	end process;
