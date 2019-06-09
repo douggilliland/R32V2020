@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Sun Jun 09 07:51:58 2019
+Sun Jun 09 07:58:19 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -92,7 +92,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Jun 09 07:51:58 2019       ;
+; Analysis & Synthesis Status        ; Successful - Sun Jun 09 07:58:18 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
@@ -2078,7 +2078,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:29     ;
+; Top            ; 00:00:28     ;
 +----------------+--------------+
 
 
@@ -2241,9 +2241,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sun Jun 09 07:50:45 2019
+    Info: Processing started: Sun Jun 09 07:57:08 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/seven_seg_8_digit/loadable_7s8d_led.vhd
     Info (12022): Found design unit 1: Loadable_7S8D_LED-Behavioral File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_8_Digit/Loadable_7S8D_LED.vhd Line: 19
@@ -2489,7 +2488,7 @@ Info (12128): Elaborating entity "altsyncram_a264" for hierarchy "BlockRom_Instr
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_qg63.tdf
     Info (12023): Found entity 1: altsyncram_qg63 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/db/altsyncram_qg63.tdf Line: 27
 Info (12128): Elaborating entity "altsyncram_qg63" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_a264:auto_generated|altsyncram_qg63:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/db/altsyncram_a264.tdf Line: 35
-Critical Warning (127005): Memory depth (512) in the design file differs from memory depth (27) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Programs/C046-Delay_mS_uS_Subroutine_Test/C046-Delay_mS_uS_Subroutine_Test_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
+Critical Warning (127005): Memory depth (512) in the design file differs from memory depth (31) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Programs/C046-Delay_mS_uS_Subroutine_Test/C046-Delay_mS_uS_Subroutine_Test_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
 Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_a264:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/db/altsyncram_a264.tdf Line: 36
 Info (12130): Elaborated megafunction instantiation "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_a264:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/db/altsyncram_a264.tdf Line: 36
 Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_a264:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/db/altsyncram_a264.tdf Line: 36
@@ -2788,7 +2787,6 @@ Info (12128): Elaborating entity "CharRom" for hierarchy "PeripheralInterface:Pe
 Info (12128): Elaborating entity "ps2_keyboard_to_ascii" for hierarchy "PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 192
 Info (12128): Elaborating entity "ps2_keyboard" for hierarchy "PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii.vhd Line: 70
 Info (12128): Elaborating entity "debounce" for hierarchy "PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 67
-Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_8d24.tdf
     Info (12023): Found entity 1: altsyncram_8d24 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/db/altsyncram_8d24.tdf Line: 27
 Info (12021): Found 1 design units, including 1 entities, in source file db/mux_psc.tdf
@@ -2811,7 +2809,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr
     Info (12023): Found entity 1: cmpr_ngc File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE6/db/cmpr_ngc.tdf Line: 22
 Info (12033): Analysis and Synthesis generated Signal Tap or debug node instance "auto_signaltap_0"
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2019.06.09.07:51:14 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2019.06.09.07:57:35 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -2999,10 +2997,10 @@ Info (21057): Implemented 5726 device resources after synthesis - the final reso
     Info (21064): Implemented 223 RAM segments
     Info (21065): Implemented 1 PLLs
     Info (21062): Implemented 8 DSP elements
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 78 warnings
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 76 warnings
     Info: Peak virtual memory: 4907 megabytes
-    Info: Processing ended: Sun Jun 09 07:51:58 2019
-    Info: Elapsed time: 00:01:13
-    Info: Total CPU time (on all processors): 00:01:46
+    Info: Processing ended: Sun Jun 09 07:58:19 2019
+    Info: Elapsed time: 00:01:11
+    Info: Total CPU time (on all processors): 00:01:40
 
 

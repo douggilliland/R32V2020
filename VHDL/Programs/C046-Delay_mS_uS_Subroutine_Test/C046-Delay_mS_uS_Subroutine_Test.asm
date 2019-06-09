@@ -1,6 +1,10 @@
 dataPlaceHolder:	.string "R32V2020> "
 secsCount:	.long 0x0
 ; delay_mS Test
+	liu	DAR,secsCount.upper
+	lil	DAR,secsCount.lower
+	lix	r8,0
+	sdl	r8
 start:
 	liu	DAR,secsCount.upper
 	lil	DAR,secsCount.lower
