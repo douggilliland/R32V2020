@@ -1,8 +1,12 @@
 hello:	.string "R32V2020> "
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
+
+;
 ; Read UART character and put it to the SVGA Display
-start:
+;
+
+main:
 	bsr	clearScreen
 	lix	r8,0x0			; Move cursor to home position
 	bsr	setCharPos
@@ -17,8 +21,10 @@ putCharToScreen:
 	bsr	putUARTChar
 	bra	readUartStatus
 
+;
 ; getUARTChar
 ; returns character received in r8
+;
 
 getUARTChar:
 	pss	r9
@@ -35,8 +41,10 @@ getCharFromUart:
 	pus	r9
 	pus	PC
 
+;
 ; putUARTChar - Put a character to the UART
 ; passed character in r8 is sent out the UART
+;
 
 putUARTChar:
 	pss	r9
@@ -55,11 +63,12 @@ waitUartTxStat:
 	pus	r9
 	pus	PC
 	
-
+;
 ; printString - Print a screen to the current screen position
 ; pass value : r8 points to the start of the string
 ; strings are null terminated
 ; strings are bytes packed into long words
+;
 
 printString:
 	pss	r8				; save r8
@@ -145,16 +154,19 @@ putChar:
 	pus r10					; restore r10
 	pus	PC					; rts
 
+;
 ; setCharPos - Move to x,y position
 ; x,y value is passed in r8
 ;	First 6 least significant bits (0-63 columns)
 ; 	Next 5 bits (row on the screen)
 ; screenBase has the base address of the screen memory
 ; screenPtr contains the address of the current char position
+;
 
 setCharPos:
 	pss	r9						; save r9
 	pss	r10						; save r10
+	pss	DAR						; save DAR
 	liu	r10,screenBase.upper
 	lil	r10,screenBase.lower
 	ads	DAR,r10,ZERO			; DAR points to the screenBase
@@ -164,6 +176,7 @@ setCharPos:
 	lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
 	ads	DAR,r9,ZERO				; DAR points to screenPtr
 	sdl	r10						; store new screen address
+	pus DAR						; restore DAR
 	pus r10						; restore r10
 	pus r9						; restore r9
 	pus	PC						; rts
