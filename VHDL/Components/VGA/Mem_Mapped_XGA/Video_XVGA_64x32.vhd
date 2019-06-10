@@ -31,14 +31,16 @@ architecture rtl of Video_XVGA_64x32 is
 
 	signal horizCount: STD_LOGIC_VECTOR(10 DOWNTO 0);
 	signal vertLineCount: STD_LOGIC_VECTOR(9 DOWNTO 0);
+	signal theCharRow: STD_LOGIC_VECTOR(7 DOWNTO 0);		-- 32 rows of characters x 8 rows per character
+	signal prescaleRow: STD_LOGIC_VECTOR(1 DOWNTO 0);
 
 begin
 
 	vSync <= n_vSync;
 	hSync <= n_hSync;
 	
-	dispAddr <= vertLineCount(8 downto 4) & horizCount(9 downto 4);
-	charAddr <= dispData & vertLineCount(3 downto 1);
+	dispAddr <= theCharRow(7 downto 3) & horizCount(9 downto 4);
+	charAddr <= dispData & theCharRow(2 downto 0);
 		
 	PROCESS (clk)
 	BEGIN
@@ -66,8 +68,16 @@ begin
 		if rising_edge(clk) then
 			if horizCount < 1344 THEN
 				horizCount <= horizCount + 1;		-- End of horizontal line
+				if prescaleRow = "10" then 
+					prescaleRow <= "00";
+					theCharRow <= theCharRow+1;
+				else
+					prescaleRow <= prescaleRow+1;
+				end if;
 			else
-				horizCount<= (others => '0');
+				horizCount <= (others => '0');
+				theCharRow <= (others => '0');
+				prescaleRow <= (others => '0');
 				if vertLineCount > 805 then		-- End of frame
 					vertLineCount <= (others => '0');
 				else
