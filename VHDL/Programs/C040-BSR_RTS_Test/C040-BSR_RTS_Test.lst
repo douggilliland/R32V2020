@@ -4,6 +4,6 @@ start:
 loop:
 00000001	C0000000		bra	loop
 testBsr:
-00000002	D6000000		rts	; patch r7 as destination
+00000002	D6740000		rts	; patch r7 as destination
 didntRTS:
 00000003	C0000000		bra	didntRTS
