@@ -8,19 +8,19 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 ENTITY FlowControl IS PORT(
 	CCR				: IN STD_LOGIC_VECTOR(31 DOWNTO 0);	
 	-- Category = Flow Control
-	Op_BRA 			: IN std_logic;	-- Branch Always
-	Op_BEZ 			: IN std_logic;	-- Branch if ALU result is Equal to Zero
-	Op_BE1 			: IN std_logic;	-- Branch if ALU result is Equal to One
-	Op_BNZ 			: IN std_logic;	-- Branch if ALU result is not zero
-	Op_BCC 			: IN std_logic;	-- Branch if ALU result has Carry Clear
-	Op_BCS 			: IN std_logic;	-- Branch if ALU result has Carry Set
-	Op_BLT 			: IN std_logic;	-- Branch if ALU result is Less Than
-	Op_BGT 			: IN std_logic;	-- Branch if ALU result is Greater Than
-	Op_BEQ 			: IN std_logic;	-- Branch if ALU result is Equal
-	Op_BNE 			: IN std_logic;	-- Branch if ALU result is Equal
-	Op_BSR 			: IN std_logic;	-- Branch to subroutine
-	o_save_CCR_bits: OUT STD_LOGIC;	-- CCR bits are modified
-	o_TakeBranch	: OUT STD_LOGIC	-- Instruction results in a branch
+	Op_BRA 			: IN std_logic := '0';	-- Branch Always
+	Op_BEZ 			: IN std_logic := '0';	-- Branch if ALU result is Equal to Zero
+	Op_BE1 			: IN std_logic := '0';	-- Branch if ALU result is Equal to One
+	Op_BNZ 			: IN std_logic := '0';	-- Branch if ALU result is not zero
+	Op_BCC 			: IN std_logic := '0';	-- Branch if ALU result has Carry Clear
+	Op_BCS 			: IN std_logic := '0';	-- Branch if ALU result has Carry Set
+	Op_BLT 			: IN std_logic := '0';	-- Branch if ALU result is Less Than
+	Op_BGT 			: IN std_logic := '0';	-- Branch if ALU result is Greater Than
+	Op_BEQ 			: IN std_logic := '0';	-- Branch if ALU result is Equal
+	Op_BNE 			: IN std_logic := '0';	-- Branch if ALU result is Equal
+	Op_BSR 			: IN std_logic := '0';	-- Branch to subroutine
+--	o_save_CCR_bits: OUT STD_LOGIC := '0';	-- CCR bits are modified
+	o_TakeBranch	: OUT STD_LOGIC := '0'	-- Instruction results in a branch
 );
 END FlowControl;
 

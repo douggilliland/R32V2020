@@ -65,7 +65,8 @@ w_ALUResult <= ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when 
 					('0'&i_regDataA(30 downto 0)&i_regDataA(31)) when i_Op_LR1 = '1' else -- Needs to be rotate not shift
 					('0'&i_regDataA(0)&i_regDataA(31 downto 1)) when i_Op_RR1 = '1' else -- Needs to be rotate not shift
 					('0'&i_regDataA(31)&i_regDataA(31 downto 1)) when i_Op_RA1 = '1'else
-					('0'&i_regDataA(7 downto 0)&i_regDataA(15 downto 8)&i_regDataA(23 downto 16)&i_regDataA(31 downto 24)) when i_Op_ENS = '1';
+					('0'&i_regDataA(7 downto 0)&i_regDataA(15 downto 8)&i_regDataA(23 downto 16)&i_regDataA(31 downto 24)) when i_Op_ENS = '1' else
+					x"00000000"&'0';
 
 w_EqualToZero	<= '1' when w_ALUResult = '0'&x"00000000" else '0';
 w_NotZero		<= '1' when w_ALUResult /= '0'&x"00000000" else '0';

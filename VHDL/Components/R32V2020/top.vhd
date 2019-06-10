@@ -19,7 +19,9 @@ entity top is
 		o_SerTxd				: out std_logic;
 		--o_SerRts				: out std_logic;
 		-- VGA pins
-		o_VideoVect			: out std_logic_vector(17 downto 0); -- rrrrr,gggggg,bbbbb,hsync,vsync
+		o_VideoVect			: out std_logic_vector(2 downto 0); -- rrrrr,gggggg,bbbbb,hsync,vsync
+		o_hSync				: out std_logic;
+		o_vSync				: out std_logic;
 		-- Seven Segment LED pins
 		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
@@ -75,7 +77,7 @@ begin
 		i_InstructionRomData		=> w_InstructionRomData,
 		o_InstructionRomAddress	=> w_InstructionRomAddress,
 		o_clkInstrRomAddr			=> w_clkInstrRomAddr,
-		o_clkInstrRomData			=>	w_clkInstrRomData,
+--		o_clkInstrRomData			=>	w_clkInstrRomData,
 		-- Stack RAM connections
 		o_StackRamAddress			=> w_StackRamAddress,
 		o_dataToStackRam			=> w_dataToStackRam,
@@ -145,7 +147,9 @@ begin
 		o_txd							=> o_SerTxd,
 		o_LEDRing_out				=> o_LEDRing_out,
 		--o_rts							=> o_SerRts,
-		o_VoutVect					=> o_VideoVect,
+		o_VideoOut					=> o_VideoVect,
+		o_hSync						=> o_hSync,
+		o_vSync						=> o_vSync,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
 	);

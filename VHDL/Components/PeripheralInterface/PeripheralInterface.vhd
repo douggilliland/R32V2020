@@ -27,7 +27,9 @@ entity PeripheralInterface is
 		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
 		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
 		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
-		o_VoutVect					: out std_logic_vector(17 downto 0);					-- VGA lines
+		o_VideoOut					: out std_logic_vector(2 downto 0);						-- VGA lines r,g,b
+		o_hSync						: out std_logic := '1';
+		o_vSync						: out std_logic := '1';
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
 		);
@@ -72,6 +74,8 @@ architecture struct of PeripheralInterface is
 	signal w_ElapsedTimeCount	:	std_logic_vector(31 downto 0); 
 	
 	signal w_BUZZER				: 	std_logic := '0';
+	
+--	signal o_VideoOut 			:	std_logic_vector(4 downto 0);
 
 	constant SVGA_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"0";
 	constant KBDAT_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"1";
@@ -188,14 +192,14 @@ begin
 			n_rts 	=> o_rts
 		);
 
-	clockGen : ENTITY work.VideoClk_SVGA_800x600
+	clockGen : ENTITY work.VideoClk_XVGA_1024x768
 	PORT map (
 		areset	=> not n_reset,
 		inclk0	=> i_CLOCK_50,
 		c0			=> w_Video_Clk
 	);
 	
-	SVGA : entity work.Mem_Mapped_SVGA
+	SVGA : entity work.Mem_Mapped_XVGA
 		port map (
 			n_reset		=> n_reset,
 			Video_Clk	=> w_Video_Clk,
@@ -205,7 +209,9 @@ begin
 			cpuAddress	=> i_peripheralAddress(10 downto 0),
 			cpuDataOut	=> i_dataToPeripherals(7 downto 0),
 			dataOut		=> w_dispRamDataOutA,
-			VoutVect		=> o_VoutVect
+			VoutVect		=> o_VideoOut,
+			hSync			=> o_hSync,
+			vSync			=> o_vSync
 			);
 	
 	ps2Keyboard : entity work.ps2_keyboard_to_ascii
@@ -218,7 +224,7 @@ begin
 	);
 	
 	-- w_latKbDV1, w_latKbDV2
-	process (i_CLOCK_50, W_kbDataValid, w_kbReadData, w_kbDatCS, w_latKbStat)
+	process (i_CLOCK_50, n_reset, W_kbDataValid, w_kbReadData, w_kbDatCS, w_latKbStat)
 	begin
 		if n_reset = '0' then
 			w_latKbDV1 <= '0';

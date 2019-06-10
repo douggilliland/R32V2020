@@ -11,18 +11,18 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity vga is
+entity Video_XVGA_64x32 is
 	port (
 		charAddr : out std_LOGIC_VECTOR(10 downto 0);
 		charData : in std_LOGIC_VECTOR(7 downto 0);
 		dispAddr : out std_LOGIC_VECTOR(10 downto 0);
 		dispData : in std_LOGIC_VECTOR(7 downto 0);
  		VIDEO_CLK    	: in  std_logic;
-		Vout:      out unsigned(17 downto 0) -- rrrrr,gggggg,bbbbb,hsync,vsync
+		video	:      out unsigned(17 downto 0) -- rrrrr,gggggg,bbbbb,hsync,vsync
 	);
-end vga;
+end Video_XVGA_64x32;
 
-architecture Behavioral of vga is
+architecture Behavioral of Video_XVGA_64x32 is
 
 -------------------------------------------------------------------
 --   XGA Signal 1024 x 768 @ 60 Hz timing - USE a 65MHz Pixel Clock
