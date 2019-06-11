@@ -1,0 +1,8 @@
+; delay_microsecond Test
+versionString:	.string "R32V2020 > "		; here to prevent an empty data file
+start:
+00000000	42503801		lix	PAR,0x3801	; address of the microsecond counter
+00000001	84805000		lpl	r8			; read the counter into r8
+00000002	42503000		lix	PAR,0x3000	; Seven Segment LED lines
+00000003	85508000		spl	r8			; Write out LED bits
+00000004	C0FFFFFC		bra	start

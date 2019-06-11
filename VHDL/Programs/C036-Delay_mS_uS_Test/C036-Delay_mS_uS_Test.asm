@@ -1,7 +1,8 @@
 ; delay_mS Test
+versionString:	.string "R32V2020 > "		; here to prevent an empty data file
 start:
 	lix	PAR,0x3000	; Seven Segment LED lines
-	lix	r8,0xffff	; Turn on all LED bits
+	lix	r8,0xffff	; Turn on all LED bits should sign extend to 32-bits
 	spl	r8			; Write out LED bits
 	ads	r8,r0,r0	; clear r8
 	lil	r8,500		; count for 500 mSec

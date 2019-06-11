@@ -10,6 +10,7 @@ entity PeripheralInterface is
 	port(
 		n_reset						: in std_logic := '1';
 		i_CLOCK_50					: in std_logic := '1';
+		i_OneHotState				: in std_logic_vector(5 downto 0) := "000000";
 		-- Peripheral Memory Mapped Space Address/Data/Control lines
 		i_peripheralAddress		: in std_logic_vector(31 downto 0) := x"00000000";
 		i_dataToPeripherals		: in std_logic_vector(31 downto 0) := x"00000000";
@@ -46,7 +47,7 @@ architecture struct of PeripheralInterface is
 	signal w_SwitchesCS			:	std_logic := '0';
 	signal w_LEDsCS				:	std_logic := '0';
 	signal w_7SEGCS				:	std_logic := '0';
-	signal w_ETCounterCS			:	std_logic := '0';
+	signal w_TimersCS				:	std_logic := '0';
 	signal w_NoteCS				:	std_logic := '0';
 	signal w_LEDRingCS			:	std_logic := '0';
 	
@@ -59,6 +60,7 @@ architecture struct of PeripheralInterface is
 	signal w_kbReadData			:	std_logic_vector(6 downto 0);
 	signal q_kbReadData			:	std_logic_vector(31 downto 0);
 	signal w_dispRamDataOutA	:	std_logic_vector(7 downto 0);
+	signal o_dataFromTimers		:	std_logic_vector(31 downto 0);
 	signal w_kbDataValid			:	std_logic;
 	signal w_latKbDV1				:	std_logic := '0';
 	signal w_latKbStat			:	std_logic_vector(31 downto 0) := x"00000000";
@@ -71,7 +73,6 @@ architecture struct of PeripheralInterface is
 
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
 
-	signal w_ElapsedTimeCount	:	std_logic_vector(31 downto 0); 
 	
 	signal w_BUZZER				: 	std_logic := '0';
 	
@@ -84,7 +85,7 @@ architecture struct of PeripheralInterface is
 	constant SWS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"4";
 	constant LEDS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"5";
 	constant SEGS7_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"6";
-	constant ETCTR_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"7";
+	constant TIMERS_BASE : std_Logic_Vector(4 downto 0) := '0'&x"7";
 	constant NOTE_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"8";
 	constant LEDRNG_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"9";
 
@@ -99,7 +100,7 @@ begin
 	w_SwitchesCS	<= '1' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '0';	-- x2000-x27FF (2KB)
 	w_LEDsCS			<= '1' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '0';	-- x2800-x2FFF (2KB)
 	w_7SEGCS			<= '1' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '0';	-- x3000-x37FF (2KB)
-	w_ETCounterCS	<= '1' when i_peripheralAddress(15 downto 11) = ETCTR_BASE	else '0';	-- x3800-x3FFF (2KB)
+	w_TimersCS		<= '1' when i_peripheralAddress(15 downto 11) = TIMERS_BASE	else '0';	-- x3800-x3FFF (2KB)
 	w_NoteCS			<= '1' when i_peripheralAddress(15 downto 11) = NOTE_BASE	else '0';	-- x4000-x47FF (2KB)
 	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)
 	
@@ -110,21 +111,21 @@ begin
 		x"000000"		& w_aciaData 					when	w_aciaCS 		= '1' else
 		x"00000"&'0'	& i_DIP_switch & i_switch 	when	w_SwitchesCS 	= '1' else
 		x"000000"		& w_LatData						when	w_LEDsCS 		= '1' else
-		w_ElapsedTimeCount 								when	w_ETCounterCS	= '1' else
+		o_dataFromTimers	 								when	w_TimersCS		= '1' else
 		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
 		x"FFFFFFFF";
+
+	timers : entity work.Timer_Unit
+	port map (
+		n_reset						=> n_reset,
+		i_CLOCK_50					=> i_CLOCK_50,
+		i_OneHotState				=> i_OneHotState,
+		i_peripheralAddress		=> i_peripheralAddress,
+		i_dataToTimers				=> i_dataToPeripherals,
+		o_dataFromTimers			=> o_dataFromTimers,
+ 		i_peripheralWrStrobe		=> w_TimersCS and i_peripheralWrStrobe
+		);
 	
-	ElapsedTimeCounter : entity work.COUNT_32
-    Port map (
-    clk 		=> i_CLOCK_50,
-    clr 		=> not n_reset,
-    d   		=> x"00000000",
-    enable	=> '1',
-    inc 		=> '1',
-    dec		=> '0',
-    q   		=> w_ElapsedTimeCount
-	 );
-	 
 	MusicNoteCounter : entity work.CounterLoadable
     Port map (
     clock		=> i_CLOCK_50,
