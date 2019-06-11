@@ -42,7 +42,7 @@ begin
 	dispAddr <= theCharRow(7 downto 3) & horizCount(9 downto 4);
 	charAddr <= dispData & theCharRow(2 downto 0);
 		
-	PROCESS (clk)
+	PROCESS (clk, prescaleRow)
 	BEGIN
 	
 -- Memory Mapped XVGA Character Display
@@ -68,20 +68,20 @@ begin
 		if rising_edge(clk) then
 			if horizCount < 1344 THEN
 				horizCount <= horizCount + 1;		-- End of horizontal line
-				if prescaleRow = "10" then 
-					prescaleRow <= "00";
-					theCharRow <= theCharRow+1;
-				else
-					prescaleRow <= prescaleRow+1;
-				end if;
 			else
 				horizCount <= (others => '0');
-				theCharRow <= (others => '0');
-				prescaleRow <= (others => '0');
 				if vertLineCount > 805 then		-- End of frame
 					vertLineCount <= (others => '0');
+					theCharRow <= (others => '0');
+					prescaleRow <= (others => '0');
 				else
 					vertLineCount <= vertLineCount+1;
+					if prescaleRow = "10" then 
+						prescaleRow <= "00";
+						theCharRow <= theCharRow+1;
+					else
+						prescaleRow <= prescaleRow+1;
+					end if;
 				end if;
 			end if;
 			-- Horizontal Sync
@@ -97,7 +97,7 @@ begin
 				n_vSync <= '1';
 			end if;
 			-- Video Output Mux/Shift Register
-			if horizCount(10)='0' and vertLineCount < 512 then
+			if horizCount(10)='0' and vertLineCount < 769 then
 				video <= charData(7-to_integer(unsigned(horizCount(4 downto 1))));	-- 8:1 mux
 				hAct <= '1';	-- white-on-blue
 			else
