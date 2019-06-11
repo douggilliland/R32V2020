@@ -1,8 +1,8 @@
--- Timer Unit
+-- Timer/Counter Unit
 -- Contains three counters
---		System clock counter (when 50 MHz clock, counts are in 20 nS increments
---		microsecond counter (accuracy is 1 uS)
---		millisecond counter (accuracy is 1 mSec)
+--		System clock counter (when 50 MHz clock, counts are in 20 nS increments)
+--		microsecond counter (accuracy is +/- 1 uS)
+--		millisecond counter (accuracy is +/- 1 mSec)
 
 library ieee;
 use ieee.std_logic_1164.all;

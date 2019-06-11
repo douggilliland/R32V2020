@@ -3,6 +3,7 @@
 -- Uses 2K of Dual Ported RAM in an Altera FPGA
 -- 64x32 display
 -- 1024x768 XVGA output
+-- http://www.tinyvga.com/vga-timing/1024x768@60Hz
 -- 
 
 library ieee;
