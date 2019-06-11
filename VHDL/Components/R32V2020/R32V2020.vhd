@@ -10,6 +10,7 @@ entity R32V2020 is
 		n_reset						: in std_logic := '1';
 		-- Clocks and states
 		i_CLOCK_50					: in std_logic := '1';
+		o_OneHotState				: out std_logic_vector(5 downto 0) := "000000";
 		-- Instruction ROM connections
 		i_InstructionRomData		: in std_logic_vector(31 downto 0) := x"00000000";
 		o_InstructionRomAddress	: buffer std_logic_vector(31 downto 0) := x"00000000";
@@ -147,6 +148,7 @@ begin
 								i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  
 								i_InstructionRomData(19 downto 0)) + o_InstructionRomAddress;
 	
+	o_OneHotState <= w_OneHotState;
 	StateMachine : entity work.OneHotStateMachine
 	PORT map (
 		clk 	=> i_CLOCK_50,

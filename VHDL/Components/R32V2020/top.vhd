@@ -62,6 +62,8 @@ signal	w_dataToPeripherals		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_peripheralRdEn			: std_logic := '0';
 signal	w_peripheralWrEn			: std_logic := '0';
 
+signal	w_OneHotState				: std_logic_vector(5 downto 0) := "000000";
+
 attribute syn_keep: boolean;
 attribute syn_keep of w_dataFromPeripherals: signal is true;
 
@@ -73,6 +75,7 @@ begin
 		n_reset 						=> n_reset,
 		-- Clock
 		i_CLOCK_50 					=> i_CLOCK_50,
+		o_OneHotState				=> w_OneHotState,
 		-- Instruction ROM connections
 		i_InstructionRomData		=> w_InstructionRomData,
 		o_InstructionRomAddress	=> w_InstructionRomAddress,
@@ -98,7 +101,7 @@ begin
 	-- Instruction ROM
 	Instr_ROM : entity work.BlockRom_Instruction
 	PORT MAP (
-		address		=> w_InstructionRomAddress(8 downto 0),
+		address		=> w_InstructionRomAddress(9 downto 0),
 		clken			=> w_clkInstrRomAddr,
 		clock 		=> i_CLOCK_50,
 		q 				=> w_InstructionRomData
