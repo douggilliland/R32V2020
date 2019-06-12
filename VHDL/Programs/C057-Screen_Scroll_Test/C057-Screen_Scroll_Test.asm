@@ -1,4 +1,4 @@
-hello:	.string "R32V2020> This is a long string that I am using to test the screen functionality."
+hello:	.string "R32V2020> This is a long string."
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
 
@@ -13,20 +13,36 @@ main:
 	lix	r8,hello.lower
 	bsr	printString
 ; second copy of the string
-	lix	r8,1024			; Move cursor to two rows down on the screen
+	lix	r8,1984			; Move cursor to the bottom row of the screen
 	bsr	setCharPos
 	lix	r8,hello.lower
 	bsr	printString
 	lix	r8,5000			; wait 2.5 secs
 	bsr	delay_mS
 	bsr	scrollScreen
+	lix	r8,500			; wait 2.5 secs
+	bsr	delay_mS
+	bsr	scrollScreen
+	lix	r8,500			; wait 2.5 secs
+	bsr	delay_mS
+	bsr	scrollScreen
+	lix	r8,500			; wait 2.5 secs
+	bsr	delay_mS
+	bsr	scrollScreen
+	lix	r8,500			; wait 2.5 secs
+	bsr	delay_mS
+	bsr	scrollScreen
 loopPosition:
 	bra	loopPosition
 
 scrollScreen:
+	push	r8
+	push	r9
+	push	r10
+	push	r11
 	lix	r8,64
 	lix	r9,0
-	lix	r12,2048
+	lix	r11,2048
 loopMove:
 	add	PAR,r8,ZERO		; Source
 	lpl	r10
@@ -34,8 +50,20 @@ loopMove:
 	spl	r10
 	add	r8,r8,ONE
 	add	r9,r9,ONE
-	cmp	r8,r12
+	cmp	r8,r11
 	bne	loopMove
+	lix	r8,0x20		; fill with spaces
+	lix	r9,2048
+	lix PAR,1984
+loopFillSpaces:
+	sps	r8
+	add	PAR,PAR,ONE
+	cmp	PAR,r9
+	bne	loopFillSpaces
+	pull	r11
+	pull	r10
+	pull	r9
+	pull	r8
 	pull	PC
 
 ;
