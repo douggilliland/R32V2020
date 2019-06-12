@@ -51,8 +51,8 @@ putCharToScreen:
 ;
 
 clearScreen:
-00000022	A0409000		pss	r9				; save r9
-00000023	A0408000		pss	r8				; save r8
+00000022	A0409000		push	r9				; save r9
+00000023	A0408000		push	r8				; save r8
 00000024	40500000		lil	PAR,0x0			; screen address
 00000025	42800020		lix	r8,0x0020		; fill with spaces
 00000026	429007FE		lix r9,0x7FE		; loopCount	(1K minus 1)
@@ -61,9 +61,9 @@ looper:
 00000028	20551000		add	PAR,PAR,ONE		; Increment screen pointer
 00000029	20992000		add r9,r9,MINUS1	; decrement character counter
 0000002a	D2FFFFFD		bne	looper			; loop until complete
-0000002b	A1804000		pus	r8
-0000002c	A1904000		pus	r9
-0000002d	A1704000		pus	r7				; rts
+0000002b	A1804000		pull	r8
+0000002c	A1904000		pull	r9
+0000002d	A1704000		pull	r7				; rts
 
 ;
 ; putChar - Put a character to the screen and increment the address
@@ -74,4 +74,4 @@ looper:
 putChar:
 0000002e	81508000		spb	r8			; write character to peripheral bus
 0000002f	20551000		add	par,par,r1	; Go to the next character position	
-00000030	A1704000		pus	r7
+00000030	A1704000		pull	r7

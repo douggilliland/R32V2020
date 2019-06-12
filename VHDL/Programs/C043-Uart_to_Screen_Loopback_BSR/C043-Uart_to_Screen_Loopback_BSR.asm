@@ -51,8 +51,8 @@ putCharToScreen:
 ;
 
 clearScreen:
-	pss	r9				; save r9
-	pss	r8				; save r8
+	push	r9				; save r9
+	push	r8				; save r8
 	lil	PAR,0x0			; screen address
 	lix	r8,0x0020		; fill with spaces
 	lix r9,0x7FE		; loopCount	(1K minus 1)
@@ -61,9 +61,9 @@ looper:
 	add	PAR,PAR,ONE		; Increment screen pointer
 	add r9,r9,MINUS1	; decrement character counter
 	bne	looper			; loop until complete
-	pus	r8
-	pus	r9
-	pus	r7				; rts
+	pull	r8
+	pull	r9
+	pull	r7				; rts
 
 ;
 ; putChar - Put a character to the screen and increment the address
@@ -74,4 +74,4 @@ looper:
 putChar:
 	spb	r8			; write character to peripheral bus
 	add	par,par,r1	; Go to the next character position	
-	pus	r7
+	pull	r7

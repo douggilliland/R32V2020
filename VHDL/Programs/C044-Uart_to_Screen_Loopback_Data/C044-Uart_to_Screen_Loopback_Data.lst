@@ -52,8 +52,8 @@ putCharToScreen:
 ;
 
 clearScreen:
-00000022	A0409000		pss	r9				; save r9
-00000023	A0408000		pss	r8				; save r8
+00000022	A0409000		push	r9				; save r9
+00000023	A0408000		push	r8				; save r8
 00000024	42800000		lix	r8,0x0			; set screen position to home
 00000025	D4000018		bsr	setCharPos
 00000026	42800020		lix	r8,0x0020		; fill with spaces
@@ -62,9 +62,9 @@ looper:
 00000028	D4000006		bsr	putChar
 00000029	20992000		add r9,r9,MINUS1	; decrement character counter
 0000002a	D2FFFFFE		bne	looper			; loop until complete
-0000002b	A1804000		pus	r8
-0000002c	A1904000		pus	r9
-0000002d	A1704000		pus	PC				; rts
+0000002b	A1804000		pull	r8
+0000002c	A1904000		pull	r9
+0000002d	A1704000		pull	PC				; rts
 
 ;
 ; putChar - Put a character to the screen and increment the address
@@ -73,9 +73,9 @@ looper:
 ;
 
 putChar:
-0000002e	A040A000		pss	r10					; save r10
-0000002f	A0409000		pss	r9					; save r9
-00000030	A0406000		pss	DAR
+0000002e	A040A000		push	r10					; save r10
+0000002f	A0409000		push	r9					; save r9
+00000030	A0406000		push	DAR
 00000031	41900000		liu	r9,screenPtr.upper
 00000032	40900003		lil	r9,screenPtr.lower	; r9 is the ptr to screenPtr
 00000033	20690000		add	DAR,r9,r0			; DAR points to screenPtr
@@ -84,10 +84,10 @@ putChar:
 00000036	81508000		spb	r8					; write character to screen
 00000037	20AA1000		add	r10,r10,ONE			; increment screen pointer
 00000038	6560A000		sdl	r10					; save new pointer
-00000039	A1604000		pus DAR					; restore r9
-0000003a	A1904000		pus r9					; restore r9
-0000003b	A1A04000		pus r10					; restore r10
-0000003c	A1704000		pus	PC					; rts
+00000039	A1604000		pull DAR					; restore r9
+0000003a	A1904000		pull r9					; restore r9
+0000003b	A1A04000		pull r10					; restore r10
+0000003c	A1704000		pull	PC					; rts
 
 ; setCharPos - Move to x,y position
 ; x,y value is passed in r8
@@ -97,8 +97,8 @@ putChar:
 ; screenPtr contains the address of the current char position
 
 setCharPos:
-0000003d	A0409000		pss	r9						; save r9
-0000003e	A040A000		pss	r10						; save r10
+0000003d	A0409000		push	r9						; save r9
+0000003e	A040A000		push	r10						; save r10
 0000003f	41A00000		liu	r10,screenBase.upper
 00000040	40A00004		lil	r10,screenBase.lower
 00000041	206A0000		add	DAR,r10,ZERO			; DAR points to the screenBase
@@ -108,6 +108,6 @@ setCharPos:
 00000045	40900003		lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
 00000046	20690000		add	DAR,r9,ZERO				; DAR points to screenPtr
 00000047	6560A000		sdl	r10						; store new screen address
-00000048	A1A04000		pus r10						; restore r10
-00000049	A1904000		pus r9						; restore r9
-0000004a	A1704000		pus	PC						; rts
+00000048	A1A04000		pull r10						; restore r10
+00000049	A1904000		pull r9						; restore r9
+0000004a	A1704000		pull	PC						; rts

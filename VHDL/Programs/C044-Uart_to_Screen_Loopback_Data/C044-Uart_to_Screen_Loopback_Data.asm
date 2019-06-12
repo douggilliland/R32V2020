@@ -52,8 +52,8 @@ putCharToScreen:
 ;
 
 clearScreen:
-	pss	r9				; save r9
-	pss	r8				; save r8
+	push	r9				; save r9
+	push	r8				; save r8
 	lix	r8,0x0			; set screen position to home
 	bsr	setCharPos
 	lix	r8,0x0020		; fill with spaces
@@ -62,9 +62,9 @@ looper:
 	bsr	putChar
 	add r9,r9,MINUS1	; decrement character counter
 	bne	looper			; loop until complete
-	pus	r8
-	pus	r9
-	pus	PC				; rts
+	pull	r8
+	pull	r9
+	pull	PC				; rts
 
 ;
 ; putChar - Put a character to the screen and increment the address
@@ -73,9 +73,9 @@ looper:
 ;
 
 putChar:
-	pss	r10					; save r10
-	pss	r9					; save r9
-	pss	DAR
+	push	r10					; save r10
+	push	r9					; save r9
+	push	DAR
 	liu	r9,screenPtr.upper
 	lil	r9,screenPtr.lower	; r9 is the ptr to screenPtr
 	add	DAR,r9,r0			; DAR points to screenPtr
@@ -84,10 +84,10 @@ putChar:
 	spb	r8					; write character to screen
 	add	r10,r10,ONE			; increment screen pointer
 	sdl	r10					; save new pointer
-	pus DAR					; restore r9
-	pus r9					; restore r9
-	pus r10					; restore r10
-	pus	PC					; rts
+	pull DAR					; restore r9
+	pull r9					; restore r9
+	pull r10					; restore r10
+	pull	PC					; rts
 
 ; setCharPos - Move to x,y position
 ; x,y value is passed in r8
@@ -97,8 +97,8 @@ putChar:
 ; screenPtr contains the address of the current char position
 
 setCharPos:
-	pss	r9						; save r9
-	pss	r10						; save r10
+	push	r9						; save r9
+	push	r10						; save r10
 	liu	r10,screenBase.upper
 	lil	r10,screenBase.lower
 	add	DAR,r10,ZERO			; DAR points to the screenBase
@@ -108,6 +108,6 @@ setCharPos:
 	lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
 	add	DAR,r9,ZERO				; DAR points to screenPtr
 	sdl	r10						; store new screen address
-	pus r10						; restore r10
-	pus r9						; restore r9
-	pus	PC						; rts
+	pull r10						; restore r10
+	pull r9						; restore r9
+	pull	PC						; rts

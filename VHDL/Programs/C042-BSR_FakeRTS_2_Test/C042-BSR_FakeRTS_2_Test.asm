@@ -4,6 +4,6 @@ start:
 loop:
 	bra	loop
 testBsr:
-	pus	r7
+	push	r7
 didntRTS:
 	bra	didntRTS

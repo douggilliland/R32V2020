@@ -19,10 +19,10 @@ reload:
 	lix	r8,1
 loopLEDRing:
 	bsr	putValueToRingLEDs	; put the switches to the 7 Segment LED
-	pss	r8
+	push	r8
 	lix	r8,250				; wait for 1 second
 	bsr	delay_mS
-	pus	r8
+	pull	r8
 	sl1	r8,r8
 	cmp	r8,r9
 	bne	loopLEDRing
@@ -32,20 +32,20 @@ loopLEDRing:
 ; passed r8 - value to send to the ring LEDs
 
 putValueToRingLEDs:
-	pss	PAR
-	pss	r8
+	push	PAR
+	push	r8
 	lix	PAR,0x4800		; Ring LED address
 	spl	r8				; Write out LED bits
-	pus	r8
-	pus	PAR
-	pus	PC
+	pull	r8
+	pull	PAR
+	pull	PC
 
 ; delay_mS - delay for the number of mSecs passed in r8
 ; pass mSec delay in r8
 ; Uses routine uses r9
 
 delay_mS:
-	pss	r9
+	push	r9
 	lix	PAR,0x3802		; address of the mSec counter
 	lpl	r9				; read the peripheral counter into r9
 	add	r8,r9,r8		; terminal counter to wait until is in r8
@@ -53,8 +53,8 @@ loop_delay_mS:
 	lpl	r9				; check the elapsed time counter
 	cmp	r8,r9
 	blt	loop_delay_mS
-	pus	r9
-	pus	PC
+	pull	r9
+	pull	PC
 	
 ;
 ; readSws
@@ -63,15 +63,15 @@ loop_delay_mS:
 ;
 
 readSws:
-	pss	PAR
-	pss	r9
+	push	PAR
+	push	r9
 	lix	r9,0x7
 	lix	PAR,0x2000	; Switches address
 	lpl	r8			; Read switches into r9
 	xor	r8,r8,r9
-	pus	r9
-	pus	PAR
-	pus	PC
+	pull	r9
+	pull	PAR
+	pull	PC
 
 ;
 ; getPS2Char
@@ -79,8 +79,8 @@ readSws:
 ;
 
 getPS2Char:
-	pss	r9
-	pss	PAR
+	push	r9
+	push	PAR
 	lix	PAR,0x1000	; PS/2 Status
 waitPS2RxStat:
 	lpl	r9			; Read Status into r9
@@ -91,9 +91,9 @@ getCharFromPS2:
 	lpl	r8
 	lix	PAR,0x1000	; PS/2 Status
 whilePS2RxStat:
-	pus	PAR
-	pus	r9
-	pus	PC
+	pull	PAR
+	pull	r9
+	pull	PC
 
 ;
 ; putUARTChar - Put a character to the UART
@@ -101,10 +101,10 @@ whilePS2RxStat:
 ;
 
 putUARTChar:
-	pss	r8
-	pss	r9
-	pss	r10
-	pss	PAR
+	push	r8
+	push	r9
+	push	r10
+	push	PAR
 	lil	r10,0x2
 	lix	PAR,0x1800	; UART Status
 waitUartTxStat:
@@ -113,11 +113,11 @@ waitUartTxStat:
 	bez waitUartTxStat
 	lix PAR,0x1801
 	spl	r8			; echo the character
-	pus	PAR
-	pus	r10
-	pus	r9
-	pus	r8
-	pus	PC
+	pull	PAR
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
 	
 ;
 ; printString - Print a screen to the current screen position
@@ -127,9 +127,9 @@ waitUartTxStat:
 ;
 
 printString:
-	pss	r8				; save r8
-	pss	r9				; save r9
-	pss	DAR
+	push	r8				; save r8
+	push	r9				; save r9
+	push	DAR
 	add	DAR,r8,ZERO		; set the start of the string
 nextLong:
 	ldl	r8				; get the string
@@ -157,10 +157,10 @@ lastOfLong:
 	add	DAR,DAR,ONE
 	bra	nextLong
 donePrStr:
-	pus	DAR				; restore DAR
-	pus	r9				; restore r9
-	pus	r8				; restore r8
-	pus	PC				; rts
+	pull	DAR				; restore DAR
+	pull	r9				; restore r9
+	pull	r8				; restore r8
+	pull	PC				; rts
 	
 ;
 ; clearScreen - Clear the screen routine
@@ -171,8 +171,8 @@ donePrStr:
 ;
 
 clearScreen:
-	pss	r9				; save r9
-	pss	r8				; save r8
+	push	r9				; save r9
+	push	r8				; save r8
 	lix	r8,0x0			; set screen position to home
 	bsr	setCharPos
 	lix	r8,0x0020		; fill with spaces
@@ -181,9 +181,9 @@ looper:
 	bsr	putCharToScreen
 	add r9,r9,MINUS1	; decrement character counter
 	bne	looper			; loop until complete
-	pus	r8
-	pus	r9
-	pus	PC				; rts
+	pull	r8
+	pull	r9
+	pull	PC				; rts
 
 ;
 ; putCharToScreen - Put a character to the screen and increment the address
@@ -192,10 +192,10 @@ looper:
 ;
 
 putCharToScreen:
-	pss	r10					; save r10
-	pss	r9					; save r9
-	pss	DAR
-	pss	PAR
+	push	r10					; save r10
+	push	r9					; save r9
+	push	DAR
+	push	PAR
 	lix	r9,screenPtr.lower	; r9 is the ptr to screenPtr
 	add	DAR,r9,ZERO			; DAR points to screenPtr
 	ldl	r10					; r10 has screenPtr value
@@ -203,11 +203,11 @@ putCharToScreen:
 	spb	r8					; write character to screen
 	add	r10,r10,ONE			; increment screen pointer
 	sdl	r10					; save new pointer
-	pus PAR					; restore PAR
-	pus DAR					; restore DAR
-	pus r9					; restore r9
-	pus r10					; restore r10
-	pus	PC					; rts
+	pull PAR					; restore PAR
+	pull DAR					; restore DAR
+	pull r9					; restore r9
+	pull r10					; restore r10
+	pull	PC					; rts
 
 ;
 ; setCharPos - Move to x,y position
@@ -219,9 +219,9 @@ putCharToScreen:
 ;
 
 setCharPos:
-	pss	r9						; save r9
-	pss	r10						; save r10
-	pss	DAR						; save DAR
+	push	r9						; save r9
+	push	r10						; save r10
+	push	DAR						; save DAR
 	liu	r10,screenBase.upper
 	lil	r10,screenBase.lower
 	add	DAR,r10,ZERO			; DAR points to the screenBase
@@ -231,7 +231,7 @@ setCharPos:
 	lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
 	add	DAR,r9,ZERO				; DAR points to screenPtr
 	sdl	r10						; store new screen address
-	pus DAR						; restore DAR
-	pus r10						; restore r10
-	pus r9						; restore r9
-	pus	PC						; rts
+	pull DAR						; restore DAR
+	pull r10						; restore r10
+	pull r9						; restore r9
+	pull	PC						; rts

@@ -15,7 +15,7 @@ start:
 ; delay_mS - delay for the number of mSecs passed in r8
 ; routine uses r8,r9
 delay_mS:
-	pss	r9
+	push	r9
 	lix	PAR,0x3802		; address of the mSec counter
 	lpl	r9				; read the peripheral counter into r9
 	add	r8,r9,r8		; terminal counter to wait until is in r8
@@ -23,5 +23,5 @@ loop_delay_mS:
 	lpl	r9				; check the elapsed time counter
 	cmp	r8,r9
 	blt	loop_delay_mS
-	pus	r9
-	pus	r7
+	pull	r9
+	pull	r7

@@ -4,18 +4,18 @@ start:
 	lix	r9,0x0009
 	lix	r10,0x0010
 	lix	r11,0x0011
-	pss	r8
-	pss	r9
-	pss	r10
-	pss	r11
+	push	r8
+	push	r9
+	push	r10
+	push	r11
 	lix	r8,0x8888
 	lix	r9,0x9999
 	lix	r10,0x1010
 	lix	r11,0x1111
-	pus	r11
-	pus	r10
-	pus	r9
-	pus	r8
+	pull	r11
+	pull	r10
+	pull	r9
+	pull	r8
 	lil	r12,0x8
 	cmp	r12,r8
 	bne	fail

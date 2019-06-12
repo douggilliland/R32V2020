@@ -63,8 +63,8 @@ putCharToScreen:
 
 clearScreen:
 	add	sar,sar,ONE	; make room for the return address that was stored
-	pss	r8			; save r8 on stack
-	pss	r9			; save r9 
+	push	r8			; save r8 on stack
+	push	r9			; save r9 
 	add par,r0,r0	; start of screen character memory
 	add r8,r0,r0	; clear the character
 	lil	r8,0x0020	; fill with spaces
@@ -75,8 +75,8 @@ looper:
 	add	par,par,r1	; Increment screen pointer
 	add r9,r9,r2	; decrement character counter
 	bne	looper		; loop until complete
-	pus	r9			; pull r9 off stack
-	pus	r8			; pull r8 off stack
+	pull	r9			; pull r9 off stack
+	pull	r8			; pull r8 off stack
 	add	sar,sar,MINUS1
 	lss	r10			; get the return address off the stack
 	add	r10,r10,r1	; skip the call
