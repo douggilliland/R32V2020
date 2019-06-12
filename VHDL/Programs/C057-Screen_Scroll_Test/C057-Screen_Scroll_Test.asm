@@ -17,7 +17,7 @@ main:
 	bsr	setCharPos
 	lix	r8,hello.lower
 	bsr	printString
-	lix	r8,2500			; wait 2.5 secs
+	lix	r8,5000			; wait 2.5 secs
 	bsr	delay_mS
 	bsr	scrollScreen
 loopPosition:
