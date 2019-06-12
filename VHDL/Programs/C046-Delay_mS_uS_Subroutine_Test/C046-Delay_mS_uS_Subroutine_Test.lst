@@ -14,7 +14,7 @@ start:
 00000009	428003E8		lix	r8,1000			; count for 1 Sec
 0000000a	D4000005		bsr	delay_mS		; call delay_ms
 0000000b	A1804000		pus	r8				; restore r8
-0000000c	20881000		ads	r8,r8,ONE
+0000000c	20881000		add	r8,r8,ONE
 0000000d	65608000		sdl	r8
 0000000e	C0FFFFF6		bra	start
 
@@ -29,7 +29,7 @@ delay_mS:
 00000012	21889000		mul	r8,r8,r9	; total number of clocks to count
 00000013	42503800		lix	PAR,0x3800	; address of the elapsed time counter
 00000014	84905000		lpl	r9			; read the peripheral counter into r9
-00000015	20898000		ads	r8,r9,r8	; terminal counter to wait until is in r8
+00000015	20898000		add	r8,r9,r8	; terminal counter to wait until is in r8
 loop_delay_mS:
 00000016	84905000		lpl	r9			; check the elapsed time counter
 00000017	30398000		cmp	r9,r8

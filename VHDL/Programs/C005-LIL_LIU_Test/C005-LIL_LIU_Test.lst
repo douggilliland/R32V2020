@@ -1,6 +1,6 @@
 ; r0 is 0 which is also the start of the program
 start:
-00000000	20800000		ads r8,r0,r0	; clears r8
+00000000	20800000		add r8,r0,r0	; clears r8
 loopsBackToHere:
 00000001	41801234		liu r8,0x1234	; Load upper short of r8 with 0x1234
 00000002	40805678		lil r8,0x5678	; Load lower short of r8 with 0x5678

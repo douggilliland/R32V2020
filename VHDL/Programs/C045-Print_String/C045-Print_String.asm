@@ -14,7 +14,7 @@ readUartStatus:
 	lil	par,0x1800	; UART Status
 waitUartRxChar:
 	lpl	r9			; Read Status into r9
-	ars r9,r9,r1
+	and r9,r9,r1
 	bez waitUartRxChar
 getCharFromUart:
 	lil par,0x1801
@@ -33,31 +33,31 @@ printString:
 	pss	r8				; save r8
 	pss	r9				; save r9
 	pss	DAR
-	ads	DAR,r8,ZERO		; set the start of the string
+	add	DAR,r8,ZERO		; set the start of the string
 nextLong:
 	ldl	r8				; get the string
 	ens	r8,r8			; swap the endian
 	lix	r9,0xff			; mask for null termination check
-	ars	r9,r9,r8
+	and	r9,r9,r8
 	bez	donePrStr
 	bsr	putChar			; write out the character
-	rs8	r8,r8
+	sr8	r8,r8
 	lix	r9,0xff			; mask for null termination check
-	ars	r9,r9,r8
+	and	r9,r9,r8
 	bez	donePrStr
 	bsr	putChar			; write out the character
-	rs8	r8,r8
+	sr8	r8,r8
 	lix	r9,0xff			; mask for null termination check
-	ars	r9,r9,r8
+	and	r9,r9,r8
 	bez	donePrStr
 	bsr	putChar			; write out the character
-	rs8	r8,r8
+	sr8	r8,r8
 	lix	r9,0xff			; mask for null termination check
-	ars	r9,r9,r8
+	and	r9,r9,r8
 	bez	donePrStr
 	bsr	putChar			; write out the character
 lastOfLong:
-	ads	DAR,DAR,ONE
+	add	DAR,DAR,ONE
 	bra	nextLong
 donePrStr:
 	pus	DAR				; restore DAR
@@ -82,7 +82,7 @@ clearScreen:
 	lix r9,0x7FE		; loopCount	(1K minus 1)
 looper:
 	bsr	putChar
-	ads r9,r9,MINUS1	; decrement character counter
+	add r9,r9,MINUS1	; decrement character counter
 	bne	looper			; loop until complete
 	pus	r8
 	pus	r9
@@ -100,11 +100,11 @@ putChar:
 	pss	DAR
 	liu	r9,screenPtr.upper
 	lil	r9,screenPtr.lower	; r9 is the ptr to screenPtr
-	ads	DAR,r9,r0			; DAR points to screenPtr
+	add	DAR,r9,r0			; DAR points to screenPtr
 	ldl	r10					; r10 has screenPtr value
-	ads	PAR,r10,r0			; Set PAR to screenPtr
+	add	PAR,r10,r0			; Set PAR to screenPtr
 	spb	r8					; write character to screen
-	ads	r10,r10,ONE			; increment screen pointer
+	add	r10,r10,ONE			; increment screen pointer
 	sdl	r10					; save new pointer
 	pus DAR					; restore r9
 	pus r9					; restore r9
@@ -123,12 +123,12 @@ setCharPos:
 	pss	r10						; save r10
 	liu	r10,screenBase.upper
 	lil	r10,screenBase.lower
-	ads	DAR,r10,ZERO			; DAR points to the screenBase
+	add	DAR,r10,ZERO			; DAR points to the screenBase
 	ldl	r10						; r10 has the screen base address
-	ads	r10,r8,ZERO				; add passed position to base
+	add	r10,r8,ZERO				; add passed position to base
 	liu	r9,screenPtr.upper
 	lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
-	ads	DAR,r9,ZERO				; DAR points to screenPtr
+	add	DAR,r9,ZERO				; DAR points to screenPtr
 	sdl	r10						; store new screen address
 	pus r10						; restore r10
 	pus r9						; restore r9

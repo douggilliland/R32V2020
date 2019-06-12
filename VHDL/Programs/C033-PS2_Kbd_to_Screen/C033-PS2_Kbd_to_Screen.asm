@@ -1,36 +1,36 @@
 ; Read PS/2 keyboard character and put it to the Screen
 start:
-	ads	SAR,r0,r0	; Initialize Stack Pointer (used for return address)
+	add	SAR,r0,r0	; Initialize Stack Pointer (used for return address)
 	sss	r7			; push the call address -1
 	bra	clearScreen
-	ads	par,r0,r0	; start of screen
+	add	par,r0,r0	; start of screen
 readDataMemory:
-	ads	dar,r0,r0	; clear the data memory addr pointer
+	add	dar,r0,r0	; clear the data memory addr pointer
 	ldl	r8			; get the long again
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	sss	r7
 	bra	putChar
-	ads	dar,dar,r1	; increment the data pointer
+	add	dar,dar,r1	; increment the data pointer
 	ldl	r8			; get the long again
 	ens r8,r8		; endian swap for right byte order
 	sss	r7			; store PC on the stack
 	bra	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	sss	r7
 	bra	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	sss	r7
 	bra	putChar
 readKBStat:
@@ -38,16 +38,16 @@ readKBStat:
 	lix	r12,0x1000
 	lix	r13,0x0010	; 16th column on the screen (middle of the first line)
 loopStatRead:
-	ads	par,r12,r0	; kb status address
+	add	par,r12,r0	; kb status address
 loopReadKbStat:
 	lpl	r11			; get the kb status value
-	ars	r11,r11,r1	; test the data present bit
+	and	r11,r11,r1	; test the data present bit
 	bez	loopReadKbStat
 readKeyboardData:
-	ads	par,r14,r0	; keyboard data port address
+	add	par,r14,r0	; keyboard data port address
 	lpl	r8			; read the keyboard data (r8 used as the character to put to screen)
 storeToScreen:
-	ads par,r13,r0	; Screen address
+	add par,r13,r0	; Screen address
 	sss	r7			; push return address-1
 	bra	putChar
 	bra	loopStatRead
@@ -60,17 +60,17 @@ storeToScreen:
 ;
 
 clearScreen:
-	ads par,r0,r0	; start of screen character memory
+	add par,r0,r0	; start of screen character memory
 	lix	r8,0x0020	; fill with spaces
 	lix r9,0x7FE	; loopCount	(1K minus 1)
 looper:
 	spb r8			; put the character to the screen
-	ads	par,par,r1	; Increment screen pointer
-	ads r9,r9,r2	; decrement character counter
+	add	par,par,r1	; Increment screen pointer
+	add r9,r9,r2	; decrement character counter
 	bne	looper		; loop until complete
 	lss	r9			; load calling address
-	ads	r9,r9,r1	; skip the call
-	ads	r7,r9,r1	; jump to the next address (rts)
+	add	r9,r9,r1	; skip the call
+	add	r7,r9,r1	; jump to the next address (rts)
 
 ;
 ; putChar - Put a character to the screen and increment the address
@@ -80,8 +80,8 @@ looper:
 
 putChar:
 	spb	r8			; write character to peripheral bus
-	ads	par,par,r1	; Go to the next character position	
+	add	par,par,r1	; Go to the next character position	
 	lss	r9			; load calling address
-	ads	r9,r9,r1	; inc by 1 to skip the call
-	ads	r7,r9,r1	; jump to the next address (rts)
+	add	r9,r9,r1	; inc by 1 to skip the call
+	add	r7,r9,r1	; jump to the next address (rts)
 	

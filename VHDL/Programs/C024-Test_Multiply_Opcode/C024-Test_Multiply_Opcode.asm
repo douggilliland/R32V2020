@@ -4,9 +4,9 @@ start:
 	cmp	r8,r1
 	bne	failed
 	bcs	failed
-	ads	r8,r1,r1	; two
+	add	r8,r1,r1	; two
 	mul	r9,r8,r8	; four
-	ads	r10,r8,r8	; four
+	add	r10,r8,r8	; four
 	cmp	r9,r10
 	bne	failed
 	bcs	failed
@@ -16,16 +16,16 @@ start:
 	bra	failed
 skip1:
 passed:		; send GOOD to the 7 Segment LED
-	ads	r11,r0,r0
+	add	r11,r0,r0
 	lil	r11,0x3000
-	ads	par,r11,r0
+	add	par,r11,r0
 	lil	r10,0x900D
 	spl	r10
 	hcf
 failed:		; send 0BAD to the 7 Segment LED
-	ads	r11,r0,r0
+	add	r11,r0,r0
 	lil	r11,0x3000
-	ads	par,r11,r0
+	add	par,r11,r0
 	lil	r10,0x0BAD
 	spl	r10
 	hcf

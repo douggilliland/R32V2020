@@ -2,44 +2,44 @@ hello:	.string "R32V2020"
 ; Read UART character and put it to the SVGA Display
 start:
 00000000	D4000022		bsr	clearScreen
-00000001	20500000		ads	par,r0,r0	; start of screen
+00000001	20500000		add	par,r0,r0	; start of screen
 readDataMemory:
-00000002	20600000		ads	dar,r0,r0	; clear the data memory addr pointer
+00000002	20600000		add	dar,r0,r0	; clear the data memory addr pointer
 00000003	64806000		ldl	r8			; get the long again
 00000004	31808000		ens r8,r8		; endian swap for right byte order
 00000005	D4000029		bsr	putChar
-00000006	28808000		rs8	r8,r8
+00000006	28808000		sr8	r8,r8
 00000007	D4000027		bsr	putChar
-00000008	28808000		rs8	r8,r8
+00000008	28808000		sr8	r8,r8
 00000009	D4000025		bsr	putChar
-0000000a	28808000		rs8	r8,r8
+0000000a	28808000		sr8	r8,r8
 0000000b	D4000023		bsr	putChar
-0000000c	20661000		ads	dar,dar,r1	; increment the data pointer
+0000000c	20661000		add	dar,dar,r1	; increment the data pointer
 0000000d	64806000		ldl	r8			; get the long again
 0000000e	31808000		ens r8,r8		; endian swap for right byte order
 0000000f	D400001F		bsr	putChar
-00000010	28808000		rs8	r8,r8
+00000010	28808000		sr8	r8,r8
 00000011	D400001D		bsr	putChar
-00000012	28808000		rs8	r8,r8
+00000012	28808000		sr8	r8,r8
 00000013	D400001B		bsr	putChar
-00000014	28808000		rs8	r8,r8
+00000014	28808000		sr8	r8,r8
 00000015	D4000019		bsr	putChar
 screenStuff:
-00000016	20B50000		ads	r11,par,r0	; save the screen pointer in r11
+00000016	20B50000		add	r11,par,r0	; save the screen pointer in r11
 readUartStatus:
 00000017	40501800		lil	par,0x1800	; UART Status
 waitUartRxChar:
 00000018	84905000		lpl	r9			; Read Status into r9
-00000019	23991000		ars r9,r9,r1
+00000019	23991000		and r9,r9,r1
 0000001a	C3FFFFFE		bez waitUartRxChar
 getCharFromUart:
 0000001b	40501801		lil par,0x1801
 0000001c	84805000		lpl	r8
 0000001d	85508000		spl	r8			; echo the character
 putCharToScreen:
-0000001e	205B0000		ads	par,r11,r0	; get the screen pointer
+0000001e	205B0000		add	par,r11,r0	; get the screen pointer
 0000001f	D400000F		bsr	putChar		; put the character to the screen
-00000020	20B50000		ads	r11,par,r0	; save the screen pointer in r11
+00000020	20B50000		add	r11,par,r0	; save the screen pointer in r11
 00000021	C0FFFFF6		bra	readUartStatus
 
 ;
@@ -58,8 +58,8 @@ clearScreen:
 00000026	429007FE		lix r9,0x7FE		; loopCount	(1K minus 1)
 looper:
 00000027	81508000		spb r8				; put the character to the screen
-00000028	20551000		ads	PAR,PAR,ONE		; Increment screen pointer
-00000029	20992000		ads r9,r9,MINUS1	; decrement character counter
+00000028	20551000		add	PAR,PAR,ONE		; Increment screen pointer
+00000029	20992000		add r9,r9,MINUS1	; decrement character counter
 0000002a	D2FFFFFD		bne	looper			; loop until complete
 0000002b	A1804000		pus	r8
 0000002c	A1904000		pus	r9
@@ -73,5 +73,5 @@ looper:
 
 putChar:
 0000002e	81508000		spb	r8			; write character to peripheral bus
-0000002f	20551000		ads	par,par,r1	; Go to the next character position	
+0000002f	20551000		add	par,par,r1	; Go to the next character position	
 00000030	A1704000		pus	r7

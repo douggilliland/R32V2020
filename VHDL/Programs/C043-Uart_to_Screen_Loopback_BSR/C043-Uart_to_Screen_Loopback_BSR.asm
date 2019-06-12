@@ -2,44 +2,44 @@ hello:	.string "R32V2020"
 ; Read UART character and put it to the SVGA Display
 start:
 	bsr	clearScreen
-	ads	par,r0,r0	; start of screen
+	add	par,r0,r0	; start of screen
 readDataMemory:
-	ads	dar,r0,r0	; clear the data memory addr pointer
+	add	dar,r0,r0	; clear the data memory addr pointer
 	ldl	r8			; get the long again
 	ens r8,r8		; endian swap for right byte order
 	bsr	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	bsr	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	bsr	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	bsr	putChar
-	ads	dar,dar,r1	; increment the data pointer
+	add	dar,dar,r1	; increment the data pointer
 	ldl	r8			; get the long again
 	ens r8,r8		; endian swap for right byte order
 	bsr	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	bsr	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	bsr	putChar
-	rs8	r8,r8
+	sr8	r8,r8
 	bsr	putChar
 screenStuff:
-	ads	r11,par,r0	; save the screen pointer in r11
+	add	r11,par,r0	; save the screen pointer in r11
 readUartStatus:
 	lil	par,0x1800	; UART Status
 waitUartRxChar:
 	lpl	r9			; Read Status into r9
-	ars r9,r9,r1
+	and r9,r9,r1
 	bez waitUartRxChar
 getCharFromUart:
 	lil par,0x1801
 	lpl	r8
 	spl	r8			; echo the character
 putCharToScreen:
-	ads	par,r11,r0	; get the screen pointer
+	add	par,r11,r0	; get the screen pointer
 	bsr	putChar		; put the character to the screen
-	ads	r11,par,r0	; save the screen pointer in r11
+	add	r11,par,r0	; save the screen pointer in r11
 	bra	readUartStatus
 
 ;
@@ -58,8 +58,8 @@ clearScreen:
 	lix r9,0x7FE		; loopCount	(1K minus 1)
 looper:
 	spb r8				; put the character to the screen
-	ads	PAR,PAR,ONE		; Increment screen pointer
-	ads r9,r9,MINUS1	; decrement character counter
+	add	PAR,PAR,ONE		; Increment screen pointer
+	add r9,r9,MINUS1	; decrement character counter
 	bne	looper			; loop until complete
 	pus	r8
 	pus	r9
@@ -73,5 +73,5 @@ looper:
 
 putChar:
 	spb	r8			; write character to peripheral bus
-	ads	par,par,r1	; Go to the next character position	
+	add	par,par,r1	; Go to the next character position	
 	pus	r7

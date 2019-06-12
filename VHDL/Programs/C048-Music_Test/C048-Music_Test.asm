@@ -13,7 +13,7 @@ nextNote:
 	lix	r8,10			; count for 100 mSec
 	bsr	delay_mS		; call delay_ms
 	pus	r8				; restore r8
-	ads	r8,r8,ONE
+	add	r8,r8,ONE
 	bsr setNote
 	cmp	r8,r9
 	bne	nextNote
@@ -33,7 +33,7 @@ delay_mS:
 	mul	r8,r8,r9	; total number of clocks to count
 	lix	PAR,0x3800	; address of the elapsed time counter
 	lpl	r9			; read the peripheral counter into r9
-	ads	r8,r9,r8	; terminal counter to wait until is in r8
+	add	r8,r9,r8	; terminal counter to wait until is in r8
 loop_delay_mS:
 	lpl	r9			; check the elapsed time counter
 	cmp	r9,r8
@@ -70,7 +70,7 @@ enableBuzzer:
 	liu	PAR,0x0000
 	lil	PAR,0x2800
 	lpl	r8
-	ors	r8,r8,r9
+	or	r8,r8,r9
 	spl	r8
 	pus	PAR
 	pus	r8
@@ -89,7 +89,7 @@ disableBuzzer:
 	liu	PAR,0x0000
 	lil	PAR,0x2800
 	lpl	r8
-	ars	r8,r8,r9
+	and	r8,r8,r9
 	spl	r8
 	pus	PAR
 	pus	r8

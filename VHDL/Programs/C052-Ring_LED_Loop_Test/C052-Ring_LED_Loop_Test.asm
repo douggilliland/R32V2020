@@ -23,7 +23,7 @@ loopLEDRing:
 	lix	r8,250				; wait for 1 second
 	bsr	delay_mS
 	pus	r8
-	ls1	r8,r8
+	sl1	r8,r8
 	cmp	r8,r9
 	bne	loopLEDRing
 	bra	reload
@@ -48,7 +48,7 @@ delay_mS:
 	pss	r9
 	lix	PAR,0x3802		; address of the mSec counter
 	lpl	r9				; read the peripheral counter into r9
-	ads	r8,r9,r8		; terminal counter to wait until is in r8
+	add	r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
 	lpl	r9				; check the elapsed time counter
 	cmp	r8,r9
@@ -68,7 +68,7 @@ readSws:
 	lix	r9,0x7
 	lix	PAR,0x2000	; Switches address
 	lpl	r8			; Read switches into r9
-	xrs	r8,r8,r9
+	xor	r8,r8,r9
 	pus	r9
 	pus	PAR
 	pus	PC
@@ -84,7 +84,7 @@ getPS2Char:
 	lix	PAR,0x1000	; PS/2 Status
 waitPS2RxStat:
 	lpl	r9			; Read Status into r9
-	ars r9,r9,ONE
+	and r9,r9,ONE
 	bez waitPS2RxStat
 getCharFromPS2:
 	lix PAR,0x0800
@@ -109,7 +109,7 @@ putUARTChar:
 	lix	PAR,0x1800	; UART Status
 waitUartTxStat:
 	lpl	r9			; Read Status into r9
-	ars r9,r9,r10
+	and r9,r9,r10
 	bez waitUartTxStat
 	lix PAR,0x1801
 	spl	r8			; echo the character
@@ -130,31 +130,31 @@ printString:
 	pss	r8				; save r8
 	pss	r9				; save r9
 	pss	DAR
-	ads	DAR,r8,ZERO		; set the start of the string
+	add	DAR,r8,ZERO		; set the start of the string
 nextLong:
 	ldl	r8				; get the string
 	ens	r8,r8			; swap the endian
 	lix	r9,0xff			; mask for null termination check
-	ars	r9,r9,r8
+	and	r9,r9,r8
 	bez	donePrStr
 	bsr	putCharToScreen			; write out the character
-	rs8	r8,r8
+	sr8	r8,r8
 	lix	r9,0xff			; mask for null termination check
-	ars	r9,r9,r8
+	and	r9,r9,r8
 	bez	donePrStr
 	bsr	putCharToScreen			; write out the character
-	rs8	r8,r8
+	sr8	r8,r8
 	lix	r9,0xff			; mask for null termination check
-	ars	r9,r9,r8
+	and	r9,r9,r8
 	bez	donePrStr
 	bsr	putCharToScreen			; write out the character
-	rs8	r8,r8
+	sr8	r8,r8
 	lix	r9,0xff			; mask for null termination check
-	ars	r9,r9,r8
+	and	r9,r9,r8
 	bez	donePrStr
 	bsr	putCharToScreen			; write out the character
 lastOfLong:
-	ads	DAR,DAR,ONE
+	add	DAR,DAR,ONE
 	bra	nextLong
 donePrStr:
 	pus	DAR				; restore DAR
@@ -179,7 +179,7 @@ clearScreen:
 	lix r9,0x7FE		; loopCount	(1K minus 1)
 looper:
 	bsr	putCharToScreen
-	ads r9,r9,MINUS1	; decrement character counter
+	add r9,r9,MINUS1	; decrement character counter
 	bne	looper			; loop until complete
 	pus	r8
 	pus	r9
@@ -197,11 +197,11 @@ putCharToScreen:
 	pss	DAR
 	pss	PAR
 	lix	r9,screenPtr.lower	; r9 is the ptr to screenPtr
-	ads	DAR,r9,ZERO			; DAR points to screenPtr
+	add	DAR,r9,ZERO			; DAR points to screenPtr
 	ldl	r10					; r10 has screenPtr value
-	ads	PAR,r10,ZERO		; Set PAR to screenPtr
+	add	PAR,r10,ZERO		; Set PAR to screenPtr
 	spb	r8					; write character to screen
-	ads	r10,r10,ONE			; increment screen pointer
+	add	r10,r10,ONE			; increment screen pointer
 	sdl	r10					; save new pointer
 	pus PAR					; restore PAR
 	pus DAR					; restore DAR
@@ -224,12 +224,12 @@ setCharPos:
 	pss	DAR						; save DAR
 	liu	r10,screenBase.upper
 	lil	r10,screenBase.lower
-	ads	DAR,r10,ZERO			; DAR points to the screenBase
+	add	DAR,r10,ZERO			; DAR points to the screenBase
 	ldl	r10						; r10 has the screen base address
-	ads	r10,r8,ZERO				; add passed position to base
+	add	r10,r8,ZERO				; add passed position to base
 	liu	r9,screenPtr.upper
 	lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
-	ads	DAR,r9,ZERO				; DAR points to screenPtr
+	add	DAR,r9,ZERO				; DAR points to screenPtr
 	sdl	r10						; store new screen address
 	pus DAR						; restore DAR
 	pus r10						; restore r10

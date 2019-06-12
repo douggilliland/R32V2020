@@ -39,7 +39,7 @@ enableBuzzer:
 	lix	r9,0x0010		; Buzzer Enable line
 	lix	PAR,0x2800
 	lpl	r8
-	ors	r8,r8,r9
+	or	r8,r8,r9
 	spl	r8
 	pus	PAR
 	pus	r8
@@ -57,7 +57,7 @@ disableBuzzer:
 	lix	r9,0xffef		; Buzzer Disable line
 	lix	PAR,0x2800
 	lpl	r8
-	ars	r8,r8,r9
+	and	r8,r8,r9
 	spl	r8
 	pus	PAR
 	pus	r8
@@ -72,7 +72,7 @@ delay_mS:
 	pss	r9
 	lix	PAR,0x3802		; address of the mSec counter
 	lpl	r9				; read the peripheral counter into r9
-	ads	r8,r9,r8		; terminal counter to wait until is in r8
+	add	r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
 	lpl	r9				; check the elapsed time counter
 	cmp	r8,r9

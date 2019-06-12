@@ -11,29 +11,29 @@ skip1:
 	bne skip2		; bne taken
 	bra	failed
 skip2:
-	ads	r8,r0,r1	; test ads and bez/be1
+	add	r8,r0,r1	; test add and bez/be1
 	bez	failed		; bez not taken
 	be1	skip3		; be1 taken
 	bra	failed
 skip3:
-	ads	r8,r0,r0	; test
+	add	r8,r0,r0	; test
 	be1	failed		; be1 not taken
 	bez	skip4		; bez taken
 	bra	failed
 skip4:
-	ads	r8,r0,r1	; test ads and bez/be1
+	add	r8,r0,r1	; test add and bez/be1
 	bnz	skip5		; bnz taken
 	bra failed
 skip5:
-	ads	r8,r0,r0	; test bcc/bcs
+	add	r8,r0,r0	; test bcc/bcs
 	bnz	failed		; bnz should not have been taken
 testBCCBCS:
-	ads	r8,r0,r0	; test carry clear
+	add	r8,r0,r0	; test carry clear
 	bcs	failed		; bcs should not have been taken
 	bcc	skip6		; bcc taken
 	bra	failed		
 skip6:
-	ads r8,MINUS1,MINUS1	; should set carry
+	add r8,MINUS1,MINUS1	; should set carry
 	bcc	failed		; should not take bcc
 	bcs	skip7		; should take bcs
 	bra	failed
@@ -49,16 +49,16 @@ skip8:
 	bra	failed
 skip9:
 passed:		; send GOOD to the 7 Segment LED
-	ads	r11,r0,r0
+	add	r11,r0,r0
 	lil	r11,0x3000
-	ads	par,r11,r0
+	add	par,r11,r0
 	lil	r10,0x900D
 	spl	r10
 	hcf
 failed:		; send 0BAD to the 7 Segment LED
-	ads	r11,r0,r0
+	add	r11,r0,r0
 	lil	r11,0x3000
-	ads	par,r11,r0
+	add	par,r11,r0
 	lil	r10,0x0BAD
 	spl	r10
 	hcf

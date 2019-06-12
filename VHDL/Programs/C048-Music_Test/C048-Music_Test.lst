@@ -13,7 +13,7 @@ nextNote:
 00000005	4280000A		lix	r8,10			; count for 100 mSec
 00000006	D4000008		bsr	delay_mS		; call delay_ms
 00000007	A1804000		pus	r8				; restore r8
-00000008	20881000		ads	r8,r8,ONE
+00000008	20881000		add	r8,r8,ONE
 00000009	D4000014		bsr setNote
 0000000a	30389000		cmp	r8,r9
 0000000b	D2FFFFF9		bne	nextNote
@@ -33,7 +33,7 @@ delay_mS:
 00000012	21889000		mul	r8,r8,r9	; total number of clocks to count
 00000013	42503800		lix	PAR,0x3800	; address of the elapsed time counter
 00000014	84905000		lpl	r9			; read the peripheral counter into r9
-00000015	20898000		ads	r8,r9,r8	; terminal counter to wait until is in r8
+00000015	20898000		add	r8,r9,r8	; terminal counter to wait until is in r8
 loop_delay_mS:
 00000016	84905000		lpl	r9			; check the elapsed time counter
 00000017	30398000		cmp	r9,r8
@@ -70,7 +70,7 @@ enableBuzzer:
 00000029	41500000		liu	PAR,0x0000
 0000002a	40502800		lil	PAR,0x2800
 0000002b	84805000		lpl	r8
-0000002c	22889000		ors	r8,r8,r9
+0000002c	22889000		or	r8,r8,r9
 0000002d	85508000		spl	r8
 0000002e	A1504000		pus	PAR
 0000002f	A1804000		pus	r8
@@ -89,7 +89,7 @@ disableBuzzer:
 00000036	41500000		liu	PAR,0x0000
 00000037	40502800		lil	PAR,0x2800
 00000038	84805000		lpl	r8
-00000039	23889000		ars	r8,r8,r9
+00000039	23889000		and	r8,r8,r9
 0000003a	85508000		spl	r8
 0000003b	A1504000		pus	PAR
 0000003c	A1804000		pus	r8

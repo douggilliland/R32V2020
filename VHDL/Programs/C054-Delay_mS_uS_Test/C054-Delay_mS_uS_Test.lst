@@ -2,12 +2,12 @@
 versionString:	.string "R32V2020 > "		; here to prevent an empty data file
 start:
 00000000	42503000		lix	PAR,0x3000		; Seven Segment LED lines
-00000001	20802000		ads	r8,r0,MINUS1	; Turn on all LED bits should sign extend to 32-bits
+00000001	20802000		add	r8,r0,MINUS1	; Turn on all LED bits should sign extend to 32-bits
 00000002	85508000		spl	r8				; Write out LED bits
 00000003	428001F4		lix	r8,500			; count for 500 mSec
 00000004	D4000007		bsr	delay_mS		; call delay_ms
 00000005	42503000		lix	PAR,0x3000		; Seven Segment LED lines
-00000006	20800000		ads	r8,ZERO,ZERO	; Turn off all LED bits
+00000006	20800000		add	r8,ZERO,ZERO	; Turn off all LED bits
 00000007	85508000		spl	r8				; Write out LED bits
 00000008	428001F4		lix	r8,500			; count for 500 mSec
 00000009	D4000002		bsr	delay_mS		; call delay_ms
@@ -18,7 +18,7 @@ delay_mS:
 0000000b	A0409000		pss	r9
 0000000c	42503802		lix	PAR,0x3802		; address of the mSec counter
 0000000d	84905000		lpl	r9				; read the peripheral counter into r9
-0000000e	20898000		ads	r8,r9,r8		; terminal counter to wait until is in r8
+0000000e	20898000		add	r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
 0000000f	84905000		lpl	r9				; check the elapsed time counter
 00000010	30389000		cmp	r8,r9

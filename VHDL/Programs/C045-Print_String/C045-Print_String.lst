@@ -14,7 +14,7 @@ readUartStatus:
 00000006	40501800		lil	par,0x1800	; UART Status
 waitUartRxChar:
 00000007	84905000		lpl	r9			; Read Status into r9
-00000008	23991000		ars r9,r9,r1
+00000008	23991000		and r9,r9,r1
 00000009	C3FFFFFE		bez waitUartRxChar
 getCharFromUart:
 0000000a	40501801		lil par,0x1801
@@ -33,31 +33,31 @@ printString:
 0000000f	A0408000		pss	r8				; save r8
 00000010	A0409000		pss	r9				; save r9
 00000011	A0406000		pss	DAR
-00000012	20680000		ads	DAR,r8,ZERO		; set the start of the string
+00000012	20680000		add	DAR,r8,ZERO		; set the start of the string
 nextLong:
 00000013	64806000		ldl	r8				; get the string
 00000014	31808000		ens	r8,r8			; swap the endian
 00000015	429000FF		lix	r9,0xff			; mask for null termination check
-00000016	23998000		ars	r9,r9,r8
+00000016	23998000		and	r9,r9,r8
 00000017	C3000013		bez	donePrStr
 00000018	D4000022		bsr	putChar			; write out the character
-00000019	28808000		rs8	r8,r8
+00000019	28808000		sr8	r8,r8
 0000001a	429000FF		lix	r9,0xff			; mask for null termination check
-0000001b	23998000		ars	r9,r9,r8
+0000001b	23998000		and	r9,r9,r8
 0000001c	C300000E		bez	donePrStr
 0000001d	D400001D		bsr	putChar			; write out the character
-0000001e	28808000		rs8	r8,r8
+0000001e	28808000		sr8	r8,r8
 0000001f	429000FF		lix	r9,0xff			; mask for null termination check
-00000020	23998000		ars	r9,r9,r8
+00000020	23998000		and	r9,r9,r8
 00000021	C3000009		bez	donePrStr
 00000022	D4000018		bsr	putChar			; write out the character
-00000023	28808000		rs8	r8,r8
+00000023	28808000		sr8	r8,r8
 00000024	429000FF		lix	r9,0xff			; mask for null termination check
-00000025	23998000		ars	r9,r9,r8
+00000025	23998000		and	r9,r9,r8
 00000026	C3000004		bez	donePrStr
 00000027	D4000013		bsr	putChar			; write out the character
 lastOfLong:
-00000028	20661000		ads	DAR,DAR,ONE
+00000028	20661000		add	DAR,DAR,ONE
 00000029	C0FFFFEA		bra	nextLong
 donePrStr:
 0000002a	A1604000		pus	DAR				; restore DAR
@@ -82,7 +82,7 @@ clearScreen:
 00000033	429007FE		lix r9,0x7FE		; loopCount	(1K minus 1)
 looper:
 00000034	D4000006		bsr	putChar
-00000035	20992000		ads r9,r9,MINUS1	; decrement character counter
+00000035	20992000		add r9,r9,MINUS1	; decrement character counter
 00000036	D2FFFFFE		bne	looper			; loop until complete
 00000037	A1804000		pus	r8
 00000038	A1904000		pus	r9
@@ -100,11 +100,11 @@ putChar:
 0000003c	A0406000		pss	DAR
 0000003d	41900000		liu	r9,screenPtr.upper
 0000003e	40900003		lil	r9,screenPtr.lower	; r9 is the ptr to screenPtr
-0000003f	20690000		ads	DAR,r9,r0			; DAR points to screenPtr
+0000003f	20690000		add	DAR,r9,r0			; DAR points to screenPtr
 00000040	64A06000		ldl	r10					; r10 has screenPtr value
-00000041	205A0000		ads	PAR,r10,r0			; Set PAR to screenPtr
+00000041	205A0000		add	PAR,r10,r0			; Set PAR to screenPtr
 00000042	81508000		spb	r8					; write character to screen
-00000043	20AA1000		ads	r10,r10,ONE			; increment screen pointer
+00000043	20AA1000		add	r10,r10,ONE			; increment screen pointer
 00000044	6560A000		sdl	r10					; save new pointer
 00000045	A1604000		pus DAR					; restore r9
 00000046	A1904000		pus r9					; restore r9
@@ -123,12 +123,12 @@ setCharPos:
 0000004a	A040A000		pss	r10						; save r10
 0000004b	41A00000		liu	r10,screenBase.upper
 0000004c	40A00004		lil	r10,screenBase.lower
-0000004d	206A0000		ads	DAR,r10,ZERO			; DAR points to the screenBase
+0000004d	206A0000		add	DAR,r10,ZERO			; DAR points to the screenBase
 0000004e	64A06000		ldl	r10						; r10 has the screen base address
-0000004f	20A80000		ads	r10,r8,ZERO				; add passed position to base
+0000004f	20A80000		add	r10,r8,ZERO				; add passed position to base
 00000050	41900000		liu	r9,screenPtr.upper
 00000051	40900003		lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
-00000052	20690000		ads	DAR,r9,ZERO				; DAR points to screenPtr
+00000052	20690000		add	DAR,r9,ZERO				; DAR points to screenPtr
 00000053	6560A000		sdl	r10						; store new screen address
 00000054	A1A04000		pus r10						; restore r10
 00000055	A1904000		pus r9						; restore r9

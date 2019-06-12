@@ -1,17 +1,17 @@
 start:
-00000000	20500000		ads	par,r0,r0	; start of screen
+00000000	20500000		add	par,r0,r0	; start of screen
 00000001	41804865		liu	r8,0x4865	; ASCII 'He'
 00000002	40806C6C		lil	r8,0x6C6C	; ASCII 'll'
 00000003	31908000		ens r9,r8
 00000004	85509000		spl	r9
-00000005	20551000		ads	par,par,r1	; next screen character
-00000006	28909000		rs8	r9,r9
+00000005	20551000		add	par,par,r1	; next screen character
+00000006	28909000		sr8	r9,r9
 00000007	85509000		spl	r9
-00000008	20551000		ads	par,par,r1	; next screen character
-00000009	28909000		rs8	r9,r9
+00000008	20551000		add	par,par,r1	; next screen character
+00000009	28909000		sr8	r9,r9
 0000000a	85509000		spl	r9
-0000000b	20551000		ads	par,par,r1	; next screen character
-0000000c	28909000		rs8	r9,r9
+0000000b	20551000		add	par,par,r1	; next screen character
+0000000c	28909000		sr8	r9,r9
 0000000d	85509000		spl	r9
 loop:
 0000000e	C0000000		bra	loop

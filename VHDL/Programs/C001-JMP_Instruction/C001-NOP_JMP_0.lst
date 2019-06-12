@@ -1,4 +1,4 @@
 ; r0 is 0 which is also the start of the program
 start:
 00000000	00000000		nop
-00000001	20700000		ads r7,r0,r0			; copies r0 to Program Counter (effectively causing a jump back to 0)
+00000001	20700000		add r7,r0,r0			; copies r0 to Program Counter (effectively causing a jump back to 0)

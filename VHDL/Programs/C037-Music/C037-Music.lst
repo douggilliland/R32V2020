@@ -3,14 +3,14 @@ start:
 00000000	42503000		lix	PAR,0x3000	; Seven Segment LED lines
 00000001	4280FFFF		lix	r8,0xffff	; Turn on all LED bits
 00000002	85508000		spl	r8			; Write out LED bits
-00000003	20800000		ads	r8,r0,r0	; clear r8
+00000003	20800000		add	r8,r0,r0	; clear r8
 00000004	408001F4		lil	r8,500		; count for 500 mSec
 00000005	A2407000		sss	r7			; store the current PC to the stack
 00000006	C0000009		bra	delay_mS	; call delay_ms
 00000007	42503000		lix	PAR,0x3000	; Seven Segment LED lines
 00000008	42800000		lix	r8,0x0000	; Turn off all LED bits
 00000009	85508000		spl	r8			; Write out LED bits
-0000000a	20800000		ads	r8,r0,r0	; clear r8
+0000000a	20800000		add	r8,r0,r0	; clear r8
 0000000b	408001F4		lil	r8,500		; count for 500 mSec
 0000000c	A2407000		sss	r7			; store the current PC to the stack
 0000000d	C0000002		bra	delay_mS	; call delay_ms
@@ -18,16 +18,16 @@ start:
 ; delay_mS - delay for the number of mSecs passed in r8
 ; routine uses r8,r9
 delay_mS:
-0000000f	20900000		ads	r9,r0,r0	; Clear r8
+0000000f	20900000		add	r9,r0,r0	; Clear r8
 00000010	4090C350		lil	r9,50000	; Count for 50,000 counts = 1 mSec count
 00000011	21889000		mul	r8,r8,r9	; total number of clocks to count
 00000012	42503800		lix	PAR,0x3800	; address of the elapsed time counter
 00000013	84905000		lpl	r9			; read the peripheral counter into r9
-00000014	20898000		ads	r8,r9,r8	; terminal counter to wait until is in r8
+00000014	20898000		add	r8,r9,r8	; terminal counter to wait until is in r8
 loop_delay_mS:
 00000015	84905000		lpl	r9			; check the elapsed time counter
 00000016	30398000		cmp	r9,r8
 00000017	CFFFFFFE		bgt	loop_delay_mS
 00000018	A3904000		lss	r9			; do a return from the routine
-00000019	20991000		ads	r9,r9,r1	; skip the call
-0000001a	20791000		ads	r7,r9,r1	; jump to the next address (rts)
+00000019	20991000		add	r9,r9,r1	; skip the call
+0000001a	20791000		add	r7,r9,r1	; jump to the next address (rts)

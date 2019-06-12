@@ -1,47 +1,47 @@
 ; Peripheral Test
 ; Put characters on the screen
 start:
-00000000	20500000		ads r5,r0,r0	; start of screen character memory
-00000001	20800000		ads r8,r0,r0	; clear the character
+00000000	20500000		add r5,r0,r0	; start of screen character memory
+00000001	20800000		add r8,r0,r0	; clear the character
 00000002	40800048		lil	r8,0x0048	; ASCII 'H'
 00000003	81508000		spb r8			; put the character to the screen
-00000004	20551000		ads	r5,r5,r1	; Go to the next column
+00000004	20551000		add	r5,r5,r1	; Go to the next column
 00000005	40800065		lil	r8,0x0065	; ASCII 'e'
 00000006	81508000		spb	r8
-00000007	20551000		ads	r5,r5,r1	; Go to the next column
+00000007	20551000		add	r5,r5,r1	; Go to the next column
 00000008	4080006C		lil	r8,0x006C	; ASCII 'l'
 00000009	81508000		spb	r8
-0000000a	20551000		ads	r5,r5,r1	; Go to the next column
+0000000a	20551000		add	r5,r5,r1	; Go to the next column
 0000000b	4080006C		lil	r8,0x006C	; ASCII 'l'
 0000000c	81508000		spb	r8
-0000000d	20551000		ads	r5,r5,r1	; Go to the next column
+0000000d	20551000		add	r5,r5,r1	; Go to the next column
 0000000e	4080006F		lil	r8,0x006F	; ASCII 'o'
 0000000f	81508000		spb	r8
-00000010	20551000		ads	r5,r5,r1	; Go to the next column
+00000010	20551000		add	r5,r5,r1	; Go to the next column
 00000011	4080002C		lil	r8,0x002C	; ASCII ','
 00000012	81508000		spb	r8
-00000013	20551000		ads	r5,r5,r1	; Go to the next column
+00000013	20551000		add	r5,r5,r1	; Go to the next column
 00000014	40800020		lil	r8,0x0020	; ASCII ' '
 00000015	81508000		spb	r8
-00000016	20551000		ads	r5,r5,r1	; Go to the next column
+00000016	20551000		add	r5,r5,r1	; Go to the next column
 00000017	40800057		lil	r8,0x0057	; ASCII 'W'
 00000018	81508000		spb	r8
-00000019	20551000		ads	r5,r5,r1	; Go to the next column
+00000019	20551000		add	r5,r5,r1	; Go to the next column
 0000001a	4080006F		lil	r8,0x006F	; ASCII 'o'
 0000001b	81508000		spb	r8
-0000001c	20551000		ads	r5,r5,r1	; Go to the next column
+0000001c	20551000		add	r5,r5,r1	; Go to the next column
 0000001d	40800072		lil	r8,0x0072	; ASCII 'r'
 0000001e	81508000		spb	r8
-0000001f	20551000		ads	r5,r5,r1	; Go to the next column
+0000001f	20551000		add	r5,r5,r1	; Go to the next column
 00000020	4080006C		lil	r8,0x006C	; ASCII 'l'
 00000021	81508000		spb	r8
-00000022	20551000		ads	r5,r5,r1	; Go to the next column
+00000022	20551000		add	r5,r5,r1	; Go to the next column
 00000023	40800064		lil	r8,0x0064	; ASCII 'd'
 00000024	81508000		spb	r8
-00000025	20551000		ads	r5,r5,r1	; Go to the next column
+00000025	20551000		add	r5,r5,r1	; Go to the next column
 00000026	40800021		lil	r8,0x0021	; ASCII '!'
 00000027	81508000		spb	r8
-00000028	20551000		ads	r5,r5,r1	; Go to the next column
+00000028	20551000		add	r5,r5,r1	; Go to the next column
 00000029	40800020		lil	r8,0x0020	; ASCII ' '
 0000002a	81508000		spb	r8
 0000002b	01000000		hcf

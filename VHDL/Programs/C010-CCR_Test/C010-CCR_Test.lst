@@ -2,16 +2,16 @@
 start:
 00000000	00000000		nop
 00000001	00000000		nop
-00000002	20800000		ads r8,r0,r0
+00000002	20800000		add r8,r0,r0
 00000003	00000000		nop		; make sure the CCR "sticks" for non-ALU operations
 00000004	00000000		nop
-00000005	20801000		ads r8,r0,r1
+00000005	20801000		add r8,r0,r1
 00000006	00000000		nop		; make sure the CCR "sticks" for non-ALU operations
 00000007	00000000		nop
-00000008	20802000		ads r8,r0,r2
+00000008	20802000		add r8,r0,r2
 00000009	00000000		nop		; make sure the CCR "sticks" for non-ALU operations
 0000000a	00000000		nop
-0000000b	20831000		ads r8,r3,r1
+0000000b	20831000		add r8,r3,r1
 0000000c	00000000		nop		; make sure the CCR "sticks" for non-ALU operations
 0000000d	00000000		nop
 0000000e	30300000		cmp r0,r0
