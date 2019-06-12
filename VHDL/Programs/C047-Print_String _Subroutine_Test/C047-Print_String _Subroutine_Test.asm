@@ -29,13 +29,13 @@ putCharToScreen:
 getUARTChar:
 	pss	r9
 	pss	PAR
-	lil	PAR,0x1800	; UART Status
+	lix	PAR,0x1800	; UART Status
 waitUartRxStat:
 	lpl	r9			; Read Status into r9
-	ars r9,r9,r1
+	ars r9,r9,ONE
 	bez waitUartRxStat
 getCharFromUart:
-	lil PAR,0x1801
+	lix PAR,0x1801
 	lpl	r8
 	pus	PAR
 	pus	r9
@@ -50,13 +50,13 @@ putUARTChar:
 	pss	r9
 	pss	PAR
 	pss	r10
-	lil	r10,0x2
-	lil	PAR,0x1800	; UART Status
+	lix	r10,0x2
+	lix	PAR,0x1800	; UART Status
 waitUartTxStat:
 	lpl	r9			; Read Status into r9
 	ars r9,r9,r10
 	bez waitUartTxStat
-	lil PAR,0x1801
+	lix PAR,0x1801
 	spl	r8			; echo the character
 	pus	r10
 	pus	PAR
@@ -140,11 +140,10 @@ putChar:
 	pss	r9					; save r9
 	pss	DAR
 	pss	PAR
-	liu	r9,screenPtr.upper
-	lil	r9,screenPtr.lower	; r9 is the ptr to screenPtr
-	ads	DAR,r9,r0			; DAR points to screenPtr
+	lix	r9,screenPtr.lower	; r9 is the ptr to screenPtr
+	ads	DAR,r9,ZERO			; DAR points to screenPtr
 	ldl	r10					; r10 has screenPtr value
-	ads	PAR,r10,r0			; Set PAR to screenPtr
+	ads	PAR,r10,ZERO		; Set PAR to screenPtr
 	spb	r8					; write character to screen
 	ads	r10,r10,ONE			; increment screen pointer
 	sdl	r10					; save new pointer
@@ -167,13 +166,11 @@ setCharPos:
 	pss	r9						; save r9
 	pss	r10						; save r10
 	pss	DAR						; save DAR
-	liu	r10,screenBase.upper
-	lil	r10,screenBase.lower
+	lix	r10,screenBase.lower
 	ads	DAR,r10,ZERO			; DAR points to the screenBase
 	ldl	r10						; r10 has the screen base address
 	ads	r10,r8,ZERO				; add passed position to base
-	liu	r9,screenPtr.upper
-	lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
+	lix	r9,screenPtr.lower		; r9 is the ptr to screenPtr
 	ads	DAR,r9,ZERO				; DAR points to screenPtr
 	sdl	r10						; store new screen address
 	pus DAR						; restore DAR
