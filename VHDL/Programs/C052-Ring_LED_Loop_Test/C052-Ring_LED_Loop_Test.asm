@@ -12,21 +12,20 @@ main:
 	lix	r8,0x0			; Move cursor to home position
 	bsr	setCharPos
 readDataMemory:
-	liu	r8,hello.upper
-	lil	r8,hello.lower
+	lix	r8,hello.lower
 	bsr	printString
 	lix	r9,0x1000			; ring has been circled
 reload:
 	lix	r8,1
-loopReadSwitches:
+loopLEDRing:
 	bsr	putValueToRingLEDs	; put the switches to the 7 Segment LED
 	pss	r8
-	lix	r8,1000				; wait for 1 second
+	lix	r8,250				; wait for 1 second
 	bsr	delay_mS
 	pus	r8
 	ls1	r8,r8
 	cmp	r8,r9
-	bne	loopReadSwitches
+	bne	loopLEDRing
 	bra	reload
 
 ; putValueToRingLEDs
@@ -35,8 +34,7 @@ loopReadSwitches:
 putValueToRingLEDs:
 	pss	PAR
 	pss	r8
-	liu	PAR,0x0000
-	lil	PAR,0x4800		; Ring LED address
+	lix	PAR,0x4800		; Ring LED address
 	spl	r8				; Write out LED bits
 	pus	r8
 	pus	PAR
@@ -47,18 +45,14 @@ putValueToRingLEDs:
 ; Uses routine uses r9
 
 delay_mS:
-	pss	r9 
-	pss	r8
-	lix	r9,50000	; Count for 50,000 counts = 1 mSec count
-	mul	r8,r8,r9	; total number of clocks to count
-	lix	PAR,0x3800	; address of the elapsed time counter
-	lpl	r9			; read the peripheral counter into r9
-	ads	r8,r9,r8	; terminal counter to wait until is in r8
+	pss	r9
+	lix	PAR,0x3802		; address of the mSec counter
+	lpl	r9				; read the peripheral counter into r9
+	ads	r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
-	lpl	r9			; check the elapsed time counter
-	cmp	r9,r8
-	bgt	loop_delay_mS
-	pus	r8
+	lpl	r9				; check the elapsed time counter
+	cmp	r8,r9
+	blt	loop_delay_mS
 	pus	r9
 	pus	PC
 	
@@ -72,8 +66,7 @@ readSws:
 	pss	PAR
 	pss	r9
 	lix	r9,0x7
-	liu	PAR,0x0000
-	lil	PAR,0x2000	; Switches address
+	lix	PAR,0x2000	; Switches address
 	lpl	r8			; Read switches into r9
 	xrs	r8,r8,r9
 	pus	r9
@@ -88,18 +81,15 @@ readSws:
 getPS2Char:
 	pss	r9
 	pss	PAR
-	liu	PAR,0x0000
-	lil	PAR,0x1000	; PS/2 Status
+	lix	PAR,0x1000	; PS/2 Status
 waitPS2RxStat:
 	lpl	r9			; Read Status into r9
-	ars r9,r9,r1
+	ars r9,r9,ONE
 	bez waitPS2RxStat
 getCharFromPS2:
-	liu	PAR,0x0000
-	lil PAR,0x0800
+	lix PAR,0x0800
 	lpl	r8
-	liu	PAR,0x0000
-	lil	PAR,0x1000	; PS/2 Status
+	lix	PAR,0x1000	; PS/2 Status
 whilePS2RxStat:
 	pus	PAR
 	pus	r9
@@ -116,12 +106,12 @@ putUARTChar:
 	pss	r10
 	pss	PAR
 	lil	r10,0x2
-	lil	PAR,0x1800	; UART Status
+	lix	PAR,0x1800	; UART Status
 waitUartTxStat:
 	lpl	r9			; Read Status into r9
 	ars r9,r9,r10
 	bez waitUartTxStat
-	lil PAR,0x1801
+	lix PAR,0x1801
 	spl	r8			; echo the character
 	pus	PAR
 	pus	r10
@@ -206,11 +196,10 @@ putCharToScreen:
 	pss	r9					; save r9
 	pss	DAR
 	pss	PAR
-	liu	r9,screenPtr.upper
-	lil	r9,screenPtr.lower	; r9 is the ptr to screenPtr
-	ads	DAR,r9,r0			; DAR points to screenPtr
+	lix	r9,screenPtr.lower	; r9 is the ptr to screenPtr
+	ads	DAR,r9,ZERO			; DAR points to screenPtr
 	ldl	r10					; r10 has screenPtr value
-	ads	PAR,r10,r0			; Set PAR to screenPtr
+	ads	PAR,r10,ZERO		; Set PAR to screenPtr
 	spb	r8					; write character to screen
 	ads	r10,r10,ONE			; increment screen pointer
 	sdl	r10					; save new pointer
