@@ -93,16 +93,16 @@ begin
 	
 	-- Peripheral Address decoder
 	-- Currently only uses 16-bits of address
-	w_dispRamCS 	<= '1' when i_peripheralAddress(15 downto 11) = SVGA_BASE	else '0';	-- x0000-x07FF (2KB)
-	w_kbDatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '0';	-- x0800-x0FFF (2KB)
-	w_kbStatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBST_BASE	else '0';	-- x1000-x17FF (2KB)
-	w_aciaCS 		<= '1' when i_peripheralAddress(15 downto 11) = ACIA_BASE	else '0';	-- x1800-x1FFF (2KB)
-	w_SwitchesCS	<= '1' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '0';	-- x2000-x27FF (2KB)
-	w_LEDsCS			<= '1' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '0';	-- x2800-x2FFF (2KB)
-	w_7SEGCS			<= '1' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '0';	-- x3000-x37FF (2KB)
-	w_TimersCS		<= '1' when i_peripheralAddress(15 downto 11) = TIMERS_BASE	else '0';	-- x3800-x3FFF (2KB)
-	w_NoteCS			<= '1' when i_peripheralAddress(15 downto 11) = NOTE_BASE	else '0';	-- x4000-x47FF (2KB)
-	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)
+	w_dispRamCS 	<= '1' when i_peripheralAddress(15 downto 11) = SVGA_BASE	else '0';	-- x0000-x07FF (2KB) - Display RAM
+	w_kbDatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '0';	-- x0800-x0FFF (2KB)	- Keyboard Data
+	w_kbStatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBST_BASE	else '0';	-- x1000-x17FF (2KB)	- Keyboard Status
+	w_aciaCS 		<= '1' when i_peripheralAddress(15 downto 11) = ACIA_BASE	else '0';	-- x1800-x1FFF (2KB)	- UART
+	w_SwitchesCS	<= '1' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '0';	-- x2000-x27FF (2KB)	- Pushbutton Switches
+	w_LEDsCS			<= '1' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '0';	-- x2800-x2FFF (2KB)	- Individual LEDs
+	w_7SEGCS			<= '1' when i_peripheralAddress(15 downto 11) = SEGS7_BASE	else '0';	-- x3000-x37FF (2KB)	- Seven Segment Display
+	w_TimersCS		<= '1' when i_peripheralAddress(15 downto 11) = TIMERS_BASE	else '0';	-- x3800-x3FFF (2KB)	- Timers
+	w_NoteCS			<= '1' when i_peripheralAddress(15 downto 11) = NOTE_BASE	else '0';	-- x4000-x47FF (2KB)	- Music/Note
+	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)	- LED Ring
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_dispRamDataOutA 			when	w_dispRamCS 	= '1' else
@@ -120,10 +120,10 @@ begin
 		n_reset						=> n_reset,
 		i_CLOCK_50					=> i_CLOCK_50,
 		i_OneHotState				=> i_OneHotState,
+ 		i_peripheralWrStrobe		=> w_TimersCS and i_peripheralWrStrobe,
 		i_peripheralAddress		=> i_peripheralAddress,
 		i_dataToTimers				=> i_dataToPeripherals,
-		o_dataFromTimers			=> o_dataFromTimers,
- 		i_peripheralWrStrobe		=> w_TimersCS and i_peripheralWrStrobe
+		o_dataFromTimers			=> o_dataFromTimers
 		);
 	
 	MusicNoteCounter : entity work.CounterLoadable
