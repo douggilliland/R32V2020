@@ -15,10 +15,10 @@ entity Timer_Unit is
 		i_CLOCK_50					: in std_logic := '1';
 		i_OneHotState				: in std_logic_vector := "000000";
 		-- Peripheral Memory Mapped Space Address/Data/Control lines
+ 		i_peripheralWrStrobe		: in std_logic := '1';
 		i_peripheralAddress		: in std_logic_vector(31 downto 0) := x"00000000";
 		i_dataToTimers				: in std_logic_vector(31 downto 0) := x"00000000";
-		o_dataFromTimers			: out std_logic_vector(31 downto 0) := x"00000000";
- 		i_peripheralWrStrobe		: in std_logic := '1'
+		o_dataFromTimers			: out std_logic_vector(31 downto 0) := x"00000000"
 		);
 	end Timer_Unit;
 
@@ -26,17 +26,19 @@ entity Timer_Unit is
 
 	--attribute syn_keep: boolean;
 	-- Peripheral Signals
-	signal w_ElapsedTimeCount	:	std_logic_vector(31 downto 0);
-	signal q_MicrosecondScaler	: 	std_logic_vector(5 downto 0);
+	signal w_ElapsedTimeCount		:	std_logic_vector(31 downto 0);
+	signal q_MicrosecondScaler		: 	std_logic_vector(5 downto 0);
 	signal q_MicrosecondCounter	: 	std_logic_vector(31 downto 0);
-	signal q_MillisecondScaler	: 	std_logic_vector(10 downto 0);
+	signal q_MillisecondScaler		: 	std_logic_vector(10 downto 0);
 	signal q_MillisecondCounter	: 	std_logic_vector(31 downto 0);
+	signal q_CPUCycleCounter		: 	std_logic_vector(31 downto 0);
 
 begin
 	o_dataFromTimers <= 
-	w_ElapsedTimeCount when i_peripheralAddress(2 downto 0) = "000" else
-	q_MicrosecondCounter when i_peripheralAddress(2 downto 0) = "001" else
-	q_MillisecondCounter when i_peripheralAddress(2 downto 0) = "010" else
+	w_ElapsedTimeCount 	when i_peripheralAddress(2 downto 0) = "000" else	-- Counts in FPGA clock ticks (50 MHz for most FPGAs)
+	q_MicrosecondCounter when i_peripheralAddress(2 downto 0) = "001" else	-- Counts in uSecs
+	q_MillisecondCounter when i_peripheralAddress(2 downto 0) = "010" else	-- Counts in mSecs
+	q_CPUCycleCounter 	when i_peripheralAddress(2 downto 0) = "011" else	-- Counts CPU instructions
 	x"00000000";
 
 	-- Elapsed Time Counter
@@ -51,14 +53,18 @@ begin
     q   		=> w_ElapsedTimeCount
 	 );
 	 
-	process (i_CLOCK_50)
+	process (i_CLOCK_50, n_reset)
 	begin
 		if (n_reset='0') then
-			q_MicrosecondScaler 	<= (others => '0');
+			q_MicrosecondScaler 		<= (others => '0');
 			q_MicrosecondCounter 	<= (others => '0');
-			q_MillisecondScaler	<= (others => '0');
+			q_MillisecondScaler		<= (others => '0');
 			q_MillisecondCounter 	<= (others => '0');
+			q_CPUCycleCounter			<= (others => '0');
 		elsif(rising_edge(i_CLOCK_50)) then
+			if (i_OneHotState = "000000") then 
+				q_CPUCycleCounter <= q_CPUCycleCounter + 1;
+			end if;
 			if (q_MicrosecondScaler < 40) then
 				q_MicrosecondScaler <= q_MicrosecondScaler + 1;
 			else	-- Microsecond terminal count
