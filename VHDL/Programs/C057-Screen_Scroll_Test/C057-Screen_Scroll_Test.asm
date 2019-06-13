@@ -7,7 +7,18 @@ screenBase:	.long 0x0
 ;
 
 main:
-	bsr	clearScreen
+	lix		PAR,0x3802	; msec timer
+	lpl		r9			; read the timer into r8
+	push	r9			; save r9 on the stack
+	bsr		clearScreen
+	lix		PAR,0x3802	; msec timer
+	lpl		r8			; read the timer into r8
+	pull	r9
+	xor		r9,r9,MINUS1
+	add		r9,r9,ONE
+	add		r8,r8,r9
+	lix		PAR,0x3000
+	spl		r8			; mSecs that the screen clear took
 	lix	r8,64			; Move cursor to two rows down on the screen
 	bsr	setCharPos
 	lix	r8,hello.lower
@@ -17,20 +28,20 @@ main:
 	bsr	setCharPos
 	lix	r8,hello.lower
 	bsr	printString
-	lix	r8,5000			; wait 2.5 secs
+	lix	r8,5000			; wait 5 secs
 	bsr	delay_mS
 	bsr	scrollScreen
-	lix	r8,500			; wait 2.5 secs
-	bsr	delay_mS
+;	lix	r8,500			; wait 0.5 secs
+;	bsr	delay_mS
 	bsr	scrollScreen
-	lix	r8,500			; wait 2.5 secs
-	bsr	delay_mS
+;	lix	r8,500			; wait 0.5 secs
+;	bsr	delay_mS
 	bsr	scrollScreen
-	lix	r8,500			; wait 2.5 secs
-	bsr	delay_mS
+;	lix	r8,500			; wait 0.5 secs
+;	bsr	delay_mS
 	bsr	scrollScreen
-	lix	r8,500			; wait 2.5 secs
-	bsr	delay_mS
+;	lix	r8,500			; wait 0.5 secs
+;	bsr	delay_mS
 	bsr	scrollScreen
 loopPosition:
 	bra	loopPosition
