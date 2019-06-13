@@ -63,6 +63,8 @@ signal	w_peripheralRdEn			: std_logic := '0';
 signal	w_peripheralWrEn			: std_logic := '0';
 
 signal	w_OneHotState				: std_logic_vector(5 downto 0) := "000000";
+signal	q_debounce					: std_logic_vector(5 downto 0) := "000000";
+signal	resetLow						: std_logic := '1';
 
 attribute syn_keep: boolean;
 attribute syn_keep of w_dataFromPeripherals: signal is true;
@@ -72,7 +74,7 @@ begin
 	-- CPU Element
 	RISC_CPU : 	entity work.R32V2020
 	port map (
-		n_reset 						=> n_reset,
+		n_reset 						=> resetLow,
 		-- Clock
 		i_CLOCK_50 					=> i_CLOCK_50,
 		o_OneHotState				=> w_OneHotState,
@@ -131,8 +133,9 @@ begin
 	-- Peripherals
 	Peripherals : entity work.PeripheralInterface
 	port MAP (
-		n_reset						=> n_reset,
+		n_reset						=> resetLow,
 		i_CLOCK_50					=> i_CLOCK_50,
+		i_OneHotState				=> w_OneHotState,
 		-- Peripheral Memory Mapped Space Address/Data/Control lines
 		i_peripheralAddress		=> w_peripheralAddress,
 		i_dataToPeripherals		=> w_CPUDataOut,
@@ -156,5 +159,27 @@ begin
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
 	);
+	
+	process (n_reset, i_CLOCK_50)
+	begin
+		if(rising_edge(i_CLOCK_50)) then
+			q_debounce(0) <= n_reset;
+			q_debounce(1) <= q_debounce(0);
+			q_debounce(2) <= q_debounce(1);
+			q_debounce(3) <= q_debounce(2);
+			q_debounce(4) <= q_debounce(3);
+			q_debounce(5) <= q_debounce(4);
+			if (q_debounce(0) = '1') and (q_debounce(1) = '1') and (q_debounce(2) = '1') and (q_debounce(3) = '1') and (q_debounce(4) = '1') and (q_debounce(5) = '1') then
+				resetLow <= '1';
+			elsif (q_debounce(0) = '0') and 
+				(q_debounce(1) = '0') and 
+				(q_debounce(2) = '0') and 
+				(q_debounce(3) = '0') and 
+				(q_debounce(4) = '0') and 
+				(q_debounce(5) = '0') then
+				resetLow <= '0';
+			end if;
+		end if;
+	end process;
 
 end;
