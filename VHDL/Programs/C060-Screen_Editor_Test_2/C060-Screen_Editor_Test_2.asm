@@ -1,44 +1,49 @@
 hello:	.string "R32V2020> "
-screenPtr:	.long 0x0000
-screenBase:	.long 0x0
+screenPtr:	.long 0x0
+currCharLocPtr:	.long 0x0
 
 ;
 ; Read UART character and put it to the XVGA Display
 ;
 
 main:
-	bsr		clearScreen
-	lix		r8,0x0			; Move cursor to home position
+	lix		r8,0x0			; set screen position to home
 	bsr		setCharPos
+	bsr		clearScreen
 readDataMemory:
-	liu		r8,hello.upper
-	lil		r8,hello.lower
+	lix		r8,hello.lower
 	bsr		printString
 readUartStatus:
-	bsr		getCharFromUART
+	bsr		waitGetCharFromUART
 putCharToScreenAndUART:
 	bsr		putCharToScreen	; put the character to the screen
+	lix		r9,0x0d
+	cmp		r8,r9
+	bne		putOutChar
+	push	r8
+	lix		r8,0x0a
+	bsr		putCharToUART
+	pull	r8
+putOutChar:
 	bsr		putCharToUART
 	bra		readUartStatus
 
 ;
-; getCharFromUART
+; waitGetCharFromUART
 ; returns character received in r8
+; function is blocking until a character is received from the UART
 ;
 
-getCharFromUART:
-	push	r9
+waitGetCharFromUART:
 	push	PAR
 	lix		PAR,0x1800	; UART Status
 waitUartRxStat:
-	lpl		r9			; Read Status into r9
-	and 	r9,r9,ONE
+	lpl		r8			; Read Status into r8
+	and 	r8,r8,ONE
 	bez 	waitUartRxStat
-getCharFromUart:
 	lix 	PAR,0x1801
 	lpl		r8
 	pull	PAR
-	pull	r9
 	pull	PC
 
 ;
@@ -112,19 +117,20 @@ donePrStr:
 ; Screen is memory mapped
 ; Screen is 64 columns by 32 rows = 2KB total space
 ; Return address (-1) is on the stack - need to increment before return
+; Sets the pointer to the screen to the first location
 ;
 
 clearScreen:
 	push	r9				; save r9
 	push	r8				; save r8
-	lix		r8,0x0			; set screen position to home
-	bsr	setCharPos
 	lix		r8,0x0020		; fill with spaces
 	lix 	r9,0x7FE		; loopCount	(1K minus 1)
 looper:
 	bsr		putCharToScreen
 	add 	r9,r9,MINUS1	; decrement character counter
 	bne		looper			; loop until complete
+	lix		r8,0x0			; Move cursor to home position
+	bsr		setCharPos
 	pull	r8
 	pull	r9
 	pull	PC				; rts
@@ -145,33 +151,33 @@ putCharToScreen:
 	add		DAR,r9,ZERO			; DAR points to screenPtr
 	ldl		r10					; r10 has screenPtr value
 ; look for specific characters
-	lil		r11,0x7F			; RUBOUT key
+	lix		r11,0x7F			; RUBOUT key
 	cmp		r8,r11
 	beq		gotBS
-	lil		r11,0xe0			; 0x0-0x1f are ctrl chars
+	lix		r11,0xe0			; 0x0-0x1f are ctrl chars
 	and		r11,r11,r8
 	bnz		notCtlChar
-	
-	lil		r11,0x0d			; CR
+; Check for CR	
+	lix		r11,0x0d			; CR
 	cmp		r8,r11
 	beq		gotCR
-	
-	lil		r11,0x07			; BELL
+; Check for BELL
+	lix		r11,0x07			; BELL
 	cmp		r8,r11
 	bne		skipPrintChar
 	bsr		makeBuzz
-
+; Goes here
 	bra		skipPrintChar
 gotBS:
 	add		r10,r10,MINUS1
 	add		PAR,r10,ZERO
-	lil		r8,0x20
+	lix		r8,0x20
 	spb		r8
 	bra		skipPrintChar
 gotCR:
-	lil		r11,0xffc0			; Go to the start of the line
+	lix		r11,0xffc0			; Go to the start of the line
 	and		r10,r10,r11
-	lil		r11,0x40			; Go down a line
+	lix		r11,0x40			; Go down a line
 	add		r10,r10,r11
 	add		PAR,r10,ONE			; Set PAR to screenPtr
 	bra		skipPrintChar
@@ -193,7 +199,7 @@ skipPrintChar:
 ; x,y value is passed in r8
 ;	First 6 least significant bits (0-63 columns)
 ; 	Next 5 bits (row on the screen)
-; screenBase has the base address of the screen memory
+; currCharLocPtr has the base address of the screen memory
 ; screenPtr contains the address of the current char position
 ;
 
@@ -201,8 +207,8 @@ setCharPos:
 	push	r9						; save r9
 	push	r10						; save r10
 	push	DAR						; save DAR
-	lix		r10,screenBase.lower
-	add		DAR,r10,ZERO			; DAR points to the screenBase
+	lix		r10,currCharLocPtr.lower
+	add		DAR,r10,ZERO			; DAR points to the currCharLocPtr
 	ldl		r10						; r10 has the screen base address
 	add		r10,r8,ZERO				; add passed position to base
 	lix		r9,screenPtr.lower		; r9 is the ptr to screenPtr
