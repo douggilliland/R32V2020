@@ -12,7 +12,6 @@ entity OpCodeDecoder is
 		-- Category = System
 		Op_NOP		: buffer std_logic;	-- No Operation
 		Op_HCF		: buffer std_logic;	-- Halt and Catch Fire
-		Op_RES		: buffer std_logic;	-- Reset CPU
 		-- Category = ALU
 		Op_ADS		: buffer std_logic;	-- Add and store in reg
 		Op_MUL		: buffer std_logic;	-- Multiply and store in reg
@@ -63,7 +62,6 @@ entity OpCodeDecoder is
 		Op_BNE 		: out std_logic;	-- Branch if Not Equal
 		Op_BNZ 		: out std_logic;	-- Branch if Not Zero
 		Op_BSR 		: out std_logic;	-- Branch Subroutine
-		Op_RTS 		: buffer std_logic;	-- ReTurn from Subroutine
 		o_WrRegFile	: out std_logic	-- Register File gets output of opcode
 	);
 end OpCodeDecoder;
@@ -125,7 +123,6 @@ constant BGT : std_Logic_Vector(7 downto 0) := "11001111";
 constant BEQ : std_Logic_Vector(7 downto 0) := "11010001";
 constant BNE : std_Logic_Vector(7 downto 0) := "11010010";
 constant BSR : std_Logic_Vector(7 downto 0) := "11010100";
-constant RTS : std_Logic_Vector(7 downto 0) := "11010101";
 
 begin
 
@@ -136,12 +133,11 @@ o_WrRegFile <= Op_ADS or Op_MUL or Op_ORS or
 	Op_LIL or Op_LIU or Op_LIX or 
 	Op_LDB or Op_LDS or Op_LDL or 
 	Op_LPB or Op_LPS or Op_LPL or 
-	Op_PUS or Op_LSS or Op_RTS;
+	Op_PUS or Op_LSS;
 
 -- System Opcodes
 Op_NOP <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = NOP(4 downto 0))) else '0';
 Op_HCF <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = HCF(4 downto 0))) else '0';
-Op_RES <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = RES(4 downto 0))) else '0';
 
 -- ALU Opcodes - Arithmetic
 Op_ADS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ADS(4 downto 0))) else '0';
@@ -196,7 +192,6 @@ Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEQ(4 do
 Op_BNE <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNE(4 downto 0))) else '0';
 Op_BNZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNZ(4 downto 0))) else '0';
 Op_BSR <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BSR(4 downto 0))) else '0';
-Op_RTS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = RTS(4 downto 0))) else '0';
 
 opc_Cat_Decoder : work.OpCode_Cat_Decoder port map (
 		InstrOpCodeCat	=> InstrOpCode(7 downto 5),

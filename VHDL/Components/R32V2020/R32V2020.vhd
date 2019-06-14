@@ -38,9 +38,8 @@ architecture struct of R32V2020 is
 
 attribute syn_keep: boolean;
 
-signal	w_Op_NOP : std_logic := '0';		-- No operation
+signal	w_Op_NOP : std_logic := '0';		-- No Operation (advance PC)
 signal	w_Op_HCF : std_logic := '0';		-- Halt and Catch Fire
-signal	w_Op_RES : std_logic := '0';		-- Reset CPU
 signal	w_Op_ADS : std_logic := '0';		-- Add 2 regs and store in 3rd
 signal	w_Op_CMP : std_logic := '0';		-- Compare 2 regs and set cond codes
 signal	w_Op_MUL	: std_logic := '0';		-- Multiply 2 regs and store in 3rd
@@ -85,7 +84,6 @@ signal	w_Op_BEQ  : std_logic := '0';		-- Branch if equal
 signal	w_Op_BNE  : std_logic := '0';		-- Branch if not equal
 signal	w_Op_BNZ  : std_logic := '0';		-- Branch if not zero
 signal	w_Op_BSR  : std_logic := '0';		-- Branch to subroutine
-signal	w_Op_RTS  : std_logic := '0';		-- Return from subroutine
 --attribute syn_keep of w_Op_PUS: signal is true;
 
 signal	w_regDataB					: std_logic_vector(31 downto 0) := x"00000000";
@@ -163,7 +161,6 @@ begin
 		-- Category = System
 		Op_NOP => w_Op_NOP,
 		Op_HCF => w_Op_HCF,
-		Op_RES => w_Op_RES,
 		-- Category = ALU
 		Op_ADS => w_Op_ADS,
 		Op_MUL => w_Op_MUL,
@@ -214,7 +211,6 @@ begin
 		Op_BNE => w_Op_BNE,
 		Op_BNZ => w_Op_BNZ,
 		Op_BSR => w_Op_BSR,
-		Op_RTS => w_Op_RTS,
 		o_WrRegFile => w_wrRegFile
 	);
 	
@@ -285,7 +281,7 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) &
 		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19 downto 0) when (w_Op_LIX = '1') else	
 		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1')) else
-		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1') or (w_Op_RTS = '1')) else
+		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1')) else
 		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
 		w_ALUDataOut;
 		
@@ -310,7 +306,6 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_OP_PSS						=> w_Op_PSS,
 		i_OP_PUS						=> w_Op_PUS,
 		i_OP_BSR						=> w_Op_BSR,
-		i_OP_RTS						=> w_Op_RTS,
 		i_save_CCR_bits			=> w_save_CCR_bits,
 		i_wrRegFile					=> w_wrRegFile,
 		o_regDataOutA				=> o_DataOutFromRegA,
