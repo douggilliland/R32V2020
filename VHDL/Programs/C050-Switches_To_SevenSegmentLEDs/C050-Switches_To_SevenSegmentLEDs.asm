@@ -9,7 +9,6 @@ screenBase:	.long 0x0
 
 main:
 	bsr	clearScreen
-	bsr	clearScreen
 	lix	r8,0x0			; Move cursor to home position
 	bsr	setCharPos
 readDataMemory:
@@ -113,7 +112,7 @@ printString:
 	push	r8				; save r8
 	push	r9				; save r9
 	push	DAR
-	and	DAR,r8,ZERO		; set the start of the string
+	add	DAR,r8,ZERO		; set the start of the string
 nextLong:
 	ldl	r8				; get the string
 	ens	r8,r8			; swap the endian
@@ -137,7 +136,7 @@ nextLong:
 	bez	donePrStr
 	bsr	putCharToScreen			; write out the character
 lastOfLong:
-	and	DAR,DAR,ONE
+	add	DAR,DAR,ONE
 	bra	nextLong
 donePrStr:
 	pull	DAR				; restore DAR
@@ -162,7 +161,7 @@ clearScreen:
 	lix r9,0x7FE		; loopCount	(1K minus 1)
 looper:
 	bsr	putCharToScreen
-	and r9,r9,MINUS1	; decrement character counter
+	add r9,r9,MINUS1	; decrement character counter
 	bne	looper			; loop until complete
 	pull	r8
 	pull	r9
@@ -181,11 +180,11 @@ putCharToScreen:
 	push	PAR
 	liu	r9,screenPtr.upper
 	lil	r9,screenPtr.lower	; r9 is the ptr to screenPtr
-	and	DAR,r9,r0			; DAR points to screenPtr
+	add	DAR,r9,r0			; DAR points to screenPtr
 	ldl	r10					; r10 has screenPtr value
-	and	PAR,r10,r0			; Set PAR to screenPtr
+	add	PAR,r10,r0			; Set PAR to screenPtr
 	spb	r8					; write character to screen
-	and	r10,r10,ONE			; increment screen pointer
+	add	r10,r10,ONE			; increment screen pointer
 	sdl	r10					; save new pointer
 	pull PAR					; restore PAR
 	pull DAR					; restore DAR
@@ -208,12 +207,12 @@ setCharPos:
 	push	DAR						; save DAR
 	liu	r10,screenBase.upper
 	lil	r10,screenBase.lower
-	and	DAR,r10,ZERO			; DAR points to the screenBase
+	add	DAR,r10,ZERO			; DAR points to the screenBase
 	ldl	r10						; r10 has the screen base address
-	and	r10,r8,ZERO				; add passed position to base
+	add	r10,r8,ZERO				; add passed position to base
 	liu	r9,screenPtr.upper
 	lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
-	and	DAR,r9,ZERO				; DAR points to screenPtr
+	add	DAR,r9,ZERO				; DAR points to screenPtr
 	sdl	r10						; store new screen address
 	pull DAR						; restore DAR
 	pull r10						; restore r10
