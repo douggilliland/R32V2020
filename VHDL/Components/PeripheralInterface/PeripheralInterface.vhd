@@ -174,7 +174,7 @@ begin
 	
 	
 	o_LED <= w_LatData(3 downto 0);
-	o_BUZZER <= not(w_LatData(4) and w_BUZZER);
+	o_BUZZER <= not w_LatData(4);
 	
 	UART : entity work.bufferedUART
 		port map(

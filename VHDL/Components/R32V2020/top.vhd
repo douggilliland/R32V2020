@@ -13,15 +13,15 @@ entity top is
 		i_switch				: in std_logic_vector(2 downto 0) := "111";
 		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
 		--o_LED				: out std_logic_vector(3 downto 0);
-		o_BUZZER				: out std_logic;
+		o_BUZZER				: out std_logic := '0';
 		-- Serial port pins
-		i_SerRxd				: in std_logic;
-		o_SerTxd				: out std_logic;
+		i_SerRxd				: in std_logic := '1';
+		o_SerTxd				: out std_logic := '1';
 		--o_SerRts				: out std_logic;
 		-- VGA pins
-		o_VideoVect			: out std_logic_vector(2 downto 0); -- rrrrr,gggggg,bbbbb,hsync,vsync
-		o_hSync				: out std_logic;
-		o_vSync				: out std_logic;
+		o_VideoVect			: out std_logic_vector(2 downto 0) := "000"; -- rgb
+		o_hSync				: out std_logic := '1';
+		o_vSync				: out std_logic := '1';
 		-- Seven Segment LED pins
 		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
@@ -181,7 +181,6 @@ begin
 		i_PinIn		=> i_switch(2),
 		o_PinOut		=> w_Switch(2)
 	);
-	
 	
 	DebounceResetSwitch	: entity work.Debouncer
 	port map (
