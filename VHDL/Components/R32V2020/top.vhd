@@ -27,6 +27,8 @@ entity top is
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
 		-- LED Ring
 		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
+		-- 8 bit I/O Latch
+		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -150,6 +152,7 @@ begin
 		o_BUZZER						=> o_BUZZER,
 		o_Anode_Activate 			=> o_Anode_Activate,
 		o_LED7Seg_out				=> o_LED7Seg_out,
+		o_LatchIO					=> o_LatchIO,
 		i_rxd							=> i_SerRxd,
 		o_txd							=> o_SerTxd,
 		o_LEDRing_out				=> o_LEDRing_out,

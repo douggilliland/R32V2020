@@ -25,6 +25,7 @@ entity PeripheralInterface is
 		o_Anode_Activate 			: out std_logic_vector(7 downto 0) := x"11";			-- Seven Segment LED
 		o_LED7Seg_out				: out std_logic_vector(7 downto 0) := x"11";			-- Seven Segment LED
 		o_LEDRing_out				: buffer std_logic_vector(11 downto 0) := x"000";	-- LED Ring
+		o_LatchIO					: out std_logic_vector(7 downto 0) := x"11";			-- Output Latch
 		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
 		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
 		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
@@ -50,6 +51,7 @@ architecture struct of PeripheralInterface is
 	signal w_TimersCS				:	std_logic := '0';
 	signal w_NoteCS				:	std_logic := '0';
 	signal w_LEDRingCS			:	std_logic := '0';
+	signal w_LatchIOCS			:	std_logic := '0';
 	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
@@ -88,6 +90,7 @@ architecture struct of PeripheralInterface is
 	constant TIMERS_BASE : std_Logic_Vector(4 downto 0) := '0'&x"7";
 	constant NOTE_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"8";
 	constant LEDRNG_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"9";
+	constant LATIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"A";
 
 begin
 	
@@ -103,6 +106,7 @@ begin
 	w_TimersCS		<= '1' when i_peripheralAddress(15 downto 11) = TIMERS_BASE	else '0';	-- x3800-x3FFF (2KB)	- Timers
 	w_NoteCS			<= '1' when i_peripheralAddress(15 downto 11) = NOTE_BASE	else '0';	-- x4000-x47FF (2KB)	- Music/Note
 	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)	- LED Ring
+	w_LatchIOCS		<= '1' when i_peripheralAddress(15 downto 11) = LATIO_BASE	else '0';	-- x5000-x5FFF (2KB)	- I/O Latch
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_dispRamDataOutA 			when	w_dispRamCS 	= '1' else
@@ -160,6 +164,15 @@ begin
     ld 	=> w_LEDsCS and i_peripheralWrStrobe,
     clr  => not n_reset,
     q    => w_LatData
+	);
+	
+	IOLatch	: ENTITY work.REG_8
+	PORT MAP (
+    clk 	=> i_CLOCK_50,
+    d 	=> i_dataToPeripherals(7 downto 0),
+    ld 	=> w_LatchIOCS and i_peripheralWrStrobe,
+    clr  => not n_reset,
+    q    => o_LatchIO
 	);
 	
 	o_LEDRing_out <= not w_LEDRing_out;
