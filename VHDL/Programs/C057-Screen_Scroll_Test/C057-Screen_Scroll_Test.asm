@@ -173,14 +173,14 @@ donePrStr:
 clearScreen:
 	push	r9				; save r9
 	push	r8				; save r8
-	lix	r8,0x0			; set screen position to home
-	bsr	setCharPos
-	lix	r8,0x0020		; fill with spaces
-	lix r9,0x7FE		; loopCount	(1K minus 1)
+	lix		r8,0x0			; set screen position to home
+	bsr		setCharPos
+	lix		r8,0x0020		; fill with spaces
+	lix 	r9,0x7FE		; loopCount	(1K minus 1)
 looper:
-	bsr	putChar
-	add r9,r9,MINUS1	; decrement character counter
-	bne	looper			; loop until complete
+	bsr		putChar
+	add 	r9,r9,MINUS1	; decrement character counter
+	bne		looper			; loop until complete
 	pull	r8
 	pull	r9
 	pull	PC				; rts
@@ -222,16 +222,16 @@ setCharPos:
 	push	r9						; save r9
 	push	r10						; save r10
 	push	DAR						; save DAR
-	lix	r10,screenBase.lower
-	add	DAR,r10,ZERO			; DAR points to the screenBase
-	ldl	r10						; r10 has the screen base address
-	add	r10,r8,ZERO				; add passed position to base
-	lix	r9,screenPtr.lower		; r9 is the ptr to screenPtr
-	add	DAR,r9,ZERO				; DAR points to screenPtr
-	sdl	r10						; store new screen address
-	pull DAR						; restore DAR
-	pull r10						; restore r10
-	pull r9						; restore r9
+	lix		r10,screenBase.lower
+	add		DAR,r10,ZERO			; DAR points to the screenBase
+	ldl		r10						; r10 has the screen base address
+	add		r10,r8,ZERO				; add passed position to base
+	lix		r9,screenPtr.lower		; r9 is the ptr to screenPtr
+	add		DAR,r9,ZERO				; DAR points to screenPtr
+	sdl		r10						; store new screen address
+	pull 	DAR						; restore DAR
+	pull 	r10						; restore r10
+	pull 	r9						; restore r9
 	pull	PC						; rts
 
 ; delay_mS - delay for the number of mSecs passed in r8

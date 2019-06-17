@@ -1,10 +1,10 @@
-; Read Switches and put to Seven Segment LED Display
+; Read Switches and put to the Ring LEDs
 hello:	.string "R32V2020> "
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
 
 ;
-; Read Switches and put to the Seven Segment LED Display
+; Read Switches and put to the Ring LEDs
 ;
 
 main:

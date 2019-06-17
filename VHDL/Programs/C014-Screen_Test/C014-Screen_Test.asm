@@ -1,11 +1,11 @@
 ; Peripheral Test
 ; Put characters on the screen
 start:
-	add r5,r0,r0	; start of screen character memory
+	lix r5,0x0000	; start of screen character memory
 	add r8,r0,r0	; clear the character
-	lil	r8,0x0020	; fill with spaces
+	lix	r8,0x0020	; fill with spaces
 	add r9,r0,r0	; screen count
-	lil r9,0x7FE	; loopCount	
+	lix r9,0x7FE	; loopCount	
 looper:
 	spb r8			; put the character to the screen
 	add	r5,r5,r1	; Increment screen pointer

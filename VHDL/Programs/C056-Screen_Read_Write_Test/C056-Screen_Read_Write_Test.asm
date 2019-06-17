@@ -8,7 +8,7 @@ screenBase:	.long 0x0
 
 main:
 	bsr	clearScreen
-	lix	r8,128			; Move cursor to home position
+	lix	r8,128			; Move cursor to 4th row position
 	bsr	setCharPos
 readDataMemory:
 	lix	r8,hello.lower
