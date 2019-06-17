@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Sat Jun 15 18:45:52 2019
+Sun Jun 16 14:51:22 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sat Jun 15 18:45:52 2019       ;
+; Flow Status                        ; Successful - Sun Jun 16 14:51:22 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE6E22C6                                 ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,842 / 6,272 ( 77 % )                      ;
-;     Total combinational functions  ; 4,403 / 6,272 ( 70 % )                      ;
-;     Dedicated logic registers      ; 1,642 / 6,272 ( 26 % )                      ;
-; Total registers                    ; 1642                                        ;
+; Total logic elements               ; 5,008 / 6,272 ( 80 % )                      ;
+;     Total combinational functions  ; 4,434 / 6,272 ( 71 % )                      ;
+;     Dedicated logic registers      ; 1,817 / 6,272 ( 29 % )                      ;
+; Total registers                    ; 1817                                        ;
 ; Total pins                         ; 59 / 92 ( 64 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 68,224 / 276,480 ( 25 % )                   ;
+; Total memory bits                  ; 71,936 / 276,480 ( 26 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 8 / 30 ( 27 % )                             ;
 ; Total PLLs                         ; 1 / 2 ( 50 % )                              ;
 +------------------------------------+---------------------------------------------+
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/15/2019 18:43:55 ;
+; Start date & time ; 06/16/2019 14:49:26 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                        ; Value                                                          ; Default Value ; Entity Name ; Section Id       ;
 +----------------------------------------+----------------------------------------------------------------+---------------+-------------+------------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION        ; Always                                                         ; Auto          ; --          ; --               ;
-; COMPILER_SIGNATURE_ID                  ; 198690285320223.156063863503660                                ; --            ; --          ; --               ;
+; COMPILER_SIGNATURE_ID                  ; 198690285320223.156071096508328                                ; --            ; --          ; --               ;
 ; EDA_OUTPUT_DATA_FORMAT                 ; Verilog Hdl                                                    ; --            ; --          ; eda_simulation   ;
 ; EDA_SIMULATION_TOOL                    ; ModelSim-Altera (Verilog)                                      ; <None>        ; --          ; --               ;
 ; EDA_TIME_SCALE                         ; 1 ps                                                           ; --            ; --          ; eda_simulation   ;
@@ -123,11 +123,12 @@ refer to the applicable agreement for further details.
 ; SLD_NODE_PARAMETER_ASSIGNMENT          ; SLD_ADVANCED_TRIGGER_ENTITY=basic,1,                           ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT          ; SLD_TRIGGER_LEVEL_PIPELINE=1                                   ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT          ; SLD_ENABLE_ADVANCED_TRIGGER=0                                  ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT          ; SLD_DATA_BITS=20                                               ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT          ; SLD_STORAGE_QUALIFIER_BITS=20                                  ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT          ; SLD_DATA_BITS=49                                               ; --            ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT          ; SLD_STORAGE_QUALIFIER_BITS=49                                  ; --            ; --          ; auto_signaltap_0 ;
+; SMART_RECOMPILE                        ; On                                                             ; Off           ; --          ; --               ;
 ; TOP_LEVEL_ENTITY                       ; top                                                            ; R32V2020      ; --          ; --               ;
 ; USE_LOGICLOCK_CONSTRAINTS_IN_BALANCING ; Off                                                            ; On            ; --          ; --               ;
-; USE_SIGNALTAP_FILE                     ; ../../Programs/C050-Switches_To_SevenSegmentLEDs/stp2.stp      ; --            ; --          ; --               ;
+; USE_SIGNALTAP_FILE                     ; ../../Programs/C061-IO_Test/stp2.stp                           ; --            ; --          ; --               ;
 +----------------------------------------+----------------------------------------------------------------+---------------+-------------+------------------+
 
 
@@ -136,12 +137,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:57     ; 1.0                     ; 4900 MB             ; 00:01:27                           ;
-; Fitter               ; 00:00:31     ; 1.1                     ; 5603 MB             ; 00:00:49                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4707 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:06     ; 1.5                     ; 4847 MB             ; 00:00:07                           ;
-; EDA Netlist Writer   ; 00:00:13     ; 1.0                     ; 4729 MB             ; 00:00:10                           ;
-; Total                ; 00:01:50     ; --                      ; --                  ; 00:02:35                           ;
+; Analysis & Synthesis ; 00:00:55     ; 1.0                     ; 4907 MB             ; 00:01:23                           ;
+; Fitter               ; 00:00:33     ; 1.1                     ; 5607 MB             ; 00:00:51                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4705 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:06     ; 1.6                     ; 4849 MB             ; 00:00:07                           ;
+; EDA Netlist Writer   ; 00:00:12     ; 1.0                     ; 4730 MB             ; 00:00:09                           ;
+; Total                ; 00:01:48     ; --                      ; --                  ; 00:02:32                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
