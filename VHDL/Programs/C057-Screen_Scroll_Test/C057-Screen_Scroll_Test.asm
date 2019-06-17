@@ -10,7 +10,7 @@ main:
 	lix		PAR,0x3802	; msec timer
 	lpl		r9			; read the timer into r8
 	push	r9			; save r9 on the stack
-	bsr		clearScreen
+	bsr		clearScreen	; measured at 1 mSec
 	lix		PAR,0x3802	; msec timer
 	lpl		r8			; read the timer into r8
 	pull	r9

@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Thu Jun 13 13:05:28 2019
+Mon Jun 17 07:55:55 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,18 +40,18 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Jun 13 13:05:22 2019       ;
+; Flow Status                        ; Successful - Mon Jun 17 07:55:47 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE10E22C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,282 / 10,320 ( 41 % )                     ;
-;     Total combinational functions  ; 4,044 / 10,320 ( 39 % )                     ;
-;     Dedicated logic registers      ; 1,191 / 10,320 ( 12 % )                     ;
-; Total registers                    ; 1191                                        ;
-; Total pins                         ; 51 / 92 ( 55 % )                            ;
+; Total logic elements               ; 4,304 / 10,320 ( 42 % )                     ;
+;     Total combinational functions  ; 4,057 / 10,320 ( 39 % )                     ;
+;     Dedicated logic registers      ; 1,219 / 10,320 ( 12 % )                     ;
+; Total registers                    ; 1219                                        ;
+; Total pins                         ; 59 / 92 ( 64 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 65,664 / 423,936 ( 15 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 8 / 46 ( 17 % )                             ;
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/13/2019 13:03:58 ;
+; Start date & time ; 06/17/2019 07:54:12 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                     ; Value                                                          ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------------------------------+---------------+-------------+------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                         ; Auto          ; --          ; --         ;
-; COMPILER_SIGNATURE_ID               ; 193569097813697.156044543809744                                ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 193569097813697.156077245101868                                ; --            ; --          ; --         ;
 ; ENABLE_SIGNALTAP                    ; Off                                                            ; --            ; --          ; --         ;
 ; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                            ; On            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                             ; --            ; --          ; --         ;
@@ -94,6 +94,7 @@ refer to the applicable agreement for further details.
 ; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                            ; --            ; --          ; --         ;
 ; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                          ; --            ; --          ; --         ;
 ; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                   ; --            ; --          ; --         ;
+; SMART_RECOMPILE                     ; On                                                             ; Off           ; --          ; --         ;
 ; TOP_LEVEL_ENTITY                    ; top                                                            ; R32V2020      ; --          ; --         ;
 ; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                                          ; --            ; --          ; --         ;
 +-------------------------------------+----------------------------------------------------------------+---------------+-------------+------------+
@@ -104,11 +105,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:50     ; 1.0                     ; 4881 MB             ; 00:01:16                           ;
-; Fitter               ; 00:00:28     ; 1.1                     ; 5612 MB             ; 00:00:44                           ;
+; Analysis & Synthesis ; 00:00:58     ; 1.0                     ; 4892 MB             ; 00:01:31                           ;
+; Fitter               ; 00:00:30     ; 1.1                     ; 5594 MB             ; 00:00:48                           ;
 ; Assembler            ; 00:00:02     ; 1.0                     ; 4705 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:05     ; 1.8                     ; 4855 MB             ; 00:00:06                           ;
-; Total                ; 00:01:25     ; --                      ; --                  ; 00:02:08                           ;
+; Timing Analyzer      ; 00:00:06     ; 2.0                     ; 4876 MB             ; 00:00:07                           ;
+; Total                ; 00:01:36     ; --                      ; --                  ; 00:02:28                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
