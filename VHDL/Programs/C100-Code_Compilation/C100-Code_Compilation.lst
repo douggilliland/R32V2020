@@ -50,6 +50,8 @@ waitUartRxStat:
 ;
 ; putCharToUART - Put a character to the UART
 ; passed character in r8 is sent out the UART
+; This function is blocking but that's not usually an issue
+;	since the Serial-USB interfaces is much faster than the Serial port
 ;
 
 putCharToUART:
