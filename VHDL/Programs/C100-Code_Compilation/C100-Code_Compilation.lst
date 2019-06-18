@@ -1,3 +1,7 @@
+; This file contains a compilation of the best assembly language routines
+; for the R32V2020 RISC CPU
+;
+
 hello:	.string "R32V2020> "
 screenPtr:	.long 0x0
 currCharLocPtr:	.long 0x0
