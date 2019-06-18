@@ -1,5 +1,5 @@
 MIF/HEX Update report for R32V2020
-Tue Jun 18 12:23:22 2019
+Tue Jun 18 14:48:16 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -35,7 +35,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------+
 ; MIF/HEX Update Summary                                        ;
 +-----------------------+---------------------------------------+
-; MIF/HEX Update Status ; Successful - Tue Jun 18 12:23:22 2019 ;
+; MIF/HEX Update Status ; Successful - Tue Jun 18 14:48:16 2019 ;
 ; Revision Name         ; R32V2020                              ;
 ; Top-level Entity Name ; top                                   ;
 ; Family                ; Cyclone IV E                          ;
@@ -43,14 +43,15 @@ refer to the applicable agreement for further details.
 +-----------------------+---------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------+
-; MIF/HEX Update Processed Files                                                                                  ;
-+-----------------------------------------------------------------------------------------------------------------+
-; File Name                                                                                                       ;
-+-----------------------------------------------------------------------------------------------------------------+
-; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C100-Code_Compilation/C100-Code_Compilation_dat.HEX ;
-; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C100-Code_Compilation/C100-Code_Compilation_ins.HEX ;
-+-----------------------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------+
+; MIF/HEX Update Processed Files                                                                                                ;
++-------------------------------------------------------------------------------------------------------------------------------+
+; File Name                                                                                                                     ;
++-------------------------------------------------------------------------------------------------------------------------------+
+; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX                                ;
+; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C062-Screen_Editor_ANSI_Test/C062-Screen_Editor_ANSI_Test_dat.HEX ;
+; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C062-Screen_Editor_ANSI_Test/C062-Screen_Editor_ANSI_Test_ins.HEX ;
++-------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-------------------------+
@@ -59,16 +60,28 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime MIF/HEX Update
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Tue Jun 18 12:23:21 2019
+    Info: Processing started: Tue Jun 18 14:48:15 2019
 Info: Command: quartus_cdb R32V2020 -c R32V2020 --update_mif
-Critical Warning (127005): Memory depth (1024) in the design file differs from memory depth (289) in the Memory Initialization File "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C100-Code_Compilation/C100-Code_Compilation_ins.HEX" -- setting initial value for remaining addresses to 0
-Critical Warning (127005): Memory depth (256) in the design file differs from memory depth (5) in the Memory Initialization File "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C100-Code_Compilation/C100-Code_Compilation_dat.HEX" -- setting initial value for remaining addresses to 0
+Warning (113015): Width of data items in "SansFontBoldReduced.HEX" is greater than the memory width. Wrapping data items to subsequent addresses. Found 32 warnings, reporting 10 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 1
+    Warning (113009): Data at line (1) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 1
+    Warning (113009): Data at line (2) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 2
+    Warning (113009): Data at line (3) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 3
+    Warning (113009): Data at line (4) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 4
+    Warning (113009): Data at line (5) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 5
+    Warning (113009): Data at line (6) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 6
+    Warning (113009): Data at line (7) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 7
+    Warning (113009): Data at line (8) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 8
+    Warning (113009): Data at line (9) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 9
+    Warning (113009): Data at line (10) of memory initialization file "SansFontBoldReduced.HEX" is too wide to fit in one memory word. Wrapping data to subsequent addresses. File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 10
+Critical Warning (127005): Memory depth (1024) in the design file differs from memory depth (140) in the Memory Initialization File "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C062-Screen_Editor_ANSI_Test/C062-Screen_Editor_ANSI_Test_ins.HEX" -- setting initial value for remaining addresses to 0
+Critical Warning (127005): Memory depth (256) in the design file differs from memory depth (5) in the Memory Initialization File "C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C062-Screen_Editor_ANSI_Test/C062-Screen_Editor_ANSI_Test_dat.HEX" -- setting initial value for remaining addresses to 0
 Info (39024): Processed the following Memory Initialization File(s)
-    Info (39025): Processed Memory Initialization File C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C100-Code_Compilation/C100-Code_Compilation_dat.HEX File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C100-Code_Compilation/C100-Code_Compilation_dat.HEX Line: 0
-    Info (39025): Processed Memory Initialization File C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C100-Code_Compilation/C100-Code_Compilation_ins.HEX File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C100-Code_Compilation/C100-Code_Compilation_ins.HEX Line: 0
-Info: Quartus Prime MIF/HEX Update was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4725 megabytes
-    Info: Processing ended: Tue Jun 18 12:23:22 2019
+    Info (39025): Processed Memory Initialization File C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/SansFontBoldReduced.HEX Line: 0
+    Info (39025): Processed Memory Initialization File C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C062-Screen_Editor_ANSI_Test/C062-Screen_Editor_ANSI_Test_dat.HEX File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C062-Screen_Editor_ANSI_Test/C062-Screen_Editor_ANSI_Test_dat.HEX Line: 0
+    Info (39025): Processed Memory Initialization File C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C062-Screen_Editor_ANSI_Test/C062-Screen_Editor_ANSI_Test_ins.HEX File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Programs/C062-Screen_Editor_ANSI_Test/C062-Screen_Editor_ANSI_Test_ins.HEX Line: 0
+Info: Quartus Prime MIF/HEX Update was successful. 0 errors, 13 warnings
+    Info: Peak virtual memory: 4724 megabytes
+    Info: Processing ended: Tue Jun 18 14:48:16 2019
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 
