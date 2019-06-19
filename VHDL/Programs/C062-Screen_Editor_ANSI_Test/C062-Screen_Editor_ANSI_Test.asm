@@ -1,18 +1,19 @@
-hello:	.string "R32V2020> "
-screenPtr:	.long 0x0
+prompt:			.string "R32V2020> "
+screenPtr:		.long 0x0
 currCharLocPtr:	.long 0x0
 
 ;
-; Read UART character and put it to the XVGA Display
+; Read UART character and put it to the ANSI VGA Display
 ;
 
 main:
-	lix		r8,hello.lower
+	bsr		clearScreen
+	lix		r8,prompt.lower
 	bsr		printString
 readUartStatus:
 	bsr		waitGetCharFromUART
-putCharToScreenAndUART:
-	bsr		putCharToScreen	; put the character to the screen
+putCharToANSIScreenAndUART:
+	bsr		putCharToANSIScreen	; put the character to the screen
 	bsr		putCharToUART
 	bra		readUartStatus
 
@@ -58,9 +59,9 @@ waitUartTxStat:
 	
 ;
 ; printString - Print a screen to the current screen position
-; pass value : r8 points to the start of the string
-; strings are null terminated
+; pass value : r8 points to the start of the string in Data memory
 ; strings are bytes packed into long words
+; strings are null terminated
 ;
 
 printString:
@@ -74,22 +75,22 @@ nextLong:
 	lix		r9,0xff			; mask for null termination check
 	and		r9,r9,r8
 	bez		donePrStr
-	bsr		putCharToScreen	; write out the character
+	bsr		putCharToANSIScreen	; write out the character
 	sr8		r8,r8
 	lix		r9,0xff			; mask for null termination check
 	and		r9,r9,r8
 	bez		donePrStr
-	bsr		putCharToScreen	; write out the character
+	bsr		putCharToANSIScreen	; write out the character
 	sr8		r8,r8
 	lix		r9,0xff			; mask for null termination check
 	and		r9,r9,r8
 	bez		donePrStr
-	bsr		putCharToScreen	; write out the character
+	bsr		putCharToANSIScreen	; write out the character
 	sr8		r8,r8
 	lix		r9,0xff			; mask for null termination check
 	and		r9,r9,r8
 	bez		donePrStr
-	bsr		putCharToScreen	; write out the character
+	bsr		putCharToANSIScreen	; write out the character
 lastOfLong:
 	add		DAR,DAR,ONE
 	bra		nextLong
@@ -101,65 +102,48 @@ donePrStr:
 	
 ;
 ; clearScreen - Clear the screen routine
-; Fills the screen with space characters
-; Screen is memory mapped
-; Screen is 64 columns by 32 rows = 2KB total space
-; Return address (-1) is on the stack - need to increment before return
-; Sets the pointer to the screen to the first location
+; ANSI Terminal has an escape sequence which clears the screen and homes cursor
 ;
 
 clearScreen:
-	push	r9				; save r9
 	push	r8				; save r8
-	lix		r8,0x0020		; fill with spaces
-	lix 	r9,0x7FE		; loopCount	(1K minus 1)
-looper:
-	bsr		putCharToScreen
-	add 	r9,r9,MINUS1	; decrement character counter
-	bne		looper			; loop until complete
-	lix		r8,0x0			; Move cursor to home position
-	bsr		setCharPos
+	lix		r8,0x1b			; ESC
+	bsr		putCharToANSIScreen
+	lix		r8,0x5b			; [
+	bsr		putCharToANSIScreen
+	lix		r8,0x32			; 2
+	bsr		putCharToANSIScreen
+	lix		r8,0x4A			; J
+	bsr		putCharToANSIScreen
 	pull	r8
-	pull	r9
 	pull	PC				; rts
 
 ;
-; putCharToScreen - Put a character to the screen and increment the address
+; putCharToANSIScreen - Put a character to the screen
 ; Character to put to screen is in r8
 ; Return address (-1) is on the stack - need to increment before return
 ;
 
-putCharToScreen:
+putCharToANSIScreen:
+	push	r9
 	push	PAR
-	lix		PAR,0x1
-	spl		r8
-	pull 	PAR					; restore PAR
-	pull	PC					; rts
-
+	push	r10
+	lix		r10,0x2		; TxReady bit
+	lix		PAR,0x0		; UART Status
+waitScreenTxStat:
+	lpl		r9			; Read Status into r9
+	and 	r9,r9,r10
+	bez 	waitScreenTxStat
+	lix 	PAR,0x1
+	spl		r8			; echo the character
+	pull	r10
+	pull	PAR
+	pull	r9
+	pull	PC
+	
 ;
-; setCharPos - Move to x,y position
-; x,y value is passed in r8
-;	First 6 least significant bits (0-63 columns)
-; 	Next 5 bits (row on the screen)
-; currCharLocPtr has the base address of the screen memory
-; screenPtr contains the address of the current char position
+; makeBuzz - Make the buzzer buzz
 ;
-
-setCharPos:
-	push	r9						; save r9
-	push	r10						; save r10
-	push	DAR						; save DAR
-	lix		r10,currCharLocPtr.lower
-	add		DAR,r10,ZERO			; DAR points to the currCharLocPtr
-	ldl		r10						; r10 has the screen base address
-	add		r10,r8,ZERO				; add passed position to base
-	lix		r9,screenPtr.lower		; r9 is the ptr to screenPtr
-	add		DAR,r9,ZERO				; DAR points to screenPtr
-	sdl		r10						; store new screen address
-	pull	DAR						; restore DAR
-	pull	r10						; restore r10
-	pull	r9						; restore r9
-	pull	PC						; rts
 
 makeBuzz:
 	push	r8
@@ -224,7 +208,7 @@ disableBuzzer:
 	
 ; delay_mS - delay for the number of mSecs passed in r8
 ; pass mSec delay in r8
-; Uses routine uses r9
+; Routine uses r9
 
 delay_mS:
 	push	r9
