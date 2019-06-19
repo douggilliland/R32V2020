@@ -8,6 +8,9 @@ use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 use IEEE.numeric_std.all;
 
+library work;
+use work.R32V2020_Pkg.all;
+
 entity ALU is
 	port (
 		i_regDataA		: in std_logic_vector(31 downto 0) := x"00000000";

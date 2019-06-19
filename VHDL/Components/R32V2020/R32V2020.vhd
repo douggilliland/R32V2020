@@ -5,6 +5,9 @@ use ieee.std_logic_1164.all;
 use  IEEE.STD_LOGIC_ARITH.all;
 use  IEEE.STD_LOGIC_UNSIGNED.all;
 
+library work;
+use work.R32V2020_Pkg.all;
+
 entity R32V2020 is
 	port(
 		n_reset						: in std_logic := '1';

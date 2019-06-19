@@ -12,6 +12,27 @@
 --
 -- Grant Searle
 -- eMail address available on my main web page link above.
+--
+-- Interface matches ACIA software interface address/control/status contents
+-- http://www.swtpc.com/mholley/Notebook/Hardware_ACIA.pdf
+-- Status Register
+--		Register Select = 0
+--		Read/Write = Read
+-- 		d0 = RDRF	= Receive Data Register Full (1 = data is ready to read)
+--			d1 = TDRE	= Transmit Data Register Empty (1 = transmit is ready to send out data)
+--			d2 = DCD		= Data Carrier Detect (0 = carrier present - hardwired)
+--			d3 = CTS		= Clear to Send (0 = Clear to Send - ready to accept data - hardwired)
+--			d7 = IRQ		= Interrupt Request (1 = Interrupt present)
+--	Control Register
+--		Register Select = 0
+--		Read/Write = Write
+--			d1,d0		= Control (11 = Master Reset)
+--			d6,d5		= TC = Transmitter Control (RTS = Transmitter Interrupt Enable/Disable)
+--			d7 		= Interrupt Enable (1=enable interrupts)
+-- Data Register
+--		Register Select = 1
+--		Read = Read data from the data register
+--		Write = Write data to the data register
 
 library ieee;
 	use ieee.std_logic_1164.all;
@@ -117,6 +138,7 @@ constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 -- it goes 1 beyond in the hblank time. It could be avoided but it's fiddly with no
 -- benefit. Without the +1 the design synthesises and works fine but gives a fatal
 -- error in RTL simulation when the signal goes out of range.
+
 	signal	charHoriz: integer range 0 to 1+HORIZ_CHAR_MAX; --unsigned(6 DOWNTO 0);
 	signal	charBit: std_logic_vector(3 DOWNTO 0);
 
@@ -168,10 +190,10 @@ constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 	signal	dispByteSent : std_logic := '0';
 
 	signal	dispByteLatch: std_logic_vector(7 DOWNTO 0);
-	type	dispStateType is ( idle, dispWrite, dispNextLoc, clearLine, clearL2,
+	type		dispStateType is ( idle, dispWrite, dispNextLoc, clearLine, clearL2,
 						clearScreen, clearS2, clearChar, clearC2, insertLine, ins2, ins3, deleteLine, del2, del3);
 	signal	dispState : dispStateType :=idle;
-	type	escStateType is ( none, waitForLeftBracket, processingParams, processingAdditionalParams );
+	type		escStateType is ( none, waitForLeftBracket, processingParams, processingAdditionalParams );
 	signal	escState : escStateType :=none;
 
 	signal	param1: integer range 0 to 127 :=0;
@@ -211,7 +233,7 @@ constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 	signal	cursAddr_xx: std_logic_vector(10 downto 0);
 	signal	dispAddr_xx: std_logic_vector(10 downto 0);
 
-	type	kbDataArray is array (0 to 131) of std_logic_vector(6 downto 0);
+	type		kbDataArray is array (0 to 131) of std_logic_vector(6 downto 0);
 
 	-- the ASCII codes are expressed in HEX and therefore are 8-bit.
 	-- However, the MSB is always 0 so we don't want to store the MSB. This
