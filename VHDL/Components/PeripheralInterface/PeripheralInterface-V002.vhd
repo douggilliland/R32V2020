@@ -32,8 +32,8 @@ entity PeripheralInterface is
 		o_VideoOut					: out std_logic_vector(2 downto 0);						-- VGA lines r,g,b
 		o_hSync						: out std_logic := '1';
 		o_vSync						: out std_logic := '1';
-		i_PS2_CLK					: inout std_logic := '1';										-- PS/2 Clock
-		i_PS2_DATA					: inout std_logic := '1'										-- PS/2 Data
+		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
+		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
 		);
 	end PeripheralInterface;
 	
@@ -42,7 +42,7 @@ architecture struct of PeripheralInterface is
 	attribute syn_keep: boolean;
 	-- Peripheral Signals
 	signal ANSI_DisplayCS 		:	std_logic := '0';
-	signal w_n_VGA_Int			:	std_logic := '0';
+	--signal w_n_VGA_Int			:	std_logic := '0';
 	signal w_n_VGA_Rts			:	std_logic := '0';
 	signal w_kbDatCS 				:	std_logic := '0';
 	signal w_kbStatCS				:	std_logic := '0';
@@ -132,8 +132,7 @@ begin
 			regSel			=> i_peripheralAddress(0),
 			dataIn			=> i_dataToPeripherals(7 downto 0),
 			dataOut			=> w_dispRamDataOutA,
-			n_int				=> w_n_VGA_Int,
-			n_rts				=> w_n_VGA_Rts,
+			--n_int				=> w_n_VGA_Int,
 			videoR0			=> w_Video(5),
 			videoR1			=> w_Video(4),
 			videoG0			=> w_Video(3),

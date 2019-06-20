@@ -74,7 +74,7 @@ entity ANSIDisplayVGA is
 		dataIn	: in  std_logic_vector(7 downto 0);
 		dataOut	: out std_logic_vector(7 downto 0);
 		n_int		: out std_logic;
-		n_rts		: out std_logic :='0';
+		--n_rts		: out std_logic :='0';
 
 		-- RGB video signals
 		videoR0	: out std_logic;
@@ -112,8 +112,6 @@ constant HORIZ_CHAR_MAX : integer := HORIZ_CHARS-1;
 constant VERT_CHAR_MAX : integer := VERT_CHARS-1;
 constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 
-	signal	FNkeysSig	: std_logic_vector(12 downto 0) := (others => '0');
-	signal	FNtoggledKeysSig	: std_logic_vector(12 downto 0) := (others => '0');
 
 	signal	func_reset: std_logic := '0';
 
@@ -175,12 +173,12 @@ constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 	signal	statusReg : std_logic_vector(7 downto 0) := (others => '0');
 	signal	controlReg : std_logic_vector(7 downto 0) := "00000000";
 
-	type	kbBuffArray is array (0 to 7) of std_logic_vector(6 downto 0);
-	signal	kbBuffer : kbBuffArray;
-
-	signal	kbInPointer: integer range 0 to 15 :=0;   -- registered on clk
-	signal	kbReadPointer: integer range 0 to 15 :=0; -- registered on n_rd
-	signal	kbBuffCount: integer range 0 to 15 :=0;   -- combinational
+--	type	kbBuffArray is array (0 to 7) of std_logic_vector(6 downto 0);
+--	signal	kbBuffer : kbBuffArray;
+--
+--	signal	kbInPointer: integer range 0 to 15 :=0;   -- registered on clk
+--	signal	kbReadPointer: integer range 0 to 15 :=0; -- registered on n_rd
+--	signal	kbBuffCount: integer range 0 to 15 :=0;   -- combinational
 	signal	dispByteWritten : std_logic := '0';
 	signal	dispByteSent : std_logic := '0';
 
@@ -499,7 +497,7 @@ end generate GEN_NO_ATTRAM;
 
 
 	-- minimal 6850 compatibility
-	statusReg(0) <= '0' when kbInPointer=kbReadPointer else '1';
+	statusReg(0) <= '0'; -- when kbInPointer=kbReadPointer else '1';
 	statusReg(1) <= '1' when dispByteWritten=dispByteSent else '0';
 	statusReg(2) <= '0'; --n_dcd;
 	statusReg(3) <= '0'; --n_cts;
@@ -507,13 +505,10 @@ end generate GEN_NO_ATTRAM;
 
 	-- interrupt mask
 	n_int <= n_int_internal;
-	n_int_internal <= '0' when (kbInPointer /= kbReadPointer) and controlReg(7)='1'
-	         else '0' when (dispByteWritten=dispByteSent) and controlReg(6)='0' and controlReg(5)='1'
+	n_int_internal <= '0' when (dispByteWritten=dispByteSent) and controlReg(6)='0' and controlReg(5)='1'
 				else '1';
 
-	kbBuffCount <= 0 + kbInPointer - kbReadPointer when kbInPointer >= kbReadPointer
-		else 8 + kbInPointer - kbReadPointer;
-	n_rts <= '1' when kbBuffCount > 4 else '0';
+--	n_rts <= '0';
 
 	-- write of xxxxxx11 to control reg will reset
 	process (clk)
@@ -529,21 +524,8 @@ end generate GEN_NO_ATTRAM;
 
 	reg_rd: process( n_rd, func_reset )
 	begin
-		if func_reset='1' then
-			kbReadPointer <= 0;
-		elsif falling_edge(n_rd) then -- Standard CPU - present data on leading edge of rd
-			if regSel='1' then
-				dataOut <= '0' & kbBuffer(kbReadPointer);
-				if kbInPointer /= kbReadPointer then
-					if kbReadPointer < 7 then
-						kbReadPointer <= kbReadPointer+1;
-					else
-						kbReadPointer <= 0;
-					end if;
-				end if;
-			else
-				dataOut <= statusReg;
-			end if;
+		if falling_edge(n_rd) then -- Standard CPU - present data on leading edge of rd
+			dataOut <= statusReg;
 		end if;
 	end process;
 

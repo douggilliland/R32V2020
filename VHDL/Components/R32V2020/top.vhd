@@ -34,8 +34,8 @@ entity top is
 		-- 8 bit I/O Latch
 		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- PS/2 Keyboard pins
-		i_ps2Clk				: inout std_logic := '1';
-		i_ps2Data			: inout std_logic := '1'		
+		i_ps2Clk				: in std_logic := '1';
+		i_ps2Data			: in std_logic := '1'		
 		);
 end top;
 

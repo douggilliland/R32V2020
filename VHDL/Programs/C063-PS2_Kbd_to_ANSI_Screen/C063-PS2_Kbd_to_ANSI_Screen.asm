@@ -1,4 +1,5 @@
 ; Read PS/2 keyboard character and put it to the Screen
+; Requires V002 build with ANSI screen support
 hello:	.string "R32V2020> "
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
@@ -8,7 +9,7 @@ screenBase:	.long 0x0
 ;
 
 main:
-	bsr	clearScreen
+	bsr	clearANSIScreen
 readDataMemory:
 	lix	r8,hello.lower
 	bsr	printString
@@ -112,11 +113,11 @@ donePrStr:
 	pull	PC				; rts
 	
 ;
-; clearScreen - Clear the screen routine
+; clearANSIScreen - Clear the screen routine
 ; ANSI Terminal has an escape sequence which clears the screen and homes cursor
 ;
 
-clearScreen:
+clearANSIScreen:
 	push	r8				; save r8
 	lix		r8,0x1b			; ESC
 	bsr		putCharToANSIScreen
