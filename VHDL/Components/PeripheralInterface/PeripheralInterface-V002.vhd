@@ -123,7 +123,7 @@ begin
 		x"FFFFFFFF";
 
 	o_VideoOut <= (w_Video(5) or w_Video(4)) & (w_Video(3) or w_Video(2)) & (w_Video(1) or w_Video(0));
-	SVGA : entity work.SBCTextDisplayRGB
+	SVGA : entity work.ANSIDisplayVGA
 		port map (
 			n_reset			=> n_reset,
 			clk				=> i_CLOCK_50,
@@ -141,9 +141,9 @@ begin
 			videoB0			=> w_Video(1),
 			videoB1			=> w_Video(0),
 			hSync  			=> o_hSync,
-			vSync  			=> o_vSync,
-			ps2Clk			=> i_PS2_CLK,
-			ps2Data			=> i_PS2_DATA
+			vSync  			=> o_vSync
+--			ps2Clk			=> i_PS2_CLK,
+--			ps2Data			=> i_PS2_DATA
 			);
 	
 	timers : entity work.Timer_Unit
@@ -240,6 +240,15 @@ begin
 		c0			=> w_Video_Clk
 	);
 	
+	ps2Keyboard : entity work.ps2_keyboard_to_ascii
+	port map (
+		clk			=> i_CLOCK_50,
+		ps2_clk		=> i_PS2_CLK,
+		ps2_data		=> i_PS2_DATA,	
+		ascii_code	=> w_kbReadData,
+		ascii_new	=> w_kbDataValid
+	);
+
 	-- w_latKbDV1, w_latKbDV2
 	process (i_CLOCK_50, n_reset, W_kbDataValid, w_kbReadData, w_kbDatCS, w_latKbStat)
 	begin

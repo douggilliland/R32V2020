@@ -13,6 +13,9 @@
 -- Grant Searle
 -- eMail address available on my main web page link above.
 --
+-- Changed Grant's code to remove the PS/2 keyboard
+--		Keyboard was not clean ASCII due to remapping certain keys
+--
 -- Interface matches ACIA software interface address/control/status contents
 -- http://www.swtpc.com/mholley/Notebook/Hardware_ACIA.pdf
 -- Status Register
@@ -39,7 +42,7 @@ library ieee;
 	use ieee.numeric_std.all;
 	use ieee.std_logic_unsigned.all;
 
-entity SBCTextDisplayRGB is
+entity ANSIDisplayVGA is
 	generic(
 		constant EXTENDED_CHARSET : integer := 0; -- 1 = 256 chars, 0 = 128 chars
 		constant COLOUR_ATTS_ENABLED : integer := 1; -- 1=Colour for each character, 0=Colour applied to whole display
@@ -48,8 +51,8 @@ entity SBCTextDisplayRGB is
 		constant HORIZ_CHARS : integer := 80;
 		constant CLOCKS_PER_SCANLINE : integer := 1600; -- NTSC/PAL = 3200
 		constant DISPLAY_TOP_SCANLINE : integer := 35+40;
---		constant DISPLAY_LEFT_CLOCK : integer := 288; -- NTSC/PAL = 600+
-		constant DISPLAY_LEFT_CLOCK : integer := 298; -- NTSC/PAL = 600+
+		constant DISPLAY_LEFT_CLOCK : integer := 288; -- NTSC/PAL = 600+
+--		constant DISPLAY_LEFT_CLOCK : integer := 298; -- NTSC/PAL = 600+
 		constant VERT_SCANLINES : integer := 525; -- NTSC=262, PAL=312
 		constant VSYNC_SCANLINES : integer := 2; -- NTSC/PAL = 4
 		constant HSYNC_CLOCKS : integer := 192;  -- NTSC/PAL = 235
@@ -85,19 +88,11 @@ entity SBCTextDisplayRGB is
 
 		-- Monochrome video signals
 		video		: buffer std_logic;
-		sync  	: out  std_logic;
-
-		-- Keyboard signals
-		ps2Clk	: inout std_logic;
-		ps2Data	: inout std_logic;
-
-		-- FN keys passed out as general signals (momentary and toggled versions)
-		FNkeys			: out std_logic_vector(12 downto 0);
-		FNtoggledKeys	: out std_logic_vector(12 downto 0)
+		sync  	: out  std_logic
  );
-end SBCTextDisplayRGB;
+end ANSIDisplayVGA;
 
-architecture rtl of SBCTextDisplayRGB is
+architecture rtl of ANSIDisplayVGA is
 
 --VGA 640x400
 --constant VERT_CHARS : integer := 25;
@@ -205,28 +200,6 @@ constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 	signal	attInverse : std_logic := '0';
 	signal	attBold : std_logic := DEFAULT_ATT(3);
 
-	signal	ps2Byte: std_logic_vector(7 DOWNTO 0);
-	signal	ps2PreviousByte: std_logic_vector(7 DOWNTO 0);
-	signal	ps2ConvertedByte: std_logic_vector(6 DOWNTO 0);
-	signal	ps2ClkCount : integer range 0 to 10 :=0;
-	signal	ps2WriteClkCount : integer range 0 to 20 :=0;
-	signal	ps2WriteByte: std_logic_vector(7 DOWNTO 0) := x"FF";
-	signal	ps2WriteByte2: std_logic_vector(7 DOWNTO 0):= x"FF";
-	signal	ps2PrevClk: std_logic := '1';
-	signal 	ps2ClkFilter : integer range 0 to 50;
-	signal 	ps2ClkFiltered : std_logic := '1';
-
-	signal	ps2Shift: std_logic := '0';
-	signal	ps2Ctrl: std_logic := '0';
-	signal	ps2Caps: std_logic := '1';
-	signal	ps2Num: std_logic := '0';
-	signal	ps2Scroll: std_logic := '0';
-
-	signal	ps2DataOut: std_logic := '1';
-	signal	ps2ClkOut: std_logic := '1';
-	signal	n_kbWR: std_logic := '1';
-	signal	kbWRParity: std_logic := '0';
-
 	-- "globally static" versions of signals for use within generate
         -- statements below. Without these intermediate signals the simulator
         -- reports an error (even though the design synthesises OK)
@@ -235,67 +208,6 @@ constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 
 	type		kbDataArray is array (0 to 131) of std_logic_vector(6 downto 0);
 
-	-- the ASCII codes are expressed in HEX and therefore are 8-bit.
-	-- However, the MSB is always 0 so we don't want to store the MSB. This
-	-- function allows us to express the codes here as pairs of hex digits,
-	-- for readability, but truncates the value to return 7 bits for the
-	-- hardware implementation.
-	function t (
-	  val: std_logic_vector(7 downto 0)
-	  ) return std_logic_vector is
-	begin
-	  return val(6 downto 0);
-	end t;
-
-	-- scan-code-to-ASCII for UK KEYBOARD MAPPING (except for shift-3 = "#")
-	-- Read it like this: row 4,col 9 represents scan code 0x49. From a map
-	-- of the PS/2 keyboard scan codes this is the ". >" key so the unshifted
-	-- table as has 0x2E (ASCII .) and the shifted table has 0x3E (ASCII >)
-	-- Do not need a lookup for CTRL because this is simply the ASCII code
-	-- with bits 6,5 cleared.
-	-- A value of 0 represents either an unused keycode or a keycode like
-	-- SHIFT that is processed separately (not looked up in the table).
-	-- The FN keys do not generate ASCII values to the virtual UART here.
-	-- Rather, they are used to generate direct output signals. The key
-	-- codes in the table for the function keys are the values 0x11-0x1C
-	-- which cannot be generated directly by any keypress and so do not
-	-- conflict with normal operation.
-
-	constant kbUnshifted : kbDataArray :=
-	(
-	--  0        1        2        3        4        5        6        7        8        9        A        B        C        D        E        F
-	--       F9                F5       F3       F1       F2       F12               F10      F8       F6       F4       TAB      `
-	t(x"00"),t(x"19"),t(x"00"),t(x"15"),t(x"13"),t(x"11"),t(x"12"),t(x"1C"),t(x"00"),t(x"1A"),t(x"18"),t(x"16"),t(x"14"),t(x"09"),t(x"60"),t(x"00"), -- 0
-	--       l-ALT    l-SHIFT           l-CTRL   q        1                                   z        s        a        w        2
-	t(x"00"),t(x"00"),t(x"00"),t(x"00"),t(x"00"),t(x"71"),t(x"31"),t(x"00"),t(x"00"),t(x"00"),t(x"7A"),t(x"73"),t(x"61"),t(x"77"),t(x"32"),t(x"00"), -- 1
-	--       c        x        d        e        4        3                          SPACE    v        f        t        r        5
-	t(x"00"),t(x"63"),t(x"78"),t(x"64"),t(x"65"),t(x"34"),t(x"33"),t(x"00"),t(x"00"),t(x"20"),t(x"76"),t(x"66"),t(x"74"),t(x"72"),t(x"35"),t(x"00"), -- 2
-	--       n        b        h        g        y        6                                   m        j        u        7        8
-	t(x"00"),t(x"6E"),t(x"62"),t(x"68"),t(x"67"),t(x"79"),t(x"36"),t(x"00"),t(x"00"),t(x"00"),t(x"6D"),t(x"6A"),t(x"75"),t(x"37"),t(x"38"),t(x"00"), -- 3
-	--       ,        k        i        o        0        9                          .        /        l        ;        p        -
-	t(x"00"),t(x"2C"),t(x"6B"),t(x"69"),t(x"6F"),t(x"30"),t(x"39"),t(x"00"),t(x"00"),t(x"2E"),t(x"2F"),t(x"6C"),t(x"3B"),t(x"70"),t(x"2D"),t(x"00"), -- 4
-	--                '                 [        =                          CAPLOCK  r-SHIFT  ENTER    ]                 #~
-	t(x"00"),t(x"00"),t(x"27"),t(x"00"),t(x"5B"),t(x"3D"),t(x"00"),t(x"00"),t(x"00"),t(x"00"),t(x"0D"),t(x"5D"),t(x"00"),t(x"23"),t(x"00"),t(x"00"), -- 5
-	--       \|                                           BACKSP                     KP1               KP4      KP7
-	t(x"00"),t(x"5C"),t(x"00"),t(x"00"),t(x"00"),t(x"00"),t(x"08"),t(x"00"),t(x"00"),t(x"31"),t(x"00"),t(x"34"),t(x"37"),t(x"00"),t(x"00"),t(x"00"), -- 6
-	-- KP0   KP.      KP2      KP5      KP6      KP8      ESC      NUMLCK   F11      KP+      KP3      KP-      KP*      KP9      SCRLCK
-	t(x"30"),t(x"2E"),t(x"32"),t(x"35"),t(x"36"),t(x"38"),t(x"1B"),t(x"00"),t(x"1B"),t(x"2B"),t(x"33"),t(x"2D"),t(x"2A"),t(x"39"),t(x"00"),t(x"00"), -- 7
-	--                         F7
-	t(x"00"),t(x"00"),t(x"00"),t(x"17") -- 8
-	);
-	constant kbShifted : kbDataArray :=
-	(
-	--  0        1        2        3        4        5        6        7        8        9        A        B        C        D        E        F
-	t(x"00"),t(x"19"),t(x"00"),t(x"15"),t(x"13"),t(x"11"),t(x"12"),t(x"1C"),t(x"00"),t(x"1A"),t(x"18"),t(x"16"),t(x"14"),t(x"09"),t(x"00"),t(x"00"), -- 0
-	t(x"00"),t(x"00"),t(x"00"),t(x"00"),t(x"00"),t(x"51"),t(x"21"),t(x"00"),t(x"00"),t(x"00"),t(x"5A"),t(x"53"),t(x"41"),t(x"57"),t(x"22"),t(x"00"), -- 1
-	t(x"00"),t(x"43"),t(x"58"),t(x"44"),t(x"45"),t(x"24"),t(x"23"),t(x"00"),t(x"00"),t(x"20"),t(x"56"),t(x"46"),t(x"54"),t(x"52"),t(x"25"),t(x"00"), -- 2
-	t(x"00"),t(x"4E"),t(x"42"),t(x"48"),t(x"47"),t(x"59"),t(x"5E"),t(x"00"),t(x"00"),t(x"00"),t(x"4D"),t(x"4A"),t(x"55"),t(x"26"),t(x"2A"),t(x"00"), -- 3
-	t(x"00"),t(x"3C"),t(x"4B"),t(x"49"),t(x"4F"),t(x"29"),t(x"28"),t(x"00"),t(x"00"),t(x"3E"),t(x"3F"),t(x"4C"),t(x"3A"),t(x"50"),t(x"5F"),t(x"00"), -- 4
-	t(x"00"),t(x"00"),t(x"40"),t(x"00"),t(x"7B"),t(x"2B"),t(x"00"),t(x"00"),t(x"00"),t(x"00"),t(x"0D"),t(x"7D"),t(x"00"),t(x"7E"),t(x"00"),t(x"00"), -- 5
-	t(x"00"),t(x"7C"),t(x"00"),t(x"00"),t(x"00"),t(x"00"),t(x"08"),t(x"00"),t(x"00"),t(x"31"),t(x"00"),t(x"34"),t(x"37"),t(x"00"),t(x"00"),t(x"00"), -- 6
-	t(x"30"),t(x"2E"),t(x"32"),t(x"35"),t(x"36"),t(x"38"),t(x"1B"),t(x"00"),t(x"1B"),t(x"2B"),t(x"33"),t(x"2D"),t(x"2A"),t(x"39"),t(x"00"),t(x"00"), -- 7
-	t(x"00"),t(x"00"),t(x"00"),t(x"17") -- 8
-	);
 
 begin
 
@@ -422,9 +334,6 @@ end generate GEN_1KATTRAM;
 GEN_NO_ATTRAM: if (COLOUR_ATTS_ENABLED=0) generate
 	dispAttData <= dispAttWRData; -- If no attribute RAM then two colour output on RGB pins as defined by default/esc sequence
 end generate GEN_NO_ATTRAM;
-
-	FNkeys <= FNkeysSig;
-	FNtoggledKeys <= FNtoggledKeysSig;
 
 	charAddr <= dispCharData & charScanLine(VERT_PIXEL_SCANLINES+1 downto VERT_PIXEL_SCANLINES-1);
 
@@ -651,236 +560,6 @@ end generate GEN_NO_ATTRAM;
 			end if;
 		end if;
 	end process;
-
-
-	-- PROCESS DATA FROM PS2 KEYBOARD
-	ps2Data <= ps2DataOut when ps2DataOut='0' else 'Z';
-	ps2Clk <= ps2ClkOut when ps2ClkOut='0' else 'Z';
-
-	-- PS2 clock de-glitcher - important because the FPGA is very sensistive
-	-- Filtered clock will not switch low to high until there is 50 more high samples than lows
-	-- hysteresis will then not switch high to low until there is 50 more low samples than highs.
-	-- Introduces a minor (1uS) delay with 50MHz clock
-	kbd_filter: process(clk)
-	begin
-		if rising_edge(clk) then
-			if ps2Clk = '1' and ps2ClkFilter=50 then
-				ps2ClkFiltered <= '1';
-			end if;
-			if ps2Clk = '1' and ps2ClkFilter /= 50 then
-				ps2ClkFilter <= ps2ClkFilter+1;
-			end if;
-			if ps2Clk = '0' and ps2ClkFilter=0 then
-				ps2ClkFiltered <= '0';
-			end if;
-			if ps2Clk = '0' and ps2ClkFilter/=0 then
-				ps2ClkFilter <= ps2ClkFilter-1;
-			end if;
-		end if;
-	end process;
-
-	kbd_ctl: process( clk, func_reset )
-	-- 11 bits
-	-- start(0) b0 b1 b2 b3 b4 b5 b6 b7 parity(odd) stop(1)
-	begin
-		if rising_edge(clk) then
-
-			ps2PrevClk <= ps2ClkFiltered;
-
-			if func_reset = '1' then
-				-- reset keyboard pointers
-				kbInPointer <= 0;
-			end if;
-
-			if n_kbWR = '0' and kbWriteTimer<25000 then
-				ps2WriteClkCount<= 0;
-				kbWRParity <= '1';
-				kbWriteTimer<=kbWriteTimer+1;
-				-- wait
-			elsif n_kbWR = '0' and kbWriteTimer<50000 then
-				ps2ClkOut <= '0';
-				kbWriteTimer<=kbWriteTimer+1;
-			elsif n_kbWR = '0' and kbWriteTimer<75000 then
-				ps2DataOut <= '0';
-				kbWriteTimer<=kbWriteTimer+1;
-			elsif n_kbWR = '0' and kbWriteTimer=75000 then
-				ps2ClkOut <= '1';
-				kbWriteTimer<=kbWriteTimer+1;
-			elsif n_kbWR = '0' and kbWriteTimer<76000 then
-				kbWriteTimer<=kbWriteTimer+1;
-			elsif  n_kbWR = '1' and ps2PrevClk = '1' and ps2ClkFiltered='0' then -- start of high-to-low cleaned ps2 clock
-				kbWatchdogTimer<=0;
-				if ps2ClkCount=0 then -- start
-					ps2Byte <= (others =>'0');
-					ps2ClkCount<=ps2ClkCount+1;
-				elsif ps2ClkCount<9 then -- data
-					ps2Byte <= ps2Data & ps2Byte(7 downto 1);
-					ps2ClkCount<=ps2ClkCount+1;
-				elsif ps2ClkCount=9 then -- parity - use this time to decode
-					if (ps2Byte<132) then
-						if ps2Shift='0' then
-							ps2ConvertedByte <= kbUnshifted (to_integer(unsigned(ps2Byte)));
-						else
-							ps2ConvertedByte <= kbShifted   (to_integer(unsigned(ps2Byte)));
-						end if;
-					else
-						ps2ConvertedByte <= (others => '0');
-					end if;
-					ps2ClkCount<=ps2ClkCount+1;
-				else -- stop bit - use this time to store
-					-- FN1-FN10 keys return values 0x11-0x1A. They are not presented as ASCII codes through
-					-- the virtual UART but instead toggle the FNkeys, FNtoggledKeys outputs.
-					-- F11, F12 are not included because we need code 0x1B for ESC
-					if ps2ConvertedByte>x"10" and ps2ConvertedByte<x"1B" then
-						if ps2PreviousByte /= x"F0" then
-							FNtoggledKeysSig(to_integer(unsigned(ps2ConvertedByte))-16#10#) <= FNtoggledKeysSig(to_integer(unsigned(ps2ConvertedByte))-16#10#);
-							FNKeysSig(to_integer(unsigned(ps2ConvertedByte))-16#10#) <= '1';
-						else
-							FNKeysSig(to_integer(unsigned(ps2ConvertedByte))-16#10#) <= '0';
-						end if;
-					-- left SHIFT or right SHIFT pressed
-					elsif ps2Byte = x"12" or ps2Byte=x"59" then
-						if ps2PreviousByte /= x"F0" then
-							ps2Shift <= '1';
-						else
-							ps2Shift <= '0';
-						end if;
-					-- CTRL pressed
-					elsif ps2Byte = x"14" then
-						if ps2PreviousByte /= x"F0" then
-							ps2Ctrl <= '1';
-						else
-							ps2Ctrl <= '0';
-						end if;
-					-- Self-test passed (after power-up).
-					-- Send SET-LEDs command to establish SCROLL, CAPS AND NUM
-					elsif ps2Byte = x"AA" then
-							ps2WriteByte <= x"ED";
-							ps2WriteByte2(0) <= ps2Scroll;
-							ps2WriteByte2(1) <= ps2Num;
-							ps2WriteByte2(2) <= ps2Caps;
-							ps2WriteByte2(7 downto 3) <= "00000";
-							n_kbWR <= '0';
-							kbWriteTimer<=0;
-					-- SCROLL-LOCK pressed - set flags and
-					-- update LEDs
-					elsif ps2Byte = x"7E" then
-						if ps2PreviousByte /= x"F0" then
-							ps2Scroll <= not ps2Scroll;
-							ps2WriteByte <= x"ED";
-							ps2WriteByte2(0) <= not ps2Scroll;
-							ps2WriteByte2(1) <= ps2Num;
-							ps2WriteByte2(2) <= ps2Caps;
-							ps2WriteByte2(7 downto 3) <= "00000";
-							n_kbWR <= '0';
-							kbWriteTimer<=0;
-						end if;
-					-- NUM-LOCK pressed - set flags and
-					-- update LEDs
-					elsif ps2Byte = x"77" then
-						if ps2PreviousByte /= x"F0" then
-							ps2Num <= not ps2Num;
-							ps2WriteByte <= x"ED";
-							ps2WriteByte2(0) <= ps2Scroll;
-							ps2WriteByte2(1) <= not ps2Num;
-							ps2WriteByte2(2) <= ps2Caps;
-							ps2WriteByte2(7 downto 3) <= "00000";
-							n_kbWR <= '0';
-							kbWriteTimer<=0;
-						end if;
-					-- CAPS-LOCK pressed - set flags and
-					-- update LEDs
-					elsif ps2Byte = x"58" then
-						if ps2PreviousByte /= x"F0" then
-							ps2Caps <= not ps2Caps;
-							ps2WriteByte <= x"ED";
-							ps2WriteByte2(0) <= ps2Scroll;
-							ps2WriteByte2(1) <= ps2Num;
-							ps2WriteByte2(2) <= not ps2Caps;
-							ps2WriteByte2(7 downto 3) <= "00000";
-							n_kbWR <= '0';
-							kbWriteTimer<=0;
-						end if;
-					-- ACK (from SET-LEDs)
-					elsif ps2Byte = x"FA" then
-						if ps2WriteByte /= x"FF" then
-							n_kbWR <= '0';
-							kbWriteTimer<=0;
-						end if;
-					-- ASCII key press - store it in the kbBuffer.
-					elsif (ps2PreviousByte /= x"F0") and (ps2ConvertedByte /= x"00") then
-						if ps2PreviousByte = x"E0" and ps2Byte = x"71" then -- DELETE
-							kbBuffer(kbInPointer) <= "1111111"; -- 7F
-						elsif ps2Ctrl = '1' then
-							kbBuffer(kbInPointer) <= "00" & ps2ConvertedByte(4 downto 0);
-						elsif ps2ConvertedByte > x"40" and ps2ConvertedByte < x"5B" and ps2Caps='1' then
-                                                        -- A-Z but caps lock on so convert to a-z.
-							kbBuffer(kbInPointer) <= ps2ConvertedByte or "0100000";
-						elsif ps2ConvertedByte > x"60" and ps2ConvertedByte < x"7B" and ps2Caps='1' then
-                                                        -- a-z but caps lock on so convert to A-Z.
-							kbBuffer(kbInPointer) <= ps2ConvertedByte and "1011111";
-						else
-							kbBuffer(kbInPointer) <= ps2ConvertedByte;
-						end if;
-						if kbInPointer < 7 then
-							kbInPointer <= kbInPointer+1;
-						else
-							kbInPointer <= 0;
-						end if;
-					end if;
-					ps2PreviousByte<=ps2Byte;
-					ps2ClkCount<=0;
-				end if;
-
-			-- write to keyboard
-			elsif  n_kbWR = '0' and ps2PrevClk = '1' and  ps2ClkFiltered='0' then -- start of high-to-low cleaned ps2 clock
-				kbWatchdogTimer<=0;
-				if ps2WriteClkCount <8 then
-					if (ps2WriteByte(ps2WriteClkCount)='1') then
-						ps2DataOut <= '1';
-						kbWRParity <= not kbWRParity;
-					else
-						ps2DataOut <= '0';
-					end if;
-					ps2WriteClkCount<=ps2WriteClkCount+1;
-				elsif ps2WriteClkCount = 8 then
-					ps2DataOut <= kbWRParity;
-					ps2WriteClkCount<=ps2WriteClkCount+1;
-				elsif ps2WriteClkCount = 9 then
-					ps2WriteClkCount<=ps2WriteClkCount+1;
-					ps2DataOut <= '1';
-				elsif ps2WriteClkCount = 10 then
-					ps2WriteByte <= ps2WriteByte2;
-					ps2WriteByte2 <= x"FF";
-					n_kbWR<= '1';
-					ps2WriteClkCount <= 0;
-					ps2DataOut <= '1';
-
-				end if;
-			else
-				-- COMMUNICATION ERROR
-				-- if no edge then increment the timer
-				-- if a large time has elapsed since the last pulse was read then
-				-- re-sync the keyboard
-				if kbWatchdogTimer>30000000 then
-					kbWatchdogTimer<=0;
-					ps2ClkCount<=0;
-					if n_kbWR = '0' then
-							ps2WriteByte <= x"ED";
-							ps2WriteByte2(0) <= ps2Scroll;
-							ps2WriteByte2(1) <= ps2Num;
-							ps2WriteByte2(2) <= ps2Caps;
-							ps2WriteByte2(7 downto 3) <= "00000";
-							kbWriteTimer<=0;
-					end if;
-				else
-					kbWatchdogTimer<=kbWatchdogTimer+1;
-				end if;
-			end if;
-
-		end if;
-	end process;
-
 
 	-- PROCESS DATA WRITTEN TO DISPLAY
 	display_store: process( clk , n_reset)

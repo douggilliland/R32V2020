@@ -1,4 +1,11 @@
 
+State Machine - |top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|state
+Name state.output state.translate state.new_code state.ready 
+state.ready 0 0 0 0 
+state.new_code 0 0 1 1 
+state.translate 0 1 0 1 
+state.output 1 0 0 1 
+
 State Machine - |top|PeripheralInterface:Peripherals|bufferedUART:UART|txState
 Name txState.stopBit txState.dataBit txState.idle 
 txState.idle 0 0 0 
@@ -11,7 +18,7 @@ rxState.idle 0 0 0
 rxState.dataBit 0 1 1 
 rxState.stopBit 1 0 1 
 
-State Machine - |top|PeripheralInterface:Peripherals|SBCTextDisplayRGB:SVGA|dispState
+State Machine - |top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|dispState
 Name dispState.del3 dispState.del2 dispState.deleteLine dispState.ins3 dispState.ins2 dispState.insertLine dispState.clearC2 dispState.clearChar dispState.clearS2 dispState.clearScreen dispState.clearL2 dispState.clearLine dispState.dispNextLoc dispState.dispWrite dispState.idle 
 dispState.idle 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 dispState.dispWrite 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
@@ -29,7 +36,7 @@ dispState.deleteLine 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1
 dispState.del2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
 dispState.del3 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 
-State Machine - |top|PeripheralInterface:Peripherals|SBCTextDisplayRGB:SVGA|escState
+State Machine - |top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|escState
 Name escState.processingAdditionalParams escState.processingParams escState.waitForLeftBracket escState.none 
 escState.none 0 0 0 0 
 escState.waitForLeftBracket 0 0 1 1 
