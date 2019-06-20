@@ -70,7 +70,7 @@ architecture struct of PeripheralInterface is
 	signal w_latKbDV1				:	std_logic := '0';
 	signal w_latKbStat			:	std_logic_vector(31 downto 0) := x"00000000";
 	signal w_kbError				:	std_logic;
-	signal w_Video_Clk			: 	std_logic := '0';
+	--signal w_Video_Clk			: 	std_logic := '0';
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
 	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0); 
 	signal w_LatData				:	std_logic_vector(7 downto 0);
@@ -235,8 +235,8 @@ begin
 	clockGen : ENTITY work.VideoClk_XVGA_1024x768
 	PORT map (
 		areset	=> not n_reset,
-		inclk0	=> i_CLOCK_50,
-		c0			=> w_Video_Clk
+		inclk0	=> i_CLOCK_50
+		--c0			=> w_Video_Clk
 	);
 	
 	ps2Keyboard : entity work.ps2_keyboard_to_ascii
