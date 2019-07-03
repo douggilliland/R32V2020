@@ -32,6 +32,8 @@ entity PeripheralInterface is
 		o_VideoOut					: out std_logic_vector(2 downto 0);						-- VGA lines r,g,b
 		o_hSync						: out std_logic := '1';
 		o_vSync						: out std_logic := '1';
+		io_I2C_SCK					: inout std_logic := '1';
+		io_I2C_SDA					: inout std_logic := '1';
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
 		);
@@ -54,8 +56,10 @@ architecture struct of PeripheralInterface is
 	signal w_NoteCS				:	std_logic := '0';
 	signal w_LEDRingCS			:	std_logic := '0';
 	signal w_LatchIOCS			:	std_logic := '0';
+	signal w_I2CCS					:	std_logic := '0';
 	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
+	signal w_I2C_Count			:	std_logic_vector(6 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
 	signal w_serialClkEn			:	std_logic;
 	signal w_serialClock			:	std_logic;
@@ -71,9 +75,11 @@ architecture struct of PeripheralInterface is
 	signal w_latKbStat			:	std_logic_vector(31 downto 0) := x"00000000";
 	signal w_kbError				:	std_logic;
 	--signal w_Video_Clk			: 	std_logic := '0';
+	signal i2c_400KHz				:	std_logic := '0';
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
 	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0); 
 	signal w_LatData				:	std_logic_vector(7 downto 0);
+	signal o_i2cData				:	std_logic_vector(7 downto 0);
 	attribute syn_keep of w_LatData : signal is true;
 
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
@@ -94,6 +100,7 @@ architecture struct of PeripheralInterface is
 	constant NOTE_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"8";
 	constant LEDRNG_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"9";
 	constant LATIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"A";
+	constant I2CIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"B";
 
 begin
 	
@@ -109,17 +116,19 @@ begin
 	w_TimersCS		<= '1' when i_peripheralAddress(15 downto 11) = TIMERS_BASE	else '0';	-- x3800-x3FFF (2KB)	- Timers
 	w_NoteCS			<= '1' when i_peripheralAddress(15 downto 11) = NOTE_BASE	else '0';	-- x4000-x47FF (2KB)	- Music/Note
 	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)	- LED Ring
-	w_LatchIOCS		<= '1' when i_peripheralAddress(15 downto 11) = LATIO_BASE	else '0';	-- x5000-x5FFF (2KB)	- I/O Latch
+	w_LatchIOCS		<= '1' when i_peripheralAddress(15 downto 11) = LATIO_BASE	else '0';	-- x5000-x57FF (2KB)	- I/O Latch
+	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- I2C Address
 	
 	o_dataFromPeripherals <=
-		x"000000"		& w_dispRamDataOutA 			when	ANSI_DisplayCS 	= '1' else
+		x"000000"		& w_dispRamDataOutA 			when	ANSI_DisplayCS = '1' else
 		q_kbReadData	 									when	w_kbDatCS		= '1' else
 		w_kbdStatus											when	w_kbStatCS		= '1' else 
 		x"000000"		& w_aciaData 					when	w_aciaCS 		= '1' else
 		x"00000"&'0'	& i_DIP_switch & i_switch 	when	w_SwitchesCS 	= '1' else
 		x"000000"		& w_LatData						when	w_LEDsCS 		= '1' else
-		o_dataFromTimers	 								when	w_TimersCS		= '1' else
+		o_dataFromTimers									when	w_TimersCS		= '1' else
 		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
+		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
 		x"FFFFFFFF";
 
 	o_VideoOut <= (w_Video(5) or w_Video(4)) & (w_Video(3) or w_Video(2)) & (w_Video(1) or w_Video(0));
@@ -141,9 +150,34 @@ begin
 			videoB1			=> w_Video(0),
 			hSync  			=> o_hSync,
 			vSync  			=> o_vSync
---			ps2Clk			=> i_PS2_CLK,
---			ps2Data			=> i_PS2_DATA
 			);
+	
+	-- w_I2C_Count
+    process(i_CLOCK_50)
+    begin
+		if rising_edge(i_CLOCK_50) then
+			if w_I2C_Count = 124 then
+				w_I2C_Count <= "0000000";
+				i2c_400KHz <= '0';
+			else
+				w_I2C_Count <= w_I2C_Count + 1;
+				i2c_400KHz <= '1';
+			end if;
+		end if;
+    end process;	
+	
+	i2cIF	: entity work.i2c
+	port map (
+		RESET			=> not n_reset,
+		CLK			=> i_CLOCK_50,
+		ENA			=> i2c_400KHz,
+		A				=> i_peripheralAddress(0),
+		DI				=> i_dataToPeripherals(7 downto 0),
+		DO				=> o_i2cData,
+		WR				=> w_I2CCS and i_peripheralWrStrobe,
+		I2C_SCL		=> io_I2C_SCK,
+		I2C_SDA		=> io_I2C_SDA
+	);
 	
 	timers : entity work.Timer_Unit
 	port map (
