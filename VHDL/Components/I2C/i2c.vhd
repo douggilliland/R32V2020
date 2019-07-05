@@ -1,12 +1,11 @@
--------------------------------------------------------------------[15.10.2011]
--- I2C Controller
 -------------------------------------------------------------------------------
--- Engineer: 	MVV
+-- I2C Controller
 --
--- 15.10.2011	Initial
+-- 2019-07-04 DGG - Created from another project
 
--- The I2C core provides for four register addresses 
--- that the CPU can read or writen to:
+-------------------------------------------------------------------------------
+
+-- The I2C core provides register addresses that the CPU can read or writen to:
 
 -- Address 0 -> DATA (write/read) or SLAVE ADDRESS (write)  
 -- Address 1 -> Command/Status Register (write/read)
@@ -17,10 +16,14 @@
 -- 	bit 7-1	= Holds the first seven address bits of the I2C slave device
 -- 	bit 0	= I2C 1:read/0:write bit
 
--- Command/Status Register (write):
+-- Command Register (write):
 --	bit 7-2	= Reserved
---	bit 1-0	= 00: IDLE; 01: START; 10: nSTART; 11: STOP
--- Command/Status Register (read):
+--	bit 1-0	= 
+--		00: IDLE
+--		01: START
+--		10: nSTART
+--		11: STOP
+-- Status Register (read):
 --	bit 7-2	= Reserved
 --	bit 1 	= ERROR 	(I2C transaction error)
 --	bit 0 	= BUSY 	(I2C bus busy)
@@ -33,11 +36,12 @@ entity i2c is
 port (
 	-- CPU Interface Signals
 	RESET				: in std_logic;
-	CLK				: in std_logic;
-	ENA				: in std_logic;		-- 400KHz (4T = SCL clock frequency 100 kHz)
-	A					: in std_logic;
-	DI					: in std_logic_vector(7 downto 0);
-	DO					: out std_logic_vector(7 downto 0);
+	CPU_CLK			: in std_logic;
+	I2C_4XCLK		: in std_logic;		-- 400KHz (4T = SCL clock frequency 100 kHz)
+	ENA				: in std_logic;
+	ADRSEL			: in std_logic;
+	DATA_IN			: in std_logic_vector(7 downto 0);
+	DATA_OUT			: out std_logic_vector(7 downto 0);
 	WR					: in std_logic;
 	I2C_SCL			: inout std_logic;
 	I2C_SDA			: inout std_logic);
@@ -46,60 +50,59 @@ end i2c;
 architecture rtc_arch of i2c is
 type state_t is (s_idle, s_start, s_data, s_ack, s_stop, s_done);
 signal state 		: state_t;
-signal data_buf		: std_logic_vector(7 downto 0);
-signal go			: std_logic;
+signal data_buf	: std_logic_vector(7 downto 0);
+signal go			: std_logic := '0';
 signal mode			: std_logic_vector(1 downto 0);
 signal shift_reg	: std_logic_vector(7 downto 0);
 signal ack			: std_logic;
 signal nbit 		: std_logic_vector(2 downto 0);
 signal phase 		: std_logic_vector(1 downto 0);
-signal scl 			: std_logic;
-signal sda 			: std_logic;
+signal scl 			: std_logic := '1';
+signal sda 			: std_logic := '1';
 signal rw_bit 		: std_logic;
 signal rw_flag		: std_logic;
 
 begin
 
--- Read CPU bus into internal registers
-cpu_write : process (CLK, RESET, WR)
+-- Load CPU bus into internal registers
+cpu_write : process (CPU_CLK, WR)
 begin
-	if CLK'event and CLK = '1' then
+	if rising_edge(CPU_CLK) then
 		if WR = '1' then
-			if A = '0' then
-				data_buf <= DI;
+			if ADRSEL = '0' then
+				data_buf <= DATA_IN;
 			else
-				mode <= DI(1 downto 0);
+				mode <= DATA_IN(1 downto 0);
 			end if;
 		end if;
 	end if;
 end process;
 
-process (RESET, CLK, ENA, WR, A, state)
+-- Kicks off the write transfer
+process (RESET, CPU_CLK, WR, ADRSEL, state)
 begin
 	if RESET = '1' or state = s_data then
 		go <= '0';
-	elsif CLK'event and CLK = '1' then
-		if WR = '1' then
-			if A = '0' then
-				go <= '1';
-			end if;
+	elsif rising_edge(CPU_CLK) then
+		if WR = '1' and ADRSEL = '0' then
+			go <= '1';
 		end if;
 	end if;
 end process;
 
 -- Provide data for the CPU to read
-cpu_read : process (A, state, shift_reg, ack, go)
+cpu_read : process (ADRSEL, state, shift_reg, ack, go)
 begin
-	DO(7 downto 2) <= "111111";
-	if A = '0' then
-		DO <= shift_reg;
+	DATA_OUT(7 downto 2) <= "111111";
+	if ADRSEL = '0' then
+		DATA_OUT <= shift_reg;
 	else
 		if (state = s_idle and go = '0') then
-			DO(0) <= '0';
+			DATA_OUT(0) <= '0';
 		else
-			DO(0) <= '1';
+			DATA_OUT(0) <= '1';
 		end if;
-		DO(1) <= ack;
+		DATA_OUT(1) <= ack;
 	end if;
 end process;
 
@@ -109,7 +112,7 @@ end process;
 --     Reset Start Data/Slave address/Word address   Ack   Stop  Done
                                                          
 -- I2C transfer state machine
-i2c_proc : process (RESET, CLK, ENA, go)
+i2c_proc : process (RESET, I2C_4XCLK, ENA, go)
 	begin
 		if RESET = '1' then
 			scl <= '1';
@@ -118,7 +121,7 @@ i2c_proc : process (RESET, CLK, ENA, go)
 			ack <= '0'; -- No error
 			phase <= "00";
 	
-		elsif CLK'event and CLK = '1' then
+		elsif rising_edge(I2C_4XCLK) then
 			if ENA = '1' then
 				phase <= phase + "01"; -- Next phase by default
 	

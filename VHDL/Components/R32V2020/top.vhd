@@ -33,6 +33,10 @@ entity top is
 		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
 		-- 8 bit I/O Latch
 		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
+		-- I2C Clock and Data
+		io_I2C_SCK			: inout std_logic := '1';
+		io_I2C_SDA			: inout std_logic := '1';
+		i_I2C_INT			: in std_logic := '0';
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -164,6 +168,9 @@ begin
 		o_VideoOut					=> o_VideoVect,
 		o_hSync						=> o_hSync,
 		o_vSync						=> o_vSync,
+		io_I2C_SCK					=> io_I2C_SCK,
+		io_I2C_SDA					=> io_I2C_SDA,
+		io_I2C_INT					=> i_I2C_INT,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
 	);

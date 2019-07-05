@@ -34,6 +34,7 @@ entity PeripheralInterface is
 		o_vSync						: out std_logic := '1';
 		io_I2C_SCK					: inout std_logic := '1';
 		io_I2C_SDA					: inout std_logic := '1';
+		io_I2C_INT					: in std_logic := '1';
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
 		);
@@ -44,8 +45,6 @@ architecture struct of PeripheralInterface is
 	attribute syn_keep: boolean;
 	-- Peripheral Signals
 	signal ANSI_DisplayCS 		:	std_logic := '0';
-	--signal w_n_VGA_Int			:	std_logic := '0';
-	signal w_n_VGA_Rts			:	std_logic := '0';
 	signal w_kbDatCS 				:	std_logic := '0';
 	signal w_kbStatCS				:	std_logic := '0';
 	signal w_aciaCS 				:	std_logic := '0';
@@ -59,7 +58,6 @@ architecture struct of PeripheralInterface is
 	signal w_I2CCS					:	std_logic := '0';
 	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
-	signal w_I2C_Count			:	std_logic_vector(6 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
 	signal w_serialClkEn			:	std_logic;
 	signal w_serialClock			:	std_logic;
@@ -68,27 +66,29 @@ architecture struct of PeripheralInterface is
 	signal w_aciaData				:	std_logic_vector(7 downto 0);
 	signal w_kbReadData			:	std_logic_vector(6 downto 0);
 	signal q_kbReadData			:	std_logic_vector(31 downto 0);
-	signal w_dispRamDataOutA	:	std_logic_vector(7 downto 0);
+	signal w_ANSI_DispRamDataOutA	:	std_logic_vector(7 downto 0);
 	signal o_dataFromTimers		:	std_logic_vector(31 downto 0);
 	signal w_kbDataValid			:	std_logic;
 	signal w_latKbDV1				:	std_logic := '0';
 	signal w_latKbStat			:	std_logic_vector(31 downto 0) := x"00000000";
 	signal w_kbError				:	std_logic;
-	--signal w_Video_Clk			: 	std_logic := '0';
-	signal i2c_400KHz				:	std_logic := '0';
+	signal w_LatData				:	std_logic_vector(7 downto 0);
+--	attribute syn_keep of w_LatData : signal is true;
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
 	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0); 
-	signal w_LatData				:	std_logic_vector(7 downto 0);
+
+	signal w_4x_I2C_Count			:	std_logic_vector(6 downto 0); 
+	signal i2c_400KHz				:	std_logic := '0';
 	signal o_i2cData				:	std_logic_vector(7 downto 0);
-	attribute syn_keep of w_LatData : signal is true;
 
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
-
-	
 	signal w_BUZZER				: 	std_logic := '0';
 	
 --	signal o_VideoOut 			:	std_logic_vector(4 downto 0);
 
+	-- Address decoder addresses
+	-- Provides for up to 32 "chip selects"
+	-- Address bits 15 down to 11
 	constant ANSI_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"0";
 	constant KBDAT_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"1";
 	constant KBST_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"2";
@@ -120,7 +120,7 @@ begin
 	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- I2C Address
 	
 	o_dataFromPeripherals <=
-		x"000000"		& w_dispRamDataOutA 			when	ANSI_DisplayCS = '1' else
+		x"000000"		& w_ANSI_DispRamDataOutA 	when	ANSI_DisplayCS = '1' else
 		q_kbReadData	 									when	w_kbDatCS		= '1' else
 		w_kbdStatus											when	w_kbStatCS		= '1' else 
 		x"000000"		& w_aciaData 					when	w_aciaCS 		= '1' else
@@ -140,7 +140,7 @@ begin
 			n_rd				=> not (ANSI_DisplayCS and i_peripheralRdStrobe),
 			regSel			=> i_peripheralAddress(0),
 			dataIn			=> i_dataToPeripherals(7 downto 0),
-			dataOut			=> w_dispRamDataOutA,
+			dataOut			=> w_ANSI_DispRamDataOutA,
 			--n_int				=> w_n_VGA_Int,
 			videoR0			=> w_Video(5),
 			videoR1			=> w_Video(4),
@@ -152,15 +152,16 @@ begin
 			vSync  			=> o_vSync
 			);
 	
-	-- w_I2C_Count
+	-- I2C code uses 400 KHz enable signal
+	-- The enable signal is one clock wide pulse of the 50 MHz clock
     process(i_CLOCK_50)
     begin
 		if rising_edge(i_CLOCK_50) then
-			if w_I2C_Count = 124 then
-				w_I2C_Count <= "0000000";
+			if w_4x_I2C_Count = 124 then
+				w_4x_I2C_Count <= "0000000";
 				i2c_400KHz <= '0';
 			else
-				w_I2C_Count <= w_I2C_Count + 1;
+				w_4x_I2C_Count <= w_4x_I2C_Count + 1;
 				i2c_400KHz <= '1';
 			end if;
 		end if;
@@ -169,11 +170,12 @@ begin
 	i2cIF	: entity work.i2c
 	port map (
 		RESET			=> not n_reset,
-		CLK			=> i_CLOCK_50,
-		ENA			=> i2c_400KHz,
-		A				=> i_peripheralAddress(0),
-		DI				=> i_dataToPeripherals(7 downto 0),
-		DO				=> o_i2cData,
+		CPU_CLK		=> i_CLOCK_50,
+		I2C_4XCLK	=> i2c_400KHz,
+		ENA			=> '1',
+		ADRSEL		=> i_peripheralAddress(0),
+		DATA_IN		=> i_dataToPeripherals(7 downto 0),
+		DATA_OUT		=> o_i2cData,
 		WR				=> w_I2CCS and i_peripheralWrStrobe,
 		I2C_SCL		=> io_I2C_SCK,
 		I2C_SDA		=> io_I2C_SDA
