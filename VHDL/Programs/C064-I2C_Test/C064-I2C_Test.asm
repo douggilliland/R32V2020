@@ -33,19 +33,6 @@ loopForever:
 ;
 
 initDir_I2CIO8:
-	; Write 0xf0 to IODIR register - d0-d3 = Outputs
-	lix		r8,0x01		; START
-	bsr		write_I2C_Ctrl_Reg
-	lix		r8,0x40
-	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x00		; direction control register
-	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0xF0		; Inputs and outputs
-	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x03		; STOP
-	bsr		write_I2C_Ctrl_Reg
-	lix		r8,2		; wait 2 mSec
-	bsr		delay_mS
 	; Write 0x22 to IOCON register (not sequential operations)
 	lix		r8,0x01		; START
 	bsr		write_I2C_Ctrl_Reg
@@ -54,6 +41,20 @@ initDir_I2CIO8:
 	lix		r8,0x05		; IO control register
 	bsr		write_I2C_Data_Address_Reg
 	lix		r8,0x22		; Disable sequential operation
+	bsr		write_I2C_Data_Address_Reg
+	lix		r8,0x03		; STOP
+	bsr		write_I2C_Ctrl_Reg
+	; wait between writes
+	;lix		r8,2		; wait 2 mSec
+	;bsr		delay_mS
+	; Write 0xf0 to IODIR register - d0-d3 = Outputs
+	lix		r8,0x01		; START
+	bsr		write_I2C_Ctrl_Reg
+	lix		r8,0x40
+	bsr		write_I2C_Data_Address_Reg
+	lix		r8,0x00		; direction control register
+	bsr		write_I2C_Data_Address_Reg
+	lix		r8,0xF0		; Inputs and outputs
 	bsr		write_I2C_Data_Address_Reg
 	lix		r8,0x03		; STOP
 	bsr		write_I2C_Ctrl_Reg
@@ -70,7 +71,7 @@ writeI2CAddrOrData:
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x40
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x0A		; OLAT register address
+	lix		r8,0x09		; GPIO register address
 	bsr		write_I2C_Data_Address_Reg
 	pull	r8
 	bsr		write_I2C_Data_Address_Reg

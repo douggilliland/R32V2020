@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Fri Jul 05 13:13:23 2019
+Fri Jul 05 17:21:22 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Fri Jul 05 13:13:23 2019       ;
+; Flow Status                        ; Successful - Fri Jul 05 17:21:22 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
@@ -166,7 +166,10 @@ refer to the applicable agreement for further details.
 ; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4726 MB             ; 00:00:02                           ;
 ; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4726 MB             ; 00:00:02                           ;
 ; Assembler            ; 00:00:03     ; 1.0                     ; 4705 MB             ; 00:00:02                           ;
-; Total                ; 00:04:13     ; --                      ; --                  ; 00:04:13                           ;
+; MIF/HEX Update       ; 00:00:04     ; 1.0                     ; 4726 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4726 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4703 MB             ; 00:00:03                           ;
+; Total                ; 00:04:22     ; --                      ; --                  ; 00:04:20                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -236,6 +239,9 @@ refer to the applicable agreement for further details.
 ; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -246,6 +252,9 @@ quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 quartus_cdb R32V2020 -c R32V2020 --update_mif
 quartus_cdb R32V2020 -c R32V2020 --update_mif
 quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
