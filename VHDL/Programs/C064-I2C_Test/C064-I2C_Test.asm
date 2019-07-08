@@ -15,11 +15,11 @@ main:
 	bsr		printString
 	bsr		initDir_I2CIO8
 loopMain:
-	lix		r8,0x05
+	lix		r8,0x01
 	bsr		writeI2CAddrOrData
 	lix		r8,500
 	bsr		delay_mS
-	lix		r8,0x0A
+	lix		r8,0x02
 	bsr		writeI2CAddrOrData
 	lix		r8,500
 	bsr		delay_mS
@@ -33,13 +33,18 @@ loopForever:
 ;
 
 initDir_I2CIO8:
+	push	r8
 	; Write 0x22 to IOCON register (not sequential operations)
 	lix		r8,0x01		; START
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x40
 	bsr		write_I2C_Data_Address_Reg
+	lix		r8,0x02		; nSTART
+	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x05		; IO control register
 	bsr		write_I2C_Data_Address_Reg
+;	lix		r8,0x02		; nSTART
+;	bsr		write_I2C_Ctrl_Reg	
 	lix		r8,0x22		; Disable sequential operation
 	bsr		write_I2C_Data_Address_Reg
 	lix		r8,0x03		; STOP
@@ -52,12 +57,17 @@ initDir_I2CIO8:
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x40
 	bsr		write_I2C_Data_Address_Reg
+	lix		r8,0x02		; nSTART
+	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x00		; direction control register
 	bsr		write_I2C_Data_Address_Reg
+;	lix		r8,0x02		; nSTART
+;	bsr		write_I2C_Ctrl_Reg	
 	lix		r8,0xF0		; Inputs and outputs
 	bsr		write_I2C_Data_Address_Reg
 	lix		r8,0x03		; STOP
 	bsr		write_I2C_Ctrl_Reg
+	pull	r8
 	pull	PC
 
 ; writeI2CAddrOrData - Write address to the I2C bus
@@ -71,8 +81,12 @@ writeI2CAddrOrData:
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x40
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x09		; GPIO register address
+	lix		r8,0x02		; nSTART
+	bsr		write_I2C_Ctrl_Reg	
+	lix		r8,0x0A		; GPIO register address
 	bsr		write_I2C_Data_Address_Reg
+;	lix		r8,0x02		; nSTART
+;	bsr		write_I2C_Ctrl_Reg	
 	pull	r8
 	bsr		write_I2C_Data_Address_Reg
 	lix		r8,0xFF		; STOP
@@ -84,9 +98,15 @@ writeI2CAddrOrData:
 ;
 
 write_I2C_Data_Address_Reg:
+	push	PAR
 	lix		PAR,0x5800	; I2C Address/Data register
 	spl		r8			; Write control register
-	bsr		i2c_ack
+	lix		PAR,0x5801	; Control register
+i2c_ack:
+	lpl		r8
+	and		r8,r8,r1	; busy bit is least significant bit
+	be1		i2c_ack
+	pull	PAR
 	pull	PC
 
 ;
@@ -101,7 +121,7 @@ write_I2C_Ctrl_Reg:
 ; i2c_ack - wait for transfer to complete
 ;
 
-i2c_ack:
+;i2c_ack:
 	lix		PAR,0x5801	; Control register
 	lpl		r8
 	and		r8,r8,r1	; busy bit is least significant bit
