@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+  <meta name="robots" content="noindex">
+</head>
+
+<body>
+  <script type="text/javascript">
+	var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  
+	if (!isSafari){
+		var CookieDate = new Date;
+		CookieDate.setFullYear(CookieDate.getFullYear( ) +1);
+	  
+		function clickTaleReadCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+			}
+			return null;
+		};
+	}	
+
+	function receiveMessage(event) {
+		if (event.origin !== event.data.origin) {
+            return;
+        }
+		if (event.data != null) {
+			
+			if (event.data.cookie){
+				cookieName = event.data.cookie;
+			}
+			else {
+				cookieName = "ClicktaleUID";
+			}
+		
+			if (event.data.uid && event.data.uid != ""){
+				if (!isSafari){
+					document.cookie = cookieName+"="+event.data.uid+"; expires=" + CookieDate.toGMTString( ) + ";";
+				}
+				else {
+					try {
+						localStorage.setItem(cookieName,event.data.uid);
+					}
+					catch(err) {
+						parent.postMessage("NoLocalStorage", "*");
+						return;
+					}
+				}				
+			}
+			
+			if (!isSafari){
+				var getClicktaleUID = clickTaleReadCookie(cookieName);
+			}
+			else {
+				var getClicktaleUID = localStorage.getItem(cookieName);
+			}
+			
+			if (getClicktaleUID != null && getClicktaleUID != "1") {
+				parent.postMessage(getClicktaleUID, "*");
+			}
+			else {
+				parent.postMessage("NoUID", "*");
+			}
+		}
+    }
+    window.addEventListener("message", receiveMessage, false);
+	
+  </script>
+
+
+
+</body></html>

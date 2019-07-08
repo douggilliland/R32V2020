@@ -48,8 +48,14 @@ port (
 end i2c;
 
 architecture rtc_arch of i2c is
+
+attribute syn_keep: boolean;
+
 type state_t is (s_idle, s_start, s_data, s_ack, s_stop, s_done);
 signal state 		: state_t;
+
+attribute syn_keep of state: signal is true;
+
 signal data_buf	: std_logic_vector(7 downto 0);
 signal go			: std_logic := '0';
 signal mode			: std_logic_vector(1 downto 0);

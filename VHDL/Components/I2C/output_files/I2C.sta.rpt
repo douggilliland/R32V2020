@@ -1,0 +1,1394 @@
+Timing Analyzer report for I2C
+Mon Jul 08 16:32:15 2019
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Timing Analyzer Summary
+  3. Parallel Compilation
+  4. Clocks
+  5. Slow 1200mV 85C Model Fmax Summary
+  6. Timing Closure Recommendations
+  7. Slow 1200mV 85C Model Setup Summary
+  8. Slow 1200mV 85C Model Hold Summary
+  9. Slow 1200mV 85C Model Recovery Summary
+ 10. Slow 1200mV 85C Model Removal Summary
+ 11. Slow 1200mV 85C Model Minimum Pulse Width Summary
+ 12. Slow 1200mV 85C Model Setup: 'I2C_4XCLK'
+ 13. Slow 1200mV 85C Model Hold: 'I2C_4XCLK'
+ 14. Slow 1200mV 85C Model Recovery: 'CPU_CLK'
+ 15. Slow 1200mV 85C Model Removal: 'CPU_CLK'
+ 16. Slow 1200mV 85C Model Metastability Summary
+ 17. Slow 1200mV 0C Model Fmax Summary
+ 18. Slow 1200mV 0C Model Setup Summary
+ 19. Slow 1200mV 0C Model Hold Summary
+ 20. Slow 1200mV 0C Model Recovery Summary
+ 21. Slow 1200mV 0C Model Removal Summary
+ 22. Slow 1200mV 0C Model Minimum Pulse Width Summary
+ 23. Slow 1200mV 0C Model Setup: 'I2C_4XCLK'
+ 24. Slow 1200mV 0C Model Hold: 'I2C_4XCLK'
+ 25. Slow 1200mV 0C Model Recovery: 'CPU_CLK'
+ 26. Slow 1200mV 0C Model Removal: 'CPU_CLK'
+ 27. Slow 1200mV 0C Model Metastability Summary
+ 28. Fast 1200mV 0C Model Setup Summary
+ 29. Fast 1200mV 0C Model Hold Summary
+ 30. Fast 1200mV 0C Model Recovery Summary
+ 31. Fast 1200mV 0C Model Removal Summary
+ 32. Fast 1200mV 0C Model Minimum Pulse Width Summary
+ 33. Fast 1200mV 0C Model Setup: 'I2C_4XCLK'
+ 34. Fast 1200mV 0C Model Hold: 'I2C_4XCLK'
+ 35. Fast 1200mV 0C Model Recovery: 'CPU_CLK'
+ 36. Fast 1200mV 0C Model Removal: 'CPU_CLK'
+ 37. Fast 1200mV 0C Model Metastability Summary
+ 38. Multicorner Timing Analysis Summary
+ 39. Board Trace Model Assignments
+ 40. Input Transition Times
+ 41. Signal Integrity Metrics (Slow 1200mv 0c Model)
+ 42. Signal Integrity Metrics (Slow 1200mv 85c Model)
+ 43. Signal Integrity Metrics (Fast 1200mv 0c Model)
+ 44. Setup Transfers
+ 45. Hold Transfers
+ 46. Recovery Transfers
+ 47. Removal Transfers
+ 48. Report TCCS
+ 49. Report RSKM
+ 50. Unconstrained Paths Summary
+ 51. Clock Status Summary
+ 52. Unconstrained Input Ports
+ 53. Unconstrained Output Ports
+ 54. Unconstrained Input Ports
+ 55. Unconstrained Output Ports
+ 56. Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                     ;
++-----------------------+-----------------------------------------------------+
+; Quartus Prime Version ; Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Timing Analyzer       ; Legacy Timing Analyzer                              ;
+; Revision Name         ; I2C                                                 ;
+; Device Family         ; Cyclone IV E                                        ;
+; Device Name           ; EP4CE10E22C8                                        ;
+; Timing Models         ; Final                                               ;
+; Delay Model           ; Combined                                            ;
+; Rise/Fall Delays      ; Enabled                                             ;
++-----------------------+-----------------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.01        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-4         ;   0.4%      ;
++----------------------------+-------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                                ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+---------------+
+; Clock Name ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets       ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+---------------+
+; CPU_CLK    ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { CPU_CLK }   ;
+; I2C_4XCLK  ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { I2C_4XCLK } ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+---------------+
+
+
++-----------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Fmax Summary                                                                        ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note                                                          ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; 304.88 MHz ; 250.0 MHz       ; I2C_4XCLK  ; limit due to minimum period restriction (max I/O toggle rate) ;
++------------+-----------------+------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
+
+
+----------------------------------
+; Timing Closure Recommendations ;
+----------------------------------
+HTML report is unavailable in plain text report export.
+
+
++-------------------------------------+
+; Slow 1200mV 85C Model Setup Summary ;
++-----------+--------+----------------+
+; Clock     ; Slack  ; End Point TNS  ;
++-----------+--------+----------------+
+; I2C_4XCLK ; -2.280 ; -41.625        ;
++-----------+--------+----------------+
+
+
++------------------------------------+
+; Slow 1200mV 85C Model Hold Summary ;
++-----------+-------+----------------+
+; Clock     ; Slack ; End Point TNS  ;
++-----------+-------+----------------+
+; I2C_4XCLK ; 0.453 ; 0.000          ;
++-----------+-------+----------------+
+
+
++----------------------------------------+
+; Slow 1200mV 85C Model Recovery Summary ;
++---------+--------+---------------------+
+; Clock   ; Slack  ; End Point TNS       ;
++---------+--------+---------------------+
+; CPU_CLK ; -1.058 ; -1.058              ;
++---------+--------+---------------------+
+
+
++---------------------------------------+
+; Slow 1200mV 85C Model Removal Summary ;
++---------+-------+---------------------+
+; Clock   ; Slack ; End Point TNS       ;
++---------+-------+---------------------+
+; CPU_CLK ; 1.459 ; 0.000               ;
++---------+-------+---------------------+
+
+
++---------------------------------------------------+
+; Slow 1200mV 85C Model Minimum Pulse Width Summary ;
++-----------+--------+------------------------------+
+; Clock     ; Slack  ; End Point TNS                ;
++-----------+--------+------------------------------+
+; I2C_4XCLK ; -3.000 ; -37.201                      ;
+; CPU_CLK   ; -3.000 ; -19.357                      ;
++-----------+--------+------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Setup: 'I2C_4XCLK'                                                                     ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node     ; To Node       ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; -2.280 ; state.s_data  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 3.200      ;
+; -2.280 ; state.s_data  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 3.200      ;
+; -2.258 ; phase[1]      ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.083     ; 3.176      ;
+; -2.258 ; phase[1]      ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.083     ; 3.176      ;
+; -2.255 ; state.s_idle  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 3.175      ;
+; -2.255 ; state.s_idle  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 3.175      ;
+; -2.230 ; nbit[2]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.151      ;
+; -2.230 ; nbit[2]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.151      ;
+; -2.228 ; phase[1]      ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.149      ;
+; -2.228 ; phase[1]      ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.149      ;
+; -2.228 ; phase[1]      ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.149      ;
+; -2.228 ; phase[1]      ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.149      ;
+; -2.228 ; phase[1]      ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.149      ;
+; -2.228 ; phase[1]      ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.149      ;
+; -2.228 ; phase[1]      ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.149      ;
+; -2.228 ; phase[1]      ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.149      ;
+; -2.187 ; go            ; nbit[1]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 3.068      ;
+; -2.187 ; go            ; nbit[2]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 3.068      ;
+; -2.145 ; nbit[0]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.066      ;
+; -2.145 ; nbit[0]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 3.066      ;
+; -2.090 ; state.s_data  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 3.010      ;
+; -2.085 ; state.s_idle  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 3.008      ;
+; -2.085 ; state.s_idle  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 3.008      ;
+; -2.085 ; state.s_idle  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 3.008      ;
+; -2.085 ; state.s_idle  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 3.008      ;
+; -2.085 ; state.s_idle  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 3.008      ;
+; -2.085 ; state.s_idle  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 3.008      ;
+; -2.085 ; state.s_idle  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 3.008      ;
+; -2.085 ; state.s_idle  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 3.008      ;
+; -2.081 ; phase[1]      ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.083     ; 2.999      ;
+; -2.078 ; state.s_idle  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 2.998      ;
+; -2.057 ; state.s_data  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.980      ;
+; -2.057 ; state.s_data  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.980      ;
+; -2.057 ; state.s_data  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.980      ;
+; -2.057 ; state.s_data  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.980      ;
+; -2.057 ; state.s_data  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.980      ;
+; -2.057 ; state.s_data  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.980      ;
+; -2.057 ; state.s_data  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.980      ;
+; -2.057 ; state.s_data  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.980      ;
+; -2.053 ; nbit[2]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.974      ;
+; -1.997 ; go            ; nbit[0]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 2.878      ;
+; -1.975 ; go            ; shift_reg[7]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.097     ; 2.859      ;
+; -1.975 ; go            ; shift_reg[6]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.097     ; 2.859      ;
+; -1.975 ; go            ; shift_reg[5]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.097     ; 2.859      ;
+; -1.975 ; go            ; shift_reg[3]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.097     ; 2.859      ;
+; -1.975 ; go            ; shift_reg[1]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.097     ; 2.859      ;
+; -1.975 ; go            ; shift_reg[0]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.097     ; 2.859      ;
+; -1.975 ; go            ; shift_reg[2]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.097     ; 2.859      ;
+; -1.975 ; go            ; shift_reg[4]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.097     ; 2.859      ;
+; -1.968 ; nbit[0]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.889      ;
+; -1.962 ; nbit[1]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.883      ;
+; -1.962 ; nbit[1]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.883      ;
+; -1.880 ; phase[1]      ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 2.800      ;
+; -1.824 ; phase[0]      ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 2.744      ;
+; -1.824 ; phase[0]      ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 2.744      ;
+; -1.815 ; state.s_idle  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.736      ;
+; -1.815 ; state.s_idle  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.736      ;
+; -1.807 ; state.s_idle  ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.728      ;
+; -1.787 ; state.s_data  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.708      ;
+; -1.786 ; shift_reg[7]  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.083     ; 2.704      ;
+; -1.785 ; nbit[1]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.706      ;
+; -1.734 ; nbit[2]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.079     ; 2.656      ;
+; -1.663 ; state.s_start ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.584      ;
+; -1.647 ; nbit[0]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.079     ; 2.569      ;
+; -1.639 ; state.s_start ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.560      ;
+; -1.634 ; phase[0]      ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.081     ; 2.554      ;
+; -1.581 ; mode[1]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 2.462      ;
+; -1.565 ; phase[0]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.486      ;
+; -1.557 ; phase[0]      ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.480      ;
+; -1.557 ; phase[0]      ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.480      ;
+; -1.557 ; phase[0]      ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.480      ;
+; -1.557 ; phase[0]      ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.480      ;
+; -1.557 ; phase[0]      ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.480      ;
+; -1.557 ; phase[0]      ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.480      ;
+; -1.557 ; phase[0]      ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.480      ;
+; -1.557 ; phase[0]      ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.078     ; 2.480      ;
+; -1.512 ; state.s_data  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.433      ;
+; -1.501 ; state.s_idle  ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.079     ; 2.423      ;
+; -1.496 ; state.s_stop  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.082     ; 2.415      ;
+; -1.488 ; nbit[1]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.079     ; 2.410      ;
+; -1.469 ; phase[0]      ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.390      ;
+; -1.451 ; phase[0]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.372      ;
+; -1.449 ; state.s_idle  ; rw_flag       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.079     ; 2.371      ;
+; -1.432 ; phase[0]      ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.079     ; 2.354      ;
+; -1.404 ; go            ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.098     ; 2.287      ;
+; -1.335 ; state.s_data  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.256      ;
+; -1.330 ; state.s_ack   ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.251      ;
+; -1.328 ; rw_bit        ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.082     ; 2.247      ;
+; -1.323 ; go            ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.098     ; 2.206      ;
+; -1.304 ; mode[0]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 2.185      ;
+; -1.300 ; phase[1]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.082     ; 2.219      ;
+; -1.273 ; mode[0]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 2.154      ;
+; -1.238 ; mode[1]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 2.119      ;
+; -1.224 ; go            ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.099     ; 2.106      ;
+; -1.198 ; mode[1]       ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 2.079      ;
+; -1.187 ; mode[0]       ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.100     ; 2.068      ;
+; -1.175 ; mode[1]       ; state.s_stop  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.099     ; 2.057      ;
+; -1.166 ; state.s_data  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.087      ;
+; -1.166 ; phase[0]      ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.087      ;
+; -1.162 ; state.s_ack   ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.080     ; 2.083      ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Hold: 'I2C_4XCLK'                                                                     ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node     ; To Node       ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; 0.453 ; ack           ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; rw_bit        ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; rw_flag       ; rw_flag       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; phase[1]      ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; state.s_stop  ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 0.746      ;
+; 0.454 ; nbit[2]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; nbit[0]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; nbit[1]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; state.s_start ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; state.s_ack   ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 0.746      ;
+; 0.466 ; phase[0]      ; phase[0]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 0.758      ;
+; 0.527 ; shift_reg[5]  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 0.820      ;
+; 0.668 ; shift_reg[2]  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 0.961      ;
+; 0.670 ; shift_reg[0]  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 0.963      ;
+; 0.690 ; go            ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.092      ; 1.034      ;
+; 0.718 ; nbit[0]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.010      ;
+; 0.747 ; shift_reg[3]  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.040      ;
+; 0.767 ; shift_reg[6]  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.060      ;
+; 0.767 ; shift_reg[4]  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.060      ;
+; 0.767 ; shift_reg[1]  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.060      ;
+; 0.791 ; state.s_idle  ; phase[0]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.083      ;
+; 0.792 ; rw_flag       ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.085      ;
+; 0.970 ; nbit[0]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.262      ;
+; 1.004 ; phase[0]      ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.298      ;
+; 1.007 ; state.s_data  ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.299      ;
+; 1.025 ; nbit[1]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.317      ;
+; 1.075 ; phase[1]      ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.368      ;
+; 1.102 ; state.s_idle  ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.394      ;
+; 1.107 ; state.s_idle  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.402      ;
+; 1.107 ; state.s_idle  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.402      ;
+; 1.107 ; state.s_idle  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.402      ;
+; 1.107 ; state.s_idle  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.402      ;
+; 1.107 ; state.s_idle  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.402      ;
+; 1.108 ; state.s_idle  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.403      ;
+; 1.108 ; state.s_idle  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.403      ;
+; 1.110 ; phase[0]      ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.402      ;
+; 1.111 ; phase[0]      ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.403      ;
+; 1.122 ; phase[0]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.414      ;
+; 1.161 ; mode[1]       ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.093      ; 1.506      ;
+; 1.185 ; mode[1]       ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.093      ; 1.530      ;
+; 1.218 ; state.s_start ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.510      ;
+; 1.242 ; state.s_idle  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.079      ; 1.533      ;
+; 1.268 ; state.s_idle  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.560      ;
+; 1.268 ; state.s_idle  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.560      ;
+; 1.271 ; state.s_start ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.564      ;
+; 1.295 ; mode[0]       ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.093      ; 1.640      ;
+; 1.296 ; mode[0]       ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.093      ; 1.641      ;
+; 1.304 ; state.s_start ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.597      ;
+; 1.329 ; data_buf[6]   ; shift_reg[6]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.340     ; 1.241      ;
+; 1.363 ; data_buf[1]   ; shift_reg[1]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.340     ; 1.275      ;
+; 1.370 ; data_buf[3]   ; shift_reg[3]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.340     ; 1.282      ;
+; 1.371 ; data_buf[5]   ; shift_reg[5]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.340     ; 1.283      ;
+; 1.375 ; data_buf[4]   ; shift_reg[4]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.340     ; 1.287      ;
+; 1.381 ; data_buf[2]   ; shift_reg[2]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.340     ; 1.293      ;
+; 1.385 ; nbit[1]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.678      ;
+; 1.400 ; data_buf[0]   ; shift_reg[0]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.340     ; 1.312      ;
+; 1.403 ; data_buf[0]   ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.341     ; 1.314      ;
+; 1.405 ; sda           ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.698      ;
+; 1.411 ; state.s_ack   ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.704      ;
+; 1.412 ; phase[0]      ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.706      ;
+; 1.414 ; state.s_ack   ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.707      ;
+; 1.421 ; data_buf[7]   ; shift_reg[7]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.340     ; 1.333      ;
+; 1.443 ; mode[1]       ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.091      ; 1.786      ;
+; 1.444 ; phase[1]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.736      ;
+; 1.450 ; scl           ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.743      ;
+; 1.450 ; phase[1]      ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.742      ;
+; 1.454 ; go            ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.092      ; 1.798      ;
+; 1.467 ; phase[1]      ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.079      ; 1.758      ;
+; 1.468 ; mode[1]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.091      ; 1.811      ;
+; 1.484 ; phase[1]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.079      ; 1.775      ;
+; 1.488 ; state.s_ack   ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.782      ;
+; 1.489 ; phase[1]      ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.079      ; 1.780      ;
+; 1.492 ; state.s_stop  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.784      ;
+; 1.496 ; state.s_stop  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.788      ;
+; 1.515 ; phase[1]      ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.079      ; 1.806      ;
+; 1.520 ; mode[0]       ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.091      ; 1.863      ;
+; 1.524 ; nbit[0]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.817      ;
+; 1.525 ; go            ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.092      ; 1.869      ;
+; 1.577 ; mode[1]       ; state.s_stop  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.093      ; 1.922      ;
+; 1.600 ; nbit[2]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.893      ;
+; 1.610 ; phase[0]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.903      ;
+; 1.619 ; state.s_start ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.911      ;
+; 1.628 ; state.s_idle  ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.922      ;
+; 1.633 ; mode[1]       ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.091      ; 1.976      ;
+; 1.633 ; mode[0]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.091      ; 1.976      ;
+; 1.639 ; state.s_ack   ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.933      ;
+; 1.643 ; mode[0]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.092      ; 1.987      ;
+; 1.650 ; state.s_idle  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.945      ;
+; 1.653 ; state.s_data  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.946      ;
+; 1.656 ; state.s_data  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.948      ;
+; 1.657 ; state.s_data  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.081      ; 1.950      ;
+; 1.662 ; state.s_idle  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.079      ; 1.953      ;
+; 1.662 ; state.s_idle  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.079      ; 1.953      ;
+; 1.685 ; phase[0]      ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 1.977      ;
+; 1.716 ; state.s_ack   ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 2.008      ;
+; 1.721 ; go            ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.094      ; 2.067      ;
+; 1.743 ; go            ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.094      ; 2.089      ;
+; 1.799 ; rw_bit        ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.080      ; 2.091      ;
+; 1.821 ; state.s_idle  ; rw_flag       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.082      ; 2.115      ;
+; 1.824 ; state.s_idle  ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.082      ; 2.118      ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Recovery: 'CPU_CLK'                                                             ;
++--------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node    ; To Node ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; -1.058 ; state.s_data ; go      ; I2C_4XCLK    ; CPU_CLK     ; 1.000        ; -0.092     ; 1.947      ;
++--------+--------------+---------+--------------+-------------+--------------+------------+------------+
+
+
++------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Removal: 'CPU_CLK'                                                             ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node    ; To Node ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; 1.459 ; state.s_data ; go      ; I2C_4XCLK    ; CPU_CLK     ; 0.000        ; 0.099      ; 1.810      ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+
+
+-----------------------------------------------
+; Slow 1200mV 85C Model Metastability Summary ;
+-----------------------------------------------
+No synchronizer chains to report.
+
+
++-----------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Fmax Summary                                                                         ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note                                                          ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; 322.06 MHz ; 250.0 MHz       ; I2C_4XCLK  ; limit due to minimum period restriction (max I/O toggle rate) ;
++------------+-----------------+------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
+
+
++------------------------------------+
+; Slow 1200mV 0C Model Setup Summary ;
++-----------+--------+---------------+
+; Clock     ; Slack  ; End Point TNS ;
++-----------+--------+---------------+
+; I2C_4XCLK ; -2.105 ; -37.963       ;
++-----------+--------+---------------+
+
+
++-----------------------------------+
+; Slow 1200mV 0C Model Hold Summary ;
++-----------+-------+---------------+
+; Clock     ; Slack ; End Point TNS ;
++-----------+-------+---------------+
+; I2C_4XCLK ; 0.401 ; 0.000         ;
++-----------+-------+---------------+
+
+
++---------------------------------------+
+; Slow 1200mV 0C Model Recovery Summary ;
++---------+--------+--------------------+
+; Clock   ; Slack  ; End Point TNS      ;
++---------+--------+--------------------+
+; CPU_CLK ; -0.862 ; -0.862             ;
++---------+--------+--------------------+
+
+
++--------------------------------------+
+; Slow 1200mV 0C Model Removal Summary ;
++---------+-------+--------------------+
+; Clock   ; Slack ; End Point TNS      ;
++---------+-------+--------------------+
+; CPU_CLK ; 1.340 ; 0.000              ;
++---------+-------+--------------------+
+
+
++--------------------------------------------------+
+; Slow 1200mV 0C Model Minimum Pulse Width Summary ;
++-----------+--------+-----------------------------+
+; Clock     ; Slack  ; End Point TNS               ;
++-----------+--------+-----------------------------+
+; I2C_4XCLK ; -3.000 ; -37.201                     ;
+; CPU_CLK   ; -3.000 ; -19.357                     ;
++-----------+--------+-----------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Setup: 'I2C_4XCLK'                                                                      ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node     ; To Node       ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; -2.105 ; phase[1]      ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.076     ; 3.031      ;
+; -2.105 ; phase[1]      ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.076     ; 3.031      ;
+; -2.070 ; phase[1]      ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 3.000      ;
+; -2.070 ; phase[1]      ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 3.000      ;
+; -2.070 ; phase[1]      ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 3.000      ;
+; -2.070 ; phase[1]      ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 3.000      ;
+; -2.070 ; phase[1]      ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 3.000      ;
+; -2.070 ; phase[1]      ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 3.000      ;
+; -2.070 ; phase[1]      ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 3.000      ;
+; -2.070 ; phase[1]      ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 3.000      ;
+; -2.044 ; state.s_idle  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.972      ;
+; -2.044 ; state.s_idle  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.972      ;
+; -2.031 ; state.s_data  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.959      ;
+; -2.031 ; state.s_data  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.959      ;
+; -1.976 ; nbit[2]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.905      ;
+; -1.976 ; nbit[2]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.905      ;
+; -1.957 ; go            ; nbit[1]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.090     ; 2.849      ;
+; -1.957 ; go            ; nbit[2]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.090     ; 2.849      ;
+; -1.937 ; phase[1]      ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.076     ; 2.863      ;
+; -1.904 ; nbit[0]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.833      ;
+; -1.904 ; nbit[0]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.833      ;
+; -1.890 ; state.s_idle  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.822      ;
+; -1.890 ; state.s_idle  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.822      ;
+; -1.890 ; state.s_idle  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.822      ;
+; -1.890 ; state.s_idle  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.822      ;
+; -1.890 ; state.s_idle  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.822      ;
+; -1.890 ; state.s_idle  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.822      ;
+; -1.890 ; state.s_idle  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.822      ;
+; -1.890 ; state.s_idle  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.822      ;
+; -1.877 ; state.s_data  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.809      ;
+; -1.877 ; state.s_data  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.809      ;
+; -1.877 ; state.s_data  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.809      ;
+; -1.877 ; state.s_data  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.809      ;
+; -1.877 ; state.s_data  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.809      ;
+; -1.877 ; state.s_data  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.809      ;
+; -1.877 ; state.s_data  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.809      ;
+; -1.877 ; state.s_data  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.809      ;
+; -1.876 ; state.s_idle  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.804      ;
+; -1.863 ; state.s_data  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.791      ;
+; -1.808 ; nbit[2]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.737      ;
+; -1.803 ; go            ; shift_reg[7]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.086     ; 2.699      ;
+; -1.803 ; go            ; shift_reg[6]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.086     ; 2.699      ;
+; -1.803 ; go            ; shift_reg[5]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.086     ; 2.699      ;
+; -1.803 ; go            ; shift_reg[3]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.086     ; 2.699      ;
+; -1.803 ; go            ; shift_reg[1]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.086     ; 2.699      ;
+; -1.803 ; go            ; shift_reg[0]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.086     ; 2.699      ;
+; -1.803 ; go            ; shift_reg[2]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.086     ; 2.699      ;
+; -1.803 ; go            ; shift_reg[4]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.086     ; 2.699      ;
+; -1.789 ; go            ; nbit[0]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.090     ; 2.681      ;
+; -1.761 ; phase[1]      ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.690      ;
+; -1.736 ; nbit[0]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.665      ;
+; -1.735 ; nbit[1]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.664      ;
+; -1.735 ; nbit[1]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.664      ;
+; -1.660 ; state.s_idle  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.590      ;
+; -1.660 ; state.s_idle  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.590      ;
+; -1.640 ; phase[0]      ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.568      ;
+; -1.640 ; phase[0]      ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.568      ;
+; -1.627 ; shift_reg[7]  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.075     ; 2.554      ;
+; -1.617 ; state.s_data  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.547      ;
+; -1.588 ; state.s_idle  ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.518      ;
+; -1.567 ; nbit[1]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.073     ; 2.496      ;
+; -1.536 ; nbit[2]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.071     ; 2.467      ;
+; -1.498 ; state.s_start ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.428      ;
+; -1.490 ; state.s_start ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.420      ;
+; -1.472 ; phase[0]      ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.400      ;
+; -1.437 ; nbit[0]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.071     ; 2.368      ;
+; -1.394 ; phase[0]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.324      ;
+; -1.388 ; phase[0]      ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.320      ;
+; -1.388 ; phase[0]      ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.320      ;
+; -1.388 ; phase[0]      ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.320      ;
+; -1.388 ; phase[0]      ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.320      ;
+; -1.388 ; phase[0]      ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.320      ;
+; -1.388 ; phase[0]      ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.320      ;
+; -1.388 ; phase[0]      ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.320      ;
+; -1.388 ; phase[0]      ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.070     ; 2.320      ;
+; -1.355 ; state.s_data  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.285      ;
+; -1.351 ; state.s_stop  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.279      ;
+; -1.347 ; mode[1]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.089     ; 2.240      ;
+; -1.329 ; state.s_idle  ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.071     ; 2.260      ;
+; -1.323 ; phase[0]      ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.253      ;
+; -1.305 ; nbit[1]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.071     ; 2.236      ;
+; -1.296 ; phase[0]      ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.071     ; 2.227      ;
+; -1.295 ; phase[0]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.225      ;
+; -1.278 ; state.s_idle  ; rw_flag       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.071     ; 2.209      ;
+; -1.228 ; go            ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.087     ; 2.123      ;
+; -1.177 ; go            ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.087     ; 2.072      ;
+; -1.157 ; rw_bit        ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.085      ;
+; -1.151 ; phase[1]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.074     ; 2.079      ;
+; -1.142 ; mode[0]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.089     ; 2.035      ;
+; -1.132 ; state.s_data  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.062      ;
+; -1.132 ; state.s_ack   ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 2.062      ;
+; -1.115 ; go            ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.088     ; 2.009      ;
+; -1.088 ; mode[1]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.089     ; 1.981      ;
+; -1.071 ; mode[0]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.089     ; 1.964      ;
+; -1.056 ; mode[1]       ; state.s_stop  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.088     ; 1.950      ;
+; -1.040 ; phase[0]      ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 1.970      ;
+; -1.040 ; mode[1]       ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.089     ; 1.933      ;
+; -1.019 ; state.s_data  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 1.949      ;
+; -1.008 ; state.s_ack   ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.071     ; 1.939      ;
+; -1.008 ; state.s_start ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.072     ; 1.938      ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Hold: 'I2C_4XCLK'                                                                      ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node     ; To Node       ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; 0.401 ; ack           ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; rw_bit        ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; rw_flag       ; rw_flag       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; nbit[2]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; nbit[0]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; nbit[1]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; phase[1]      ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; state.s_stop  ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.669      ;
+; 0.402 ; state.s_start ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; state.s_ack   ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 0.669      ;
+; 0.417 ; phase[0]      ; phase[0]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 0.684      ;
+; 0.492 ; shift_reg[5]  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.760      ;
+; 0.621 ; shift_reg[2]  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.889      ;
+; 0.622 ; shift_reg[0]  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.890      ;
+; 0.633 ; go            ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.083      ; 0.951      ;
+; 0.648 ; nbit[0]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.916      ;
+; 0.695 ; shift_reg[3]  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.963      ;
+; 0.710 ; shift_reg[1]  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.978      ;
+; 0.710 ; state.s_idle  ; phase[0]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 0.977      ;
+; 0.711 ; shift_reg[6]  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.979      ;
+; 0.711 ; shift_reg[4]  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 0.979      ;
+; 0.736 ; rw_flag       ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.004      ;
+; 0.889 ; phase[0]      ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.158      ;
+; 0.902 ; nbit[0]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.170      ;
+; 0.930 ; nbit[1]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.198      ;
+; 0.934 ; state.s_data  ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.201      ;
+; 0.978 ; state.s_idle  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.075      ; 1.248      ;
+; 0.978 ; state.s_idle  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.075      ; 1.248      ;
+; 0.978 ; state.s_idle  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.075      ; 1.248      ;
+; 0.979 ; state.s_idle  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.075      ; 1.249      ;
+; 0.979 ; state.s_idle  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.075      ; 1.249      ;
+; 0.979 ; state.s_idle  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.075      ; 1.249      ;
+; 0.979 ; state.s_idle  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.075      ; 1.249      ;
+; 0.989 ; state.s_idle  ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.256      ;
+; 1.001 ; phase[1]      ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.269      ;
+; 1.030 ; phase[0]      ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.297      ;
+; 1.030 ; phase[0]      ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.297      ;
+; 1.047 ; phase[0]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.314      ;
+; 1.049 ; mode[1]       ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.084      ; 1.368      ;
+; 1.075 ; mode[1]       ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.084      ; 1.394      ;
+; 1.082 ; state.s_start ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.349      ;
+; 1.100 ; state.s_idle  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.071      ; 1.366      ;
+; 1.128 ; state.s_start ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.396      ;
+; 1.160 ; state.s_start ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.428      ;
+; 1.177 ; mode[0]       ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.084      ; 1.496      ;
+; 1.193 ; state.s_idle  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.460      ;
+; 1.193 ; state.s_idle  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.460      ;
+; 1.201 ; data_buf[6]   ; shift_reg[6]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.317     ; 1.119      ;
+; 1.203 ; mode[0]       ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.084      ; 1.522      ;
+; 1.239 ; data_buf[1]   ; shift_reg[1]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.317     ; 1.157      ;
+; 1.241 ; data_buf[4]   ; shift_reg[4]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.317     ; 1.159      ;
+; 1.245 ; data_buf[5]   ; shift_reg[5]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.317     ; 1.163      ;
+; 1.245 ; data_buf[3]   ; shift_reg[3]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.317     ; 1.163      ;
+; 1.245 ; data_buf[2]   ; shift_reg[2]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.317     ; 1.163      ;
+; 1.258 ; nbit[1]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.527      ;
+; 1.268 ; data_buf[0]   ; shift_reg[0]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.317     ; 1.186      ;
+; 1.271 ; data_buf[0]   ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.318     ; 1.188      ;
+; 1.274 ; phase[0]      ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.543      ;
+; 1.276 ; data_buf[7]   ; shift_reg[7]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.317     ; 1.194      ;
+; 1.288 ; state.s_ack   ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.556      ;
+; 1.291 ; state.s_ack   ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.559      ;
+; 1.304 ; phase[1]      ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.571      ;
+; 1.305 ; phase[1]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.572      ;
+; 1.306 ; go            ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.624      ;
+; 1.312 ; sda           ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.580      ;
+; 1.317 ; phase[1]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.071      ; 1.583      ;
+; 1.323 ; phase[1]      ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.071      ; 1.589      ;
+; 1.327 ; mode[1]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.644      ;
+; 1.331 ; phase[1]      ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.071      ; 1.597      ;
+; 1.331 ; state.s_ack   ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.600      ;
+; 1.331 ; scl           ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.599      ;
+; 1.349 ; state.s_stop  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.616      ;
+; 1.350 ; go            ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.668      ;
+; 1.351 ; phase[1]      ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.071      ; 1.617      ;
+; 1.352 ; state.s_stop  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.619      ;
+; 1.361 ; mode[1]       ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.678      ;
+; 1.401 ; mode[1]       ; state.s_stop  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.084      ; 1.720      ;
+; 1.402 ; mode[0]       ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.719      ;
+; 1.422 ; nbit[0]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.691      ;
+; 1.441 ; state.s_start ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.708      ;
+; 1.442 ; phase[0]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.710      ;
+; 1.451 ; mode[0]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.768      ;
+; 1.465 ; state.s_ack   ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.734      ;
+; 1.469 ; nbit[2]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.738      ;
+; 1.472 ; state.s_idle  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.075      ; 1.742      ;
+; 1.482 ; mode[1]       ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.082      ; 1.799      ;
+; 1.484 ; state.s_data  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.751      ;
+; 1.493 ; state.s_data  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.761      ;
+; 1.496 ; state.s_data  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.073      ; 1.764      ;
+; 1.518 ; phase[0]      ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.785      ;
+; 1.520 ; state.s_idle  ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.789      ;
+; 1.529 ; mode[0]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.083      ; 1.847      ;
+; 1.551 ; state.s_idle  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.071      ; 1.817      ;
+; 1.551 ; state.s_idle  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.071      ; 1.817      ;
+; 1.561 ; go            ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.085      ; 1.881      ;
+; 1.564 ; go            ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.085      ; 1.884      ;
+; 1.582 ; state.s_ack   ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.849      ;
+; 1.632 ; rw_bit        ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.072      ; 1.899      ;
+; 1.654 ; state.s_idle  ; rw_flag       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.923      ;
+; 1.657 ; state.s_idle  ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.074      ; 1.926      ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Recovery: 'CPU_CLK'                                                              ;
++--------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node    ; To Node ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; -0.862 ; state.s_data ; go      ; I2C_4XCLK    ; CPU_CLK     ; 1.000        ; -0.083     ; 1.761      ;
++--------+--------------+---------+--------------+-------------+--------------+------------+------------+
+
+
++------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Removal: 'CPU_CLK'                                                              ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node    ; To Node ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; 1.340 ; state.s_data ; go      ; I2C_4XCLK    ; CPU_CLK     ; 0.000        ; 0.088      ; 1.663      ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+
+
+----------------------------------------------
+; Slow 1200mV 0C Model Metastability Summary ;
+----------------------------------------------
+No synchronizer chains to report.
+
+
++------------------------------------+
+; Fast 1200mV 0C Model Setup Summary ;
++-----------+--------+---------------+
+; Clock     ; Slack  ; End Point TNS ;
++-----------+--------+---------------+
+; I2C_4XCLK ; -0.442 ; -5.651        ;
++-----------+--------+---------------+
+
+
++-----------------------------------+
+; Fast 1200mV 0C Model Hold Summary ;
++-----------+-------+---------------+
+; Clock     ; Slack ; End Point TNS ;
++-----------+-------+---------------+
+; I2C_4XCLK ; 0.186 ; 0.000         ;
++-----------+-------+---------------+
+
+
++---------------------------------------+
+; Fast 1200mV 0C Model Recovery Summary ;
++---------+-------+---------------------+
+; Clock   ; Slack ; End Point TNS       ;
++---------+-------+---------------------+
+; CPU_CLK ; 0.074 ; 0.000               ;
++---------+-------+---------------------+
+
+
++--------------------------------------+
+; Fast 1200mV 0C Model Removal Summary ;
++---------+-------+--------------------+
+; Clock   ; Slack ; End Point TNS      ;
++---------+-------+--------------------+
+; CPU_CLK ; 0.595 ; 0.000              ;
++---------+-------+--------------------+
+
+
++--------------------------------------------------+
+; Fast 1200mV 0C Model Minimum Pulse Width Summary ;
++-----------+--------+-----------------------------+
+; Clock     ; Slack  ; End Point TNS               ;
++-----------+--------+-----------------------------+
+; I2C_4XCLK ; -3.000 ; -27.452                     ;
+; CPU_CLK   ; -3.000 ; -14.797                     ;
++-----------+--------+-----------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Setup: 'I2C_4XCLK'                                                                      ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node     ; To Node       ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; -0.442 ; state.s_data  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.391      ;
+; -0.442 ; state.s_data  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.391      ;
+; -0.410 ; state.s_idle  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.359      ;
+; -0.410 ; state.s_idle  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.359      ;
+; -0.409 ; phase[1]      ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.040     ; 1.356      ;
+; -0.409 ; phase[1]      ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.040     ; 1.356      ;
+; -0.402 ; go            ; nbit[1]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.048     ; 1.321      ;
+; -0.402 ; go            ; nbit[2]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.048     ; 1.321      ;
+; -0.390 ; phase[1]      ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.341      ;
+; -0.390 ; phase[1]      ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.341      ;
+; -0.390 ; phase[1]      ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.341      ;
+; -0.390 ; phase[1]      ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.341      ;
+; -0.390 ; phase[1]      ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.341      ;
+; -0.390 ; phase[1]      ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.341      ;
+; -0.390 ; phase[1]      ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.341      ;
+; -0.390 ; phase[1]      ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.341      ;
+; -0.370 ; state.s_data  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.319      ;
+; -0.367 ; nbit[2]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.318      ;
+; -0.367 ; nbit[2]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.318      ;
+; -0.338 ; state.s_idle  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.287      ;
+; -0.337 ; phase[1]      ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.040     ; 1.284      ;
+; -0.335 ; state.s_data  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.288      ;
+; -0.335 ; state.s_data  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.288      ;
+; -0.335 ; state.s_data  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.288      ;
+; -0.335 ; state.s_data  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.288      ;
+; -0.335 ; state.s_data  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.288      ;
+; -0.335 ; state.s_data  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.288      ;
+; -0.335 ; state.s_data  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.288      ;
+; -0.335 ; state.s_data  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.288      ;
+; -0.330 ; go            ; nbit[0]       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.048     ; 1.249      ;
+; -0.318 ; nbit[0]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.269      ;
+; -0.318 ; nbit[0]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.269      ;
+; -0.303 ; state.s_idle  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.256      ;
+; -0.303 ; state.s_idle  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.256      ;
+; -0.303 ; state.s_idle  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.256      ;
+; -0.303 ; state.s_idle  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.256      ;
+; -0.303 ; state.s_idle  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.256      ;
+; -0.303 ; state.s_idle  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.256      ;
+; -0.303 ; state.s_idle  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.256      ;
+; -0.303 ; state.s_idle  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.256      ;
+; -0.295 ; go            ; shift_reg[7]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.218      ;
+; -0.295 ; go            ; shift_reg[6]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.218      ;
+; -0.295 ; go            ; shift_reg[5]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.218      ;
+; -0.295 ; go            ; shift_reg[3]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.218      ;
+; -0.295 ; go            ; shift_reg[1]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.218      ;
+; -0.295 ; go            ; shift_reg[0]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.218      ;
+; -0.295 ; go            ; shift_reg[2]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.218      ;
+; -0.295 ; go            ; shift_reg[4]  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.218      ;
+; -0.290 ; nbit[2]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.241      ;
+; -0.245 ; nbit[1]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.196      ;
+; -0.245 ; nbit[1]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.196      ;
+; -0.241 ; nbit[0]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.192      ;
+; -0.239 ; phase[0]      ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.188      ;
+; -0.239 ; phase[0]      ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.188      ;
+; -0.236 ; phase[1]      ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.187      ;
+; -0.232 ; state.s_idle  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.184      ;
+; -0.232 ; state.s_idle  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.184      ;
+; -0.212 ; state.s_data  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.164      ;
+; -0.204 ; shift_reg[7]  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.153      ;
+; -0.198 ; state.s_idle  ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.037     ; 1.148      ;
+; -0.168 ; nbit[1]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.036     ; 1.119      ;
+; -0.167 ; state.s_start ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.119      ;
+; -0.167 ; phase[0]      ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.038     ; 1.116      ;
+; -0.163 ; nbit[2]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.115      ;
+; -0.127 ; state.s_start ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.079      ;
+; -0.122 ; mode[1]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.046     ; 1.043      ;
+; -0.114 ; nbit[0]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.066      ;
+; -0.087 ; phase[0]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.037     ; 1.037      ;
+; -0.087 ; phase[0]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.039      ;
+; -0.085 ; state.s_data  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.037     ; 1.035      ;
+; -0.084 ; phase[0]      ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 1.036      ;
+; -0.083 ; go            ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 1.006      ;
+; -0.066 ; phase[0]      ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.019      ;
+; -0.064 ; state.s_stop  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.039     ; 1.012      ;
+; -0.048 ; phase[0]      ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.001      ;
+; -0.048 ; phase[0]      ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.001      ;
+; -0.048 ; phase[0]      ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.001      ;
+; -0.048 ; phase[0]      ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.001      ;
+; -0.048 ; phase[0]      ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.001      ;
+; -0.048 ; phase[0]      ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.001      ;
+; -0.048 ; phase[0]      ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.001      ;
+; -0.048 ; phase[0]      ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 1.001      ;
+; -0.048 ; go            ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.044     ; 0.971      ;
+; -0.041 ; state.s_idle  ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 0.994      ;
+; -0.041 ; nbit[1]       ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 0.993      ;
+; -0.034 ; mode[0]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.048     ; 0.953      ;
+; -0.029 ; state.s_data  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.037     ; 0.979      ;
+; -0.011 ; rw_bit        ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.037     ; 0.961      ;
+; -0.010 ; state.s_idle  ; rw_flag       ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 0.963      ;
+; 0.003  ; go            ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.047     ; 0.917      ;
+; 0.014  ; mode[0]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.046     ; 0.907      ;
+; 0.018  ; phase[1]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.039     ; 0.930      ;
+; 0.019  ; state.s_ack   ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.037     ; 0.931      ;
+; 0.024  ; mode[1]       ; state.s_stop  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.045     ; 0.898      ;
+; 0.037  ; mode[1]       ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.048     ; 0.882      ;
+; 0.041  ; nbit[2]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 0.911      ;
+; 0.052  ; state.s_ack   ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.034     ; 0.901      ;
+; 0.055  ; state.s_data  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.035     ; 0.897      ;
+; 0.055  ; mode[1]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 1.000        ; -0.048     ; 0.864      ;
+; 0.059  ; state.s_start ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 1.000        ; -0.037     ; 0.891      ;
++--------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Hold: 'I2C_4XCLK'                                                                      ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node     ; To Node       ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+; 0.186 ; state.s_start ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; state.s_ack   ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.307      ;
+; 0.187 ; ack           ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; rw_bit        ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; rw_flag       ; rw_flag       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; nbit[2]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; nbit[0]       ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; nbit[1]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; phase[1]      ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; state.s_stop  ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.307      ;
+; 0.193 ; phase[0]      ; phase[0]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.314      ;
+; 0.205 ; shift_reg[5]  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.326      ;
+; 0.242 ; go            ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.043      ; 0.409      ;
+; 0.265 ; shift_reg[2]  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.386      ;
+; 0.266 ; shift_reg[0]  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.387      ;
+; 0.281 ; nbit[0]       ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.401      ;
+; 0.298 ; shift_reg[3]  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.419      ;
+; 0.305 ; shift_reg[6]  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.426      ;
+; 0.306 ; shift_reg[4]  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.427      ;
+; 0.307 ; shift_reg[1]  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.428      ;
+; 0.307 ; state.s_idle  ; phase[0]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.428      ;
+; 0.319 ; rw_flag       ; rw_bit        ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.439      ;
+; 0.378 ; nbit[0]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.498      ;
+; 0.393 ; nbit[1]       ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.513      ;
+; 0.397 ; phase[0]      ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.039      ; 0.520      ;
+; 0.399 ; state.s_data  ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.520      ;
+; 0.429 ; phase[1]      ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.549      ;
+; 0.435 ; state.s_idle  ; shift_reg[1]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.040      ; 0.559      ;
+; 0.435 ; state.s_idle  ; shift_reg[5]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.040      ; 0.559      ;
+; 0.436 ; state.s_idle  ; shift_reg[3]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.040      ; 0.560      ;
+; 0.436 ; state.s_idle  ; shift_reg[4]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.040      ; 0.560      ;
+; 0.436 ; state.s_idle  ; shift_reg[7]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.040      ; 0.560      ;
+; 0.436 ; state.s_idle  ; shift_reg[2]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.040      ; 0.560      ;
+; 0.437 ; state.s_idle  ; shift_reg[0]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.040      ; 0.561      ;
+; 0.440 ; state.s_idle  ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.561      ;
+; 0.443 ; phase[0]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.564      ;
+; 0.447 ; phase[0]      ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.568      ;
+; 0.452 ; phase[0]      ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.573      ;
+; 0.476 ; mode[1]       ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.043      ; 0.643      ;
+; 0.478 ; mode[1]       ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.043      ; 0.645      ;
+; 0.486 ; mode[0]       ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.043      ; 0.653      ;
+; 0.488 ; state.s_start ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.609      ;
+; 0.490 ; mode[0]       ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.043      ; 0.657      ;
+; 0.493 ; data_buf[6]   ; shift_reg[6]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.133     ; 0.484      ;
+; 0.499 ; state.s_start ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.621      ;
+; 0.504 ; state.s_start ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.626      ;
+; 0.506 ; state.s_idle  ; nbit[0]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.035      ; 0.625      ;
+; 0.511 ; state.s_idle  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.632      ;
+; 0.511 ; state.s_idle  ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.632      ;
+; 0.511 ; data_buf[1]   ; shift_reg[1]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.133     ; 0.502      ;
+; 0.513 ; data_buf[5]   ; shift_reg[5]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.133     ; 0.504      ;
+; 0.513 ; data_buf[3]   ; shift_reg[3]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.133     ; 0.504      ;
+; 0.515 ; data_buf[4]   ; shift_reg[4]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.133     ; 0.506      ;
+; 0.516 ; data_buf[2]   ; shift_reg[2]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.133     ; 0.507      ;
+; 0.519 ; data_buf[0]   ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.134     ; 0.509      ;
+; 0.526 ; data_buf[0]   ; shift_reg[0]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.133     ; 0.517      ;
+; 0.527 ; go            ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.043      ; 0.694      ;
+; 0.530 ; mode[1]       ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.041      ; 0.695      ;
+; 0.531 ; data_buf[7]   ; shift_reg[7]  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; -0.133     ; 0.522      ;
+; 0.536 ; nbit[1]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.658      ;
+; 0.558 ; phase[1]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.035      ; 0.677      ;
+; 0.562 ; state.s_ack   ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.684      ;
+; 0.562 ; sda           ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.682      ;
+; 0.565 ; state.s_ack   ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.687      ;
+; 0.567 ; phase[0]      ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.039      ; 0.690      ;
+; 0.569 ; phase[1]      ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.035      ; 0.688      ;
+; 0.577 ; go            ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.043      ; 0.744      ;
+; 0.583 ; state.s_ack   ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.039      ; 0.706      ;
+; 0.584 ; phase[1]      ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.034      ; 0.702      ;
+; 0.591 ; phase[1]      ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.034      ; 0.709      ;
+; 0.595 ; phase[1]      ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.034      ; 0.713      ;
+; 0.595 ; nbit[0]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.717      ;
+; 0.596 ; mode[1]       ; state.s_stop  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.043      ; 0.763      ;
+; 0.599 ; state.s_stop  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.035      ; 0.718      ;
+; 0.600 ; phase[1]      ; state.s_start ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.034      ; 0.718      ;
+; 0.600 ; scl           ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.036      ; 0.720      ;
+; 0.600 ; mode[0]       ; state.s_data  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.041      ; 0.765      ;
+; 0.602 ; state.s_stop  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.035      ; 0.721      ;
+; 0.610 ; mode[1]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.041      ; 0.775      ;
+; 0.611 ; mode[0]       ; state.s_start ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.041      ; 0.776      ;
+; 0.613 ; state.s_idle  ; phase[1]      ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.039      ; 0.736      ;
+; 0.617 ; mode[1]       ; state.s_idle  ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.041      ; 0.782      ;
+; 0.624 ; phase[0]      ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.746      ;
+; 0.626 ; nbit[2]       ; state.s_ack   ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.748      ;
+; 0.627 ; state.s_idle  ; nbit[2]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.035      ; 0.746      ;
+; 0.627 ; state.s_idle  ; nbit[1]       ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.035      ; 0.746      ;
+; 0.633 ; state.s_start ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.754      ;
+; 0.643 ; mode[0]       ; sda           ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.042      ; 0.809      ;
+; 0.645 ; state.s_ack   ; ack           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.039      ; 0.768      ;
+; 0.645 ; go            ; rw_flag       ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.045      ; 0.814      ;
+; 0.651 ; state.s_data  ; state.s_data  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.772      ;
+; 0.658 ; go            ; rw_bit        ; CPU_CLK      ; I2C_4XCLK   ; 0.000        ; 0.045      ; 0.827      ;
+; 0.668 ; state.s_idle  ; shift_reg[6]  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.040      ; 0.792      ;
+; 0.669 ; state.s_data  ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.791      ;
+; 0.670 ; phase[0]      ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.791      ;
+; 0.672 ; state.s_data  ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.794      ;
+; 0.686 ; state.s_ack   ; state.s_idle  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.037      ; 0.807      ;
+; 0.721 ; rw_bit        ; sda           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.035      ; 0.840      ;
+; 0.731 ; phase[0]      ; scl           ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.038      ; 0.853      ;
+; 0.754 ; phase[0]      ; state.s_stop  ; I2C_4XCLK    ; I2C_4XCLK   ; 0.000        ; 0.039      ; 0.877      ;
++-------+---------------+---------------+--------------+-------------+--------------+------------+------------+
+
+
++------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Recovery: 'CPU_CLK'                                                             ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node    ; To Node ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; 0.074 ; state.s_data ; go      ; I2C_4XCLK    ; CPU_CLK     ; 1.000        ; -0.043     ; 0.850      ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+
+
++------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Removal: 'CPU_CLK'                                                              ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node    ; To Node ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+; 0.595 ; state.s_data ; go      ; I2C_4XCLK    ; CPU_CLK     ; 0.000        ; 0.047      ; 0.766      ;
++-------+--------------+---------+--------------+-------------+--------------+------------+------------+
+
+
+----------------------------------------------
+; Fast 1200mV 0C Model Metastability Summary ;
+----------------------------------------------
+No synchronizer chains to report.
+
+
++-------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                           ;
++------------------+---------+-------+----------+---------+---------------------+
+; Clock            ; Setup   ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++------------------+---------+-------+----------+---------+---------------------+
+; Worst-case Slack ; -2.280  ; 0.186 ; -1.058   ; 0.595   ; -3.000              ;
+;  CPU_CLK         ; N/A     ; N/A   ; -1.058   ; 0.595   ; -3.000              ;
+;  I2C_4XCLK       ; -2.280  ; 0.186 ; N/A      ; N/A     ; -3.000              ;
+; Design-wide TNS  ; -41.625 ; 0.0   ; -1.058   ; 0.0     ; -56.558             ;
+;  CPU_CLK         ; N/A     ; N/A   ; -1.058   ; 0.000   ; -19.357             ;
+;  I2C_4XCLK       ; -41.625 ; 0.000 ; N/A      ; N/A     ; -37.201             ;
++------------------+---------+-------+----------+---------+---------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Board Trace Model Assignments                                                                                                                                                                                                                                                                                                                                                                                    ;
++---------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+; Pin           ; I/O Standard ; Near Tline Length ; Near Tline L per Length ; Near Tline C per Length ; Near Series R ; Near Differential R ; Near Pull-up R ; Near Pull-down R ; Near C ; Far Tline Length ; Far Tline L per Length ; Far Tline C per Length ; Far Series R ; Far Pull-up R ; Far Pull-down R ; Far C ; Termination Voltage ; Far Differential R ; EBD File Name ; EBD Signal Name ; EBD Far-end ;
++---------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+; DATA_OUT[0]   ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; DATA_OUT[1]   ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; DATA_OUT[2]   ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; DATA_OUT[3]   ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; DATA_OUT[4]   ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; DATA_OUT[5]   ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; DATA_OUT[6]   ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; DATA_OUT[7]   ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; I2C_SCL       ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; I2C_SDA       ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; ~ALTERA_DCLK~ ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; ~ALTERA_nCEO~ ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
++---------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+
+
++----------------------------------------------------------------------------+
+; Input Transition Times                                                     ;
++-------------------------+--------------+-----------------+-----------------+
+; Pin                     ; I/O Standard ; 10-90 Rise Time ; 90-10 Fall Time ;
++-------------------------+--------------+-----------------+-----------------+
+; I2C_SCL                 ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; I2C_SDA                 ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; ADRSEL                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; I2C_4XCLK               ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; ENA                     ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; RESET                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; CPU_CLK                 ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; WR                      ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; DATA_IN[0]              ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; DATA_IN[1]              ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; DATA_IN[2]              ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; DATA_IN[3]              ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; DATA_IN[4]              ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; DATA_IN[5]              ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; DATA_IN[6]              ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; DATA_IN[7]              ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_ASDO_DATA1~     ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_FLASH_nCE_nCSO~ ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_DATA0~          ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
++-------------------------+--------------+-----------------+-----------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Slow 1200mv 0c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin           ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; DATA_OUT[0]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.33 V              ; -0.00425 V          ; 0.168 V                              ; 0.058 V                              ; 3.12e-09 s                  ; 2.87e-09 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.33 V             ; -0.00425 V         ; 0.168 V                             ; 0.058 V                             ; 3.12e-09 s                 ; 2.87e-09 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[1]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[2]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[3]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[4]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[5]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[6]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.33 V              ; -0.00425 V          ; 0.168 V                              ; 0.058 V                              ; 3.12e-09 s                  ; 2.87e-09 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.33 V             ; -0.00425 V         ; 0.168 V                             ; 0.058 V                             ; 3.12e-09 s                 ; 2.87e-09 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; I2C_SCL       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; I2C_SDA       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_DCLK~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.74e-09 V                   ; 2.37 V              ; -0.0346 V           ; 0.198 V                              ; 0.094 V                              ; 3.14e-10 s                  ; 2.92e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 1.74e-09 V                  ; 2.37 V             ; -0.0346 V          ; 0.198 V                             ; 0.094 V                             ; 3.14e-10 s                 ; 2.92e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_nCEO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.57e-09 V                   ; 2.37 V              ; -0.00683 V          ; 0.171 V                              ; 0.018 V                              ; 4.97e-10 s                  ; 6.66e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.57e-09 V                  ; 2.37 V             ; -0.00683 V         ; 0.171 V                             ; 0.018 V                             ; 4.97e-10 s                 ; 6.66e-10 s                 ; Yes                       ; Yes                       ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Slow 1200mv 85c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin           ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; DATA_OUT[0]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.33 V              ; -0.00229 V          ; 0.111 V                              ; 0.057 V                              ; 3.78e-09 s                  ; 3.5e-09 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.33 V             ; -0.00229 V         ; 0.111 V                             ; 0.057 V                             ; 3.78e-09 s                 ; 3.5e-09 s                  ; Yes                       ; Yes                       ;
+; DATA_OUT[1]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[2]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[3]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[4]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[5]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[6]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.33 V              ; -0.00229 V          ; 0.111 V                              ; 0.057 V                              ; 3.78e-09 s                  ; 3.5e-09 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.33 V             ; -0.00229 V         ; 0.111 V                             ; 0.057 V                             ; 3.78e-09 s                 ; 3.5e-09 s                  ; Yes                       ; Yes                       ;
+; DATA_OUT[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; I2C_SCL       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; I2C_SDA       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_DCLK~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.55e-07 V                   ; 2.35 V              ; -0.00221 V          ; 0.097 V                              ; 0.005 V                              ; 4.49e-10 s                  ; 3.85e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 1.55e-07 V                  ; 2.35 V             ; -0.00221 V         ; 0.097 V                             ; 0.005 V                             ; 4.49e-10 s                 ; 3.85e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_nCEO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.54e-07 V                   ; 2.34 V              ; -0.00774 V          ; 0.109 V                              ; 0.026 V                              ; 6.58e-10 s                  ; 8.24e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.54e-07 V                  ; 2.34 V             ; -0.00774 V         ; 0.109 V                             ; 0.026 V                             ; 6.58e-10 s                 ; 8.24e-10 s                 ; Yes                       ; Yes                       ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Fast 1200mv 0c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin           ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; DATA_OUT[0]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.64 V              ; -0.0113 V           ; 0.208 V                              ; 0.179 V                              ; 2.38e-09 s                  ; 2.23e-09 s                  ; No                         ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.64 V             ; -0.0113 V          ; 0.208 V                             ; 0.179 V                             ; 2.38e-09 s                 ; 2.23e-09 s                 ; No                        ; Yes                       ;
+; DATA_OUT[1]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[2]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[3]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[4]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[5]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; DATA_OUT[6]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.64 V              ; -0.0113 V           ; 0.208 V                              ; 0.179 V                              ; 2.38e-09 s                  ; 2.23e-09 s                  ; No                         ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.64 V             ; -0.0113 V          ; 0.208 V                             ; 0.179 V                             ; 2.38e-09 s                 ; 2.23e-09 s                 ; No                        ; Yes                       ;
+; DATA_OUT[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; I2C_SCL       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; I2C_SDA       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_DCLK~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 2.22e-08 V                   ; 2.74 V              ; -0.06 V             ; 0.158 V                              ; 0.08 V                               ; 2.68e-10 s                  ; 2.19e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 2.22e-08 V                  ; 2.74 V             ; -0.06 V            ; 0.158 V                             ; 0.08 V                              ; 2.68e-10 s                 ; 2.19e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_nCEO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 3.54e-08 V                   ; 2.7 V               ; -0.00943 V          ; 0.276 V                              ; 0.035 V                              ; 3.19e-10 s                  ; 4.99e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 3.54e-08 V                  ; 2.7 V              ; -0.00943 V         ; 0.276 V                             ; 0.035 V                             ; 3.19e-10 s                 ; 4.99e-10 s                 ; No                        ; Yes                       ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++--------------------------------------------------------------------+
+; Setup Transfers                                                    ;
++------------+-----------+----------+----------+----------+----------+
+; From Clock ; To Clock  ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+-----------+----------+----------+----------+----------+
+; CPU_CLK    ; I2C_4XCLK ; 37       ; 0        ; 0        ; 0        ;
+; I2C_4XCLK  ; I2C_4XCLK ; 162      ; 0        ; 0        ; 0        ;
++------------+-----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++--------------------------------------------------------------------+
+; Hold Transfers                                                     ;
++------------+-----------+----------+----------+----------+----------+
+; From Clock ; To Clock  ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+-----------+----------+----------+----------+----------+
+; CPU_CLK    ; I2C_4XCLK ; 37       ; 0        ; 0        ; 0        ;
+; I2C_4XCLK  ; I2C_4XCLK ; 162      ; 0        ; 0        ; 0        ;
++------------+-----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-------------------------------------------------------------------+
+; Recovery Transfers                                                ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; I2C_4XCLK  ; CPU_CLK  ; 1        ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-------------------------------------------------------------------+
+; Removal Transfers                                                 ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; I2C_4XCLK  ; CPU_CLK  ; 1        ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
+---------------
+; Report TCCS ;
+---------------
+No dedicated SERDES Transmitter circuitry present in device or used in design
+
+
+---------------
+; Report RSKM ;
+---------------
+No non-DPA dedicated SERDES Receiver circuitry present in device or used in design
+
+
++------------------------------------------------+
+; Unconstrained Paths Summary                    ;
++---------------------------------+-------+------+
+; Property                        ; Setup ; Hold ;
++---------------------------------+-------+------+
+; Illegal Clocks                  ; 0     ; 0    ;
+; Unconstrained Clocks            ; 0     ; 0    ;
+; Unconstrained Input Ports       ; 13    ; 13   ;
+; Unconstrained Input Port Paths  ; 89    ; 89   ;
+; Unconstrained Output Ports      ; 10    ; 10   ;
+; Unconstrained Output Port Paths ; 21    ; 21   ;
++---------------------------------+-------+------+
+
+
++--------------------------------------------+
+; Clock Status Summary                       ;
++-----------+-----------+------+-------------+
+; Target    ; Clock     ; Type ; Status      ;
++-----------+-----------+------+-------------+
+; CPU_CLK   ; CPU_CLK   ; Base ; Constrained ;
+; I2C_4XCLK ; I2C_4XCLK ; Base ; Constrained ;
++-----------+-----------+------+-------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Unconstrained Input Ports                                                                         ;
++------------+--------------------------------------------------------------------------------------+
+; Input Port ; Comment                                                                              ;
++------------+--------------------------------------------------------------------------------------+
+; ADRSEL     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[0] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[1] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[2] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[3] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[4] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[5] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[6] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[7] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; ENA        ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; I2C_SDA    ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; RESET      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; WR         ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
++------------+--------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; DATA_OUT[0] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[1] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[2] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[3] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[4] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[5] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[6] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[7] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; I2C_SCL     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; I2C_SDA     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Unconstrained Input Ports                                                                         ;
++------------+--------------------------------------------------------------------------------------+
+; Input Port ; Comment                                                                              ;
++------------+--------------------------------------------------------------------------------------+
+; ADRSEL     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[0] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[1] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[2] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[3] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[4] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[5] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[6] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_IN[7] ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; ENA        ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; I2C_SDA    ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; RESET      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; WR         ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
++------------+--------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; DATA_OUT[0] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[1] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[2] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[3] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[4] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[5] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[6] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; DATA_OUT[7] ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; I2C_SCL     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; I2C_SDA     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
+
+
++--------------------------+
+; Timing Analyzer Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Timing Analyzer
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Mon Jul 08 16:32:13 2019
+Info: Command: quartus_sta I2C -c I2C
+Info: qsta_default_script.tcl version: #1
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (21077): Low junction temperature is 0 degrees C
+Info (21077): High junction temperature is 85 degrees C
+Critical Warning (332012): Synopsys Design Constraints File file not found: 'I2C.sdc'. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
+Info (332105): Deriving Clocks
+    Info (332105): create_clock -period 1.000 -name I2C_4XCLK I2C_4XCLK
+    Info (332105): create_clock -period 1.000 -name CPU_CLK CPU_CLK
+Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow 1200mV 85C Model
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
+Info (332146): Worst-case setup slack is -2.280
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -2.280             -41.625 I2C_4XCLK 
+Info (332146): Worst-case hold slack is 0.453
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.453               0.000 I2C_4XCLK 
+Info (332146): Worst-case recovery slack is -1.058
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -1.058              -1.058 CPU_CLK 
+Info (332146): Worst-case removal slack is 1.459
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     1.459               0.000 CPU_CLK 
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -37.201 I2C_4XCLK 
+    Info (332119):    -3.000             -19.357 CPU_CLK 
+Info: Analyzing Slow 1200mV 0C Model
+Info (334003): Started post-fitting delay annotation
+Info (334004): Delay annotation completed successfully
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
+Info (332146): Worst-case setup slack is -2.105
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -2.105             -37.963 I2C_4XCLK 
+Info (332146): Worst-case hold slack is 0.401
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.401               0.000 I2C_4XCLK 
+Info (332146): Worst-case recovery slack is -0.862
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.862              -0.862 CPU_CLK 
+Info (332146): Worst-case removal slack is 1.340
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     1.340               0.000 CPU_CLK 
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -37.201 I2C_4XCLK 
+    Info (332119):    -3.000             -19.357 CPU_CLK 
+Info: Analyzing Fast 1200mV 0C Model
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
+Info (332146): Worst-case setup slack is -0.442
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.442              -5.651 I2C_4XCLK 
+Info (332146): Worst-case hold slack is 0.186
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.186               0.000 I2C_4XCLK 
+Info (332146): Worst-case recovery slack is 0.074
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.074               0.000 CPU_CLK 
+Info (332146): Worst-case removal slack is 0.595
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.595               0.000 CPU_CLK 
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -27.452 I2C_4XCLK 
+    Info (332119):    -3.000             -14.797 CPU_CLK 
+Info (332102): Design is not fully constrained for setup requirements
+Info (332102): Design is not fully constrained for hold requirements
+Info: Quartus Prime Timing Analyzer was successful. 0 errors, 5 warnings
+    Info: Peak virtual memory: 4769 megabytes
+    Info: Processing ended: Mon Jul 08 16:32:15 2019
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:02
+
+

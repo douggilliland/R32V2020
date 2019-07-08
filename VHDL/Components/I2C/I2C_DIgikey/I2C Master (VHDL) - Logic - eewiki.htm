@@ -1,0 +1,2680 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script async="" crossorigin="anonymous" type="text/javascript" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/ChangeMonitor-latest.js"></script><script type="text/javascript" async="" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/ec.js"></script><script type="text/javascript" async="" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/conversion_async.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_316" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_336" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/insight.js"></script><script type="text/javascript" async="" charset="utf-8" id="tealium-tag-7110" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/analytics.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_279" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/bc-tracking.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_265" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/27490huz44870.js"></script><script type="text/javascript" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/a"></script><script type="text/javascript" async="" charset="utf-8" id="utag_313" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/bat.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_303" crossorigin="anonymous" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/3d60bbfe-3fa3-45c4-9332-cc1534d3e4bd_002.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_304" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/ga_cookie_track.js"></script><script type="text/javascript" async="" defer="defer" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/piwik.js"></script><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_002.js" type="text/javascript" async=""></script><script>var i10cdone =(function(){ function pingBeacon(msg){ var i10cimg = document.createElement('script'); i10cimg.src='/i10c@p1/botox/file/nv-loaded.js?status='+window.encodeURIComponent(msg); i10cimg.onload = function(){ (document.head || document.documentElement).removeChild(i10cimg) }; i10cimg.onerror = function(){ (document.head || document.documentElement).removeChild(i10cimg) }; ( document.head || document.documentElement).appendChild(i10cimg) }; pingBeacon('loaded'); if(String(document.cookie).indexOf('i10c.bdddb=c2-f0103ZLNqAeI3BH6yYOfG7TZlRtCrMwqUo')>=0) { document.cookie = 'i10c.bdddb=;path=/';}; var error=''; function errorHandler(e) { if (e && e.error && e.error.stack ) { error=e.error.stack; } else if( e && e.message ) { error = e.message; } else { error = 'unknown';}} if(window.addEventListener) { window.addEventListener('error',errorHandler, false); } else { if ( window.attachEvent ){ window.attachEvent('onerror',errorHandler); }} return function(){ if (window.removeEventListener) {window.removeEventListener('error',errorHandler); } else { if (window.detachEvent) { window.detachEvent('onerror',errorHandler); }} if(error) { pingBeacon('error-' + String(error).substring(0,500)); document.cookie='i10c.bdddb=c2-f0103ZLNqAeI3BH6yYOfG7TZlRtCrMwqUo;path=/'; }}; })();</script><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/geotargeting.js" async="true"></script><script>typeof i10cdone === 'function' && i10cdone();</script>
+                            <title>I2C Master (VHDL) - Logic - eewiki</title>
+    
+        
+
+                        
+    
+                        
+    
+
+                
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=IE7">
+<meta charset="UTF-8">
+<meta id="confluence-context-path" name="confluence-context-path" content="/eewiki">
+<meta id="confluence-base-url" name="confluence-base-url" content="https://www.digikey.com/eewiki">
+
+<meta id="atlassian-token" name="atlassian-token" content="4cd6a10c95eee286f955a7ef18ec13d8d2fb6f06">
+
+
+<meta id="confluence-space-key" name="confluence-space-key" content="LOGIC">
+<script type="text/javascript">
+        var contextPath = '/eewiki';
+</script>
+
+    
+
+    <meta name="confluence-request-time" content="1562612035051">
+        
+    
+        
+            <style>.ia-fixed-sidebar, .ia-splitter-left {width: 285px;}.theme-default .ia-splitter #main {margin-left: 285px;}.ia-fixed-sidebar {visibility: hidden;}</style>
+            <meta name="ajs-use-keyboard-shortcuts" content="true">
+            <meta name="ajs-discovered-plugin-features" content="$discoveredList">
+            <meta name="ajs-keyboardshortcut-hash" content="43a7cd7b593e07283aa81ecbfe88a30a">
+            <meta name="ajs-is-confluence-admin" content="false">
+            <meta name="ajs-connection-timeout" content="10000">
+            
+    
+    
+            <meta name="ajs-page-title" content="I2C Master (VHDL)">
+            <meta name="ajs-latest-published-page-title" content="I2C Master (VHDL)">
+            <meta name="ajs-space-name" content="Logic">
+            <meta name="ajs-page-id" content="10125324">
+            <meta name="ajs-latest-page-id" content="10125324">
+            <meta name="ajs-content-type" content="page">
+            <meta name="ajs-parent-page-title" content="Home">
+            <meta name="ajs-parent-page-id" content="2359455">
+            <meta name="ajs-space-key" content="LOGIC">
+            <meta name="ajs-max-number-editors" content="12">
+            <meta name="ajs-macro-placeholder-timeout" content="5000">
+            <meta name="ajs-jira-metadata-count" content="-1">
+            <meta name="ajs-from-page-title" content="">
+            <meta name="ajs-can-remove-page" content="false">
+            <meta name="ajs-can-remove-page-hierarchy" content="false">
+            <meta name="ajs-browse-page-tree-mode" content="view">
+            <meta name="ajs-shared-drafts" content="true">
+            <meta name="ajs-context-path" content="/eewiki">
+            <meta name="ajs-base-url" content="https://www.digikey.com/eewiki">
+            <meta name="ajs-version-number" content="6.6.13">
+            <meta name="ajs-build-number" content="7502">
+            <meta name="ajs-remote-user" content="">
+            <meta name="ajs-remote-user-key" content="">
+            <meta name="ajs-remote-user-has-licensed-access" content="false">
+            <meta name="ajs-current-user-fullname" content="">
+            <meta name="ajs-current-user-avatar-url" content="">
+            <meta name="ajs-current-user-avatar-uri-reference" content="/eewiki/images/icons/profilepics/anonymous.png">
+            <meta name="ajs-static-resource-url-prefix" content="/eewiki/s/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/_">
+            <meta name="ajs-global-settings-attachment-max-size" content="25728640">
+            <meta name="ajs-user-locale" content="en_GB">
+            <meta name="ajs-enabled-dark-features" content="site-wide.shared-drafts,site-wide.synchrony,confluence.view.edit.transition,confluence-inline-comments-resolved,notification.plugin.api.enabled.com.atlassian.confluence.plugins.sharepage.api.ShareContentEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.mentions.api.ConfluenceMentionEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.security.ForgotPasswordEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.tasklist.event.SendTaskEmailEvent,file-annotations,confluence.efi.onboarding.rich.space.content,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.comment.CommentCreateEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.requestaccess.events.AccessGrantedEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.PageMoveEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.follow.FollowEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.inlinecomments.events.InlineCommentReplyEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent,lucene.caching.filter,confluence.table.resizable,notification.batch,confluence-inline-comments-rich-editor,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.blogpost.BlogPostUpdateEvent,site-wide.synchrony.opt-in,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.async.PageCreatedEvent,mobile.supported.version,notification.plugin.api.enabled.com.atlassian.confluence.plugins.files.notifications.event.FileContentMentionUpdateEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.hipchat.api.events.HipChatUserMapped,quick-reload-inline-comments-flags,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.blogpost.BlogPostMovedEvent,clc.quick.create,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.PageUpdateEvent,cql.search.screen,nps.survey.inline.dialog,confluence.efi.onboarding.new.templates,pdf-preview,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.async.PageMovedEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.sharepage.api.ShareCustomEvent,previews.sharing,previews.versions,notification.plugin.api.enabled.com.atlassian.confluence.plugins.files.notifications.event.FileContentUpdateEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.attachment.AttachmentBatchUploadCompletedEvent,collaborative-audit-log,notification.plugin.api.enabled.com.atlassian.confluence.efi.emails.events.OnboardingLessUsersEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.files.notifications.event.FileContentRemoveEvent,confluence.wrap.macro,previews.conversion-service,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.comment.CommentUpdateEvent,editor.ajax.save,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.async.PageEditedEvent,previews.trigger-all-file-types,notification.plugin.api.enabled.com.atlassian.confluence.plugins.inlinecomments.events.InlineCommentResolveEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.like.LikeCreatedEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.inlinecomments.events.InlineCommentCreateEvent,attachment.extracted.text.extractor,notification.plugin.api.enabled.com.atlassian.confluence.plugins.requestaccess.events.AccessRequestedEvent,previews.sharing.pushstate,file-annotations.likes,collaborative.editing.frictionless.upgrade,v2.content.name.searcher,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.PageCreateEvent,notification.plugin.api.enabled.com.atlassian.confluence.efi.emails.events.OnboardingNoSpaceCreatedEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.sharepage.api.ShareDraftEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.sharepage.api.ShareAttachmentEvent,confluence-inline-comments,confluence-inline-comments-dangling-comment">
+            <meta name="ajs-atl-token" content="4cd6a10c95eee286f955a7ef18ec13d8d2fb6f06">
+            <meta name="ajs-confluence-flavour" content="VANILLA">
+            <meta name="ajs-user-date-pattern" content="dd MMM yyyy">
+            <meta name="ajs-date.format" content="MMM dd, yyyy">
+    
+    <link rel="shortcut icon" href="https://www.digikey.com/eewiki/s/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/152/_/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://www.digikey.com/eewiki/s/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/152/_/favicon.ico">
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://www.digikey.com/eewiki/opensearch/osd.action" title="eewiki">
+    
+                    
+            <meta name="ajs-create-issue-metadata-show-discovery" content="false">
+            
+
+    <script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["com.atlassian.plugins.atlassian-plugins-webresource-plugin:context-path.context-path"]="\u0022\u005C/eewiki\u0022";
+WRM._unparsedData["com.atlassian.confluence.plugins.confluence-feature-discovery-plugin:confluence-feature-discovery-plugin-resources.test-mode"]="false";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:policy-update-init.policy-update-data-provider"]="false";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:programmatic-analytics-init.programmatic-analytics-data-provider"]="false";
+WRM._unparsedData["com.atlassian.applinks.applinks-plugin:applinks-common-exported.applinks-help-paths"]="{\u0022entries\u0022:{\u0022applinks.docs.root\u0022:\u0022https://confluence.atlassian.com/display/APPLINKS-054/\u0022,\u0022applinks.docs.diagnostics.troubleshoot.sslunmatched\u0022:\u0022SSL+and+application+link+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.oauthsignatureinvalid\u0022:\u0022OAuth+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.oauthtimestamprefused\u0022:\u0022OAuth+troubleshooting+guide\u0022,\u0022applinks.docs.delete.entity.link\u0022:\u0022Create+links+between+projects\u0022,\u0022applinks.docs.adding.application.link\u0022:\u0022Link+Atlassian+applications+to+work+together\u0022,\u0022applinks.docs.administration.guide\u0022:\u0022Application+Links+Documentation\u0022,\u0022applinks.docs.oauth.security\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.troubleshoot.application.links\u0022:\u0022Troubleshoot+application+links\u0022,\u0022applinks.docs.diagnostics.troubleshoot.unknownerror\u0022:\u0022Network+and+connectivity+troubleshooting+guide\u0022,\u0022applinks.docs.configuring.auth.trusted.apps\u0022:\u0022Configuring+Trusted+Applications+authentication+for+an+application+link\u0022,\u0022applinks.docs.diagnostics.troubleshoot.authlevelunsupported\u0022:\u0022OAuth+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.ssluntrusted\u0022:\u0022SSL+and+application+link+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.unknownhost\u0022:\u0022Network+and+connectivity+troubleshooting+guide\u0022,\u0022applinks.docs.delete.application.link\u0022:\u0022Link+Atlassian+applications+to+work+together\u0022,\u0022applinks.docs.link.applications\u0022:\u0022Link+Atlassian+applications+to+work+together\u0022,\u0022applinks.docs.diagnostics.troubleshoot.oauthproblem\u0022:\u0022OAuth+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.migration\u0022:\u0022Update+application+links+to+use+OAuth\u0022,\u0022applinks.docs.relocate.application.link\u0022:\u0022Link+Atlassian+applications+to+work+together\u0022,\u0022applinks.docs.administering.entity.links\u0022:\u0022Create+links+between+projects\u0022,\u0022applinks.docs.upgrade.application.link\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.diagnostics.troubleshoot.connectionrefused\u0022:\u0022Network+and+connectivity+troubleshooting+guide\u0022,\u0022applinks.docs.configuring.auth.oauth\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.insufficient.remote.permission\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.configuring.application.link.auth\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.diagnostics\u0022:\u0022Application+links+diagnostics\u0022,\u0022applinks.docs.configured.authentication.types\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.adding.entity.link\u0022:\u0022Create+links+between+projects\u0022,\u0022applinks.docs.diagnostics.troubleshoot.unexpectedresponse\u0022:\u0022Network+and+connectivity+troubleshooting+guide\u0022,\u0022applinks.docs.configuring.auth.basic\u0022:\u0022Configuring+Basic+HTTP+Authentication+for+an+Application+Link\u0022,\u0022applinks.docs.diagnostics.troubleshoot.authlevelmismatch\u0022:\u0022OAuth+troubleshooting+guide\u0022}}";
+WRM._unparsedData["com.atlassian.applinks.applinks-plugin:applinks-common-exported.applinks-types"]="{\u0022crowd\u0022:\u0022Crowd\u0022,\u0022confluence\u0022:\u0022Confluence\u0022,\u0022fecru\u0022:\u0022FishEye / Crucible\u0022,\u0022stash\u0022:\u0022Stash\u0022,\u0022jira\u0022:\u0022JIRA\u0022,\u0022refapp\u0022:\u0022Reference Application\u0022,\u0022bamboo\u0022:\u0022Bamboo\u0022,\u0022generic\u0022:\u0022Generic Application\u0022}";
+WRM._unparsedData["com.atlassian.applinks.applinks-plugin:applinks-common-exported.entity-types"]="{\u0022singular\u0022:{\u0022refapp.charlie\u0022:\u0022Charlie\u0022,\u0022fecru.project\u0022:\u0022Crucible Project\u0022,\u0022fecru.repository\u0022:\u0022FishEye Repository\u0022,\u0022stash.project\u0022:\u0022Stash Project\u0022,\u0022generic.entity\u0022:\u0022Generic Project\u0022,\u0022confluence.space\u0022:\u0022Confluence Space\u0022,\u0022bamboo.project\u0022:\u0022Bamboo Project\u0022,\u0022jira.project\u0022:\u0022JIRA Project\u0022},\u0022plural\u0022:{\u0022refapp.charlie\u0022:\u0022Charlies\u0022,\u0022fecru.project\u0022:\u0022Crucible Projects\u0022,\u0022fecru.repository\u0022:\u0022FishEye Repositories\u0022,\u0022stash.project\u0022:\u0022Stash Projects\u0022,\u0022generic.entity\u0022:\u0022Generic Projects\u0022,\u0022confluence.space\u0022:\u0022Confluence Spaces\u0022,\u0022bamboo.project\u0022:\u0022Bamboo Projects\u0022,\u0022jira.project\u0022:\u0022JIRA Projects\u0022}}";
+WRM._unparsedData["com.atlassian.applinks.applinks-plugin:applinks-common-exported.authentication-types"]="{\u0022com.atlassian.applinks.api.auth.types.BasicAuthenticationProvider\u0022:\u0022Basic Access\u0022,\u0022com.atlassian.applinks.api.auth.types.TrustedAppsAuthenticationProvider\u0022:\u0022Trusted Applications\u0022,\u0022com.atlassian.applinks.api.auth.types.CorsAuthenticationProvider\u0022:\u0022CORS\u0022,\u0022com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider\u0022:\u0022OAuth\u0022,\u0022com.atlassian.applinks.api.auth.types.TwoLeggedOAuthAuthenticationProvider\u0022:\u0022OAuth\u0022,\u0022com.atlassian.applinks.api.auth.types.TwoLeggedOAuthWithImpersonationAuthenticationProvider\u0022:\u0022OAuth\u0022}";
+WRM._unparsedData["com.atlassian.confluence.plugins.synchrony-interop:synchrony-status-banner-loader.synchrony-status"]="false";
+WRM._unparsedData["com.atlassian.confluence.plugins.confluence-license-banner:confluence-license-banner-resources.license-details"]="{\u0022daysBeforeLicenseExpiry\u0022:0,\u0022daysBeforeMaintenanceExpiry\u0022:0,\u0022showLicenseExpiryBanner\u0022:false,\u0022showMaintenanceExpiryBanner\u0022:false,\u0022renewUrl\u0022:null,\u0022salesEmail\u0022:null}";
+WRM._unparsedData["com.atlassian.whisper.atlassian-whisper-plugin:atlassian-whisper-bootstrap.WhisperData"]="{\u0022hasMessages\u0022:false,\u0022syncInit\u0022:false,\u0022baseUrl\u0022:\u0022https:\u005C/\u005C/www.digikey.com\u005C/eewiki\u0022}";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<link type="text/css" rel="stylesheet" href="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_002.css" data-wrm-key="_super" data-wrm-batch-type="context" media="all">
+<!--[if lt IE 9]>
+<link type="text/css" rel="stylesheet" href="/eewiki/s/4e8d0c729f7c97018599cdecbf07fec1-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/2eeaf8c35018fd07724c679acf411848/_/download/contextbatch/css/_super/batch.css?conditionalComment=lt+IE+9" data-wrm-key="_super" data-wrm-batch-type="context" media="all">
+<![endif]-->
+<!--[if lte IE 9]>
+<link type="text/css" rel="stylesheet" href="/eewiki/s/4e8d0c729f7c97018599cdecbf07fec1-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/2eeaf8c35018fd07724c679acf411848/_/download/contextbatch/css/_super/batch.css?conditionalComment=lte+IE+9" data-wrm-key="_super" data-wrm-batch-type="context" media="all">
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_003.css" data-wrm-key="atl.confluence.plugins.pagetree-desktop,main,viewcontent,page,atl.general,atl.comments,-_super" data-wrm-batch-type="context" media="all">
+<!--[if lt IE 9]>
+<link type="text/css" rel="stylesheet" href="/eewiki/s/62c1569a2039c4866b8423fb7ea16424-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/08c484dffc6c357f86149499ace8df71/_/download/contextbatch/css/atl.confluence.plugins.pagetree-desktop,main,viewcontent,page,atl.general,atl.comments,-_super/batch.css?analytics-enabled=true&amp;analytics-uploadable=true&amp;anonymous-access-enabled=true&amp;conditionalComment=lt+IE+9&amp;confluence.table.resizable=true&amp;confluence.view.edit.transition=true&amp;highlightactions=true&amp;is-server-instance=true&amp;nps-acknowledged=true&amp;whisper-enabled=true" data-wrm-key="atl.confluence.plugins.pagetree-desktop,main,viewcontent,page,atl.general,atl.comments,-_super" data-wrm-batch-type="context" media="all">
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/colors.css" media="all">
+<link type="text/css" rel="stylesheet" href="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/custom.css" media="all">
+<script type="text/javascript" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_005.js" data-wrm-key="_super" data-wrm-batch-type="context"></script><style type="text/css"></style><style type="text/css"></style>
+<script type="text/javascript" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_004.js" data-wrm-key="atl.confluence.plugins.pagetree-desktop,main,viewcontent,page,atl.general,atl.comments,-_super" data-wrm-batch-type="context"></script>
+
+    
+        
+    
+
+        
+        <meta name="ajs-site-title" content="eewiki">
+            
+    <script type="text/javascript" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/digikey-webtrends.js" defer="defer"></script>
+<script type="text/javascript">(function(a,b,c,d){a='//tags.tiqcdn.com/utag/digikey/main/prod/utag.js';b=document;c='script';d=b.createElement(c);d.src=a;d.type='text/java'+c;d.async=true;a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a);})();
+
+var url = window.location.pathname;
+  var postTitle = $("#title-text").text().trim();
+  var spaceName = $(".space-information-container div.name a").text().trim();
+utag_data = {
+                page_content_group: 'eewiki',
+                page_type: 'EEW'
+            };
+
+            if (url == '/eewiki/') {
+                utag_data['page_content_sub_group'] = 'Landing Page';
+                utag_data['page_title'] = 'eeWiki Landing Page';
+                utag_data['page_sub_type'] = 'LP';
+                utag_data['page_id'] = 'LP';
+            } else if (url.indexOf('/display') >= 0) {
+
+
+  function getLastPart(url) {
+    var parts = url.split("/");
+    return (url.lastIndexOf('/') !== url.length - 1 
+       ? parts[parts.length - 1]
+       : parts[parts.length - 2]);
+}
+                //var lastPart = getLastPart(window.location.href.toLowerCase());
+if (getLastPart(window.location.href.toLowerCase()) == "home") {
+    setTimeout(function waitPanelMainWrapper() {
+                  if ($("#title-text").length > 0) {
+                      utag_data['page_content_sub_group'] = 'Spaces';
+                      utag_data['page_title'] = $("#title-text").text().trim();
+                      utag_data['page_sub_type'] = 'SPC';
+                      utag_data['page_id'] = 'SPC';
+
+                  } else {
+                      setTimeout(waitPanelMainWrapper, 10);
+                  }
+              }, 10);
+    
+} else {
+setTimeout(function waitPanelMainWrapper() {
+                  if ($("#title-text").length > 0) {
+                      utag_data['page_content_sub_group'] = 'Posts';
+                      utag_data['page_title'] = $("#title-text").text().trim();
+                      utag_data['page_sub_type'] = 'PST';
+                      utag_data['page_id'] = 'PST';
+
+                  } else {
+                      setTimeout(waitPanelMainWrapper, 10);
+                  }
+              }, 10);
+}
+
+
+            } else if (url.indexOf('/spacedirectory') >= 0) {
+                utag_data['page_content_sub_group'] = 'Spaces';
+                utag_data['page_title'] = 'Space Directory';
+                utag_data['page_sub_type'] = 'SD';
+                utag_data['page_id'] = 'SD';
+            } else if (url.indexOf('/spaces') >= 0) {
+                utag_data['page_content_sub_group'] = 'Spaces';
+                utag_data['page_title'] = 'Space Tools - Overview';
+                utag_data['page_sub_type'] = 'STO';
+                utag_data['page_id'] = 'STO';
+            } else if (url.indexOf('/pages') >= 0) {
+                utag_data['page_content_sub_group'] = 'Spaces';
+                utag_data['page_title'] = 'Space Tools - Content';
+                utag_data['page_sub_type'] = 'STC';
+                utag_data['page_id'] = 'STC';
+            } else {
+                utag_data['page_content_sub_group'] = 'Untagged Page';
+                utag_data['page_sub_type'] = 'UTP';
+                utag_data['page_id'] = 'UTP';
+            }
+
+            if (typeof utag != 'undefined') {
+                utag.view(utag_data);
+            }
+</script>
+
+
+<!-- Matomo -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  /* _paq.push(['rememberConsentGiven']) */
+  (function() {
+    var u="https://eng.eewiki.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+<meta name="google-site-verification" content="85yTzhpaQNr9MN1IqMB74sCTyZgrT5cW0hHRR-tt8l8">
+
+
+    
+                <link rel="canonical" href="https://www.digikey.com/eewiki/pages/viewpage.action?pageId=10125324">
+        <link rel="shortlink" href="https://www.digikey.com/eewiki/x/DICa">
+    <meta name="wikilink" content="[LOGIC:I2C Master (VHDL)]">
+    <meta name="page-version" content="69">
+    <meta name="ajs-page-version" content="69">
+
+<script type="text/javascript" charset="utf-8" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_003.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_304" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_005.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_265" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_012.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_269" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_279" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_004.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_288" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_003.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_303" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_010.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_313" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_011.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_316" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_008.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_336" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_009.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_digikey.main_337" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_007.js"></script><script type="text/javascript" async="" charset="utf-8" id="tiqapp" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/utag_006.js"></script>
+            <meta name="ajs-use-watch" content="false">
+            <meta name="ajs-attachment-source-content-id" content="10125324">
+            <meta name="ajs-use-inline-tasks" content="true">
+            <meta name="ajs-heartbeat" content="true">
+            <meta name="ajs-action-locale" content="en_GB">
+            <meta name="ajs-editor-plugin-resource-prefix" content="/eewiki/s/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.6.13/_">
+            <meta name="ajs-edit-mode" content="collaborative">
+            <meta name="ajs-user-watching-own-content" content="false">
+            <meta name="ajs-new-page" content="false">
+            <meta name="ajs-editor-mode" content="richtext">
+            <meta name="ajs-auto-start" content="false">
+            <meta name="ajs-conf-revision" content="confluence$content$10125324.39">
+            <meta name="ajs-sync-revision-source" content="synchrony">
+            <meta name="ajs-draft-id" content="78086219">
+            <meta name="ajs-draft-share-id" content="01374df3-464e-412e-acd9-7118dda74081">
+            <meta name="ajs-content-type" content="page">
+            <meta name="ajs-collaborative-editor-status" content="">
+            <meta name="ajs-existing-draft-id" content="0">
+            <meta name="ajs-content-id" content="10125324">
+            <meta name="ajs-form-name" content="inlinecommentform">
+            <meta name="ajs-can-attach-files" content="false">
+            <meta name="ajs-show-draft-message" content="false">
+            <meta name="ajs-shared-drafts" content="true">
+            <meta name="ajs-collaborative-content" content="true">
+            <meta name="ajs-min-editor-height" content="150">
+            <meta name="ajs-version-comment" content="">
+            <meta name="ajs-draft-type" content="page">
+                
+                <meta name="ajs-synchrony-token" content="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwczpcL1wvd3d3LmRpZ2lrZXkuY29tXC9zeW5jaHJvbnlcL3YxIiwiYWNjZXNzIjp7IlwvZGF0YVwvRGlnaS1LZXktQ29ycG9yYXRpb24tNjg1NmExZDQtNWY3OS0zN2U4LTllMTktYjExYjI1NTMzZDMxXC9jb25mbHVlbmNlLTEwMTI1MzI0IjoiIiwiXC9kYXRhXC9EaWdpLUtleS1Db3Jwb3JhdGlvbi02ODU2YTFkNC01Zjc5LTM3ZTgtOWUxOS1iMTFiMjU1MzNkMzFcL2NvbmZsdWVuY2UtMTAxMjUzMjQtdGl0bGUiOiIifSwicmV2aXNpb25NZXRhIjp7fSwic2Vzc2lvbiI6eyJhdmF0YXJVUkwiOiJcL2ltYWdlc1wvaWNvbnNcL3Byb2ZpbGVwaWNzXC9hbm9ueW1vdXMucG5nIiwibmFtZSI6bnVsbCwiZnVsbG5hbWUiOm51bGx9LCJpc3MiOiJEaWdpLUtleS1Db3Jwb3JhdGlvbi02ODU2YTFkNC01Zjc5LTM3ZTgtOWUxOS1iMTFiMjU1MzNkMzEiLCJleHAiOjE1NjI2OTg0MzcsImlhdCI6MTU2MjYxMjAzN30.f0aP9IjywWoF1j22M2NlE1nsLSLCHba3LdOodsSmVCk">
+    <meta name="ajs-synchrony-base-url" content="https://www.digikey.com/synchrony,https://www.digikey.com/eewiki/synchrony-proxy">
+    <meta name="ajs-synchrony-app-id" content="Digi-Key-Corporation-6856a1d4-5f79-37e8-9e19-b11b25533d31">
+    <meta name="ajs-synchrony-expiry" content="1562697537">
+    <meta name="ajs-use-xhr-fallback" content="true">
+
+            		    <meta name="ajs-max-thumb-width" content="300">
+		    <meta name="ajs-max-thumb-height" content="300">
+		    <meta name="ajs-can-send-email" content="true">
+		    <meta name="ajs-is-dev-mode" content="false">
+		    <meta name="ajs-draft-save-interval" content="30000">
+		    <meta name="ajs-show-hidden-user-macros" content="false">
+		    <meta name="ajs-is-admin" content="false">
+		    <meta name="ajs-heartbeat-interval" content="30000">
+	
+    <link rel="stylesheet" type="text/css" href="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_004.css"><script type="text/javascript" charset="utf-8" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_006.js"></script><link rel="stylesheet" type="text/css" href="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch.css"><script type="text/javascript" charset="utf-8" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch.js"></script><link rel="stylesheet" type="text/css" href="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_005.css"><script type="text/javascript" charset="utf-8" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/batch_002.js"></script><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/a_004"></script><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/a_005"></script><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/a_006"></script><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/a_003"></script></head>
+
+    
+<body id="com-atlassian-confluence" class="theme-default  aui-layout aui-theme-default synchrony-active" data-aui-version="6.0.6">
+
+        
+            <div id="stp-licenseStatus-banner"></div>
+    <ul id="assistive-skip-links" class="assistive">
+    <li><a href="#title-heading">Skip to content</a></li>
+    <li><a href="#breadcrumbs">Skip to breadcrumbs</a></li>
+    <li><a href="#header-menu-bar">Skip to header menu</a></li>
+    <li><a href="#navigation">Skip to action menu</a></li>
+    <li><a href="#quick-search-query">Skip to quick search</a></li>
+</ul>
+<div id="page">
+<div id="full-height-container">
+    <div id="header-precursor">
+        <div class="cell">
+            
+                            </div>
+    </div>
+            
+
+
+
+
+
+<header id="header" role="banner">
+    <nav class="aui-header aui-dropdown2-trigger-group" role="navigation" data-aui-responsive="true"><div class="aui-header-inner"><div class="aui-header-primary"><h1 id="logo" class="aui-header-logo aui-header-logo-custom"><a href="https://www.digikey.com/eewiki/"><img src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/atl.webp" alt="eewiki" data-aui-responsive-header-index="0"></a></h1><ul class="aui-nav" resolved="" style="width: auto;">
+                            <li>
+            
+        
+        
+<a id="space-menu-link" class=" aui-dropdown2-trigger aui-nav-link" aria-controls="space-menu-link-content" aria-haspopup="true" role="button" title="Spaces" tabindex="0" data-aui-trigger="" resolved="" aria-expanded="false" href="#space-menu-link-content">Spaces<span class="icon aui-icon-dropdown"></span></a><div id="space-menu-link-content" class="aui-dropdown2 aui-style-default aui-dropdown2-in-header aui-layer" role="menu" aria-hidden="true" resolved=""><div role="application"></div></div>
+        </li>
+                                        <li class="aui-buttons">
+            </li>
+    </ul>
+</div><div class="aui-header-secondary"><ul class="aui-nav" resolved="">
+                        <li>
+        <form id="quick-search" class="aui-quicksearch dont-default-focus header-quicksearch" action="/eewiki/dosearchsite.action" method="get"><fieldset><label for="quick-search-query" class="assistive">Quick Search</label><input id="quick-search-query" class="text app-search search quick-search-query" type="text" accesskey="q" autocomplete="off" name="queryString" title="Quick Search (/ or g , g)"><input id="quick-search-submit" class="quick-search-submit" type="submit" value="Search"><div class="aui-dd-parent quick-nav-drop-down"></div></fieldset></form>
+    </li>
+        <li>
+            
+        <a id="help-menu-link" class="aui-nav-link aui-dropdown2-trigger" href="#" aria-haspopup="true" title="Help" resolved="" aria-controls="help-menu-link-content" aria-expanded="false">
+        <span class="aui-icon aui-icon-small aui-iconfont-help">Help</span>
+    </a>
+    <nav id="help-menu-link-content" class="aui-dropdown2 aui-style-default aui-layer" aria-hidden="true" resolved="">
+                    <div class="aui-dropdown2-section">
+                                <ul id="help-menu-link-leading" class="aui-list-truncate section-leading first">
+                                            <li>
+        
+            
+<a id="confluence-help-link" href="https://docs.atlassian.com/confluence/docs-66/" class="    " title="Visit the Confluence documentation home" target="_blank">
+        Online Help
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="keyboard-shortcuts-link" href="https://www.digikey.com/eewiki" class="    " title="View available keyboard shortcuts (?)">
+        Keyboard Shortcuts
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="feed-builder-link" href="https://www.digikey.com/eewiki/dashboard/configurerssfeed.action" class="    " title="Create your custom RSS feed.">
+        Feed Builder
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="whats-new-menu-link" href="https://confluence.atlassian.com/display/DOC/Confluence+6.6+Release+Notes" class="    " title="">
+        What’s new
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="gadget-directory-link" href="https://www.digikey.com/eewiki" class="   user-item administration-link " title="Browse gadgets provided by Confluence">
+        Available Gadgets
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="confluence-about-link" href="https://www.digikey.com/eewiki/aboutconfluencepage.action" class="    " title="Get more information about Confluence">
+        About Confluence
+</a>
+</li>
+                                    </ul>
+            </div>
+            </nav>
+    
+    </li>
+        <li>
+                
+    
+    </li>
+        <li>
+            
+    </li>
+        <li>
+                                            </li><li>
+        
+            
+<a id="login-link" href="https://www.digikey.com/eewiki/login.action?os_destination=%2Fpages%2Fviewpage.action%3FpageId%3D10125324" class="   user-item login-link " title="">
+        Log in
+</a>
+</li>
+                        
+    
+    </ul>
+</div></div><!-- .aui-header-inner--></nav><!-- .aui-header -->
+    <br class="clear">
+</header>
+    
+
+    
+    	<div class="ia-splitter">
+    		<div class="ia-splitter-left">
+    			<div class="ia-fixed-sidebar" style="width: 285px; visibility: visible; top: 40.7667px; left: 0px;">
+                                            
+                            <div class="acs-side-bar ia-scrollable-section"><div class="acs-side-bar-space-info tipsy-enabled" data-configure-tooltip="Edit space details"><div class="avatar"><div class="space-logo" data-key="LOGIC" data-name="Logic" data-entity-type="confluence.space"><div class="avatar-img-container"><div class="avatar-img-wrapper"><a href="https://www.digikey.com/eewiki/display/LOGIC/Home?src=sidebar" title="Logic"><img class="avatar-img" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/global.webp" alt="Logic"></a></div></div></div></div><div class="space-information-container"><div class="name"><a href="https://www.digikey.com/eewiki/display/LOGIC/Home?src=sidebar" title="Logic">Logic</a></div><div class="flyout-handle icon"></div></div></div><div class="acs-side-bar-content"><div class="acs-nav-wrapper"><div class="acs-nav" data-has-create-permission="false" data-quick-links-state="null" data-page-tree-state="null" data-nav-type="pages"><div class="acs-nav-sections"><div class="main-links-section "><ul class="acs-nav-list"><li class="acs-nav-item wiki current-item" data-collector-key="spacebar-pages"><a class="acs-nav-item-link tipsy-enabled" href="https://www.digikey.com/eewiki/collector/pages.action?key=LOGIC&amp;src=sidebar-pages" data-collapsed-tooltip="Pages"><span class="icon"></span><span class="acs-nav-item-label">Pages</span></a></li><li class="acs-nav-item blog" data-collector-key="spacebar-blogs"><a class="acs-nav-item-link tipsy-enabled" href="https://www.digikey.com/eewiki/pages/viewrecentblogposts.action?key=LOGIC&amp;src=sidebar-blogs" data-collapsed-tooltip="Blog"><span class="icon"></span><span class="acs-nav-item-label">Blog</span></a></li></ul></div><div class="quick-links-wrapper"></div></div></div></div><div class="ia-secondary-container tipsy-enabled" data-tree-type="pages" data-collapsed-tooltip="Child pages"><div class="ia-secondary-header"><h5 class="ia-secondary-header-title pages"><span class="label">Child pages</span></h5></div><div class="ia-secondary-parent-content"><ul class="parent ia-secondary-header-title wiki"><li class="parent-item"><a class="parent-item-link" href="https://www.digikey.com/eewiki/display/LOGIC/Home?src=contextnavchildmode" title="Home"><span class="icon"></span><span class="label">Home</span></a></li></ul></div><div class="ia-secondary-current-content"><ul class="ia-secondary-currentPage-title wiki current-item"><li><span class="icon"></span><span class="label">I2C Master (VHDL)</span></li></ul></div><div class="ia-secondary-content"><div class="contextual-nav-child-pages"></div></div></div></div><div class="hidden"><a href="https://www.digikey.com/eewiki/collector/pages.action?key=LOGIC&amp;src=sidebar" id="space-pages-link" title=" (g , s)"></a><script type="text/x-template" title="logo-config-content"><h2>Space Details</h2><div class="personal-space-logo-hint">Your profile picture is used as the logo for your personal space. <a href="/eewiki/users/profile/editmyprofilepicture.action" target="_blank">Change your profile picture</a>.</div></script></div></div><div class="space-tools-section"><div id="space-tools-menu-additional-items" class="hidden"><div data-label="Browse pages" data-class="" data-href="/eewiki/pages/reorderpages.action?key=LOGIC">Browse pages</div></div><button id="space-tools-menu-trigger" class=" aui-dropdown2-trigger aui-button aui-button-subtle tipsy-enabled" aria-controls="space-tools-menu" aria-haspopup="true" role="button" data-aui-trigger="" resolved="" aria-expanded="false" data-collapsed-tooltip="Space tools"><span class="aui-icon aui-icon-small aui-iconfont-configure">Configure</span><span class="aui-button-label">Space tools</span><span class="icon aui-icon-dropdown"></span></button><div id="space-tools-menu" class="aui-dropdown2 aui-style-default space-tools-dropdown aui-layer" role="menu" aria-hidden="true" data-aui-alignment="top left" resolved=""><div role="presentation" class="aui-dropdown2-section space-tools-navigation"><div role="group"><ul class="aui-list-truncate" role="presentation"><li role="presentation"><a role="menuitem" tabindex="-1" class="" href="https://www.digikey.com/eewiki/spaces/viewspacesummary.action?key=LOGIC&amp;src=spacetools">Overview</a></li><li role="presentation"><a role="menuitem" tabindex="-1" class="" href="https://www.digikey.com/eewiki/pages/reorderpages.action?key=LOGIC&amp;src=spacetools">Content Tools</a></li></ul></div></div><div role="presentation" class="aui-dropdown2-section space-operations"><div role="group"><ul class="aui-list-truncate" role="presentation"><li role="presentation"><a role="menuitem" tabindex="-1" class="" href="https://www.digikey.com/eewiki/pages/reorderpages.action?key=LOGIC&amp;src=spacetools">Browse pages</a></li></ul></div></div></div><a class="expand-collapse-trigger" data-tooltip="Collapse sidebar ( [ )"></a></div>
+                    
+                        			<div class="ia-splitter-handle tipsy-enabled" data-tooltip="Collapse sidebar ( [ )" original-title=" ([)"><div class="ia-splitter-handle-highlight"></div></div></div>
+    		</div>
+        <!-- \#header -->
+
+            
+    
+        <div id="main" class=" aui-page-panel" style="margin-left: 285px;">
+                        <div id="main-header">
+                        
+    <div id="navigation" class="content-navigation view">
+                    <ul class="ajs-menu-bar">
+                                            
+        <li class="normal ajs-menu-item">
+        <a id="action-menu-link" class="action aui-dropdown2-trigger-arrowless aui-button aui-button-subtle ajs-menu-title aui-dropdown2-trigger" href="#" aria-haspopup="true" data-container="#navigation" resolved="" aria-controls="action-menu" aria-expanded="false">
+            <span>
+                                    <span class="aui-icon aui-icon-small aui-iconfont-more"></span>
+                                
+            </span>
+        </a>         <div id="action-menu" class="aui-dropdown2 aui-style-default aui-layer most-right-menu-item" aria-hidden="true" resolved="">
+                            <div class="aui-dropdown2-section">
+                    <ul id="action-menu-primary" class="section-primary first">
+                                                    <li>
+
+    
+        
+                                            
+    
+    
+    <a id="view-attachments-link" href="https://www.digikey.com/eewiki/pages/viewpageattachments.action?pageId=10125324" rel="nofollow" class="action-view-attachments" accesskey="t" title="View Attachments (t)">
+                <span>
+                        A<u>t</u>tachments (9)
+        </span>    </a>
+</li>
+                                                <li>
+
+    
+        
+                                            
+    
+    
+    <a id="action-view-history-link" href="https://www.digikey.com/eewiki/pages/viewpreviousversions.action?pageId=10125324" rel="nofollow" class="action-view-history" title="">
+                <span>
+                        Page History
+        </span>    </a>
+</li>
+                                        </ul>
+                </div>
+                            <div class="aui-dropdown2-section">
+                    <ul id="action-menu-secondary" class="section-secondary">
+                                                    <li>
+
+    
+        
+                                            
+    
+    
+    <a id="view-page-info-link" href="https://www.digikey.com/eewiki/pages/viewinfo.action?pageId=10125324" rel="nofollow" class="action-view-info" title="">
+                <span>
+                        Page Information
+        </span>    </a>
+</li>
+                                                <li>
+
+    
+        
+                                            
+    
+    
+    <a id="view-resolved-comments" href="https://www.digikey.com/eewiki" rel="nofollow" class="" title="">
+                <span>Resolved comments (0)</span>    </a>
+</li>
+                                                <li>
+
+    
+        
+                                            
+    
+    
+    <a id="view-in-hierarchy-link" href="https://www.digikey.com/eewiki/pages/reorderpages.action?key=LOGIC&amp;openId=10125324#selectedPageInHierarchy" rel="nofollow" class="" title="">
+                <span>
+                        View in Hierarchy
+        </span>    </a>
+</li>
+                                                <li>
+
+    
+        
+                                            
+    
+    
+    <a id="action-view-source-link" href="https://www.digikey.com/eewiki/plugins/viewsource/viewpagesrc.action?pageId=10125324" rel="nofollow" class="action-view-source popup-link" title="">
+                <span>
+                        View Source
+        </span>    </a>
+</li>
+                                                <li>
+
+    
+        
+                                            
+    
+    
+    <a id="action-export-pdf-link" href="https://www.digikey.com/eewiki/spaces/flyingpdf/pdfpageexport.action?pageId=10125324" rel="nofollow" class="" title="">
+                <span>
+                        Export to PDF
+        </span>    </a>
+</li>
+                                                <li>
+
+    
+        
+                                            
+    
+    
+    <a id="action-export-word-link" href="https://www.digikey.com/eewiki/exportword?pageId=10125324" rel="nofollow" class="action-export-word" title="">
+                <span>
+                        Export to Word
+        </span>    </a>
+</li>
+                                        </ul>
+                </div>
+                    </div>
+    </li>
+            </ul>
+    </div>
+
+            
+            <div id="title-heading" class="pagetitle with-breadcrumbs">
+                
+                                    <div id="breadcrumb-section">
+                        
+    
+    
+    <ol id="breadcrumbs">
+                                        
+                        
+        <li class="first">
+                        
+                            <span class=""><a href="https://www.digikey.com/eewiki/collector/pages.action?key=LOGIC&amp;src=breadcrumbs-collector">Pages</a></span>
+                                                                                    
+                        
+        </li><li>
+                        
+                            <span class=""><a href="https://www.digikey.com/eewiki/display/LOGIC/Home?src=breadcrumbs-parent">Home</a></span>
+                                                                    </li></ol>
+
+
+                    </div>
+                
+                
+        <a href="#page-banner-end" class="assistive">Skip to end of banner</a>
+<div id="page-banner-start" class="assistive"></div>
+
+                    
+            <div id="page-metadata-banner"><ul class="banner"><li id="system-content-items" class="noprint"><a href="" title="Unrestricted" id="content-metadata-page-restrictions-hidden" class="hidden"></a><a href="https://www.digikey.com/eewiki/pages/viewpageattachments.action?pageId=10125324&amp;metadataLink=true" title="9 attachments" id="content-metadata-attachments" class="aui-icon aui-icon-small aui-iconfont-attachment"></a></li><li class="page-metadata-item noprinthas-button" id="content-metadata-jira-wrapper"><a href="" title="" id="content-metadata-jira" class="aui-button aui-button-subtle content-metadata-jira tipsy-disabled hidden"><span>Jira links</span></a></li></ul></div>
+            
+
+<a href="#page-banner-start" class="assistive">Go to start of banner</a>
+<div id="page-banner-end" class="assistive"></div>
+    
+
+                <h1 id="title-text" class="with-breadcrumbs">
+                                                <a href="https://www.digikey.com/eewiki/pages/viewpage.action?pageId=10125324">I2C Master (VHDL)</a>
+                                    </h1>
+            </div>
+        </div><!-- \#main-header -->
+        
+        
+
+        <div id="sidebar-container">
+                                                </div><!-- \#sidebar-container -->
+
+        
+    
+
+        
+
+
+
+
+            
+    
+
+                                
+    
+
+    
+    
+        
+    
+    
+                    
+    
+
+    
+
+    
+            
+        
+
+    
+    
+
+    
+            
+        
+
+
+
+    
+<div id="content" class="page view">
+    
+
+
+<div id="action-messages">
+                        </div>
+
+
+
+            <script type="text/x-template" title="searchResultsGrid">
+    <table class="aui">
+        <thead>
+            <tr class="header">
+                <th class="search-result-title">Page Title</th>
+                <th class="search-result-space">Space</th>
+                <th class="search-result-date">Updated</th>
+            </tr>
+        </thead>
+    </table>
+</script>
+<script type="text/x-template" title="searchResultsGridCount">
+    <p class="search-result-count">{0}</p>
+</script>
+<script type="text/x-template" title="searchResultsGridRow">
+    <tr class="search-result">
+        <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td>
+        <td class="search-result-space"><a class="space" href="/eewiki/display/{4}/" title="{3}">{3}</a></td>
+        <td class="search-result-date"><span class="date" title="{6}">{5}</span></td>
+    </tr>
+</script>
+        
+    
+            
+
+        
+                            
+    
+
+                    
+
+        
+        <a href="#page-metadata-end" class="assistive">Skip to end of metadata</a>
+<div id="page-metadata-start" class="assistive"></div>
+
+    <div class="page-metadata">
+        <ul>
+            <li class="page-metadata-modification-info">
+                
+        
+    
+        
+    
+        
+            
+            Created by <span class="author">     <a href="https://www.digikey.com/eewiki/display/~scott.larson@digikey.com" class="url fn">Scott Larson</a></span>, last modified on <a class="last-modified" title="Show changes" href="https://www.digikey.com/eewiki/pages/diffpagesbyversion.action?pageId=10125324&amp;selectedPageVersions=68&amp;selectedPageVersions=69">May 08, 2019</a>
+                </li>
+        </ul>
+    </div>
+
+
+<a href="#page-metadata-start" class="assistive">Go to start of metadata</a>
+<div id="page-metadata-end" class="assistive"></div>
+
+        
+                                            
+        <div id="main-content" class="wiki-content">
+                           
+        <p></p><div class="toc-macro client-side-toc-macro  conf-macro output-block hidden-outline" data-csslistindent="20px" data-cssliststyle="disc" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-macro-name="toc"><ul style=" list-style: disc; padding-left: 20px;"><li><span class="toc-item-body" data-outline="1"><span class="toc-outline">1</span><a href="#I2CMaster(VHDL)-CodeDownload" class="toc-link">Code Download</a></span></li><li><span class="toc-item-body" data-outline="2"><span class="toc-outline">2</span><a href="#I2CMaster(VHDL)-Features" class="toc-link">Features</a></span></li><li><span class="toc-item-body" data-outline="3"><span class="toc-outline">3</span><a href="#I2CMaster(VHDL)-Introduction" class="toc-link">Introduction</a></span></li><li><span class="toc-item-body" data-outline="4"><span class="toc-outline">4</span><a href="#I2CMaster(VHDL)-Background" class="toc-link">Background</a></span></li><li><span class="toc-item-body" data-outline="5"><span class="toc-outline">5</span><a href="#I2CMaster(VHDL)-TheoryofOperation" class="toc-link">Theory of Operation</a></span></li><li><span class="toc-item-body" data-outline="6"><span class="toc-outline">6</span><a href="#I2CMaster(VHDL)-PortDescriptions" class="toc-link">Port Descriptions</a></span></li><li><span class="toc-item-body" data-outline="7"><span class="toc-outline">7</span><a href="#I2CMaster(VHDL)-SettingtheSerialClockSpeed" class="toc-link">Setting the Serial Clock Speed</a></span></li><li><span class="toc-item-body" data-outline="8"><span class="toc-outline">8</span><a href="#I2CMaster(VHDL)-Transactions" class="toc-link">Transactions</a></span><ul style=" list-style: disc; padding-left: 20px;"><li><span class="toc-item-body" data-outline="8.1"><span class="toc-outline">8.1</span><a href="#I2CMaster(VHDL)-ExampleTransaction" class="toc-link">Example Transaction</a></span></li><li><span class="toc-item-body" data-outline="8.2"><span class="toc-outline">8.2</span><a href="#I2CMaster(VHDL)-ExampleUserLogictoControltheI2CMaster" class="toc-link">Example User Logic to Control the I2C Master</a></span></li></ul></li><li><span class="toc-item-body" data-outline="9"><span class="toc-outline">9</span><a href="#I2CMaster(VHDL)-AcknowledgeErrors" class="toc-link">Acknowledge Errors</a></span></li><li><span class="toc-item-body" data-outline="10"><span class="toc-outline">10</span><a href="#I2CMaster(VHDL)-ClockStretching" class="toc-link">Clock Stretching</a></span></li><li><span class="toc-item-body" data-outline="11"><span class="toc-outline">11</span><a href="#I2CMaster(VHDL)-Reset" class="toc-link">Reset</a></span></li><li><span class="toc-item-body" data-outline="12"><span class="toc-outline">12</span><a href="#I2CMaster(VHDL)-Conclusion" class="toc-link">Conclusion</a></span></li><li><span class="toc-item-body" data-outline="13"><span class="toc-outline">13</span><a href="#I2CMaster(VHDL)-AdditionalInformation" class="toc-link">Additional Information</a></span></li><li><span class="toc-item-body" data-outline="14"><span class="toc-outline">14</span><a href="#I2CMaster(VHDL)-RelatedTopics" class="toc-link">Related Topics</a></span></li><li><span class="toc-item-body" data-outline="15"><span class="toc-outline">15</span><a href="#I2CMaster(VHDL)-Contact" class="toc-link">Contact</a></span></li></ul></div><p></p><h1 id="I2CMaster(VHDL)-CodeDownload"><span style="color: rgb(0,0,0);">Code Download</span></h1><p>Version 2.2:&nbsp; <a href="https://www.digikey.com/eewiki/download/attachments/10125324/i2c_master.vhd?version=6&amp;modificationDate=1423164013503&amp;api=v2" data-linked-resource-id="10256390" data-linked-resource-version="6" data-linked-resource-type="attachment" data-linked-resource-default-alias="i2c_master.vhd" data-linked-resource-content-type="text/x-vhdlsrc" data-linked-resource-container-id="10125324" data-linked-resource-container-version="69">i2c_master.vhd</a></p><p>&nbsp;&nbsp;&nbsp; Corrected small SDA glitch at the end of the transaction (introduced in version 2.1)</p><p>Version 2.1:&nbsp; <a href="https://www.digikey.com/eewiki/download/attachments/10125324/i2c_master_v2_1.vhd?version=1&amp;modificationDate=1423163992537&amp;api=v2" data-linked-resource-id="42336258" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="i2c_master_v2_1.vhd" data-linked-resource-content-type="text/x-vhdlsrc" data-linked-resource-container-id="10125324" data-linked-resource-container-version="69">i2c_master_v2_1.vhd</a></p><p>&nbsp;&nbsp;&nbsp; Replaced gated clock with clock enable</p><p>&nbsp;&nbsp;&nbsp; Adjusted timing of SCL during start and stop conditions</p><p>&nbsp;&nbsp;&nbsp; (Thanks to Steffen Mauch for suggesting these improvements.)</p><p>Version 2.0: &nbsp; <a href="https://www.digikey.com/eewiki/download/attachments/10125324/i2c_master_v2_0.vhd?version=1&amp;modificationDate=1414008536957&amp;api=v2" data-linked-resource-id="40174533" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="i2c_master_v2_0.vhd" data-linked-resource-content-type="text/x-vhdlsrc" data-linked-resource-container-id="10125324" data-linked-resource-container-version="69">i2c_master_v2_0.vhd</a></p><p>&nbsp;&nbsp;&nbsp; Added ability to interface with different slaves in the same transaction</p><p>&nbsp;&nbsp;&nbsp; Corrected ack_error bug where ack_error went 'Z' instead of '1' on error</p><p>&nbsp;&nbsp;&nbsp; Corrected timing of when ack_error signal clears</p><p>Version 1.0: &nbsp; <a class="external-link" href="https://www.eewiki.net/download/attachments/10125324/i2c_master_v1_0.vhd?version=1&amp;modificationDate=1403293989363&amp;api=v2">i2c_master_v1_0.vhd</a></p><p>&nbsp;&nbsp;&nbsp; Initial Public Release</p><h1 id="I2CMaster(VHDL)-Features">Features</h1><ul><li>VHDL source code of a Inter-Integrated Circuit (I2C or IIC) master component</li><li>Meets the NXP UM10204 I2C-bus specification for single master buses</li><li>User definable system clock</li><li>User definable I2C serial clock frequency</li><li>Generates Start, Stop, Repeated Start, and Acknowledge conditions</li><li>Uses 7-bit slave addressing</li><li>Compatible with clock-stretching by slaves</li><li>Not recommended for multi-master buses (no arbitration or synchronization)</li><li>Notifies user logic of slave acknowledge errors</li></ul><h1 id="I2CMaster(VHDL)-Introduction">Introduction</h1><p>This
+ details an I2C master component for single master buses, written in 
+VHDL for use in CPLDs and FPGAs.&nbsp; The component reads from and 
+writes to user logic over a parallel interface.&nbsp; It was designed 
+using Quartus II, version 11.1.&nbsp; Resource requirements depend on 
+the implementation.&nbsp; Figure 1 illustrates a typical example of the 
+I2C master integrated into a system.&nbsp; A design incorporating this 
+I2C master to create an SPI to I2C Bridge is available <a class="external-link" href="https://www.eewiki.net/pages/viewpage.action?pageId=11042934" title="SPI to I2C Bridge (VHDL)">here</a>.</p><p><span class="image-wrap"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/i2c_master_block_diagram.webp" data-image-src="/eewiki/download/attachments/10125324/i2c_master_block_diagram.JPG?version=2&amp;modificationDate=1354044833007&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="10256391" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="i2c_master_block_diagram.JPG" data-base-url="https://www.digikey.com/eewiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="10125324" data-linked-resource-container-version="69"></span></span><br> <strong>Figure 1.</strong>&nbsp; Example Implementation</p><h1 id="I2CMaster(VHDL)-Background">Background</h1><p>The
+ I2C-bus is a 2-wire, half-duplex data link invented and specified by 
+Philips (now NXP).&nbsp; The two lines of the I2C-bus, SDA and SCL, are 
+bi-directional and open-drain, pulled up by resistors.&nbsp; SCL is a 
+Serial Clock line, and SDA is a Serial Data line.&nbsp; Devices on the 
+bus pull a line to ground to send a logical zero and release a line 
+(leave it floating) to send a logical one.</p><p>For more information, see the I2C specification attached below in the "<a class="external-link" href="http://www.eewiki.net/display/LOGIC/I2C+Master+%28VHDL%29#I2CMaster%28VHDL%29-AdditionalInformation" rel="nofollow">Additional Information</a>" section.&nbsp; It explains the protocol in detail, the electrical specifications, how to size the pull-up resistors, etc.</p><h1 id="I2CMaster(VHDL)-TheoryofOperation">Theory of Operation</h1><p>The
+ I2C master uses the state machine depicted in Figure 2 to implement the
+ I2C-bus protocol.&nbsp; Upon start-up, the component immediately enters
+ the <em>ready</em> state.&nbsp; It waits in this state until the <em>ena</em> signal latches in a command.&nbsp; The <em>start</em> state generates the start condition on the I2C bus, and the <em>command</em> state communicates the address and rw command to the bus.&nbsp; The <em>slv_ack1</em>
+ state then captures and verifies the slave’s acknowledge.&nbsp; 
+Depending on the rw command, the component then proceeds to either write
+ data to the slave (<em>wr</em> state) or receive data from the slave (<em>rd</em> state).&nbsp; Once complete, the master captures and verifies the slave’s response (<em>slv_ack2</em> state) if writing or issues its own response (<em>mstr_ack</em> state) if reading.&nbsp; If the <em>ena</em> signal latches in another command, the master immediately continues with another write (<em>wr</em> state) or read (<em>rd</em>
+ state) if the command is the same as the previous command.&nbsp; If 
+different than the previous command (i.e. a read following a write or a 
+write following a read or a new slave address), then the master issues a
+ repeated start (<em>start</em> state) as per the I2C specification.&nbsp; Once the master completes a read or write and the <em>ena</em> signal does not latch in a new command, the master generates the stop condition (<em>stop</em> state) and returns to the <em>ready</em> state.</p><p><span class="image-wrap"><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/i2c_master_state_diagram.webp" data-image-src="/eewiki/download/attachments/10125324/i2c_master_state_diagram.JPG?version=2&amp;modificationDate=1403291987093&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="10256392" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="i2c_master_state_diagram.JPG" data-base-url="https://www.digikey.com/eewiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="10125324" data-linked-resource-container-version="69" width="700"></span></span><br> <strong>Figure 2.</strong>&nbsp; I2C Master State Machine</p><p>The timing for the state machine is derived from the GENERIC parameters <em>input_clk</em> and <em>bus_clk</em>,
+ described in the “Setting the Serial Clock Speed” section below.&nbsp; A
+ counter generates the data clock that runs the state machine, as well 
+as <em>scl</em> itself.</p><h1 id="I2CMaster(VHDL)-PortDescriptions">Port Descriptions</h1><p>Table 1 describes the I2C master’s ports.</p><div class="table-wrap"><table class="wrapped confluenceTable tablesorter tablesorter-default" role="grid"><colgroup><col><col><col><col><col><col></colgroup><thead><tr role="row" class="tablesorter-headerRow"><th class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted" data-column="0" tabindex="0" scope="col" role="columnheader" aria-disabled="false" unselectable="on" style="-moz-user-select: none;" aria-sort="none" aria-label="Port: No sort applied, activate to apply an ascending sort"><div class="tablesorter-header-inner"><div class="tablesorter-header-inner"><p>Port</p></div></div></th><th class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted" data-column="1" tabindex="0" scope="col" role="columnheader" aria-disabled="false" unselectable="on" style="-moz-user-select: none;" aria-sort="none" aria-label="Width: No sort applied, activate to apply an ascending sort"><div class="tablesorter-header-inner"><div class="tablesorter-header-inner"><p>Width</p></div></div></th><th class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted" data-column="2" tabindex="0" scope="col" role="columnheader" aria-disabled="false" unselectable="on" style="-moz-user-select: none;" aria-sort="none" aria-label="Mode: No sort applied, activate to apply an ascending sort"><div class="tablesorter-header-inner"><div class="tablesorter-header-inner"><p>Mode</p></div></div></th><th class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted" data-column="3" tabindex="0" scope="col" role="columnheader" aria-disabled="false" unselectable="on" style="-moz-user-select: none;" aria-sort="none" aria-label="Data Type: No sort applied, activate to apply an ascending sort"><div class="tablesorter-header-inner"><div class="tablesorter-header-inner"><p>Data Type</p></div></div></th><th class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted" data-column="4" tabindex="0" scope="col" role="columnheader" aria-disabled="false" unselectable="on" style="-moz-user-select: none;" aria-sort="none" aria-label="Interface: No sort applied, activate to apply an ascending sort"><div class="tablesorter-header-inner"><div class="tablesorter-header-inner"><p>Interface</p></div></div></th><th class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted" data-column="5" tabindex="0" scope="col" role="columnheader" aria-disabled="false" unselectable="on" style="-moz-user-select: none;" aria-sort="none" aria-label="Description: No sort applied, activate to apply an ascending sort"><div class="tablesorter-header-inner"><div class="tablesorter-header-inner"><p>Description</p></div></div></th></tr></thead><tbody aria-live="polite" aria-relevant="all"><tr role="row"><td class="confluenceTd"><p>clk</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>in</p></td><td class="confluenceTd"><p>standard logic</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>System clock.</p></td></tr><tr role="row"><td class="confluenceTd"><p>reset_n</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>in</p></td><td class="confluenceTd"><p>standard logic</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>Asynchronous active low reset.</p></td></tr><tr role="row"><td class="confluenceTd"><p>ena</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>in</p></td><td class="confluenceTd"><p>standard logic</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>0: no transaction is initiated. <br class="atl-forced-newline">
+ 1: latches in addr, rw, and data_wr to initiate a transaction.&nbsp; If
+ ena is high at the conclusion of a transaction (i.e. when busy goes 
+low) then a new address, read/write command, and data are latched in to 
+continue the transaction.</p></td></tr><tr role="row"><td class="confluenceTd"><p>addr</p></td><td class="confluenceTd"><p>7</p></td><td class="confluenceTd"><p>in</p></td><td class="confluenceTd"><p>standard logic vector</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>Address of target slave.</p></td></tr><tr role="row"><td class="confluenceTd"><p>rw</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>in</p></td><td class="confluenceTd"><p>standard logic</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>0: write command. <br class="atl-forced-newline"> 1: read command.</p></td></tr><tr role="row"><td class="confluenceTd"><p>data_wr</p></td><td class="confluenceTd"><p>8</p></td><td class="confluenceTd"><p>in</p></td><td class="confluenceTd"><p>standard logic vector</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>Data to transmit if rw = 0 (write).</p></td></tr><tr role="row"><td class="confluenceTd"><p>data_rd</p></td><td class="confluenceTd"><p>8</p></td><td class="confluenceTd"><p>out</p></td><td class="confluenceTd"><p>standard logic vector</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>Data received if rw = 1 (read).</p></td></tr><tr role="row"><td class="confluenceTd"><p>busy</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>out</p></td><td class="confluenceTd"><p>standard logic</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>0: I2C master is idle and last read data is available on data_rd. <br class="atl-forced-newline"> 1: command has been latched in and transaction is in progress.</p></td></tr><tr role="row"><td class="confluenceTd"><p>ack_error</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>buffer</p></td><td class="confluenceTd"><p>standard logic</p></td><td class="confluenceTd"><p>user logic</p></td><td class="confluenceTd"><p>0: no acknowledge errors. <br class="atl-forced-newline">
+ 1: at least one acknowledge error occurred during the 
+transaction.&nbsp; ack_error clears itself at the beginning of each 
+transaction.</p></td></tr><tr role="row"><td class="confluenceTd"><p>sda</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>inout</p></td><td class="confluenceTd"><p>standard logic</p></td><td class="confluenceTd"><p>slave device(s)</p></td><td class="confluenceTd"><p>Serial data line of I2C bus.</p></td></tr><tr role="row"><td class="confluenceTd"><p>scl</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>inout</p></td><td class="confluenceTd"><p>standard logic</p></td><td class="confluenceTd"><p>slave device(s)</p></td><td class="confluenceTd"><p>Serial clock line of I2C bus.</p></td></tr></tbody></table></div><h1 id="I2CMaster(VHDL)-SettingtheSerialClockSpeed">Setting the Serial Clock Speed</h1><p>The component derives the serial clock <em>scl</em> from two GENERIC parameters declared in the ENTITY, <em>input_clk</em> and <em>bus_clk</em>.&nbsp; The <em>input_clk</em> parameter must be set to the input system clock <em>clk</em>
+ frequency in Hz.&nbsp; The default setting in the example code is 50 
+MHz (the frequency at which the component was simulated and 
+tested).&nbsp; The <em>bus_clk</em> parameter must be set to the desired frequency of the serial clock <em>scl</em>.&nbsp; The default setting in the example code is 400 kHz, corresponding to the Fast-mode bit rate in the I2C specification.</p><h1 id="I2CMaster(VHDL)-Transactions">Transactions</h1><p>A low logic level on the <em>busy</em>
+ output port indicates that the component is ready to accept a 
+command.&nbsp; To initiate a transaction, the user logic places the 
+desired slave address, rw command, and write data on the <em>addr</em>, <em>rw</em>, and <em>data_wr</em> ports, respectively, and asserts the <em>ena</em> signal.&nbsp; The command is not clocked in on the following system clock <em>clk</em>.&nbsp;
+ Rather, the component is already generating the I2C timing internally, 
+and clocks in the command based on that timing.&nbsp; Therefore, the 
+user logic should wait for the <em>busy</em> signal to assert to identify when these inputs are latched into the I2C master.</p><p>The I2C master then executes the command.&nbsp; Once complete, it deasserts the <em>busy</em> signal to indicate that any data read is available on the <em>data_rd</em> port and any errors are flagged on the <em>ack_error</em> port.</p><p>Multiple reads and writes (and any combination thereof) may be executed during a transaction.&nbsp; If the <em>ena</em> signal is asserted at the completion of the current command, the I2C master latches in new values of <em>addr</em>, <em>rw</em>, and <em>data_wr</em> and immediately executes the new command.&nbsp; The busy signal still deasserts for one <em>scl</em> cycle to indicate that any read data is available on <em>data_rd</em>, and it reasserts to indicate that the new command is latched in and being executed.</p><h2 id="I2CMaster(VHDL)-ExampleTransaction">Example Transaction</h2><p>Figure
+ 3 shows the timing diagram for a typical transaction.&nbsp; The user 
+logic presents the address “1010101”, the rw command ‘0’ indicating a 
+write, and the write data “10011001”.&nbsp; It asserts the <em>ena</em> signal to latch in these values.&nbsp; Once the <em>busy</em> signal asserts, the user logic issues a new command.&nbsp; The address remains “1010101”, but the following command is a read (<em>rw</em> = ‘1’).&nbsp; <em>ena</em>
+ remains asserted.&nbsp; When the I2C master finishes the first command,
+ it deasserts the busy signal to indicate its completion.&nbsp; Since <em>ena</em> is asserted, the I2C master latches in the new command and reasserts the <em>busy</em> signal.&nbsp; Once the <em>busy</em> signal re-asserts, the user logic recognizes that the second command is being executed and deasserts the <em>ena</em>
+ signal to end the transaction following this command.&nbsp; The I2C 
+master finishes executing the read command, outputs the data read&nbsp; 
+(“11001100”) onto the <em>data_rd</em> port and deasserts the <em>busy</em> signal again.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/i2c_transaction_write_read_v2_1.webp" data-image-src="/eewiki/download/attachments/10125324/i2c_transaction_write_read_v2_1.JPG?version=2&amp;modificationDate=1414008975427&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="40174535" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="i2c_transaction_write_read_v2_1.JPG" data-base-url="https://www.digikey.com/eewiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="10125324" data-linked-resource-container-version="69"></span></p><p><strong>Figure 3.&nbsp;</strong> Typical Transaction Timing Diagram</p><p>To continue a transaction with a new command, the <em>ena</em>
+ signal and new inputs must be present no later than the last data bit 
+of the current command.&nbsp; Therefore, it is recommended to issue the 
+new command as soon as the <em>busy</em> signal indicates that the current command is latched in.&nbsp; The <em>ena</em> signal can simply be left asserted until the last command of the transaction has been latched in.</p><h2 id="I2CMaster(VHDL)-ExampleUserLogictoControltheI2CMaster">Example User Logic to Control the I2C Master</h2><p>A
+ snippet of user logic code below demonstrates a simple technique for 
+managing transactions with multiple reads and writes.&nbsp; This example
+ implementation counts the <em>busy</em> signal transitions in order to 
+issue commands to the I2C master at the proper time.&nbsp; The state 
+“get_data” does everything necessary to send a write, a read, a second 
+write, and a second read over the I2C bus in a single transaction, such 
+as might be done to retrieve data from multiple registers in a slave 
+device.</p><div><div class="syntaxhighlighter nogutter java"><p>&nbsp;</p><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col></colgroup><tbody><tr><td class="confluenceTd"><div class="container" title="Hint: double-click to select code"><div class="line number1 index0 alt2"><code class="java plain">WHEN get_data =&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --state </code><code class="java keyword">for</code> <code class="java plain">conducting </code><code class="java keyword">this</code> <code class="java plain">transaction</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">busy_prev &lt;= i2c_busy;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --capture the value of the previous i2c busy signal</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">IF(busy_prev = </code><code class="java string">'0'</code> <code class="java plain">AND i2c_busy = </code><code class="java string">'1'</code><code class="java plain">) THEN&nbsp; --i2c busy just went high</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">busy_cnt := busy_cnt + </code><code class="java value">1</code><code class="java plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --counts the times busy has gone from low to high during transaction</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">END IF;</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">CASE busy_cnt IS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --busy_cnt keeps track of which command we are on</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">WHEN </code><code class="java value">0</code> <code class="java plain">=&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --no command latched in yet</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_ena &lt;= </code><code class="java string">'1'</code><code class="java plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --initiate the transaction</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_addr &lt;= slave_addr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --set the address of the slave</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_rw &lt;= </code><code class="java string">'0'</code><code class="java plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --command </code><code class="java value">1</code> <code class="java plain">is a write</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_data_wr &lt;= data_to_write;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --data to be written</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">WHEN </code><code class="java value">1</code> <code class="java plain">=&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --1st busy high: command </code><code class="java value">1</code> <code class="java plain">latched, okay to issue command </code><code class="java value">2</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_rw &lt;= </code><code class="java string">'1'</code><code class="java plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --command </code><code class="java value">2</code> <code class="java plain">is a read (addr stays the same)</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">WHEN </code><code class="java value">2</code> <code class="java plain">=&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --2nd busy high: command </code><code class="java value">2</code> <code class="java plain">latched, okay to issue command </code><code class="java value">3</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_rw &lt;= </code><code class="java string">'0'</code><code class="java plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --command </code><code class="java value">3</code> <code class="java plain">is a write</code></div><div class="line number16 index15 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_data_wr &lt;= new_data_to_write;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --data to be written</code></div><div class="line number17 index16 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">IF(i2c_busy = </code><code class="java string">'0'</code><code class="java plain">) THEN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --indicates data read in command </code><code class="java value">2</code> <code class="java plain">is ready</code></div><div class="line number18 index17 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">data(</code><code class="java value">15</code> <code class="java plain">DOWNTO </code><code class="java value">8</code><code class="java plain">) &lt;= i2c_data_rd;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --retrieve data from command </code><code class="java value">2</code></div><div class="line number19 index18 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">END IF;</code></div><div class="line number20 index19 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">WHEN </code><code class="java value">3</code> <code class="java plain">=&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --3rd busy high: command </code><code class="java value">3</code> <code class="java plain">latched, okay to issue command </code><code class="java value">4</code></div><div class="line number21 index20 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_rw &lt;= </code><code class="java string">'1'</code><code class="java plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --command </code><code class="java value">4</code> <code class="java plain">is read (addr stays the same)</code></div><div class="line number22 index21 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">WHEN </code><code class="java value">4</code> <code class="java plain">=&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --4th busy high: command </code><code class="java value">4</code> <code class="java plain">latched, ready to stop</code></div><div class="line number23 index22 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i2c_ena &lt;= </code><code class="java string">'0'</code><code class="java plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --deassert enable to stop transaction after command </code><code class="java value">4</code></div><div class="line number24 index23 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">IF(i2c_busy = </code><code class="java string">'0'</code><code class="java plain">) THEN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --indicates data read in command </code><code class="java value">4</code> <code class="java plain">is ready</code></div><div class="line number25 index24 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">data(</code><code class="java value">7</code> <code class="java plain">DOWNTO </code><code class="java value">0</code><code class="java plain">) &lt;= i2c_data_rd;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --retrieve data from command </code><code class="java value">4</code></div><div class="line number26 index25 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">busy_cnt := </code><code class="java value">0</code><code class="java plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --reset busy_cnt </code><code class="java keyword">for</code> <code class="java plain">next transaction</code></div><div class="line number27 index26 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">state &lt;= home;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --transaction complete, go to next state in design</code></div><div class="line number28 index27 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">END IF;</code></div><div class="line number29 index28 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">WHEN OTHERS =&gt; NULL;</code></div><div class="line number30 index29 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">END CASE;</code></div></div></td></tr><tr><td colspan="1" class="confluenceTd">&nbsp;</td></tr><tr><td colspan="1" class="confluenceTd">&nbsp;</td></tr></tbody></table></div></div></div><h1 id="I2CMaster(VHDL)-AcknowledgeErrors">Acknowledge Errors</h1><p>After
+ each transmitted byte, the receiving end of the I2C bus must issue an 
+acknowledge or no-acknowledge signal.&nbsp; If the I2C master receives 
+an incorrect response from the slave, it notifies the user logic by 
+flagging the error on the <em>ack_error</em> port.&nbsp; The I2C master 
+does not automatically attempt to resend the information, so the user 
+logic must decide whether or not to reissue the command and/or take any 
+additional action.&nbsp; The <em>ack_error</em> port is cleared once the next transaction begins.</p><h1 id="I2CMaster(VHDL)-ClockStretching">Clock Stretching</h1><p>Section 3.1.9 of the I2C specification defines an optional feature where a slave can hold <em>scl</em>
+ low to essentially pause the transaction.&nbsp; Some slaves are 
+designed to do this if, for instance, they need more time to store 
+received data before continuing.&nbsp; This I2C master component is 
+compatible with slaves that implement this feature.&nbsp; It requires no
+ action by the user logic controlling the I2C master.</p><h1 id="I2CMaster(VHDL)-Reset">Reset</h1><p>The <em>reset_n</em>
+ input port must have a logic high for the I2C master component to 
+operate.&nbsp; A low logic level on this port asynchronously resets the 
+component.&nbsp; During reset, the component holds the <em>busy</em> port high to indicate that the I2C master is unavailable.&nbsp; The <em>scl</em> and <em>sda</em> ports assume a high impedance state, and the <em>data_rd</em> and <em>ack_error</em> output ports clear.&nbsp; Once released from reset, the <em>busy</em> port deasserts when the I2C master is ready to communicate again.</p><h1 id="I2CMaster(VHDL)-Conclusion">Conclusion</h1><p>This
+ I2C master is a programmable logic component that accommodates 
+communication with I2C slaves via a straightforward parallel 
+interface.&nbsp; It adheres to the NXP I2C specification in regard to 
+single master buses and also incorporates the optional feature of clock 
+stretching.</p><h1 id="I2CMaster(VHDL)-AdditionalInformation">Additional Information</h1><p><a class="external-link" href="https://www.eewiki.net/download/attachments/10125324/i2c_specification_UM10204.pdf?version=1&amp;modificationDate=1351798991190&amp;api=v2">UM10204, I2C-bus specification and user manual, NXP Semiconductors N.V.</a></p><h1 id="I2CMaster(VHDL)-RelatedTopics">Related Topics</h1><p><a class="external-link" href="https://www.eewiki.net/pages/viewpage.action?pageId=11042934" title="SPI to I2C Bridge (VHDL)">SPI to I2C Bridge (VHDL)</a> - This design uses the I2C Master described on this page to implement an SPI to I2C Bridge.</p><h1 id="I2CMaster(VHDL)-Contact">Contact</h1><p>Comments, feedback, and questions can be sent to <a class="external-link" href="mailto:eewiki@digikey.com" rel="nofollow">eewiki@digikey.com</a>.</p>
+
+                
+        
+    
+        </div>
+
+        <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+         <rdf:Description
+    rdf:about="https://www.digikey.com/eewiki/pages/viewpage.action?pageId=10125324"
+    dc:identifier="https://www.digikey.com/eewiki/pages/viewpage.action?pageId=10125324"
+    dc:title="I2C Master (VHDL)"
+    trackback:ping="https://www.digikey.com/eewiki/rpc/trackback/10125324"/>
+</rdf:RDF>
+-->
+
+                        
+    
+
+
+
+<div id="likes-and-labels-container"><div id="likes-section" class="no-print" style="display: none;"><span class="like-summary"></span></div><div id="labels-section" class="pageSection group">
+    <div class="labels-section-content content-column" entityid="10125324" entitytype="page">
+	<div class="labels-content">
+		
+    <ul class="label-list label-list-right ">
+            <li class="no-labels-message">
+            No labels
+        </li>
+            </ul>
+
+    </div>
+</div>
+</div></div>
+        
+		
+            
+
+
+
+
+            
+        
+
+
+
+
+
+
+
+
+                        
+    
+<div id="comments-section" class="pageSection group">
+        
+    
+
+
+
+</div>
+        
+
+
+                
+    
+            
+</div>
+
+    
+
+    
+
+
+
+
+    
+    
+
+    
+    
+    
+
+
+    
+<div id="space-tools-web-items" class="hidden">
+                <div data-label="Overview" data-href="/eewiki/spaces/viewspacesummary.action?key=LOGIC">Overview</div>
+            <div data-label="Content Tools" data-href="/eewiki/pages/reorderpages.action?key=LOGIC">Content Tools</div>
+    </div>
+        
+
+
+
+            </div><!-- \#main -->
+            
+    
+    
+        
+            
+            
+
+<div id="footer" role="contentinfo" style="margin-left: 285px;">
+    <section class="footer-body">
+
+                                                    
+        
+
+        <ul id="poweredby">
+            <li class="noprint">Powered by <a href="http://www.atlassian.com/software/confluence" class="hover-footer-link" rel="nofollow">Atlassian Confluence</a> <span id="footer-build-information">6.6.13</span></li>
+            <li class="print-only">Printed by Atlassian Confluence 6.6.13</li>
+            <li class="noprint"><a href="https://support.atlassian.com/help/confluence" class="hover-footer-link" rel="nofollow">Report a bug</a></li>
+            <li class="noprint"><a href="http://www.atlassian.com/about/connected.jsp?s_kwcid=Confluence-stayintouch" class="hover-footer-link" rel="nofollow">Atlassian News</a></li>
+        </ul>
+
+        
+
+        <div id="footer-logo"><a href="http://www.atlassian.com/" rel="nofollow">Atlassian</a></div>
+
+                    
+        
+    </section>
+</div>
+
+    
+</div>
+
+</div><!-- \#full-height-container -->
+</div><!-- \#page -->
+
+    <span style="display:none;" id="confluence-server-performance">{"serverDuration": 64, "requestCorrelationId": "6a22afb8f9eff25c"}</span>
+
+
+<script type="text/javascript">
+    AJS.BigPipe = AJS.BigPipe || {};
+    AJS.BigPipe.metrics = AJS.BigPipe.metrics || {};
+    AJS.BigPipe.metrics.pageEnd = typeof window.performance !== "undefined" && typeof window.performance.now === "function"
+                                    ? Math.ceil(window.performance.now()) : 0;
+    AJS.BigPipe.metrics.isBigPipeEnabled = 'false' === 'true';
+</script>
+
+
+    
+<div id="editor-preload-container" style="display: none;">
+ 
+
+<div class="hidden">
+        
+
+
+<content tag="breadcrumbs">
+    
+    
+    <ol id="quickedit-breadcrumbs">
+                                        
+                        
+        <li class="first">
+                        
+                            <span class=""><a href="https://www.digikey.com/eewiki/display/LOGIC" target="_blank">Logic</a></span>
+                                                                                    
+                        
+        </li><li>
+                        
+                            <span class=""><a href="https://www.digikey.com/eewiki/collector/pages.action?key=LOGIC" target="_blank">Pages</a></span>
+                                                                                    
+                        
+        </li><li>
+                        
+                            <span class=""><a href="https://www.digikey.com/eewiki/display/LOGIC/Home" target="_blank">Home</a></span>
+                                                                                    
+                        
+        </li><li>
+                        
+                            <span class="edited-page-title"><a href="https://www.digikey.com/eewiki/pages/viewpage.action?pageId=10125324" target="_blank">I2C Master (VHDL)</a></span>
+                                                                    </li></ol>
+
+</content>
+</div>
+
+
+        
+    <div id="anonymous-warning" class="aui-message warning closeable">You are not logged in. Any changes you make will be marked as <span class="smalltext">anonymous</span>. You may want to <a href="https://www.digikey.com/eewiki/login.action?os_destination=%2Fpages%2Fviewpage.action">Log In</a> if you already have an account.</div>
+
+                                                                                        
+
+<script type="text/x-template" title="editor-css" id="editor-css-resources">
+    <link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/2.0.24/_/download/batch/com.atlassian.confluence.plugins.confluence-collaborative-editor-plugin:confluence-collaborative-editor-plugin-editor-content-resources/com.atlassian.confluence.plugins.confluence-collaborative-editor-plugin:confluence-collaborative-editor-plugin-editor-content-resources.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-collaborative-editor-plugin:confluence-collaborative-editor-plugin-editor-content-resources" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d31cd7d2fde86846818b7c61a667b08c-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.0.6/_/download/batch/com.atlassian.auiplugin:aui-page-typography/com.atlassian.auiplugin:aui-page-typography.css" data-wrm-key="com.atlassian.auiplugin:aui-page-typography" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d31cd7d2fde86846818b7c61a667b08c-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.0.6/_/download/batch/com.atlassian.auiplugin:aui-avatars/com.atlassian.auiplugin:aui-avatars.css" data-wrm-key="com.atlassian.auiplugin:aui-avatars" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/5fb89cff7cdb4d326688653fc11d5658-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.0.6/_/download/batch/com.atlassian.auiplugin:aui-page-layout/com.atlassian.auiplugin:aui-page-layout.css" data-wrm-key="com.atlassian.auiplugin:aui-page-layout" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/3da084224cf6ba69ace5f74490cd2ea1-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.6.13/_/download/batch/com.atlassian.confluence.editor:editor-content-styles/com.atlassian.confluence.editor:editor-content-styles.css" data-wrm-key="com.atlassian.confluence.editor:editor-content-styles" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/3da084224cf6ba69ace5f74490cd2ea1-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.6.13/_/download/batch/com.atlassian.confluence.editor:table-resizable-editor-content-styles/com.atlassian.confluence.editor:table-resizable-editor-content-styles.css?confluence.table.resizable=true" data-wrm-key="com.atlassian.confluence.editor:table-resizable-editor-content-styles" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/3da084224cf6ba69ace5f74490cd2ea1-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.6.13/_/download/batch/com.atlassian.confluence.editor:table-resizable-styles/com.atlassian.confluence.editor:table-resizable-styles.css?confluence.table.resizable=true" data-wrm-key="com.atlassian.confluence.editor:table-resizable-styles" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.6.13/_/download/batch/com.atlassian.confluence.plugins.confluence-templates:variable-editor-content-styles/com.atlassian.confluence.plugins.confluence-templates:variable-editor-content-styles.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-templates:variable-editor-content-styles" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d31cd7d2fde86846818b7c61a667b08c-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.0.6/_/download/batch/com.atlassian.auiplugin:aui-lozenge/com.atlassian.auiplugin:aui-lozenge.css" data-wrm-key="com.atlassian.auiplugin:aui-lozenge" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/2.21/_/download/batch/com.atlassian.confluence.plugins.status-macro:view_content_status/com.atlassian.confluence.plugins.status-macro:view_content_status.css" data-wrm-key="com.atlassian.confluence.plugins.status-macro:view_content_status" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/24c91441d2d4cd90dd9447828346d8d6-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/2.21/_/download/batch/com.atlassian.confluence.plugins.status-macro:editor_content_status/com.atlassian.confluence.plugins.status-macro:editor_content_status.css" data-wrm-key="com.atlassian.confluence.plugins.status-macro:editor_content_status" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d0638b94054c44b2ca8199723136b528-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/1.2.8/_/download/batch/com.atlassian.confluence.plugins.confluence-fixed-headers:confluence-fixed-headers-editor-content-resources/com.atlassian.confluence.plugins.confluence-fixed-headers:confluence-fixed-headers-editor-content-resources.css?confluence.view.edit.transition=true" data-wrm-key="com.atlassian.confluence.plugins.confluence-fixed-headers:confluence-fixed-headers-editor-content-resources" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/656aaffb18e6a1aff5fbfe3cf106e125-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/5.0.2/_/download/batch/confluence.extra.attachments:attachments-css/confluence.extra.attachments:attachments-css.css" data-wrm-key="confluence.extra.attachments:attachments-css" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/14.1.5/_/download/batch/com.atlassian.confluence.plugins.confluence-roadmap-plugin:roadmap-placeholder-css/com.atlassian.confluence.plugins.confluence-roadmap-plugin:roadmap-placeholder-css.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-roadmap-plugin:roadmap-placeholder-css" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/1.0/_/download/batch/confluence.web.resources:panel-styles/confluence.web.resources:panel-styles.css" data-wrm-key="confluence.web.resources:panel-styles" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/145576b4301c660ee2f4aed3705147c0-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/1.0/_/download/batch/confluence.web.resources:content-styles/confluence.web.resources:content-styles.css" data-wrm-key="confluence.web.resources:content-styles" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.6.13/_/download/batch/com.atlassian.confluence.plugins.confluence-page-layout:editor-pagelayout-content-styles/com.atlassian.confluence.plugins.confluence-page-layout:editor-pagelayout-content-styles.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-page-layout:editor-pagelayout-content-styles" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/5.0.6/_/download/batch/com.atlassian.confluence.plugins.confluence-business-blueprints:sharelinks-urlmacro-editor-resources/com.atlassian.confluence.plugins.confluence-business-blueprints:sharelinks-urlmacro-editor-resources.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-business-blueprints:sharelinks-urlmacro-editor-resources" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/7.3.4/_/download/batch/com.atlassian.confluence.plugins.confluence-inline-tasks:inline-tasks-styles/com.atlassian.confluence.plugins.confluence-inline-tasks:inline-tasks-styles.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-inline-tasks:inline-tasks-styles" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/7.3.4/_/download/batch/com.atlassian.confluence.plugins.confluence-inline-tasks:editor-autocomplete-date-css/com.atlassian.confluence.plugins.confluence-inline-tasks:editor-autocomplete-date-css.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-inline-tasks:editor-autocomplete-date-css" data-wrm-batch-type="resource" media="all">
+<!--[if lte IE 9]>
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/7.3.4/_/download/batch/com.atlassian.confluence.plugins.confluence-inline-tasks:editor-autocomplete-date-css/com.atlassian.confluence.plugins.confluence-inline-tasks:editor-autocomplete-date-css.css?conditionalComment=lte+IE+9" data-wrm-key="com.atlassian.confluence.plugins.confluence-inline-tasks:editor-autocomplete-date-css" data-wrm-batch-type="resource" media="all">
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="/eewiki/s/3d4b11f6ee2a89fd5ace87c910cee04b-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/3.0.1/_/download/batch/com.atlassian.confluence.plugins.confluence-view-file-macro:view-file-macro-editor-content-resources/com.atlassian.confluence.plugins.confluence-view-file-macro:view-file-macro-editor-content-resources.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-view-file-macro:view-file-macro-editor-content-resources" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/d41d8cd98f00b204e9800998ecf8427e-CDN/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/4.1.2/_/download/batch/com.atlassian.confluence.plugins.confluence-software-blueprints:common-resources/com.atlassian.confluence.plugins.confluence-software-blueprints:common-resources.css" data-wrm-key="com.atlassian.confluence.plugins.confluence-software-blueprints:common-resources" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/152/_/styles/colors.css" media="all">
+<link type="text/css" rel="stylesheet" href="/eewiki/s/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/152/_/styles/custom.css" media="all">
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+<div class="editor-container">
+
+        
+            
+
+<div id="link-browser-tab-items" class="hidden">
+                <div title="Search" data-weight="10">search</div>
+            <div title="Files" data-weight="30">attachments</div>
+            <div title="Web link" data-weight="40">weblink</div>
+            <div title="Advanced" data-weight="50">advanced</div>
+    </div>
+            <div id="image-properties-tab-items" class="hidden">
+                <div title="Effects" data-weight="10">image-effects</div>
+            <div title="Title" data-weight="20">image-attributes</div>
+    </div>
+            
+
+ 
+
+
+
+
+
+
+
+
+
+
+        <div id="toolbar">
+        <div id="rte-toolbar" class="aui-toolbar aui-toolbar2">
+
+            <div class="aui-toolbar2-primary toolbar-primary">
+                <ul class="aui-buttons rte-toolbar-group-formatting">
+                                        <li id="format-dropdown" class="toolbar-item toolbar-dropdown">
+                        <div class="aui-dd-parent">
+                            <a id="format-dropdown-display" href="#" class="toolbar-trigger aui-dd-trigger aui-button" data-control-id="formatselect">
+                                <span class="dropdown-text">Paragraph</span>
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                            </a>
+                            <ul id="format-dropdown-display-menu" class="aui-dropdown hidden">
+                                    <li class="dropdown-item format-p" data-format="p" data-tooltip="Paragraph (Ctrl+0)">
+        <a class="item-link" href="#">Paragraph</a>
+    </li>
+                                    <li class="dropdown-item format-h1" data-format="h1" data-tooltip="Heading 1 (Ctrl+1)">
+        <a class="item-link" href="#">Heading 1</a>
+    </li>
+                                    <li class="dropdown-item format-h2" data-format="h2" data-tooltip="Heading 2 (Ctrl+2)">
+        <a class="item-link" href="#">Heading 2</a>
+    </li>
+                                    <li class="dropdown-item format-h3" data-format="h3" data-tooltip="Heading 3 (Ctrl+3)">
+        <a class="item-link" href="#">Heading 3</a>
+    </li>
+                                    <li class="dropdown-item format-h4" data-format="h4" data-tooltip="Heading 4 (Ctrl+4)">
+        <a class="item-link" href="#">Heading 4</a>
+    </li>
+                                    <li class="dropdown-item format-h5" data-format="h5" data-tooltip="Heading 5 (Ctrl+5)">
+        <a class="item-link" href="#">Heading 5</a>
+    </li>
+                                    <li class="dropdown-item format-h6" data-format="h6" data-tooltip="Heading 6 (Ctrl+6)">
+        <a class="item-link" href="#">Heading 6</a>
+    </li>
+                                    <li class="dropdown-item format-pre" data-format="pre" data-tooltip="Preformatted (Ctrl+7)">
+        <a class="item-link" href="#">Preformatted</a>
+    </li>
+                                    <li class="dropdown-item format-blockquote" data-format="blockquote" data-tooltip="Quote (Ctrl+8)">
+        <a class="item-link" href="#">Quote</a>
+    </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="aui-buttons rte-toolbar-group-style">
+                    
+                <li class="toolbar-item aui-button" id="rte-button-bold" data-tooltip="Bold (Ctrl+B)">
+        <a class="toolbar-trigger" href="#" data-control-id="bold">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-bold ">Bold</span>
+        </a>
+    </li>
+                    
+                <li class="toolbar-item aui-button" id="rte-button-italic" data-tooltip="Italic (Ctrl+I)">
+        <a class="toolbar-trigger" href="#" data-control-id="italic">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-italic ">Italic</span>
+        </a>
+    </li>
+                    
+                <li class="toolbar-item aui-button" id="rte-button-underline" data-tooltip="Underline (Ctrl+U)">
+        <a class="toolbar-trigger" href="#" data-control-id="underline">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-underline ">Underline</span>
+        </a>
+    </li>
+                                        <li id="color-picker-control" class="toolbar-item toolbar-splitbutton">
+                        <a class="toolbar-trigger aui-button" href="#" id="rte-button-color" data-color="003366" data-tooltip="Colour"><span class="icon aui-icon aui-icon-small aui-iconfont-editor-color ">Colour picker</span><span class="selected-color"></span></a><div class="aui-dd-parent"><a class="toolbar-trigger aui-dd-trigger aui-button" href="#" id="rte-button-color-selector" data-control-id="colorSelector" data-tooltip="More colours"><span class="icon aui-icon aui-icon-small aui-iconfont-dropdown ">More colours</span></a><div class="color-picker-container"><div class="color-picker aui-dropdown hidden"><ul><li><a href="#" style="background-color: #000000" data-color="000000">&nbsp;</a></li><li><a href="#" style="background-color: #993300" data-color="993300">&nbsp;</a></li><li><a href="#" style="background-color: #333300" data-color="333300">&nbsp;</a></li><li><a href="#" style="background-color: #003300" data-color="003300">&nbsp;</a></li><li><a href="#" style="background-color: #003366" data-color="003366">&nbsp;</a></li><li><a href="#" style="background-color: #000080" data-color="000080">&nbsp;</a></li><li><a href="#" style="background-color: #333399" data-color="333399">&nbsp;</a></li><li><a href="#" style="background-color: #333333" data-color="333333">&nbsp;</a></li><li><a href="#" style="background-color: #800000" data-color="800000">&nbsp;</a></li><li><a href="#" style="background-color: #FF6600" data-color="FF6600">&nbsp;</a></li><li><a href="#" style="background-color: #808000" data-color="808000">&nbsp;</a></li><li><a href="#" style="background-color: #008000" data-color="008000">&nbsp;</a></li><li><a href="#" style="background-color: #008080" data-color="008080">&nbsp;</a></li><li><a href="#" style="background-color: #0000FF" data-color="0000FF">&nbsp;</a></li><li><a href="#" style="background-color: #666699" data-color="666699">&nbsp;</a></li><li><a href="#" style="background-color: #808080" data-color="808080">&nbsp;</a></li><li><a href="#" style="background-color: #FF0000" data-color="FF0000">&nbsp;</a></li><li><a href="#" style="background-color: #FF9900" data-color="FF9900">&nbsp;</a></li><li><a href="#" style="background-color: #99CC00" data-color="99CC00">&nbsp;</a></li><li><a href="#" style="background-color: #339966" data-color="339966">&nbsp;</a></li><li><a href="#" style="background-color: #33CCCC" data-color="33CCCC">&nbsp;</a></li><li><a href="#" style="background-color: #3366FF" data-color="3366FF">&nbsp;</a></li><li><a href="#" style="background-color: #800080" data-color="800080">&nbsp;</a></li><li><a href="#" style="background-color: #999999" data-color="999999">&nbsp;</a></li><li><a href="#" style="background-color: #FF00FF" data-color="FF00FF">&nbsp;</a></li><li><a href="#" style="background-color: #FFCC00" data-color="FFCC00">&nbsp;</a></li><li><a href="#" style="background-color: #FFFF00" data-color="FFFF00">&nbsp;</a></li><li><a href="#" style="background-color: #00FF00" data-color="00FF00">&nbsp;</a></li><li><a href="#" style="background-color: #00FFFF" data-color="00FFFF">&nbsp;</a></li><li><a href="#" style="background-color: #00CCFF" data-color="00CCFF">&nbsp;</a></li><li><a href="#" style="background-color: #993366" data-color="993366">&nbsp;</a></li><li><a href="#" style="background-color: #C0C0C0" data-color="C0C0C0">&nbsp;</a></li><li><a href="#" style="background-color: #FF99CC" data-color="FF99CC">&nbsp;</a></li><li><a href="#" style="background-color: #FFCC99" data-color="FFCC99">&nbsp;</a></li><li><a href="#" style="background-color: #FFFF99" data-color="FFFF99">&nbsp;</a></li><li><a href="#" style="background-color: #CCFFCC" data-color="CCFFCC">&nbsp;</a></li><li><a href="#" style="background-color: #CCFFFF" data-color="CCFFFF">&nbsp;</a></li><li><a href="#" style="background-color: #99CCFF" data-color="99CCFF">&nbsp;</a></li><li><a href="#" style="background-color: #CC99FF" data-color="CC99FF">&nbsp;</a></li><li><a href="#" style="background-color: #FFFFFF" data-color="FFFFFF">&nbsp;</a></li></ul></div></div></div>
+                    </li>
+                    <li id="more-menu" class="toolbar-item toolbar-dropdown">
+                        <div class="aui-dd-parent">
+                            <a id="rte-button-more" href="#" class="toolbar-trigger aui-dd-trigger aui-button" data-tooltip="More">
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-styles ">Formatting</span>
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                            </a>
+                            <div id="rte-button-more-menu" class="aui-dropdown grouped hidden">
+                                <div class="grouped-dropdown-item">
+                                    <ul>
+                                                                <li class="dropdown-item more-menu-trigger" data-control-id="strikethrough" data-tooltip="Strikethrough (Ctrl+Shift+S)">
+        <a id="rte-strikethrough" class="item-link" href="#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+Strikethrough
+        </a>
+    </li>
+                                                                 <li class="dropdown-item more-menu-trigger" data-control-id="sub" data-tooltip="">
+        <a id="rte-sub" class="item-link" href="#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+Subscript
+        </a>
+    </li>
+                                                                 <li class="dropdown-item more-menu-trigger" data-control-id="sup" data-tooltip="">
+        <a id="rte-sup" class="item-link" href="#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+Superscript
+        </a>
+    </li>
+                                                        <li class="dropdown-item more-menu-trigger" data-control-id="monospace" data-tooltip="Format text with monospaced font">
+        <a id="rte-monospace" class="item-link" href="#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+Monospace
+        </a>
+    </li>
+
+                                                                                                                    </ul>
+                                </div>
+                                <div class="grouped-dropdown-item">
+                                    <ul>
+                                            <li class="dropdown-item more-menu-trigger no-icon" data-format="removeformat" data-tooltip="Clears formatting on currently selected text">
+        <a id="rte-removeformat" class="item-link" href="#">
+            Clear formatting
+        </a>
+    </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+
+                <ul class="aui-buttons rte-toolbar-group-lists">
+                    
+                <li class="toolbar-item aui-button" id="rte-button-bullist" data-tooltip="Bullet list (Ctrl+Shift+B)">
+        <a class="toolbar-trigger" href="#" data-control-id="bullist">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-list-bullet ">Bullet list</span>
+        </a>
+    </li>
+                    
+                <li class="toolbar-item aui-button" id="rte-button-numlist" data-tooltip="Numbered list (Ctrl+Shift+N)">
+        <a class="toolbar-trigger" href="#" data-control-id="numlist">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-list-number ">Numbered list</span>
+        </a>
+    </li>
+                </ul>
+                                <ul class="aui-buttons rte-toolbar-group-task-lists">
+                    
+                <li class="toolbar-item aui-button" id="rte-button-tasklist" data-tooltip="Task list ([ then ])">
+        <a class="toolbar-trigger" href="#" data-control-id="tasklist">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-task ">Task list</span>
+        </a>
+    </li>
+                </ul>
+                
+                <ul class="aui-buttons rte-toolbar-group-indentation">
+                    
+                <li class="toolbar-item aui-button" id="rte-button-outdent" data-tooltip="Outdent">
+        <a class="toolbar-trigger" href="#" data-control-id="outdent">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-outdent ">Outdent</span>
+        </a>
+    </li>
+                    
+                <li class="toolbar-item aui-button" id="rte-button-indent" data-tooltip="Indent">
+        <a class="toolbar-trigger" href="#" data-control-id="indent">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-indent ">Indent</span>
+        </a>
+    </li>
+                </ul>
+
+                <ul class="aui-buttons rte-toolbar-group-justification">
+                    
+                <li class="toolbar-item aui-button" id="rte-button-justifyleft" data-tooltip="Align left">
+        <a class="toolbar-trigger" href="#" data-control-id="justifyleft">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-align-left ">Align left</span>
+        </a>
+    </li>
+                    
+                <li class="toolbar-item aui-button" id="rte-button-justifycenter" data-tooltip="Align center">
+        <a class="toolbar-trigger" href="#" data-control-id="justifycenter">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-align-center ">Align center</span>
+        </a>
+    </li>
+                    
+                <li class="toolbar-item aui-button" id="rte-button-justifyright" data-tooltip="Align right">
+        <a class="toolbar-trigger" href="#" data-control-id="justifyright">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-align-right ">Align right</span>
+        </a>
+    </li>
+                </ul>
+
+                                <ul class="aui-buttons hidden" id="page-layout-2-group">
+                    <li id="page-layout-2" class="toolbar-item" data-tooltip="Page layout">
+                        <a href="#" class="aui-button toolbar-trigger" id="rte-button-pagelayout-2">
+                                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-layout ">Page layout</span>
+                        </a>
+                    </li>
+                </ul>
+                
+
+                <ul class="aui-buttons rte-toolbar-group-files hidden"></ul>
+
+                <ul class="aui-buttons rte-toolbar-group-link no-separator">
+                    <li class="toolbar-item" data-tooltip="Insert link (Ctrl+K)">
+                        <a id="rte-button-link" class="toolbar-trigger aui-button" href="#" data-control-id="linkbrowserButton">
+                                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-link "></span>
+                            <span class="trigger-text">Link</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="aui-buttons rte-toolbar-group-table no-separator">
+                    <li class="toolbar-item toolbar-dropdown" id="insert-table-dropdown">
+                        <div class="aui-dd-parent">
+                            <a href="#" class="toolbar-trigger aui-dd-trigger aui-button" id="rte-button-insert-table" data-tooltip="Insert table">
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-table "></span>
+                                <span class="dropdown-text">Table</span>
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                            </a>
+
+                            <div id="table-picker-container" class="hidden aui-box-shadow">
+                                <div class="table-picker-box" data-tooltip="Hold SHIFT for a table without a heading.">
+                                    <div class="table-picker-background">
+                                        <div class="picker picker-cell"></div>
+                                        <div class="picker picker-heading heading"></div>
+                                        <div class="picker picker-selected-cell"></div>
+                                        <div class="picker picker-selected-heading heading"></div>
+                                    </div>
+                                    <p class="desc"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                                                                
+                
+                <ul class="aui-buttons rte-toolbar-group-insert no-separator">
+                    <li class="toolbar-item toolbar-dropdown" id="insert-menu">
+                        <div class="aui-dd-parent">
+                            <a href="#" class="toolbar-trigger aui-dd-trigger aui-button" id="rte-button-insert" data-tooltip="Insert more content">
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-add "></span>
+                                <span class="dropdown-text">Insert</span>
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                            </a>
+
+                            <div id="insert-menu-options" class="aui-dropdown grouped hidden">
+                                <div class="grouped-dropdown-item">
+                                    <span class="assistive">Insert content</span>
+                                    <ul id="content-insert-list">
+                                        
+        
+        <li class="dropdown-item content-image" data-command="mceConfimage" data-tooltip="Insert files and images (Ctrl+M)">
+        <a id="rte-insert-image" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Files and images
+        </a>
+    </li>
+                                        
+        
+        <li class="dropdown-item content-link" data-control-id="linkbrowserButton" data-tooltip="Insert link (Ctrl+K)">
+        <a id="rte-insert-link" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Link
+        </a>
+    </li>
+                                        
+    
+        <li class="dropdown-item content-symbol" data-command="confCharmap" data-tooltip="Insert symbol">
+        <a id="rte-insert-symbol" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Symbol
+        </a>
+    </li>
+                                        
+    
+        <li class="dropdown-item content-emoticon" data-command="mceEmotion" data-tooltip="Insert emoticon">
+        <a id="rte-insert-emoticon" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Emoticon
+        </a>
+    </li>
+                                        
+        
+        <li class="dropdown-item content-wikimarkup" data-command="InsertWikiMarkup" data-tooltip="Insert markup (Ctrl+Shift+D)">
+        <a id="rte-insert-wikimarkup" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Markup
+        </a>
+    </li>
+                                        
+    
+        <li class="dropdown-item content-hr" data-command="InsertHorizontalRule" data-tooltip="Insert horizontal rule (----)">
+        <a id="rte-insert-hr" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Horizontal rule
+        </a>
+    </li>
+                                                                                    
+        
+        <li class="dropdown-item content-tasklist" data-command="InsertInlineTaskListNoToggle" data-tooltip="Insert task list ([ then ])">
+        <a id="rte-insert-tasklist" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Task list
+        </a>
+    </li>
+                                                                            </ul>
+                                </div>
+                                <div class="grouped-dropdown-item">
+                                    <span class="assistive">Insert macro</span>
+                                    <ul id="macro-insert-list">
+                                                                        
+                                                                        
+                                <li class="dropdown-item macro-insertmention-button" data-macro-name="insertmention-button" data-tooltip="Insert 'User mention' macro">
+        <a id="insertmention-button" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ User mention
+        </a>
+    </li>
+                                                                                                <li class="dropdown-item macro-jiralink" data-macro-name="jiralink" data-tooltip="Insert 'Jira Issue/Filter' macro">
+        <a id="jiralink" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Jira Issue/Filter
+        </a>
+    </li>
+                                                                                                <li class="dropdown-item macro-info" data-macro-name="info" data-tooltip="Insert 'Info' macro">
+        <a id="info" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Info
+        </a>
+    </li>
+                                                                                                <li class="dropdown-item macro-status" data-macro-name="status" data-tooltip="Insert 'Status' macro">
+        <a id="status" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Status
+        </a>
+    </li>
+                                                                                                <li class="dropdown-item macro-gallery" data-macro-name="gallery" data-tooltip="Insert 'Gallery' macro">
+        <a id="gallery" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Gallery
+        </a>
+    </li>
+                                                                                                <li class="dropdown-item macro-toc" data-macro-name="toc" data-tooltip="Insert 'Table of Contents' macro">
+        <a id="toc" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Table of Contents
+        </a>
+    </li>
+                                                                                                                            
+        
+        <li class="dropdown-item content-macro" data-command="mceConfMacroBrowser" data-tooltip="Open the macro browser (Ctrl+Shift+A)">
+        <a id="rte-insert-macro" class="item-link" href="#">
+                
+    
+    <span class="icon "></span>
+ Other macros
+        </a>
+    </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                                <ul class="aui-buttons rte-toolbar-group-page-layouts-section-types">
+                    <li id="pagelayout-menu" class="toolbar-item toolbar-dropdown">
+                        <div class="aui-dd-parent">
+                            <a href="#" class="toolbar-trigger aui-dd-trigger aui-button" id="rte-button-pagelayout" data-tooltip="Page layout">
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-default">Page layout</span>
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                            </a>
+
+                            <ul id="pagelayout-menu-options" class="aui-dropdown hidden">
+                                <li class="dropdown-item" data-tooltip="No layout">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-none&quot;, &quot;columns&quot;: 0   }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-none">No layout</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (simple)">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-simple&quot;, &quot;columns&quot;: [&quot;&quot;, &quot;&quot;]   }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-simple">Two column (simple)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (simple, left sidebar)">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-simple-left&quot;, &quot;columns&quot;: [&quot;aside&quot;, &quot;large&quot;]   }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-simple-left">Two column (simple, left sidebar)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (simple, right sidebar)">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-simple-right&quot;, &quot;columns&quot;: [&quot;large&quot;, &quot;aside&quot;]   }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-simple-right">Two column (simple, right sidebar)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Three column (simple)">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-three-simple&quot;, &quot;columns&quot;: [&quot;&quot;, &quot;&quot;, &quot;&quot;]   }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-three-simple">Three column (simple)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two&quot;, &quot;columns&quot;: [&quot;&quot;, &quot;&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two">Two column</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (left sidebar)">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-left&quot;, &quot;columns&quot;: [&quot;aside&quot;, &quot;large&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-left">Two column (left sidebar)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (right sidebar)">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-right&quot;, &quot;columns&quot;: [&quot;large&quot;, &quot;aside&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-right">Two column (right sidebar)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Three column">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-three&quot;, &quot;columns&quot;: [&quot;&quot;, &quot;&quot;, &quot;&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-three">Three column</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Three column (left and right sidebars)">
+    <a href="#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-three-sidebars&quot;, &quot;columns&quot;: [&quot;sidebars&quot;, &quot;large&quot;, &quot;sidebars&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-three-sidebars">Three column (left and right sidebars)</span>
+    </a>
+</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                
+                                                
+                <ul class="aui-buttons rte-toolbar-group-undo">
+                    
+                <li class="toolbar-item aui-button" id="rte-button-undo" data-tooltip="Undo (Ctrl+Z)">
+        <a class="toolbar-trigger" href="#" data-control-id="undo">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-undo ">Undo</span>
+        </a>
+    </li>
+                    
+                <li class="toolbar-item aui-button" id="rte-button-redo" data-tooltip="Redo (Ctrl+Y)">
+        <a class="toolbar-trigger" href="#" data-control-id="redo">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-redo ">Redo</span>
+        </a>
+    </li>
+                </ul>
+            </div>                                                                                                <div id="draft-status" style="display:none"></div>
+                            <div class="aui-toolbar2-secondary">
+                <ul class="aui-buttons rte-toolbar-group-searchreplace">
+                        <li class="toolbar-item aui-button" id="rte-button-searchreplace" data-tooltip="Find/Replace">
+        <a class="toolbar-trigger" href="#" data-control-id="searchreplace">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-search ">Find/Replace</span>
+        </a>
+    </li>
+                </ul>
+                <ul class="aui-buttons rte-toolbar-group-help">
+                        <li class="toolbar-item aui-button" id="rte-button-help" data-tooltip="Help">
+        <a class="toolbar-trigger" href="#" data-control-id="help">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-help ">Keyboard shortcuts help</span>
+        </a>
+    </li>
+                </ul>
+            </div>        </div>    </div>
+        
+        
+                                        <div id="editor-notifications-container"><div id="editor-messages"><div id="anonymous-warning" class="aui-message warning closeable">You are not logged in. Any changes you make will be marked as <span class="smalltext">anonymous</span>. You may want to <a href="https://www.digikey.com/eewiki/login.action?os_destination=%2Fpages%2Fviewpage.action">Log In</a> if you already have an account.</div><div id="heartbeat-div" class="hidden"><div class="aui-message info closeable"><span class="aui-icon icon-info"></span>This page is also being edited by <span id="other-users-span"></span>. Your changes will be merged with theirs when you save.</div></div></div><div id="all-messages"><div id="action-messages"></div></div></div><div id="editor-precursor"><div class="cell"><div class="aui-buttons aui-toolbar2"><button class="aui-button aui-button-subtle rte-button-labels" type="button" data-tooltip="Labels" id="rte-button-labels" data-explicit-restrictions="" data-inherited-restrictions=""><span class="icon aui-icon aui-icon-small aui-iconfont-devtools-tag"></span></button></div><div id="content-title-div" class="collaborative"><input type="text" name="title" id="content-title" tabindex="1" class="text pagetitle" autocomplete="off" value="I2C Master (VHDL)" placeholder="Page title"></div></div></div>
+            
+    <div id="wysiwyg">
+        <div id="rte" class="cell editor-default collaborative">
+            <textarea id="wysiwygTextarea" name="wysiwygContent" class="hidden tinymce-editor"></textarea>
+        </div>
+    </div>
+    <div id="editor-html-source-container" class="hidden">
+        <textarea id="editor-html-source" class="monospaceInput"></textarea>
+    </div>
+
+    <div id="preview">
+                        <div id="previewArea" class="cell">
+        </div>
+    </div>
+
+            <div id="savebar-container"><div id="rte-savebar" class="aui-toolbar aui-toolbar2"><div class="toolbar-split toolbar-split-row"><div class="toolbar-split toolbar-split-left"><div class="aui-buttons"></div></div><div class="toolbar-split toolbar-split-right"><div id="pluggable-status-container" class="toolbar-item rte-toolbar-pluggable-status"><div id="pluggable-status" class="synchrony"><div class="synchrony-status-indicator"><div class="status-indicator-icon aui-icon aui-icon-small aui-iconfont-devtools-task-in-progress" data-tooltip="We're automatically saving all of your changes in a draft. Click to view changes."></div><div class="status-indicator-message" data-tooltip="We're automatically saving all of your changes in a draft. Click to view changes.">Connecting...</div></div></div></div><div class="aui-buttons" id="rte-savebar-tinymce-plugin-point"></div><div class="aui-buttons"><span id="rte-spinner" class="toolbar-item shared-drafts">&nbsp;</span></div><div class="aui-buttons toolbar-group-edit assistive"><button id="rte-button-edit" class="aui-button" title="Return To edit Mode" type="button"><span class="trigger-text">Edit</span></button></div><div class="aui-buttons toolbar-group-preview"><button class="aui-button toolbar-item aui-button-light" id="rte-button-preview" title="Preview" type="button"><span class="trigger-text">Preview</span></button></div><div class="save-button-container"><button class="aui-button aui-button-primary" type="submit" id="rte-button-publish" name="confirm" value="Save" title="Save"><span class="trigger-text">Save</span></button></div><button class="toolbar-item-link aui-button aui-button-link" type="submit" id="rte-button-cancel" name="cancel" value="cancel">Close</button></div></div></div></div>
+    
+        <section role="dialog" id="quit-editor-dialog" class="aui-layer aui-dialog2 aui-dialog2-medium" aria-hidden="true"><header class="aui-dialog2-header"></header><div class="aui-dialog2-content"></div><footer class="aui-dialog2-footer"><div class="aui-dialog2-footer-actions"><button id="qed-publish-button" class="aui-button aui-button-primary publish">Update</button><button id="qed-discard-button" title="Discard all unpublished changes" class="aui-button aui-button-light exit"></button><button id="qed-save-exit-button" class="aui-button aui-button-primary exit">Keep draft</button><button id="qed-close-button" class="aui-button aui-button-link">Close</button></div><div class="aui-dialog2-footer-hint"><a id="qed-show-diff-button" class="aui-button aui-button-link">Show changes</a><a id="qed-hide-diff-button" class="aui-button aui-button-link">Hide changes</a></div></footer></section>
+
+    
+</div>
+
+
+
+<script type="text/x-template" title="dynamic-editor-metadata" id="dynamic-editor-metadata-template">
+            <meta name="ajs-use-watch" content="false">
+            <meta name="ajs-attachment-source-content-id" content="10125324">
+            <meta name="ajs-use-inline-tasks" content="true">
+            <meta name="ajs-heartbeat" content="true">
+            <meta name="ajs-action-locale" content="en_GB">
+            <meta name="ajs-editor-plugin-resource-prefix" content="/eewiki/s/en_GB/7502/a025d1ea507f6473e7dfa3a92b4a4cc699e1e6ac/6.6.13/_">
+            <meta name="ajs-edit-mode" content="collaborative">
+            <meta name="ajs-user-watching-own-content" content="false">
+            <meta name="ajs-new-page" content="false">
+            <meta name="ajs-editor-mode" content="richtext">
+            <meta name="ajs-auto-start" content="false">
+            <meta name="ajs-conf-revision" content="confluence$content$10125324.39">
+            <meta name="ajs-sync-revision-source" content="synchrony">
+            <meta name="ajs-draft-id" content="78086219">
+            <meta name="ajs-draft-share-id" content="01374df3-464e-412e-acd9-7118dda74081">
+            <meta name="ajs-content-type" content="page">
+            <meta name="ajs-collaborative-editor-status" content="">
+            <meta name="ajs-existing-draft-id" content="0">
+            <meta name="ajs-content-id" content="10125324">
+            <meta name="ajs-form-name" content="inlinecommentform">
+            <meta name="ajs-can-attach-files" content="false">
+            <meta name="ajs-show-draft-message" content="false">
+            <meta name="ajs-shared-drafts" content="true">
+            <meta name="ajs-collaborative-content" content="true">
+            <meta name="ajs-min-editor-height" content="150">
+            <meta name="ajs-version-comment" content="">
+            <meta name="ajs-draft-type" content="page">
+                
+                <meta name="ajs-synchrony-token" content="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwczpcL1wvd3d3LmRpZ2lrZXkuY29tXC9zeW5jaHJvbnlcL3YxIiwiYWNjZXNzIjp7IlwvZGF0YVwvRGlnaS1LZXktQ29ycG9yYXRpb24tNjg1NmExZDQtNWY3OS0zN2U4LTllMTktYjExYjI1NTMzZDMxXC9jb25mbHVlbmNlLTEwMTI1MzI0IjoiIiwiXC9kYXRhXC9EaWdpLUtleS1Db3Jwb3JhdGlvbi02ODU2YTFkNC01Zjc5LTM3ZTgtOWUxOS1iMTFiMjU1MzNkMzFcL2NvbmZsdWVuY2UtMTAxMjUzMjQtdGl0bGUiOiIifSwicmV2aXNpb25NZXRhIjp7fSwic2Vzc2lvbiI6eyJhdmF0YXJVUkwiOiJcL2ltYWdlc1wvaWNvbnNcL3Byb2ZpbGVwaWNzXC9hbm9ueW1vdXMucG5nIiwibmFtZSI6bnVsbCwiZnVsbG5hbWUiOm51bGx9LCJpc3MiOiJEaWdpLUtleS1Db3Jwb3JhdGlvbi02ODU2YTFkNC01Zjc5LTM3ZTgtOWUxOS1iMTFiMjU1MzNkMzEiLCJleHAiOjE1NjI2OTg0MzcsImlhdCI6MTU2MjYxMjAzN30.f0aP9IjywWoF1j22M2NlE1nsLSLCHba3LdOodsSmVCk">
+    <meta name="ajs-synchrony-base-url" content="https://www.digikey.com/synchrony,https://www.digikey.com/eewiki/synchrony-proxy">
+    <meta name="ajs-synchrony-app-id" content="Digi-Key-Corporation-6856a1d4-5f79-37e8-9e19-b11b25533d31">
+    <meta name="ajs-synchrony-expiry" content="1562697537">
+    <meta name="ajs-use-xhr-fallback" content="true">
+
+            		    <meta name="ajs-max-thumb-width" content="300">
+		    <meta name="ajs-max-thumb-height" content="300">
+		    <meta name="ajs-can-send-email" content="true">
+		    <meta name="ajs-is-dev-mode" content="false">
+		    <meta name="ajs-draft-save-interval" content="30000">
+		    <meta name="ajs-show-hidden-user-macros" content="false">
+		    <meta name="ajs-is-admin" content="false">
+		    <meta name="ajs-heartbeat-interval" content="30000">
+	
+    </script>
+
+<script type="text/x-template" title="tableForm" id="table-form-template">
+    <form id="tinymce-table-form" class="aui">
+        <div class="field-group">
+            <label for="rows">Rows</label>
+            <input id="rows" name="rows" type="text" size="3" autocomplete="off" value="{0}">
+        </div>
+        <div class="field-group">
+            <label for="cols">Columns</label>
+            <input id="cols" name="cols" type="text" size="3" autocomplete="off" value="{1}">
+        </div>
+        <div class="field-group hidden">
+            <input id="width" type="hidden" name="width" value="">
+            <label for="width">Width</label>
+        </div>
+        <div class="group">
+            <div class="checkbox">
+                <input id="table-heading-checkbox" class="checkbox" type="checkbox" name="heading" checked="checked" value="true">
+                <label for="table-heading-checkbox">First row is heading</label>
+            </div>
+        </div>
+        <div class="group hidden">
+            <div class="checkbox">
+                <input id="table-equal-width-columns-checkbox" class="checkbox" type="checkbox" name="equal-width-columns" value="false">
+                <label for="table-equal-width-columns-checkbox">Equal width columns</label>
+            </div>
+        </div>
+    </form>
+</script>
+<input type="hidden" name="draftId" value="78086219" id="draftId"><input type="hidden" name="originalVersion" value="69" id="originalVersion">
+<input type="hidden" name="syncRev" value="0.PQdyX7BaIJa6YOyIVwSyeAw.26" id="syncRev">    <input type="hidden" name="atl_token" value="4cd6a10c95eee286f955a7ef18ec13d8d2fb6f06">
+</div><div id="ZN_doHhT6xbShXrzDf"></div><div style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.2628401795160259"><img style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.23273259933736778" alt="" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/0.txt" width="0" height="0"></div><div class="aui-popup aui-dialog" id="image-effects-dialog" style="margin-top: -250px; margin-left: -300px; width: 600px; height: 500px; z-index: 3002; display: none;"><div class="dialog-components"><h2 class="dialog-title">Add Image Effect</h2><ul class="dialog-page-menu" style="height: 393px; display: none;"><li class="page-menu-item selected"><button class="item-button"></button></li></ul><div class="dialog-page-body"><div class="dialog-panel-body" style="height: 393px;"><div class="image-effects"><ul class="image-list"><li class="attached-image image-effect-preview image-effect-none"><div class="image-container"><img class="thumbnail" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/imgFilter_002.jfif" title="None" style="margin-top: 5px"></div><span class="caption filename" title="None">None</span></li><li class="attached-image image-effect-preview"><div class="image-container"><img class="thumbnail" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/imgFilter.webp" title="Taped" style="margin-top: 5px"></div><span class="caption filename" title="Taped">Taped</span></li><li class="attached-image image-effect-preview"><div class="image-container"><img class="thumbnail" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/imgFilter_003.webp" title="Instant Camera" style="margin-top: 5px"></div><span class="caption filename" title="Instant Camera">Instant Camera</span></li><li class="attached-image image-effect-preview"><div class="image-container"><img class="thumbnail" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/imgFilter.jfif" title="Curl Shadow" style="margin-top: 5px"></div><span class="caption filename" title="Curl Shadow">Curl Shadow</span></li><li class="attached-image image-effect-preview"><div class="image-container"><img class="thumbnail" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/imgFilter_003.jfif" title="Snapshot" style="margin-top: 5px"></div><span class="caption filename" title="Snapshot">Snapshot</span></li><li class="attached-image image-effect-preview"><div class="image-container"><img class="thumbnail" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/imgFilter_002.webp" title="Drop Shadow" style="margin-top: 5px"></div><span class="caption filename" title="Drop Shadow">Drop Shadow</span></li></ul></div></div></div><div class="dialog-button-panel"><button class="button-panel-button button-panel-submit-button">Save</button><a href="#" class="button-panel-link button-panel-cancel-link">Close</a></div></div></div><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/a_002" type="text/javascript"></script><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/CoreModule.js" defer="defer"></script><div id="fileuploadShim" style="position: relative; z-index: 0;"></div><div id="p1df9ev1p8fbc1ou517e110ns1gel0_html5_container" style="position: absolute; background: transparent none repeat scroll 0% 0%; width: 959px; height: 0px; overflow: hidden; z-index: -1; opacity: 0; top: 638px; left: 0px;" class="plupload html5"><input id="p1df9ev1p8fbc1ou517e110ns1gel0_html5" style="font-size: 999px; position: absolute; width: 100%; height: 100%;" type="file" accept="" multiple="multiple"></div><iframe style="display: none;" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/pixel_003.htm"></iframe><iframe style="display: none;" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/pixel_003.htm"></iframe><iframe style="display: none;" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/pixel_003.htm"></iframe><script type="text/javascript">// Copyright 2006-2019 ClickTale Ltd., US Patent Pending
+// PID: 53368
+// WR destination: www
+// WR version: latest
+// Recording ratio: 0.22
+
+(function (){
+	var dependencyCallback;
+        var scriptSyncTokens = ["wr"];
+        var ct2Callback, isRecorderReady;
+    var dependencies = scriptSyncTokens.slice(0);
+    var clickTaleOnReadyList = window.ClickTaleOnReadyList || (window.ClickTaleOnReadyList = []);
+    var indexOf = (function(){if(Array.prototype.indexOf){return function(array,value){return array.indexOf(value)}}return function(array,value){var length=array.length;for(var i=0;i<length;i++){if(array[i]===value){return i}}return -1}})();
+    function isValidToken(token) {
+        if (indexOf(scriptSyncTokens, token) > -1) {
+            var index = indexOf(dependencies, token);
+
+            if (index > -1) {
+                dependencies.splice(index, 1);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    clickTaleOnReadyList.push(function () {
+        if (ct2Callback) {
+            ct2Callback();
+        }
+
+        isRecorderReady = true;
+    });
+
+    ClickTaleGlobal.scripts.dependencies = {
+        setDependencies: function (deps) {
+            scriptSyncTokens = deps;
+        },
+        onDependencyResolved: function (callback) {
+            dependencyCallback = callback;
+        },
+        notifyScriptLoaded: function (token) {
+            if (isValidToken(token)) {
+                if (dependencies.length === 0 && typeof dependencyCallback === "function") {
+                    dependencyCallback();
+                }
+            }
+        }
+    };
+
+    ClickTaleGlobal.scripts.integration = {
+        onReady: function (callback) {
+            if (isRecorderReady) {
+                callback();
+            }
+            else {
+                ct2Callback = callback;
+            }
+        }
+    };
+})();
+
+
+window.ClickTaleGlobal.VisualEditorDesignerExists = !!0;
+
+window.ClickTaleIsXHTMLCompliant = true;
+if (typeof (ClickTaleCreateDOMElement) != "function")
+{
+	ClickTaleCreateDOMElement = function(tagName)
+	{
+		if (document.createElementNS)
+		{
+			return document.createElementNS('http://www.w3.org/1999/xhtml', tagName);
+		}
+		return document.createElement(tagName);
+	}
+}
+
+if (typeof (ClickTaleAppendInHead) != "function")
+{
+	ClickTaleAppendInHead = function(element)
+	{
+		var parent = document.getElementsByTagName('head').item(0) || document.documentElement;
+		parent.appendChild(element);
+	}
+}
+
+if (typeof (ClickTaleXHTMLCompliantScriptTagCreate) != "function")
+{
+	ClickTaleXHTMLCompliantScriptTagCreate = function(code)
+	{
+		var script = ClickTaleCreateDOMElement('script');
+		script.setAttribute("type", "text/javascript");
+		script.text = code;
+		return script;
+	}
+}	
+
+
+
+// Start of user-defined pre WR code (PreLoad)
+//PTC Code Version 9.10
+
+window.ClickTaleSettings = window.ClickTaleSettings || {};
+window.ClickTaleSettings.PTC = window.ClickTaleSettings.PTC || {};
+window.ClickTaleSettings.Compression = window.ClickTaleSettings.Compression || {};
+if (document.readyState === 'complete') {
+    window.ClickTaleIncludedOnWindowLoad = true;
+}
+window.ClickTaleIncludedOnDOMReady = true;
+window.ClickTaleSettings.PTC.EnableChangeMonitor = false;
+window.ClickTaleSettings.PTC.UploadPageHappened = false;
+window.ClickTaleSettings.PTC.IsMobile = false;
+window.ClickTaleUIDCookieName = 'WRUIDAWS';
+
+//Cross-Domain Tracking Start
+window.ClickTaleSettings.PTC.CrossDomainTracking = true;
+
+function clickTaleReadCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+};
+
+var checkForCTcookie = clickTaleReadCookie(ClickTaleUIDCookieName);
+if (checkForCTcookie != null) {
+    window.ClickTaleSettings.PTC.StartRecordingNow = true;
+}
+
+if (!window.ClickTaleSettings.PTC.StartRecordingNow) {
+    function receiveMessage(event) {
+        if (event.origin !== "https://cdnssl.clicktale.net") {
+            return;
+        }
+        if (event.data != null && event.data != "NoUID") {
+            window.ClickTaleSettings.PTC.CrossDomainUID = event.data;
+        } else {
+            window.ClickTaleSettings.PTC.StartRecordingNow = true;
+        }
+    }
+    window.addEventListener("message", receiveMessage, false);
+}
+
+if (checkForCTcookie != null) {
+    var ctUID = checkForCTcookie;
+} else {
+    var ctUID = "";
+}
+var iframePage = "https://cdnssl.clicktale.net/www/tc/crossdomain.html?cookie=" + ClickTaleUIDCookieName;
+var ctCrossDomainFrame = document.createElement("iframe");
+ctCrossDomainFrame.setAttribute("id", "clicktaleCrossDomain");
+ctCrossDomainFrame.setAttribute("class", "hidden");
+ctCrossDomainFrame.setAttribute("src", iframePage);
+ctCrossDomainFrame.setAttribute("async", true);
+ctCrossDomainFrame.setAttribute("frameborder", "0");
+ctCrossDomainFrame.setAttribute("width", "0");
+ctCrossDomainFrame.setAttribute("height", "0");
+ctCrossDomainFrame.setAttribute("style", "display:none");
+ctCrossDomainFrame.setAttribute("aria-hidden", true);
+ctCrossDomainFrame.setAttribute("tabindex", "-1");
+ctCrossDomainFrame.setAttribute("title", "empty");
+document.body.appendChild(ctCrossDomainFrame);
+
+ctCrossDomainFrame.addEventListener("load", function() {
+    if (document.getElementById("clicktaleCrossDomain")) {
+        var pass_data = {
+            'uid': ctUID,
+            'cookie': ClickTaleUIDCookieName,
+            'origin': document.location.origin
+        };
+        var ct_ifrm = document.getElementById("clicktaleCrossDomain").contentWindow
+        ct_ifrm.postMessage(pass_data, "*");
+    }
+}, false);
+//Cross-Domain Tracking End
+
+window.ClickTaleSettings.CheckAgentSupport = function(f, v) {
+    if (v.t == v.ED) {
+        window.ClickTaleSettings.Compression.Async = false;
+    }
+    if (v.m) {
+        window.ClickTaleSettings.PTC.IsMobile = true;
+    }
+    if (!(v.t == v.IE && v.v == 10)) {
+        window.ClickTaleSettings.PTC.EnableChangeMonitor = true;
+        window.ClickTaleSettings.PTC.ConfigChangeMonitor();
+    }
+    var fv = f(v);
+    window.ClickTaleSettings.PTC.okToRunPCC = fv;
+    return fv;
+};
+
+window.ClickTaleSettings.PTC.startsWith = function(strToTest, str) {
+    return strToTest.lastIndexOf(str, 0) === 0;
+};
+
+window.ClickTaleSettings.PTC.RulesObj = [{
+    selector: "input[type=\"text\"], input[type=\"tel\"], input[type=\"email\"],input[type=\"number\"]",
+    changeMon: {
+        Attributes: ['value'],
+        Text: false
+    },
+    rewriteApi: {
+        Attributes: ['value'],
+        Text: false
+    }
+}, {
+    selector: ".ctHidden,#my_digikey_logged_in>span.line-one",
+    changeMon: {
+        Attributes: ['value'],
+        Text: true
+    },
+    rewriteApi: {
+        Attributes: ['value'],
+        Text: true
+    }
+}, {
+    selector: ".header-hello,#lblDisplayName,#lblEmail,.shipping-address span,.billing-address span, \
+    #user-info-phone,#user-info-altphone,#welcome_name,.user-login span:not([class='update-edit-btn']), \
+    #ctl00_ctl00_mainContentPlaceHolder_mainContentPlaceHolder_cwcOrderInfoDisplay__lblShippingAddress, \
+    #ctl00_ctl00_mainContentPlaceHolder_mainContentPlaceHolder_cwcOrderInfoDisplay_lblBillingAddress, \
+    #ctl00_ctl00_mainContentPlaceHolder_mainContentPlaceHolder_cwcOrderInfoDisplay_cellNameOnCardValue, \
+    #divBillAddress div>span,.submit-address div>span,#shippingAddressDisplay span,.submit-payment>.table-cell>div, \
+    .right-column__shipping-address,.submit-address span,.customer-select td,#orderInfo tr td table tr td, \
+    #shipAddress tr td, #billAddress  tr td, #tblOrderHeaderInfo td, #shipmentInfo a, #invoices-bundle span, \
+    #tblShippingAddresses td, #order_details span, #tblShippingAddresses td, #order_details span, \
+    .ui.vertical.segment .unstackable p,#contactInfoContainer .item,#frm_payment_method .grouped>.field>.checkbox>label, \
+    #shipping_container>section>p, label[for = 'ExistingAddress'], #summaryBoxCartName, \
+    section#shipping_address_container div.item, .header__resource-text>span,span.payPalEmail, \
+    div.banner-welcome-name>span,div.banner-info p,div#divSavedMethods>div>span:not(.remove-card-btn), #orderInfo tr td, #addressInfo tr td",
+    changeMon: {
+        Attributes: ['value'],
+        Text: true
+    },
+    rewriteApi: {
+        Attributes: ['value'],
+        Text: true
+    }
+}];
+
+
+
+window.ClickTaleSettings.PTC.RulesObjRemoveEls = [{
+    changeMon: 'span.timetoship-title,span.timetoship-timer',
+    changeMonLive: 'span.timetoship-title,span.timetoship-timer'
+}];
+
+;
+(function() {
+    if (typeof window.ClickTalePIISelector === 'string' && window.ClickTalePIISelector != '') {
+        try {
+            var domNodes = document.querySelectorAll(window.ClickTalePIISelector);
+            if (domNodes) {
+                window.ClickTaleSettings.PTC.RulesObj.push({
+                    selector: window.ClickTalePIISelector,
+                    changeMon: {
+                        Attributes: ['value'],
+                        Text: true
+                    },
+                    rewriteApi: {
+                        Attributes: ['value'],
+                        Text: true
+                    }
+                });
+            }
+        } catch (err) {}
+    }
+})();
+
+//AM 450 Characters Version
+window.ClickTaleSettings.PTC.AssetManager = {
+    isActive: true,
+    isNeedForImg: false,
+    maxUrlLength: 600,
+    subscriberId: '233037',
+    pid: '53368',
+    storageUrl: 'https://s3.amazonaws.com/nv-p1-s3-assets-01/',
+    prefixSpecialCharacters: /media\/Designer/i,
+    getPrefixUrl: function() {
+        return this.storageUrl + this.subscriberId + '/' + this.pid;
+    },
+    reduceUrl: function(strUrl) {
+        var queryExist = strUrl.indexOf('?');
+        if (queryExist > -1) {
+            var queryString = strUrl.slice(queryExist, strUrl.length);
+            var dividedUrl = strUrl.split('?');
+            var urlWithoutQuery = dividedUrl[0];
+
+            queryString = queryString.replace(/\W/g, '');
+            var fileName = urlWithoutQuery.slice(urlWithoutQuery.lastIndexOf('/') + 1, urlWithoutQuery.length);
+            queryString = queryString + fileName;
+            var queryStringLength = queryString.length;
+            if (queryStringLength > 450) {
+                queryString = queryString.slice(queryStringLength - 450, queryStringLength);
+            }
+            strUrl = urlWithoutQuery.slice(0, urlWithoutQuery.indexOf(fileName) + 1) + queryString;
+        }
+        return strUrl;
+    },
+    getFullURL: function(type, url) {
+        var AMUrl = '';
+        if (url) {
+            if ((this.isNeedForImg && url.length > this.maxUrlLength) || (this.prefixSpecialCharacters && this.prefixSpecialCharacters.test(url))) {
+                url = window.ClickTaleSettings.PTC.AssetManager.reduceUrl(url);
+
+                AMUrl = this.getPrefixUrl() + '/' + type + '/CTAMREDUCED/' + url.replace(/:\/\//g, "/").replace(/\/\//g, "/").replace(/:/g, "").replace(/%20/g, " ");
+            } else {
+                AMUrl = this.getPrefixUrl() + '/' + type + '/' + url.replace(/:\/\//g, "/").replace(/\/\//g, "/").replace(/:/g, "").replace(/%20/g, " ").replace(/\?.*/g, "");
+            }
+
+        }
+        return !!AMUrl ? AMUrl : false;
+    },
+    changeUrlToS3: function(bodyClone, selector, attribute, type) {
+        if (typeof selector == 'string' && typeof attribute == 'string' && typeof type == 'string') {
+            Array.prototype.forEach.call(bodyClone.querySelectorAll(selector), function(el, ind) {
+                var attr = el.getAttribute(attribute);
+                if (attr.indexOf(window.ClickTaleSettings.PTC.AssetManager.storageUrl) == -1 && attr.indexOf('fonts.googleapis.com') == -1) {
+                    if (attr.indexOf('http') == -1) {
+                        var element = attribute == 'href' ? 'link' : 'img';
+                        var liveElement = document.querySelector(element + '[' + attribute + '="' + attr + '"]');
+                        if (liveElement && liveElement[attribute]) {
+                            attr = liveElement[attribute];
+                        }
+                    }
+                    var finalAssetURL = window.ClickTaleSettings.PTC.AssetManager.getFullURL(type, attr);
+                    el.setAttribute(attribute, finalAssetURL);
+                    if (finalAssetURL.indexOf('CTAMREDUCED') > -1) {
+                        el.setAttribute('data-ctam', attr);
+                    }
+                }
+            });
+        }
+    },
+    makeChanges: function(bodyClone) {
+        if (this.pid && this.subscriberId) {
+
+            window.ClickTaleSettings.PTC.AssetManager.changeUrlToS3(bodyClone, 'ctdep-link[href][rel*="stylesheet"]', 'href', 'CSS');
+            if (this.isNeedForImg) {
+                window.ClickTaleSettings.PTC.AssetManager.changeUrlToS3(bodyClone, 'ctdep-img[src]', 'src', 'IMAGE');
+            }
+
+        }
+    }
+};
+
+
+
+ClickTaleSettings.PTC.textRegex = /\w|[^\x00-\x7F]/g;
+ClickTaleSettings.PTC.emptyEls = {
+    "area": true,
+    "base": true,
+    "br": true,
+    "col": true,
+    "command": true,
+    "embed": true,
+    "hr": true,
+    "input": true,
+    "keygen": true,
+    "link": true,
+    "menuitem": true,
+    "meta": true,
+    "param": true,
+    "source": true,
+    "track": true,
+    "wbr": true,
+    "img": true
+}
+
+ClickTaleSettings.PTC.cloneNodeIE9 = function (node, norules) {
+    var unneededNodes = {
+        '#document-fragment': true,
+        'html': true
+    }
+
+    /**
+     * 
+     * @param {!Array} arr
+     * @returns {Array}
+     */
+    function flattenDeep(arr) {
+        return arr.reduce(function (acc, val) { return Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val) }, []);
+    }
+
+
+    /**
+     *      
+     * @param {(DocumentOrShadowRoot)=} startNode
+     * @param {boolean=} includeDocument
+     * @returns {Array.<DocumentOrShadowRoot>}
+     */
+    function getAllHosts(startNode, includeDocument) {
+        if (Element.prototype.attachShadow && Array.prototype.flatMap) {
+            startNode = startNode || document.body;
+            var roots = Array.prototype.filter.call(startNode.querySelectorAll('*'), function (el) { return el.shadowRoot }).map(function (el) { return el.shadowRoot });
+
+            roots = roots.concat(roots.flatMap(function (el) {
+                return getAllHosts(el);
+            }));
+            if (includeDocument && startNode == document.body) {
+                roots.push(document);
+            }
+            return roots;
+        }
+        return [document];
+    }
+
+    /**
+     * 
+     * @param {!string} selector
+     * @param {!Array.<DocumentOrShadowRoot>} hosts
+     * @returns {Array.<HTMLElement>}
+     */
+    function seepRulesThroughShadowRoots(selector, hosts) {
+        return flattenDeep(hosts.map(function (host) {
+            return Array.prototype.slice.call(host.querySelectorAll(selector));
+        }));
+    }
+
+    if (!norules) {
+        var RulesObj = ClickTaleSettings.PTC.RulesObj;
+        var hosts = getAllHosts(undefined, true);
+        for (var i = 0; i < RulesObj.length; i++) {
+            var rewriteApirule = RulesObj[i]['rewriteApi'];
+            var rewriteApilocation = rewriteApirule['location'];
+            if (!rewriteApirule || (rewriteApilocation && document.location[rewriteApilocation['prop']].toLowerCase().search(rewriteApilocation.search) === -1)) {
+                continue;
+            }
+            var elements = seepRulesThroughShadowRoots(RulesObj[i]['selector'], hosts);
+
+            Array.prototype.forEach.call(elements, function (el, ind) {
+                el.ClickTaleDep = el.ClickTaleDep || {};
+                el.ClickTaleDep.Attributes = /** @type {!Array.<string>} **/(el.ClickTaleDep.Attributes || []);
+                var attributesArr;
+                if (attributesArr = rewriteApirule.Attributes) {
+                    Array.prototype.push.apply(el.ClickTaleDep.Attributes, attributesArr)
+                }
+
+                if (rewriteApirule.Text) {
+                    el.ClickTaleDep.Text = true;
+                }
+            });
+        }
+        var RulesObjRemoveEls = ClickTaleSettings.PTC.RulesObjRemoveEls;
+        if (RulesObjRemoveEls) {
+            for (var i = 0; i < RulesObjRemoveEls.length; i++) {
+                var removeRule = RulesObjRemoveEls[i];
+                var removeRuleLovation = removeRule['location']
+                if (!removeRule || (removeRuleLovation && document.location[removeRuleLovation['prop']].toLowerCase().search(removeRuleLovation.search) === -1)) {
+                    continue;
+                }
+                if (removeRule.rewriteApi) {
+                    var elementsToRemove = seepRulesThroughShadowRoots(removeRule.rewriteApi, hosts);
+                    Array.prototype.forEach.call(elementsToRemove, function (el, ind) {
+                        el.ClickTaleDep = el.ClickTaleDep || {};
+                        el.ClickTaleDep.remove = true;
+                    });
+                }
+                if (RulesObjRemoveEls[i].rewriteApiReplace) {
+                    var elementsToReplace = seepRulesThroughShadowRoots(RulesObjRemoveEls[i].rewriteApiReplace, hosts);
+                    Array.prototype.forEach.call(elementsToReplace, function (el, ind) {
+                        el.ClickTaleDep = el.ClickTaleDep || {};
+                        el.ClickTaleDep.replace = true;
+                    });
+                }
+            }
+        }
+
+    }
+    /**
+     * Escape Quotes
+     * @param {!Object} depObj
+     * @param {!string} name
+     * @param {!string} value
+     * @return {!string} 
+     */
+    function escapeValue(depObj, name, value) {
+        if (depObj.AssetMan && depObj.AssetMan[name]) {
+            value = depObj.AssetMan[name];
+        }
+        else if (depObj.Attributes && depObj.Attributes.indexOf(name) != -1) {
+            value = replaceStr(value);
+        }
+        return name + '="' + value.replace(/"/g, '&quot;') + '"';
+    }
+
+
+    /**
+      * Replace PII     
+      * @param {!string} value
+      * @return {!string} 
+      */
+    function replaceStr(value) {
+        return value.replace(ClickTaleSettings.PTC.textRegex, '-');
+    }
+    /**
+     * @param {!Node} node
+     * @returns {!string}
+     */
+    function doClone(node) {
+        var clone = '';
+        var ClickTaleDep = node.ClickTaleDep || {};
+        if (ClickTaleDep.remove) {
+            return '';
+        }
+        else if (ClickTaleDep.replace) {
+            return '<!-- node replaced ' + node.outerHTML.replace(/<!--/g, '&lt;!--').replace(/-->/g, '--&gt;') + '-->';
+        }
+
+        var nodeName = node.nodeName.toLowerCase();
+        if (nodeName === 'script') {
+            return '<script><\/script>';
+        }
+        if (nodeName === 'dom-if') {
+            return '';
+        }
+        if (nodeName === 'style' && node.hasAttribute('data-styled-components') && node.textContent.trim() === '') {
+            var styleTextToReturn = '';
+            if (node.sheet && node.sheet.cssRules) {
+                Array.prototype.forEach.call(node.sheet.cssRules, function (rule) {
+                    if (rule.cssText) {
+                        styleTextToReturn += ('\r\n' + rule.cssText);
+                    }
+                });
+            }
+            return '<style data-styled-components="">' + styleTextToReturn + '<\/style>';
+        }
+        if (!unneededNodes[nodeName]) {
+            clone += ('<' + nodeName);
+            var attributes = node.attributes;
+            for (var i = 0, length = attributes.length; i < length; i++) {
+                var attr = attributes[i];
+                clone += (' ' + escapeValue(ClickTaleDep, attr.nodeName, attr.nodeValue));
+            }
+        }
+        if (ClickTaleSettings.PTC.emptyEls[nodeName]) {
+            clone += ' \/>';
+        }
+        else {
+            if (!unneededNodes[nodeName]) {
+                clone += '>';
+            }
+            if (node.shadowRoot) {
+                clone += ('<shadow-root>');
+                clone += doClone(node.shadowRoot);
+                clone += ('<\/shadow-root>');
+            }
+            var child = node.firstChild;
+            while (child) {
+                var nodeType = child.nodeType;
+                switch (nodeType) {
+                    case 3:
+                        var nodeValue = child.nodeValue;
+                        clone += ClickTaleDep.Text ? replaceStr(nodeValue) : nodeValue;
+                        break;
+                    case 8:
+                        clone += '<!--' + child.nodeValue + '-->';
+                        break;
+                    default:
+                        clone += doClone(child);
+                }
+
+                child = child.nextSibling;
+            }
+            if (!unneededNodes[nodeName]) {
+                clone += '<\/' + nodeName + '>';
+            }
+        }
+
+
+        return clone;
+
+    }
+    return doClone(node);
+}
+
+
+
+window.ClickTaleSettings.PTC.ConfigChangeMonitor = function () {
+
+    if (window.ClickTaleSettings.PTC.EnableChangeMonitor) {
+
+        var a = document.createElement("script"),
+            s = document.getElementsByTagName("script")[0];
+        a.async = true;
+        a.crossOrigin = "anonymous";
+        a.type = "text/javascript";
+        a.src = "https://cdnssl.clicktale.net/www/ChangeMonitor-latest.js";
+        s.parentNode.insertBefore(a, s);
+
+        window.ClickTaleSettings.ChangeMonitor = {
+            Enable: true,
+            LiveExclude: true,
+            AddressingMode: "id",
+            OnReadyHandler: function (changeMonitor) {
+                changeMonitor.observe();
+                if (typeof window.ClickTaleCMSelector === 'string' && window.ClickTaleCMSelector != '') {
+                    changeMonitor.exclude({
+                        selector: window.ClickTaleCMSelector,
+                        multiple: true
+                    });
+                }
+
+                var CMRemrule = window.ClickTaleSettings.PTC.RulesObjRemoveEls;
+                if (CMRemrule) {
+                    for (var i = 0; i < CMRemrule.length; i++) {
+                        var rule = CMRemrule[i];
+                        var CMlocation = rule['location'];
+                        if ((!CMlocation || (CMlocation && document.location[CMlocation['prop']].toLowerCase().search(CMlocation.search) != -1))) {
+                            if (rule.changeMon) {
+                                changeMonitor.exclude(rule.changeMon);
+                            }
+                            if (rule.changeMonLive) {
+                                changeMonitor.exclude({
+                                    selector: rule.changeMonLive,
+                                    multiple: true
+                                });
+                            }
+                        }
+                    }
+                }
+            },
+            OnBeforeReadyHandler: function (settings) {
+                settings.Enable = window.ClickTaleGetUID ? !!ClickTaleGetUID() : false;
+                return settings;
+            },
+            Filters: {
+                MaxBufferSize: 1000000,
+                MaxElementCount: 10000
+            },
+            PII: {
+                Text: [],
+                Attributes: []
+            }
+        }
+
+        window.ClickTaleSettings.ChangeMonitor.AutoExclude = {
+            Enable: true,
+            Repeats: 10,
+            Interval: 200
+        };
+
+        var RulesObj = window.ClickTaleSettings.PTC.RulesObj;
+        if (RulesObj) {
+            window.ClickTaleSettings.ChangeMonitor.PII.Text = window.ClickTaleSettings.ChangeMonitor.PII.Text || [];
+            window.ClickTaleSettings.ChangeMonitor.PII.Attributes = window.ClickTaleSettings.ChangeMonitor.PII.Attributes || [];
+            for (var i = 0; i < RulesObj.length; i++) {
+                var CMrule = RulesObj[i]['changeMon'];
+                var CMlocation = RulesObj[i]['location'];
+                if (!CMrule || (CMlocation && document.location[CMlocation['prop']].toLowerCase().search(CMlocation.search) === -1)) {
+                    continue;
+                }
+                var selector = RulesObj[i]['selector'];
+                var attributesArr = CMrule.Attributes;
+                if (attributesArr instanceof Array) {
+                    window.ClickTaleSettings.ChangeMonitor.PII.Attributes.push({
+                        selector: selector,
+                        transform: (function (attributesArr) {
+                            return function (el) {
+                                var attrs = el.attributes;
+                                var attrsToReturn = {}
+                                for (var i = 0; i < attrs.length; i++) {
+                                    var name = attrs[i].nodeName;
+                                    attrsToReturn[name] = attrs[i].nodeValue;
+                                }
+                                for (var u = 0; u < attributesArr.length; u++) {
+                                    var attr = attributesArr[u];
+                                    var attrib = el.getAttribute(attr);
+                                    if (typeof attrib === 'string') {
+                                        attrsToReturn[attr] = attrib.replace(window.ClickTaleSettings.PTC.textRegex, '-');
+                                    }
+                                }
+
+                                return attrsToReturn;
+                            }
+                        })(attributesArr)
+                    });
+                }
+                if (CMrule.Text) {
+                    window.ClickTaleSettings.ChangeMonitor.PII.Text.push({
+                        selector: [selector, function (elements) {
+                            var els = Array.prototype.reduce.call(elements, function (curr, add) {
+                                return curr.concat(Array.prototype.slice.call(add.childNodes));
+                            }, []) || [];
+                            return Array.prototype.filter.call(els, function (child) {
+                                return !!(child && child.nodeType === 3);
+                            });
+                        }],
+                        transform: function (el) {
+                            return el.textContent.replace(window.ClickTaleSettings.PTC.textRegex, '-');
+                        }
+                    });
+                }
+            }
+        }
+    }
+};
+
+window.ClickTaleSettings.Compression = {
+    Method: function() {
+        return "deflate";
+    }
+};
+
+window.ClickTaleSettings.Transport = {
+    Legacy: false,
+    MaxConcurrentRequests: 5
+};
+
+window.ClickTaleSettings.RewriteRules = {
+    OnBeforeRewrite: function (rewriteApi) {
+        if (window.ClickTaleSettings.PTC.RulesObj) {
+            rewriteApi.add(function (buffer) {
+                if (ClickTaleSettings.PTC.AssetManager &&
+                    ClickTaleSettings.PTC.AssetManager.isActive &&
+                    typeof ClickTaleSettings.PTC.AssetManager.makeChanges == 'function') {
+                    ClickTaleSettings.PTC.AssetManager.makeChanges(document);
+                }
+                return ClickTaleSettings.PTC.cloneNodeIE9(document.documentElement);
+            });
+        }
+        rewriteApi.add({
+            pattern: /(<head[^>]*>)/i,
+            replace: '$1<script type="text\/javascript" class="cm-ignore" src="https:\/\/cdnssl.clicktale.net\/www\/tc\/jquery.min.js"><\/script>'
+        });
+    }
+};
+
+window.ClickTaleSettings.PTC.doOnlyWhen = function(toDoHandler, toCheckHandler, interval, times, failHandler) {
+    if ((!toDoHandler) || (!toCheckHandler)) return;
+    if (typeof interval == "undefined") interval = 100;
+    if (typeof times == "undefined") times = 10;
+    if (--times < 0) {
+        if (typeof failHandler === 'function') {
+            failHandler();
+        }
+        return;
+    }
+    if (toCheckHandler()) {
+        toDoHandler();
+        return;
+    }
+    setTimeout(function() {
+        window.ClickTaleSettings.PTC.doOnlyWhen(toDoHandler, toCheckHandler, interval, times, failHandler);
+    }, interval);
+};
+
+function ClickTaleOnRecording() {
+
+    //Cross-Domain Tracking Start
+    if (document.getElementById("clicktaleCrossDomain")) {
+        var pass_data = {
+            'uid': ClickTaleGetUID(),
+            'cookie': ClickTaleUIDCookieName,
+            'origin': document.location.origin
+        };
+        var ct_ifrm = document.getElementById("clicktaleCrossDomain").contentWindow
+        ct_ifrm.postMessage(pass_data, "*");
+    }
+    //Cross-Domain Tracking End
+
+    //Qualtrics Integration Start
+    var intToken = "83f3819f8cd2d8a10a60ac6edff4ada0e05b864b";
+    var PID = ClickTaleGetPID();
+    var UID = ClickTaleGetUID();
+    var SID = ClickTaleGetSID();
+
+    if (document.location.host.indexOf("qualtrics.com") > -1) {
+        function clickTaleQTIntegration() {
+            var fullSessionLink = "https://subs.app.clicktale.com/IntegrationEntry.ashx?Type=Playback&IntegrationToken=" + intToken + "&PID=" + PID + "&UID=" + UID + "&SID=" + SID;
+            var specificLink = "https://dmz01.app.clicktale.com/Player.aspx?PID=" + PID + "&UID=" + UID + "&SID=" + SID;
+            Qualtrics.SurveyEngine.setEmbeddedData("ClicktaleFullSession", fullSessionLink);
+            Qualtrics.SurveyEngine.setEmbeddedData("ClicktaleSpecificRecording", specificLink);
+            if (window.Page && typeof Page === "object" && typeof Page.getSessionId === "function") {
+                var str = Page.getSessionId();
+                if (str != null) {
+                    ClickTaleEvent("Qualtrics SID : " + str.replace("FS_", ""));
+                }
+            }
+            ClickTaleEventTrigger("@ET@ Qualtrics Survey Accepted");
+        };
+
+        function clickTaleCheckIfQTExists() {
+            if (window.Qualtrics && typeof Qualtrics === "object" && typeof Qualtrics.SurveyEngine === "object" && typeof Qualtrics.SurveyEngine.setEmbeddedData === "function") {
+                return true;
+            }
+            return false;
+        };
+
+        window.ClickTaleSettings.PTC.doOnlyWhen(clickTaleQTIntegration, clickTaleCheckIfQTExists, 100, 100);
+    }
+    //Qualtrics Integration End
+}
+
+//Integrations
+window.ClickTaleSettings.PTC.Integrations = [
+    "Qualtrics | Core",
+    "Optimizely | Core",
+    "Optimizely | CEC"
+];
+
+// End of user-defined pre WR code
+
+
+var isHttps = document.location.protocol == 'https:',
+	scriptSource = window.ClickTaleScriptSource,
+	pccSource = scriptSource;
+
+if (!scriptSource) {
+	window.ClickTaleScriptSource = isHttps ? 'https://cdnssl.clicktale.net/www/' : 'http://cdn.clicktale.net/www/';
+}
+
+ClickTaleGlobal.init.monitorScriptName = "Monitor-latest.js";
+ClickTaleGlobal.init.isAllowed && typeof ClickTaleGlobal.init.pmc === "function" && ClickTaleGlobal.init.pmc(autoMonitorConfig);
+
+if(!ClickTaleGlobal.init.pccRequested) {
+	var pccSrc = pccSource ? pccSource + '3d60bbfe-3fa3-45c4-9332-cc1534d3e4bd.js?DeploymentConfigName=Release_20190602&Version=3' : (isHttps ? 'https://cdnssl.clicktale.net/www/pcc/3d60bbfe-3fa3-45c4-9332-cc1534d3e4bd.js?DeploymentConfigName=Release_20190602&Version=3' : 'http://cdn.clicktale.net/www/pcc/3d60bbfe-3fa3-45c4-9332-cc1534d3e4bd.js?DeploymentConfigName=Release_20190602&Version=3');
+		var pccScriptElement = ClickTaleCreateDOMElement('script');
+	pccScriptElement.type = "text/javascript";
+	pccScriptElement.crossOrigin = "anonymous";
+	pccScriptElement.src = pccSrc;
+	ClickTaleGlobal.init.isAllowed && document.body.appendChild(pccScriptElement);
+		ClickTaleGlobal.init.pccRequested = true;
+}
+	window.ClickTaleGlobal.PCCExists = true;
+	
+window.ClickTalePrevOnReady = typeof window.ClickTaleOnReady == 'function' ? window.ClickTaleOnReady : void 0;
+
+window.ClickTaleOnReady = function() {
+	var PID=53368, 
+		Ratio=0.22, 
+		PartitionPrefix="www",
+		SubsId=233037;
+	
+	if (window.navigator && window.navigator.loadPurpose === "preview") {
+       return;
+	};
+		
+	
+	// Start of user-defined header code (PreInitialize)
+	//Cross Domain Tracking Start
+function clickTaleCDStartRecorder() {
+
+    //Cross Domain Tracking Start
+    if (window.ClickTaleSettings.PTC.CrossDomainUID) {
+        ClickTaleSetUID(window.ClickTaleSettings.PTC.CrossDomainUID);
+    };
+    //Cross Domain Tracking End
+
+    if (typeof ClickTaleSetAllSensitive === "function") {
+        ClickTaleSetAllSensitive();
+    };
+
+    window.ClickTaleSettings.PTC.InitFuncs = window.ClickTaleSettings.PTC.InitFuncs || [];
+    window.ClickTaleSettings.PTC.InitFuncs.push(function() {
+        var pcc = document.querySelector('script[src*="clicktale"][src*="pcc"]');
+        if (pcc) {
+            var versionmatch = pcc.src.match(/DeploymentConfigName=(.+)/i);
+            if (versionmatch && typeof ClickTaleExec === 'function') {
+                ClickTaleExec("console.info('" + versionmatch[0] + "');");
+                ClickTaleEvent("Config: " + versionmatch[1].replace(/\&.+/, ''));
+            }
+        }
+    });
+
+    function doUpload() {
+        if (typeof ClickTaleUploadPageNow === 'function' && ClickTaleIsRecording()) {
+            ClickTaleUploadPageNow();
+            window.ClickTaleSettings.PTC.UploadPageHappened = true;
+        };
+    };
+
+    function isReadyToRecord() {
+        if (typeof ClickTaleUploadPageNow === 'function' && ClickTaleIsRecording()) {
+            if (document.body.childNodes.length<3){
+                return false;
+            }
+            if (document.location.href.toLowerCase().indexOf("revieworder") > -1) {
+                return document.querySelectorAll("#reviewOrderContent .spinner").length == 0;
+            }
+            if (document.location.pathname == "/"){
+                if (document.getElementById("main-layout-content")) {
+                    return true;
+                }
+                return false;
+            }
+            return (!!document.querySelector('#header-cart'));
+        }
+        return false;
+    };
+
+    ClickTaleDelayUploadPage();
+
+    //AB Test Integration Timeout
+    setTimeout(function() {
+        window.ClickTaleSettings.PTC.doOnlyWhen(doUpload, isReadyToRecord, 100, 10, doUpload);
+    }, 1000);
+
+    var initFuncs = window.ClickTaleSettings.PTC.InitFuncs;
+    for (var i = 0, initLen = initFuncs.length; i < initLen; i++) {
+        if (typeof initFuncs[i] === 'function') {
+            initFuncs[i]();
+        }
+    }
+
+    //Cross Domain Tracking Start
+    ClickTale(PID, Ratio, PartitionPrefix, SubsId);
+    return;
+    //Cross Domain Tracking End
+}
+
+//Cross Domain Tracking Start
+if (!window.ClickTaleSettings.PTC.StartRecordingNow) {
+    function clickTaleCDWaitForID() {
+
+        if (typeof clickTaleCDStartRecorder === "function") {
+            if (window.ClickTaleSettings.PTC.StartRecordingNow) {
+                return true;
+            } else if (window.ClickTaleSettings.PTC.CrossDomainUID) {
+                return true;
+            }
+        }
+        return false;
+    }
+    window.ClickTaleSettings.PTC.doOnlyWhen(clickTaleCDStartRecorder, clickTaleCDWaitForID, 1, 1000, clickTaleCDStartRecorder);
+} else {
+    clickTaleCDStartRecorder();
+}
+//Cross Domain Tracking End
+
+	// End of user-defined header code (PreInitialize)
+    
+	
+	window.ClickTaleIncludedOnDOMReady=true;
+	
+	ClickTaleGlobal.init.isAllowed && ClickTale(PID, Ratio, PartitionPrefix, SubsId);
+	
+	if((typeof ClickTalePrevOnReady == 'function') && (ClickTaleOnReady.toString() != ClickTalePrevOnReady.toString()))
+	{
+    	ClickTalePrevOnReady();
+	}
+	
+	
+	// Start of user-defined footer code
+	
+	// End of user-defined footer code
+	
+}; 
+(function() {
+	var div = ClickTaleCreateDOMElement("div");
+	div.id = "ClickTaleDiv";
+	div.style.display = "none";
+	document.body.appendChild(div);
+
+	
+	
+	var wrScript = ClickTaleCreateDOMElement("script");
+	wrScript.crossOrigin = "anonymous";	
+	wrScript.src = window.ClickTaleScriptSource + 'WR-latest.js';
+	wrScript.type = 'text/javascript';
+		wrScript.async = true;
+		ClickTaleGlobal.init.isAllowed && document.body.appendChild(wrScript);
+})();
+
+
+
+
+
+var ctVEconfig={VE_BASE_URL:"https://ve-cec-na1.app.clicktale.com/",VE_PROXY_BASE_URL:"https://vep-cec-na1.app.clicktale.com/"};!function(){try{var e=window.chrome,t=window.navigator&&window.navigator.vendor;null!=e&&"Google Inc."===t&&window.addEventListener&&addEventListener("message",o,!1);var n=window.location.search.substring(window.location.search.indexOf("ctAdvancedSearch=")).split("&")[0].split("=");"ctAdvancedSearch"==n[0]&&"true"==n[1]&&c("ctAdvancedSearchModule",ctVEconfig.VE_BASE_URL+"client/dist/advancedSearchModule.js")}catch(e){}function o(e){var t;try{t=JSON.parse(e.data)}catch(e){return}!1!==new RegExp("(app[.]clicktale[.]com)($|:)").test(e.origin)&&(window.ct_ve_parent_window=e.source,"CT_testRules"==t.name&&(sessionStorage.setItem("CT_testRules",!0),console.log((new Date).toJSON(),"PostPTC: testRules ",sessionStorage.getItem("CT_testRules")),window.ct_ve_parent_window.postMessage({name:"testRulesRecieved",params:{}},"*")),"CTload_ve"===t.function&&"function"==typeof ClickTaleGetPID&&null!==ClickTaleGetPID()&&(function(){console.log((new Date).toJSON(),"PostPTC: start loading test rules");var e=ClickTaleGetPID();c("ctTestRulesModule",ctVEconfig.VE_BASE_URL+"rulesEngineContent/TestPCC/"+e,function(){sessionStorage.setItem("CT_testRules_Loaded",!0),console.log((new Date).toJSON(),"PostPTC: test rules loaded")})}(),c("ctVisualEditorClientModule",ctVEconfig.VE_BASE_URL+"client/dist/veClientModule.js")))}function c(e,t,n){var o=function(e){return document.createElementNS?document.createElementNS("http://www.w3.org/1999/xhtml",e):document.createElement(e)}("script");o.setAttribute("type","text/javascript"),o.setAttribute("id",e),o.src=t,void 0!==n&&(o.onload=n),document.getElementById(e)||document.body.appendChild(o)}}();</script><iframe id="clicktaleCrossDomain" class="hidden" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/crossdomain.htm" async="true" style="display:none" aria-hidden="true" tabindex="-1" title="empty" width="0" height="0" frameborder="0"></iframe><script src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/monitor-latest.js" async="" type="text/javascript" crossorigin="anonymous"></script><script type="text/javascript" crossorigin="anonymous" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/3d60bbfe-3fa3-45c4-9332-cc1534d3e4bd.js"></script><div id="ClickTaleDiv" style="display: none;"><script async="" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/WR1027b.js"></script></div><script crossorigin="anonymous" src="I2C%20Master%20(VHDL)%20-%20Logic%20-%20eewiki_files/WR-latest.js" type="text/javascript" async=""></script></body></html>
