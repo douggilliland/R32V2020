@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Tue Jul 09 10:40:39 2019
+Tue Jul 09 13:19:00 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,14 +40,14 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Tue Jul 09 10:40:35 2019       ;
+; Flow Status                        ; Successful - Tue Jul 09 13:18:56 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE10E22C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,491 / 10,320 ( 44 % )                     ;
+; Total logic elements               ; 4,493 / 10,320 ( 44 % )                     ;
 ;     Total combinational functions  ; 4,308 / 10,320 ( 42 % )                     ;
 ;     Dedicated logic registers      ; 1,446 / 10,320 ( 14 % )                     ;
 ; Total registers                    ; 1446                                        ;
@@ -109,7 +109,13 @@ refer to the applicable agreement for further details.
 ; Fitter               ; 00:00:12     ; 1.1                     ; 5569 MB             ; 00:00:18                           ;
 ; Assembler            ; 00:00:02     ; 1.0                     ; 4707 MB             ; 00:00:01                           ;
 ; Timing Analyzer      ; 00:00:03     ; 1.2                     ; 4831 MB             ; 00:00:04                           ;
-; Total                ; 00:00:59     ; --                      ; --                  ; 00:01:28                           ;
+; Fitter               ; 00:00:12     ; 1.1                     ; 5571 MB             ; 00:00:17                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4706 MB             ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:03     ; 1.2                     ; 4831 MB             ; 00:00:04                           ;
+; Fitter               ; 00:00:12     ; 1.1                     ; 5574 MB             ; 00:00:18                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4706 MB             ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:03     ; 1.2                     ; 4831 MB             ; 00:00:04                           ;
+; Total                ; 00:01:33     ; --                      ; --                  ; 00:02:13                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -122,6 +128,12 @@ refer to the applicable agreement for further details.
 ; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -130,6 +142,12 @@ refer to the applicable agreement for further details.
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
+quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
+quartus_sta R32V2020 -c R32V2020
+quartus_fit --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
+quartus_sta R32V2020 -c R32V2020
+quartus_fit --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
 
