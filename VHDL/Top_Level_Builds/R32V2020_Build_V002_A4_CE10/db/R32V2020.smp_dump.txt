@@ -42,3 +42,15 @@ escState.none 0 0 0 0
 escState.waitForLeftBracket 0 0 1 1 
 escState.processingParams 0 1 0 1 
 escState.processingAdditionalParams 1 0 0 1 
+
+State Machine - |top|PeripheralInterface:Peripherals|i2c_master:i2cIF|state
+Name state.stop state.mstr_ack state.slv_ack2 state.rd state.wr state.slv_ack1 state.command state.start state.ready 
+state.ready 0 0 0 0 0 0 0 0 0 
+state.start 0 0 0 0 0 0 0 1 1 
+state.command 0 0 0 0 0 0 1 0 1 
+state.slv_ack1 0 0 0 0 0 1 0 0 1 
+state.wr 0 0 0 0 1 0 0 0 1 
+state.rd 0 0 0 1 0 0 0 0 1 
+state.slv_ack2 0 0 1 0 0 0 0 0 1 
+state.mstr_ack 0 1 0 0 0 0 0 0 1 
+state.stop 1 0 0 0 0 0 0 0 1 

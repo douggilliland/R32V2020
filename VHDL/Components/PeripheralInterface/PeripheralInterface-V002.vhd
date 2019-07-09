@@ -83,6 +83,8 @@ architecture struct of PeripheralInterface is
 
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
 	signal w_BUZZER				: 	std_logic := '0';
+	signal w_i2c_busy				: 	std_logic := '0';
+	signal w_i2c_ack_err			: 	std_logic := '0';
 	
 --	signal o_VideoOut 			:	std_logic_vector(4 downto 0);
 
@@ -120,17 +122,33 @@ begin
 	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- I2C Address
 	
 	o_dataFromPeripherals <=
-		x"000000"		& w_ANSI_DispRamDataOutA 	when	ANSI_DisplayCS = '1' else
-		q_kbReadData	 									when	w_kbDatCS		= '1' else
-		w_kbdStatus											when	w_kbStatCS		= '1' else 
-		x"000000"		& w_aciaData 					when	w_aciaCS 		= '1' else
-		x"00000"&'0'	& i_DIP_switch & i_switch 	when	w_SwitchesCS 	= '1' else
-		x"000000"		& w_LatData						when	w_LEDsCS 		= '1' else
-		o_dataFromTimers									when	w_TimersCS		= '1' else
-		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
-		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
+		x"000000"		& w_ANSI_DispRamDataOutA 			when	ANSI_DisplayCS = '1' else
+		q_kbReadData	 											when	w_kbDatCS		= '1' else
+		w_kbdStatus													when	w_kbStatCS		= '1' else 
+		x"000000"		& w_aciaData 							when	w_aciaCS 		= '1' else
+		x"00000"&'0'	& i_DIP_switch & i_switch 			when	w_SwitchesCS 	= '1' else
+		x"000000"		& w_LatData								when	w_LEDsCS 		= '1' else
+		o_dataFromTimers											when	w_TimersCS		= '1' else
+		x"000"&'0' 		& w_NoteData							when	w_NoteCS 		= '1' else
+		x"000000"		& o_i2cData			 					when	((w_I2CCS = '1') and (i_peripheralAddress(8) = '0')) else
+		x"0000000" & "00"	& w_i2c_ack_err & w_i2c_busy 	when	((w_I2CCS = '1') and (i_peripheralAddress(8) = '1')) else
 		x"FFFFFFFF";
 
+	i2cIF	: entity work.i2c_master
+	port map (
+		clk			=> i_CLOCK_50,										-- system clock
+		reset_n		=> n_reset,											-- active low reset
+		ena			=> i_peripheralAddress(7),						-- latch in command
+		addr 			=> i_peripheralAddress(6 downto 0),			-- address of target slave
+		rw				=> w_I2CCS and not i_peripheralWrStrobe,	-- '0' is write, '1' is read
+		data_wr   	=> i_dataToPeripherals(7 downto 0),			-- data to write to slave
+		busy      	=> w_i2c_busy,         							-- indicates transaction in progress
+		data_rd   	=> o_i2cData, 										-- data read from slave
+		ack_error 	=> w_i2c_ack_err,   								-- flag if improper acknowledge from slave
+		sda       	=> io_I2C_SDA,                    			-- serial data output of i2c bus
+		scl       	=> io_I2C_SCK                   				-- serial clock output of i2c bus
+	);
+	
 	o_VideoOut <= (w_Video(5) or w_Video(4)) & (w_Video(3) or w_Video(2)) & (w_Video(1) or w_Video(0));
 	SVGA : entity work.ANSIDisplayVGA
 		port map (
@@ -151,35 +169,6 @@ begin
 			hSync  			=> o_hSync,
 			vSync  			=> o_vSync
 			);
-	
-	-- I2C code uses 400 KHz enable signal
-	-- The enable signal is one clock wide pulse of the 50 MHz clock
-    process(i_CLOCK_50)
-    begin
-		if rising_edge(i_CLOCK_50) then
-			if w_4x_I2C_Count = 124 then
-				w_4x_I2C_Count <= "0000000";
-				i2c_400KHz <= '0';
-			else
-				w_4x_I2C_Count <= w_4x_I2C_Count + 1;
-				i2c_400KHz <= '1';
-			end if;
-		end if;
-    end process;	
-	
-	i2cIF	: entity work.i2c
-	port map (
-		RESET			=> not n_reset,
-		CPU_CLK		=> i_CLOCK_50,
-		I2C_4XCLK	=> i2c_400KHz,
-		ENA			=> '1',
-		ADRSEL		=> i_peripheralAddress(0),
-		DATA_IN		=> i_dataToPeripherals(7 downto 0),
-		DATA_OUT		=> o_i2cData,
-		WR				=> w_I2CCS and i_peripheralWrStrobe,
-		I2C_SCL		=> io_I2C_SCK,
-		I2C_SDA		=> io_I2C_SDA
-	);
 	
 	timers : entity work.Timer_Unit
 	port map (
