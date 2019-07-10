@@ -1,5 +1,6 @@
 -- PeripheralInterface-V002
 -- Controls the peripherals
+-- Uses the ANSI terminal version of the display
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -86,8 +87,6 @@ architecture struct of PeripheralInterface is
 	signal w_i2c_busy				: 	std_logic := '0';
 	signal w_i2c_ack_err			: 	std_logic := '0';
 	
---	signal o_VideoOut 			:	std_logic_vector(4 downto 0);
-
 	-- Address decoder addresses
 	-- Provides for up to 32 "chip selects"
 	-- Address bits 15 down to 11
@@ -136,17 +135,17 @@ begin
 
 	i2cIF	: entity work.i2c_master
 	port map (
-		clk			=> i_CLOCK_50,										-- system clock
-		reset_n		=> n_reset,											-- active low reset
-		ena			=> i_peripheralAddress(7),						-- latch in command
-		addr 			=> i_peripheralAddress(6 downto 0),			-- address of target slave
-		rw				=> w_I2CCS and not i_peripheralWrStrobe,	-- '0' is write, '1' is read
-		data_wr   	=> i_dataToPeripherals(7 downto 0),			-- data to write to slave
-		busy      	=> w_i2c_busy,         							-- indicates transaction in progress
-		data_rd   	=> o_i2cData, 										-- data read from slave
-		ack_error 	=> w_i2c_ack_err,   								-- flag if improper acknowledge from slave
-		sda       	=> io_I2C_SDA,                    			-- serial data output of i2c bus
-		scl       	=> io_I2C_SCK                   				-- serial clock output of i2c bus
+		clk			=> i_CLOCK_50,														-- system clock
+		reset_n		=> n_reset,															-- active low reset
+		ena			=> i_peripheralAddress(7) and i_peripheralWrStrobe,	-- latch in command
+		addr 			=> i_peripheralAddress(6 downto 0),							-- address of target slave
+		rw				=> w_I2CCS and i_peripheralRdStrobe,						-- '0' is write, '1' is read
+		data_wr   	=> i_dataToPeripherals(7 downto 0),							-- data to write to slave
+		data_rd   	=> o_i2cData, 														-- data read from slave
+		busy      	=> w_i2c_busy,         											-- indicates transaction in progress
+		ack_error 	=> w_i2c_ack_err,   												-- flag if improper acknowledge from slave
+		sda       	=> io_I2C_SDA,                    							-- serial data output of i2c bus
+		scl       	=> io_I2C_SCK                   								-- serial clock output of i2c bus
 	);
 	
 	o_VideoOut <= (w_Video(5) or w_Video(4)) & (w_Video(3) or w_Video(2)) & (w_Video(1) or w_Video(0));
