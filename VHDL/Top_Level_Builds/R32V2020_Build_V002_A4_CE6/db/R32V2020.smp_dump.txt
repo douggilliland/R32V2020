@@ -18,15 +18,6 @@ rxState.idle 0 0 0
 rxState.dataBit 0 1 1 
 rxState.stopBit 1 0 1 
 
-State Machine - |top|PeripheralInterface:Peripherals|i2c:i2cIF|state
-Name state.s_done state.s_stop state.s_ack state.s_data state.s_start state.s_idle 
-state.s_idle 0 0 0 0 0 0 
-state.s_start 0 0 0 0 1 1 
-state.s_data 0 0 0 1 0 1 
-state.s_ack 0 0 1 0 0 1 
-state.s_stop 0 1 0 0 0 1 
-state.s_done 1 0 0 0 0 1 
-
 State Machine - |top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|dispState
 Name dispState.del3 dispState.del2 dispState.deleteLine dispState.ins3 dispState.ins2 dispState.insertLine dispState.clearC2 dispState.clearChar dispState.clearS2 dispState.clearScreen dispState.clearL2 dispState.clearLine dispState.dispNextLoc dispState.dispWrite dispState.idle 
 dispState.idle 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -51,3 +42,15 @@ escState.none 0 0 0 0
 escState.waitForLeftBracket 0 0 1 1 
 escState.processingParams 0 1 0 1 
 escState.processingAdditionalParams 1 0 0 1 
+
+State Machine - |top|PeripheralInterface:Peripherals|i2c_master:i2cIF|state
+Name state.stop state.mstr_ack state.slv_ack2 state.rd state.wr state.slv_ack1 state.command state.start state.ready 
+state.ready 0 0 0 0 0 0 0 0 0 
+state.start 0 0 0 0 0 0 0 1 1 
+state.command 0 0 0 0 0 0 1 0 1 
+state.slv_ack1 0 0 0 0 0 1 0 0 1 
+state.wr 0 0 0 0 1 0 0 0 1 
+state.rd 0 0 0 1 0 0 0 0 1 
+state.slv_ack2 0 0 1 0 0 0 0 0 1 
+state.mstr_ack 0 1 0 0 0 0 0 0 1 
+state.stop 1 0 0 0 0 0 0 0 1 
