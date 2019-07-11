@@ -135,10 +135,10 @@ begin
 
 	i2cIF	: entity work.i2c_master
 	port map (
-		clk			=> i_CLOCK_50,														-- system clock
-		reset_n		=> n_reset,															-- active low reset
-		ena			=> i_peripheralAddress(7) and i_peripheralWrStrobe,	-- latch in command
-		addr 			=> i_peripheralAddress(6 downto 0),							-- address of target slave
+		clk			=> i_CLOCK_50,														-- System clock
+		reset_n		=> n_reset,															-- Active low reset
+		ena			=> i_peripheralAddress(7) and i_peripheralWrStrobe,	-- Latch in command
+		addr 			=> i_peripheralAddress(6 downto 0),							-- Address of target slave
 		rw				=> w_I2CCS and i_peripheralRdStrobe,						-- '0' is write, '1' is read
 		data_wr   	=> i_dataToPeripherals(7 downto 0),							-- data to write to slave
 		data_rd   	=> o_i2cData, 														-- data read from slave
