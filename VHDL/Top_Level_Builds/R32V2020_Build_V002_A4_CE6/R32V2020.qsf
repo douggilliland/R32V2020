@@ -121,13 +121,10 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name SMART_RECOMPILE ON
 set_location_assignment PIN_32 -to i_I2C_INT
-set_location_assignment PIN_34 -to io_I2C_SCK
 set_location_assignment PIN_39 -to io_I2C_SDA
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SCK
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SDA
-set_instance_assignment -name SLEW_RATE 2 -to io_I2C_SCK
 set_instance_assignment -name SLEW_RATE 2 -to io_I2C_SDA
-set_global_assignment -name VHDL_FILE ../../Components/I2C/I2C_DIgikey/i2c_master.vhd
+set_global_assignment -name VHDL_FILE ../../Components/I2C/i2c.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/debounce.vhd
@@ -173,4 +170,6 @@ set_global_assignment -name VHDL_FILE ../../Components/Timers/Timer_Unit.vhd
 set_global_assignment -name CDF_FILE "output_files/R32V2020-EEPROM.cdf"
 set_global_assignment -name VHDL_FILE "../../Components/PeripheralInterface/PeripheralInterface-V002.vhd"
 set_global_assignment -name VHDL_FILE ../../Components/TERMINAL/ANSIDisplayVGA.vhd
+set_location_assignment PIN_34 -to io_I2C_SCL
+set_location_assignment PIN_52 -to o_state
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

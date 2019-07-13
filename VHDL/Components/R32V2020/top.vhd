@@ -34,9 +34,10 @@ entity top is
 		-- 8 bit I/O Latch
 		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- I2C Clock and Data
-		io_I2C_SCK			: inout std_logic := '1';
+		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
 		i_I2C_INT			: in std_logic := '0';
+		o_state				: out std_logic;
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -77,8 +78,8 @@ signal	resetLow						: std_logic := '1';
 
 signal	w_Switch						: std_logic_vector(2 downto 0) := "000";
 
-attribute syn_keep: boolean;
-attribute syn_keep of w_Switch: signal is true;
+--attribute syn_keep: boolean;
+--attribute syn_keep of w_Switch: signal is true;
 
 begin
 
@@ -93,7 +94,6 @@ begin
 		i_InstructionRomData		=> w_InstructionRomData,
 		o_InstructionRomAddress	=> w_InstructionRomAddress,
 		o_clkInstrRomAddr			=> w_clkInstrRomAddr,
---		o_clkInstrRomData			=>	w_clkInstrRomData,
 		-- Stack RAM connections
 		o_StackRamAddress			=> w_StackRamAddress,
 		o_dataToStackRam			=> w_dataToStackRam,
@@ -168,9 +168,10 @@ begin
 		o_VideoOut					=> o_VideoVect,
 		o_hSync						=> o_hSync,
 		o_vSync						=> o_vSync,
-		io_I2C_SCK					=> io_I2C_SCK,
+		io_I2C_SCL					=> io_I2C_SCL,
 		io_I2C_SDA					=> io_I2C_SDA,
 		io_I2C_INT					=> i_I2C_INT,
+		o_state						=> o_state,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
 	);

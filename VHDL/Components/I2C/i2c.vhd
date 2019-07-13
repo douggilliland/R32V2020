@@ -27,6 +27,22 @@
 --	bit 7-2	= Reserved
 --	bit 1 	= ERROR 	(I2C transaction error)
 --	bit 0 	= BUSY 	(I2C bus busy)
+--
+-- Example (R32V2020)
+--	; Write 0x22 to IOCON register (not sequential operations)
+--	lix		r8,0x01		; START
+--	bsr		write_I2C_Ctrl_Reg
+--	lix		r8,0x40		; I2C Slave address
+--	bsr		write_I2C_Data_Address_Reg
+--	lix		r8,0x00		; IDLE
+--	bsr		write_I2C_Ctrl_Reg
+--	lix		r8,0x05		; IO control register
+--	bsr		write_I2C_Data_Address_Reg
+--	lix		r8,0x03		; STOP
+--	bsr		write_I2C_Ctrl_Reg	
+--	lix		r8,0x22		; Disable sequential operation
+--	bsr		write_I2C_Data_Address_Reg
+
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -35,126 +51,128 @@ use ieee.std_logic_unsigned.all;
 entity i2c is
 port (
 	-- CPU Interface Signals
-	RESET				: in std_logic;
+	i_RESET			: in std_logic := '0';
 	CPU_CLK			: in std_logic;
-	I2C_4XCLK		: in std_logic;		-- 400KHz (4T = SCL clock frequency 100 kHz)
-	ENA				: in std_logic;
-	ADRSEL			: in std_logic;
-	DATA_IN			: in std_logic_vector(7 downto 0);
-	DATA_OUT			: out std_logic_vector(7 downto 0);
-	WR					: in std_logic;
-	I2C_SCL			: inout std_logic;
-	I2C_SDA			: inout std_logic);
+	i_ENA				: in std_logic := '0';
+	i_ADRSEL			: in std_logic := '0';
+	i_DATA_IN		: in std_logic_vector(7 downto 0);
+	o_DATA_OUT		: out std_logic_vector(7 downto 0);
+	i_WR				: in std_logic := '0';
+	o_state			: out std_logic := '0';
+	io_I2C_SCL		: inout std_logic;
+	io_I2C_SDA		: inout std_logic);
 end i2c;
 
 architecture rtc_arch of i2c is
 
-attribute syn_keep: boolean;
-
 type state_t is (s_idle, s_start, s_data, s_ack, s_stop, s_done);
-signal state 		: state_t;
+signal state 			: state_t;
 
-attribute syn_keep of state: signal is true;
+signal w_data_buf		: std_logic_vector(7 downto 0);
+signal w_go				: std_logic := '0';
+signal w_mode			: std_logic_vector(1 downto 0);
+signal w_shift_reg	: std_logic_vector(7 downto 0);
+signal w_ack			: std_logic := '0';
+signal w_nbit 			: std_logic_vector(2 downto 0);
+signal w_phase 		: std_logic_vector(1 downto 0);
+signal w_scl 			: std_logic := '1';
+signal w_sda 			: std_logic := '1';
+signal w_rw_bit 		: std_logic;
+signal w_rw_flag		: std_logic;
 
-signal data_buf	: std_logic_vector(7 downto 0);
-signal go			: std_logic := '0';
-signal mode			: std_logic_vector(1 downto 0);
-signal shift_reg	: std_logic_vector(7 downto 0);
-signal ack			: std_logic;
-signal nbit 		: std_logic_vector(2 downto 0);
-signal phase 		: std_logic_vector(1 downto 0);
-signal scl 			: std_logic := '1';
-signal sda 			: std_logic := '1';
-signal rw_bit 		: std_logic;
-signal rw_flag		: std_logic;
+-- attribute syn_keep: boolean;
+-- attribute syn_keep of state: signal is true;
 
 begin
+
+o_state <= '1' when (state = s_stop)
+else '0';
 
 -- Load CPU bus into internal registers
-cpu_write : process (CPU_CLK, WR)
+cpu_write : process (CPU_CLK, i_WR, i_ADRSEL)
 begin
 	if rising_edge(CPU_CLK) then
-		if WR = '1' then
-			if ADRSEL = '0' then
-				data_buf <= DATA_IN;
+		if i_WR = '1' then
+			if i_ADRSEL = '0' then
+				w_data_buf <= i_DATA_IN;
 			else
-				mode <= DATA_IN(1 downto 0);
+				w_mode <= i_DATA_IN(1 downto 0);
 			end if;
 		end if;
 	end if;
 end process;
 
 -- Kicks off the write transfer
-process (RESET, CPU_CLK, WR, ADRSEL, state)
+process (i_RESET, CPU_CLK, i_WR, i_ADRSEL, state)
 begin
-	if RESET = '1' or state = s_data then
-		go <= '0';
+	if i_RESET = '1' or state = s_data then
+		w_go <= '0';
 	elsif rising_edge(CPU_CLK) then
-		if WR = '1' and ADRSEL = '0' then
-			go <= '1';
+		if i_WR = '1' and i_ADRSEL = '0' then
+			w_go <= '1';
 		end if;
 	end if;
 end process;
 
 -- Provide data for the CPU to read
-cpu_read : process (ADRSEL, state, shift_reg, ack, go)
+cpu_read : process (i_ADRSEL, state, w_shift_reg, w_ack, w_go)
 begin
-	DATA_OUT(7 downto 2) <= "111111";
-	if ADRSEL = '0' then
-		DATA_OUT <= shift_reg;
+	o_DATA_OUT(7 downto 2) <= "111111";
+	if i_ADRSEL = '0' then
+		o_DATA_OUT <= w_shift_reg;
 	else
-		if (state = s_idle and go = '0') then
-			DATA_OUT(0) <= '0';
+		if (state = s_idle and w_go = '0') then
+			o_DATA_OUT(0) <= '0';
 		else
-			DATA_OUT(0) <= '1';
+			o_DATA_OUT(0) <= '1';
 		end if;
-		DATA_OUT(1) <= ack;
+		o_DATA_OUT(1) <= w_ack;
 	end if;
 end process;
 
---     0123  0123  01230123012301230123012301230123  0123  0123  0123
--- SCL ----  ----  __--__--__--__--__--__--__--__--  __--  ----  ----     
--- SDA ----  --__  _< 7 X 6 X 5 X 4 X 3 X 2 X 1 X 0   >x   x     ----  
---     Reset Start Data/Slave address/Word address   Ack   Stop  Done
-                                                         
+--       0123  0123  01230123012301230123012301230123  0123  0123  0123
+-- w_scl ----  ----  __--__--__--__--__--__--__--__--  __--  ----  ----
+-- w_sda ----  --__  _< 7 X 6 X 5 X 4 X 3 X 2 X 1 X 0   >x   x     ----
+--     i_RESET Start  Data/Slave address/Word address  w_ack Stop  Done
+
 -- I2C transfer state machine
-i2c_proc : process (RESET, I2C_4XCLK, ENA, go)
+i2c_proc : process (i_RESET, CPU_CLK, i_ENA, w_go, w_mode, state, w_phase, w_rw_bit)
 	begin
-		if RESET = '1' then
-			scl <= '1';
-			sda <= '1';
+		if i_RESET = '1' then
+			w_scl <= '1';
+			w_sda <= '1';
 			state <= s_idle;
-			ack <= '0'; -- No error
-			phase <= "00";
+			w_ack <= '0'; -- No error
+			w_phase <= "00";
 	
-		elsif rising_edge(I2C_4XCLK) then
-			if ENA = '1' then
-				phase <= phase + "01"; -- Next phase by default
+		elsif rising_edge(CPU_CLK) then
+			if i_ENA = '1' then
+				w_phase <= w_phase + "01"; -- Next w_phase by default
 	
 				-- STATE: IDLE
 				if state = s_idle then
-					phase <= "00";
-					if go = '1' then
-						shift_reg <= data_buf;
-						nbit <= "000";
-						if mode = "01" then
-							rw_flag	<= data_buf(0);	-- 1= Read; 0= Write
-							rw_bit <= '0';
+					w_phase <= "00";
+					if w_go = '1' then
+						w_shift_reg <= w_data_buf;
+						w_nbit <= "000";
+						if w_mode = "01" then
+							w_rw_flag	<= w_data_buf(0);	-- 1= Read; 0= Write
+							w_rw_bit <= '0';
 							state <= s_start;
 						else
-							rw_bit <= rw_flag;
+							w_rw_bit <= w_rw_flag;
 							state <= s_data;
 						end if;
 					end if;
 					
 				-- STATE: START
 				elsif state = s_start then -- Generate START condition
-					case phase is
+					case w_phase is
 						when "00" =>
-							scl <= '1';
-							sda <= '1';
+							w_scl <= '1';
+							w_sda <= '1';
 						when "10" =>
-							sda <= '0';
+							w_sda <= '0';
 						when "11" =>
 							state <= s_data; -- Advance to next state
 						when others => null;
@@ -162,43 +180,43 @@ i2c_proc : process (RESET, I2C_4XCLK, ENA, go)
 					
 				-- STATE: DATA
 				elsif state = s_data then -- Generate data
-					case phase is
+					case w_phase is
 						when "00" =>
-							scl <= '0'; -- Drop SCL
+							w_scl <= '0'; -- Drop w_scl
 						when "01" =>
-							if rw_bit = '0' then -- Write Data
-								sda <= shift_reg(7); -- Output data and shift (MSb first)
+							if w_rw_bit = '0' then -- Write Data
+								w_sda <= w_shift_reg(7); -- Output data and shift (MSb first)
 							else
-								sda <= '1';
+								w_sda <= '1';
 							end if;
 						when "10" =>
-							scl <= '1'; -- Raise SCL
-							shift_reg <= shift_reg(6 downto 0) & I2C_SDA; -- Input data and shift (MSb first)
+							w_scl <= '1'; -- Raise w_scl
+							w_shift_reg <= w_shift_reg(6 downto 0) & io_I2C_SDA; -- Input data and shift (MSb first)
 						when "11" =>
-							if nbit = "111" then -- Next bit or advance to next state when done
+							if w_nbit = "111" then -- Next bit or advance to next state when done
 								state <= s_ack;
 							else
-								nbit <= nbit + "001";
+								w_nbit <= w_nbit + "001";
 							end if;
 						when others => null;
 					end case;
 								
-				-- STATE: ACK
-				elsif state = s_ack then -- Generate ACK clock and check for error condition
-					case phase is
+				-- STATE: w_ack
+				elsif state = s_ack then -- Generate w_ack clock and check for error condition
+					case w_phase is
 					when "00" =>
-						scl <= '0'; -- Drop SCL
+						w_scl <= '0'; -- Drop w_scl
 					when "01" =>
-						if (rw_bit = '0' or mode = "11") then
-							sda <= '1';
+						if (w_rw_bit = '0' or w_mode = "11") then
+							w_sda <= '1';
 						else
-							sda <= '0';
+							w_sda <= '0';
 						end if;
 					when "10" =>
-						scl <= '1';	-- Raise SCL
-						ack <= I2C_SDA; -- Sample ack bit
+						w_scl <= '1';	-- Raise w_scl
+						w_ack <= io_I2C_SDA; -- Sample w_ack bit
 					when "11" =>
-						if mode(1) = '0' then
+						if w_mode(1) = '0' then
 							state <= s_idle;
 						else
 							state <= s_stop;
@@ -208,17 +226,17 @@ i2c_proc : process (RESET, I2C_4XCLK, ENA, go)
 	
 				-- STATE: STOP
 				elsif state = s_stop then -- Generate STOP condition
-					case phase is
+					case w_phase is
 					when "00" =>
-						scl <= '0';
+						w_scl <= '0';
 					when "01" =>
-						if mode = "11" then
-							sda <= '0';
+						if w_mode = "11" then
+							w_sda <= '0';
 						else
-							sda <= '1';
+							w_sda <= '1';
 						end if;
 					when "10" =>
-						scl <= '1';
+						w_scl <= '1';
 					when "11" =>
 						state <= s_done;
 					when others => null;
@@ -226,9 +244,9 @@ i2c_proc : process (RESET, I2C_4XCLK, ENA, go)
 				
 				-- STATE: DONE	
 				else	
-					scl <= '1';
-					sda <= '1';
-					if phase = "11" then
+					w_scl <= '1';
+					w_sda <= '1';
+					if w_phase = "11" then
 						state <= s_idle;
 					end if;
 				end if;
@@ -237,7 +255,7 @@ i2c_proc : process (RESET, I2C_4XCLK, ENA, go)
 	end process;
 
 	-- Create open-drain outputs for I2C bus
-	I2C_SCL <= '0' when scl = '0' else 'Z';
-	I2C_SDA <= '0' when sda = '0' else 'Z';
+	io_I2C_SCL <= '0' when w_scl = '0' else 'Z';
+	io_I2C_SDA <= '0' when w_sda = '0' else 'Z';
 
 end rtc_arch;

@@ -15,12 +15,12 @@ main:
 	bsr		printString
 	bsr		initDir_I2CIO8
 loopMain:
-	lix		r8,0x01
-	bsr		writeI2CAddrOrData
+	lix		r8,0x055
+	bsr		writeI2CAdrDat_MCP23008
 	lix		r8,500
 	bsr		delay_mS
-	lix		r8,0x02
-	bsr		writeI2CAddrOrData
+	lix		r8,0xAA
+	bsr		writeI2CAdrDat_MCP23008
 	lix		r8,500
 	bsr		delay_mS
 	bra		loopMain
@@ -37,60 +37,51 @@ initDir_I2CIO8:
 	; Write 0x22 to IOCON register (not sequential operations)
 	lix		r8,0x01		; START
 	bsr		write_I2C_Ctrl_Reg
-	lix		r8,0x40
+	lix		r8,0x40		; I2C Slave address
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x02		; nSTART
+	lix		r8,0x00		; IDLE
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x05		; IO control register
 	bsr		write_I2C_Data_Address_Reg
-;	lix		r8,0x02		; nSTART
-;	bsr		write_I2C_Ctrl_Reg	
+	lix		r8,0x03		; STOP
+	bsr		write_I2C_Ctrl_Reg	
 	lix		r8,0x22		; Disable sequential operation
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x03		; STOP
-	bsr		write_I2C_Ctrl_Reg
-	; wait between writes
-	;lix		r8,2		; wait 2 mSec
-	;bsr		delay_mS
-	; Write 0xf0 to IODIR register - d0-d3 = Outputs
+	; Write 0xF0 to Direction Control register
 	lix		r8,0x01		; START
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x40
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x02		; nSTART
+	lix		r8,0x00		; IDLE
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x00		; direction control register
 	bsr		write_I2C_Data_Address_Reg
-;	lix		r8,0x02		; nSTART
-;	bsr		write_I2C_Ctrl_Reg	
-	lix		r8,0xF0		; Inputs and outputs
-	bsr		write_I2C_Data_Address_Reg
 	lix		r8,0x03		; STOP
 	bsr		write_I2C_Ctrl_Reg
+	lix		r8,0xF0		; Input and output bits
+	bsr		write_I2C_Data_Address_Reg
 	pull	r8
 	pull	PC
 
-; writeI2CAddrOrData - Write address to the I2C bus
+; writeI2CAdrDat_MCP23008 - Write address to the I2C bus
 ; Address 0x5800 -> DATA (write/read) or SLAVE ADDRESS (write)  
 ; Address 0x5801 -> Command/Status Register (write/read)
 ; r8 is the value to write
 
-writeI2CAddrOrData:
+writeI2CAdrDat_MCP23008:
 	push	r8
-	lix		r8,0xFD		; START
+	lix		r8,0x01		; START
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0x40
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x02		; nSTART
+	lix		r8,0x00		; nSTART
 	bsr		write_I2C_Ctrl_Reg	
 	lix		r8,0x0A		; GPIO register address
 	bsr		write_I2C_Data_Address_Reg
-;	lix		r8,0x02		; nSTART
-;	bsr		write_I2C_Ctrl_Reg	
+	lix		r8,0x03		; IDLE
+	bsr		write_I2C_Ctrl_Reg	
 	pull	r8
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0xFF		; STOP
-	bsr		write_I2C_Ctrl_Reg
 	pull	PC
 	
 ;
@@ -101,31 +92,45 @@ write_I2C_Data_Address_Reg:
 	push	PAR
 	lix		PAR,0x5800	; I2C Address/Data register
 	spl		r8			; Write control register
-	lix		PAR,0x5801	; Control register
-i2c_ack:
-	lpl		r8
-	and		r8,r8,r1	; busy bit is least significant bit
-	be1		i2c_ack
+	bsr		i2c_ack
+	lix		r8,20
+	bsr		delay_uS
 	pull	PAR
 	pull	PC
 
 ;
 ; write_I2C_Ctrl_Reg
+; Command Register (write):
+;	bit 7-2	= Reserved
+;	bit 1-0	= 
+;		00: IDLE
+;		01: START
+;		10: nSTART
+;		11: STOP
 ;
 
 write_I2C_Ctrl_Reg:
+	push	PAR
 	lix		PAR,0x5801	; I2C Control register
 	spl		r8			; Write control register
+	pull	PAR
 	pull	PC
 ;
 ; i2c_ack - wait for transfer to complete
+; Status Register (read):
+;	bit 7-2	= Reserved
+;	bit 1 	= ERROR 	(I2C transaction error)
+;	bit 0 	= BUSY 	(I2C bus busy)
 ;
 
-;i2c_ack:
+i2c_ack:
+	push	PAR
 	lix		PAR,0x5801	; Control register
+i2c_ack_loop:
 	lpl		r8
 	and		r8,r8,r1	; busy bit is least significant bit
-	be1		i2c_ack
+	be1		i2c_ack_loop
+	pull	PAR
 	pull	PC
 	
 ; readI2CData - Read I2C data into r8
@@ -141,8 +146,8 @@ readI2CData:
 ; Command/Status Register (write/read)
 ; Command/Status Register (read):
 ;	bit 7-2	= Reserved
-;	bit 1 	= ERROR 	(I2C transaction error)
-;	bit 0 	= BUSY 	(I2C bus busy)
+;	bit 1 	= ERROR (I2C transaction error)
+;	bit 0 	= BUSY  (I2C bus busy)
 
 readI2CStatus:
 	push	PAR
@@ -152,9 +157,14 @@ readI2CStatus:
 	pull	PC
 	
 ; writeI2CCommand - write data from r8 to the I2C command register
+; Write to the command register before writing to the data register
 ; Command/Status Register (write):
 ; 	bit 7-2	= Reserved
-;	bit 1-0	= 00: IDLE; 01: START; 10: nSTART; 11: STOP
+;	bit 1-0	= Mode
+;		00: IDLE; 
+;		01: START
+;		10: nSTART
+;		11: STOP
 
 writeI2CCommand:
 	push	PAR
@@ -163,6 +173,9 @@ writeI2CCommand:
 	pull	PAR
 	pull	PC
 	
+;
+; readUartStatus
+;
 	
 readUartStatus:
 	bsr		waitGetCharFromUART
@@ -170,8 +183,6 @@ putCharToANSIScreenAndUART:
 	bsr		putCharToANSIScreen	; put the character to the screen
 	bsr		putCharToUART
 	bra		readUartStatus
-
-
 
 ;
 ; waitGetCharFromUART
@@ -368,6 +379,7 @@ disableBuzzer:
 
 delay_mS:
 	push	r9
+	push	PAR
 	lix		PAR,0x3802		; address of the mSec counter
 	lpl		r9				; read the peripheral counter into r9
 	add		r8,r9,r8		; terminal counter to wait until is in r8
@@ -375,5 +387,26 @@ loop_delay_mS:
 	lpl		r9				; check the elapsed time counter
 	cmp		r8,r9
 	blt		loop_delay_mS
+	pull	PAR
+	pull	r9
+	pull	PC
+
+;	
+; delay_uS - delay for the number of uSecs
+; pass mSec delay in r8
+; Uses routine uses r9 (saved and restored)
+;
+
+delay_uS:
+	push	r9
+	push	PAR
+	lix		PAR,0x3801		; address of the uSec counter
+	lpl		r9				; read the peripheral counter into r9
+	add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_uS:
+	lpl		r9				; check the elapsed time counter
+	cmp		r8,r9
+	blt		loop_delay_uS
+	pull	PAR
 	pull	r9
 	pull	PC
