@@ -79,7 +79,7 @@ architecture struct of PeripheralInterface is
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
 	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0); 
 
-	signal w_4x_I2C_Count			:	std_logic_vector(6 downto 0); 
+	signal w_4x_I2C_Count		:	std_logic_vector(6 downto 0); 
 	signal i2c_400KHz				:	std_logic := '0';
 	signal o_i2cData				:	std_logic_vector(7 downto 0);
 

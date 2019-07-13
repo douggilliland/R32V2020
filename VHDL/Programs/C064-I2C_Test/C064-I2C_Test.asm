@@ -35,28 +35,28 @@ loopForever:
 initDir_I2CIO8:
 	push	r8
 	; Write 0x22 to IOCON register (not sequential operations)
-	lix		r8,0x01		; START
+	lix		r8,0x01		; I2C_Ctrl = START
 	bsr		write_I2C_Ctrl_Reg
-	lix		r8,0x40		; I2C Slave address
+	lix		r8,0x40		; I2C write command at slave address = 0x20
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x00		; IDLE
+	lix		r8,0x00		; I2C_Ctrl = IDLE
 	bsr		write_I2C_Ctrl_Reg
-	lix		r8,0x05		; IO control register
+	lix		r8,0x05		; MCP23008 IOCON
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x03		; STOP
+	lix		r8,0x03		; I2C_Ctrl = STOP
 	bsr		write_I2C_Ctrl_Reg	
-	lix		r8,0x22		; Disable sequential operation
+	lix		r8,0x22		; SEQOP = Disabled, INTPOL = Active-high
 	bsr		write_I2C_Data_Address_Reg
 	; Write 0xF0 to Direction Control register
-	lix		r8,0x01		; START
+	lix		r8,0x01		; I2C_Ctrl = START
 	bsr		write_I2C_Ctrl_Reg
-	lix		r8,0x40
+	lix		r8,0x40		; I2C write command at slave address = 0x20
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x00		; IDLE
+	lix		r8,0x00		; I2C_Ctrl = IDLE
 	bsr		write_I2C_Ctrl_Reg
-	lix		r8,0x00		; direction control register
+	lix		r8,0x00		; MCP23008 IODIR
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x03		; STOP
+	lix		r8,0x03		; I2C_Ctrl = STOP
 	bsr		write_I2C_Ctrl_Reg
 	lix		r8,0xF0		; Input and output bits
 	bsr		write_I2C_Data_Address_Reg
@@ -70,18 +70,43 @@ initDir_I2CIO8:
 
 writeI2CAdrDat_MCP23008:
 	push	r8
-	lix		r8,0x01		; START
+	lix		r8,0x01		; I2C_Ctrl = START
 	bsr		write_I2C_Ctrl_Reg
-	lix		r8,0x40
+	lix		r8,0x40		; I2C write command at slave address = 0x20
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x00		; nSTART
+	lix		r8,0x00		; I2C_Ctrl = IDLE
 	bsr		write_I2C_Ctrl_Reg	
-	lix		r8,0x0A		; GPIO register address
+	lix		r8,0x0A		; MCP23008 OLAT
 	bsr		write_I2C_Data_Address_Reg
-	lix		r8,0x03		; IDLE
+	lix		r8,0x03		; I2C_Ctrl = STOP
 	bsr		write_I2C_Ctrl_Reg	
-	pull	r8
+	pull	r8			; Data to write is in r8
 	bsr		write_I2C_Data_Address_Reg
+	pull	PC
+	
+; readI2CDat_MCP23008 - Read data from the I2C bus
+; Address 0x5800 -> DATA (write/read) or SLAVE ADDRESS (write)  
+; Address 0x5801 -> Command/Status Register (write/read)
+; r8 is the value to write
+
+readI2CDat_MCP23008:
+	; write the GPIO address register
+	lix		r8,0x01		; I2C_Ctrl = START
+	bsr		write_I2C_Ctrl_Reg
+	lix		r8,0x40		; I2C write command at slave address = 0x20
+	bsr		write_I2C_Data_Address_Reg
+	lix		r8,0x03		; I2C_Ctrl = STOP
+	bsr		write_I2C_Ctrl_Reg	
+	lix		r8,0x09		; MCP23008 - GPIO register address
+	bsr		write_I2C_Data_Address_Reg
+	; Read the GPIO line value
+	lix		r8,0x01		; I2C_Ctrl = START
+	bsr		write_I2C_Ctrl_Reg
+	lix		r8,0x41		; I2C read command at slave address = 0x20
+	bsr		write_I2C_Data_Address_Reg
+	lix		r8,0x03		; I2C_Ctrl = STOP
+	bsr		write_I2C_Ctrl_Reg	
+	bsr		read_I2C_Data_Reg
 	pull	PC
 	
 ;
@@ -93,8 +118,8 @@ write_I2C_Data_Address_Reg:
 	lix		PAR,0x5800	; I2C Address/Data register
 	spl		r8			; Write control register
 	bsr		i2c_ack
-	lix		r8,20
-	bsr		delay_uS
+;	lix		r8,20
+;	bsr		delay_uS
 	pull	PAR
 	pull	PC
 
@@ -133,9 +158,9 @@ i2c_ack_loop:
 	pull	PAR
 	pull	PC
 	
-; readI2CData - Read I2C data into r8
+; read_I2C_Data_Reg - Read I2C data into r8
 
-readI2CData:
+read_I2C_Data_Reg:
 	push	PAR
 	lix		PAR,0x5800	; I2C Address
 	lpl		r8
