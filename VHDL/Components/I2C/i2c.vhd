@@ -58,7 +58,6 @@ port (
 	i_DATA_IN		: in std_logic_vector(7 downto 0);
 	o_DATA_OUT		: out std_logic_vector(7 downto 0);
 	i_WR				: in std_logic := '0';
-	o_state			: out std_logic := '0';
 	io_I2C_SCL		: inout std_logic;
 	io_I2C_SDA		: inout std_logic);
 end i2c;
@@ -84,9 +83,6 @@ signal w_rw_flag		: std_logic;
 -- attribute syn_keep of state: signal is true;
 
 begin
-
-o_state <= '1' when (state = s_stop)
-else '0';
 
 -- Load CPU bus into internal registers
 cpu_write : process (CPU_CLK, i_WR, i_ADRSEL)

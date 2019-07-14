@@ -36,7 +36,6 @@ entity PeripheralInterface is
 		io_I2C_SCL					: inout std_logic := '1';
 		io_I2C_SDA					: inout std_logic := '1';
 		io_I2C_INT					: in std_logic := '1';
-		o_state						: out std_logic := '1';
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
 		);
@@ -80,7 +79,7 @@ architecture struct of PeripheralInterface is
 	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0); 
 
 	signal w_4x_I2C_Count		:	std_logic_vector(6 downto 0); 
-	signal i2c_400KHz				:	std_logic := '0';
+	signal i2c_4X_CLK				:	std_logic := '0';
 	signal o_i2cData				:	std_logic_vector(7 downto 0);
 
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
@@ -138,12 +137,12 @@ begin
     process(i_CLOCK_50)
     begin
 		if rising_edge(i_CLOCK_50) then
-			if w_4x_I2C_Count = 124 then
+			if w_4x_I2C_Count = 31 then
 				w_4x_I2C_Count <= "0000000";
-				i2c_400KHz <= '1';
+				i2c_4X_CLK <= '1';
 			else
 				w_4x_I2C_Count <= w_4x_I2C_Count + 1;
-				i2c_400KHz <= '0';
+				i2c_4X_CLK <= '0';
 			end if;
 		end if;
     end process;	
@@ -153,12 +152,12 @@ begin
 	port map (
 		i_RESET			=> not n_reset,
 		CPU_CLK			=> i_CLOCK_50,								-- 50 MHz
-		i_ENA				=> i2c_400KHz,								-- One CPU clock wide every 400 Khz
+		i_ENA				=> i2c_4X_CLK,								-- One CPU clock wide every 400 Khz
 		i_ADRSEL			=> i_peripheralAddress(0),
 		i_DATA_IN		=> i_dataToPeripherals(7 downto 0),
 		o_DATA_OUT		=> o_i2cData,
 		i_WR				=> w_I2CCS and i_peripheralWrStrobe,
-		o_state			=> o_state,
+--		o_state			=> o_state,
 		io_I2C_SCL		=> io_I2C_SCL,
 		io_I2C_SDA		=> io_I2C_SDA
 	);

@@ -67,7 +67,6 @@ o_LatchIO[7] <= peripheralinterface:Peripherals.o_LatchIO[7]
 io_I2C_SCL <> peripheralinterface:Peripherals.io_I2C_SCL
 io_I2C_SDA <> peripheralinterface:Peripherals.io_I2C_SDA
 i_I2C_INT => peripheralinterface:Peripherals.io_I2C_INT
-o_state <= peripheralinterface:Peripherals.o_state
 i_ps2Clk => peripheralinterface:Peripherals.i_PS2_CLK
 i_ps2Data => peripheralinterface:Peripherals.i_PS2_DATA
 
@@ -10866,7 +10865,7 @@ i_CLOCK_50 => w_kbdStatus[29].CLK
 i_CLOCK_50 => w_kbdStatus[30].CLK
 i_CLOCK_50 => w_kbdStatus[31].CLK
 i_CLOCK_50 => w_latKbDV1.CLK
-i_CLOCK_50 => i2c_400KHz.CLK
+i_CLOCK_50 => i2c_4X_CLK.CLK
 i_CLOCK_50 => w_4x_I2C_Count[0].CLK
 i_CLOCK_50 => w_4x_I2C_Count[1].CLK
 i_CLOCK_50 => w_4x_I2C_Count[2].CLK
@@ -11219,7 +11218,6 @@ o_vSync <= ansidisplayvga:SVGA.vSync
 io_I2C_SCL <> i2c:i2cIF.io_I2C_SCL
 io_I2C_SDA <> i2c:i2cIF.io_I2C_SDA
 io_I2C_INT => ~NO_FANOUT~
-o_state <= i2c:i2cIF.o_state
 i_PS2_CLK => ps2_keyboard_to_ascii:ps2Keyboard.ps2_clk
 i_PS2_DATA => ps2_keyboard_to_ascii:ps2Keyboard.ps2_data
 
@@ -11231,7 +11229,7 @@ i_RESET => w_phase[1].ACLR
 i_RESET => w_ack.ACLR
 i_RESET => w_sda.PRESET
 i_RESET => w_scl.PRESET
-i_RESET => state~6.DATAIN
+i_RESET => state~7.DATAIN
 i_RESET => w_shift_reg[7].ENA
 i_RESET => w_shift_reg[6].ENA
 i_RESET => w_shift_reg[5].ENA
@@ -11274,7 +11272,7 @@ CPU_CLK => w_data_buf[4].CLK
 CPU_CLK => w_data_buf[5].CLK
 CPU_CLK => w_data_buf[6].CLK
 CPU_CLK => w_data_buf[7].CLK
-CPU_CLK => state~4.DATAIN
+CPU_CLK => state~5.DATAIN
 i_ENA => w_shift_reg.OUTPUTSELECT
 i_ENA => w_shift_reg.OUTPUTSELECT
 i_ENA => w_shift_reg.OUTPUTSELECT
@@ -11347,7 +11345,6 @@ i_WR => w_data_buf[4].ENA
 i_WR => w_data_buf[5].ENA
 i_WR => w_data_buf[6].ENA
 i_WR => w_data_buf[7].ENA
-o_state <= o_state.DB_MAX_OUTPUT_PORT_TYPE
 io_I2C_SCL <> io_I2C_SCL
 io_I2C_SDA <> io_I2C_SDA
 

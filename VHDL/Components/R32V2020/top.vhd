@@ -37,7 +37,6 @@ entity top is
 		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
 		i_I2C_INT			: in std_logic := '0';
-		o_state				: out std_logic;
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -171,7 +170,6 @@ begin
 		io_I2C_SCL					=> io_I2C_SCL,
 		io_I2C_SDA					=> io_I2C_SDA,
 		io_I2C_INT					=> i_I2C_INT,
-		o_state						=> o_state,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
 	);
