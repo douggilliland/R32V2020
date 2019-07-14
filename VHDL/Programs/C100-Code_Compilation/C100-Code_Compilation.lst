@@ -498,3 +498,68 @@ wr7Seg8Dig:
 0000011e	85508000		spl		r8			; Output bit
 0000011f	A1504000		pull	PAR
 00000120	A1704000		pull	PC
+
+;
+; write_I2C_Data_Address_Reg
+;
+
+write_I2C_Data_Address_Reg:
+00000121	A0405000		push	PAR
+00000122	42505800		lix		PAR,0x5800	; I2C Address/register
+00000123	85508000		spl		r8			; Write control register
+00000124	D4000011		bsr		i2c_ack
+;	lix		r8,20
+;	bsr		delay_uS
+00000125	A1504000		pull	PAR
+00000126	A1704000		pull	PC
+
+;
+; read_I2C_Data_Reg - Read I2C data into r8
+;
+
+read_I2C_Data_Reg:
+00000127	A0405000		push	PAR
+00000128	42505800		lix		PAR,0x5800	; I2C Data Address
+00000129	42800054		lix		r8,0x54
+0000012a	85508000		spl		r8
+0000012b	D400000A		bsr		i2c_ack
+0000012c	42505800		lix		PAR,0x5800	; I2C Data Address
+0000012d	84805000		lpl		r8
+0000012e	A1504000		pull	PAR
+0000012f	A1704000		pull	PC
+	
+;
+; write_I2C_Ctrl_Reg
+; Command Register (write):
+;	bit 7-2	= Reserved
+;	bit 1-0	= 
+;		00: IDLE
+;		01: START
+;		10: nSTART
+;		11: STOP
+;
+
+write_I2C_Ctrl_Reg:
+00000130	A0405000		push	PAR
+00000131	42505801		lix		PAR,0x5801	; I2C Control register
+00000132	85508000		spl		r8			; Write control register
+00000133	A1504000		pull	PAR
+00000134	A1704000		pull	PC
+
+;
+; i2c_ack - wait for transfer to complete
+; Status Register (read):
+;	bit 7-2	= Reserved
+;	bit 1 	= ERROR 	(I2C transaction error)
+;	bit 0 	= BUSY 	(I2C bus busy)
+;
+
+i2c_ack:
+00000135	A0405000		push	PAR
+00000136	42505801		lix		PAR,0x5801	; Control register
+i2c_ack_loop:
+00000137	84805000		lpl		r8
+00000138	23881000		and		r8,r8,r1	; busy bit is least significant bit
+00000139	C4FFFFFE		be1		i2c_ack_loop
+0000013a	A1504000		pull	PAR
+0000013b	A1704000		pull	PC

@@ -47,7 +47,7 @@ entity SPI_MASTER is
         MOSI     : out std_logic; -- SPI serial data from master to slave
         MISO     : in  std_logic; -- SPI serial data from slave to master
         -- INPUT USER INTERFACE
-        ADDR     : in  std_logic_vector(0 downto 0); -- SPI slave address
+        ADDR     : in  std_logic_vector(integer(ceil(log2(real(SLAVE_COUNT))))-1 downto 0); -- SPI slave address
         DIN      : in  std_logic_vector(7 downto 0); -- input data for SPI slave
         DIN_LAST : in  std_logic; -- when DIN_LAST = 1, after transmit these input data is asserted CS_N
         DIN_VLD  : in  std_logic; -- when DIN_VLD = 1, input data are valid
