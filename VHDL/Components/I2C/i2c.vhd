@@ -5,7 +5,7 @@
 
 -------------------------------------------------------------------------------
 
--- The I2C core provides register addresses that the CPU can read or writen to:
+-- The I2C core provides register addresses that the CPU can read or written to:
 
 -- Address 0 -> DATA (write/read) or SLAVE ADDRESS (write)  
 -- Address 1 -> Command/Status Register (write/read)

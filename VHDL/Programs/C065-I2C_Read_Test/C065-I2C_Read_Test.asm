@@ -1,4 +1,13 @@
+; 
+; Uses I2CIO-8 card
+;	http://land-boards.com/blwiki/index.php?title=I2CIO-8
+;	Card has an MCP23008 I/O Expander IC
+;	d0-d3 = LEDs
+;	d4-d7 = Headers
+; 
+
 prompt:			.string "R32V2020> "
+; Not using the following data values but included for future use
 i2c_addr_wr:	.byte 0x40
 i2c_addr_rd:	.byte 0x41
 i2c_reg_addr:	.byte 0x00
@@ -10,30 +19,30 @@ i2c_wr_val:		.byte 0x00
 ;
 
 main:
-	bsr		clearScreen
+	bsr		clearScreen			; Not required for this example
 	lix		r8,prompt.lower
 	bsr		printString
-	bsr		initDir_I2CIO8
+; Code to initialize I2CIO8 card then read/write loop
+	bsr		init_Regs_I2CIO8	; initialize the MCP23008 on the I2CIO8
 loopMain:
-	;lix		r8,0x50
-	bsr		readI2CDat_MCP23008
+	bsr		readI2CDat_MCP23008	; read headers
+	sr1		r8,r8				; shift header data down to LEDs
 	sr1		r8,r8
 	sr1		r8,r8
 	sr1		r8,r8
-	sr1		r8,r8
-	bsr		writeI2CAdrDat_MCP23008
+	xor		r8,r8,MINUS1		; invert headers
+	bsr		wrI2CAdrDat_MCP23008	; write to LEDs
 	lix		r8,10
 	bsr		delay_mS
 	bra		loopMain
-	
 loopForever:
 	bra		loopForever
 	
 ;
-; initDir_I2CIO8 - Set IO Dir
+; init_Regs_I2CIO8 - Set IO Dir
 ;
 
-initDir_I2CIO8:
+init_Regs_I2CIO8:
 	push	r8
 	; Write 0x22 to IOCON register (not sequential operations)
 	lix		r8,0x01		; I2C_Ctrl = START
@@ -64,12 +73,14 @@ initDir_I2CIO8:
 	pull	r8
 	pull	PC
 
-; writeI2CAdrDat_MCP23008 - Write address to the I2C bus
+;
+; wrI2CAdrDat_MCP23008 - Write address to the I2C bus
 ; Address 0x5800 -> DATA (write/read) or SLAVE ADDRESS (write)  
 ; Address 0x5801 -> Command/Status Register (write/read)
 ; r8 is the value to write
+;
 
-writeI2CAdrDat_MCP23008:
+wrI2CAdrDat_MCP23008:
 	push	r8
 	lix		r8,0x01		; I2C_Ctrl = START
 	bsr		write_I2C_Ctrl_Reg
@@ -85,10 +96,12 @@ writeI2CAdrDat_MCP23008:
 	bsr		write_I2C_Data_Address_Reg
 	pull	PC
 	
+;
 ; readI2CDat_MCP23008 - Read data from the I2C bus
 ; Address 0x5800 -> DATA (write/read) or SLAVE ADDRESS (write)  
 ; Address 0x5801 -> Command/Status Register (write/read)
 ; r8 is the value to write
+;
 
 readI2CDat_MCP23008:
 	; write the GPIO address register
@@ -179,37 +192,6 @@ i2c_ack_loop:
 	pull	PAR
 	pull	PC
 
-; readI2CStatus - Read I2C status into r8
-; Command/Status Register (write/read)
-; Command/Status Register (read):
-;	bit 7-2	= Reserved
-;	bit 1 	= ERROR (I2C transaction error)
-;	bit 0 	= BUSY  (I2C bus busy)
-
-readI2CStatus:
-	push	PAR
-	lix		PAR,0x5801	; I2C Command Status Address
-	lpl		r8
-	pull	PAR
-	pull	PC
-	
-; writeI2CCommand - write data from r8 to the I2C command register
-; Write to the command register before writing to the data register
-; Command/Status Register (write):
-; 	bit 7-2	= Reserved
-;	bit 1-0	= Mode
-;		00: IDLE; 
-;		01: START
-;		10: nSTART
-;		11: STOP
-
-writeI2CCommand:
-	push	PAR
-	lix		PAR,0x5801	; I2C Command Status Address
-	spl		r8
-	pull	PAR
-	pull	PC
-	
 ;
 ; readUartStatus
 ;

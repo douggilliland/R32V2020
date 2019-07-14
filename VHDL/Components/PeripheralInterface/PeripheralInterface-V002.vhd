@@ -83,7 +83,9 @@ architecture struct of PeripheralInterface is
 	signal o_i2cData				:	std_logic_vector(7 downto 0);
 
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
+	signal w_NoteDataIn			:	std_logic_vector(7 downto 0);
 	signal w_BUZZER				: 	std_logic := '0';
+
 	signal w_i2c_busy				: 	std_logic := '0';
 	signal w_i2c_ack_err			: 	std_logic := '0';
 	
@@ -193,11 +195,22 @@ begin
 		o_dataFromTimers			=> o_dataFromTimers
 		);
 	
+	-- Latch the note value
+	NoteLatch	: ENTITY work.REG_8
+	PORT MAP (
+    clk 	=> i_CLOCK_50,
+    d 	=> i_dataToPeripherals(7 downto 0),
+    ld 	=> w_NoteCS and i_peripheralWrStrobe,
+    clr  => not n_reset,
+    q    => w_NoteDataIn
+	);
+	
+	-- The note counter
 	MusicNoteCounter : entity work.CounterLoadable
     Port map (
     clock		=> i_CLOCK_50,
     clear		=> not n_reset,
-    loadVal		=> i_dataToPeripherals(7 downto 0),
+    loadVal		=> w_NoteDataIn,
 	 soundOut	=> w_BUZZER,
     q				=> w_NoteData
 	 );
@@ -220,7 +233,7 @@ begin
     q		=> w_displayed_number
 	);
 	
-	LedLatch	: ENTITY work.REG_8
+	LedBuzzerLatch	: ENTITY work.REG_8
 	PORT MAP (
     clk 	=> i_CLOCK_50,
     d 	=> i_dataToPeripherals(7 downto 0),

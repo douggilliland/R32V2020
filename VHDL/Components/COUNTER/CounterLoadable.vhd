@@ -12,11 +12,11 @@ use ieee.std_logic_unsigned.all;
 entity counterLoadable is
 
 port(	
-	clock:	in std_logic;
-	clear:   in std_logic;
-	loadVal: in std_logic_vector(7 downto 0);
-	soundOut: out std_logic;
-	Q:	out std_logic_vector(18 downto 0)
+	clock		: in std_logic;
+	clear		: in std_logic;
+	loadVal	: in std_logic_vector(7 downto 0);
+	soundOut	: out std_logic;
+	Q			: out std_logic_vector(18 downto 0)
 );
 end counterLoadable;
 
