@@ -1,4 +1,6 @@
-; 
+; Read the jumpers and use value for a delay
+; Write bouncing LED pattern
+;
 ; Uses I2CIO-8 card
 ;	http://land-boards.com/blwiki/index.php?title=I2CIO-8
 ;	Card has an MCP23008 I/O Expander IC
