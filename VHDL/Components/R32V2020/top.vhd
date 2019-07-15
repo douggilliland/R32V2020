@@ -39,7 +39,7 @@ entity top is
 		i_I2C_INT			: in std_logic := '0';
 		-- SPIbus
 		spi_sclk				: out std_logic := '1';
-      spi_csN				: out std_logic_vector(0 downto 0);
+      spi_csN				: out std_logic := '1';
       spi_mosi				: out std_logic := '1';
       spi_miso				: in std_logic := '1';
 		-- PS/2 Keyboard pins

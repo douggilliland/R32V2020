@@ -25,28 +25,35 @@ main:
 ; Code to initialize I2CIO8 card
 	bsr		init_Regs_I2CIO8	; initialize the MCP23008 on the I2CIO8
 restartLoop:
-	lix		r8,0x01
-	push	r8
+	lix		r8,0x08
 loopMain:
-	bsr		readI2CDat_MCP23008	; read headers
-	sr1		r8,r8				; shift header data down
-	sr1		r8,r8
-	sr1		r8,r8
-	sr1		r8,r8
-	xor		r8,r8,MINUS1		; invert headers
-	lix		r9,0x0F
-	and		r8,r8,r9			; keep 8 bits
+	bsr		wrI2CAdrDat_MCP23008	; write to LEDs
+	bsr		delayFromJumpers
+	sr1		r8,r8					; shift LED bit left by 1
+	cmp		r8,r0
+	bne		loopMain
+	bra		restartLoop				; restart the shifting
+	
+;
+; delayFromJumpers - Set delay based on header value
+; returns: nothing (restores registers at return)
+;
+
+delayFromJumpers:
+	push	r9
+	push	r8
+ 	bsr		readI2CDat_MCP23008		; read headers into r8
+	xor		r8,r8,MINUS1			; invert headers
+	lix		r9,0xF0
+	and		r8,r8,r9				; keep 8 bits
+	sl1		r8,r8
+	sl1		r8,r8
+	sl1		r8,r8
 	bsr		delay_mS
 	pull	r8
-	bsr		wrI2CAdrDat_MCP23008	; write to LEDs
-	sl1		r8,r8
-	push	r8
-	lix		r9,0x10
-	cmp		r8,r9
-	bne		loopMain
-	pull	r8
-	bra		restartLoop
-	
+	pull	r9
+	pull	PC
+
 ;
 ; init_Regs_I2CIO8 - Set IO Dir
 ;
@@ -145,8 +152,6 @@ write_I2C_Data_Address_Reg:
 	lix		PAR,0x5800	; I2C Address/register
 	spl		r8			; Write control register
 	bsr		i2c_ack
-;	lix		r8,20
-;	bsr		delay_uS
 	pull	PAR
 	pull	PC
 
@@ -193,11 +198,13 @@ write_I2C_Ctrl_Reg:
 
 i2c_ack:
 	push	PAR
+	push	r8
 	lix		PAR,0x5801	; Control register
 i2c_ack_loop:
 	lpl		r8
 	and		r8,r8,r1	; busy bit is least significant bit
 	be1		i2c_ack_loop
+	pull	r8
 	pull	PAR
 	pull	PC
 
@@ -321,8 +328,8 @@ clearScreen:
 
 putCharToANSIScreen:
 	push	r9
-	push	PAR
 	push	r10
+	push	PAR
 	lix		r10,0x2		; TxReady bit
 	lix		PAR,0x0		; UART Status
 waitScreenTxStat:
@@ -331,8 +338,8 @@ waitScreenTxStat:
 	bez 	waitScreenTxStat
 	lix 	PAR,0x1
 	spl		r8			; echo the character
-	pull	r10
 	pull	PAR
+	pull	r10
 	pull	r9
 	pull	PC
 	
