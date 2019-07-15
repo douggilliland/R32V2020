@@ -1,4 +1,4 @@
-; Read the jumpers and use value for a delay
+; Read the jumpers and use jumper value for a delay
 ; Write bouncing LED pattern
 ;
 ; Uses I2CIO-8 card
@@ -31,7 +31,7 @@ restartLoop:
 loopMain:
 	bsr		wrI2CAdrDat_MCP23008	; write to LEDs
 	bsr		delayFromJumpers
-	sr1		r8,r8					; shift LED bit left by 1
+	sr1		r8,r8					; shift LED bit right by 1
 	cmp		r8,r0
 	bne		loopMain
 	bra		restartLoop				; restart the shifting
