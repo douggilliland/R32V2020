@@ -37,7 +37,7 @@ entity PeripheralInterface is
 		io_I2C_SDA					: inout std_logic := '1';
 		io_I2C_INT					: in std_logic := '1';
 		spi_sclk						: out std_logic := '1';
-      spi_csN						: out std_logic_vector(0 downto 0);
+      spi_csN						: out std_logic;
       spi_mosi						: out std_logic := '1';
       spi_miso						: in std_logic := '1';
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
@@ -61,8 +61,7 @@ architecture struct of PeripheralInterface is
 	signal w_LEDRingCS			:	std_logic := '0';
 	signal w_LatchIOCS			:	std_logic := '0';
 	signal w_I2CCS					:	std_logic := '0';
-	signal w_SPISTCS				:	std_logic := '0';
-	signal w_SPIDATCS				:	std_logic := '0';
+	signal w_SPICS					:	std_logic := '0';
 	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
@@ -88,7 +87,8 @@ architecture struct of PeripheralInterface is
 	signal w_4x_I2C_Count		:	std_logic_vector(6 downto 0); 
 	signal i2c_4X_CLK				:	std_logic := '0';
 	signal o_i2cData				:	std_logic_vector(7 downto 0);
-
+	
+	signal w_SPI_Clk_Count		:	std_logic_vector(5 downto 0); 
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
 	signal w_NoteDataIn			:	std_logic_vector(7 downto 0);
 	signal w_BUZZER				: 	std_logic := '0';
@@ -97,7 +97,7 @@ architecture struct of PeripheralInterface is
 	signal w_i2c_ack_err			: 	std_logic := '0';
 	signal w_spi_din_last		: 	std_logic := '0';
 	signal w_spi_din_vld			: 	std_logic := '0';
-	signal w_spi_ready			: 	std_logic := '0';
+	signal w_spi_busy			: 	std_logic := '0';
 	
 	-- Address decoder addresses
 	-- Provides for up to 32 "chip selects"
@@ -114,8 +114,7 @@ architecture struct of PeripheralInterface is
 	constant LEDRNG_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"9";
 	constant LATIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"A";
 	constant I2CIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"B";
-	constant SPIST_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"C";
-	constant SPIIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"D";
+	constant SPIIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"C";
 
 begin
 	
@@ -133,8 +132,7 @@ begin
 	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)	- LED Ring
 	w_LatchIOCS		<= '1' when i_peripheralAddress(15 downto 11) = LATIO_BASE	else '0';	-- x5000-x57FF (2KB)	- I/O Latch
 	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- I2C Address
-	w_SPISTCS		<= '1' when i_peripheralAddress(15 downto 11) = SPIST_BASE	else '0';	-- x6000-x67FF (2KB)	- I2C Address
-	w_SPIDATCS		<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- I2C Address
+	w_SPICS			<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- I2C Address
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_ANSI_DispRamDataOutA 	when	ANSI_DisplayCS = '1' else
@@ -146,10 +144,42 @@ begin
 		o_dataFromTimers									when	w_TimersCS		= '1' else
 		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
 		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
-		x"0000000" & "000" & w_spi_ready				when	w_SPISTCS 		= '1' else
-		x"000000"		& o_spiData						when	w_SPIDATCS 		= '1' else
+--		x"0000000" & "000" & w_spi_busy				when	w_SPISTCS 		= '1' else
+		x"000000"		& o_spiData						when	w_SPICS	 		= '1' else
 		x"FFFFFFFF";
 
+	-- SPIbus Clock 1 MHz
+    process(i_CLOCK_50)
+    begin
+		if rising_edge(i_CLOCK_50) then
+			if w_SPI_Clk_Count = 49 then
+				w_SPI_Clk_Count <= "000000";
+			else
+				w_SPI_Clk_Count <= w_SPI_Clk_Count + 1;
+			end if;
+		end if;
+    end process;	
+	
+	-- SPIbus
+	spiMaster : entity work.spi
+	port map (
+		RESET		=> not n_reset,
+		CLK		=> i_CLOCK_50,			-- 50 MHz Clock
+		SCK		=> w_SPI_Clk_Count(5),	-- SPI data transmission synchronization frequency
+		-- SPI MASTER INTERFACE
+		SCLK		=> spi_sclk,			-- Data sync clock output
+		CS_n		=> spi_csN,			-- Slave select output (chip select)
+		MOSI		=> spi_mosi,			-- Serial output
+		MISO		=> spi_miso,			-- Serial data input
+		-- INPUT USER INTERFACE
+		A			=> i_peripheralAddress(0),					-- Address: 0 = data register; 1 = control register
+		DI			=> i_dataToPeripherals(7 downto 0),		-- 8-bit data bus, input
+		WR			=> w_I2CCS and i_peripheralWrStrobe,	-- 1 = enable write to data register or control register
+		BUSY		=> w_spi_busy,			-- 1 = busy transferring; 0 = free
+		-- OUTPUT USER INTERFACE
+		DO			=> o_spiData			-- 8-bit data bus, output
+    );
+	
 	-- I2C code uses 400 KHz enable signal
 	-- The enable signal is one clock wide pulse of the 50 MHz clock
     process(i_CLOCK_50)
@@ -164,27 +194,6 @@ begin
 			end if;
 		end if;
     end process;	
-	
-	-- SPIbus
-	spiMaster : entity work.SPI_MASTER
-    port map (
-        CLK			=> i_CLOCK_50,
-        RST			=> not n_reset,
-        -- SPI MASTER INTERFACE
-        SCLK		=> spi_sclk,
-        CS_N		=> spi_csN,
-        MOSI		=> spi_mosi,
-        MISO		=> spi_miso,
-        -- INPUT USER INTERFACE
-        ADDR		=> i_peripheralAddress(0 downto 0),
-        DIN			=> i_dataToPeripherals(7 downto 0),
-        DIN_LAST	=> w_spi_din_last,
-        DIN_VLD	=> w_spi_din_vld,
-        READY		=> w_spi_ready,
-        -- OUTPUT USER INTERFACE
-        DOUT		=> o_spiData
-    );
-
 	
 	-- I2c Interface
 	i2cIF	: entity work.i2c
