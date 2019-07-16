@@ -51,11 +51,3 @@ state.s_data 0 0 0 1 0 1
 state.s_ack 0 0 1 0 0 1 
 state.s_stop 0 1 0 0 0 1 
 state.s_done 1 0 0 0 0 1 
-
-State Machine - |top|PeripheralInterface:Peripherals|SPI_MASTER:spiMaster|present_state
-Name present_state.transmit_gap present_state.transmit_end present_state.second_edge present_state.first_edge present_state.idle 
-present_state.idle 0 0 0 0 0 
-present_state.first_edge 0 0 0 1 1 
-present_state.second_edge 0 0 1 0 1 
-present_state.transmit_end 0 1 0 0 1 
-present_state.transmit_gap 1 0 0 0 1 
