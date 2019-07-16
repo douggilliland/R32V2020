@@ -80,8 +80,6 @@ signal	w_peripheralWrEn			: std_logic := '0';
 signal	w_OneHotState				: std_logic_vector(5 downto 0) := "000000";
 signal	resetLow						: std_logic := '1';
 
-signal	w_Switch						: std_logic_vector(2 downto 0) := "000";
-
 --attribute syn_keep: boolean;
 --attribute syn_keep of w_Switch: signal is true;
 
@@ -158,7 +156,7 @@ begin
 		i_peripheralRdStrobe		=> w_peripheralRdEn,
 		i_peripheralWrStrobe		=> w_peripheralWrEn,
 		-- Physical connections to/from the FPGA pins
-		i_switch						=> w_Switch,
+		i_switch						=> i_switch,
 		i_DIP_switch				=> i_dipSwitch,
 		--o_LED							=> o_LED,
 		o_BUZZER						=> o_BUZZER,
@@ -181,27 +179,6 @@ begin
       spi_miso						=> spi_miso,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
-	);
-	
-	DebounceSwitch1	: entity work.Debouncer
-	port map (
-		i_CLOCK_50	=> i_CLOCK_50,
-		i_PinIn		=> i_switch(0),
-		o_PinOut		=> w_Switch(0)
-	);
-	
-	DebounceSwitch2	: entity work.Debouncer
-	port map (
-		i_CLOCK_50	=> i_CLOCK_50,
-		i_PinIn		=> i_switch(1),
-		o_PinOut		=> w_Switch(1)
-	);
-	
-	DebounceSwitch3	: entity work.Debouncer
-	port map (
-		i_CLOCK_50	=> i_CLOCK_50,
-		i_PinIn		=> i_switch(2),
-		o_PinOut		=> w_Switch(2)
 	);
 	
 	DebounceResetSwitch	: entity work.Debouncer

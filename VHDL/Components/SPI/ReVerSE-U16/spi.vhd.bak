@@ -16,23 +16,22 @@ use IEEE.std_logic_unsigned.all;
 
 entity spi is
 	port (
-		RESET	: in std_logic;							-- 1 = controller reset
-		CLK	: in std_logic;							-- System clock frequency
-		SCK	: in std_logic;							-- SPI data transmission synchronization frequency
-		A     : in std_logic;							-- Address: 0 = data register; 1 = control register
+		RESET	: in std_logic;						-- 1 = controller reset
+		CLK		: in std_logic;						-- System clock frequency
+		SCK		: in std_logic;						-- SPI data transmission synchronization frequency
+		A       : in std_logic;						-- Address: 0 = data register; 1 = control register
 		DI		: in std_logic_vector(7 downto 0);	-- 8-bit data bus, input
 		DO		: out std_logic_vector(7 downto 0);	-- 8-bit data bus, output
-		WR		: in std_logic;							-- 1 = enable write to data register or control register
-		BUSY	: out std_logic;							-- 1 = busy transferring; 0 = free
-		CS_n	: out std_logic;							-- Slave select output (chip select)
-		SCLK	: out std_logic;							-- Data sync output
-		MOSI	: out std_logic;							-- Serial output
-		MISO	: in std_logic								-- Serial data input
-		);
+		WR		: in std_logic;						-- 1 = enable write to data register or control register
+		BUSY	: out std_logic;					-- 1 = busy transferring; 0 = free
+		CS_n	: out std_logic;					-- Slave select output (chip select)
+		SCLK	: out std_logic;					-- Data sync output
+		MOSI	: out std_logic;					-- Serial output
+		MISO	: in std_logic );					-- Serial data input
 end;
 
 architecture rtl of spi is
-	signal cnt			: std_logic_vector(2 downto 0) := "000";			-- Transmit / Receive Bit Count
+	signal cnt			: std_logic_vector(2 downto 0) := "000";		-- Transmit / Receive Bit Count
 	signal shift_reg	: std_logic_vector(7 downto 0) := "11111111";	-- Shift register
 	signal cs			: std_logic := '1';
 	signal buffer_reg	: std_logic_vector(7 downto 0) := "11111111";
@@ -44,7 +43,7 @@ begin
 	begin
 		if (RESET = '1') then
 			cs <= '1';
-		elsif rising_edge(CLK) then
+		elsif (CLK'event and CLK = '1') then
 			if (WR = '1' and A = '1') then
 				cs <= DI(0);
 			end if;
@@ -56,7 +55,7 @@ begin
 	begin
 		if (RESET = '1') then
 			buffer_reg <= (others => '1');
-		elsif rising_edge(CLK) then
+		elsif (CLK'event and CLK = '1') then
 			if (WR = '1' and A = '0') then
 				buffer_reg <= DI;
 			end if;
@@ -68,7 +67,7 @@ begin
 	begin
 		if (RESET = '1' or state = '1') then
 			start <= '0';
-		elsif rising_edge(CLK) then
+		elsif (CLK'event and CLK = '1') then
 			if (WR = '1' and A = '0') then
 				start <= '1';
 			end if;
@@ -81,7 +80,7 @@ begin
 			state <= '0';
 			cnt <= "000";
 			shift_reg <= "11111111";
-		elsif falling_edge(CLK) then
+		elsif (SCK'event and SCK = '0') then
 			case state is
 				when '0' =>
 					if (start = '1') then

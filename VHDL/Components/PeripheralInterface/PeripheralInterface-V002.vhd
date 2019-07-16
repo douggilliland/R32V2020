@@ -82,13 +82,15 @@ architecture struct of PeripheralInterface is
 	signal o_spiData				:	std_logic_vector(7 downto 0);
 --	attribute syn_keep of w_LatData : signal is true;
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
-	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0); 
+	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0);
+	signal w_Switch				: std_logic_vector(2 downto 0) := "000";
 
 	signal w_4x_I2C_Count		:	std_logic_vector(6 downto 0); 
 	signal i2c_4X_CLK				:	std_logic := '0';
 	signal o_i2cData				:	std_logic_vector(7 downto 0);
 	
 	signal w_SPI_Clk_Count		:	std_logic_vector(5 downto 0); 
+	signal w_SPI_Clk			: 	std_logic := '0';
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
 	signal w_NoteDataIn			:	std_logic_vector(7 downto 0);
 	signal w_BUZZER				: 	std_logic := '0';
@@ -97,7 +99,7 @@ architecture struct of PeripheralInterface is
 	signal w_i2c_ack_err			: 	std_logic := '0';
 	signal w_spi_din_last		: 	std_logic := '0';
 	signal w_spi_din_vld			: 	std_logic := '0';
-	signal w_spi_busy			: 	std_logic := '0';
+	signal w_spi_busy				: 	std_logic := '0';
 	
 	-- Address decoder addresses
 	-- Provides for up to 32 "chip selects"
@@ -132,30 +134,36 @@ begin
 	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)	- LED Ring
 	w_LatchIOCS		<= '1' when i_peripheralAddress(15 downto 11) = LATIO_BASE	else '0';	-- x5000-x57FF (2KB)	- I/O Latch
 	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- I2C Address
-	w_SPICS			<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- I2C Address
+	w_SPICS			<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- SPI Address
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_ANSI_DispRamDataOutA 	when	ANSI_DisplayCS = '1' else
 		q_kbReadData	 									when	w_kbDatCS		= '1' else
 		w_kbdStatus											when	w_kbStatCS		= '1' else 
 		x"000000"		& w_aciaData 					when	w_aciaCS 		= '1' else
-		x"00000"	& i_DIP_switch & '0' & i_switch 	when	w_SwitchesCS 	= '1' else
+		x"00000"	& i_DIP_switch & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
 		x"000000"		& w_LatData						when	w_LEDsCS 		= '1' else
 		o_dataFromTimers									when	w_TimersCS		= '1' else
 		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
 		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
---		x"0000000" & "000" & w_spi_busy				when	w_SPISTCS 		= '1' else
-		x"000000"		& o_spiData						when	w_SPICS	 		= '1' else
+		x"000000"		& o_spiData		when	(w_SPICS = '1' and i_peripheralAddress(0) = '0') else
+		x"0000000"&"000" & w_spi_busy	when	(w_SPICS = '1' and i_peripheralAddress(0) = '1') else
 		x"FFFFFFFF";
 
-	-- SPIbus Clock 1 MHz
+	-- SPIbus Clock 1 MHz - 50/50 duty cycle
     process(i_CLOCK_50)
     begin
 		if rising_edge(i_CLOCK_50) then
-			if w_SPI_Clk_Count = 49 then
+			if ((w_SPI_Clk_Count = 49) or (n_reset = '0')) then
 				w_SPI_Clk_Count <= "000000";
 			else
 				w_SPI_Clk_Count <= w_SPI_Clk_Count + 1;
+				w_SPI_Clk <= '0';
+			end if;
+			if ((w_SPI_Clk_Count <= 24) or (n_reset = '0')) then
+				w_SPI_Clk <= '0';				-- 1 MHz clock edge
+			elsif (w_SPI_Clk_Count > 24) then
+				w_SPI_Clk <= '1';
 			end if;
 		end if;
     end process;	
@@ -164,20 +172,20 @@ begin
 	spiMaster : entity work.spi
 	port map (
 		RESET		=> not n_reset,
-		CLK		=> i_CLOCK_50,			-- 50 MHz Clock
-		SCK		=> w_SPI_Clk_Count(5),	-- SPI data transmission synchronization frequency
+		CLK		=> i_CLOCK_50,					-- 50 MHz Clock
+		SCK		=> w_SPI_Clk,					-- SPI data transmission synchronization clock
 		-- SPI MASTER INTERFACE
-		SCLK		=> spi_sclk,			-- Data sync clock output
-		CS_n		=> spi_csN,			-- Slave select output (chip select)
-		MOSI		=> spi_mosi,			-- Serial output
-		MISO		=> spi_miso,			-- Serial data input
+		SCLK		=> spi_sclk,					-- Data sync clock output
+		CS_n		=> spi_csN,						-- Slave select output (chip select)
+		MOSI		=> spi_mosi,					-- Serial output
+		MISO		=> spi_miso,					-- Serial data input
 		-- INPUT USER INTERFACE
 		A			=> i_peripheralAddress(0),					-- Address: 0 = data register; 1 = control register
 		DI			=> i_dataToPeripherals(7 downto 0),		-- 8-bit data bus, input
 		WR			=> w_I2CCS and i_peripheralWrStrobe,	-- 1 = enable write to data register or control register
-		BUSY		=> w_spi_busy,			-- 1 = busy transferring; 0 = free
+		BUSY		=> w_spi_busy,				-- 1 = busy transferring; 0 = free
 		-- OUTPUT USER INTERFACE
-		DO			=> o_spiData			-- 8-bit data bus, output
+		DO			=> o_spiData				-- 8-bit data bus, output
     );
 	
 	-- I2C code uses 400 KHz enable signal
@@ -342,6 +350,28 @@ begin
 		ascii_code	=> w_kbReadData,
 		ascii_new	=> w_kbDataValid
 	);
+	
+	DebounceSwitch1	: entity work.Debouncer
+	port map (
+		i_CLOCK_50	=> i_CLOCK_50,
+		i_PinIn		=> i_switch(0),
+		o_PinOut		=> w_Switch(0)
+	);
+	
+	DebounceSwitch2	: entity work.Debouncer
+	port map (
+		i_CLOCK_50	=> i_CLOCK_50,
+		i_PinIn		=> i_switch(1),
+		o_PinOut		=> w_Switch(1)
+	);
+	
+	DebounceSwitch3	: entity work.Debouncer
+	port map (
+		i_CLOCK_50	=> i_CLOCK_50,
+		i_PinIn		=> i_switch(2),
+		o_PinOut		=> w_Switch(2)
+	);
+	
 
 	-- w_latKbDV1, w_latKbDV2
 	process (i_CLOCK_50, n_reset, W_kbDataValid, w_kbReadData, w_kbDatCS, w_latKbStat)
