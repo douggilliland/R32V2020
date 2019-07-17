@@ -146,8 +146,8 @@ begin
 		o_dataFromTimers									when	w_TimersCS		= '1' else
 		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
 		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
-		x"000000"		& o_spiData		when	(w_SPICS = '1' and i_peripheralAddress(0) = '0') else
-		x"0000000"&"000" & w_spi_busy	when	(w_SPICS = '1' and i_peripheralAddress(0) = '1') else
+		x"000000"		& o_spiData		when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
+		x"0000000"&"000" & w_spi_busy	when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
 		x"FFFFFFFF";
 
 	-- SPIbus Clock 1 MHz - 50/50 duty cycle
@@ -182,14 +182,18 @@ begin
 		-- INPUT USER INTERFACE
 		A			=> i_peripheralAddress(0),					-- Address: 0 = data register; 1 = control register
 		DI			=> i_dataToPeripherals(7 downto 0),		-- 8-bit data bus, input
-		WR			=> w_I2CCS and i_peripheralWrStrobe,	-- 1 = enable write to data register or control register
+		WR			=> w_SPICS and i_peripheralWrStrobe,	-- 1 = enable write to data register or control register
 		BUSY		=> w_spi_busy,				-- 1 = busy transferring; 0 = free
 		-- OUTPUT USER INTERFACE
 		DO			=> o_spiData				-- 8-bit data bus, output
     );
 	
-	-- I2C code uses 400 KHz enable signal
+	-- I2C clock
+	--	1600 KHz enable signal
 	-- The enable signal is one clock wide pulse of the 50 MHz clock
+	-- Enable signal is 4x the I2C clock rate
+	-- 50 MHz / 32 = 1.56 MHz
+	-- 4xclock yeilds 390 KHz I2C clock rate
     process(i_CLOCK_50)
     begin
 		if rising_edge(i_CLOCK_50) then
@@ -206,15 +210,15 @@ begin
 	-- I2c Interface
 	i2cIF	: entity work.i2c
 	port map (
-		i_RESET			=> not n_reset,
-		CPU_CLK			=> i_CLOCK_50,								-- 50 MHz
-		i_ENA				=> i2c_4X_CLK,								-- One CPU clock wide every 400 Khz
-		i_ADRSEL			=> i_peripheralAddress(0),
-		i_DATA_IN		=> i_dataToPeripherals(7 downto 0),
-		o_DATA_OUT		=> o_i2cData,
-		i_WR				=> w_I2CCS and i_peripheralWrStrobe,
-		io_I2C_SCL		=> io_I2C_SCL,
-		io_I2C_SDA		=> io_I2C_SDA
+		i_RESET			=> not n_reset,								-- Reset pushbutton switch
+		CPU_CLK			=> i_CLOCK_50,									-- 50 MHz
+		i_ENA				=> i2c_4X_CLK,									-- One CPU clock wide every 400 Khz
+		i_ADRSEL			=> i_peripheralAddress(0),					-- Command/Data address select line
+		i_DATA_IN		=> i_dataToPeripherals(7 downto 0),		-- Data to I2C interface
+		o_DATA_OUT		=> o_i2cData,									-- Data from I2C interface
+		i_WR				=> w_I2CCS and i_peripheralWrStrobe,	-- Write strobe
+		io_I2C_SCL		=> io_I2C_SCL,									-- Clock to external I2C interface
+		io_I2C_SDA		=> io_I2C_SDA									-- Data to/from external I2C interface
 	);
 	
 	o_VideoOut <= (w_Video(5) or w_Video(4)) & (w_Video(3) or w_Video(2)) & (w_Video(1) or w_Video(0));
