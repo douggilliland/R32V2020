@@ -172,8 +172,8 @@ begin
 	spiMaster : entity work.spi
 	port map (
 		RESET		=> not n_reset,
-		CLK		=> i_CLOCK_50,					-- 50 MHz Clock
-		SCK		=> w_SPI_Clk,					-- SPI data transmission synchronization clock
+		CPU_CLK	=> i_CLOCK_50,					-- 50 MHz Clock
+		SPI_CLK	=> w_SPI_Clk,					-- SPI data transmission synchronization clock
 		-- SPI MASTER INTERFACE
 		SCLK		=> spi_sclk,					-- Data sync clock output
 		CS_n		=> spi_csN,						-- Slave select output (chip select)
