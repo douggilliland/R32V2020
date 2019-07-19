@@ -11181,7 +11181,6 @@ o_dataFromPeripherals[30] <= o_dataFromPeripherals.DB_MAX_OUTPUT_PORT_TYPE
 o_dataFromPeripherals[31] <= o_dataFromPeripherals.DB_MAX_OUTPUT_PORT_TYPE
 i_peripheralRdStrobe => comb.IN1
 i_peripheralRdStrobe => comb.IN1
-i_peripheralWrStrobe => o_testPoint.IN1
 i_peripheralWrStrobe => comb.IN1
 i_peripheralWrStrobe => comb.IN1
 i_peripheralWrStrobe => comb.IN1
@@ -11259,7 +11258,7 @@ spi_sclk <= spi:spiMaster.SCLK
 spi_csN <= spi:spiMaster.CS_n
 spi_mosi <= spi:spiMaster.MOSI
 spi_miso => spi:spiMaster.MISO
-o_testPoint <= o_testPoint.DB_MAX_OUTPUT_PORT_TYPE
+o_testPoint <= spi:spiMaster.BUSY
 i_PS2_CLK => ps2_keyboard_to_ascii:ps2Keyboard.ps2_clk
 i_PS2_DATA => ps2_keyboard_to_ascii:ps2Keyboard.ps2_data
 

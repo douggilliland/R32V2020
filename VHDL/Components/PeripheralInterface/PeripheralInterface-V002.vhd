@@ -151,21 +151,23 @@ begin
 		x"0000000"&"000" & w_spi_busy	when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
 		x"FFFFFFFF";
 
-	o_testPoint <= w_SPICS and i_peripheralWrStrobe;
+	o_testPoint <= w_spi_busy;
 	
-	-- SPIbus Clock 1 MHz - 50/50 duty cycle
-    process(i_CLOCK_50)
+	-- SPIbus Clock
+	-- 50 MHz divided by 6 is 50/6 = 8.33 MHz
+	-- 50/50 duty cycle (3 clocks high/3 clocks low)
+    process(i_CLOCK_50,w_SPI_Clk_Count, n_reset)
     begin
 		if rising_edge(i_CLOCK_50) then
-			if ((w_SPI_Clk_Count = 49) or (n_reset = '0')) then
+			if ((w_SPI_Clk_Count = 5) or (n_reset = '0')) then
 				w_SPI_Clk_Count <= "000000";
 			else
 				w_SPI_Clk_Count <= w_SPI_Clk_Count + 1;
 				w_SPI_Clk <= '0';
 			end if;
-			if ((w_SPI_Clk_Count <= 24) or (n_reset = '0')) then
+			if ((w_SPI_Clk_Count <= 2) or (n_reset = '0')) then
 				w_SPI_Clk <= '0';				-- 1 MHz clock edge
-			elsif (w_SPI_Clk_Count > 24) then
+			else
 				w_SPI_Clk <= '1';
 			end if;
 		end if;
