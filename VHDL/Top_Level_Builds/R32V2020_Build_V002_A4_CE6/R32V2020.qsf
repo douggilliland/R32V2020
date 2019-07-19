@@ -125,7 +125,6 @@ set_location_assignment PIN_39 -to io_I2C_SDA
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SDA
 set_instance_assignment -name SLEW_RATE 2 -to io_I2C_SDA
 set_location_assignment PIN_34 -to io_I2C_SCL
-set_location_assignment PIN_52 -to o_state
 set_location_assignment PIN_28 -to spi_miso
 set_location_assignment PIN_31 -to spi_sclk
 set_location_assignment PIN_33 -to spi_mosi
@@ -177,4 +176,5 @@ set_global_assignment -name CDF_FILE "output_files/R32V2020-EEPROM.cdf"
 set_global_assignment -name VHDL_FILE "../../Components/PeripheralInterface/PeripheralInterface-V002.vhd"
 set_global_assignment -name VHDL_FILE ../../Components/TERMINAL/ANSIDisplayVGA.vhd
 set_location_assignment PIN_38 -to spi_csN
+set_location_assignment PIN_52 -to o_testPoint
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -24,7 +24,7 @@ entity spi is
 		DO			: out std_logic_vector(7 downto 0);	-- 8-bit data bus, output
 		WR			: in std_logic;							-- 1 = enable write to data register or control register
 		BUSY		: out std_logic;							-- 1 = busy transferring; 0 = free
-		CS_n		: out std_logic;							-- Slave select output (chip select)
+		CS_n		: out std_logic;							-- Slave select output (chip select) - active low
 		SCLK		: out std_logic;							-- Data sync output
 		MOSI		: out std_logic;							-- Serial output
 		MISO		: in std_logic								-- Serial data input
@@ -38,6 +38,7 @@ architecture rtl of spi is
 	signal buffer_reg	: std_logic_vector(7 downto 0) := "11111111";
 	signal state		: std_logic := '0';
 	signal start		: std_logic := '0';
+	
 begin
 	-- Latch Control line (write from CPU to SPI control register)
 	--	A = 1 - Write d0 value to Chip Select
@@ -46,25 +47,14 @@ begin
 		if (RESET = '1') then
 			cs <= '1';
 		elsif rising_edge(CPU_CLK) then
-			if (WR = '1' and A = '1') then
+			if (WR = '1' and A = '0') then
+				buffer_reg <= DI;
+			elsif (WR = '1' and A = '1') then
 				cs <= DI(0);
 			end if;
 		end if;
 	end process;
 	
-	-- Latch data into buffer_reg (write from CPU to SPI)
-	-- A = 1 - Write value to shift register
-	process (RESET, CPU_CLK, A, WR, DI)
-	begin
-		if (RESET = '1') then
-			buffer_reg <= (others => '1');
-		elsif rising_edge(CPU_CLK) then
-			if (WR = '1' and A = '0') then
-				buffer_reg <= DI;
-			end if;
-		end if;
-	end process;
-
 	-- start
 	process (RESET, CPU_CLK, A, WR, state)
 	begin
@@ -83,7 +73,7 @@ begin
 			state <= '0';
 			cnt <= "000";
 			shift_reg <= "11111111";
-		elsif falling_edge(CPU_CLK) then
+		elsif falling_edge(SPI_CLK) then
 			case state is
 				when '0' =>
 					if (start = '1') then		

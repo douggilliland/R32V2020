@@ -40,6 +40,7 @@ entity PeripheralInterface is
       spi_csN						: out std_logic;
       spi_mosi						: out std_logic := '1';
       spi_miso						: in std_logic := '1';
+		o_testPoint					: out std_logic := '1';
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
 		);
@@ -150,6 +151,8 @@ begin
 		x"0000000"&"000" & w_spi_busy	when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
 		x"FFFFFFFF";
 
+	o_testPoint <= w_SPICS and i_peripheralWrStrobe;
+	
 	-- SPIbus Clock 1 MHz - 50/50 duty cycle
     process(i_CLOCK_50)
     begin
