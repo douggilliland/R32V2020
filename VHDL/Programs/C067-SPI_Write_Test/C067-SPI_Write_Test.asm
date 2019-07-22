@@ -16,15 +16,17 @@ main:
 	bsr		clearScreen			; Not required for this example
 	lix		r8,prompt.lower		; r8 contains the pointer to the the prompt 
 	bsr		printString			; Print the prompt to the screen
-; Write to SPI-POTX2
+
+; Write ramp output to SPI-POTX2
 ; x6000-x67FF (2KB)	- SPI Address Range
 ; x6000 - d0-d7 = Write value
 ; x6001 - d0 = Write Chip Select line
 ; x6002 - d0 = Busy flag
 ; x6003 - 
-	lix		r9,0x80
+
+	lix		r9,0x80				; loop terminal count
 reloadr8:
-	lix		r8,0x00				; sent out low voltage
+	lix		r8,0x00				; sent out low voltage from pot
 loopForever:
 	bsr		writeSPI0
 	add		r8,r8,r1

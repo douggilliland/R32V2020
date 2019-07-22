@@ -30,7 +30,7 @@ entity PeripheralInterface is
 		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
 		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
 		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
-		o_VideoOut					: out std_logic_vector(2 downto 0);						-- VGA lines r,g,b
+		o_VideoOut					: out std_logic_vector(5 downto 0);						-- VGA lines rr,gg,bb
 		o_hSync						: out std_logic := '1';
 		o_vSync						: out std_logic := '1';
 		io_I2C_SCL					: inout std_logic := '1';
@@ -68,7 +68,7 @@ architecture struct of PeripheralInterface is
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
 	signal w_serialClkEn			:	std_logic;
 	signal w_serialClock			:	std_logic;
-	signal w_Video					:	std_logic_vector(5 downto 0);
+--	signal w_Video					:	std_logic_vector(5 downto 0);
 	signal w_kbdStatus			:	std_logic_vector(31 downto 0);
 	signal w_aciaData				:	std_logic_vector(7 downto 0);
 	signal w_kbReadData			:	std_logic_vector(6 downto 0);
@@ -226,7 +226,6 @@ begin
 		io_I2C_SDA		=> io_I2C_SDA									-- Data to/from external I2C interface
 	);
 	
-	o_VideoOut <= (w_Video(5) or w_Video(4)) & (w_Video(3) or w_Video(2)) & (w_Video(1) or w_Video(0));
 	SVGA : entity work.ANSIDisplayVGA
 		port map (
 			n_reset			=> n_reset,
@@ -236,12 +235,12 @@ begin
 			regSel			=> i_peripheralAddress(0),
 			dataIn			=> i_dataToPeripherals(7 downto 0),
 			dataOut			=> w_ANSI_DispRamDataOutA,
-			videoR0			=> w_Video(5),
-			videoR1			=> w_Video(4),
-			videoG0			=> w_Video(3),
-			videoG1			=> w_Video(2),
-			videoB0			=> w_Video(1),
-			videoB1			=> w_Video(0),
+			videoR0			=> o_VideoOut(5),
+			videoR1			=> o_VideoOut(4),
+			videoG0			=> o_VideoOut(3),
+			videoG1			=> o_VideoOut(2),
+			videoB0			=> o_VideoOut(1),
+			videoB1			=> o_VideoOut(0),
 			hSync  			=> o_hSync,
 			vSync  			=> o_vSync
 			);
