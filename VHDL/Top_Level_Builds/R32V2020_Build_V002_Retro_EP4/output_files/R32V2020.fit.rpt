@@ -1,5 +1,5 @@
 Fitter report for R32V2020
-Sun Jul 21 12:56:55 2019
+Mon Jul 22 10:36:48 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -74,7 +74,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Sun Jul 21 12:56:55 2019       ;
+; Fitter Status                      ; Successful - Mon Jul 22 10:36:48 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; RETRO_EP4_top                               ;
@@ -162,14 +162,14 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.08        ;
+; Average used               ; 1.10        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   2.7%      ;
-;     Processor 3            ;   2.7%      ;
-;     Processor 4            ;   2.6%      ;
+;     Processor 2            ;   3.5%      ;
+;     Processor 3            ;   3.4%      ;
+;     Processor 4            ;   3.3%      ;
 +----------------------------+-------------+
 
 
@@ -249,7 +249,7 @@ refer to the applicable agreement for further details.
 +--------------+
 ; Pin-Out File ;
 +--------------+
-The pin-out file can be found in C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/output_files/R32V2020.pin.
+The pin-out file can be found in C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/output_files/R32V2020.pin.
 
 
 +--------------------------------------------------------------------------+
@@ -1873,7 +1873,7 @@ Info (332111): Found 2 clocks
     Info (332111): ======== ============
     Info (332111):  100.000 altera_reserved_tck
     Info (332111):   20.000   i_CLOCK_50
-Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN 23 (CLK1, DIFFCLK_0n)) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 13
+Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN 23 (CLK1, DIFFCLK_0n)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 13
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G2
 Info (176353): Automatically promoted node altera_internal_jtag~TCKUTAP 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
@@ -1883,53 +1883,53 @@ Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Per
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
         Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|process_1~0
-Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Peripherals|w_SPI_Clk  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 94
+Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Peripherals|w_SPI_Clk  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 94
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
 Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Peripherals|comb~2 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk|result  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/debounce.vhd Line: 33
+Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk|result  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/debounce.vhd Line: 33
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[0] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[1] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[2] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[3] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[4] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[5] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[6] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[7] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[8] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[9] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[0] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[1] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[2] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[3] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[4] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[5] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[6] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[7] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[8] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|count_idle[9] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 90
         Info (176358): Non-global destination nodes limited to 10 nodes
 Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Peripherals|comb~3 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node middle:middle|Debouncer:DebounceResetSwitch|o_PinOut  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Debounce/Debounce.vhd Line: 12
+Info (176353): Automatically promoted node middle:middle|Debouncer:DebounceResetSwitch|o_PinOut  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/Debounce/Debounce.vhd Line: 12
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|cursorVert[4] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 549
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|cursorVert[1] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 549
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|cursorVert[0] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 549
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|dispWR File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 167
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[15] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[14] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[13] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[12] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[11] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[18] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|cursorVert[4] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 549
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|cursorVert[1] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 549
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|cursorVert[0] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 549
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|dispWR File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 167
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[15] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[14] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[13] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[12] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[11] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|counterLoadable:MusicNoteCounter|Pre_Q[18] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd Line: 36
         Info (176358): Non-global destination nodes limited to 10 nodes
-Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|func_reset  File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 77
+Info (176353): Automatically promoted node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|func_reset  File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 77
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[2] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[3] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[4] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[5] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[6] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[0] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[1] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[7] File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|rxCurrentByteBuffer[6]~2 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 209
-        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|rxBuffer~23 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 80
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[2] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[3] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[4] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[5] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[6] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[0] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[1] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|dataOut[7] File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 175
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|rxCurrentByteBuffer[6]~2 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 209
+        Info (176357): Destination node middle:middle|PeripheralInterface:Peripherals|bufferedUART:UART|rxBuffer~23 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 80
         Info (176358): Non-global destination nodes limited to 10 nodes
 Info (176233): Starting register packing
 Info (176235): Finished register packing
@@ -1976,7 +1976,7 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "sramData[5]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "sramData[6]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "sramData[7]" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:04
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:02
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
@@ -1990,31 +1990,31 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
-Info (11888): Total time spent on timing analysis during the Fitter is 1.13 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.85 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:04
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 6 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin i_SerCts uses I/O standard 3.3-V LVCMOS at 136 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 18
-    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVCMOS at 23 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 13
-    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at 125 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 12
-    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVCMOS at 132 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 15
-    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVCMOS at 127 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 29
-    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVCMOS at 126 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 30
-Info (144001): Generated suppressed messages file C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/output_files/R32V2020.fit.smsg
+    Info (169178): Pin i_SerCts uses I/O standard 3.3-V LVCMOS at 136 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 18
+    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVCMOS at 23 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 13
+    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at 125 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 12
+    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVCMOS at 132 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 15
+    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVCMOS at 127 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 29
+    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVCMOS at 126 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 30
+Info (144001): Generated suppressed messages file C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/output_files/R32V2020.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 39 warnings
-    Info: Peak virtual memory: 5570 megabytes
-    Info: Processing ended: Sun Jul 21 12:56:58 2019
-    Info: Elapsed time: 00:00:30
-    Info: Total CPU time (on all processors): 00:00:34
+    Info: Peak virtual memory: 5568 megabytes
+    Info: Processing ended: Mon Jul 22 10:36:49 2019
+    Info: Elapsed time: 00:00:14
+    Info: Total CPU time (on all processors): 00:00:19
 
 
 +----------------------------+
 ; Fitter Suppressed Messages ;
 +----------------------------+
-The suppressed messages can be found in C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/output_files/R32V2020.fit.smsg.
+The suppressed messages can be found in C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/output_files/R32V2020.fit.smsg.
 
 
