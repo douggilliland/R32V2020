@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE6E22C6
-set_global_assignment -name TOP_LEVEL_ENTITY R32V2020_A4CE10_top
+set_global_assignment -name TOP_LEVEL_ENTITY R32V2020_A4CE6_top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:01:55  MARCH 31, 2019"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -125,8 +125,8 @@ set_location_assignment PIN_31 -to spi_sclk
 set_location_assignment PIN_33 -to spi_mosi
 set_location_assignment PIN_38 -to spi_csN
 set_location_assignment PIN_52 -to o_testPoint
+set_global_assignment -name VHDL_FILE R32V2020_A4CE6_top.vhd
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/middle.vhd
-set_global_assignment -name VHDL_FILE ../R32V2020_Build_V002_A4_CE10/R32V2020_A4CE10_top.vhd
 set_global_assignment -name VHDL_FILE "../../Components/SPI/ReVerSE-U16/spi.vhd"
 set_global_assignment -name VHDL_FILE ../../Components/I2C/i2c.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii.vhd

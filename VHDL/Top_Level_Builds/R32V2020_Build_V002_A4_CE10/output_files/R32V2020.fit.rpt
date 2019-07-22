@@ -1,5 +1,5 @@
 Fitter report for R32V2020
-Mon Jul 22 09:35:45 2019
+Mon Jul 22 10:20:46 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Mon Jul 22 09:35:44 2019       ;
+; Fitter Status                      ; Successful - Mon Jul 22 10:20:46 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE10_top                         ;
@@ -168,9 +168,9 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   3.9%      ;
-;     Processor 3            ;   3.8%      ;
-;     Processor 4            ;   3.7%      ;
+;     Processor 2            ;   3.6%      ;
+;     Processor 3            ;   3.6%      ;
+;     Processor 4            ;   3.5%      ;
 +----------------------------+-------------+
 
 
@@ -2078,7 +2078,7 @@ Info (332111): Found 2 clocks
     Info (332111): ======== ============
     Info (332111):  100.000 altera_reserved_tck
     Info (332111):   20.000   i_CLOCK_50
-Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN 23 (CLK1, DIFFCLK_0n)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 15
+Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN 23 (CLK1, DIFFCLK_0n)) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 15
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G2
 Info (176353): Automatically promoted node altera_internal_jtag~TCKUTAP 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
@@ -2176,32 +2176,32 @@ Info (334004): Delay annotation completed successfully
 Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 20 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin i_I2C_INT uses I/O standard 3.3-V LVCMOS at 32 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 39
-    Info (169178): Pin io_I2C_SCL uses I/O standard 3.3-V LVCMOS at 34 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 37
-    Info (169178): Pin io_I2C_SDA uses I/O standard 3.3-V LVTTL at 39 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 38
-    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVCMOS at 23 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 15
-    Info (169178): Pin i_dipSwitch[0] uses I/O standard 3.3-V LVCMOS at 58 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 18
-    Info (169178): Pin i_dipSwitch[7] uses I/O standard 3.3-V LVCMOS at 68 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 18
-    Info (169178): Pin i_dipSwitch[4] uses I/O standard 3.3-V LVCMOS at 65 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 18
-    Info (169178): Pin i_dipSwitch[5] uses I/O standard 3.3-V LVCMOS at 66 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 18
-    Info (169178): Pin i_dipSwitch[1] uses I/O standard 3.3-V LVCMOS at 59 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 18
-    Info (169178): Pin i_dipSwitch[6] uses I/O standard 3.3-V LVCMOS at 67 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 18
-    Info (169178): Pin i_dipSwitch[2] uses I/O standard 3.3-V LVCMOS at 60 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 18
-    Info (169178): Pin i_dipSwitch[3] uses I/O standard 3.3-V LVCMOS at 64 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 18
-    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at 86 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 14
-    Info (169178): Pin spi_miso uses I/O standard 3.3-V LVCMOS at 28 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 44
-    Info (169178): Pin i_switch[0] uses I/O standard 3.3-V LVCMOS at 87 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 17
-    Info (169178): Pin i_switch[1] uses I/O standard 3.3-V LVCMOS at 91 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 17
-    Info (169178): Pin i_switch[2] uses I/O standard 3.3-V LVCMOS at 90 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 17
-    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVCMOS at 114 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 22
-    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVCMOS at 11 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 47
-    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVCMOS at 10 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001_A4_CE10/R32V2020_A4CE10_top.vhd Line: 48
+    Info (169178): Pin i_I2C_INT uses I/O standard 3.3-V LVCMOS at 32 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 39
+    Info (169178): Pin io_I2C_SCL uses I/O standard 3.3-V LVCMOS at 34 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 37
+    Info (169178): Pin io_I2C_SDA uses I/O standard 3.3-V LVTTL at 39 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 38
+    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVCMOS at 23 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 15
+    Info (169178): Pin i_dipSwitch[0] uses I/O standard 3.3-V LVCMOS at 58 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 18
+    Info (169178): Pin i_dipSwitch[7] uses I/O standard 3.3-V LVCMOS at 68 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 18
+    Info (169178): Pin i_dipSwitch[4] uses I/O standard 3.3-V LVCMOS at 65 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 18
+    Info (169178): Pin i_dipSwitch[5] uses I/O standard 3.3-V LVCMOS at 66 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 18
+    Info (169178): Pin i_dipSwitch[1] uses I/O standard 3.3-V LVCMOS at 59 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 18
+    Info (169178): Pin i_dipSwitch[6] uses I/O standard 3.3-V LVCMOS at 67 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 18
+    Info (169178): Pin i_dipSwitch[2] uses I/O standard 3.3-V LVCMOS at 60 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 18
+    Info (169178): Pin i_dipSwitch[3] uses I/O standard 3.3-V LVCMOS at 64 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 18
+    Info (169178): Pin n_reset uses I/O standard 3.3-V LVCMOS at 86 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 14
+    Info (169178): Pin spi_miso uses I/O standard 3.3-V LVCMOS at 28 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 44
+    Info (169178): Pin i_switch[0] uses I/O standard 3.3-V LVCMOS at 87 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 17
+    Info (169178): Pin i_switch[1] uses I/O standard 3.3-V LVCMOS at 91 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 17
+    Info (169178): Pin i_switch[2] uses I/O standard 3.3-V LVCMOS at 90 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 17
+    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVCMOS at 114 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 22
+    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVCMOS at 11 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 47
+    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVCMOS at 10 File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/r32v2020_a4ce10_top.vhd Line: 48
 Info (144001): Generated suppressed messages file C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE10/output_files/R32V2020.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 10 warnings
-    Info: Peak virtual memory: 5566 megabytes
-    Info: Processing ended: Mon Jul 22 09:35:46 2019
+    Info: Peak virtual memory: 5569 megabytes
+    Info: Processing ended: Mon Jul 22 10:20:47 2019
     Info: Elapsed time: 00:00:14
-    Info: Total CPU time (on all processors): 00:00:19
+    Info: Total CPU time (on all processors): 00:00:20
 
 
 +----------------------------+
