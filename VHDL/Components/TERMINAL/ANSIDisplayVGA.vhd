@@ -66,29 +66,30 @@ entity ANSIDisplayVGA is
 		constant SANS_SERIF_FONT : integer := 1 -- 0 => use conventional CGA font, 1 => use san serif font
 	);
 	port (
-		n_reset	: in std_logic;
-		clk    	: in  std_logic;
-		n_wr		: in  std_logic;
-		n_rd		: in  std_logic;
-		regSel	: in  std_logic;
-		dataIn	: in  std_logic_vector(7 downto 0);
-		dataOut	: out std_logic_vector(7 downto 0);
-		n_int		: out std_logic;
+		n_reset		: in std_logic;
+		clk    		: in  std_logic;
+		n_wr			: in  std_logic;
+		n_rd			: in  std_logic;
+		regSel		: in  std_logic;
+		dataIn		: in  std_logic_vector(7 downto 0);
+		dataOut		: out std_logic_vector(7 downto 0);
+		n_int			: out std_logic;
 		--n_rts		: out std_logic :='0';
 
 		-- RGB video signals
-		videoR0	: out std_logic;
-		videoR1	: out std_logic;
-		videoG0	: out std_logic;
-		videoG1	: out std_logic;
-		videoB0	: out std_logic;
-		videoB1	: out std_logic;
-		hSync  	: buffer  std_logic;
-		vSync  	: buffer  std_logic;
+		videoR0		: out std_logic;
+		videoR1		: out std_logic;
+		videoG0		: out std_logic;
+		videoG1		: out std_logic;
+		videoB0		: out std_logic;
+		videoB1		: out std_logic;
+		hSync  		: buffer  std_logic;
+		vSync  		: buffer  std_logic;
+		o_hActive	: out std_logic;
 
 		-- Monochrome video signals
-		video		: buffer std_logic;
-		sync  	: out  std_logic
+		video			: buffer std_logic;
+		sync  		: out  std_logic
  );
 end ANSIDisplayVGA;
 
@@ -209,6 +210,7 @@ constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 
 begin
 
+	o_hActive <= hActive;
 	dispAddr_xx <= std_logic_vector(to_unsigned(dispAddr,11));
 	cursAddr_xx <= std_logic_vector(to_unsigned(cursAddr,11));
 

@@ -56,9 +56,21 @@ architecture struct of R32V2020_A4CE10_top is
 --attribute syn_keep: boolean;
 --attribute syn_keep of w_Switch: signal is true;
 
+	signal	w_Red_Hi		:		std_logic := '0';
+	signal	w_Red_Lo		:		std_logic := '0';
+	signal	w_Grn_Hi		:		std_logic := '0';
+	signal	w_Grn_Lo		:		std_logic := '0';
+	signal	w_Blu_Hi		:		std_logic := '0';
+	signal	w_Blu_Lo		:		std_logic := '0';
+	signal	w_hActive	:		std_logic := '0';
+
 begin
 
-	middle : entity work.R32V2020_top
+	o_VideoVect(2) <= w_Red_Hi or w_Red_Lo;
+	o_VideoVect(1) <= w_Grn_Hi or w_Grn_Lo;
+	o_VideoVect(0) <= w_Blu_Hi or w_Blu_Lo;
+
+	R32V2020_top : entity work.R32V2020_top
 		port map (
 		n_reset		=> n_reset,
 		i_CLOCK_50	=> i_CLOCK_50,
@@ -70,13 +82,16 @@ begin
 		-- Serial port pins
 		i_SerRxd		=> i_SerRxd,
 		o_SerTxd		=> o_SerTxd,
-		--o_SerRts				: out std_logic;
 		-- VGA pins
-		o_vid_Red_Hi	=> o_VideoVect(2),
-		o_vid_Grn_Hi	=> o_VideoVect(1),
-		o_vid_Blu_Hi	=> o_VideoVect(0),
+		o_vid_Red_Hi	=> w_Red_Hi,
+		o_vid_Red_Lo	=> w_Red_Lo,
+		o_vid_Grn_Hi	=> w_Grn_Hi,
+		o_vid_Grn_Lo	=> w_Grn_Lo,
+		o_vid_Blu_Hi	=> w_Blu_Hi,
+		o_vid_Blu_Lo	=> w_Blu_Lo,
 		o_hSync			=> o_hSync,
 		o_vSync			=> o_vSync,
+		o_hActive		=> w_hActive,
 		-- Seven Segment LED pins
 		o_Anode_Activate	=> o_Anode_Activate,
 		o_LED7Seg_out		=> o_LED7Seg_out,

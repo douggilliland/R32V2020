@@ -27,20 +27,27 @@ entity PeripheralInterface is
 		o_LED7Seg_out				: out std_logic_vector(7 downto 0) := x"11";			-- Seven Segment LED
 		o_LEDRing_out				: buffer std_logic_vector(11 downto 0) := x"000";	-- LED Ring
 		o_LatchIO					: out std_logic_vector(7 downto 0) := x"11";			-- Output Latch
+		-- Serial port
 		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
 		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
 		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
+		i_cts							: in std_logic := '1';										-- Serial Hardware Handshake (from UART)
+		-- Video
 		o_VideoOut					: out std_logic_vector(5 downto 0);						-- VGA lines rr,gg,bb
 		o_hSync						: out std_logic := '1';
 		o_vSync						: out std_logic := '1';
+		o_hActive					: out std_logic := '0';
+		-- I2C connections
 		io_I2C_SCL					: inout std_logic := '1';
 		io_I2C_SDA					: inout std_logic := '1';
 		io_I2C_INT					: in std_logic := '1';
+		-- SPI connections
 		spi_sclk						: out std_logic := '1';
       spi_csN						: out std_logic;
       spi_mosi						: out std_logic := '1';
       spi_miso						: in std_logic := '1';
-		o_testPoint					: out std_logic := '1';
+--		o_testPoint					: out std_logic := '1';
+		-- PS/2 keyboard
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
 		);
@@ -120,6 +127,7 @@ architecture struct of PeripheralInterface is
 	constant SPIIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"C";
 
 begin
+	--o_hActive <= hActive;
 	
 	-- Peripheral Address decoder
 	-- Currently only uses 16-bits of address
@@ -151,7 +159,7 @@ begin
 		x"0000000"&"000" & w_spi_busy	when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
 		x"FFFFFFFF";
 
-	o_testPoint <= w_spi_busy;
+	-- o_testPoint <= w_spi_busy;
 	
 	-- SPIbus Clock
 	-- 50 MHz divided by 6 is 50/6 = 8.33 MHz
@@ -242,7 +250,8 @@ begin
 			videoB0			=> o_VideoOut(1),
 			videoB1			=> o_VideoOut(0),
 			hSync  			=> o_hSync,
-			vSync  			=> o_vSync
+			vSync  			=> o_vSync,
+			o_hActive		=> o_hActive
 			);
 	
 	timers : entity work.Timer_Unit
@@ -338,7 +347,7 @@ begin
 			txClkEn 	=> w_serialClkEn,
 			rxd 		=> i_rxd,
 			txd 		=> o_txd,
-			n_cts 	=> '0',
+			n_cts 	=> i_cts,
 			n_dcd 	=> '0',
 			n_rts 	=> o_rts
 		);

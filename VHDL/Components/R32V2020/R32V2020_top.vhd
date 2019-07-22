@@ -18,12 +18,12 @@ entity R32V2020_top is
 		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
 		--o_LED				: out std_logic_vector(3 downto 0);
 		o_BUZZER				: out std_logic := '0';
-		-- Serial port pins
+		-- Serial port pins with handshake lines
 		i_SerRxd				: in std_logic := '1';
 		o_SerTxd				: out std_logic := '1';
-		o_rts					: out std_logic := '1';
-		--o_SerRts				: out std_logic;
-		-- VGA pins
+		i_SerCts				: in std_logic := '0';
+		o_SerRts				: out std_logic := '1';
+		-- VGA pins - Up to 6-bits
 		o_vid_Red_Hi		: out std_logic := '0';
 		o_vid_Red_Lo		: out std_logic := '0';
 		o_vid_Grn_Hi		: out std_logic := '0';
@@ -32,6 +32,7 @@ entity R32V2020_top is
 		o_vid_Blu_Lo		: out std_logic := '0';
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
+		o_hActive			: out std_logic := '0';
 		-- Seven Segment LED pins
 		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
@@ -102,7 +103,7 @@ begin
 	o_vid_Blu_Lo <= o_VideoVect(0);
 	
 	-- CPU Element
-	RISC_CPU : 	entity work.R32V2020
+	R32V2020_CPU : 	entity work.R32V2020
 	port map (
 		n_reset 						=> resetLow,
 		-- Clock
@@ -181,8 +182,9 @@ begin
 		o_LatchIO					=> o_LatchIO,
 		i_rxd							=> i_SerRxd,
 		o_txd							=> o_SerTxd,
+		o_rts							=> o_SerRts,
+		i_cts							=> i_SerCts,
 		o_LEDRing_out				=> o_LEDRing_out,
-		--o_rts							=> o_SerRts,
 		o_VideoOut					=> o_VideoVect,
 		o_hSync						=> o_hSync,
 		o_vSync						=> o_vSync,
@@ -193,7 +195,7 @@ begin
       spi_csN						=> spi_csN,
       spi_mosi						=> spi_mosi,
       spi_miso						=> spi_miso,
-		o_testPoint					=> o_testPoint,
+		--o_testPoint					=> o_testPoint,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
 	);
