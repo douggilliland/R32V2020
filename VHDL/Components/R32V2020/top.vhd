@@ -23,7 +23,7 @@ entity top is
 		o_SerTxd				: out std_logic := '1';
 		--o_SerRts				: out std_logic;
 		-- VGA pins
-		o_VideoVect			: out std_logic_vector(2 downto 0) := "000"; -- rgb
+		o_VideoVect			: out std_logic_vector(5 downto 0) := "000000"; -- rrggbb
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
 		-- Seven Segment LED pins
