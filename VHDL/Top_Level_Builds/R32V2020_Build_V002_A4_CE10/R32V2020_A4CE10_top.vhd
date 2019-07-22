@@ -1,5 +1,6 @@
 -- Top Level Entity for top of R32V2020 RISC CPU design
 -- Build_V002 switches out memory mapped XVGA for ANSI compatible VGA
+-- There is a level above this in most cases which connects to the specific FPGA board
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -16,7 +17,6 @@ entity R32V2020_A4CE10_top is
 		-- Switches, LEDs, Buzzer pins
 		i_switch				: in std_logic_vector(2 downto 0) := "111";
 		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
-		--o_LED				: out std_logic_vector(3 downto 0);
 		o_BUZZER				: out std_logic := '0';
 		-- Serial port pins
 		i_SerRxd				: in std_logic := '1';
@@ -31,6 +31,8 @@ entity R32V2020_A4CE10_top is
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
 		-- LED Ring
 		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
+		--
+		--o_LED				: out std_logic_vector(3 downto 0);
 		-- 8 bit I/O Latch
 		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- I2C Clock and Data
