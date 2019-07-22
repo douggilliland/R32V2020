@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Fri Jul 19 13:14:59 2019
+Mon Jul 22 10:12:50 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Fri Jul 19 13:14:45 2019       ;
+; Flow Status                        ; Successful - Mon Jul 22 10:12:45 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
-; Top-level Entity Name              ; top                                         ;
+; Top-level Entity Name              ; R32V2020_A4CE10_top                         ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE6E22C6                                 ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,492 / 6,272 ( 72 % )                      ;
-;     Total combinational functions  ; 4,298 / 6,272 ( 69 % )                      ;
-;     Dedicated logic registers      ; 1,465 / 6,272 ( 23 % )                      ;
-; Total registers                    ; 1465                                        ;
+; Total logic elements               ; 4,490 / 6,272 ( 72 % )                      ;
+;     Total combinational functions  ; 4,307 / 6,272 ( 69 % )                      ;
+;     Dedicated logic registers      ; 1,462 / 6,272 ( 23 % )                      ;
+; Total registers                    ; 1462                                        ;
 ; Total pins                         ; 67 / 92 ( 73 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 90,240 / 276,480 ( 33 % )                   ;
+; Total memory bits                  ; 98,432 / 276,480 ( 36 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 8 / 30 ( 27 % )                             ;
 ; Total PLLs                         ; 0 / 2 ( 0 % )                               ;
 +------------------------------------+---------------------------------------------+
@@ -64,40 +64,40 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 07/19/2019 13:12:47 ;
+; Start date & time ; 07/22/2019 10:11:35 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                                ;
-+-------------------------------------+----------------------------------------------------------------+---------------+-------------+------------+
-; Assignment Name                     ; Value                                                          ; Default Value ; Entity Name ; Section Id ;
-+-------------------------------------+----------------------------------------------------------------+---------------+-------------+------------+
-; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                         ; Auto          ; --          ; --         ;
-; COMPILER_SIGNATURE_ID               ; 198690285320223.156355636517760                                ; --            ; --          ; --         ;
-; ENABLE_SIGNALTAP                    ; Off                                                            ; --            ; --          ; --         ;
-; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                            ; On            ; --          ; --         ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                                             ; --            ; --          ; --         ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                                              ; --            ; --          ; --         ;
-; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.cmp ; --            ; --          ; --         ;
-; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.ppf ; --            ; --          ; --         ;
-; NUM_PARALLEL_PROCESSORS             ; 4                                                              ; --            ; --          ; --         ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --          ; --         ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --          ; --         ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                     ; --            ; --          ; --         ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                     ; --            ; --          ; --         ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family)                         ; --            ; top         ; Top        ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                         ; --            ; top         ; Top        ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                         ; --            ; top         ; Top        ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                            ; --            ; --          ; --         ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                          ; --            ; --          ; --         ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                   ; --            ; --          ; --         ;
-; SMART_RECOMPILE                     ; On                                                             ; Off           ; --          ; --         ;
-; TOP_LEVEL_ENTITY                    ; top                                                            ; R32V2020      ; --          ; --         ;
-; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                                          ; --            ; --          ; --         ;
-+-------------------------------------+----------------------------------------------------------------+---------------+-------------+------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                        ;
++-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------+
+; Assignment Name                     ; Value                                                          ; Default Value ; Entity Name         ; Section Id ;
++-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                         ; Auto          ; --                  ; --         ;
+; COMPILER_SIGNATURE_ID               ; 193569097813697.156380469527440                                ; --            ; --                  ; --         ;
+; ENABLE_SIGNALTAP                    ; Off                                                            ; --            ; --                  ; --         ;
+; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                            ; On            ; --                  ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                                             ; --            ; --                  ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                                              ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.cmp ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.ppf ; --            ; --                  ; --         ;
+; NUM_PARALLEL_PROCESSORS             ; 4                                                              ; --            ; --                  ; --         ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --                  ; --         ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --                  ; --         ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                     ; --            ; --                  ; --         ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                     ; --            ; --                  ; --         ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE10_top ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE10_top ; Top        ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE10_top ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                            ; --            ; --                  ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                          ; --            ; --                  ; --         ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                   ; --            ; --                  ; --         ;
+; SMART_RECOMPILE                     ; On                                                             ; Off           ; --                  ; --         ;
+; TOP_LEVEL_ENTITY                    ; R32V2020_A4CE10_top                                            ; R32V2020      ; --                  ; --         ;
+; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                                          ; --            ; --                  ; --         ;
++-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -105,11 +105,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:24     ; 1.0                     ; 4885 MB             ; 00:01:52                           ;
-; Fitter               ; 00:00:23     ; 1.1                     ; 5563 MB             ; 00:00:29                           ;
-; Assembler            ; 00:00:04     ; 1.0                     ; 4703 MB             ; 00:00:04                           ;
-; Timing Analyzer      ; 00:00:12     ; 1.2                     ; 4830 MB             ; 00:00:12                           ;
-; Total                ; 00:02:03     ; --                      ; --                  ; 00:02:37                           ;
+; Analysis & Synthesis ; 00:00:50     ; 1.0                     ; 4887 MB             ; 00:01:18                           ;
+; Fitter               ; 00:00:14     ; 1.1                     ; 5568 MB             ; 00:00:20                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4705 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:04     ; 1.2                     ; 4831 MB             ; 00:00:04                           ;
+; Total                ; 00:01:10     ; --                      ; --                  ; 00:01:44                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -118,10 +118,10 @@ refer to the applicable agreement for further details.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
