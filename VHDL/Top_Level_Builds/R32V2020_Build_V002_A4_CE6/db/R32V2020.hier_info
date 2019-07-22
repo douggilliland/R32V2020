@@ -70,7 +70,7 @@ i_ps2Data => r32v2020_top:middle.i_ps2Data
 
 |R32V2020_A4CE6_top|R32V2020_top:middle
 n_reset => debouncer:DebounceResetSwitch.i_PinIn
-i_CLOCK_50 => r32v2020:RISC_CPU.i_CLOCK_50
+i_CLOCK_50 => r32v2020:R32V2020_CPU.i_CLOCK_50
 i_CLOCK_50 => blockrom_instruction:Instr_ROM.clock
 i_CLOCK_50 => blockram_stack:Stack_RAM.clock
 i_CLOCK_50 => blockram_data:Data_RAM.clock
@@ -90,7 +90,8 @@ i_dipSwitch[7] => peripheralinterface:Peripherals.i_DIP_switch[7]
 o_BUZZER <= peripheralinterface:Peripherals.o_BUZZER
 i_SerRxd => peripheralinterface:Peripherals.i_rxd
 o_SerTxd <= peripheralinterface:Peripherals.o_txd
-o_rts <= <VCC>
+i_SerCts => peripheralinterface:Peripherals.i_cts
+o_SerRts <= peripheralinterface:Peripherals.o_rts
 o_vid_Red_Hi <= peripheralinterface:Peripherals.o_VideoOut[5]
 o_vid_Red_Lo <= peripheralinterface:Peripherals.o_VideoOut[4]
 o_vid_Grn_Hi <= peripheralinterface:Peripherals.o_VideoOut[3]
@@ -99,6 +100,7 @@ o_vid_Blu_Hi <= peripheralinterface:Peripherals.o_VideoOut[1]
 o_vid_Blu_Lo <= peripheralinterface:Peripherals.o_VideoOut[0]
 o_hSync <= peripheralinterface:Peripherals.o_hSync
 o_vSync <= peripheralinterface:Peripherals.o_vSync
+o_hActive <= <GND>
 o_Anode_Activate[0] <= peripheralinterface:Peripherals.o_Anode_Activate[0]
 o_Anode_Activate[1] <= peripheralinterface:Peripherals.o_Anode_Activate[1]
 o_Anode_Activate[2] <= peripheralinterface:Peripherals.o_Anode_Activate[2]
@@ -142,12 +144,12 @@ spi_sclk <= peripheralinterface:Peripherals.spi_sclk
 spi_csN <= peripheralinterface:Peripherals.spi_csN
 spi_mosi <= peripheralinterface:Peripherals.spi_mosi
 spi_miso => peripheralinterface:Peripherals.spi_miso
-o_testPoint <= peripheralinterface:Peripherals.o_testPoint
+o_testPoint <= <VCC>
 i_ps2Clk => peripheralinterface:Peripherals.i_PS2_CLK
 i_ps2Data => peripheralinterface:Peripherals.i_PS2_DATA
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU
 n_reset => w_holdHaltCatchFire.IN1
 n_reset => o_writeStackRamEn.IN1
 n_reset => o_writeToDataRamEnable.IN1
@@ -575,7 +577,7 @@ o_peripheralRdStrobe <= o_peripheralRdStrobe.DB_MAX_OUTPUT_PORT_TYPE
 o_peripheralWrStrobe <= o_peripheralWrStrobe.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|OneHotStateMachine:StateMachine
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|OneHotStateMachine:StateMachine
 clk => state[0]~reg0.CLK
 clk => state[1]~reg0.CLK
 clk => state[2]~reg0.CLK
@@ -620,7 +622,7 @@ state[4] <= state[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 state[5] <= state[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|OpCodeDecoder:opcodeDecoder
 InstrOpCode[0] => Equal0.IN4
 InstrOpCode[0] => Equal1.IN4
 InstrOpCode[0] => Equal2.IN3
@@ -795,7 +797,7 @@ Op_BSR <= Op_BSR.DB_MAX_OUTPUT_PORT_TYPE
 o_WrRegFile <= o_WrRegFile.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder|OpCode_Cat_Decoder:opc_Cat_Decoder
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|OpCodeDecoder:opcodeDecoder|OpCode_Cat_Decoder:opc_Cat_Decoder
 InstrOpCodeCat[0] => Equal0.IN5
 InstrOpCodeCat[0] => Equal1.IN5
 InstrOpCodeCat[0] => Equal2.IN5
@@ -826,7 +828,7 @@ Stack_OpCode <= Equal5.DB_MAX_OUTPUT_PORT_TYPE
 FlowCtl_OpCode <= Equal6.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|FlowControl:FlowControl
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|FlowControl:FlowControl
 CCR[0] => o_TakeBranch.IN0
 CCR[1] => o_TakeBranch.IN0
 CCR[2] => o_TakeBranch.IN0
@@ -873,7 +875,7 @@ Op_BSR => o_TakeBranch.IN1
 o_TakeBranch <= o_TakeBranch.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|CCRControl:CCR_Store
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|CCRControl:CCR_Store
 Op_ADS => o_save_CCR_bits.IN0
 Op_MUL => o_save_CCR_bits.IN1
 Op_ORS => o_save_CCR_bits.IN1
@@ -890,7 +892,7 @@ Op_CMP => o_save_CCR_bits.IN1
 o_save_CCR_bits <= o_save_CCR_bits.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|ALU:ALU
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|ALU:ALU
 i_regDataA[0] => Mult0.IN31
 i_regDataA[0] => w_ALUResult.DATAB
 i_regDataA[0] => w_ALUResult.DATAB
@@ -2132,7 +2134,7 @@ o_CondCodeBits[30] <= <GND>
 o_CondCodeBits[31] <= <GND>
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile
 i_clk => reg_32:conditionCodeRegister.clk
 i_clk => count_32:stackAddress.clk
 i_clk => count_32:peripheralAddress.clk
@@ -3041,7 +3043,7 @@ o_CCR[30] <= reg_32:conditionCodeRegister.q[30]
 o_CCR[31] <= reg_32:conditionCodeRegister.q[31]
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_32:conditionCodeRegister
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_32:conditionCodeRegister
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -3204,7 +3206,7 @@ q[30] <= q[30]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[31] <= q[31]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:stackAddress
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:stackAddress
 clk => Pre_Q[0].CLK
 clk => Pre_Q[1].CLK
 clk => Pre_Q[2].CLK
@@ -3342,7 +3344,7 @@ q[30] <= Pre_Q[30].DB_MAX_OUTPUT_PORT_TYPE
 q[31] <= Pre_Q[31].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:peripheralAddress
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:peripheralAddress
 clk => Pre_Q[0].CLK
 clk => Pre_Q[1].CLK
 clk => Pre_Q[2].CLK
@@ -3480,7 +3482,7 @@ q[30] <= Pre_Q[30].DB_MAX_OUTPUT_PORT_TYPE
 q[31] <= Pre_Q[31].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:dataRamAddress
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:dataRamAddress
 clk => Pre_Q[0].CLK
 clk => Pre_Q[1].CLK
 clk => Pre_Q[2].CLK
@@ -3618,7 +3620,7 @@ q[30] <= Pre_Q[30].DB_MAX_OUTPUT_PORT_TYPE
 q[31] <= Pre_Q[31].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter
 clk => Pre_Q[0].CLK
 clk => Pre_Q[1].CLK
 clk => Pre_Q[2].CLK
@@ -3756,7 +3758,7 @@ q[30] <= Pre_Q[30].DB_MAX_OUTPUT_PORT_TYPE
 q[31] <= Pre_Q[31].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r8Upper
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Upper
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -3839,7 +3841,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r8Lower
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -3922,7 +3924,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r9Upper
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Upper
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4005,7 +4007,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r9Lower
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4088,7 +4090,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r10Upper
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Upper
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4171,7 +4173,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r10Lower
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4254,7 +4256,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r11Upper
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Upper
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4337,7 +4339,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r11Lower
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4420,7 +4422,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r12Upper
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r12Upper
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4503,7 +4505,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r12Lower
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r12Lower
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4586,7 +4588,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r13Upper
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r13Upper
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4669,7 +4671,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r13Lower
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r13Lower
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4752,7 +4754,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r14Upper
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r14Upper
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4835,7 +4837,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r14Lower
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r14Lower
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -4918,7 +4920,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r15Upper
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r15Upper
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -5001,7 +5003,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r15Lower
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r15Lower
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -5084,7 +5086,7 @@ q[14] <= q[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[15] <= q[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|MUX_16x32:muxA
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|MUX_16x32:muxA
 r0[0] => Mux31.IN0
 r0[1] => Mux30.IN0
 r0[2] => Mux29.IN0
@@ -5759,7 +5761,7 @@ z[30] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
 z[31] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|MUX_16x32:muxB
+|R32V2020_A4CE6_top|R32V2020_top:middle|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|MUX_16x32:muxB
 r0[0] => Mux31.IN0
 r0[1] => Mux30.IN0
 r0[2] => Mux29.IN0
@@ -11320,6 +11322,7 @@ o_LatchIO[7] <= reg_8:IOLatch.q[7]
 i_rxd => buffereduart:UART.rxd
 o_txd <= buffereduart:UART.txd
 o_rts <= buffereduart:UART.n_rts
+i_cts => buffereduart:UART.n_cts
 o_VideoOut[0] <= ansidisplayvga:SVGA.videoB1
 o_VideoOut[1] <= ansidisplayvga:SVGA.videoB0
 o_VideoOut[2] <= ansidisplayvga:SVGA.videoG1
@@ -11328,6 +11331,7 @@ o_VideoOut[4] <= ansidisplayvga:SVGA.videoR1
 o_VideoOut[5] <= ansidisplayvga:SVGA.videoR0
 o_hSync <= ansidisplayvga:SVGA.hSync
 o_vSync <= ansidisplayvga:SVGA.vSync
+o_hActive <= ansidisplayvga:SVGA.o_hActive
 io_I2C_SCL <> i2c:i2cIF.io_I2C_SCL
 io_I2C_SDA <> i2c:i2cIF.io_I2C_SDA
 io_I2C_INT => ~NO_FANOUT~
@@ -11335,7 +11339,6 @@ spi_sclk <= spi:spiMaster.SCLK
 spi_csN <= spi:spiMaster.CS_n
 spi_mosi <= spi:spiMaster.MOSI
 spi_miso => spi:spiMaster.MISO
-o_testPoint <= spi:spiMaster.BUSY
 i_PS2_CLK => ps2_keyboard_to_ascii:ps2Keyboard.ps2_clk
 i_PS2_DATA => ps2_keyboard_to_ascii:ps2Keyboard.ps2_data
 
@@ -11902,6 +11905,7 @@ videoB0 <= videoB0~reg0.DB_MAX_OUTPUT_PORT_TYPE
 videoB1 <= videoB1~reg0.DB_MAX_OUTPUT_PORT_TYPE
 hSync <= hSync~reg0.DB_MAX_OUTPUT_PORT_TYPE
 vSync <= vSync~reg0.DB_MAX_OUTPUT_PORT_TYPE
+o_hActive <= hActive.DB_MAX_OUTPUT_PORT_TYPE
 video <= video~reg0.DB_MAX_OUTPUT_PORT_TYPE
 sync <= sync.DB_MAX_OUTPUT_PORT_TYPE
 
