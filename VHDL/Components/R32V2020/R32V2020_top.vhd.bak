@@ -9,7 +9,7 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 library work;
 use work.R32V2020_Pkg.all;
 
-entity R32V2020_top is
+entity middle is
 	port(
 		n_reset				: in std_logic := '1';
 		i_CLOCK_50			: in std_logic;
@@ -53,9 +53,9 @@ entity R32V2020_top is
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
 		);
-end R32V2020_top;
+end middle;
 
-architecture struct of R32V2020_top is
+architecture struct of middle is
 
 -- Instruction Space Controls
 signal	w_InstructionRomAddress	: std_logic_vector(31 downto 0) := x"00000000";

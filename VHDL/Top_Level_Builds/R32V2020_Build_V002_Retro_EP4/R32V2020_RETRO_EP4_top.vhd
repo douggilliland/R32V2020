@@ -8,7 +8,7 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 library work;
 use work.R32V2020_Pkg.all;
 
-entity RETRO_EP4_top is
+entity R32V2020_RETRO_EP4_top is
 	port(
 		n_reset				: in std_logic := '1';
 		i_CLOCK_50			: in std_logic;
@@ -30,9 +30,9 @@ entity RETRO_EP4_top is
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
 		);
-end RETRO_EP4_top;
+end R32V2020_RETRO_EP4_top;
 
-architecture struct of RETRO_EP4_top is
+architecture struct of R32V2020_RETRO_EP4_top is
 
 signal	o_VideoVect		: std_logic_Vector(5 downto 0);
 

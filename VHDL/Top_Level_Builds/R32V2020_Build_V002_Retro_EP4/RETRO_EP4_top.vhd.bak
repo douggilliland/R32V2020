@@ -1,4 +1,3 @@
--- 
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -38,7 +37,7 @@ signal	o_VideoVect		: std_logic_Vector(5 downto 0);
 
 begin
 
-middle : entity work.R32V2020_top
+middle : entity work.middle
 	port map (
 		n_reset				=> n_reset,
 		i_CLOCK_50			=> i_CLOCK_50,
