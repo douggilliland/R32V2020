@@ -37,10 +37,13 @@ entity PeripheralInterface is
 		o_hSync						: out std_logic := '1';
 		o_vSync						: out std_logic := '1';
 		o_hActive					: out std_logic := '0';
-		-- I2C connections
+		-- External I2C connections
 		io_I2C_SCL					: inout std_logic := '1';
 		io_I2C_SDA					: inout std_logic := '1';
 		io_I2C_INT					: in std_logic := '1';
+		-- EEPROM I2C connections
+		io_EEP_I2C_SCL				: inout std_logic := '1';
+		io_EEP_I2C_SDA				: inout std_logic := '1';
 		-- SPI connections
 		spi_sclk						: out std_logic := '1';
       spi_csN						: out std_logic;
@@ -70,12 +73,12 @@ architecture struct of PeripheralInterface is
 	signal w_LatchIOCS			:	std_logic := '0';
 	signal w_I2CCS					:	std_logic := '0';
 	signal w_SPICS					:	std_logic := '0';
+	signal w_EEPI2CCS				:	std_logic := '0';
 	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
 	signal w_serialClkEn			:	std_logic;
 	signal w_serialClock			:	std_logic;
---	signal w_Video					:	std_logic_vector(5 downto 0);
 	signal w_kbdStatus			:	std_logic_vector(31 downto 0);
 	signal w_aciaData				:	std_logic_vector(7 downto 0);
 	signal w_kbReadData			:	std_logic_vector(6 downto 0);
@@ -88,14 +91,15 @@ architecture struct of PeripheralInterface is
 	signal w_kbError				:	std_logic;
 	signal w_LatData				:	std_logic_vector(7 downto 0);
 	signal o_spiData				:	std_logic_vector(7 downto 0);
---	attribute syn_keep of w_LatData : signal is true;
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
 	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0);
 	signal w_Switch				: std_logic_vector(2 downto 0) := "000";
 
 	signal w_4x_I2C_Count		:	std_logic_vector(6 downto 0); 
 	signal i2c_4X_CLK				:	std_logic := '0';
-	signal o_i2cData				:	std_logic_vector(7 downto 0);
+	signal o_i2cData				:	std_logic_vector(7 downto 0);		-- External I2C
+	
+	signal o_EEPi2cData			:	std_logic_vector(7 downto 0);		-- EEPROM I2C
 	
 	signal w_SPI_Clk_Count		:	std_logic_vector(5 downto 0); 
 	signal w_SPI_Clk			: 	std_logic := '0';
@@ -125,6 +129,7 @@ architecture struct of PeripheralInterface is
 	constant LATIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"A";
 	constant I2CIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"B";
 	constant SPIIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"C";
+	constant EEPIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"D";
 
 begin
 	--o_hActive <= hActive;
@@ -142,8 +147,9 @@ begin
 	w_NoteCS			<= '1' when i_peripheralAddress(15 downto 11) = NOTE_BASE	else '0';	-- x4000-x47FF (2KB)	- Music/Note
 	w_LEDRingCS		<= '1' when i_peripheralAddress(15 downto 11) = LEDRNG_BASE	else '0';	-- x4800-x4FFF (2KB)	- LED Ring
 	w_LatchIOCS		<= '1' when i_peripheralAddress(15 downto 11) = LATIO_BASE	else '0';	-- x5000-x57FF (2KB)	- I/O Latch
-	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- I2C Address
+	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- External I2C Address
 	w_SPICS			<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- SPI Address
+	w_EEPI2CCS		<= '1' when i_peripheralAddress(15 downto 11) = EEPIO_BASE	else '0';	-- x6800-x6FFF (2KB)	- EEPROM I2C Address
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_ANSI_DispRamDataOutA 	when	ANSI_DisplayCS = '1' else
@@ -155,12 +161,11 @@ begin
 		o_dataFromTimers									when	w_TimersCS		= '1' else
 		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
 		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
-		x"000000"		& o_spiData		when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
-		x"0000000"&"000" & w_spi_busy	when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
+		x"000000"		& o_spiData						when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
+		x"0000000"&"000" & w_spi_busy					when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
+		x"000000"		& o_EEPi2cData		 			when	w_EEPI2CCS		= '1' else
 		x"FFFFFFFF";
 
-	-- o_testPoint <= w_spi_busy;
-	
 	-- SPIbus Clock
 	-- 50 MHz divided by 6 is 50/6 = 8.33 MHz
 	-- 50/50 duty cycle (3 clocks high/3 clocks low)
@@ -218,9 +223,9 @@ begin
 				i2c_4X_CLK <= '0';
 			end if;
 		end if;
-    end process;	
+    end process;
 	
-	-- I2c Interface
+	-- External I2c Interface
 	i2cIF	: entity work.i2c
 	port map (
 		i_RESET			=> not n_reset,								-- Reset pushbutton switch
@@ -232,6 +237,20 @@ begin
 		i_WR				=> w_I2CCS and i_peripheralWrStrobe,	-- Write strobe
 		io_I2C_SCL		=> io_I2C_SCL,									-- Clock to external I2C interface
 		io_I2C_SDA		=> io_I2C_SDA									-- Data to/from external I2C interface
+	);
+	
+	-- EEPROM I2c Interface
+	eepi2cIF	: entity work.i2c
+	port map (
+		i_RESET			=> not n_reset,								-- Reset pushbutton switch
+		CPU_CLK			=> i_CLOCK_50,									-- 50 MHz
+		i_ENA				=> i2c_4X_CLK,									-- One CPU clock wide every 400 Khz
+		i_ADRSEL			=> i_peripheralAddress(0),					-- Command/Data address select line
+		i_DATA_IN		=> i_dataToPeripherals(7 downto 0),		-- Data to I2C interface
+		o_DATA_OUT		=> o_EEPi2cData,								-- Data from I2C interface
+		i_WR				=> w_EEPI2CCS and i_peripheralWrStrobe, -- Write strobe
+		io_I2C_SCL		=> io_EEP_I2C_SCL,							-- Clock to external I2C interface
+		io_I2C_SDA		=> io_EEP_I2C_SDA								-- Data to/from external I2C interface
 	);
 	
 	SVGA : entity work.ANSIDisplayVGA

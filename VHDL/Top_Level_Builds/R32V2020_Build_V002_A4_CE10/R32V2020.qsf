@@ -142,6 +142,7 @@ set_instance_assignment -name SLEW_RATE 2 -to o_SerTxd
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_BUZZER
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_hSync
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SDA
+set_global_assignment -name VHDL_FILE R32V2020_A4CE10_top.vhd
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020_top.vhd
 set_global_assignment -name VHDL_FILE "../../Components/SPI/ReVerSE-U16/spi.vhd"
 set_global_assignment -name VHDL_FILE ../../Components/I2C/i2c.vhd

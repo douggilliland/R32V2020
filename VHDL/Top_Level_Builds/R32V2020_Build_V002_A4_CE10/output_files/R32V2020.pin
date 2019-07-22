@@ -70,11 +70,11 @@ Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage 
 -------------------------------------------------------------------------------------------------------------
 o_VideoVect[1]               : 1         : output : 3.3-V LVTTL       :         : 1         : Y              
 o_VideoVect[2]               : 2         : output : 3.3-V LVTTL       :         : 1         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : 3         :        :                   :         : 1         :                
+io_EEP_I2C_SCL               : 3         : bidir  : 3.3-V LVCMOS      :         : 1         : N              
 GND                          : 4         : gnd    :                   :         :           :                
 VCCINT                       : 5         : power  :                   : 1.2V    :           :                
 ~ALTERA_ASDO_DATA1~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 6         : input  : 3.3-V LVCMOS      :         : 1         : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : 7         :        :                   :         : 1         :                
+io_EEP_I2C_SDA               : 7         : bidir  : 3.3-V LVCMOS      :         : 1         : N              
 ~ALTERA_FLASH_nCE_nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 8         : input  : 3.3-V LVCMOS      :         : 1         : N              
 nSTATUS                      : 9         :        :                   :         : 1         :                
 i_ps2Data                    : 10        : input  : 3.3-V LVCMOS      :         : 1         : Y              
@@ -116,13 +116,13 @@ VCCINT                       : 45        : power  :                   : 1.2V    
 o_LatchIO[3]                 : 46        : output : 3.3-V LVCMOS      :         : 3         : N              
 VCCIO3                       : 47        : power  :                   : 3.3V    : 3         :                
 GND                          : 48        : gnd    :                   :         :           :                
-o_LatchIO[2]                 : 49        : output : 3.3-V LVCMOS      :         : 3         : N              
+o_LatchIO[4]                 : 49        : output : 3.3-V LVCMOS      :         : 3         : N              
 o_LatchIO[5]                 : 50        : output : 3.3-V LVCMOS      :         : 3         : N              
 o_LatchIO[6]                 : 51        : output : 3.3-V LVCMOS      :         : 3         : N              
-o_LatchIO[1]                 : 52        : output : 3.3-V LVCMOS      :         : 3         : N              
-o_LatchIO[7]                 : 53        : output : 3.3-V LVCMOS      :         : 3         : N              
-o_LatchIO[0]                 : 54        : output : 3.3-V LVCMOS      :         : 4         : N              
-o_LatchIO[4]                 : 55        : output : 3.3-V LVCMOS      :         : 4         : N              
+o_LatchIO[2]                 : 52        : output : 3.3-V LVCMOS      :         : 3         : N              
+o_LatchIO[0]                 : 53        : output : 3.3-V LVCMOS      :         : 3         : N              
+o_LatchIO[1]                 : 54        : output : 3.3-V LVCMOS      :         : 4         : N              
+o_LatchIO[7]                 : 55        : output : 3.3-V LVCMOS      :         : 4         : N              
 VCCIO4                       : 56        : power  :                   : 3.3V    : 4         :                
 GND                          : 57        : gnd    :                   :         :           :                
 i_dipSwitch[0]               : 58        : input  : 3.3-V LVCMOS      :         : 4         : Y              

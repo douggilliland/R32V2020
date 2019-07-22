@@ -44,6 +44,9 @@ entity R32V2020_top is
 		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
 		i_I2C_INT			: in std_logic := '0';
+		-- EEPROM I2C connections
+		io_EEP_I2C_SCL		: inout std_logic := '1';
+		io_EEP_I2C_SDA		: inout std_logic := '1';
 		-- SPIbus
 		spi_sclk				: out std_logic := '1';
       spi_csN				: out std_logic := '1';
