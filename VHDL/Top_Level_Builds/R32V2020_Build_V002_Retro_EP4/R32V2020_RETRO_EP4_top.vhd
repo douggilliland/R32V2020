@@ -45,7 +45,7 @@ middle : entity work.R32V2020_top
 		-- Serial port pins
 		i_SerRxd				=> i_SerRxd,
 		o_SerTxd				=> o_SerTxd,
-		o_rts					=> o_SerRts,
+		o_SerRts				=> o_SerRts,
 		-- VGA pins
 		o_vid_Red_Hi		=> o_vid_Red_Hi,
 		o_vid_Red_Lo		=> o_vid_Red_Lo,
