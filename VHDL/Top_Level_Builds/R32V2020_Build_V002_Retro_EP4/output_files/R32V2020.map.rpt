@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Mon Jul 22 10:36:34 2019
+Mon Jul 22 12:15:31 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -99,7 +99,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Jul 22 10:36:34 2019       ;
+; Analysis & Synthesis Status        ; Successful - Mon Jul 22 12:15:31 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; RETRO_EP4_top                               ;
@@ -227,7 +227,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------------+-----------------+----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
 ; File Name with User-Entered Path                                                    ; Used in Netlist ; File Type                                    ; File Name with Absolute Path                                                                                                                                         ; Library     ;
 +-------------------------------------------------------------------------------------+-----------------+----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
-; ../../Components/R32V2020/middle.vhd                                                ; yes             ; User VHDL File                               ; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd                                                                                    ;             ;
+; ../../Components/R32V2020/R32V2020_top.vhd                                          ; yes             ; User VHDL File                               ; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd                                                                              ;             ;
 ; ../../Components/SPI/ReVerSE-U16/spi.vhd                                            ; yes             ; User VHDL File                               ; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/SPI/ReVerSE-U16/spi.vhd                                                                                ;             ;
 ; ../../Components/I2C/i2c.vhd                                                        ; yes             ; User VHDL File                               ; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/I2C/i2c.vhd                                                                                            ;             ;
 ; ../../Components/PS2KB/ps2_keyboard_to_ascii.vhd                                    ; yes             ; User VHDL File                               ; C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii.vhd                                                                        ;             ;
@@ -2170,12 +2170,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Mon Jul 22 10:35:50 2019
+    Info: Processing started: Mon Jul 22 12:14:46 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
-Info (12021): Found 2 design units, including 1 entities, in source file /users/dgilliland/documents/github/r32v2020/vhdl/components/r32v2020/middle.vhd
-    Info (12022): Found design unit 1: middle-struct File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd Line: 58
-    Info (12023): Found entity 1: middle File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd Line: 12
+Info (12021): Found 2 design units, including 1 entities, in source file /users/dgilliland/documents/github/r32v2020/vhdl/components/r32v2020/r32v2020_top.vhd
+    Info (12022): Found design unit 1: middle-struct File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 58
+    Info (12023): Found entity 1: middle File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 12
 Info (12021): Found 2 design units, including 1 entities, in source file /users/dgilliland/documents/github/r32v2020/vhdl/components/spi/reverse-u16/spi.vhd
     Info (12022): Found design unit 1: spi-rtl File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/SPI/ReVerSE-U16/spi.vhd Line: 34
     Info (12023): Found entity 1: spi File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/SPI/ReVerSE-U16/spi.vhd Line: 17
@@ -2300,8 +2300,8 @@ Info (12021): Found 2 design units, including 1 entities, in source file retro_e
     Info (12023): Found entity 1: RETRO_EP4_top File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 10
 Info (12127): Elaborating entity "RETRO_EP4_top" for the top level hierarchy
 Info (12128): Elaborating entity "middle" for hierarchy "middle:middle" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4/RETRO_EP4_top.vhd Line: 40
-Warning (10540): VHDL Signal Declaration warning at middle.vhd(24): used explicit default value for signal "o_rts" because signal was never assigned a value File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd Line: 24
-Info (12128): Elaborating entity "R32V2020" for hierarchy "middle:middle|R32V2020:RISC_CPU" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd Line: 105
+Warning (10540): VHDL Signal Declaration warning at R32V2020_top.vhd(24): used explicit default value for signal "o_rts" because signal was never assigned a value File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 24
+Info (12128): Elaborating entity "R32V2020" for hierarchy "middle:middle|R32V2020:RISC_CPU" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 105
 Warning (10036): Verilog HDL or VHDL warning at R32V2020.vhd(44): object "w_Op_NOP" assigned a value but never read File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 44
 Info (10041): Inferred latch for "o_dataToStackRam[0]" at R32V2020.vhd(291) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 291
 Info (10041): Inferred latch for "o_dataToStackRam[1]" at R32V2020.vhd(291) File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 291
@@ -2346,7 +2346,7 @@ Info (12128): Elaborating entity "REG_32" for hierarchy "middle:middle|R32V2020:
 Info (12128): Elaborating entity "COUNT_32" for hierarchy "middle:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:stackAddress" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 125
 Info (12128): Elaborating entity "REG_16" for hierarchy "middle:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r8Upper" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 174
 Info (12128): Elaborating entity "MUX_16x32" for hierarchy "middle:middle|R32V2020:RISC_CPU|RegisterFile:RegisterFile|MUX_16x32:muxA" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 302
-Info (12128): Elaborating entity "BlockRom_Instruction" for hierarchy "middle:middle|BlockRom_Instruction:Instr_ROM" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd Line: 133
+Info (12128): Elaborating entity "BlockRom_Instruction" for hierarchy "middle:middle|BlockRom_Instruction:Instr_ROM" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 133
 Info (12128): Elaborating entity "altsyncram" for hierarchy "middle:middle|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
 Info (12130): Elaborated megafunction instantiation "middle:middle|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
 Info (12133): Instantiated megafunction "middle:middle|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
@@ -2421,7 +2421,7 @@ Info (12133): Instantiated megafunction "middle:middle|BlockRom_Instruction:Inst
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "middle:middle|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_0c54:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 302
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "middle:middle|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_0c54:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
 Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "middle:middle|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_0c54:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 828
-Info (12128): Elaborating entity "BlockRam_Stack" for hierarchy "middle:middle|BlockRam_Stack:Stack_RAM" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd Line: 142
+Info (12128): Elaborating entity "BlockRam_Stack" for hierarchy "middle:middle|BlockRam_Stack:Stack_RAM" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 142
 Info (12128): Elaborating entity "altsyncram" for hierarchy "middle:middle|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
 Info (12130): Elaborated megafunction instantiation "middle:middle|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
 Info (12133): Instantiated megafunction "middle:middle|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
@@ -2492,7 +2492,7 @@ Info (12133): Instantiated megafunction "middle:middle|BlockRam_Stack:Stack_RAM|
     Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
     Info (12134): Parameter "WIDTH_WORD" = "32"
     Info (12134): Parameter "WIDTHAD" = "8"
-Info (12128): Elaborating entity "BlockRam_Data" for hierarchy "middle:middle|BlockRam_Data:Data_RAM" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd Line: 152
+Info (12128): Elaborating entity "BlockRam_Data" for hierarchy "middle:middle|BlockRam_Data:Data_RAM" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 152
 Info (12128): Elaborating entity "altsyncram" for hierarchy "middle:middle|BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
 Info (12130): Elaborated megafunction instantiation "middle:middle|BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
 Info (12133): Instantiated megafunction "middle:middle|BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
@@ -2564,7 +2564,7 @@ Info (12133): Instantiated megafunction "middle:middle|BlockRam_Data:Data_RAM|al
     Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
     Info (12134): Parameter "WIDTH_WORD" = "32"
     Info (12134): Parameter "WIDTHAD" = "8"
-Info (12128): Elaborating entity "PeripheralInterface" for hierarchy "middle:middle|PeripheralInterface:Peripherals" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/middle.vhd Line: 163
+Info (12128): Elaborating entity "PeripheralInterface" for hierarchy "middle:middle|PeripheralInterface:Peripherals" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 163
 Warning (10036): Verilog HDL or VHDL warning at PeripheralInterface-V002.vhd(97): object "w_BUZZER" assigned a value but never read File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 97
 Critical Warning (10920): VHDL Incomplete Partial Association warning at PeripheralInterface-V002.vhd(316): port or argument "q" has 4/16 unassociated elements File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 316
 Info (12128): Elaborating entity "spi" for hierarchy "middle:middle|PeripheralInterface:Peripherals|spi:spiMaster" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 177
@@ -2776,7 +2776,7 @@ Info (12128): Elaborating entity "ps2_keyboard" for hierarchy "middle:middle|Per
 Info (12128): Elaborating entity "debounce" for hierarchy "middle:middle|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 67
 Info (12128): Elaborating entity "Debouncer" for hierarchy "middle:middle|PeripheralInterface:Peripherals|Debouncer:DebounceSwitch1" File: C:/Users/dgilliland/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 362
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2019.07.22.10:36:09 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2019.07.22.12:15:05 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -2893,9 +2893,9 @@ Info (21057): Implemented 4886 device resources after synthesis - the final reso
     Info (21064): Implemented 128 RAM segments
     Info (21062): Implemented 8 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 29 warnings
-    Info: Peak virtual memory: 4887 megabytes
-    Info: Processing ended: Mon Jul 22 10:36:34 2019
-    Info: Elapsed time: 00:00:44
-    Info: Total CPU time (on all processors): 00:01:08
+    Info: Peak virtual memory: 4893 megabytes
+    Info: Processing ended: Mon Jul 22 12:15:31 2019
+    Info: Elapsed time: 00:00:45
+    Info: Total CPU time (on all processors): 00:01:12
 
 
