@@ -1,5 +1,4 @@
 -- Top Level Entity for top of R32V2020 RISC CPU design
--- Build_V002 switches out memory mapped XVGA for ANSI compatible VGA
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -64,9 +63,7 @@ architecture struct of R32V2020_top is
 -- Instruction Space Controls
 signal	w_InstructionRomAddress	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
---signal	q_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_clkInstrRomAddr			: std_logic := '0';
-signal	w_clkInstrRomData			: std_logic := '0';
 
 -- Stack Space controls
 signal	w_StackRamAddress			: std_logic_vector(31 downto 0) := x"00000000";
@@ -84,7 +81,6 @@ signal	w_writeToDataRamEn		: std_logic := '0';
 -- Peripheral Space Controls
 signal	w_peripheralAddress		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataFromPeripherals	: std_logic_vector(31 downto 0) := x"00000000";
-signal	w_dataToPeripherals		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_peripheralRdEn			: std_logic := '0';
 signal	w_peripheralWrEn			: std_logic := '0';
 
@@ -105,6 +101,13 @@ begin
 	o_vid_Blu_Hi <= o_VideoVect(1);
 	o_vid_Blu_Lo <= o_VideoVect(0);
 	
+	DebounceResetSwitch	: entity work.Debouncer
+	port map (
+		i_CLOCK_50	=> i_CLOCK_50,
+		i_PinIn		=> n_reset,
+		o_PinOut		=> resetLow
+	);
+
 	-- CPU Element
 	R32V2020_CPU : 	entity work.R32V2020
 	port map (
@@ -203,11 +206,4 @@ begin
 		i_PS2_DATA					=> i_ps2Data
 	);
 	
-	DebounceResetSwitch	: entity work.Debouncer
-	port map (
-		i_CLOCK_50	=> i_CLOCK_50,
-		i_PinIn		=> n_reset,
-		o_PinOut		=> resetLow
-	);
-
 	end;

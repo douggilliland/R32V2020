@@ -1,11 +1,4 @@
 
-State Machine - |R32V2020_A4CE10_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|state
-Name state.output state.translate state.new_code state.ready 
-state.ready 0 0 0 0 
-state.new_code 0 0 1 1 
-state.translate 0 1 0 1 
-state.output 1 0 0 1 
-
 State Machine - |R32V2020_A4CE10_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txState
 Name txState.stopBit txState.dataBit txState.idle 
 txState.idle 0 0 0 
@@ -17,6 +10,13 @@ Name rxState.stopBit rxState.dataBit rxState.idle
 rxState.idle 0 0 0 
 rxState.dataBit 0 1 1 
 rxState.stopBit 1 0 1 
+
+State Machine - |R32V2020_A4CE10_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|state
+Name state.output state.translate state.new_code state.ready 
+state.ready 0 0 0 0 
+state.new_code 0 0 1 1 
+state.translate 0 1 0 1 
+state.output 1 0 0 1 
 
 State Machine - |R32V2020_A4CE10_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|dispState
 Name dispState.del3 dispState.del2 dispState.deleteLine dispState.ins3 dispState.ins2 dispState.insertLine dispState.clearC2 dispState.clearChar dispState.clearS2 dispState.clearScreen dispState.clearL2 dispState.clearLine dispState.dispNextLoc dispState.dispWrite dispState.idle 

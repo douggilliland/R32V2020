@@ -21,7 +21,6 @@ entity R32V2020_A4CE10_top is
 		-- Serial port pins
 		i_SerRxd				: in std_logic := '1';
 		o_SerTxd				: out std_logic := '1';
-		--o_SerRts				: out std_logic;
 		-- VGA pins
 		o_VideoVect			: out std_logic_vector(2 downto 0) := "000"; -- rgb
 		o_hSync				: out std_logic := '1';
@@ -31,8 +30,6 @@ entity R32V2020_A4CE10_top is
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
 		-- LED Ring
 		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
-		--
-		--o_LED				: out std_logic_vector(3 downto 0);
 		-- 8 bit I/O Latch
 		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- I2C Clock and Data
@@ -55,11 +52,6 @@ entity R32V2020_A4CE10_top is
 end R32V2020_A4CE10_top;
 
 architecture struct of R32V2020_A4CE10_top is
-
--- signal	resetLow						: std_logic := '1';
-
---attribute syn_keep: boolean;
---attribute syn_keep of w_Switch: signal is true;
 
 	signal	w_Red_Hi		:		std_logic := '0';
 	signal	w_Red_Lo		:		std_logic := '0';

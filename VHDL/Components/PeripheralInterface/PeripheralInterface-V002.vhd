@@ -1,6 +1,8 @@
 -- PeripheralInterface-V002
 -- Controls the peripherals
 -- Uses the ANSI terminal version of the display
+-- Supports a superset of peripheral interfaces
+-- Not all of the peripheral interfaces are used by the FPGA cards due to I/O pin limitations
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -49,7 +51,6 @@ entity PeripheralInterface is
       spi_csN						: out std_logic;
       spi_mosi						: out std_logic := '1';
       spi_miso						: in std_logic := '1';
---		o_testPoint					: out std_logic := '1';
 		-- PS/2 keyboard
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
@@ -59,7 +60,7 @@ entity PeripheralInterface is
 architecture struct of PeripheralInterface is
 
 	attribute syn_keep: boolean;
-	-- Peripheral Signals
+	-- Peripheral Chip Selects
 	signal ANSI_DisplayCS 		:	std_logic := '0';
 	signal w_kbDatCS 				:	std_logic := '0';
 	signal w_kbStatCS				:	std_logic := '0';
@@ -74,48 +75,53 @@ architecture struct of PeripheralInterface is
 	signal w_I2CCS					:	std_logic := '0';
 	signal w_SPICS					:	std_logic := '0';
 	signal w_EEPI2CCS				:	std_logic := '0';
-	
+	-- Serial Port controls
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
 	signal w_serialClkEn			:	std_logic;
 	signal w_serialClock			:	std_logic;
+	-- Keyboard cotrols
 	signal w_kbdStatus			:	std_logic_vector(31 downto 0);
-	signal w_aciaData				:	std_logic_vector(7 downto 0);
 	signal w_kbReadData			:	std_logic_vector(6 downto 0);
 	signal q_kbReadData			:	std_logic_vector(31 downto 0);
-	signal w_ANSI_DispRamDataOutA	:	std_logic_vector(7 downto 0);
-	signal o_dataFromTimers		:	std_logic_vector(31 downto 0);
 	signal w_kbDataValid			:	std_logic;
 	signal w_latKbDV1				:	std_logic := '0';
-	signal w_latKbStat			:	std_logic_vector(31 downto 0) := x"00000000";
-	signal w_kbError				:	std_logic;
+	-- Serial Port
+	signal w_aciaData				:	std_logic_vector(7 downto 0);
+	-- Display
+	signal w_ANSI_DispRamDataOutA	:	std_logic_vector(7 downto 0);
+	-- Timers
+	signal o_dataFromTimers		:	std_logic_vector(31 downto 0);
+	-- Parallel I/O Ports
 	signal w_LatData				:	std_logic_vector(7 downto 0);
+	-- SPI data ports
 	signal o_spiData				:	std_logic_vector(7 downto 0);
+	-- Seven Segment Displays
 	signal w_displayed_number	: 	std_logic_vector(31 downto 0); 
+	-- Ring LEDs
 	signal w_LEDRing_out			: 	std_logic_vector(11 downto 0);
+	-- Pushbutton switches
 	signal w_Switch				: std_logic_vector(2 downto 0) := "000";
-
+	-- I2C Clocking (external and EEPROM)
 	signal w_4x_I2C_Count		:	std_logic_vector(6 downto 0); 
 	signal i2c_4X_CLK				:	std_logic := '0';
-	signal o_i2cData				:	std_logic_vector(7 downto 0);		-- External I2C
-	
-	signal o_EEPi2cData			:	std_logic_vector(7 downto 0);		-- EEPROM I2C
-	
+	-- External I2C
+	signal o_i2cData				:	std_logic_vector(7 downto 0);
+	-- EEPROM I2C
+	signal o_EEPi2cData			:	std_logic_vector(7 downto 0);
+	-- External SPI
 	signal w_SPI_Clk_Count		:	std_logic_vector(5 downto 0); 
 	signal w_SPI_Clk			: 	std_logic := '0';
+	signal w_spi_busy				: 	std_logic := '0';
+	-- Music/Tone generator
 	signal w_NoteData				:	std_logic_vector(18 downto 0);
 	signal w_NoteDataIn			:	std_logic_vector(7 downto 0);
 	signal w_BUZZER				: 	std_logic := '0';
 
-	signal w_i2c_busy				: 	std_logic := '0';
-	signal w_i2c_ack_err			: 	std_logic := '0';
-	signal w_spi_din_last		: 	std_logic := '0';
-	signal w_spi_din_vld			: 	std_logic := '0';
-	signal w_spi_busy				: 	std_logic := '0';
-	
 	-- Address decoder addresses
 	-- Provides for up to 32 "chip selects"
 	-- Address bits 15 down to 11
+	-- Some interfaces use lower address bits to select data/control-status
 	constant ANSI_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"0";
 	constant KBDAT_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"1";
 	constant KBST_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"2";
@@ -132,8 +138,7 @@ architecture struct of PeripheralInterface is
 	constant EEPIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"D";
 
 begin
-	--o_hActive <= hActive;
-	
+
 	-- Peripheral Address decoder
 	-- Currently only uses 16-bits of address
 	ANSI_DisplayCS <= '1' when i_peripheralAddress(15 downto 11) = ANSI_BASE	else '0';	-- x0000-x07FF (2KB) - Display RAM
@@ -161,14 +166,15 @@ begin
 		o_dataFromTimers									when	w_TimersCS		= '1' else
 		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
 		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
+		x"000000"		& o_EEPi2cData		 			when	w_EEPI2CCS		= '1' else
 		x"000000"		& o_spiData						when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
 		x"0000000"&"000" & w_spi_busy					when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
-		x"000000"		& o_EEPi2cData		 			when	w_EEPI2CCS		= '1' else
 		x"FFFFFFFF";
 
 	-- SPIbus Clock
 	-- 50 MHz divided by 6 is 50/6 = 8.33 MHz
 	-- 50/50 duty cycle (3 clocks high/3 clocks low)
+	-- Could use PLL to get a symmetric 10 MHz clock - might be less deterministic
     process(i_CLOCK_50,w_SPI_Clk_Count, n_reset)
     begin
 		if rising_edge(i_CLOCK_50) then
@@ -186,32 +192,32 @@ begin
 		end if;
     end process;	
 	
-	-- SPIbus
+	-- SPIbus Master interface
 	spiMaster : entity work.spi
 	port map (
 		RESET		=> not n_reset,
 		CPU_CLK	=> i_CLOCK_50,					-- 50 MHz Clock
 		SPI_CLK	=> w_SPI_Clk,					-- SPI data transmission synchronization clock
-		-- SPI MASTER INTERFACE
+		-- CPU interface lines
+		A			=> i_peripheralAddress(0),					-- Address: 0 = data register; 1 = control register
+		DI			=> i_dataToPeripherals(7 downto 0),		-- 8-bit data bus, input
+		WR			=> w_SPICS and i_peripheralWrStrobe,	-- 1 = enable write to data register or control register
+		DO			=> o_spiData,				-- 8-bit data bus, output
+		-- SPI External lines
 		SCLK		=> spi_sclk,					-- Data sync clock output
 		CS_n		=> spi_csN,						-- Slave select output (chip select)
 		MOSI		=> spi_mosi,					-- Serial output
 		MISO		=> spi_miso,					-- Serial data input
-		-- INPUT USER INTERFACE
-		A			=> i_peripheralAddress(0),					-- Address: 0 = data register; 1 = control register
-		DI			=> i_dataToPeripherals(7 downto 0),		-- 8-bit data bus, input
-		WR			=> w_SPICS and i_peripheralWrStrobe,	-- 1 = enable write to data register or control register
-		BUSY		=> w_spi_busy,				-- 1 = busy transferring; 0 = free
-		-- OUTPUT USER INTERFACE
-		DO			=> o_spiData				-- 8-bit data bus, output
+		-- SPI status line
+		BUSY		=> w_spi_busy				-- 1 = busy transferring; 0 = free
     );
 	
 	-- I2C clock
-	--	1600 KHz enable signal
-	-- The enable signal is one clock wide pulse of the 50 MHz clock
-	-- Enable signal is 4x the I2C clock rate
+	--	I2C clock enable signal
+	-- Enable signal is one clock wide pulse of the 50 MHz clock
+	-- Enable signal is 4x the I2C clock rate (1600 KHz)
 	-- 50 MHz / 32 = 1.56 MHz
-	-- 4xclock yeilds 390 KHz I2C clock rate
+	-- 4xclock yeilds 390 KHz I2C clock rate (close enough to 400 KHz)
     process(i_CLOCK_50)
     begin
 		if rising_edge(i_CLOCK_50) then
@@ -253,6 +259,16 @@ begin
 		io_I2C_SDA		=> io_EEP_I2C_SDA								-- Data to/from external I2C interface
 	);
 	
+	-- Clock Gen is currently not used
+--	clockGen : ENTITY work.VideoClk_XVGA_1024x768
+--	PORT map (
+--		areset	=> not n_reset,
+--		inclk0	=> i_CLOCK_50
+--		--c0			=> w_Video_Clk
+--	);
+--	
+	-- ANSI Video Display 80x25
+	-- Command set from Multicomp project
 	SVGA : entity work.ANSIDisplayVGA
 		port map (
 			n_reset			=> n_reset,
@@ -273,6 +289,11 @@ begin
 			o_hActive		=> o_hActive
 			);
 	
+	-- Timers unit
+	-- CPU ticks (1 clock per RISC instruction)
+	-- mSec clock
+	-- uSec clock
+	-- Elapsed time clock (50 MHz clocks)
 	timers : entity work.Timer_Unit
 	port map (
 		n_reset						=> n_reset,
@@ -284,7 +305,7 @@ begin
 		o_dataFromTimers			=> o_dataFromTimers
 		);
 	
-	-- Latch the note value
+	-- Latch the note value (sound generator)
 	NoteLatch	: ENTITY work.REG_8
 	PORT MAP (
     clk 	=> i_CLOCK_50,
@@ -303,7 +324,10 @@ begin
 	 soundOut	=> w_BUZZER,
     q				=> w_NoteData
 	 );
-	 
+	
+	-- Seven Segment Display
+	-- Can be used with boards that have 4 or 8 Seven Segment Displays
+	-- 4 Displays would use lower 16-bits
 	SevenSegDisplay : entity work.Loadable_7S8D_LED
     Port map ( 
 		i_CLOCK_50Mhz 			=> i_CLOCK_50,
@@ -313,6 +337,10 @@ begin
       o_LED7Seg_out			=> o_LED7Seg_out		-- Cathode patterns of 7-segment display
 	);
 	
+	-- Latch seven segment display value
+	-- 32-bits
+	-- Can be used with boards that have 4 or 8 Seven Segment Displays
+	-- 4 Displays would use lower 16-bits
 	SevenSegmentDisplayLatch : ENTITY work.REG_32
 	PORT MAP (
     clk 	=> i_CLOCK_50,
@@ -322,6 +350,9 @@ begin
     q		=> w_displayed_number
 	);
 	
+	-- General Purpose I/O lines
+	-- Used on some cards to control LEDs
+	-- Connected to speaker/buzzer enable on some cards
 	LedBuzzerLatch	: ENTITY work.REG_8
 	PORT MAP (
     clk 	=> i_CLOCK_50,
@@ -331,6 +362,7 @@ begin
     q    => w_LatData
 	);
 	
+	-- General purpose I/O latch
 	IOLatch	: ENTITY work.REG_8
 	PORT MAP (
     clk 	=> i_CLOCK_50,
@@ -340,6 +372,8 @@ begin
     q    => o_LatchIO
 	);
 	
+	-- Ring LED
+	-- Some of the cards have LEDs in a ring (4 sides with 4 LEDs per side, for example)
 	o_LEDRing_out <= not w_LEDRing_out;
 	LedRing	: ENTITY work.REG_16
 	PORT MAP (
@@ -350,34 +384,12 @@ begin
     q(11 downto 0)	=> w_LEDRing_out
 	);
 	
-	
+	-- Output LEDs (if the card has them
 	o_LED <= w_LatData(3 downto 0);
+	-- Buzzer enable - comes up with the buzzer off
 	o_BUZZER <= not w_LatData(4);
 	
-	UART : entity work.bufferedUART
-		port map(
-			clk 		=> i_CLOCK_50,
-			n_wr 		=> not (w_aciaCS and i_peripheralWrStrobe),
-			n_rd 		=> not (w_aciaCS and i_peripheralRdStrobe),
-			regSel 	=> i_peripheralAddress(0),
-			dataIn 	=> i_dataToPeripherals(7 downto 0),
-			dataOut 	=> w_aciaData,
-			rxClkEn 	=> w_serialClkEn,
-			txClkEn 	=> w_serialClkEn,
-			rxd 		=> i_rxd,
-			txd 		=> o_txd,
-			n_cts 	=> i_cts,
-			n_dcd 	=> '0',
-			n_rts 	=> o_rts
-		);
-
-	clockGen : ENTITY work.VideoClk_XVGA_1024x768
-	PORT map (
-		areset	=> not n_reset,
-		inclk0	=> i_CLOCK_50
-		--c0			=> w_Video_Clk
-	);
-	
+	-- PS/2 keyboard - ASCII output
 	ps2Keyboard : entity work.ps2_keyboard_to_ascii
 	port map (
 		clk			=> i_CLOCK_50,
@@ -387,6 +399,24 @@ begin
 		ascii_new	=> w_kbDataValid
 	);
 	
+	-- w_latKbDV1, w_latKbDV2
+	process (i_CLOCK_50, n_reset, W_kbDataValid, w_kbReadData, w_kbDatCS)
+	begin
+		if n_reset = '0' then
+			w_latKbDV1 <= '0';
+			w_kbdStatus <= x"00000000";
+		elsif rising_edge(i_CLOCK_50)  then
+			w_latKbDV1 <= W_kbDataValid;
+			if W_kbDataValid = '1' and w_latKbDV1 = '0' then
+				w_kbdStatus <= x"00000001";			-- set at edge of dataValid
+				q_kbReadData <= x"000000" & '0' & w_kbReadData;
+			elsif w_kbDatCS = '1' then
+				w_kbdStatus <= x"00000000";
+			end if;
+		end if;
+	end process;
+
+	-- Switch debouncers
 	DebounceSwitch1	: entity work.Debouncer
 	port map (
 		i_CLOCK_50	=> i_CLOCK_50,
@@ -407,27 +437,28 @@ begin
 		i_PinIn		=> i_switch(2),
 		o_PinOut		=> w_Switch(2)
 	);
-	
 
-	-- w_latKbDV1, w_latKbDV2
-	process (i_CLOCK_50, n_reset, W_kbDataValid, w_kbReadData, w_kbDatCS, w_latKbStat)
-	begin
-		if n_reset = '0' then
-			w_latKbDV1 <= '0';
-			w_kbdStatus <= x"00000000";
-		elsif rising_edge(i_CLOCK_50)  then
-			w_latKbDV1 <= W_kbDataValid;
-			if W_kbDataValid = '1' and w_latKbDV1 = '0' then
-				w_kbdStatus <= x"00000001";			-- set at edge of dataValid
-				q_kbReadData <= x"000000" & '0' & w_kbReadData;
-			elsif w_kbDatCS = '1' then
-				w_kbdStatus <= x"00000000";
-			end if;
-		end if;
-	end process;
+	-- 6850 ACIA (UART)
+	-- Runs up to 115,200 baud
+	UART : entity work.bufferedUART
+		port map(
+			clk 		=> i_CLOCK_50,
+			n_wr 		=> not (w_aciaCS and i_peripheralWrStrobe),
+			n_rd 		=> not (w_aciaCS and i_peripheralRdStrobe),
+			regSel 	=> i_peripheralAddress(0),
+			dataIn 	=> i_dataToPeripherals(7 downto 0),
+			dataOut 	=> w_aciaData,
+			rxClkEn 	=> w_serialClkEn,
+			txClkEn 	=> w_serialClkEn,
+			rxd 		=> i_rxd,
+			txd 		=> o_txd,
+			n_cts 	=> i_cts,
+			n_dcd 	=> '0',
+			n_rts 	=> o_rts
+		);
 
 	-- ____________________________________________________________________________________
-	-- Baud Rate Clock Signals
+	-- Serial Port Baud Rate Clock Signals
 	-- Serial clock DDS
 	-- 50MHz master input clock:
 	-- f = (increment x 50,000,000) / 65,536 = 16X baud rate
