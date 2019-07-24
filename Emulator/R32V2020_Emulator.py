@@ -1,0 +1,28 @@
+# R32V2020_Emulator
+
+# Initial state of the registers
+
+r0 = 0x0
+r1 = 0x1
+r2 = 0xffffffff
+r3 = 0x0
+r4 = 0x0
+r5 = 0x0
+r6 = 0x0
+r7 = 0x0
+
+r8 = 0x0
+r9 = 0x0
+r10 = 0x0
+r11 = 0x0
+r12 = 0x0
+r13 = 0x0
+r14 = 0x0
+r15 = 0x0
+
+StackMemory = []
+DataMemory = []
+ProgramMemory = []
+
+def	Main()
+	

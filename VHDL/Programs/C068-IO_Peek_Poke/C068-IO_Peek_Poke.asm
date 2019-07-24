@@ -21,42 +21,80 @@ syntaxError:	.string "Syntax error"
 main:
 	bsr		clearScreen
 	lix		r8,prompt.lower
-	lix		r9,0x0
-	lix		r10,0x0d			; Enter key
 	bsr		printString
-readUartStatus:
-	bsr		waitGetCharFromUART	; Get a character from the UART
-putCharToANSIScreenAndUART:
-	bsr		putCharToANSIScreen	; Put the character to the screen
-	cmp		r8,r10
-	bne		skipEnter
-	lix		r8,0x0
-	lix		r9,0x0
-	bra		doneEnter
-skipEnter:
-	sl8		r9,r9
-	or		r9,r9,r8
-	add		r8,r9,ZERO
-doneEnter:
-	bsr		wr7Seg8Dig			; Put the character to the Seven Segment Display
-	bsr		putCharToUART
-	bra		readUartStatus
+loopRead:
+	bsr		getLine
+	bsr		parseLine
+	bra		loopRead
 
 ;
-; readLineFromUART
-; r8 used to get characters from UART
-; r9 points to lineBuff
-; r10 byte count in LineBuff (increments from 0-3)
+; getLine
+; Reads the UART and fills a buffer with the characters received
+; r8 received character - Character received from the UART
+; DAR points to lineBuff current position - 4 characters get stored per long
+; r10 byte count in LineBuff (decrements from 3-0) (easier to check for 0)
 ; r11 long count in LineBuff (increments from 0-19)
-; r12 accumulated character (bytes into long value)
+; r12 intermediate accumulated characters (four bytes stuffed into one long value)
+; r13 - Enter key on keyboard (end of line character)
 ;
 
-readLineFromUART:
-	lix		r8,0x0				; clear character initially
-	lix		r9,lineBuff.lower	; Get the address
-	lix		r10,0x0
-	lix		r11,0x0
-	lix		r12,0x0
+getLine:
+	push	r8
+	push	r9
+	push	r10
+	push	r11
+	push	r12
+	push	r13
+	push	DAR
+	lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
+	lix		r11,19				; number of longs in the line buffer
+	lix		r13,0x0d			; Enter key - ends the line
+nextLong:
+	lix		r10,0x3				; byte count (packing number)
+	lix		r12,0x0				; clear long chars accumulator
+loopReadLine:
+	bsr		waitGetCharFromUART	; Get a character from the UART
+	bsr		putCharToANSIScreen	; Put the character to the screen
+	bsr		putCharToUART		; Echo character back to the UART
+	cmp		r8,r13				; check if received char was end of line
+	bne		notEndOfLine
+	lix		r8,0x0A				; Echo line feed after CR
+	bsr		putCharToANSIScreen	; Put the character to the screen
+	bsr		putCharToUART		; Echo character back to the UART
+	; do end of line stuff
+	; pad end of the long with 0x00
+	; send line feed out the UART
+	; return
+	bra		doneHandlingLine
+notEndOfLine:
+	sl8		r12,r12				; make a place to stuff the character
+	or		r12,r12,r8			; put the character into the accum char
+	push	r8
+	add		r8,r12,ZERO			; put the value to write to the 7-seg into r8
+	bsr		wr7Seg8Dig			; Put the character to the Seven Segment Display
+	pull	r8
+	add		r10,r10,MINUS1		; subtract 1 from byte count
+	bnz		roomStill			; long is not yet filled
+	sdl		r12
+	add		DAR,DAR,ONE			; increment to next long in buffer
+	bra		nextLong
+roomStill:
+
+doneHandlingLine:
+	pull	DAR
+	pull	r13
+	pull	r12
+	pull	r11
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+
+	
+	
+parseLine:
+	pull	PC
 	
 ;
 ; waitGetCharFromUART
