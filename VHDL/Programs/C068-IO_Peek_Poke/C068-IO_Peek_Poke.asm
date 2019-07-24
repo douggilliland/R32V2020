@@ -12,6 +12,7 @@
 prompt:			.string "R32V2020> "
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+syntaxError:	.string "Syntax error"
 
 ;
 ; Read UART character and put it to the ANSI VGA Display
