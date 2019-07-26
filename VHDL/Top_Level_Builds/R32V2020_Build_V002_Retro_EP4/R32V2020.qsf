@@ -157,7 +157,7 @@ set_global_assignment -name CDF_FILE "output_files/R32V2020-EEPROM.cdf"
 set_global_assignment -name VHDL_FILE "../../Components/PeripheralInterface/PeripheralInterface-V002.vhd"
 set_global_assignment -name VHDL_FILE ../../Components/TERMINAL/ANSIDisplayVGA.vhd
 set_global_assignment -name VHDL_FILE R32V2020_RETRO_EP4_top.vhd
-set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to n_reset
@@ -170,4 +170,37 @@ set_location_assignment PIN_104 -to spi_csN
 set_location_assignment PIN_101 -to spi_mosi
 set_location_assignment PIN_99 -to spi_sclk
 set_location_assignment PIN_87 -to spi_miso
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SCL
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i_SerRxd
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i_SerCts
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i_ps2Data
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i_ps2Clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_reset
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_hSync
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_SerRts
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i_CLOCK_50
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_SerTxd
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Blu_Hi
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Blu_Lo
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Grn_Hi
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Grn_Lo
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_sclk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_mosi
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_miso
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_csN
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vSync
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Red_Lo
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Red_Hi
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramData[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramData[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramData[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramData[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramData[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramData[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramData[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramData[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramAddress[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramAddress[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sramAddress[2]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -65,6 +65,14 @@ middle : entity work.R32V2020_top
 		o_vid_Blu_Lo		=> o_vid_Blu_Lo,
 		o_hSync				=> o_hSync,
 		o_vSync				=> o_vSync,
+		-- I2C Interface
+		io_I2C_SCL			=> io_I2C_SCL,
+		io_I2C_SDA			=> io_I2C_SDA,
+		--
+		spi_sclk				=> spi_sclk,
+		spi_csN				=> spi_csN,
+		spi_mosi				=> spi_mosi,
+		spi_miso				=> spi_miso,
 		-- PS/2 Keyboard pins
 		i_ps2Clk				=> i_ps2Clk,
 		i_ps2Data			=> i_ps2Data
