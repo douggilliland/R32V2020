@@ -26,6 +26,15 @@ entity R32V2020_RETRO_EP4_top is
 		o_vid_Blu_Lo		: out std_logic := '1';
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
+--		-- I2C Clock and Data
+		io_I2C_SCL			: inout std_logic := '1';
+		io_I2C_SDA			: inout std_logic := '1';
+		i_I2C_INT			: in std_logic := '0';
+		-- SPIbus
+		spi_sclk				: out std_logic := '1';
+      spi_csN				: out std_logic := '1';
+      spi_mosi				: out std_logic := '1';
+      spi_miso				: in std_logic := '1';
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -46,6 +55,7 @@ middle : entity work.R32V2020_top
 		i_SerRxd				=> i_SerRxd,
 		o_SerTxd				=> o_SerTxd,
 		o_SerRts				=> o_SerRts,
+		i_Sercts				=> i_Sercts,
 		-- VGA pins
 		o_vid_Red_Hi		=> o_vid_Red_Hi,
 		o_vid_Red_Lo		=> o_vid_Red_Lo,

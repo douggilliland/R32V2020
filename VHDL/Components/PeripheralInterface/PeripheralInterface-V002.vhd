@@ -399,8 +399,9 @@ begin
 		ascii_new	=> w_kbDataValid
 	);
 	
-	-- w_latKbDV1, w_latKbDV2
-	process (i_CLOCK_50, n_reset, W_kbDataValid, w_kbReadData, w_kbDatCS)
+	-- Latch up the keyboard data when data valid signal is present
+
+	process (i_CLOCK_50, n_reset, W_kbDataValid, w_kbReadData, w_kbDatCS, i_peripheralRdStrobe)
 	begin
 		if n_reset = '0' then
 			w_latKbDV1 <= '0';
@@ -410,7 +411,7 @@ begin
 			if W_kbDataValid = '1' and w_latKbDV1 = '0' then
 				w_kbdStatus <= x"00000001";			-- set at edge of dataValid
 				q_kbReadData <= x"000000" & '0' & w_kbReadData;
-			elsif w_kbDatCS = '1' then
+			elsif ((w_kbDatCS = '1') and (i_peripheralRdStrobe = '1')) then
 				w_kbdStatus <= x"00000000";
 			end if;
 		end if;

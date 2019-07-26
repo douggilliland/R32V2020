@@ -4,7 +4,7 @@ i_CLOCK_50 => r32v2020_top:middle.i_CLOCK_50
 i_SerRxd => r32v2020_top:middle.i_SerRxd
 o_SerTxd <= r32v2020_top:middle.o_SerTxd
 o_SerRts <= r32v2020_top:middle.o_SerRts
-i_SerCts => ~NO_FANOUT~
+i_SerCts => r32v2020_top:middle.i_SerCts
 o_vid_Red_Hi <= r32v2020_top:middle.o_vid_Red_Hi
 o_vid_Red_Lo <= r32v2020_top:middle.o_vid_Red_Lo
 o_vid_Grn_Hi <= r32v2020_top:middle.o_vid_Grn_Hi
@@ -13,6 +13,13 @@ o_vid_Blu_Hi <= r32v2020_top:middle.o_vid_Blu_Hi
 o_vid_Blu_Lo <= r32v2020_top:middle.o_vid_Blu_Lo
 o_hSync <= r32v2020_top:middle.o_hSync
 o_vSync <= r32v2020_top:middle.o_vSync
+io_I2C_SCL <> <UNC>
+io_I2C_SDA <> <UNC>
+i_I2C_INT => ~NO_FANOUT~
+spi_sclk <= <VCC>
+spi_csN <= <VCC>
+spi_mosi <= <VCC>
+spi_miso => ~NO_FANOUT~
 i_ps2Clk => r32v2020_top:middle.i_ps2Clk
 i_ps2Data => r32v2020_top:middle.i_ps2Data
 
@@ -89,8 +96,8 @@ o_LatchIO[7] <= peripheralinterface:Peripherals.o_LatchIO[7]
 io_I2C_SCL <> peripheralinterface:Peripherals.io_I2C_SCL
 io_I2C_SDA <> peripheralinterface:Peripherals.io_I2C_SDA
 i_I2C_INT => peripheralinterface:Peripherals.io_I2C_INT
-io_EEP_I2C_SCL <> <UNC>
-io_EEP_I2C_SDA <> <UNC>
+io_EEP_I2C_SCL <> peripheralinterface:Peripherals.io_EEP_I2C_SCL
+io_EEP_I2C_SDA <> peripheralinterface:Peripherals.io_EEP_I2C_SDA
 spi_sclk <= peripheralinterface:Peripherals.spi_sclk
 spi_csN <= peripheralinterface:Peripherals.spi_csN
 spi_mosi <= peripheralinterface:Peripherals.spi_mosi
@@ -11233,6 +11240,7 @@ o_dataFromPeripherals[29] <= o_dataFromPeripherals.DB_MAX_OUTPUT_PORT_TYPE
 o_dataFromPeripherals[30] <= o_dataFromPeripherals.DB_MAX_OUTPUT_PORT_TYPE
 o_dataFromPeripherals[31] <= o_dataFromPeripherals.DB_MAX_OUTPUT_PORT_TYPE
 i_peripheralRdStrobe => comb.IN1
+i_peripheralRdStrobe => process_2.IN1
 i_peripheralRdStrobe => comb.IN1
 i_peripheralWrStrobe => comb.IN1
 i_peripheralWrStrobe => comb.IN1

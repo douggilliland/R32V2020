@@ -201,6 +201,8 @@ begin
       spi_csN						=> spi_csN,
       spi_mosi						=> spi_mosi,
       spi_miso						=> spi_miso,
+		io_EEP_I2C_SCL				=> io_EEP_I2C_SCL,
+		io_EEP_I2C_SDA				=> io_EEP_I2C_SDA,
 		--o_testPoint					=> o_testPoint,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data

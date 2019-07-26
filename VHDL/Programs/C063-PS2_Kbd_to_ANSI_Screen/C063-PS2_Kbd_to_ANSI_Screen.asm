@@ -1,11 +1,16 @@
 ; Read PS/2 keyboard character and put it to the Screen
 ; Requires V002 build with ANSI screen support
+; On RETRO-EP4 card, requires PuTTY to be running to read serial port
+; PuTTY needs to be in Hardware Handshake mode
+; SigRok PS/2 decoder https://www.sigrok.org/blog/new-protocol-decoder-ps2
+
 hello:	.string "R32V2020> "
+missingHandshake: .string "*** Run PuTTY and enable hardware handshake ***"
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
 
 ;
-; Read PS/2 character and put it to the SVGA Display
+; Read PS/2 character and put it to the SVGA Display and the Serial Port
 ;
 
 main:
@@ -60,9 +65,16 @@ putUARTChar:
 waitUartTxStat:
 	lpl	r9			; Read Status into r9
 	and r9,r9,r10
-	bez waitUartTxStat
+	bnz uartRdy
+; remind user to enable HW handshake
+	lix	r8,missingHandshake.lower
+	bsr	printString
+loopForever:
+	bra	getOut
+uartRdy:
 	lil PAR,0x1801
 	spl	r8			; echo the character
+getOut:
 	pull	PAR
 	pull	r10
 	pull	r9
