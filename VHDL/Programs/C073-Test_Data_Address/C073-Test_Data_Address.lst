@@ -1,0 +1,7 @@
+firstLong:	.long 0x00000001
+secondLong:	.long 0x00000002
+
+start:
+00000000	42800000		lix		r8,firstLong.lower
+00000001	42800001		lix		r8,secondLong.lower
+	
