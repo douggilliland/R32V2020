@@ -425,7 +425,7 @@ def formatInstructionHex(address, resolver, addresses, dataAddresses):
   return ':0' + hex(withoutChecksum | checksum(withoutChecksum))[2:-1].upper()
 
 def formatDataHex(address, data):
-  withoutChecksum = ZERO_FOUR | data << 8 | address << 50
+  withoutChecksum = ZERO_FOUR | data << 8 | address << 48
   return ':0' + hex(withoutChecksum | checksum(withoutChecksum))[2:-1].upper()
 
 def stripComments(line):
