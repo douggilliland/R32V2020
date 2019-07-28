@@ -223,7 +223,7 @@ class DataLabelReferenceDestResolver:
 
     address = address & 65535
 
-    return hex(self.operation << 24 | self.register << 20 | address)
+    return hex(self.operation << 24 | self.register << 20 | address << 2)
 
 class ByteConstant:
   def __init__(self, byteLiterals):
