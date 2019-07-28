@@ -1,5 +1,7 @@
 ;
-; inputLine - Read a line from the UART serial input and echo it
+; C071-Hex_String_Tests - Read a line from the UART serial input
+; Convert the character pairs at the start of the string to hex
+; Display the hex code on the Seven Segment Display
 ;
 
 prompt:			.string "R32V2020> "
