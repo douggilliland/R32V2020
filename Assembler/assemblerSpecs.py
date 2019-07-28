@@ -167,9 +167,9 @@ class DataHexFormatSpecs(unittest.TestCase):
   def test_full_hello_world_works(self):
     expected = [
       ':0400000048656C6C77',
-      ':040004006F2C2057E6',
-      ':040008006F726C6443',
-      ':04000C0000000000F0'
+      ':040001006F2C2057E9',
+      ':040002006F726C6449',
+      ':0400030000000000F9'
     ]
 
     results = assembler.StringConstant('"Hello, World"').resolveHex()
