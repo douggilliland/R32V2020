@@ -30,8 +30,7 @@ loopRead:
 00000007	D400004B		bsr		printString			; Echo the line
 00000008	4280000A		lix		r8,0x0A				; Line Feed
 00000009	D4000064		bsr		putCharToANSIScreen	; Put the character to the screen
-;	bsr		putCharToUART		; Echo character back to the UART
-0000000a	4280000D		lix		r8,0x0D				; Line Feed
+0000000a	4280000D		lix		r8,0x0D				; Carriage Return
 0000000b	D4000062		bsr		putCharToANSIScreen	; Put the character to the screen
 0000000c	D4000038		bsr		putCharToUART		; Echo character back to the UART
 0000000d	D400002D		bsr		parseLine
@@ -97,8 +96,9 @@ doneHandlingLine:
 00000038	A1804000		pull	r8
 00000039	A1704000		pull	PC
 
-
-	
+;
+;
+;
 	
 parseLine:
 0000003a	A1704000		pull	PC
@@ -150,13 +150,6 @@ waitUartTxStat:
 ; strings are null terminated
 ;
 
-;
-; printString - Print a screen to the current screen position
-; pass value : r8 points to the start of the string in Data memory
-; strings are bytes packed into long words
-; strings are null terminated
-;
-
 printString:
 00000052	A0408000		push	r8				; save r8
 00000053	A0406000		push	DAR
@@ -198,7 +191,6 @@ clearScreen:
 ;
 ; putCharToANSIScreen - Put a character to the screen
 ; Character to put to screen is in r8
-; Return address (-1) is on the stack - need to increment before return
 ;
 
 putCharToANSIScreen:

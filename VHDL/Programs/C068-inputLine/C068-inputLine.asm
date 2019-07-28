@@ -1,12 +1,6 @@
 ;
-; I/O Peek/Poke Code
-; Read a line from the Serial Port
-; Parse the line that was read
-; Perform the operation that was parsed out
-;
-; Commands are
-; 	RL 00005000 - Read a long from address 0x00005000
-; 	WL 00005000,12345678 - Write a long at address 0x00005000 with value 0x12345678
+; inputLine - Read a line from the UART serial input
+; Echo line to the serial port and to the screen
 ;
 
 prompt:			.string "R32V2020> "
@@ -28,10 +22,9 @@ loopRead:
 	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
 	sl1		r8,r8
 	bsr		printString			; Echo the line
-	lix		r8,0x0A				; ENTER (CR)
+	lix		r8,0x0A				; Line Feed
 	bsr		putCharToANSIScreen	; Put the character to the screen
-;	bsr		putCharToUART		; Echo character back to the UART
-	lix		r8,0x0D				; Line Feed
+	lix		r8,0x0D				; Carriage Return
 	bsr		putCharToANSIScreen	; Put the character to the screen
 	bsr		putCharToUART		; Echo character back to the UART
 	bsr		parseLine
@@ -97,8 +90,9 @@ doneHandlingLine:
 	pull	r8
 	pull	PC
 
-
-	
+;
+;
+;
 	
 parseLine:
 	pull	PC
@@ -150,13 +144,6 @@ waitUartTxStat:
 ; strings are null terminated
 ;
 
-;
-; printString - Print a screen to the current screen position
-; pass value : r8 points to the start of the string in Data memory
-; strings are bytes packed into long words
-; strings are null terminated
-;
-
 printString:
 	push	r8				; save r8
 	push	DAR
@@ -198,7 +185,6 @@ clearScreen:
 ;
 ; putCharToANSIScreen - Put a character to the screen
 ; Character to put to screen is in r8
-; Return address (-1) is on the stack - need to increment before return
 ;
 
 putCharToANSIScreen:
