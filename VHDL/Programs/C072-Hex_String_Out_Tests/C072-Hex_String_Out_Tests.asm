@@ -19,14 +19,70 @@ main:
 	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
 	sl1		r8,r8
 	bsr		printString
-loopRead:
-	bsr		getLine
-	lix		r8,lineBuff.lower	; DAR pointer = start of line buffer
-	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
-	sl1		r8,r8
-	bsr		hexToSevenSeg		; 
-	bra		loopRead
+	liu		r8,0xDEAD
+	lil		r8,0xBABA
+	bsr		hexToScreen
+	liu		r8,0x1234
+	lil		r8,0xABCD
+	bsr		hexToScreen
+	hcf
 
+;
+; hexToScreen - Print hex value to screen
+; r8 - value passed to routine in r8
+;
+
+hexToScreen:
+	push	r8
+	push	r9
+	push	r10
+	push	r11
+	push	PAR
+	lix		r11,0x8		; digits to send out
+	lix		r10,0xF		; bottom nibble mask
+	add		r9,r8,ZERO	; copy r8 to r9
+anotherDigit:
+	rol1	r9,r9
+	rol1	r9,r9
+	rol1	r9,r9
+	rol1	r9,r9
+	and		r8,r9,r10
+	bsr		outHexCharToScreen
+	add		r11,r11,MINUS1
+	bnz		anotherDigit
+	pull	PAR
+	pull	r11
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; outHexCharToScreen
+; hex digit to print is in the bottom nibble of r8
+;
+
+outHexCharToScreen:
+	push	r8
+	push	r9
+	lix		PAR,0x3000	; seven seg display
+	spl		r8
+	lix		r9,0x0A
+	cmp		r9,r8
+	blt		nibbleIsNumber
+	lix		r9,55
+	add		r8,r9,r8
+	bsr		putCharToANSIScreen
+	bra		doneHexChar
+nibbleIsNumber:
+	lix		r9,0x30
+	add		r8,r9,r8
+	bsr		putCharToANSIScreen
+doneHexChar:
+	pull	r9
+	pull	r8
+	pull	PC
+	
 ;
 ; hexToSevenSeg - Convert a two ASCII digit value into a hex byte
 ; r8 points to the start of the hex string
