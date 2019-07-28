@@ -28,7 +28,7 @@ loopRead:
 	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
 	sl1		r8,r8
 	bsr		printString			; Echo the line
-	lix		r8,0x0A				; Line Feed
+	lix		r8,0x0A				; ENTER (CR)
 	bsr		putCharToANSIScreen	; Put the character to the screen
 ;	bsr		putCharToUART		; Echo character back to the UART
 	lix		r8,0x0D				; Line Feed
