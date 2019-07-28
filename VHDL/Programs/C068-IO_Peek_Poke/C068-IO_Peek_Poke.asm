@@ -24,18 +24,27 @@ main:
 	bsr		printString
 loopRead:
 	bsr		getLine
+	lix		r8,lineBuff.lower	; DAR pointer = start of line buffer
+	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
+	sl1		r8,r8
+	bsr		printString			; Echo the line
+	lix		r8,0x0A				; Line Feed
+	bsr		putCharToANSIScreen	; Put the character to the screen
+;	bsr		putCharToUART		; Echo character back to the UART
+	lix		r8,0x0D				; Line Feed
+	bsr		putCharToANSIScreen	; Put the character to the screen
+	bsr		putCharToUART		; Echo character back to the UART
 	bsr		parseLine
 	bra		loopRead
 
 ;
-; getLine
-; Reads the UART and fills a buffer with the characters received
+; getLine - Reads the UART and fills a buffer with the characters received
 ; r8 received character - Character received from the UART
-; DAR points to lineBuff current position - 4 characters get stored per long
-; r10 byte count in LineBuff (decrements from 3-0) (easier to check for 0)
-; r11 long count in LineBuff (increments from 0-19)
-; r12 intermediate accumulated characters (four bytes stuffed into one long value)
-; r13 - Enter key on keyboard (end of line character)
+; r9 is constant - ENTER key on keyboard
+; r10 is the input buffer length
+; r11 is the BACK key on keyboard
+; r12 used to test the backspace doesn't go past the start of the buffer
+; DAR points to lineBuff current character position
 ;
 
 getLine:
@@ -44,45 +53,43 @@ getLine:
 	push	r10
 	push	r11
 	push	r12
-	push	r13
 	push	DAR
 	lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
-	lix		r11,19				; number of longs in the line buffer
-	lix		r13,0x0d			; Enter key - ends the line
-nextLong:
-	lix		r10,0x3				; byte count (packing number)
-	lix		r12,0x0				; clear long chars accumulator
+	sl1		DAR,DAR				; Need to shift by 2 to get true address (assembler needs fixed)
+	sl1		DAR,DAR				
+	lix		r11,0x7F			; BACK key - rubout
+	lix		r10,79				; number of chars in the line buffer
+	lix		r9,0x0D				; ENTER key - ends the line
 loopReadLine:
 	bsr		waitGetCharFromUART	; Get a character from the UART
 	bsr		putCharToANSIScreen	; Put the character to the screen
 	bsr		putCharToUART		; Echo character back to the UART
-	cmp		r8,r13				; check if received char was end of line
-	bne		notEndOfLine
+	cmp		r8,r9				; check if received char was end of line
+	beq		gotEOL
+	cmp		r8,r11
+	beq		gotBackspace
+	sdb		r8
+	add		DAR,DAR,ONE			; increment to next long in buffer
+	add		r10,r10,MINUS1
+	bnz		loopReadLine		; Next char would overflow
+	; tbd add code for line too long	
+gotEOL:
 	lix		r8,0x0A				; Echo line feed after CR
 	bsr		putCharToANSIScreen	; Put the character to the screen
 	bsr		putCharToUART		; Echo character back to the UART
-	; do end of line stuff
-	; pad end of the long with 0x00
-	; send line feed out the UART
-	; return
+	sdb		r0					; null at end of line read
 	bra		doneHandlingLine
-notEndOfLine:
-	sl8		r12,r12				; make a place to stuff the character
-	or		r12,r12,r8			; put the character into the accum char
-	push	r8
-	add		r8,r12,ZERO			; put the value to write to the 7-seg into r8
-	bsr		wr7Seg8Dig			; Put the character to the Seven Segment Display
-	pull	r8
-	add		r10,r10,MINUS1		; subtract 1 from byte count
-	bnz		roomStill			; long is not yet filled
-	sdl		r12
-	add		DAR,DAR,ONE			; increment to next long in buffer
-	bra		nextLong
-roomStill:
-
+gotBackspace:
+	add		DAR,DAR,MINUS1
+	lix		r12,lineBuff.lower	; r12 pointer = start of line buffer
+	sl1		r12,r12				; Need to shift by 2 to get true address (assembler needs fixed)
+	sl1		r12,r12				
+	cmp		r12,DAR
+	bgt		loopReadLine
+	add		DAR,r12,r0
+	bra		loopReadLine
 doneHandlingLine:
 	pull	DAR
-	pull	r13
 	pull	r12
 	pull	r11
 	pull	r10
@@ -143,39 +150,26 @@ waitUartTxStat:
 ; strings are null terminated
 ;
 
+;
+; printString - Print a screen to the current screen position
+; pass value : r8 points to the start of the string in Data memory
+; strings are bytes packed into long words
+; strings are null terminated
+;
+
 printString:
 	push	r8				; save r8
-	push	r9				; save r9
 	push	DAR
 	add		DAR,r8,ZERO		; set the start of the string
-nextLong:
-	ldl		r8				; get the string
-	ens		r8,r8			; swap the endian
-	lix		r9,0xff			; mask for null termination check
-	and		r9,r9,r8
-	bez		donePrStr
+nextChar:
+	ldb		r8				; get the character
+	cmp		r8,ZERO			; Null terminated string
+	beq		donePrStr		; done if null
 	bsr		putCharToANSIScreen	; write out the character
-	sr8		r8,r8
-	lix		r9,0xff			; mask for null termination check
-	and		r9,r9,r8
-	bez		donePrStr
-	bsr		putCharToANSIScreen	; write out the character
-	sr8		r8,r8
-	lix		r9,0xff			; mask for null termination check
-	and		r9,r9,r8
-	bez		donePrStr
-	bsr		putCharToANSIScreen	; write out the character
-	sr8		r8,r8
-	lix		r9,0xff			; mask for null termination check
-	and		r9,r9,r8
-	bez		donePrStr
-	bsr		putCharToANSIScreen	; write out the character
-lastOfLong:
-	add		DAR,DAR,ONE
-	bra		nextLong
+	add		DAR,DAR,r1		; Point to next character
+	bra		nextChar
 donePrStr:
 	pull	DAR				; restore DAR
-	pull	r9				; restore r9
 	pull	r8				; restore r8
 	pull	PC				; rts
 	
@@ -188,12 +182,16 @@ clearScreen:
 	push	r8				; save r8
 	lix		r8,0x1b			; ESC
 	bsr		putCharToANSIScreen
+	bsr		putCharToUART
 	lix		r8,0x5b			; [
 	bsr		putCharToANSIScreen
+	bsr		putCharToUART
 	lix		r8,0x32			; 2
 	bsr		putCharToANSIScreen
+	bsr		putCharToUART
 	lix		r8,0x4A			; J
 	bsr		putCharToANSIScreen
+	bsr		putCharToUART
 	pull	r8
 	pull	PC				; rts
 

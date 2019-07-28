@@ -29,6 +29,12 @@ entity R32V2020 is
 		o_DataOutFromRegA			: buffer std_logic_vector(31 downto 0) := x"00000000";
 		i_dataFromDataRam			: in std_logic_vector(31 downto 0) := x"00000000";
 		o_writeToDataRamEnable	: out std_logic := '0';
+		o_loadData  				: out std_logic := '0';
+		o_storeData 				: out std_logic := '0';
+		o_longData  				: out std_logic := '0';
+		o_shortData 				: out std_logic := '0';
+		o_ByteData  				: out std_logic := '0';
+
 		-- Peripheral Space Connections
 		o_peripheralAddress		: out std_logic_vector(31 downto 0) := x"00000000";
 		i_dataFromPeripherals	: in std_logic_vector(31 downto 0) := x"00000000";
@@ -135,6 +141,13 @@ signal	w_TakeBranch				: std_logic := '0';
 -- attribute syn_keep of w_TakeBranch: signal is true;
 
 begin
+
+	o_loadData  <= w_Op_LDB or w_Op_LDS or w_Op_LDL;
+	o_storeData <= w_Op_SDB or w_Op_SDS or w_Op_SDL;
+
+	o_longData  <= w_Op_LDL or w_Op_SDL;
+	o_shortData <= w_Op_LDS or	w_Op_SDS;
+	o_ByteData  <= w_Op_LDB or w_Op_SDB;
 
  	w_holdHaltCatchFire		<= '1' when (w_OneHotState(3) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
 	o_writeStackRamEn 		<= '1' when  w_OneHotState(3) = '1' and (w_Op_PSS = '1' or  w_Op_SSS = '1' or  w_Op_BSR = '1') and n_reset  = '1'   else '0';

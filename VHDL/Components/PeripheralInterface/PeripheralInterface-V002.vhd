@@ -30,12 +30,12 @@ entity PeripheralInterface is
 		o_LEDRing_out				: buffer std_logic_vector(11 downto 0) := x"000";	-- LED Ring
 		o_LatchIO					: out std_logic_vector(7 downto 0) := x"11";			-- Output Latch
 		-- Serial port
-		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
-		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
-		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
-		i_cts							: in std_logic := '1';										-- Serial Hardware Handshake (from UART)
+		i_rxd							: in std_logic := '1';								-- Serial receive (from UART)
+		o_txd							: out std_logic;										-- Serial transmit (to UART)
+		o_rts							: out std_logic;										-- Serial Hardware Handshake (to UART)
+		i_cts							: in std_logic := '0';								-- Serial Hardware Handshake (from UART)
 		-- Video
-		o_VideoOut					: out std_logic_vector(5 downto 0);						-- VGA lines rr,gg,bb
+		o_VideoOut					: out std_logic_vector(5 downto 0);				-- VGA lines rr,gg,bb
 		o_hSync						: out std_logic := '1';
 		o_vSync						: out std_logic := '1';
 		o_hActive					: out std_logic := '0';

@@ -77,6 +77,12 @@ signal	w_CPUDataOut				: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_DataRamAddress			: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataFromDataRam			: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_writeToDataRamEn		: std_logic := '0';
+signal	w_loadData					: std_logic := '0';
+signal	w_storeData					: std_logic := '0';
+signal	w_longData					: std_logic := '0';
+signal	w_shortData					: std_logic := '0';
+signal	w_ByteData					: std_logic := '0';
+
 
 -- Peripheral Space Controls
 signal	w_peripheralAddress		: std_logic_vector(31 downto 0) := x"00000000";
@@ -124,11 +130,16 @@ begin
 		o_dataToStackRam			=> w_dataToStackRam,
 		i_dataFromStackRam		=> w_dataFromStackRam,
 		o_writeStackRamEn			=>	w_writeStackRamEn,
-		-- Data RAM connections		
+		-- Data RAM connections
 		o_DataRamAddress			=> w_DataRamAddress,
 		o_DataOutFromRegA			=> w_CPUDataOut,
 		i_dataFromDataRam			=>	w_dataFromDataRam,
 		o_writeToDataRamEnable	=>	w_writeToDataRamEn,
+		o_loadData  				=>	w_loadData,
+		o_storeData 				=>	w_storeData,
+		o_longData  				=>	w_longData,
+		o_shortData 				=>	w_shortData,
+		o_ByteData  				=>	w_ByteData,
 		-- Peripheral Space Connections
 		o_peripheralAddress		=> w_peripheralAddress,
 		i_dataFromPeripherals	=> w_dataFromPeripherals,
@@ -156,14 +167,20 @@ begin
 	);
 
 	-- Data RAM
-	Data_RAM : entity work.BlockRam_Data
+	
+	Data_RAM_Wrap : entity work.Wrap_Data_Ram
 	PORT MAP (
-		address 		=> w_DataRamAddress(7 downto 0),
+		address 		=> w_DataRamAddress,
 		clock 		=> i_CLOCK_50,
-		data 			=> w_CPUDataOut,
+		dataIn		=> w_CPUDataOut,
+		i_loadData  =>	w_loadData,
+		i_storeData =>	w_storeData,
+		i_longData  =>	w_longData,
+		i_shortData =>	w_shortData,
+		i_ByteData  =>	w_ByteData,
 		rden			=> '1',
 		wren 			=> w_writeToDataRamEn,
-		q 				=> w_dataFromDataRam
+		dataOut		=> w_dataFromDataRam
 	);
 	
 	-- Peripherals

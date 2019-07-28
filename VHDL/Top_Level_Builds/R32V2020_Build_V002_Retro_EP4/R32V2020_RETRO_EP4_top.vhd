@@ -14,9 +14,9 @@ entity R32V2020_RETRO_EP4_top is
 		i_CLOCK_50			: in std_logic;
 		-- Serial port pins
 		i_SerRxd				: in std_logic := '1';
-		o_SerTxd				: out std_logic := '1';
-		o_SerRts				: out std_logic := '1';
-		i_SerCts				: in std_logic := '1';
+		o_SerTxd				: out std_logic;
+		i_SerCts				: in std_logic := '0';
+		o_SerRts				: out std_logic;
 		-- VGA pins
 		o_vid_Red_Hi		: out std_logic := '1';
 		o_vid_Red_Lo		: out std_logic := '1';

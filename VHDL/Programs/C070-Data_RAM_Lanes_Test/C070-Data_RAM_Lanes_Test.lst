@@ -1,0 +1,110 @@
+; Data RAM Test
+; Test Byte, Short, Long accesses of the Data RAM
+; Verified pattern using In-System Memory Content Editor as -
+; 00008 12 34 56 78 DE AD BA BA 01 02 03 04
+
+prompt:			.string "R32V2020> "
+firstVal: 		.long 0x12345678
+secVal: 		.long 0xDEADBABA
+
+start:
+00000000	42600020		lix	dar,0x0020	; set the data address register to 0x0
+00000001	41801234		liu	r8,0x1234	; data test pattern
+00000002	40805678		lil	r8,0x5678
+00000003	65608000		sdl	r8			; store r8 into the data space memory
+00000004	00000000		nop
+00000005	42600024		lix	dar,0x0024	; set the data address register to 0x0
+00000006	4280DEAD		lix	r8,0xDEAD	; data test pattern
+00000007	63608000		sds	r8			; store r8 into the data space memory
+00000008	00000000		nop
+00000009	42600026		lix	dar,0x0026	; set the data address register to 0x0
+0000000a	4280BABA		lix	r8,0xBABA	; data test pattern
+0000000b	63608000		sds	r8			; store r8 into the data space memory
+0000000c	00000000		nop
+0000000d	42600028		lix	dar,0x0028	; set the data address register to 0x0
+0000000e	42800001		lix	r8,0x01		; data test pattern
+0000000f	61608000		sdb	r8			; store r8 into the data space memory
+00000010	00000000		nop
+00000011	42600029		lix	dar,0x0029	; set the data address register to 0x0
+00000012	42800002		lix	r8,0x02		; data test pattern
+00000013	61608000		sdb	r8			; store r8 into the data space memory
+00000014	00000000		nop
+00000015	4260002A		lix	dar,0x002A	; set the data address register to 0x0
+00000016	42800003		lix	r8,0x03		; data test pattern
+00000017	61608000		sdb	r8			; store r8 into the data space memory
+00000018	00000000		nop
+00000019	4260002B		lix	dar,0x002B	; set the data address register to 0x0
+0000001a	42800004		lix	r8,0x04		; data test pattern
+0000001b	61608000		sdb	r8			; store r8 into the data space memory
+0000001c	00000000		nop
+0000001d	D4000006		bsr	clearScreen			; Not required for this example
+0000001e	42800000		lix	r8,prompt.lower
+0000001f	D400001D		bsr	printString
+00000020	42800003		lix	r8,firstVal.lower
+00000021	42800004		lix	r8,secVal.lower
+00000022	01000000		hcf
+
+;
+; clearScreen - Clear the screen routine
+; ANSI Terminal has an escape sequence which clears the screen and homes cursor
+;
+
+clearScreen:
+00000023	A0408000		push	r8				; save r8
+00000024	4280001B		lix		r8,0x1b			; ESC
+00000025	D4000009		bsr		putCharToANSIScreen
+00000026	4280005B		lix		r8,0x5b			; [
+00000027	D4000007		bsr		putCharToANSIScreen
+00000028	42800032		lix		r8,0x32			; 2
+00000029	D4000005		bsr		putCharToANSIScreen
+0000002a	4280004A		lix		r8,0x4A			; J
+0000002b	D4000003		bsr		putCharToANSIScreen
+0000002c	A1804000		pull	r8
+0000002d	A1704000		pull	PC				; rts
+
+;
+; putCharToANSIScreen - Put a character to the screen
+; Character to put to screen is in r8
+; Return address (-1) is on the stack - need to increment before return
+;
+
+putCharToANSIScreen:
+0000002e	A0409000		push	r9
+0000002f	A0405000		push	PAR
+00000030	A040A000		push	r10
+00000031	42A00002		lix		r10,0x2		; TxReady bit
+00000032	42500000		lix		PAR,0x0		; UART Status
+waitScreenTxStat:
+00000033	84905000		lpl		r9			; Read Status into r9
+00000034	2399A000		and 	r9,r9,r10
+00000035	C3FFFFFE		bez 	waitScreenTxStat
+00000036	42500001		lix 	PAR,0x1
+00000037	85508000		spl		r8			; echo the character
+00000038	A1A04000		pull	r10
+00000039	A1504000		pull	PAR
+0000003a	A1904000		pull	r9
+0000003b	A1704000		pull	PC
+	
+;
+; printString - Print a screen to the current screen position
+; pass value : r8 points to the start of the string in Data memory
+; strings are bytes packed into long words
+; strings are null terminated
+;
+
+printString:
+0000003c	A0408000		push	r8				; save r8
+0000003d	A0406000		push	DAR
+0000003e	20680000		add		DAR,r8,ZERO		; set the start of the string
+nextChar:
+0000003f	60806000		ldb		r8				; get the character
+00000040	30380000		cmp		r8,ZERO			; Null terminated string
+00000041	D1000004		beq		donePrStr		; done if null
+00000042	D4FFFFEC		bsr		putCharToANSIScreen	; write out the character
+00000043	20661000		add		DAR,DAR,r1		; Point to next character
+00000044	C0FFFFFB		bra		nextChar
+donePrStr:
+00000045	A1604000		pull	DAR				; restore DAR
+00000046	A1804000		pull	r8				; restore r8
+00000047	A1704000		pull	PC				; rts
+	

@@ -1,0 +1,22 @@
+-- Wrap_Data_Ram.vhd
+-- Wrapper for the Data RAM 
+-- Will use to set up byte, word, long accesses
+
+library ieee;
+use ieee.std_logic_1164.all;
+use  IEEE.STD_LOGIC_ARITH.all;
+use  IEEE.STD_LOGIC_UNSIGNED.all;
+
+library work;
+use work.R32V2020_Pkg.all;
+
+	Data_RAM : entity work.BlockRam_Data
+	PORT MAP (
+		address 		=> w_DataRamAddress(7 downto 0),
+		clock 		=> i_CLOCK_50,
+		data 			=> w_CPUDataOut,
+		rden			=> '1',
+		wren 			=> w_writeToDataRamEn,
+		q 				=> w_dataFromDataRam
+	);
+	
