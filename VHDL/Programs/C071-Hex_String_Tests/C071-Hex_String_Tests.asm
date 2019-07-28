@@ -1,12 +1,13 @@
 ;
 ; C071-Hex_String_Tests - Read a line from the UART serial input
-; Convert the character pairs at the start of the string to hex
+; Convert the character pair at the start of the string to hex byte
 ; Display the hex code on the Seven Segment Display
 ;
 
 prompt:			.string "R32V2020> "
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+lineEnd:		.long 0x00
 syntaxError:	.string "Syntax error"
 
 ;
