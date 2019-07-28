@@ -34,8 +34,6 @@ hexToSevenSeg:
 	push	r8
 	push	r9
 	push	r10
-	push	r11
-	push	r12
 	push	DAR
 	push	PAR
 	lix		r9,0
@@ -55,15 +53,13 @@ hexToSevenSeg:
 	spl		r9
 	pull	PAR
 	pull	DAR
-	pull	r12
-	pull	r11
 	pull	r10
 	pull	r9
 	pull	r8
 	pull	PC
 
 ;
-; asciiToHex - Convert an ASCII hex character into a nibble
+; asciiToHex - Convert a single ASCII hex character into a nibble
 ; Make conversion case insensitive
 ; Character to convert is passed in r8
 ; Result is returned in r8
@@ -77,18 +73,42 @@ hexToSevenSeg:
 
 asciiToHex:
 	push	r9
-	lix		r9,0x66
+	lix		r9,0x66		; check if letter is > 'f'
 	cmp		r9,r8
 	bgt		a2h_Error
-	lix		r9,0x30
+	lix		r9,0x30		; check if letter is < '0'
 	cmp		r9,r8	
 	blt		a2h_Error
-	lix		r9,0x3A
+	lix		r9,0x3A		; check if letter is between '0' and '9' inclusively
 	cmp		r9,r8
 	blt		gotDigit
-	; deal with hex letter
+	lix		r9,0x41		; check if letter is between '9' and 'A' exclusively
+	cmp		r9,r8
+	blt		a2h_Error
+	lix		r9,0x47		; check if letter is between 'A' and F' inclusively
+	cmp		r9,r8
+	blt		gotUpperLetter
+	lix		r9,0x61		; check if between 'F' and 'a' exclusively
+	cmp		r9,r8
+	blt		a2h_Error
+; Lower case letter
+	lix		r9,0x57
+	xor		r9,r9,MINUS1
+	add		r9,r9,ONE
+	add		r8,r8,r9
+	lix		r9,0x0F
+	and		r8,r8,r9
+	bra		doneConvA2H
 gotDigit:
 	lix		r9,0x30
+	xor		r9,r9,MINUS1
+	add		r9,r9,ONE
+	add		r8,r8,r9
+	lix		r9,0x0F
+	and		r8,r8,r9
+	bra		doneConvA2H
+gotUpperLetter:
+	lix		r9,0x37
 	xor		r9,r9,MINUS1
 	add		r9,r9,ONE
 	add		r8,r8,r9
@@ -98,8 +118,9 @@ gotDigit:
 a2h_Error:
 	lix		r8,syntaxError.lower
 	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
-	sl1		r8,r8	
+	sl1		r8,r8
 	bsr		printString
+	lix		r8,0xDEAD
 doneConvA2H:
 	pull	r9
 	pull	PC
