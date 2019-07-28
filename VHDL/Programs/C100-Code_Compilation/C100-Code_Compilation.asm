@@ -207,6 +207,65 @@ setCharPos:
 	pull	PC						; rts
 
 ;
+; getLine - Reads the UART and fills a buffer with the characters received
+; r8 received character - Character received from the UART
+; r9 is constant - ENTER key on keyboard
+; r10 is the input buffer length
+; r11 is the BACK key on keyboard
+; r12 used to test the backspace doesn't go past the start of the buffer
+; DAR points to lineBuff current character position
+;
+
+getLine:
+	push	r8
+	push	r9
+	push	r10
+	push	r11
+	push	r12
+	push	DAR
+	lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
+	sl1		DAR,DAR				; Need to shift by 2 to get true address (assembler needs fixed)
+	sl1		DAR,DAR				
+	lix		r11,0x7F			; BACK key - rubout
+	lix		r10,79				; number of chars in the line buffer
+	lix		r9,0x0D				; ENTER key - ends the line
+loopReadLine:
+	bsr		waitGetCharFromUART	; Get a character from the UART
+	bsr		putCharToANSIScreen	; Put the character to the screen
+	bsr		putCharToUART		; Echo character back to the UART
+	cmp		r8,r9				; check if received char was end of line
+	beq		gotEOL
+	cmp		r8,r11
+	beq		gotBackspace
+	sdb		r8
+	add		DAR,DAR,ONE			; increment to next long in buffer
+	add		r10,r10,MINUS1
+	bnz		loopReadLine		; Next char would overflow
+	; tbd add code for line too long	
+gotEOL:
+	lix		r8,0x0A				; Echo line feed after CR
+	bsr		putCharToANSIScreen	; Put the character to the screen
+	bsr		putCharToUART		; Echo character back to the UART
+	sdb		r0					; null at end of line read
+	bra		doneHandlingLine
+gotBackspace:
+	add		DAR,DAR,MINUS1
+	lix		r12,lineBuff.lower	; r12 pointer = start of line buffer
+	sl1		r12,r12				; Need to shift by 2 to get true address (assembler needs fixed)
+	sl1		r12,r12				
+	cmp		r12,DAR
+	bgt		loopReadLine
+	add		DAR,r12,r0
+	bra		loopReadLine
+doneHandlingLine:
+	pull	DAR
+	pull	r12
+	pull	r11
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+;
 ; scrollScreen - Scroll the screen by moving every line up by one
 ; Screen is a 2KB array and is displayed as 64 chars per row times 32 rows
 ;
