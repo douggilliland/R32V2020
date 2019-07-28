@@ -1,7 +1,18 @@
 firstLong:	.long 0x00000001
 secondLong:	.long 0x00000002
+firstShort: .short 0x1234
+secondShort: .short 0x5678
+firstByte:	.byte 0x99
+secondByte:	.byte 0x88
+thirdByte:	.byte 0x77
+fourthByte:	.byte 0x66
 
 start:
 00000000	42800000		lix		r8,firstLong.lower
 00000001	42800004		lix		r8,secondLong.lower
-	
+00000002	42800008		lix		r8,firstShort.lower
+00000003	4280000C		lix		r8,secondShort.lower
+00000004	42800010		lix		r8,firstByte.lower
+00000005	42800014		lix		r8,secondByte.lower
+00000006	42800018		lix		r8,thirdByte.lower
+00000007	4280001C		lix		r8,fourthByte.lower

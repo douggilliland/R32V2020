@@ -17,14 +17,10 @@ syntaxError:	.string "Syntax error"
 main:
 	bsr		clearScreen
 	lix		r8,prompt.lower
-	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
-	sl1		r8,r8
 	bsr		printString
 loopRead:
 	bsr		getLine
 	lix		r8,lineBuff.lower	; DAR pointer = start of line buffer
-	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
-	sl1		r8,r8
 	bsr		hexToSevenSeg		; 
 	bra		loopRead
 
@@ -120,8 +116,6 @@ gotUpperLetter:
 	bra		doneConvA2H
 a2h_Error:
 	lix		r8,syntaxError.lower
-	sl1		r8,r8				; Need to shift by 2 to get true address (assembler needs fixed)
-	sl1		r8,r8
 	bsr		printString
 	lix		r8,0xDEAD
 doneConvA2H:
@@ -145,8 +139,6 @@ getLine:
 	push	r12
 	push	DAR
 	lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
-	sl1		DAR,DAR				; Need to shift by 2 to get true address (assembler needs fixed)
-	sl1		DAR,DAR				
 	lix		r11,0x7F			; BACK key - rubout
 	lix		r10,79				; number of chars in the line buffer
 	lix		r9,0x0D				; ENTER key - ends the line
@@ -172,8 +164,6 @@ gotEOL:
 gotBackspace:
 	add		DAR,DAR,MINUS1
 	lix		r12,lineBuff.lower	; r12 pointer = start of line buffer
-	sl1		r12,r12				; Need to shift by 2 to get true address (assembler needs fixed)
-	sl1		r12,r12				
 	cmp		r12,DAR
 	bgt		loopReadLine
 	add		DAR,r12,r0
