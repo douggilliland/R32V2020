@@ -70,47 +70,27 @@ waitUartTxStat:
 	
 ;
 ; printString - Print a screen to the current screen position
-; pass value : r8 points to the start of the string
-; strings are null terminated
+; pass value : r8 points to the start of the string in Data memory
 ; strings are bytes packed into long words
+; strings are null terminated
 ;
 
 printString:
 	push	r8				; save r8
-	push	r9				; save r9
 	push	DAR
 	add		DAR,r8,ZERO		; set the start of the string
-nextLong:
-	ldl		r8				; get the string
-	ens		r8,r8			; swap the endian
-	lix		r9,0xff			; mask for null termination check
-	and		r9,r9,r8
-	bez		donePrStr
-	bsr		putCharToScreen	; write out the character
-	sr8		r8,r8
-	lix		r9,0xff			; mask for null termination check
-	and		r9,r9,r8
-	bez		donePrStr
-	bsr		putCharToScreen	; write out the character
-	sr8		r8,r8
-	lix		r9,0xff			; mask for null termination check
-	and		r9,r9,r8
-	bez		donePrStr
-	bsr		putCharToScreen	; write out the character
-	sr8		r8,r8
-	lix		r9,0xff			; mask for null termination check
-	and		r9,r9,r8
-	bez		donePrStr
-	bsr		putCharToScreen	; write out the character
-lastOfLong:
-	add		DAR,DAR,ONE
-	bra		nextLong
+nextChar:
+	ldb		r8				; get the character
+	cmp		r8,ZERO			; Null terminated string
+	beq		donePrStr		; done if null
+	bsr		putCharToANSIScreen	; write out the character
+	add		DAR,DAR,r1		; Point to next character
+	bra		nextChar
 donePrStr:
 	pull	DAR				; restore DAR
-	pull	r9				; restore r9
 	pull	r8				; restore r8
 	pull	PC				; rts
-	
+
 ;
 ; clearScreen - Clear the screen routine
 ; Fills the screen with space characters
