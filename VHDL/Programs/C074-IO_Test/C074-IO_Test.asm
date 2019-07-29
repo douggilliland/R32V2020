@@ -168,18 +168,78 @@ doneTests:
 	pull	r8
 	pull	PC
 	
+; Test Ring LEDs
+
 testRoutine1:
+	push	r8
+	push	r9
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_01.lower
 	bsr		printLine
+	lix		r9,0x1000			; ring has been circled
+reload:
+	lix		r8,1
+loopLEDRing:
+	bsr		putValueToRingLEDs	; put the switches to the 7 Segment LED
+	push	r8
+	lix		r8,250				; wait for 1 second
+	bsr		delay_mS
+	pull	r8
+	sl1		r8,r8
+	cmp		r8,r9
+	bne		loopLEDRing
+	;bra		reload
+	lix		r8,0
+	bsr		putValueToRingLEDs	; put the switches to the 7 Segment LED
+	pull	r9
+	pull	r8
 	pull	PC
 	
+; putValueToRingLEDs
+; passed r8 - value to send to the ring LEDs
+
+putValueToRingLEDs:
+	push	PAR
+	push	r8
+	lix		PAR,0x4800		; Ring LED address
+	spl		r8				; Write out LED bits
+	pull	r8
+	pull	PAR
+	pull	PC
+
 testRoutine2:
+	push	r8
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_02.lower
 	bsr		printLine
+	liu		r8,0x1234
+	lil		r8,0x5678
+	bsr		wr7Seg8Dig
+	lix		r8,2000
+	bsr		delay_mS
+	liu		r8,0xABCD
+	lil		r8,0xEF12
+	bsr		wr7Seg8Dig
+	lix		r8,2000
+	bsr		delay_mS
+	lix		r8,0x0
+	bsr		wr7Seg8Dig
+	pull	r8
+	pull	PC
+	
+; wr7Seg8Dig
+; passed r8 - value to send to the 7 seg display
+
+wr7Seg8Dig:
+	push	PAR
+	push	r8
+	liu		PAR,0x0000
+	lil		PAR,0x3000		; Seven Segment LED lines
+	spl		r8				; Write out LED bits
+	pull	r8
+	pull	PAR
 	pull	PC
 	
 testRoutine3:
