@@ -11,6 +11,7 @@ syntaxError:	.string "Syntax error"
 menuItem_01:	.string "1-Ring LED Test"
 menuItem_02:	.string "2-Seven Segment LED Test"
 menuItem_03:	.string "3-Pushbutton Test"
+menuItem_04:	.string "3-DIP Switch Test"
 
 ;
 ; Read UART character and put it to the ANSI VGA Display
@@ -20,13 +21,13 @@ main:
 	bsr		clearScreen
 	bsr		printMenu
 	bsr		getLine
-	lix		r8,lineBuff.lower	; DAR pointer = start of line buffer
-;	bsr		printString			; Echo the line
-;	lix		r8,0x0A				; Line Feed
-;	bsr		putCharToANSIScreen	; Put the character to the screen
-;	lix		r8,0x0D				; Carriage Return
-;	bsr		putCharToANSIScreen	; Put the character to the screen
-;	bsr		putCharToUART		; Echo character back to the UART
+	; lix		r8,lineBuff.lower	; DAR pointer = start of line buffer
+	; bsr		printString			; Echo the line
+	; lix		r8,0x0A				; Line Feed
+	; bsr		putCharToANSIScreen	; Put the character to the screen
+	; lix		r8,0x0D				; Carriage Return
+	; bsr		putCharToANSIScreen	; Put the character to the screen
+	; bsr		putCharToUART		; Echo character back to the UART
 	bsr		parseLine
 	bra		main
 
@@ -42,6 +43,9 @@ printMenu:
 	bsr		printString
 	bsr		newLine
 	lix		r8,menuItem_03.lower
+	bsr		printString
+	bsr		newLine
+	lix		r8,menuItem_04.lower
 	bsr		printString
 	bsr		newLine
 	lix		r8,prompt.lower
