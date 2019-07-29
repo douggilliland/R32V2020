@@ -1,0 +1,324 @@
+;
+; C074-IO_Test - Read a line from the UART serial input
+; Echo line to the serial port and to the screen
+; Parse the line
+;
+
+prompt:			.string "R32V2020> "
+; lineBuff is 80 characters long
+lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+syntaxError:	.string "Syntax error"
+menuItem_01:	.string "1-Ring LED Test"
+menuItem_02:	.string "2-Seven Segment LED Test"
+menuItem_03:	.string "3-Pushbutton Test"
+
+;
+; Read UART character and put it to the ANSI VGA Display
+;
+
+main:
+00000000	D4000065		bsr		clearScreen
+00000001	D4000005		bsr		printMenu
+00000002	D4000018		bsr		getLine
+00000003	4280000C		lix		r8,lineBuff.lower	; DAR pointer = start of line buffer
+;	bsr		printString			; Echo the line
+;	lix		r8,0x0A				; Line Feed
+;	bsr		putCharToANSIScreen	; Put the character to the screen
+;	lix		r8,0x0D				; Carriage Return
+;	bsr		putCharToANSIScreen	; Put the character to the screen
+;	bsr		putCharToUART		; Echo character back to the UART
+00000004	D400003D		bsr		parseLine
+00000005	C0FFFFFB		bra		main
+
+;
+; printMenu - Print the menu
+;
+
+printMenu:
+00000006	42800070		lix		r8,menuItem_01.lower
+00000007	D4000052		bsr		printString
+00000008	D400000A		bsr		newLine
+00000009	42800080		lix		r8,menuItem_02.lower
+0000000a	D400004F		bsr		printString
+0000000b	D4000007		bsr		newLine
+0000000c	4280009C		lix		r8,menuItem_03.lower
+0000000d	D400004C		bsr		printString
+0000000e	D4000004		bsr		newLine
+0000000f	42800000		lix		r8,prompt.lower
+00000010	D4000049		bsr		printString
+00000011	A1704000		pull	PC
+
+;
+; newLine - Print out a newline (CR-LF)
+;
+
+newLine:
+00000012	A0408000		push	r8
+00000013	4280000A		lix		r8,0x0A				; Line Feed
+00000014	D4000060		bsr		putCharToANSIScreen	; Put the character to the screen
+00000015	4280000D		lix		r8,0x0D				; Carriage Return
+00000016	D400005E		bsr		putCharToANSIScreen	; Put the character to the screen
+00000017	D4000034		bsr		putCharToUART		; Echo character back to the UART
+00000018	A1804000		pull	r8
+00000019	A1704000		pull	PC
+
+;
+; getLine - Reads the UART and fills a buffer with the characters received
+; r8 received character - Character received from the UART
+; r9 is constant - ENTER key on keyboard
+; r10 is the input buffer length
+; r11 is the BACK key on keyboard
+; r12 used to test the backspace doesn't go past the start of the buffer
+; DAR points to lineBuff current character position
+;
+
+getLine:
+0000001a	A0408000		push	r8
+0000001b	A0409000		push	r9
+0000001c	A040A000		push	r10
+0000001d	A040B000		push	r11
+0000001e	A040C000		push	r12
+0000001f	A0406000		push	DAR
+00000020	4260000C		lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
+00000021	42B0007F		lix		r11,0x7F			; BACK key - rubout
+00000022	42A0004F		lix		r10,79				; number of chars in the line buffer
+00000023	4290000D		lix		r9,0x0D				; ENTER key - ends the line
+loopReadLine:
+00000024	D400001E		bsr		waitGetCharFromUART	; Get a character from the UART
+00000025	D400004F		bsr		putCharToANSIScreen	; Put the character to the screen
+00000026	D4000025		bsr		putCharToUART		; Echo character back to the UART
+00000027	30389000		cmp		r8,r9				; check if received char was end of line
+00000028	D1000007		beq		gotEOL
+00000029	3038B000		cmp		r8,r11
+0000002a	D100000A		beq		gotBackspace
+0000002b	61608000		sdb		r8
+0000002c	20661000		add		DAR,DAR,ONE			; increment to next long in buffer
+0000002d	20AA2000		add		r10,r10,MINUS1
+0000002e	C7FFFFF6		bnz		loopReadLine		; Next char would overflow
+	; tbd add code for line too long	
+gotEOL:
+0000002f	4280000A		lix		r8,0x0A				; Echo line feed after CR
+00000030	D4000044		bsr		putCharToANSIScreen	; Put the character to the screen
+00000031	D400001A		bsr		putCharToUART		; Echo character back to the UART
+00000032	61600000		sdb		r0					; null at end of line read
+00000033	C0000007		bra		doneHandlingLine
+gotBackspace:
+00000034	20662000		add		DAR,DAR,MINUS1
+00000035	42C0000C		lix		r12,lineBuff.lower	; r12 pointer = start of line buffer
+00000036	303C6000		cmp		r12,DAR
+00000037	CFFFFFED		bgt		loopReadLine
+00000038	206C0000		add		DAR,r12,r0
+00000039	C0FFFFEB		bra		loopReadLine
+doneHandlingLine:
+0000003a	A1604000		pull	DAR
+0000003b	A1C04000		pull	r12
+0000003c	A1B04000		pull	r11
+0000003d	A1A04000		pull	r10
+0000003e	A1904000		pull	r9
+0000003f	A1804000		pull	r8
+00000040	A1704000		pull	PC
+
+;
+; parseLine
+;
+	
+parseLine:
+00000041	A1704000		pull	PC
+	
+;
+; waitGetCharFromUART
+; returns character received in r8
+; function is blocking until a character is received from the UART
+;
+
+waitGetCharFromUART:
+00000042	A0405000		push	PAR
+00000043	42501800		lix		PAR,0x1800	; UART Status
+waitUartRxStat:
+00000044	84805000		lpl		r8			; Read Status into r8
+00000045	23881000		and 	r8,r8,ONE
+00000046	C3FFFFFE		bez 	waitUartRxStat
+00000047	42501801		lix 	PAR,0x1801
+00000048	84805000		lpl		r8
+00000049	A1504000		pull	PAR
+0000004a	A1704000		pull	PC
+
+;
+; putCharToUART - Put a character to the UART
+; passed character in r8 is sent out the UART
+;
+
+putCharToUART:
+0000004b	A0409000		push	r9
+0000004c	A0405000		push	PAR
+0000004d	A040A000		push	r10
+0000004e	42A00002		lix		r10,0x2
+0000004f	42501800		lix		PAR,0x1800	; UART Status
+waitUartTxStat:
+00000050	84905000		lpl		r9			; Read Status into r9
+00000051	2399A000		and 	r9,r9,r10
+00000052	C3FFFFFE		bez 	waitUartTxStat
+00000053	42501801		lix 	PAR,0x1801
+00000054	85508000		spl		r8			; echo the character
+00000055	A1A04000		pull	r10
+00000056	A1504000		pull	PAR
+00000057	A1904000		pull	r9
+00000058	A1704000		pull	PC
+	
+;
+; printString - Print a screen to the current screen position
+; pass value : r8 points to the start of the string in Data memory
+; strings are bytes packed into long words
+; strings are null terminated
+;
+
+printString:
+00000059	A0408000		push	r8				; save r8
+0000005a	A0406000		push	DAR
+0000005b	20680000		add		DAR,r8,ZERO		; set the start of the string
+nextChar:
+0000005c	60806000		ldb		r8				; get the character
+0000005d	30380000		cmp		r8,ZERO			; Null terminated string
+0000005e	D1000004		beq		donePrStr		; done if null
+0000005f	D4000015		bsr		putCharToANSIScreen	; write out the character
+00000060	20661000		add		DAR,DAR,r1		; Point to next character
+00000061	C0FFFFFB		bra		nextChar
+donePrStr:
+00000062	A1604000		pull	DAR				; restore DAR
+00000063	A1804000		pull	r8				; restore r8
+00000064	A1704000		pull	PC				; rts
+	
+;
+; clearScreen - Clear the screen routine
+; ANSI Terminal has an escape sequence which clears the screen and homes cursor
+;
+
+clearScreen:
+00000065	A0408000		push	r8				; save r8
+00000066	4280001B		lix		r8,0x1b			; ESC
+00000067	D400000D		bsr		putCharToANSIScreen
+00000068	D4FFFFE3		bsr		putCharToUART
+00000069	4280005B		lix		r8,0x5b			; [
+0000006a	D400000A		bsr		putCharToANSIScreen
+0000006b	D4FFFFE0		bsr		putCharToUART
+0000006c	42800032		lix		r8,0x32			; 2
+0000006d	D4000007		bsr		putCharToANSIScreen
+0000006e	D4FFFFDD		bsr		putCharToUART
+0000006f	4280004A		lix		r8,0x4A			; J
+00000070	D4000004		bsr		putCharToANSIScreen
+00000071	D4FFFFDA		bsr		putCharToUART
+00000072	A1804000		pull	r8
+00000073	A1704000		pull	PC				; rts
+
+;
+; putCharToANSIScreen - Put a character to the screen
+; Character to put to screen is in r8
+;
+
+putCharToANSIScreen:
+00000074	A0409000		push	r9
+00000075	A0405000		push	PAR
+00000076	A040A000		push	r10
+00000077	42A00002		lix		r10,0x2		; TxReady bit
+00000078	42500000		lix		PAR,0x0		; UART Status
+waitScreenTxStat:
+00000079	84905000		lpl		r9			; Read Status into r9
+0000007a	2399A000		and 	r9,r9,r10
+0000007b	C3FFFFFE		bez 	waitScreenTxStat
+0000007c	42500001		lix 	PAR,0x1
+0000007d	85508000		spl		r8			; echo the character
+0000007e	A1A04000		pull	r10
+0000007f	A1504000		pull	PAR
+00000080	A1904000		pull	r9
+00000081	A1704000		pull	PC
+	
+;
+; makeBuzz - Make the buzzer buzz
+;
+
+makeBuzz:
+00000082	A0408000		push	r8
+00000083	42800000		lix		r8,0			; first note is 0
+00000084	D4000007		bsr 	setNote
+00000085	D400000D		bsr		enableBuzzer
+00000086	428000FA		lix		r8,250			; count for 1 Sec
+00000087	D4000023		bsr		delay_mS		; call delay_ms
+00000088	D4000016		bsr		disableBuzzer
+00000089	A1804000		pull	r8
+0000008a	A1704000		pull	PC
+
+;
+; setNote - Set the note
+; pass note in r8
+;
+
+setNote:
+0000008b	A0408000		push	r8
+0000008c	A0405000		push	PAR
+0000008d	42504000		lix		PAR,0x4000
+0000008e	85508000		spl		r8
+0000008f	A1504000		pull	PAR
+00000090	A1804000		pull	r8
+00000091	A1704000		pull	PC
+
+;
+; enableBuzzer
+;
+
+enableBuzzer:
+00000092	A0409000		push	r9
+00000093	A0408000		push	r8
+00000094	A0405000		push	PAR
+00000095	42900010		lix		r9,0x0010		; Buzzer Enable line
+00000096	42502800		lix		PAR,0x2800
+00000097	84805000		lpl		r8
+00000098	22889000		or		r8,r8,r9
+00000099	85508000		spl		r8
+0000009a	A1504000		pull	PAR
+0000009b	A1804000		pull	r8
+0000009c	A1904000		pull	r9
+0000009d	A1704000		pull	PC
+
+;
+; disableBuzzer
+;
+
+disableBuzzer:
+0000009e	A0409000		push	r9
+0000009f	A0408000		push	r8
+000000a0	A0405000		push	PAR
+000000a1	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
+000000a2	42502800		lix		PAR,0x2800
+000000a3	84805000		lpl		r8
+000000a4	23889000		and		r8,r8,r9
+000000a5	85508000		spl		r8
+000000a6	A1504000		pull	PAR
+000000a7	A1804000		pull	r8
+000000a8	A1904000		pull	r9
+000000a9	A1704000		pull	PC
+	
+; delay_mS - delay for the number of mSecs passed in r8
+; pass mSec delay in r8
+; Routine uses r9
+
+delay_mS:
+000000aa	A0409000		push	r9
+000000ab	42503802		lix		PAR,0x3802		; address of the mSec counter
+000000ac	84905000		lpl		r9				; read the peripheral counter into r9
+000000ad	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_mS:
+000000ae	84905000		lpl		r9				; check the elapsed time counter
+000000af	30389000		cmp		r8,r9
+000000b0	CCFFFFFE		blt		loop_delay_mS
+000000b1	A1904000		pull	r9
+000000b2	A1704000		pull	PC
+
+; wr7Seg8Dig
+; passed r8 - value to send to the 7 seg display
+
+wr7Seg8Dig:
+000000b3	A0405000		push	PAR
+000000b4	42503000		lix		PAR,0x3000		; Seven Segment LED lines
+000000b5	85508000		spl		r8				; Write out LED bits
+000000b6	A1504000		pull	PAR
+000000b7	A1704000		pull	PC
