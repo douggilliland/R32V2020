@@ -8,26 +8,22 @@ prompt:			.string "R32V2020> "
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 syntaxError:	.string "Syntax error"
-menuItem_01:	.string "1-Ring LED Test"
-menuItem_02:	.string "2-Seven Segment LED Test"
-menuItem_03:	.string "3-Pushbutton Test"
-menuItem_04:	.string "3-DIP Switch Test"
+runningString:	.string "Running..."
+menuItem_01:	.string "01-Ring LED Test"
+menuItem_02:	.string "02-Seven Segment LED Test"
+menuItem_03:	.string "03-Pushbutton Test"
+menuItem_04:	.string "04-DIP Switch Test"
+menuItem_05:	.string "05-ANSI Screen Test"
+menuItem_06:	.string "06-Serial Loopback Test"
 
 ;
-; Read UART character and put it to the ANSI VGA Display
+; Read a line from the UART and parse the line
 ;
 
 main:
 	bsr		clearScreen
 	bsr		printMenu
 	bsr		getLine
-	; lix		r8,lineBuff.lower	; DAR pointer = start of line buffer
-	; bsr		printString			; Echo the line
-	; lix		r8,0x0A				; Line Feed
-	; bsr		putCharToANSIScreen	; Put the character to the screen
-	; lix		r8,0x0D				; Carriage Return
-	; bsr		putCharToANSIScreen	; Put the character to the screen
-	; bsr		putCharToUART		; Echo character back to the UART
 	bsr		parseLine
 	bra		main
 
@@ -37,33 +33,19 @@ main:
 
 printMenu:
 	lix		r8,menuItem_01.lower
-	bsr		printString
-	bsr		newLine
+	bsr		printLine
 	lix		r8,menuItem_02.lower
-	bsr		printString
-	bsr		newLine
+	bsr		printLine
 	lix		r8,menuItem_03.lower
-	bsr		printString
-	bsr		newLine
+	bsr		printLine
 	lix		r8,menuItem_04.lower
-	bsr		printString
-	bsr		newLine
+	bsr		printLine
+	lix		r8,menuItem_05.lower
+	bsr		printLine
+	lix		r8,menuItem_06.lower
+	bsr		printLine
 	lix		r8,prompt.lower
 	bsr		printString
-	pull	PC
-
-;
-; newLine - Print out a newline (CR-LF)
-;
-
-newLine:
-	push	r8
-	lix		r8,0x0A				; Line Feed
-	bsr		putCharToANSIScreen	; Put the character to the screen
-	lix		r8,0x0D				; Carriage Return
-	bsr		putCharToANSIScreen	; Put the character to the screen
-	bsr		putCharToUART		; Echo character back to the UART
-	pull	r8
 	pull	PC
 
 ;
@@ -123,12 +105,209 @@ doneHandlingLine:
 	pull	PC
 
 ;
-; parseLine
+; parseLine - 
+; line is in lineBuff
 ;
-	
+
 parseLine:
+	push	r8
+	push	r9
+	push	DAR
+	lix		r8,lineBuff.lower
+	bsr		hexToSevenSeg
+; Check to see if the command is 0x01
+	lix		r9,0x01
+	cmp		r8,r9
+	bne		skipTo2
+	bsr		testRoutine1
+	bra		doneTests
+; Check to see if the command is 0x02
+skipTo2:
+	lix		r9,0x02
+	cmp		r8,r9
+	bne		skipTo3
+	bsr		testRoutine2
+	bra		doneTests
+; Check to see if the command is 0x03
+skipTo3:
+	lix		r9,0x03
+	cmp		r8,r9
+	bne		skipTo4
+	bsr		testRoutine3
+	bra		doneTests
+; Check to see if the command is 0x04
+skipTo4:
+	lix		r9,0x04
+	cmp		r8,r9
+	bne		skipTo5
+	bsr		testRoutine4
+	bra		doneTests
+; Check to see if the command is 0x05
+skipTo5:
+	lix		r9,0x05
+	cmp		r8,r9
+	bne		skipTo6
+	bsr		testRoutine5
+	bra		doneTests
+skipTo6:
+	lix		r9,0x06
+	cmp		r8,r9
+	bne		skipTo7
+	bsr		testRoutine6
+	bra		doneTests
+skipTo7:
+	push	r8
+	lix		r8,syntaxError.lower
+	bsr		printString
+	pull	r8
+doneTests:
+	lix		r8,2000
+	bsr		delay_mS
+	pull	DAR
+	pull	r9
+	pull	r8
 	pull	PC
 	
+testRoutine1:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_01.lower
+	bsr		printLine
+	pull	PC
+	
+testRoutine2:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_02.lower
+	bsr		printLine
+	pull	PC
+	
+testRoutine3:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_03.lower
+	bsr		printLine
+	pull	PC
+	
+testRoutine4:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_04.lower
+	bsr		printLine
+	pull	PC
+	
+testRoutine5:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_05.lower
+	bsr		printLine
+	pull	PC
+	
+testRoutine6:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_06.lower
+	bsr		printLine
+	pull	PC
+	
+	
+;
+; hexToSevenSeg - Convert a two ASCII digit value into a hex byte
+; Passed: r8 points to the start of the hex string
+; Returned: r8 contains the hex value of the string
+; Put the byte to the Seven Segment Display
+;
+
+hexToSevenSeg:
+	push	r9
+	push	DAR
+	push	PAR
+	lix		r9,0
+	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
+	ldb		r8
+	bsr		asciiToHex
+	or		r9,r9,r8
+	sl1		r9,r9
+	sl1		r9,r9
+	sl1		r9,r9
+	sl1		r9,r9
+	add		DAR,DAR,ONE
+	ldb		r8
+	bsr		asciiToHex
+	or		r9,r9,r8
+	lix		PAR,0x3000		; seven segment display
+	spl		r9
+	add		r8,r9,ZERO
+	pull	PAR
+	pull	DAR
+	pull	r9
+	pull	PC
+
+;
+; asciiToHex - Convert a single ASCII hex character into a nibble
+; Make conversion case insensitive
+; Character to convert is passed in r8
+; Result is returned in r8
+;	'0' = 0x30
+;	'9' = 0x39
+;	'A' = 0x41
+;	'F' = 0x46
+;	'a' = 0x61
+;	'f' = 0x66
+;
+
+asciiToHex:
+	push	r9
+	lix		r9,0x66		; check if letter is > 'f'
+	cmp		r9,r8
+	bgt		a2h_Error
+	lix		r9,0x30		; check if letter is < '0'
+	cmp		r9,r8	
+	blt		a2h_Error
+	lix		r9,0x3A		; check if letter is between '0' and '9' inclusively
+	cmp		r9,r8
+	blt		gotDigit
+	lix		r9,0x41		; check if letter is between '9' and 'A' exclusively
+	cmp		r9,r8
+	blt		a2h_Error
+	lix		r9,0x47		; check if letter is between 'A' and F' inclusively
+	cmp		r9,r8
+	blt		gotUpperLetter
+	lix		r9,0x61		; check if between 'F' and 'a' exclusively
+	cmp		r9,r8
+	blt		a2h_Error
+; Lower case letter
+	lix		r9,0x57
+	xor		r9,r9,MINUS1
+	add		r9,r9,ONE
+	add		r8,r8,r9
+	lix		r9,0x0F
+	and		r8,r8,r9
+	bra		doneConvA2H
+gotDigit:
+	lix		r9,0x30
+	xor		r9,r9,MINUS1
+	add		r9,r9,ONE
+	add		r8,r8,r9
+	lix		r9,0x0F
+	and		r8,r8,r9
+	bra		doneConvA2H
+gotUpperLetter:
+	lix		r9,0x37
+	xor		r9,r9,MINUS1
+	add		r9,r9,ONE
+	add		r8,r8,r9
+	lix		r9,0x0F
+	and		r8,r8,r9
+	bra		doneConvA2H
+a2h_Error:
+	lix		r8,syntaxError.lower
+	bsr		printString
+	lix		r8,0xDEAD
+doneConvA2H:
+	pull	r9
+	pull	PC
+
 ;
 ; waitGetCharFromUART
 ; returns character received in r8
@@ -177,21 +356,59 @@ waitUartTxStat:
 ;
 
 printString:
-	push	r8				; save r8
+	push	r8					; save r8
 	push	DAR
-	add		DAR,r8,ZERO		; set the start of the string
+	add		DAR,r8,ZERO			; set the start of the string
 nextChar:
-	ldb		r8				; get the character
-	cmp		r8,ZERO			; Null terminated string
-	beq		donePrStr		; done if null
+	ldb		r8					; get the character
+	cmp		r8,ZERO				; Null terminated string
+	beq		donePrStr			; done if null
 	bsr		putCharToANSIScreen	; write out the character
-	add		DAR,DAR,r1		; Point to next character
+	add		DAR,DAR,r1			; Point to next character
 	bra		nextChar
 donePrStr:
-	pull	DAR				; restore DAR
-	pull	r8				; restore r8
-	pull	PC				; rts
+	pull	DAR					; restore DAR
+	pull	r8					; restore r8
+	pull	PC					; rts
 	
+;
+; printLine - Print a screen to the current screen position with CRLF at the end
+; pass value : r8 points to the start of the string in Data memory
+; strings are bytes packed into long words
+; strings are null terminated
+;
+
+printLine:
+	push	r8					; save r8
+	push	DAR
+	add		DAR,r8,ZERO			; set the start of the string
+nextChar2:
+	ldb		r8					; get the character
+	cmp		r8,ZERO				; Null terminated string
+	beq		donePrStr2			; done if null
+	bsr		putCharToANSIScreen	; write out the character
+	add		DAR,DAR,r1			; Point to next character
+	bra		nextChar2
+donePrStr2:
+	bsr		newLine
+	pull	DAR					; restore DAR
+	pull	r8					; restore r8
+	pull	PC					; rts
+	
+;
+; newLine - Print out a newline (CR-LF)
+;
+
+newLine:
+	push	r8
+	lix		r8,0x0A				; Line Feed
+	bsr		putCharToANSIScreen	; Put the character to the screen
+	lix		r8,0x0D				; Carriage Return
+	bsr		putCharToANSIScreen	; Put the character to the screen
+	bsr		putCharToUART		; Echo character back to the UART
+	pull	r8
+	pull	PC
+
 ;
 ; clearScreen - Clear the screen routine
 ; ANSI Terminal has an escape sequence which clears the screen and homes cursor
