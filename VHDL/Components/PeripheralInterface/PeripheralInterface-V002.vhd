@@ -51,6 +51,8 @@ entity PeripheralInterface is
       spi_csN						: out std_logic;
       spi_mosi						: out std_logic := '1';
       spi_miso						: in std_logic := '1';
+		-- Music generator
+		o_Note						: out std_logic := '0';
 		-- PS/2 keyboard
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
@@ -258,15 +260,7 @@ begin
 		io_I2C_SCL		=> io_EEP_I2C_SCL,							-- Clock to external I2C interface
 		io_I2C_SDA		=> io_EEP_I2C_SDA								-- Data to/from external I2C interface
 	);
-	
-	-- Clock Gen is currently not used
---	clockGen : ENTITY work.VideoClk_XVGA_1024x768
---	PORT map (
---		areset	=> not n_reset,
---		inclk0	=> i_CLOCK_50
---		--c0			=> w_Video_Clk
---	);
---	
+
 	-- ANSI Video Display 80x25
 	-- Command set from Multicomp project
 	SVGA : entity work.ANSIDisplayVGA
@@ -321,7 +315,7 @@ begin
     clock		=> i_CLOCK_50,
     clear		=> not n_reset,
     loadVal		=> w_NoteDataIn,
-	 soundOut	=> w_BUZZER,
+	 soundOut	=> o_Note,
     q				=> w_NoteData
 	 );
 	
