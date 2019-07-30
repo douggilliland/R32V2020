@@ -496,7 +496,7 @@ if __name__ == '__main__':
 
         constant = StringConstant(string)
 
-        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
         constantAddresses.add(address)
         constants.append(constant)
@@ -515,7 +515,7 @@ if __name__ == '__main__':
 
         constant = LongConstant(longToken)
 
-        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
         constantAddresses.add(address)
         constants.append(constant)
@@ -534,7 +534,7 @@ if __name__ == '__main__':
 
         constant = ShortConstant(shorts)
 
-        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
         constantAddresses.add(address)
         constants.append(constant)
@@ -553,7 +553,7 @@ if __name__ == '__main__':
 
         constant = ByteConstant(bytes)
 
-        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
         constantAddresses.add(address)
         constants.append(constant)
@@ -565,7 +565,7 @@ if __name__ == '__main__':
 
         lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
         lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after label')
-        lineAssert(address not in addresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+        lineAssert(address not in addresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
         addresses[address] = currentAddress
 
