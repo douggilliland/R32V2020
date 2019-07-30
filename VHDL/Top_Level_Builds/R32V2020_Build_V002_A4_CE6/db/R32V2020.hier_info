@@ -11656,6 +11656,7 @@ spi_sclk <= spi:spiMaster.SCLK
 spi_csN <= spi:spiMaster.CS_n
 spi_mosi <= spi:spiMaster.MOSI
 spi_miso => spi:spiMaster.MISO
+o_Note <= counterloadable:MusicNoteCounter.soundOut
 i_PS2_CLK => ps2_keyboard_to_ascii:ps2Keyboard.ps2_clk
 i_PS2_DATA => ps2_keyboard_to_ascii:ps2Keyboard.ps2_data
 
