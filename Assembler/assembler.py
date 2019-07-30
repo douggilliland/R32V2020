@@ -293,6 +293,7 @@ class OutputLine:
 
 output = []
 addresses = {}
+constantAddresses = set()
 currentAddress = 0
 constants = []
 addressByConstant = {}
@@ -495,6 +496,9 @@ if __name__ == '__main__':
 
         constant = StringConstant(string)
 
+        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+
+        constantAddresses.add(address)
         constants.append(constant)
         addressByConstant[constant] = address
         continue
@@ -511,6 +515,9 @@ if __name__ == '__main__':
 
         constant = LongConstant(longToken)
 
+        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+
+        constantAddresses.add(address)
         constants.append(constant)
         addressByConstant[constant] = address
         continue
@@ -527,6 +534,9 @@ if __name__ == '__main__':
 
         constant = ShortConstant(shorts)
 
+        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+
+        constantAddresses.add(address)
         constants.append(constant)
         addressByConstant[constant] = address
         continue
@@ -543,6 +553,9 @@ if __name__ == '__main__':
 
         constant = ByteConstant(bytes)
 
+        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as an address earlier in the program')
+
+        constantAddresses.add(address)
         constants.append(constant)
         addressByConstant[constant] = address
         continue
