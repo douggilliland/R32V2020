@@ -552,6 +552,7 @@ if __name__ == '__main__':
 
         lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
         lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after label')
+        lineAssert(address not in addresses, num, rawLine, address + ' has already been used as an address earlier in the program')
 
         addresses[address] = currentAddress
 
