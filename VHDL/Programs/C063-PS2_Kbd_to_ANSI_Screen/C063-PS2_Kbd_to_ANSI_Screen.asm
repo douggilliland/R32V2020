@@ -158,16 +158,16 @@ setCharPos:
 	push	r9						; save r9
 	push	r10						; save r10
 	push	DAR						; save DAR
-	liu	r10,screenBase.upper
-	lil	r10,screenBase.lower
-	add	DAR,r10,ZERO			; DAR points to the screenBase
-	ldl	r10						; r10 has the screen base address
-	add	r10,r8,ZERO				; add passed position to base
-	liu	r9,screenPtr.upper
-	lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
-	add	DAR,r9,ZERO				; DAR points to screenPtr
-	sdl	r10						; store new screen address
-	pull DAR						; restore DAR
-	pull r10						; restore r10
-	pull r9						; restore r9
+	liu		r10,screenBase.upper
+	lil		r10,screenBase.lower
+	add		DAR,r10,ZERO			; DAR points to the screenBase
+	ldl		r10						; r10 has the screen base address
+	add		r10,r8,ZERO				; add passed position to base
+	liu		r9,screenPtr.upper
+	lil		r9,screenPtr.lower		; r9 is the ptr to screenPtr
+	add		DAR,r9,ZERO				; DAR points to screenPtr
+	sdl		r10						; store new screen address
+	pull 	DAR						; restore DAR
+	pull 	r10						; restore r10
+	pull 	r9						; restore r9
 	pull	PC						; rts
