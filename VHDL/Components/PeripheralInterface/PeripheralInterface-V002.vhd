@@ -161,7 +161,7 @@ begin
 		q_kbReadData	 									when	w_kbDatCS		= '1' else
 		w_kbdStatus											when	w_kbStatCS		= '1' else 
 		x"000000"		& w_aciaData 					when	w_aciaCS 		= '1' else
-		x"00000"	& i_DIP_switch & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
+		x"00000"	& (not i_DIP_switch) & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
 		x"000000"		& w_LatData						when	w_LEDsCS 		= '1' else
 		o_dataFromTimers									when	w_TimersCS		= '1' else
 		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else

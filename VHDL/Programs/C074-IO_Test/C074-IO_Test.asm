@@ -9,12 +9,15 @@ prompt:			.string "R32V2020> "
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 syntaxError:	.string "Syntax error"
 runningString:	.string "Running..."
-menuItem_01:	.string "01-Ring LED Test"
-menuItem_02:	.string "02-Seven Segment LED Test"
-menuItem_03:	.string "03-Pushbutton Test"
-menuItem_04:	.string "04-DIP Switch Test"
-menuItem_05:	.string "05-ANSI Screen Test"
-menuItem_06:	.string "06-Serial Loopback Test"
+menuItem_01:	.string "01-Ring LED Test      "
+menuItem_02:	.string "02-7 Segment LED Test "
+menuItem_03:	.string "03-Pushbutton Test    "
+menuItem_04:	.string "04-DIP Switch Test    "
+menuItem_05:	.string "05-ANSI Screen Test   "
+menuItem_06:	.string "06-Serial Port Test   "
+menuItem_07:	.string "07-MCP23008 I2C Test  "
+menuItem_08:	.string "08-MCP4231 SPI Test   "
+menuItem_09:	.string "09-PS/2 Keyboard Test "
 
 ;
 ; Read a line from the UART and parse the line
@@ -32,20 +35,28 @@ main:
 ;
 
 printMenu:
+	push	r8
 	lix		r8,menuItem_01.lower
-	bsr		printLine
+	bsr		printString
 	lix		r8,menuItem_02.lower
-	bsr		printLine
+	bsr		printString
 	lix		r8,menuItem_03.lower
 	bsr		printLine
 	lix		r8,menuItem_04.lower
-	bsr		printLine
+	bsr		printString
 	lix		r8,menuItem_05.lower
-	bsr		printLine
+	bsr		printString
 	lix		r8,menuItem_06.lower
+	bsr		printLine
+	lix		r8,menuItem_07.lower
+	bsr		printString
+	lix		r8,menuItem_08.lower
+	bsr		printLine
+	lix		r8,menuItem_09.lower
 	bsr		printLine
 	lix		r8,prompt.lower
 	bsr		printString
+	pull	r8
 	pull	PC
 
 ;
@@ -156,6 +167,24 @@ skipTo6:
 	bsr		testRoutine6
 	bra		doneTests
 skipTo7:
+	lix		r9,0x07
+	cmp		r8,r9
+	bne		skipTo8
+	bsr		testRoutine7
+	bra		doneTests
+skipTo8:
+	lix		r9,0x08
+	cmp		r8,r9
+	bne		skipTo9
+	bsr		testRoutine8
+	bra		doneTests
+skipTo9:
+	lix		r9,0x09
+	cmp		r8,r9
+	bne		skipToA
+	bsr		testRoutine9
+	bra		doneTests
+skipToA:
 	push	r8
 	lix		r8,syntaxError.lower
 	bsr		printString
@@ -242,11 +271,53 @@ wr7Seg8Dig:
 	pull	PAR
 	pull	PC
 	
+; Pushbutton Test
 testRoutine3:
+	push	r8
+	push	r9
+	push	r10
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_03.lower
 	bsr		printLine
+	lix		r10,0x0
+loopSwRead:
+	bsr		readSws		; returns switches and pushbuttons in r8
+	lix		r9,0x7
+	and		r8,r8,r9
+	lix		r9,0x30
+	add		r8,r8,r9
+	cmp		r8,r10
+	beq		loopSwRead
+	add		r10,r8,r0
+	bsr		putCharToANSIScreen
+	bsr		newLine
+	lix		r8,250
+	bsr		delay_mS
+	bra		loopSwRead
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+	
+;
+; readSws
+; switches value returned in r8
+; switches are high when pressed
+; Switches d0-d2 are the pushbutton switches (inverted)
+; 	Pushbutton switches are debounced
+; Switches d3-10 are the DIP switches (not inverted)
+;
+
+readSws:
+	push	PAR
+	push	r9
+	lix		r9,0x7
+	lix		PAR,0x2000	; Switches address
+	lpl		r8			; Read switches into r9
+	xor		r8,r8,r9
+	pull	r9
+	pull	PAR
 	pull	PC
 	
 testRoutine4:
@@ -254,6 +325,23 @@ testRoutine4:
 	bsr		printString
 	lix		r8,menuItem_04.lower
 	bsr		printLine
+	lix		r10,0x0
+loopSwRead2:
+	bsr		readSws		; returns switches and pushbuttons in r8
+	sr1		r8,r8
+	sr1		r8,r8
+	sr1		r8,r8
+	sr1		r8,r8
+	lix		r9,0xff
+	and		r8,r8,r9
+	cmp		r8,r10
+	beq		loopSwRead2
+	add		r10,r8,r0
+	bsr		wr7Seg8Dig
+;	bsr		newLine
+	lix		r8,250
+	bsr		delay_mS
+	bra		loopSwRead2
 	pull	PC
 	
 testRoutine5:
@@ -270,6 +358,26 @@ testRoutine6:
 	bsr		printLine
 	pull	PC
 	
+testRoutine7:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_07.lower
+	bsr		printLine
+	pull	PC
+	
+testRoutine8:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_08.lower
+	bsr		printLine
+	pull	PC
+	
+testRoutine9:
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_09.lower
+	bsr		printLine
+	pull	PC
 	
 ;
 ; hexToSevenSeg - Convert a two ASCII digit value into a hex byte
