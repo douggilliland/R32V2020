@@ -457,7 +457,7 @@ if __name__ == '__main__':
 
         padded = '0'*(8 - len(code)) + code
 
-        f.write('constant ' + op['Opcode'].upper() + ' : std_Logic_Vector(7 downto 0) := "' + padded + '";\n')
+        f.write('constant ' + op['Opcode'].upper() + '_OP : std_Logic_Vector(7 downto 0) := "' + padded + '";\n')
       print 'Constants written to OpCodeConstants.vhd'
       exit()
 

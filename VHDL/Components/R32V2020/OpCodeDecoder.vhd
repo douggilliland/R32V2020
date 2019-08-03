@@ -16,19 +16,19 @@ entity OpCodeDecoder is
 		Op_NOP		: buffer std_logic;	-- No Operation
 		Op_HCF		: buffer std_logic;	-- Halt and Catch Fire
 		-- Category = ALU
-		Op_ADS		: buffer std_logic;	-- Add and store in reg
+		Op_ADD		: buffer std_logic;	-- Add and store in reg
 		Op_MUL		: buffer std_logic;	-- Multiply and store in reg
 		Op_CMP		: buffer std_logic;	-- Compare two registers and set CCR bits accordingly
-		Op_ORS		: buffer std_logic;	-- Logical OR registers and store in reg
-		Op_ARS		: buffer std_logic;	-- Logical AND registers and store in reg
-		Op_XRS		: buffer std_logic;	-- Logical XOR registers and store in reg
-		Op_LS1		: buffer std_logic;	-- Logical Shift register Left by 1 and store in reg
-		Op_LS8		: buffer std_logic;	-- Logical Shift register Left by 8 and store in reg
-		Op_RS1		: buffer std_logic;	-- Logical Shift register Right by 1 and store in reg
-		Op_RS8		: buffer std_logic;	-- Logical Shift register Right by 8 and store in reg
-		Op_LR1		: buffer std_logic;	-- Logical Rotate register Left by 1 and store in reg
-		Op_RR1		: buffer std_logic;	-- Logical Rotate register Right by 1 and store in reg
-		Op_RA1		: buffer std_logic;	-- Arithmetic shift register Right by 1 and store in reg
+		Op_OR 		: buffer std_logic;	-- Logical OR registers and store in reg
+		Op_AND		: buffer std_logic;	-- Logical AND registers and store in reg
+		Op_XOR		: buffer std_logic;	-- Logical XOR registers and store in reg
+		Op_SL1		: buffer std_logic;	-- Logical Shift register Left by 1 and store in reg
+		Op_SL8		: buffer std_logic;	-- Logical Shift register Left by 8 and store in reg
+		Op_SR1		: buffer std_logic;	-- Logical Shift register Right by 1 and store in reg
+		Op_SR8		: buffer std_logic;	-- Logical Shift register Right by 8 and store in reg
+		Op_ROL1		: buffer std_logic;	-- Logical Rotate register Left by 1 and store in reg
+		Op_ROR1		: buffer std_logic;	-- Logical Rotate register Right by 1 and store in reg
+		Op_ASR		: buffer std_logic;	-- Arithmetic shift register Right by 1 and store in reg
 		Op_ENS		: buffer std_logic;	-- Swap Endian of register and store in reg
 		-- Category = Immediate values
 		Op_LIL		: buffer std_logic;	-- Load Immediate lower short
@@ -41,6 +41,12 @@ entity OpCodeDecoder is
 		Op_SDS		: out std_logic;		-- Store short to data memory (write on d15..d0)
 		Op_LDL		: buffer std_logic;	-- Load long from data memory (read on d31..d0)
 		Op_SDL		: out std_logic;		-- Store long to data memory (write on d31..d0)
+		Op_LDBP		: buffer std_logic;	-- Load byte from data memory (read on d31..d0)
+		Op_SDBP		: out std_logic;		-- Store byte to data memory (write on d31..d0)
+		Op_LDSP		: buffer std_logic;	-- Load short from data memory (read on d31..d0)
+		Op_SDSP		: out std_logic;		-- Store short to data memory (write on d31..d0)
+		Op_LDLP		: buffer std_logic;	-- Load long from data memory (read on d31..d0)
+		Op_SDLP		: out std_logic;		-- Store long to data memory (write on d31..d0)
 		-- Category = Load/Store to/from Peripheral I/O space
 		Op_LPB		: buffer std_logic;	-- Load byte from peripheral interface (read on d7..d0)
 		Op_SPB		: out std_logic;		-- Store byte to peripheral interface (write on d7..d0)
@@ -48,6 +54,12 @@ entity OpCodeDecoder is
 		Op_SPS		: out std_logic;		-- Store short to peripheral interface (write on d15..d0)
 		Op_LPL		: buffer std_logic;	-- Load long from peripheral interface (read on d31..d0)
 		Op_SPL		: out std_logic;		-- Store long to peripheral interface (write on d31..d0)
+		Op_LPBP		: buffer std_logic;	-- Load byte from peripheral interface (read on d31..d0)
+		Op_SPBP		: out std_logic;		-- Store byte to peripheral interface (write on d31..d0)
+		Op_LPSP		: buffer std_logic;	-- Load short from peripheral interface (read on d31..d0)
+		Op_SPSP		: out std_logic;		-- Store short to peripheral interface (write on d31..d0)
+		Op_LPLP		: buffer std_logic;	-- Load long from peripheral interface (read on d31..d0)
+		Op_SPLP		: out std_logic;		-- Store long to peripheral interface (write on d31..d0)
 		-- Category = Stack
 		Op_PSS		: out std_logic;		-- Stack push
 		Op_PUS		: buffer std_logic;	-- Stack pull
@@ -81,72 +93,84 @@ signal	FlowCtl_OpCode	: std_logic;
 
 begin
 
-o_WrRegFile <= Op_ADS or Op_MUL or Op_ORS or
-	Op_ARS or Op_XRS or 	Op_LS1 or Op_LS8 or Op_RS1 or Op_RS8 or
-	Op_LR1 or Op_RR1 or Op_RA1 or
+o_WrRegFile <= Op_ADD or Op_MUL or Op_OR or
+	Op_AND or Op_XOR or 	Op_SL1 or Op_SL8 or Op_SR1 or Op_SR8 or
+	Op_ROL1 or Op_ROR1 or Op_ASR or
 	Op_ENS or
 	Op_LIL or Op_LIU or Op_LIX or 
-	Op_LDB or Op_LDS or Op_LDL or 
-	Op_LPB or Op_LPS or Op_LPL or 
+	Op_LDB or Op_LDS or Op_LDL or Op_LDBP or Op_LDSP or Op_LDLP or 
+	Op_LPB or Op_LPS or Op_LPL or Op_LPBP or Op_LPSP or Op_LPLP or 
 	Op_PUS or Op_LSS;
 
 -- System Opcodes
-Op_NOP <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = NOP(4 downto 0))) else '0';
-Op_HCF <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = HCF(4 downto 0))) else '0';
+Op_NOP <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = NOP_OP(4 downto 0))) else '0';
+Op_HCF <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = HCF_OP(4 downto 0))) else '0';
 
 -- ALU Opcodes - Arithmetic
-Op_ADS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ADS(4 downto 0))) else '0';
-Op_MUL <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = MUL(4 downto 0))) else '0';
-Op_CMP <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = CMP(4 downto 0))) else '0';
+Op_ADD <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ADD_OP(4 downto 0))) else '0';
+Op_MUL <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = MUL_OP(4 downto 0))) else '0';
+Op_CMP <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = CMP_OP(4 downto 0))) else '0';
 -- ALU Opcodes - Logical
-Op_ORS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ORS(4 downto 0))) else '0';
-Op_ARS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ARS(4 downto 0))) else '0';
-Op_XRS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = XRS(4 downto 0))) else '0';
+Op_OR  <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = OR_OP(4 downto 0))) else '0';
+Op_AND <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = AND_OP(4 downto 0))) else '0';
+Op_XOR <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = XOR_OP(4 downto 0))) else '0';
 -- ALU Opcodes - Shift
-Op_LS1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = LS1(4 downto 0))) else '0';
-Op_LS8 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = LS8(4 downto 0))) else '0';
-Op_RS1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = RS1(4 downto 0))) else '0';
-Op_RS8 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = RS8(4 downto 0))) else '0';
-Op_LR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = LR1(4 downto 0))) else '0';
-Op_RR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = RR1(4 downto 0))) else '0';
-Op_RA1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = RA1(4 downto 0))) else '0';
+Op_SL1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SL1_OP(4 downto 0))) else '0';
+Op_SL8 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SL8_OP(4 downto 0))) else '0';
+Op_SR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SR1_OP(4 downto 0))) else '0';
+Op_SR8 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SR8_OP(4 downto 0))) else '0';
+Op_ROL1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ROL1_OP(4 downto 0))) else '0';
+Op_ROR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ROR1_OP(4 downto 0))) else '0';
+Op_ASR <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ASR_OP(4 downto 0))) else '0';
 -- ALU Opcodes - Endian
-Op_ENS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ENS(4 downto 0))) else '0';
+Op_ENS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ENS_OP(4 downto 0))) else '0';
 -- Immediate Opcodes
-Op_LIL <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIL(4 downto 0))) else '0';
-Op_LIU <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIU(4 downto 0))) else '0';
-Op_LIX <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIX(4 downto 0))) else '0';
+Op_LIL <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIL_OP(4 downto 0))) else '0';
+Op_LIU <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIU_OP(4 downto 0))) else '0';
+Op_LIX <= '1' when (Immed_OpCode = '1' and (InstrOpCode(4 downto 0) = LIX_OP(4 downto 0))) else '0';
 -- Load/Store Data Memory Opcodes
-Op_LDB <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDB(4 downto 0))) else '0';
-Op_SDB <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDB(4 downto 0))) else '0';
-Op_LDS <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDS(4 downto 0))) else '0';
-Op_SDS <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDS(4 downto 0))) else '0';
-Op_LDL <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDL(4 downto 0))) else '0';
-Op_SDL <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDL(4 downto 0))) else '0';
+Op_LDB <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDB_OP(4 downto 0))) else '0';
+Op_SDB <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDB_OP(4 downto 0))) else '0';
+Op_LDS <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDS_OP(4 downto 0))) else '0';
+Op_SDS <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDS_OP(4 downto 0))) else '0';
+Op_LDL <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDL_OP(4 downto 0))) else '0';
+Op_SDL <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDL_OP(4 downto 0))) else '0';
+Op_LDBP <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDBP_OP(4 downto 0))) else '0';
+Op_SDBP <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDBP_OP(4 downto 0))) else '0';
+Op_LDSP <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDSP_OP(4 downto 0))) else '0';
+Op_SDSP <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDSP_OP(4 downto 0))) else '0';
+Op_LDLP <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = LDLP_OP(4 downto 0))) else '0';
+Op_SDLP <= '1' when (LdSt_OpCode = '1' and (InstrOpCode(4 downto 0) = SDLP_OP(4 downto 0))) else '0';
 -- Peripheral I/O Opcodes
-Op_LPB <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPB(4 downto 0))) else '0';
-Op_SPB <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPB(4 downto 0))) else '0';
-Op_LPS <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPS(4 downto 0))) else '0';
-Op_SPS <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPS(4 downto 0))) else '0';
-Op_LPL <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPL(4 downto 0))) else '0';
-Op_SPL <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPL(4 downto 0))) else '0';
+Op_LPB <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPB_OP(4 downto 0))) else '0';
+Op_SPB <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPB_OP(4 downto 0))) else '0';
+Op_LPS <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPS_OP(4 downto 0))) else '0';
+Op_SPS <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPS_OP(4 downto 0))) else '0';
+Op_LPL <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPL_OP(4 downto 0))) else '0';
+Op_SPL <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPL_OP(4 downto 0))) else '0';
+Op_LPBP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPBP_OP(4 downto 0))) else '0';
+Op_SPBP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPBP_OP(4 downto 0))) else '0';
+Op_LPSP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPSP_OP(4 downto 0))) else '0';
+Op_SPSP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPSP_OP(4 downto 0))) else '0';
+Op_LPLP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPLP_OP(4 downto 0))) else '0';
+Op_SPLP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPLP_OP(4 downto 0))) else '0';
 -- Stack Opcodes
-Op_PSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PSS(4 downto 0))) else '0';
-Op_PUS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PUS(4 downto 0))) else '0';
-Op_SSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = SSS(4 downto 0))) else '0';
-Op_LSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = LSS(4 downto 0))) else '0';
+Op_PSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PUSH_OP(4 downto 0))) else '0';
+Op_PUS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PULL_OP(4 downto 0))) else '0';
+Op_SSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = SSS_OP(4 downto 0))) else '0';
+Op_LSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = LSS_OP(4 downto 0))) else '0';
 -- Flow Control
-Op_BRA <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BRA(4 downto 0))) else '0';
-Op_BCS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BCS(4 downto 0))) else '0';
-Op_BCC <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BCC(4 downto 0))) else '0';
-Op_BEZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEZ(4 downto 0))) else '0';
-Op_BE1 <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BE1(4 downto 0))) else '0';
-Op_BGT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BGT(4 downto 0))) else '0';
-Op_BLT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BLT(4 downto 0))) else '0';
-Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEQ(4 downto 0))) else '0';
-Op_BNE <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNE(4 downto 0))) else '0';
-Op_BNZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNZ(4 downto 0))) else '0';
-Op_BSR <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BSR(4 downto 0))) else '0';
+Op_BRA <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BRA_OP(4 downto 0))) else '0';
+Op_BCS <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BCS_OP(4 downto 0))) else '0';
+Op_BCC <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BCC_OP(4 downto 0))) else '0';
+Op_BEZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEZ_OP(4 downto 0))) else '0';
+Op_BE1 <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BE1_OP(4 downto 0))) else '0';
+Op_BGT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BGT_OP(4 downto 0))) else '0';
+Op_BLT <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BLT_OP(4 downto 0))) else '0';
+Op_BEQ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BEQ_OP(4 downto 0))) else '0';
+Op_BNE <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNE_OP(4 downto 0))) else '0';
+Op_BNZ <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BNZ_OP(4 downto 0))) else '0';
+Op_BSR <= '1' when (FlowCtl_OpCode = '1' and (InstrOpCode(4 downto 0) = BSR_OP(4 downto 0))) else '0';
 
 opc_Cat_Decoder : work.OpCode_Cat_Decoder port map (
 		InstrOpCodeCat	=> InstrOpCode(7 downto 5),

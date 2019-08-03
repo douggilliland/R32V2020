@@ -35,6 +35,18 @@ entity RegisterFile is
 		i_OP_PSS						: in std_logic := '0';
 		i_OP_PUS						: in std_logic := '0';
 		i_OP_BSR						: in std_logic := '0';
+		i_Op_LDBP 					: in std_logic := '0';
+		i_Op_SDBP 					: in std_logic := '0';
+		i_Op_LDSP 					: in std_logic := '0';
+		i_Op_SDSP 					: in std_logic := '0';
+		i_Op_LDLP 					: in std_logic := '0';
+		i_Op_SDLP 					: in std_logic := '0';
+		i_Op_LPBP 					: in std_logic := '0';
+		i_Op_SPBP 					: in std_logic := '0';
+		i_Op_LPSP 					: in std_logic := '0';
+		i_Op_SPSP 					: in std_logic := '0';
+		i_Op_LPLP 					: in std_logic := '0';
+		i_Op_SPLP 					: in std_logic := '0';
 		i_BranchAddress			: in std_logic_vector(31 downto 0);
 		i_wrRegFile					: in std_logic := '0';
 		o_regDataOutA				: out std_logic_vector(31 downto 0);
@@ -136,24 +148,38 @@ stackAddress : work.COUNT_32 PORT MAP(
 );
 
 -- r5 = Peripheral Address
-peripheralAddress : work.COUNT_32 PORT MAP(
+peripheralAddress : work.COUNT_32_Load124 PORT MAP(
 	clk		=> i_clk,
 	clr 		=> i_clear,
 	d 		=> i_regDataIn,
-	enable	=> wrSelR5 and i_wrRegFile and i_OneHotState(4),
-	inc 		=> '0',
-	dec 		=> '0',
+	enable	=> (wrSelR5 and i_wrRegFile and i_OneHotState(4))
+					or (i_Op_LPBP and i_OneHotState(4)) 
+					or (i_Op_SPBP and i_OneHotState(4)) 
+					or (i_Op_LPSP and i_OneHotState(4)) 
+					or (i_Op_SPSP and i_OneHotState(4)) 
+					or (i_Op_LPLP and i_OneHotState(4)) 
+					or (i_Op_SPLP and i_OneHotState(4)),
+	count1	=> i_Op_LPBP or i_Op_SPBP,
+	count2	=> i_Op_LPSP or i_Op_SPSP,
+	count4	=> i_Op_LPLP or i_Op_SPLP,
 	q			=> o_PeripheralAddress
 );
 
 -- r6 = Data RAM Address
-dataRamAddress : work.COUNT_32 PORT MAP(
+dataRamAddress : work.COUNT_32_Load124 PORT MAP(
 	clk		=> i_clk,
 	clr 		=> i_clear,
 	d 		=> i_regDataIn,
-	enable 	=> wrSelR6 and i_wrRegFile and i_OneHotState(4),
-	inc 		=> '0',
-	dec 		=> '0',
+	enable 	=> (wrSelR6 and i_wrRegFile and i_OneHotState(4))
+					or (i_Op_LDBP and i_OneHotState(4)) 
+					or (i_Op_SDBP and i_OneHotState(4)) 
+					or (i_Op_LDSP and i_OneHotState(4)) 
+					or (i_Op_SDSP and i_OneHotState(4)) 
+					or (i_Op_LDLP and i_OneHotState(4)) 
+					or (i_Op_SDLP and i_OneHotState(4)),
+	count1	=> i_Op_LDBP or i_Op_SDBP,
+	count2	=> i_Op_LDSP or i_Op_SDSP,
+	count4	=> i_Op_LDLP or i_Op_SDLP,
 	q			=> o_DataRamAddress
 );
 

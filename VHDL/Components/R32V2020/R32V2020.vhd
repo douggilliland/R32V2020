@@ -49,35 +49,52 @@ attribute syn_keep: boolean;
 
 signal	w_Op_NOP : std_logic := '0';		-- No Operation (advance PC)
 signal	w_Op_HCF : std_logic := '0';		-- Halt and Catch Fire
-signal	w_Op_ADS : std_logic := '0';		-- Add 2 regs and store in 3rd
+signal	w_Op_ADD : std_logic := '0';		-- Add 2 regs and store in 3rd
 signal	w_Op_CMP : std_logic := '0';		-- Compare 2 regs and set cond codes
 signal	w_Op_MUL	: std_logic := '0';		-- Multiply 2 regs and store in 3rd
-signal	w_Op_ORS	: std_logic := '0';		-- OR 2 regs and store in 3rd
-signal	w_Op_ARS	: std_logic := '0';		-- AND 2 regs and store in 3rd
-signal	w_Op_XRS	: std_logic := '0';		-- XOR 2 regs and store in 3rd
-signal	w_Op_LS1  : std_logic := '0';		-- Logical Shift left by 1
-signal	w_Op_LS8  : std_logic := '0';		-- Logical Shift left by 8
-signal	w_Op_RS1  : std_logic := '0';		-- Logical Shift right by 1
-signal	w_Op_RS8  : std_logic := '0';		-- Logical Shift right by 8
-signal	w_Op_LR1  : std_logic := '0';		-- Rotate left by 1
-signal	w_Op_RR1  : std_logic := '0';		-- Rotate right by 12
-signal	w_Op_RA1  : std_logic := '0';		-- Right arithmetic shift
+signal	w_Op_OR	: std_logic := '0';		-- OR 2 regs and store in 3rd
+signal	w_Op_AND	: std_logic := '0';		-- AND 2 regs and store in 3rd
+signal	w_Op_XOR	: std_logic := '0';		-- XOR 2 regs and store in 3rd
+--
+signal	w_Op_SL1  : std_logic := '0';		-- Logical Shift left by 1
+signal	w_Op_SL8  : std_logic := '0';		-- Logical Shift left by 8
+signal	w_Op_SR1  : std_logic := '0';		-- Logical Shift right by 1
+signal	w_Op_SR8  : std_logic := '0';		-- Logical Shift right by 8
+signal	w_Op_ROL1 : std_logic := '0';		-- Rotate left by 1
+signal	w_Op_ROR1 : std_logic := '0';		-- Rotate right by 12
+signal	w_Op_ASR  : std_logic := '0';		-- Right arithmetic shift
 signal	w_Op_ENS  : std_logic := '0';		-- Swap endian
+--
 signal	w_Op_LIL  : std_logic := '0';		-- Load Register Immediate Lower
 signal	w_Op_LIU  : std_logic := '0';		-- Load Register Immediate Upper
 signal	w_Op_LIX  : std_logic := '0';		-- Load Register Immediate Extend Lower
+-- Data
 signal	w_Op_LDB  : std_logic := '0';		-- Load Data Byte
 signal	w_Op_SDB  : std_logic := '0';		-- Store Data Byte
 signal	w_Op_LDS  : std_logic := '0';		-- Load Data Short
 signal	w_Op_SDS  : std_logic := '0';		-- Store Data Short
 signal	w_Op_LDL  : std_logic := '0';		-- Load Data Long
 signal	w_Op_SDL  : std_logic := '0';		-- Store Data Long
+signal	w_Op_LDBP  : std_logic := '0';		-- Load Data Byte
+signal	w_Op_SDBP  : std_logic := '0';		-- Store Data Byte
+signal	w_Op_LDSP  : std_logic := '0';		-- Load Data Short
+signal	w_Op_SDSP  : std_logic := '0';		-- Store Data Short
+signal	w_Op_LDLP  : std_logic := '0';		-- Load Data Long
+signal	w_Op_SDLP  : std_logic := '0';		-- Store Data Long
+--
 signal	w_Op_LPB  : std_logic := '0';		-- Load Peripheral Byte
 signal	w_Op_SPB  : std_logic := '0';		-- Store Peripheral Byte
 signal	w_Op_LPS  : std_logic := '0';		-- Load Peripheral Short
 signal	w_Op_SPS  : std_logic := '0';		-- Store Peripheral Short
 signal	w_Op_LPL  : std_logic := '0';		-- Load Peripheral Long
 signal	w_Op_SPL  : std_logic := '0';		-- Store Peripheral Long
+signal	w_Op_LPBP  : std_logic := '0';		-- Load Peripheral Byte
+signal	w_Op_SPBP  : std_logic := '0';		-- Store Peripheral Byte
+signal	w_Op_LPSP  : std_logic := '0';		-- Load Peripheral Short
+signal	w_Op_SPSP  : std_logic := '0';		-- Store Peripheral Short
+signal	w_Op_LPLP  : std_logic := '0';		-- Load Peripheral Long
+signal	w_Op_SPLP  : std_logic := '0';		-- Store Peripheral Long
+--
 signal	w_Op_PSS  : std_logic := '0';		-- Push register to Stack
 signal	w_Op_PUS  : std_logic := '0';		-- Pull register from Stack
 signal	w_Op_SSS  : std_logic := '0';		-- Store to stack memory
@@ -142,20 +159,20 @@ signal	w_TakeBranch				: std_logic := '0';
 
 begin
 
-	o_loadData  <= w_Op_LDB or w_Op_LDS or w_Op_LDL;
-	o_storeData <= w_Op_SDB or w_Op_SDS or w_Op_SDL;
+	o_loadData  <= w_Op_LDB or w_Op_LDS or w_Op_LDL or w_Op_LDBP or w_Op_LDSP or w_Op_LDLP;
+	o_storeData <= w_Op_SDB or w_Op_SDS or w_Op_SDL or w_Op_SDBP or w_Op_SDSP or w_Op_SDLP;
 
-	o_longData  <= w_Op_LDL or w_Op_SDL;
-	o_shortData <= w_Op_LDS or	w_Op_SDS;
-	o_ByteData  <= w_Op_LDB or w_Op_SDB;
+	o_longData  <= w_Op_LDL or w_Op_SDL or w_Op_LDLP or w_Op_SDLP;
+	o_shortData <= w_Op_LDS or	w_Op_SDS or w_Op_LDSP or w_Op_SDSP;
+	o_ByteData  <= w_Op_LDB or w_Op_SDB or w_Op_LDBP or w_Op_SDBP;
 
  	w_holdHaltCatchFire		<= '1' when (w_OneHotState(3) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
 	o_writeStackRamEn 		<= '1' when  w_OneHotState(3) = '1' and (w_Op_PSS = '1' or  w_Op_SSS = '1' or  w_Op_BSR = '1') and n_reset  = '1'   else '0';
-	o_peripheralRdStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_LPB = '1' or  w_Op_LPS = '1'  or  w_Op_LPL = '1')) else '0';
-	o_peripheralWrStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_SPB = '1' or  w_Op_SPS = '1'  or  w_Op_SPL = '1')) else '0';
+	o_peripheralRdStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_LPB = '1' or  w_Op_LPS = '1'  or  w_Op_LPL = '1' or w_Op_LPBP = '1' or  w_Op_LPSP = '1'  or  w_Op_LPLP = '1')) else '0';
+	o_peripheralWrStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_SPB = '1' or  w_Op_SPS = '1'  or  w_Op_SPL = '1' or w_Op_SPBP = '1' or  w_Op_SPSP = '1'  or  w_Op_SPLP = '1')) else '0';
 	o_clkInstrRomAddr 		<= w_OneHotState(0) or (not n_reset);
 	o_clkInstrRomData 		<= w_OneHotState(1) or (not n_reset);
-	o_writeToDataRamEnable 	<= '1' when w_OneHotState(3) = '1' and (w_Op_SDB = '1' or w_Op_SDS = '1'or w_Op_SDL = '1') and n_reset = '1' else '0';
+	o_writeToDataRamEnable 	<= '1' when w_OneHotState(3) = '1' and (w_Op_SDB = '1' or w_Op_SDS = '1'or w_Op_SDL = '1' or w_Op_SDBP = '1' or w_Op_SDSP = '1'or w_Op_SDLP = '1') and n_reset = '1' else '0';
 
 	w_BranchAddress <=  (i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  -- sign extend
 								i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  
@@ -178,19 +195,19 @@ begin
 		Op_NOP => w_Op_NOP,
 		Op_HCF => w_Op_HCF,
 		-- Category = ALU
-		Op_ADS => w_Op_ADS,
+		Op_ADD => w_Op_ADD,
 		Op_MUL => w_Op_MUL,
 		Op_CMP => w_Op_CMP,
-		Op_ORS => w_Op_ORS,
-		Op_ARS => w_Op_ARS,
-		Op_XRS => w_Op_XRS,
-		Op_LS1 => w_Op_LS1,
-		Op_LS8 => w_Op_LS8,
-		Op_RS1 => w_Op_RS1,
-		Op_RS8 => w_Op_RS8,
-		Op_LR1 => w_Op_LR1,
-		Op_RR1 => w_Op_RR1,
-		Op_RA1 => w_Op_RA1,
+		Op_OR  => w_Op_OR,
+		Op_AND => w_Op_AND,
+		Op_XOR => w_Op_XOR,
+		Op_SL1 => w_Op_SL1,
+		Op_SL8 => w_Op_SL8,
+		Op_SR1 => w_Op_SR1,
+		Op_SR8 => w_Op_SR8,
+		Op_ROL1 => w_Op_ROL1,
+		Op_ROR1 => w_Op_ROR1,
+		Op_ASR => w_Op_ASR,
 		Op_ENS => w_Op_ENS,
 		-- Category = Immediate values
 		Op_LIL => w_Op_LIL,
@@ -203,6 +220,12 @@ begin
 		Op_SDS => w_Op_SDS,
 		Op_LDL => w_Op_LDL,
 		Op_SDL => w_Op_SDL,
+		Op_LDBP => w_Op_LDBP,
+		Op_SDBP => w_Op_SDBP,
+		Op_LDSP => w_Op_LDSP,
+		Op_SDSP => w_Op_SDSP,
+		Op_LDLP => w_Op_LDLP,
+		Op_SDLP => w_Op_SDLP,
 		-- Category = Peripheral I/O
 		Op_LPB => w_Op_LPB,
 		Op_SPB => w_Op_SPB,
@@ -210,6 +233,12 @@ begin
 		Op_SPS => w_Op_SPS,
 		Op_LPL => w_Op_LPL,
 		Op_SPL => w_Op_SPL,
+		Op_LPBP => w_Op_LPBP,
+		Op_SPBP => w_Op_SPBP,
+		Op_LPSP => w_Op_LPSP,
+		Op_SPSP => w_Op_SPSP,
+		Op_LPLP => w_Op_LPLP,
+		Op_SPLP => w_Op_SPLP,
 		-- Category = Stack
 		Op_PSS => w_Op_PSS,
 		Op_PUS => w_Op_PUS,
@@ -252,18 +281,18 @@ FlowControl : ENTITY work.FlowControl PORT MAP
 CCR_Store : ENTITY work.CCRControl PORT map 
 	(
 	-- Category = ALU
-	Op_ADS	=> w_Op_ADS,
+	Op_ADD	=> w_Op_ADD,
 	Op_MUL	=> w_Op_MUL,
-	Op_ORS	=> w_Op_ORS,
-	Op_ARS	=> w_Op_ARS,
-	Op_XRS	=> w_Op_XRS,
-	Op_LS1	=> w_Op_LS1,
-	Op_LS8	=> w_Op_LS8,
-	Op_RS1	=> w_Op_RS1,
-	Op_RS8	=> w_Op_RS8,
-	Op_LR1	=> w_Op_LR1,
-	Op_RR1	=> w_Op_RR1,
-	Op_RA1	=> w_Op_RA1,
+	Op_OR		=> w_Op_OR,
+	Op_AND	=> w_Op_AND,
+	Op_XOR	=> w_Op_XOR,
+	Op_SL1	=> w_Op_SL1,
+	Op_SL8	=> w_Op_SL8,
+	Op_SR1	=> w_Op_SR1,
+	Op_SR8	=> w_Op_SR8,
+	Op_ROL1	=> w_Op_ROL1,
+	Op_ROR1	=> w_Op_ROR1,
+	Op_ASR	=> w_Op_ASR,
 	Op_CMP	=> w_Op_CMP,
 	o_save_CCR_bits => w_save_CCR_bits
 	);
@@ -272,19 +301,19 @@ CCR_Store : ENTITY work.CCRControl PORT map
 	port map (
 		i_regDataA => o_DataOutFromRegA,
 		i_regDataB => w_regDataB,
-		i_Op_ADS => w_Op_ADS,
+		i_Op_ADD => w_Op_ADD,
 		i_Op_MUL => w_Op_MUL,
 		i_Op_CMP => w_Op_CMP,
-		i_Op_ARS => w_Op_ARS,
-		i_Op_XRS => w_Op_XRS,
-		i_Op_ORS => w_Op_ORS,
-		i_Op_LS1 => w_Op_LS1,
-		i_Op_LS8 => w_Op_LS8,
-		i_Op_RS1 => w_Op_RS1,
-		i_Op_RS8 => w_Op_RS8,
-		i_Op_LR1 => w_Op_LR1,
-		i_Op_RR1 => w_Op_RR1,
-		i_Op_RA1 => w_Op_RA1,
+		i_Op_AND => w_Op_AND,
+		i_Op_XOR => w_Op_XOR,
+		i_Op_OR => w_Op_OR,
+		i_Op_SL1 => w_Op_SL1,
+		i_Op_SL8 => w_Op_SL8,
+		i_Op_SR1 => w_Op_SR1,
+		i_Op_SR8 => w_Op_SR8,
+		i_Op_ROL1 => w_Op_ROL1,
+		i_Op_ROR1 => w_Op_ROR1,
+		i_Op_ASR => w_Op_ASR,
 		i_Op_ENS => w_Op_ENS,
  		o_ALUDataOut => w_ALUDataOut,
 		o_CondCodeBits => w_CondCodeBits
@@ -296,9 +325,9 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) &
 		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) &
 		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19 downto 0) when (w_Op_LIX = '1') else	
-		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1')) else
+		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1') or (w_Op_LDBP = '1') or (w_Op_LDSP = '1') or (w_Op_LDLP = '1')) else
 		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1')) else
-		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1')) else
+		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1') or (w_Op_LPBP = '1') or (w_Op_LPSP = '1') or (w_Op_LPLP = '1')) else
 		w_ALUDataOut;
 		
 	o_dataToStackRam <= o_DataOutFromRegA when (w_Op_BSR = '0') else
@@ -322,6 +351,18 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_OP_PSS						=> w_Op_PSS,
 		i_OP_PUS						=> w_Op_PUS,
 		i_OP_BSR						=> w_Op_BSR,
+		i_Op_LDBP 					=> w_Op_LDBP,
+		i_Op_SDBP 					=> w_Op_SDBP,
+		i_Op_LDSP 					=> w_Op_LDSP,
+		i_Op_SDSP 					=> w_Op_SDSP,
+		i_Op_LDLP 					=> w_Op_LDLP,
+		i_Op_SDLP 					=> w_Op_SDLP,
+		i_Op_LPBP 					=> w_Op_LPBP,
+		i_Op_SPBP 					=> w_Op_SPBP,
+		i_Op_LPSP 					=> w_Op_LPSP,
+		i_Op_SPSP 					=> w_Op_SPSP,
+		i_Op_LPLP 					=> w_Op_LPLP,
+		i_Op_SPLP 					=> w_Op_SPLP,
 		i_save_CCR_bits			=> w_save_CCR_bits,
 		i_wrRegFile					=> w_wrRegFile,
 		o_regDataOutA				=> o_DataOutFromRegA,
