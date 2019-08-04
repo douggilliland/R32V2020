@@ -75,4 +75,9 @@ constant CCR_BGT : integer := 6;
 constant CCR_BEQ : integer := 7;
 constant CCR_BNE : integer := 8;
 
+constant STATE0 : std_Logic_Vector(3 downto 0) := "0001";
+constant STATE1 : std_Logic_Vector(3 downto 0) := "0010";
+constant STATE2 : std_Logic_Vector(3 downto 0) := "0100";
+constant STATE3 : std_Logic_Vector(3 downto 0) := "1000";
+
 end package R32V2020_Pkg;

@@ -17,12 +17,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 use  IEEE.STD_LOGIC_ARITH.all;
 use  IEEE.STD_LOGIC_UNSIGNED.all;
+library work;
+use work.R32V2020_Pkg.all;
 
 entity RegisterFile is
 	port (
 		i_clk							: in std_logic;
 		i_clear						: in std_logic;
-		i_OneHotState				: in std_logic_vector(5  downto 0);	-- single clock wide load control
+		i_OneHotState				: in std_logic_vector(3  downto 0);	-- single clock wide load control
 		i_TakeBranch				: in std_logic;
 		i_wrRegSel					: in std_logic_vector(3 downto 0);
 		i_rdRegSelA					: in std_logic_vector(3 downto 0);
@@ -32,8 +34,8 @@ entity RegisterFile is
 		i_OP_LIL						: in std_logic := '0';
 		i_OP_LIU						: in std_logic := '0';
 		i_OP_LIX						: in std_logic := '0';
-		i_OP_PSS						: in std_logic := '0';
-		i_OP_PUS						: in std_logic := '0';
+		i_Op_PUSH						: in std_logic := '0';
+		i_Op_PULL						: in std_logic := '0';
 		i_OP_BSR						: in std_logic := '0';
 		i_Op_LDBP 					: in std_logic := '0';
 		i_Op_SDBP 					: in std_logic := '0';
@@ -127,7 +129,7 @@ regR2 <= x"FFFFFFFF";		-- r2 = -1
 -- r3 = Condition Code Register
 conditionCodeRegister : work.REG_32 PORT MAP(
     d 	=> i_CCR,
-    ld 	=> i_OneHotState(4) and i_save_CCR_bits,
+    ld 	=> i_OneHotState(3) and i_save_CCR_bits,
     clr 	=> i_clear,
     clk	=> i_clk,
     q		=> o_CCR
@@ -138,12 +140,12 @@ stackAddress : work.COUNT_32 PORT MAP(
     clk		=> i_clk,
     clr 		=> i_clear,
     d 		=> i_regDataIn,
-    enable	=> (wrSelR4 and i_wrRegFile and i_OneHotState(4)) 
-					or (i_OP_PSS and i_OneHotState(4)) 
-					or (i_OP_PUS and i_OneHotState(2)) 
-					or (i_OP_BSR and i_OneHotState(4)),
-    inc		=> i_OP_PSS or i_OP_BSR,
-    dec		=> i_OP_PUS,
+    enable	=> (wrSelR4 and i_wrRegFile and i_OneHotState(3)) 
+					or (i_Op_PUSH and i_OneHotState(3)) 
+					or (i_Op_PULL and i_OneHotState(1)) 
+					or (i_OP_BSR and i_OneHotState(3)),
+    inc		=> i_Op_PUSH or i_OP_BSR,
+    dec		=> i_Op_PULL,
     q			=> o_StackRamAddress
 );
 
@@ -152,13 +154,13 @@ peripheralAddress : work.COUNT_32_Load124 PORT MAP(
 	clk		=> i_clk,
 	clr 		=> i_clear,
 	d 		=> i_regDataIn,
-	enable	=> (wrSelR5 and i_wrRegFile and i_OneHotState(4))
-					or (i_Op_LPBP and i_OneHotState(4)) 
-					or (i_Op_SPBP and i_OneHotState(4)) 
-					or (i_Op_LPSP and i_OneHotState(4)) 
-					or (i_Op_SPSP and i_OneHotState(4)) 
-					or (i_Op_LPLP and i_OneHotState(4)) 
-					or (i_Op_SPLP and i_OneHotState(4)),
+	enable	=> (wrSelR5 and i_wrRegFile and i_OneHotState(3))
+					or (i_Op_LPBP and i_OneHotState(3)) 
+					or (i_Op_SPBP and i_OneHotState(3)) 
+					or (i_Op_LPSP and i_OneHotState(3)) 
+					or (i_Op_SPSP and i_OneHotState(3)) 
+					or (i_Op_LPLP and i_OneHotState(3)) 
+					or (i_Op_SPLP and i_OneHotState(3)),
 	count1	=> i_Op_LPBP or i_Op_SPBP,
 	count2	=> i_Op_LPSP or i_Op_SPSP,
 	count4	=> i_Op_LPLP or i_Op_SPLP,
@@ -170,13 +172,13 @@ dataRamAddress : work.COUNT_32_Load124 PORT MAP(
 	clk		=> i_clk,
 	clr 		=> i_clear,
 	d 		=> i_regDataIn,
-	enable 	=> (wrSelR6 and i_wrRegFile and i_OneHotState(4))
-					or (i_Op_LDBP and i_OneHotState(4)) 
-					or (i_Op_SDBP and i_OneHotState(4)) 
-					or (i_Op_LDSP and i_OneHotState(4)) 
-					or (i_Op_SDSP and i_OneHotState(4)) 
-					or (i_Op_LDLP and i_OneHotState(4)) 
-					or (i_Op_SDLP and i_OneHotState(4)),
+	enable 	=> (wrSelR6 and i_wrRegFile and i_OneHotState(3))
+					or (i_Op_LDBP and i_OneHotState(3)) 
+					or (i_Op_SDBP and i_OneHotState(3)) 
+					or (i_Op_LDSP and i_OneHotState(3)) 
+					or (i_Op_SDSP and i_OneHotState(3)) 
+					or (i_Op_LDLP and i_OneHotState(3)) 
+					or (i_Op_SDLP and i_OneHotState(3)),
 	count1	=> i_Op_LDBP or i_Op_SDBP,
 	count2	=> i_Op_LDSP or i_Op_SDSP,
 	count4	=> i_Op_LDLP or i_Op_SDLP,
@@ -190,7 +192,7 @@ programCounter : work.COUNT_32 PORT MAP(
     clk		=> i_clk,
     clr 		=> i_clear,
     d 		=> w_nextPC,
-    enable 	=> i_OneHotState(4),
+    enable 	=> i_OneHotState(3),
     inc 		=> (not i_TakeBranch) and (not wrSelR7),	-- Increment PC  if not these conditions
     dec 		=> '0',
     q			=> o_InstructionRomAddress
@@ -201,7 +203,7 @@ r8Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR8Upper and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR8Upper and i_wrRegFile and i_OneHotState(3),
     q		=> regR8(31 downto 16)
 );
 
@@ -209,7 +211,7 @@ r8Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR8Lower and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR8Lower and i_wrRegFile and i_OneHotState(3),
     q		=> regR8(15 downto 0)
 );
 
@@ -217,7 +219,7 @@ r9Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR9Upper and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR9Upper and i_wrRegFile and i_OneHotState(3),
     q		=> regR9(31 downto 16)
 );
 
@@ -225,7 +227,7 @@ r9Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR9Lower and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR9Lower and i_wrRegFile and i_OneHotState(3),
     q		=> regR9(15 downto 0)
 );
 
@@ -233,7 +235,7 @@ r10Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR10Upper and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR10Upper and i_wrRegFile and i_OneHotState(3),
     q		=> regR10(31 downto 16)
 );
 
@@ -241,7 +243,7 @@ r10Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR10Lower and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR10Lower and i_wrRegFile and i_OneHotState(3),
     q		=> regR10(15 downto 0)
 );
 
@@ -249,7 +251,7 @@ r11Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR11Upper and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR11Upper and i_wrRegFile and i_OneHotState(3),
     q		=> regR11(31 downto 16)
 );
 
@@ -257,7 +259,7 @@ r11Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR11Lower and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR11Lower and i_wrRegFile and i_OneHotState(3),
     q		=> regR11(15 downto 0)
 );
 
@@ -265,7 +267,7 @@ r12Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR12Upper and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR12Upper and i_wrRegFile and i_OneHotState(3),
     q		=> regR12(31 downto 16)
 );
 
@@ -273,7 +275,7 @@ r12Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR12Lower and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR12Lower and i_wrRegFile and i_OneHotState(3),
     q		=> regR12(15 downto 0)
 );
 
@@ -281,7 +283,7 @@ r13Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR13Upper and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR13Upper and i_wrRegFile and i_OneHotState(3),
     q		=> regR13(31 downto 16)
 );
 
@@ -289,7 +291,7 @@ r13Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR13Lower and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR13Lower and i_wrRegFile and i_OneHotState(3),
     q		=> regR13(15 downto 0)
 );
 
@@ -297,7 +299,7 @@ r14Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR14Upper and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR14Upper and i_wrRegFile and i_OneHotState(3),
     q		=> regR14(31 downto 16)
 );
 
@@ -305,7 +307,7 @@ r14Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR14Lower and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR14Lower and i_wrRegFile and i_OneHotState(3),
     q		=> regR14(15 downto 0)
 );
 
@@ -313,7 +315,7 @@ r15Upper : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(31 downto 16),
-    ld 	=> wrSelR15Upper and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR15Upper and i_wrRegFile and i_OneHotState(3),
     q		=> regR15(31 downto 16)
 );
 
@@ -321,7 +323,7 @@ r15Lower : work.REG_16 PORT MAP(
     clk	=> i_clk,
     clr 	=> i_clear,
     d 	=> i_regDataIn(15 downto 0),
-    ld 	=> wrSelR15Lower and i_wrRegFile and i_OneHotState(4),
+    ld 	=> wrSelR15Lower and i_wrRegFile and i_OneHotState(3),
     q		=> regR15(15 downto 0)
 );
 

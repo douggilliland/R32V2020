@@ -14,26 +14,28 @@ ENTITY OneHotStateMachine IS PORT
     clk 		: IN STD_LOGIC := '0'; -- clock.
     clr 		: IN STD_LOGIC := '0'; -- async. clear.
 	 hold		: IN STD_LOGIC := '0';
-    state   : OUT STD_LOGIC_VECTOR(3 downto 0)  := "0000" -- output.
+    state   : OUT STD_LOGIC_VECTOR(5 downto 0)  := "000000" -- output.
 );
 END OneHotStateMachine;
 
 ARCHITECTURE rtl OF OneHotStateMachine IS
 
-signal	Pre_Q	: STD_LOGIC_VECTOR (3 downto 0) := "0000";
+signal	Pre_Q	: STD_LOGIC_VECTOR (5 downto 0) := "000000";
 
 BEGIN
 	StateGen: process(clk, clr, Pre_Q, hold)
 	begin
 		if clr = '1' then 
-			Pre_Q <= "0000";
-			state <= "0000";
+			Pre_Q <= "000000";
+			state <= "000000";
 		elsif rising_edge(clk) and hold = '0' then
-			if 	   Pre_Q = "0000" then Pre_Q <= "0001";
-				elsif	Pre_Q = "0001" then Pre_Q <= "0010";
-				elsif	Pre_Q = "0010" then Pre_Q <= "0100";
-				elsif	Pre_Q = "0100" then Pre_Q <= "1000";
-				elsif	Pre_Q = "1000" then Pre_Q <= "0001";
+			if 	   Pre_Q = "000000" then Pre_Q <= "000001";
+				elsif	Pre_Q = "000001" then Pre_Q <= "000010";
+				elsif	Pre_Q = "000010" then Pre_Q <= "000100";
+				elsif	Pre_Q = "000100" then Pre_Q <= "001000";
+				elsif	Pre_Q = "001000" then Pre_Q <= "010000";
+				elsif	Pre_Q = "010000" then Pre_Q <= "100000";
+				elsif	Pre_Q = "100000" then Pre_Q <= "000001";
 			end if;
 			state <= Pre_Q;		-- state lags Pre_Q by one clock
 		end if;

@@ -9,12 +9,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 use  IEEE.STD_LOGIC_ARITH.all;
 use  IEEE.STD_LOGIC_UNSIGNED.all;
+library work;
+use work.R32V2020_Pkg.all;
 
 entity Timer_Unit is
 	port(
 		n_reset						: in std_logic := '1';
 		i_CLOCK_50					: in std_logic := '1';
-		i_OneHotState				: in std_logic_vector := "000000";
+		i_OneHotState				: in std_logic_vector(3 downto 0) := "0000";
 		-- Peripheral Memory Mapped Space Address/Data/Control lines
  		i_peripheralWrStrobe		: in std_logic := '1';
 		i_peripheralAddress		: in std_logic_vector(31 downto 0) := x"00000000";
@@ -63,7 +65,7 @@ begin
 			q_MillisecondCounter 	<= (others => '0');
 			q_CPUCycleCounter			<= (others => '0');
 		elsif(rising_edge(i_CLOCK_50)) then
-			if (i_OneHotState = "000000") then 
+			if (i_OneHotState = STATE0) then 
 				q_CPUCycleCounter <= q_CPUCycleCounter + 1;
 			end if;
 			if (q_MicrosecondScaler < 40) then

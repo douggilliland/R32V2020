@@ -13,12 +13,12 @@ entity R32V2020 is
 		n_reset						: in std_logic := '1';
 		-- Clocks and states
 		i_CLOCK_50					: in std_logic := '1';
-		o_OneHotState				: out std_logic_vector(5 downto 0) := "000000";
+		o_OneHotState				: buffer std_logic_vector(3 downto 0) := "00000";
 		-- Instruction ROM connections
 		i_InstructionRomData		: in std_logic_vector(31 downto 0) := x"00000000";
 		o_InstructionRomAddress	: buffer std_logic_vector(31 downto 0) := x"00000000";
 		o_clkInstrRomAddr			: out std_logic := '0';
-		o_clkInstrRomData			: out std_logic := '0';
+--		o_clkInstrRomData			: out std_logic := '0';
 		-- Stack RAM connections
 		o_StackRamAddress			: out std_logic_vector(31 downto 0) := x"00000000";
 		o_dataToStackRam			: out std_logic_vector(31 downto 0) := x"00000000";
@@ -95,8 +95,8 @@ signal	w_Op_SPSP  : std_logic := '0';		-- Store Peripheral Short
 signal	w_Op_LPLP  : std_logic := '0';		-- Load Peripheral Long
 signal	w_Op_SPLP  : std_logic := '0';		-- Store Peripheral Long
 --
-signal	w_Op_PSS  : std_logic := '0';		-- Push register to Stack
-signal	w_Op_PUS  : std_logic := '0';		-- Pull register from Stack
+signal	w_Op_PUSH  : std_logic := '0';		-- Push register to Stack
+signal	w_Op_PULL  : std_logic := '0';		-- Pull register from Stack
 signal	w_Op_SSS  : std_logic := '0';		-- Store to stack memory
 signal	w_Op_LSS  : std_logic := '0';		-- Load from stack memory
 signal	w_Op_BRA  : std_logic := '0';		-- Branch Always
@@ -110,7 +110,7 @@ signal	w_Op_BEQ  : std_logic := '0';		-- Branch if equal
 signal	w_Op_BNE  : std_logic := '0';		-- Branch if not equal
 signal	w_Op_BNZ  : std_logic := '0';		-- Branch if not zero
 signal	w_Op_BSR  : std_logic := '0';		-- Branch to subroutine
---attribute syn_keep of w_Op_PUS: signal is true;
+--attribute syn_keep of w_Op_PULL: signal is true;
 
 signal	w_regDataB					: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_ALUDataOut				: std_logic_vector(31 downto 0) := x"00000000";
@@ -147,7 +147,7 @@ signal	w_peripheralWrStrobe		: std_logic := '0';
 --attribute syn_keep of w_peripheralRdStrobe: signal is true;
 --attribute syn_keep of w_peripheralWrStrobe: signal is true;
 
-signal	w_OneHotState				: std_logic_vector(5 downto 0) := "000000";
+signal	w_OneHotState				: std_logic_vector(4 downto 0) := "00000";
 signal	w_save_CCR_bits			: std_logic := '0';
 
 signal	w_holdHaltCatchFire		: std_logic := '0';
@@ -166,26 +166,24 @@ begin
 	o_shortData <= w_Op_LDS or	w_Op_SDS or w_Op_LDSP or w_Op_SDSP;
 	o_ByteData  <= w_Op_LDB or w_Op_SDB or w_Op_LDBP or w_Op_SDBP;
 
- 	w_holdHaltCatchFire		<= '1' when (w_OneHotState(3) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
-	o_writeStackRamEn 		<= '1' when  w_OneHotState(3) = '1' and (w_Op_PSS = '1' or  w_Op_SSS = '1' or  w_Op_BSR = '1') and n_reset  = '1'   else '0';
-	o_peripheralRdStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_LPB = '1' or  w_Op_LPS = '1'  or  w_Op_LPL = '1' or w_Op_LPBP = '1' or  w_Op_LPSP = '1'  or  w_Op_LPLP = '1')) else '0';
-	o_peripheralWrStrobe 	<= '1' when (w_OneHotState(4) = '1' and (w_Op_SPB = '1' or  w_Op_SPS = '1'  or  w_Op_SPL = '1' or w_Op_SPBP = '1' or  w_Op_SPSP = '1'  or  w_Op_SPLP = '1')) else '0';
-	o_clkInstrRomAddr 		<= w_OneHotState(0) or (not n_reset);
-	o_clkInstrRomData 		<= w_OneHotState(1) or (not n_reset);
-	o_writeToDataRamEnable 	<= '1' when w_OneHotState(3) = '1' and (w_Op_SDB = '1' or w_Op_SDS = '1'or w_Op_SDL = '1' or w_Op_SDBP = '1' or w_Op_SDSP = '1'or w_Op_SDLP = '1') and n_reset = '1' else '0';
+ 	w_holdHaltCatchFire		<= '1' when (o_OneHotState(2) = '1' and  w_Op_HCF = '1' and n_reset  = '1') else '0';
+	o_writeStackRamEn 		<= '1' when  o_OneHotState(2) = '1' and (w_Op_PUSH = '1' or  w_Op_SSS = '1' or  w_Op_BSR = '1') and n_reset  = '1'   else '0';
+	o_peripheralRdStrobe 	<= '1' when (o_OneHotState(3) = '1' and (w_Op_LPB = '1' or  w_Op_LPS = '1'  or  w_Op_LPL = '1' or w_Op_LPBP = '1' or  w_Op_LPSP = '1'  or  w_Op_LPLP = '1')) else '0';
+	o_peripheralWrStrobe 	<= '1' when (o_OneHotState(3) = '1' and (w_Op_SPB = '1' or  w_Op_SPS = '1'  or  w_Op_SPL = '1' or w_Op_SPBP = '1' or  w_Op_SPSP = '1'  or  w_Op_SPLP = '1')) else '0';
+	o_clkInstrRomAddr 		<= o_OneHotState(0) or (not n_reset);
+	o_writeToDataRamEnable 	<= '1' when o_OneHotState(3) = '1' and (w_Op_SDB = '1' or w_Op_SDS = '1'or w_Op_SDL = '1' or w_Op_SDBP = '1' or w_Op_SDSP = '1'or w_Op_SDLP = '1') and n_reset = '1' else '0';
 
 	w_BranchAddress <=  (i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  -- sign extend
 								i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  
 								i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  i_InstructionRomData(19) &  
 								i_InstructionRomData(19 downto 0)) + o_InstructionRomAddress;
 	
-	o_OneHotState <= w_OneHotState;
 	StateMachine : entity work.OneHotStateMachine
 	PORT map (
 		clk 	=> i_CLOCK_50,
 		clr 	=> not n_reset,
 		hold	=> w_holdHaltCatchFire,
-		state	=> w_OneHotState
+		state	=> o_OneHotState
 	);
 	
 	opcodeDecoder : entity work.OpCodeDecoder
@@ -240,8 +238,8 @@ begin
 		Op_LPLP => w_Op_LPLP,
 		Op_SPLP => w_Op_SPLP,
 		-- Category = Stack
-		Op_PSS => w_Op_PSS,
-		Op_PUS => w_Op_PUS,
+		Op_PUSH => w_Op_PUSH,
+		Op_PULL => w_Op_PULL,
 		Op_SSS => w_Op_SSS,
 		Op_LSS => w_Op_LSS,		
 		-- Category = Flow Control
@@ -326,7 +324,7 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) &
 		i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19) & i_InstructionRomData(19 downto 0) when (w_Op_LIX = '1') else	
 		i_dataFromDataRam when ((w_Op_LDB = '1') or (w_Op_LDS = '1') or (w_Op_LDL = '1') or (w_Op_LDBP = '1') or (w_Op_LDSP = '1') or (w_Op_LDLP = '1')) else
-		i_dataFromStackRam when ((w_Op_PUS = '1') or (w_Op_LSS = '1')) else
+		i_dataFromStackRam when ((w_Op_PULL = '1') or (w_Op_LSS = '1')) else
 		i_dataFromPeripherals when ((w_Op_LPB = '1') or (w_Op_LPS = '1') or (w_Op_LPL = '1') or (w_Op_LPBP = '1') or (w_Op_LPSP = '1') or (w_Op_LPLP = '1')) else
 		w_ALUDataOut;
 		
@@ -337,7 +335,7 @@ CCR_Store : ENTITY work.CCRControl PORT map
 	port map (
 		i_clk							=> i_CLOCK_50,
 		i_clear						=> not n_reset,
-		i_OneHotState				=> w_OneHotState,
+		i_OneHotState				=> o_OneHotState,
 		i_TakeBranch				=> w_TakeBranch,
 		i_BranchAddress			=> w_BranchAddress,
 		i_wrRegSel					=> i_InstructionRomData(23 downto 20),
@@ -348,8 +346,8 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_OP_LIL						=> w_Op_LIL,
 		i_OP_LIU						=> w_Op_LIU,
 		i_OP_LIX						=> w_Op_LIX,
-		i_OP_PSS						=> w_Op_PSS,
-		i_OP_PUS						=> w_Op_PUS,
+		i_Op_PUSH						=> w_Op_PUSH,
+		i_Op_PULL						=> w_Op_PULL,
 		i_OP_BSR						=> w_Op_BSR,
 		i_Op_LDBP 					=> w_Op_LDBP,
 		i_Op_SDBP 					=> w_Op_SDBP,

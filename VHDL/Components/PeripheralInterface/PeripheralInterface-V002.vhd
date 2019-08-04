@@ -8,12 +8,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 use  IEEE.STD_LOGIC_ARITH.all;
 use  IEEE.STD_LOGIC_UNSIGNED.all;
+library work;
+use work.R32V2020_Pkg.all;
 
 entity PeripheralInterface is
 	port(
 		n_reset						: in std_logic := '1';
 		i_CLOCK_50					: in std_logic := '1';
-		i_OneHotState				: in std_logic_vector(5 downto 0) := "000000";
+		i_OneHotState				: in std_logic_vector(3 downto 0) := "0000";
 		-- Peripheral Memory Mapped Space Address/Data/Control lines
 		i_peripheralAddress		: in std_logic_vector(31 downto 0) := x"00000000";
 		i_dataToPeripherals		: in std_logic_vector(31 downto 0) := x"00000000";

@@ -61,8 +61,8 @@ entity OpCodeDecoder is
 		Op_LPLP		: buffer std_logic;	-- Load long from peripheral interface (read on d31..d0)
 		Op_SPLP		: out std_logic;		-- Store long to peripheral interface (write on d31..d0)
 		-- Category = Stack
-		Op_PSS		: out std_logic;		-- Stack push
-		Op_PUS		: buffer std_logic;	-- Stack pull
+		Op_PUSH		: out std_logic;		-- Stack push (was Op_PUSH)
+		Op_PULL		: buffer std_logic;	-- Stack pull (was (Op_PULL)
 		Op_SSS		: out std_logic;		-- Store to Stack memory
 		Op_LSS		: buffer std_logic;	-- Load from Stack memory
 		-- Category = Flow Control
@@ -100,7 +100,7 @@ o_WrRegFile <= Op_ADD or Op_MUL or Op_OR or
 	Op_LIL or Op_LIU or Op_LIX or 
 	Op_LDB or Op_LDS or Op_LDL or Op_LDBP or Op_LDSP or Op_LDLP or 
 	Op_LPB or Op_LPS or Op_LPL or Op_LPBP or Op_LPSP or Op_LPLP or 
-	Op_PUS or Op_LSS;
+	Op_PULL or Op_LSS;
 
 -- System Opcodes
 Op_NOP <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = NOP_OP(4 downto 0))) else '0';
@@ -155,8 +155,8 @@ Op_SPSP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPSP_OP(4
 Op_LPLP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = LPLP_OP(4 downto 0))) else '0';
 Op_SPLP <= '1' when (Perip_OpCode = '1' and (InstrOpCode(4 downto 0) = SPLP_OP(4 downto 0))) else '0';
 -- Stack Opcodes
-Op_PSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PUSH_OP(4 downto 0))) else '0';
-Op_PUS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PULL_OP(4 downto 0))) else '0';
+Op_PUSH <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PUSH_OP(4 downto 0))) else '0';
+Op_PULL <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = PULL_OP(4 downto 0))) else '0';
 Op_SSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = SSS_OP(4 downto 0))) else '0';
 Op_LSS <= '1' when (Stack_OpCode = '1' and (InstrOpCode(4 downto 0) = LSS_OP(4 downto 0))) else '0';
 -- Flow Control

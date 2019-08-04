@@ -1,0 +1,34 @@
+== R32V2020 Microcode ==
+
+* 4 clock microcode
+* Slots are w_OneHotState[0..3]
+=== Signals asserted during w_OneHotState[] ===
+* w_OneHotState[0]
+** o_clkInstrRomAddr
+** increment CPU cycle counter
+* w_OneHotState[1]
+** i_Op_PULL
+* w_OneHotState[2]
+** w_holdHaltCatchFire
+** o_writeStackRamEn
+* o_writeToDataRamEnable
+* w_OneHotState[3]
+** i_wrRegFile
+** o_peripheralRdStrobe
+** o_peripheralWrStrobe
+** i_save_CCR_bits
+** i_Op_PUSH
+** i_OP_BSR
+** i_Op_LPBP
+** i_Op_SPBP
+** i_Op_LPSP
+** i_Op_SPSP
+** i_Op_LPLP
+** i_Op_SPLP
+** i_Op_LDBP
+** i_Op_SDBP
+** i_Op_LDSP
+** i_Op_SDSP
+** i_Op_LDLP
+** i_Op_SDLP
+** increment/load Program Counter

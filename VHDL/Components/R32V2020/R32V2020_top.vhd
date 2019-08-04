@@ -90,7 +90,7 @@ signal	w_dataFromPeripherals	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_peripheralRdEn			: std_logic := '0';
 signal	w_peripheralWrEn			: std_logic := '0';
 
-signal	w_OneHotState				: std_logic_vector(5 downto 0) := "000000";
+signal	w_OneHotState				: std_logic_vector(3 downto 0) := "0000";
 signal	resetLow						: std_logic := '1';
 
 signal	o_VideoVect					: std_logic_vector(5 downto 0) := "000000";
