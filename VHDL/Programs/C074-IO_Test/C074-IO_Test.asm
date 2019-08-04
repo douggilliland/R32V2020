@@ -93,8 +93,8 @@ loopReadLine:
 	beq		gotEOL
 	cmp		r8,r11
 	beq		gotBackspace
-	sdb		r8
-	add		DAR,DAR,ONE			; increment to next long in buffer
+	sdbp	r8
+;	add		DAR,DAR,ONE			; increment to next long in buffer
 	add		r10,r10,MINUS1
 	bnz		loopReadLine		; Next char would overflow
 	; tbd add code for line too long	
@@ -753,14 +753,14 @@ hexToSevenSeg:
 	push	PAR
 	lix		r9,0
 	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
-	ldb		r8
+	ldbp	r8
 	bsr		asciiToHex
 	or		r9,r9,r8
 	sl1		r9,r9
 	sl1		r9,r9
 	sl1		r9,r9
 	sl1		r9,r9
-	add		DAR,DAR,ONE
+	;add		DAR,DAR,ONE
 	ldb		r8
 	bsr		asciiToHex
 	or		r9,r9,r8
@@ -889,7 +889,7 @@ printString:
 	push	DAR
 	add		DAR,r8,ZERO			; set the start of the string
 nextChar:
-	ldbp	r8					; get the character
+	ldbp	r8					; get the character01
 	cmp		r8,ZERO				; Null terminated string
 	beq		donePrStr			; done if null
 	bsr		putCharToANSIScreen	; write out the character
@@ -911,11 +911,11 @@ printLine:
 	push	DAR
 	add		DAR,r8,ZERO			; set the start of the string
 nextChar2:
-	ldb		r8					; get the character
+	ldbp		r8					; get the character
 	cmp		r8,ZERO				; Null terminated string
 	beq		donePrStr2			; done if null
 	bsr		putCharToANSIScreen	; write out the character
-	add		DAR,DAR,r1			; Point to next character
+	;add		DAR,DAR,r1			; Point to next character
 	bra		nextChar2
 donePrStr2:
 	bsr		newLine
