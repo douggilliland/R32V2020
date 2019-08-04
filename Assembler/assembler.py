@@ -388,7 +388,7 @@ def isValidLong(token):
   except:
     return False
 
-MAX_UNSIGNED_SHORT = 65535
+MAX_UNSIGNED_SHORT = 1048575
 
 def isValidImmediateValue(token):
   valid = False
