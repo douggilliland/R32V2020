@@ -889,11 +889,10 @@ printString:
 	push	DAR
 	add		DAR,r8,ZERO			; set the start of the string
 nextChar:
-	ldb		r8					; get the character
+	ldbp	r8					; get the character
 	cmp		r8,ZERO				; Null terminated string
 	beq		donePrStr			; done if null
 	bsr		putCharToANSIScreen	; write out the character
-	add		DAR,DAR,r1			; Point to next character
 	bra		nextChar
 donePrStr:
 	pull	DAR					; restore DAR
