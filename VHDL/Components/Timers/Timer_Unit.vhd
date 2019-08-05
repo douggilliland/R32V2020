@@ -65,7 +65,7 @@ begin
 			q_MillisecondCounter 	<= (others => '0');
 			q_CPUCycleCounter			<= (others => '0');
 		elsif(rising_edge(i_CLOCK_50)) then
-			if (i_OneHotState = STATE0) then 
+			if (i_OneHotState(0) = '1') then 
 				q_CPUCycleCounter <= q_CPUCycleCounter + 1;
 			end if;
 			if (q_MicrosecondScaler < 40) then

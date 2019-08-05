@@ -20,7 +20,8 @@ menuItem_07:	.string "07-MCP23008 I2C Test  "
 menuItem_08:	.string "08-MCP4231 SPI Test   "
 menuItem_09:	.string "09-PS/2 Keyboard Test "
 menuItem_10:	.string "10-Buzzer Test        "
-menuItem_11:	.string "11-TBD Test        "
+menuItem_11:	.string "11-Timers Test        "
+menuItem_12:	.string "12-TBD Test           "
 
 ;
 ; Read a line from the UART and parse the line
@@ -58,6 +59,8 @@ printMenu:
 	lix		r8,menuItem_09.lower
 	bsr		printLine
 	lix		r8,menuItem_10.lower
+	bsr		printString
+	lix		r8,menuItem_11.lower
 	bsr		printLine
 	lix		r8,prompt.lower
 	bsr		printString
@@ -202,6 +205,13 @@ skipTo10:
 	bra		doneTests
 ;
 skipTo11:
+	lix		r9,0x11
+	cmp		r8,r9
+	bne		skipTo12
+	bsr		testRoutine11
+	bra		doneTests
+
+skipTo12:
 	push	r8
 	lix		r8,syntaxError.lower
 	bsr		printString
@@ -725,15 +735,89 @@ testRoutine10:
 	pull	PC
 	
 ;
-; TBD Test
+; Timers Test
+; 	Address	Timer
+; 	X3800	Elapsed Time Counter
+;	X3801	MicroSeconds Counter
+;	X3802	Milliseconds Counter
+;	X3803	CPU Instruction Counter
 ;
 
 testRoutine11:
 	push	r8
-	push	r9
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_11.lower
+	bsr		printLine
+	bsr		testTimers
+	pull	r8
+	pull	PC
+	
+; 
+; testTimers
+; 
+
+testTimers:
+	push	r8
+	push	r9
+	push	PAR
+	; First test the CPU Instruction Counter
+	lix		PAR,0x3803		; CPU Instruction Counter
+	lpl		r9				; Get the counter value
+	xor		r9,r9,MINUS1	; two's complement of the value read in
+	add		r9,r9,ONE
+	nop
+	nop
+	nop
+	nop
+	nop
+	lpl		r8
+	add		r8,r9,r8
+	lix		r9,0x08			; The above should have taken 8 CPU instructions
+	cmp		r9,r8
+	beq		CPUCycleTimerDone
+	lix		PAR,0x3000
+	liu		r8,0xDEAD
+	lil		r8,0x0001
+	spl		r8
+	bra		timerTestsDone
+CPUCycleTimerDone:
+	lix		PAR,0x3803		; CPU Instruction Counter
+	lpl		r9				; Get the counter value
+	xor		r9,r9,MINUS1	; two's complement of the value read in
+	add		r9,r9,ONE
+	nop
+	nop
+	nop
+	nop
+	nop
+	lpl		r8
+	add		r8,r9,r8
+	lix		r9,0x08			; The above should have taken 8 CPU instructions
+	cmp		r9,r8
+	beq		millisecondTimerDone
+
+millisecondTimerDone:
+
+
+
+timerTestsDone:
+	pull	PAR
+	pull	r9
+	pull	r8
+	pull	PC
+
+
+;
+; TBD Test
+;
+
+testRoutine12:
+	push	r8
+	push	r9
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_12.lower
 	bsr		printLine
 	;
 	pull	r9
