@@ -53,8 +53,6 @@ end R32V2020_A4CE6_top;
 
 architecture struct of R32V2020_A4CE6_top is
 
--- signal	resetLow						: std_logic := '1';
-
 --attribute syn_keep: boolean;
 --attribute syn_keep of w_Switch: signal is true;
 

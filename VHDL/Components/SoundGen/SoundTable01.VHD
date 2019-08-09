@@ -14,7 +14,6 @@ library ieee;
 	use ieee.std_logic_unsigned.all;
 
 ENTITY SoundTable01 IS
-
 	PORT
 	(
 		address : in std_logic_vector(6 downto 0);	-- Tone selection

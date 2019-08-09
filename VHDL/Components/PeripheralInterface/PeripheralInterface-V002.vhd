@@ -118,7 +118,6 @@ architecture struct of PeripheralInterface is
 	signal w_SPI_Clk			: 	std_logic := '0';
 	signal w_spi_busy				: 	std_logic := '0';
 	-- Music/Tone generator
-	signal w_NoteDataIn			:	std_logic_vector(7 downto 0);
 	signal w_BUZZER				: 	std_logic := '0';
 
 	-- Address decoder addresses
@@ -300,23 +299,14 @@ begin
 		);
 	
 	-- Latch the note value (sound generator)
-	NoteLatch	: ENTITY work.REG_8
+	NoteLatch	: ENTITY work.SoundGen
 	PORT MAP (
-    clk 	=> i_CLOCK_50,
-    d 	=> i_dataToPeripherals(7 downto 0),
-    ld 	=> w_NoteCS and i_peripheralWrStrobe,
-    clr  => not n_reset,
-    q    => w_NoteDataIn
+    clk 		=> i_CLOCK_50,
+    d 		=> i_dataToPeripherals(7 downto 0),
+    ld 		=> w_NoteCS and i_peripheralWrStrobe,
+    clr  	=> not n_reset,
+    o_Note	=> o_Note
 	);
-	
-	-- The note counter
-	MusicNoteCounter : entity work.CounterLoadable
-    Port map (
-    clock		=> i_CLOCK_50,
-    clear		=> not n_reset,
-    loadVal		=> w_NoteDataIn,
-	 soundOut	=> o_Note
-	 );
 	
 	-- Seven Segment Display
 	-- Can be used with boards that have 4 or 8 Seven Segment Displays

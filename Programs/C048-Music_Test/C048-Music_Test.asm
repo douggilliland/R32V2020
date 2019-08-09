@@ -1,16 +1,19 @@
 ; Music Test
+; To make sounds write to 8-bit latch with
+; 	Most Significant bit is enable sound
+; 	Bottom 7 bits are piano key
+
 secsCount:	.long 0x0
 
 ;
 ; Test code
 ;
-loopForever:
-	lix		r9,0x100		; 8-bit notes
-	lix		r8,0			; first note is 0
+	lix		r9,216			; 8-bit notes (0-87)
+	lix		r8,0x80			; first note is 0
 ;	bsr	enableBuzzer
 nextNote:
 	push	r8				; save the counter
-	lix		r8,100			; count for 10 mSec
+	lix		r8,250			; count for 10 mSec
 	bsr		delay_mS		; call delay_ms
 	pull	r8				; restore r8
 	bsr		wr7Seg8Dig
@@ -18,7 +21,9 @@ nextNote:
 	add		r8,r8,ONE
 	cmp		r8,r9
 	bne		nextNote
-;	bsr	disableBuzzer
+	lix		r8,0x0
+	bsr 	setNote
+loopForever:
 	bra		loopForever
 	
 ; wr7Seg8Dig
