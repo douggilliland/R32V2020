@@ -11169,7 +11169,7 @@ n_reset => process_0.IN1
 n_reset => spi:spiMaster.RESET
 n_reset => i2c:i2cIF.i_RESET
 n_reset => i2c:eepi2cIF.i_RESET
-n_reset => soundgen:NoteLatch.clr
+n_reset => soundgen:SoundGenerator.clr
 n_reset => loadable_7s8d_led:SevenSegDisplay.i_reset
 n_reset => reg_32:SevenSegmentDisplayLatch.clr
 n_reset => reg_8:LedBuzzerLatch.clr
@@ -11305,7 +11305,7 @@ i_CLOCK_50 => i2c:i2cIF.CPU_CLK
 i_CLOCK_50 => i2c:eepi2cIF.CPU_CLK
 i_CLOCK_50 => ansidisplayvga:SVGA.clk
 i_CLOCK_50 => timer_unit:timers.i_CLOCK_50
-i_CLOCK_50 => soundgen:NoteLatch.clk
+i_CLOCK_50 => soundgen:SoundGenerator.clk
 i_CLOCK_50 => loadable_7s8d_led:SevenSegDisplay.i_clock_50Mhz
 i_CLOCK_50 => reg_32:SevenSegmentDisplayLatch.clk
 i_CLOCK_50 => reg_8:LedBuzzerLatch.clk
@@ -11434,7 +11434,7 @@ i_dataToPeripherals[0] => i2c:i2cIF.i_DATA_IN[0]
 i_dataToPeripherals[0] => i2c:eepi2cIF.i_DATA_IN[0]
 i_dataToPeripherals[0] => ansidisplayvga:SVGA.dataIn[0]
 i_dataToPeripherals[0] => timer_unit:timers.i_dataToTimers[0]
-i_dataToPeripherals[0] => soundgen:NoteLatch.d[0]
+i_dataToPeripherals[0] => soundgen:SoundGenerator.d[0]
 i_dataToPeripherals[0] => reg_32:SevenSegmentDisplayLatch.d[0]
 i_dataToPeripherals[0] => reg_8:LedBuzzerLatch.d[0]
 i_dataToPeripherals[0] => reg_8:IOLatch.d[0]
@@ -11445,7 +11445,7 @@ i_dataToPeripherals[1] => i2c:i2cIF.i_DATA_IN[1]
 i_dataToPeripherals[1] => i2c:eepi2cIF.i_DATA_IN[1]
 i_dataToPeripherals[1] => ansidisplayvga:SVGA.dataIn[1]
 i_dataToPeripherals[1] => timer_unit:timers.i_dataToTimers[1]
-i_dataToPeripherals[1] => soundgen:NoteLatch.d[1]
+i_dataToPeripherals[1] => soundgen:SoundGenerator.d[1]
 i_dataToPeripherals[1] => reg_32:SevenSegmentDisplayLatch.d[1]
 i_dataToPeripherals[1] => reg_8:LedBuzzerLatch.d[1]
 i_dataToPeripherals[1] => reg_8:IOLatch.d[1]
@@ -11456,7 +11456,7 @@ i_dataToPeripherals[2] => i2c:i2cIF.i_DATA_IN[2]
 i_dataToPeripherals[2] => i2c:eepi2cIF.i_DATA_IN[2]
 i_dataToPeripherals[2] => ansidisplayvga:SVGA.dataIn[2]
 i_dataToPeripherals[2] => timer_unit:timers.i_dataToTimers[2]
-i_dataToPeripherals[2] => soundgen:NoteLatch.d[2]
+i_dataToPeripherals[2] => soundgen:SoundGenerator.d[2]
 i_dataToPeripherals[2] => reg_32:SevenSegmentDisplayLatch.d[2]
 i_dataToPeripherals[2] => reg_8:LedBuzzerLatch.d[2]
 i_dataToPeripherals[2] => reg_8:IOLatch.d[2]
@@ -11467,7 +11467,7 @@ i_dataToPeripherals[3] => i2c:i2cIF.i_DATA_IN[3]
 i_dataToPeripherals[3] => i2c:eepi2cIF.i_DATA_IN[3]
 i_dataToPeripherals[3] => ansidisplayvga:SVGA.dataIn[3]
 i_dataToPeripherals[3] => timer_unit:timers.i_dataToTimers[3]
-i_dataToPeripherals[3] => soundgen:NoteLatch.d[3]
+i_dataToPeripherals[3] => soundgen:SoundGenerator.d[3]
 i_dataToPeripherals[3] => reg_32:SevenSegmentDisplayLatch.d[3]
 i_dataToPeripherals[3] => reg_8:LedBuzzerLatch.d[3]
 i_dataToPeripherals[3] => reg_8:IOLatch.d[3]
@@ -11478,7 +11478,7 @@ i_dataToPeripherals[4] => i2c:i2cIF.i_DATA_IN[4]
 i_dataToPeripherals[4] => i2c:eepi2cIF.i_DATA_IN[4]
 i_dataToPeripherals[4] => ansidisplayvga:SVGA.dataIn[4]
 i_dataToPeripherals[4] => timer_unit:timers.i_dataToTimers[4]
-i_dataToPeripherals[4] => soundgen:NoteLatch.d[4]
+i_dataToPeripherals[4] => soundgen:SoundGenerator.d[4]
 i_dataToPeripherals[4] => reg_32:SevenSegmentDisplayLatch.d[4]
 i_dataToPeripherals[4] => reg_8:LedBuzzerLatch.d[4]
 i_dataToPeripherals[4] => reg_8:IOLatch.d[4]
@@ -11489,7 +11489,7 @@ i_dataToPeripherals[5] => i2c:i2cIF.i_DATA_IN[5]
 i_dataToPeripherals[5] => i2c:eepi2cIF.i_DATA_IN[5]
 i_dataToPeripherals[5] => ansidisplayvga:SVGA.dataIn[5]
 i_dataToPeripherals[5] => timer_unit:timers.i_dataToTimers[5]
-i_dataToPeripherals[5] => soundgen:NoteLatch.d[5]
+i_dataToPeripherals[5] => soundgen:SoundGenerator.d[5]
 i_dataToPeripherals[5] => reg_32:SevenSegmentDisplayLatch.d[5]
 i_dataToPeripherals[5] => reg_8:LedBuzzerLatch.d[5]
 i_dataToPeripherals[5] => reg_8:IOLatch.d[5]
@@ -11500,7 +11500,7 @@ i_dataToPeripherals[6] => i2c:i2cIF.i_DATA_IN[6]
 i_dataToPeripherals[6] => i2c:eepi2cIF.i_DATA_IN[6]
 i_dataToPeripherals[6] => ansidisplayvga:SVGA.dataIn[6]
 i_dataToPeripherals[6] => timer_unit:timers.i_dataToTimers[6]
-i_dataToPeripherals[6] => soundgen:NoteLatch.d[6]
+i_dataToPeripherals[6] => soundgen:SoundGenerator.d[6]
 i_dataToPeripherals[6] => reg_32:SevenSegmentDisplayLatch.d[6]
 i_dataToPeripherals[6] => reg_8:LedBuzzerLatch.d[6]
 i_dataToPeripherals[6] => reg_8:IOLatch.d[6]
@@ -11511,7 +11511,7 @@ i_dataToPeripherals[7] => i2c:i2cIF.i_DATA_IN[7]
 i_dataToPeripherals[7] => i2c:eepi2cIF.i_DATA_IN[7]
 i_dataToPeripherals[7] => ansidisplayvga:SVGA.dataIn[7]
 i_dataToPeripherals[7] => timer_unit:timers.i_dataToTimers[7]
-i_dataToPeripherals[7] => soundgen:NoteLatch.d[7]
+i_dataToPeripherals[7] => soundgen:SoundGenerator.d[7]
 i_dataToPeripherals[7] => reg_32:SevenSegmentDisplayLatch.d[7]
 i_dataToPeripherals[7] => reg_8:LedBuzzerLatch.d[7]
 i_dataToPeripherals[7] => reg_8:IOLatch.d[7]
@@ -11693,7 +11693,7 @@ spi_sclk <= spi:spiMaster.SCLK
 spi_csN <= spi:spiMaster.CS_n
 spi_mosi <= spi:spiMaster.MOSI
 spi_miso => spi:spiMaster.MISO
-o_Note <= soundgen:NoteLatch.o_Note
+o_Note <= soundgen:SoundGenerator.o_Note
 i_PS2_CLK => ps2_keyboard_to_ascii:ps2Keyboard.ps2_clk
 i_PS2_DATA => ps2_keyboard_to_ascii:ps2Keyboard.ps2_data
 
@@ -13826,7 +13826,7 @@ q[30] <= Pre_Q[30].DB_MAX_OUTPUT_PORT_TYPE
 q[31] <= Pre_Q[31].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|PeripheralInterface:Peripherals|SoundGen:NoteLatch
+|R32V2020_A4CE6_top|R32V2020_top:middle|PeripheralInterface:Peripherals|SoundGen:SoundGenerator
 clk => reg_8:NoteLatch.clk
 clk => counterloadable:MusicNoteCounter.clock
 d[0] => reg_8:NoteLatch.d[0]
@@ -13843,7 +13843,7 @@ clr => counterloadable:MusicNoteCounter.clear
 o_Note <= o_Note.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|PeripheralInterface:Peripherals|SoundGen:NoteLatch|REG_8:NoteLatch
+|R32V2020_A4CE6_top|R32V2020_top:middle|PeripheralInterface:Peripherals|SoundGen:SoundGenerator|REG_8:NoteLatch
 clk => q[0]~reg0.CLK
 clk => q[1]~reg0.CLK
 clk => q[2]~reg0.CLK
@@ -13886,7 +13886,7 @@ q[6] <= q[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 q[7] <= q[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|PeripheralInterface:Peripherals|SoundGen:NoteLatch|counterLoadable:MusicNoteCounter
+|R32V2020_A4CE6_top|R32V2020_top:middle|PeripheralInterface:Peripherals|SoundGen:SoundGenerator|counterLoadable:MusicNoteCounter
 clock => Pre_Q[0].CLK
 clock => Pre_Q[1].CLK
 clock => Pre_Q[2].CLK
@@ -13952,7 +13952,7 @@ loadVal[19] => Pre_Q.DATAB
 soundOut <= sound.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:middle|PeripheralInterface:Peripherals|SoundGen:NoteLatch|SoundTable01:soundTable
+|R32V2020_A4CE6_top|R32V2020_top:middle|PeripheralInterface:Peripherals|SoundGen:SoundGenerator|SoundTable01:soundTable
 address[0] => Mux1.IN134
 address[0] => Mux2.IN134
 address[0] => Mux3.IN134

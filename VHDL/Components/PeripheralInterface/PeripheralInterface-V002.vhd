@@ -299,7 +299,7 @@ begin
 		);
 	
 	-- Latch the note value (sound generator)
-	NoteLatch	: ENTITY work.SoundGen
+	SoundGenerator	: ENTITY work.SoundGen
 	PORT MAP (
     clk 		=> i_CLOCK_50,
     d 		=> i_dataToPeripherals(7 downto 0),

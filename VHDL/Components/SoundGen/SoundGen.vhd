@@ -25,7 +25,7 @@ ARCHITECTURE behv OF SoundGen IS
 
 BEGIN
 
-	o_Note <= soundOut and w_NoteDataAddr(7);
+		o_Note <= soundOut and w_NoteDataAddr(7); -- MSbit is sound enable
 
 	-- Latch the note value (sound generator)
 	NoteLatch	: entity work.REG_8
