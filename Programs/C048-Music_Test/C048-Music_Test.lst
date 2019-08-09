@@ -4,44 +4,54 @@ secsCount:	.long 0x0
 ;
 ; Test code
 ;
-00000000	42900100		lix	r9,0x100		; 8-bit notes
-00000001	42800000		lix	r8,0			; first note is 0
-00000002	D400001B		bsr setNote
-00000003	D4000022		bsr	enableBuzzer
-nextNote:
-00000004	A0408000		push	r8				; save the counter
-00000005	4280000A		lix	r8,10			; count for 100 mSec
-00000006	D4000008		bsr	delay_mS		; call delay_ms
-00000007	A1804000		pull	r8				; restore r8
-00000008	20881000		add	r8,r8,ONE
-00000009	D4000014		bsr setNote
-0000000a	30389000		cmp	r8,r9
-0000000b	D2FFFFF9		bne	nextNote
-0000000c	D4000026		bsr	disableBuzzer
 loopForever:
-0000000d	C0000000		bra	loopForever
+00000000	42900100		lix		r9,0x100		; 8-bit notes
+00000001	42800000		lix		r8,0			; first note is 0
+;	bsr	enableBuzzer
+nextNote:
+00000002	A0408000		push	r8				; save the counter
+00000003	42800064		lix		r8,100			; count for 10 mSec
+00000004	D400000F		bsr		delay_mS		; call delay_ms
+00000005	A1804000		pull	r8				; restore r8
+00000006	D4000006		bsr		wr7Seg8Dig
+00000007	D4000019		bsr 	setNote
+00000008	20881000		add		r8,r8,ONE
+00000009	30389000		cmp		r8,r9
+0000000a	D2FFFFF8		bne		nextNote
+;	bsr	disableBuzzer
+0000000b	C0FFFFF5		bra		loopForever
+	
+; wr7Seg8Dig
+; passed r8 - value to send to the 7 seg display
+
+wr7Seg8Dig:
+0000000c	A0405000		push	PAR
+0000000d	A0408000		push	r8
+0000000e	42503000		lix		PAR,0x3000		; Seven Segment LED lines
+0000000f	85508000		spl		r8				; Write out LED bits
+00000010	A1804000		pull	r8
+00000011	A1504000		pull	PAR
+00000012	A1704000		pull	PC
 
 ; delay_mS - delay for the number of mSecs passed in r8
 ; pass mSec delay in r8
-; Uses routine uses r9
+; Routine uses r9
 
 delay_mS:
-0000000e	A0409000		push	r9 
-0000000f	A0408000		push	r8
-00000010	A0405000		push	PAR
-00000011	4290C350		lix	r9,50000	; Count for 50,000 counts = 1 mSec count
-00000012	21889000		mul	r8,r8,r9	; total number of clocks to count
-00000013	42503800		lix	PAR,0x3800	; address of the elapsed time counter
-00000014	84905000		lpl	r9			; read the peripheral counter into r9
-00000015	20898000		add	r8,r9,r8	; terminal counter to wait until is in r8
+00000013	A0408000		push	r8
+00000014	A0409000		push	r9
+00000015	A0405000		push	PAR
+00000016	42503802		lix		PAR,0x3802		; address of the mSec counter
+00000017	84905000		lpl		r9				; read the peripheral counter into r9
+00000018	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
-00000016	84905000		lpl	r9			; check the elapsed time counter
-00000017	30398000		cmp	r9,r8
-00000018	CFFFFFFE		bgt	loop_delay_mS
-00000019	A1504000		pull	PAR
-0000001a	A1804000		pull	r8
-0000001b	A1904000		pull	r9
-0000001c	A1704000		pull	PC
+00000019	84905000		lpl		r9				; check the elapsed time counter
+0000001a	30389000		cmp		r8,r9
+0000001b	CCFFFFFE		blt		loop_delay_mS
+0000001c	A1504000		pull	PAR
+0000001d	A1904000		pull	r9
+0000001e	A1804000		pull	r8
+0000001f	A1704000		pull	PC
 
 ;
 ; setNote - Set the note
@@ -49,49 +59,10 @@ loop_delay_mS:
 ;
 
 setNote:
-0000001d	A0408000		push	r8
-0000001e	A0405000		push	PAR
-0000001f	41500000		liu	PAR,0x0000
-00000020	40504000		lil	PAR,0x4000
-00000021	85508000		spl	r8
-00000022	A1504000		pull	PAR
-00000023	A1804000		pull	r8
-00000024	A1704000		pull	PC
-
-;
-; enableBuzzer
-;
-
-enableBuzzer:
-00000025	A0409000		push	r9
-00000026	A0408000		push	r8
-00000027	A0405000		push	PAR
-00000028	42900010		lix	r9,0x0010		; Buzzer Enable line
-00000029	41500000		liu	PAR,0x0000
-0000002a	40502800		lil	PAR,0x2800
-0000002b	84805000		lpl	r8
-0000002c	22889000		or	r8,r8,r9
-0000002d	85508000		spl	r8
-0000002e	A1504000		pull	PAR
-0000002f	A1804000		pull	r8
-00000030	A1904000		pull	r9
-00000031	A1704000		pull	PC
-
-;
-; disableBuzzer
-;
-
-disableBuzzer:
-00000032	A0409000		push	r9
-00000033	A0408000		push	r8
-00000034	A0405000		push	PAR
-00000035	4290FFEF		lix	r9,0xffef		; Buzzer Disable line
-00000036	41500000		liu	PAR,0x0000
-00000037	40502800		lil	PAR,0x2800
-00000038	84805000		lpl	r8
-00000039	23889000		and	r8,r8,r9
-0000003a	85508000		spl	r8
-0000003b	A1504000		pull	PAR
-0000003c	A1804000		pull	r8
-0000003d	A1904000		pull	r9
-0000003e	A1704000		pull	PC
+00000020	A0408000		push	r8
+00000021	A0405000		push	PAR
+00000022	42504000		lix		PAR,0x4000
+00000023	85508000		spl		r8
+00000024	A1504000		pull	PAR
+00000025	A1804000		pull	r8
+00000026	A1704000		pull	PC

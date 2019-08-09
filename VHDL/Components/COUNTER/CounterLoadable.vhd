@@ -13,10 +13,9 @@ entity counterLoadable is
 
 port(	
 	clock		: in std_logic;
-	clear		: in std_logic;
-	loadVal	: in std_logic_vector(7 downto 0);
-	soundOut	: out std_logic;
-	Q			: out std_logic_vector(18 downto 0)
+	clear		: in std_logic := '0';
+	loadVal	: in std_logic_vector(7 downto 0) := x"FF";
+	soundOut	: out std_logic
 );
 end counterLoadable;
 
@@ -31,7 +30,7 @@ begin
 
     -- behavior describe the counterLoadable
 
-    process(clock, loadVal, Pre_Q)
+    process(clock, clear, loadVal, Pre_Q, sound)
     begin
 		if rising_edge(clock) then
 			if clear = '1' then
@@ -47,7 +46,6 @@ begin
     end process;	
 	
     -- concurrent assignment statement
-    Q <= Pre_Q;
 	 soundOut <= sound;
 
 end behv;

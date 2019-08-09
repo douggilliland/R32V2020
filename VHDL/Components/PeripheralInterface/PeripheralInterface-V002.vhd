@@ -118,7 +118,6 @@ architecture struct of PeripheralInterface is
 	signal w_SPI_Clk			: 	std_logic := '0';
 	signal w_spi_busy				: 	std_logic := '0';
 	-- Music/Tone generator
-	signal w_NoteData				:	std_logic_vector(18 downto 0);
 	signal w_NoteDataIn			:	std_logic_vector(7 downto 0);
 	signal w_BUZZER				: 	std_logic := '0';
 
@@ -168,7 +167,6 @@ begin
 		x"00000"	& (not i_DIP_switch) & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
 		x"000000"		& w_LatData						when	w_LEDsCS 		= '1' else
 		o_dataFromTimers									when	w_TimersCS		= '1' else
-		x"000"&'0' 		& w_NoteData					when	w_NoteCS 		= '1' else
 		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
 		x"000000"		& o_EEPi2cData		 			when	w_EEPI2CCS		= '1' else
 		x"000000"		& o_spiData						when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
@@ -317,8 +315,7 @@ begin
     clock		=> i_CLOCK_50,
     clear		=> not n_reset,
     loadVal		=> w_NoteDataIn,
-	 soundOut	=> o_Note,
-    q				=> w_NoteData
+	 soundOut	=> o_Note
 	 );
 	
 	-- Seven Segment Display
