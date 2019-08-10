@@ -16,6 +16,7 @@ ALU,UN_DEST,Rotate right by one,ROR1,0,0,1,1,0,1,0,1,rDest,,,,X,,,,rSrc1,,,,X,X,
 ALU,UN_DEST,Right arithmetic shift,ASR,0,0,1,1,0,1,1,0,rDest,,,,X,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
 ALU,BIN_CMP,Compare 2 regs and set cond codes,CMP,0,0,1,1,1,0,0,0,r3,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,"cmp r3,r8,r9",r3 bits set/clr
 ALU,UN_DEST,Swap endian,ENS,0,0,1,1,1,0,0,1,rDest,,,,X,X,X,X,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+ALU,BIN_CMP_IMM,Compare a reg with an immediate and set cond codes,CMPI,0,0,1,1,1,0,1,0,r3,,,,rSrc2,,,,immediate,,,,X,X,X,X,X,X,X,X,X,X,X,X,"cmpi r8,0x134",r3 bits set/clr
 Immed,IMM_DEST,Load reg immediate lower,LIL,0,1,0,0,0,0,0,0,rDest,,,,X,X,X,X,immediate,,,,,,,,,,,,,,,,,
 Immed,IMM_DEST,Load reg immediate upper,LIU,0,1,0,0,0,0,0,1,rDest,,,,X,X,X,X,immediate,,,,,,,,,,,,,,,,,
 Immed,IMM_DEST,Load reg immediate extend,LIX,0,1,0,0,0,0,1,0,rDest,,,,X,X,X,X,immediate,,,,,,,,,,,,,,,,,

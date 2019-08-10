@@ -30,6 +30,7 @@ supportedForms = set([
   'ADDR',
   'ADDR_R7_DEST',
   'BIN_CMP',
+  'BIN_CMP_IMM',
   'BIN_CONST',
   'BIN_DEST',
   'IMM_DEST',
@@ -48,6 +49,7 @@ supportedForms = set([
 constantFormRegister = {
   'ADDR_R7_DEST': 7,
   'BIN_CMP': 3,
+  'BIN_CMP_IMM': 3,
   'R4_DEST': 4,
   'R5_DEST': 5,
   'R6_DEST': 6,
@@ -182,6 +184,16 @@ class BinDestResolver:
 
   def resolveHex(self, _, __):
     return hex(self.operation << 24 | self.rOut << 20 | self.r1 << 16 | self.r2 << 12)
+
+class BinDestImmResolver:
+  def __init__(self, operation, rOut, r, immediate):
+    self.operation = operation
+    self.rOut = rOut
+    self.r = r
+    self.immediate = immediate
+
+  def resolveHex(self, _, __):
+    return hex(self.operation << 24 | self.rOut << 20 | self.r << 16 | self.immediate)
 
 class UnDestResolver:
   def __init__(self, operation, rOut, r):
@@ -617,6 +629,13 @@ if __name__ == '__main__':
         lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
         outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseRegister(tokens[2])))
+
+      elif opSpec['Form'] == 'BIN_CMP_IMM':
+        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
+
+        outputLine.setInstruction(BinDestImmResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseImmediate(tokens[2])))
 
       elif opSpec['Form'] == 'BIN_R1_DEST':
         lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
