@@ -34,7 +34,6 @@ maxValueImm = {
 
 supportedForms = set([
   'ADDR',
-  'ADDR_R7_DEST',
   'BIN_CMP',
   'BIN_CMP_IMM',
   'BIN_CONST',
@@ -56,7 +55,6 @@ supportedForms = set([
 ])
 
 constantFormRegister = {
-  'ADDR_R7_DEST': 7,
   'BIN_CMP': 3,
   'BIN_CMP_IMM': 3,
   'R4_DEST': 4,
@@ -616,13 +614,6 @@ if __name__ == '__main__':
         lineAssert(isValidAddress(tokens[1]), num, rawLine, formatAddressError(tokens[1]))
 
         outputLine.setInstruction(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, currentAddress-1))
-
-      elif opSpec['Form'] == 'ADDR_R7_DEST':
-        lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
-
-        lineAssert(isValidAddress(tokens[1]), num, rawLine, formatAddressError(tokens[1]))
-
-        outputLine.setInstruction(JumpDestResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, 7))
 
       elif opSpec['Form'] == 'BIN_DEST':
         lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
