@@ -26,6 +26,12 @@ REGISTER_ALIASES = {
   'GP7': 15
 }
 
+maxValueImm = {
+  'IMM_DEST_16': 65535,
+  'IMM_DEST_20': 1048575,
+  'IMM_DEST_24': 16777215
+}
+
 supportedForms = set([
   'ADDR',
   'ADDR_R7_DEST',
@@ -34,7 +40,9 @@ supportedForms = set([
   'BIN_CONST',
   'BIN_DEST',
   'BIN_DEST_IMM',
-  'IMM_DEST',
+  'IMM_DEST_16',
+  'IMM_DEST_20',
+  'IMM_DEST_24',
   'NO_ARGS',
   'R4_DEST',
   'R5_DEST',
@@ -403,7 +411,7 @@ def isValidLong(token):
 
 MAX_UNSIGNED_SHORT = 1048575
 
-def isValidImmediateValue(token):
+def isValidImmediateValue(token, maxValue = MAX_UNSIGNED_SHORT):
   valid = False
 
   try:
@@ -421,7 +429,7 @@ def isValidImmediateValue(token):
       except:
         pass
 
-  return valid and 0 <= v and v <= MAX_UNSIGNED_SHORT
+  return valid and 0 <= v and v <= maxValue
 
 ZERO_FOUR = 73786976294838206464
 
@@ -653,17 +661,20 @@ if __name__ == '__main__':
 
         outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 1, parseRegister(tokens[2])))
 
-      elif opSpec['Form'] == 'IMM_DEST':
+      elif opSpec['Form'] in ['IMM_DEST_16', 'IMM_DEST_20', 'IMM_DEST_24']:
+        form = opSpec['Form']
+        maxValue = maxValueImm[form]
+
         lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
         lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
         lineAssert(
-          isValidImmediateValue(tokens[2]) or isValidDataLabelReference(tokens[2]),
+          isValidImmediateValue(tokens[2], maxValue) or isValidDataLabelReference(tokens[2]),
           num,
           rawLine,
           tokens[2] + ' is neither a valid immediate value or a valid data label reference'
         )
 
-        if isValidImmediateValue(tokens[2]):
+        if isValidImmediateValue(tokens[2], maxValue):
           outputLine.setInstruction(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
         else:
           outputLine.setInstruction(DataLabelReferenceDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), tokens[2], num, rawLine))
