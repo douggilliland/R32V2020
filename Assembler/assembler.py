@@ -409,9 +409,7 @@ def isValidLong(token):
   except:
     return False
 
-MAX_UNSIGNED_SHORT = 1048575
-
-def isValidImmediateValue(token, maxValue = MAX_UNSIGNED_SHORT):
+def isValidImmediateValue(token, maxValue):
   valid = False
 
   try:
