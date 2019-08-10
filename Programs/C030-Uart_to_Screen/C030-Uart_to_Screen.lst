@@ -7,16 +7,16 @@ start:
 00000003	20500000		add	par,r0,r0	; start of screen
 00000004	20600000		add	dar,r0,r0	; clear the data memory addr pointer
 00000005	64806000		ldl	r8			; get the long again
-00000006	31808000		ens r8,r8		; endian swap for right byte order
+00000006	39808000		ens r8,r8		; endian swap for right byte order
 00000007	A2407000		sss	r7			; store PC on the stack
 00000008	C0000023		bra	putChar
-00000009	28808000		sr8	r8,r8
+00000009	33808000		sr8	r8,r8
 0000000a	A2407000		sss	r7
 0000000b	C0000020		bra	putChar
-0000000c	28808000		sr8	r8,r8
+0000000c	33808000		sr8	r8,r8
 0000000d	A2407000		sss	r7
 0000000e	C000001D		bra	putChar
-0000000f	28808000		sr8	r8,r8
+0000000f	33808000		sr8	r8,r8
 00000010	A2407000		sss	r7
 00000011	C000001A		bra	putChar
 00000012	20661000		add	dar,dar,r1	; increment the data pointer
@@ -24,7 +24,7 @@ start:
 readUartStatus:
 00000014	40501800		lil	par,0x1800	; UART Status
 00000015	84905000		lpl	r9			; Read Status into r9
-00000016	23991000		and r9,r9,r1
+00000016	25991000		and r9,r9,r1
 00000017	C3FFFFFD		bez readUartStatus
 charToScreen:
 00000018	40501801		lil par,0x1801

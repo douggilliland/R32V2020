@@ -25,7 +25,7 @@ ramWriteLoop:
 0000000c	409000FE		lil	r9,0xfe		; memory size-2
 ramReadLoop:
 0000000d	64806000		ldl	r8			; read the first location 
-0000000e	30368000		cmp	dar,r8		; compare address to the data read
+0000000e	38368000		cmp	dar,r8		; compare address to the data read
 0000000f	D200000A		bne	failedRead	; failed
 00000010	20661000		add	dar,dar,r1	; increment the address
 00000011	20993000		add	r9,r9,r3	; subtract one from the end count

@@ -16,12 +16,14 @@ start:
 ; routine uses r8,r9
 delay_mS:
 0000000b	A0409000		push	r9
-0000000c	42503802		lix	PAR,0x3802		; address of the mSec counter
-0000000d	84905000		lpl	r9				; read the peripheral counter into r9
-0000000e	20898000		add	r8,r9,r8		; terminal counter to wait until is in r8
+0000000c	A0405000		push	PAR
+0000000d	42503802		lix	PAR,0x3802		; address of the mSec counter
+0000000e	84905000		lpl	r9				; read the peripheral counter into r9
+0000000f	20898000		add	r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
-0000000f	84905000		lpl	r9				; check the elapsed time counter
-00000010	30389000		cmp	r8,r9
-00000011	CCFFFFFE		blt	loop_delay_mS
-00000012	A1904000		pull	r9
-00000013	A1704000		pull	r7
+00000010	84905000		lpl	r9				; check the elapsed time counter
+00000011	38389000		cmp	r8,r9
+00000012	CCFFFFFE		blt	loop_delay_mS
+00000013	A1504000		pull	PAR
+00000014	A1904000		pull	r9
+00000015	A1704000		pull	r7

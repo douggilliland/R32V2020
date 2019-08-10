@@ -20,7 +20,6 @@ readDataMemory:
 	bsr	printString
 loopPS2Read_ScreenWrite:
 	bsr	getPS2Char
-putCharToANSIScreen:
 	bsr	putCharToANSIScreen	; put the character to the screen
 	bsr	putUARTChar
 	bra	loopPS2Read_ScreenWrite

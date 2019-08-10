@@ -19,7 +19,7 @@ looperFast:
 0000000b	81508000		spb r8			; put the character to the screen
 0000000c	20551000		add	par,par,r1	; Increment screen pointer
 0000000d	20881000		add	r8,r8,r1	; increment the character to the screen
-0000000e	2388A000		and	r8,r8,r10	; make sure 8-bits only
+0000000e	2588A000		and	r8,r8,r10	; make sure 8-bits only
 0000000f	20992000		add r9,r9,r2	; decrement character counter
 00000010	C7FFFFFB		bnz	looperFast	; loop until complete
 00000011	A3904000		lss	r9			; load calling address

@@ -1,12 +1,12 @@
 ; Bxx Checks
 ; Test all branches with both sets of conditions
 start:
-00000000	30300000		cmp r0,r0		; test cmp and bne/beq
+00000000	38300000		cmp r0,r0		; test cmp and bne/beq
 00000001	D200002A		bne failed		; bne not taken
 00000002	D1000002		beq	skip1		; beq taken
 00000003	C0000028		bra	failed
 skip1:
-00000004	30301000		cmp r0,r1		; test cmp and beq/bne
+00000004	38301000		cmp r0,r1		; test cmp and beq/bne
 00000005	D1000026		beq	failed		; beq not taken
 00000006	D2000002		bne skip2		; bne taken
 00000007	C0000024		bra	failed
@@ -38,12 +38,12 @@ skip6:
 0000001b	CB000002		bcs	skip7		; should take bcs
 0000001c	C000000F		bra	failed
 skip7:
-0000001d	30301000		cmp	r0,r1		; test blt/bgt
+0000001d	38301000		cmp	r0,r1		; test blt/bgt
 0000001e	CC00000D		blt	failed		; should not take blt
 0000001f	CF000002		bgt	skip8		; should take bgt
 00000020	C000000B		bra	failed
 skip8:
-00000021	30310000		cmp	r1,r0		; test blt/bgt
+00000021	38310000		cmp	r1,r0		; test blt/bgt
 00000022	CF000009		bgt	failed		; should not take bgt
 00000023	CC000002		blt	skip9		; should take blt
 00000024	C0000007		bra	failed

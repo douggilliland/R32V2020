@@ -197,3 +197,25 @@ setCharPos:
 	pull r10						; restore r10
 	pull r9						; restore r9
 	pull	PC						; rts
+
+;
+; putCharToANSIScreen - Put a character to the screen
+; Character to put to screen is in r8
+;
+
+putCharToANSIScreen:
+	push	r9
+	push	PAR
+	push	r10
+	lix		r10,0x2		; TxReady bit
+	lix		PAR,0x0		; UART Status
+waitScreenTxStat:
+	lpl		r9			; Read Status into r9
+	and 	r9,r9,r10
+	bez 	waitScreenTxStat
+	lix 	PAR,0x1
+	spl		r8			; echo the character
+	pull	r10
+	pull	PAR
+	pull	r9
+	pull	PC

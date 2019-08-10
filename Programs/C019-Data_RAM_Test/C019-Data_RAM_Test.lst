@@ -7,9 +7,9 @@ ramTestLoop:
 00000003	65608000		sdl	r8			; store r8 into the data space memory
 00000004	00000000		nop
 00000005	64906000		ldl	r9			; read the data space memory into r9
-00000006	30389000		cmp	r8,r9		; compare what was written to what was read
+00000006	38389000		cmp	r8,r9		; compare what was written to what was read
 00000007	D2000003		bne	halt		; if they are different, then halt
-00000008	24882000		xor	r8,r8,r2	; invert the test pattern value
+00000008	26882000		xor	r8,r8,r2	; invert the test pattern value
 00000009	C0FFFFFA		bra	ramTestLoop
 halt:
 0000000a	01000000		hcf

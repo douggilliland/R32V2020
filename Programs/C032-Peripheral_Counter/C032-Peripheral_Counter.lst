@@ -9,30 +9,30 @@ start:
 readDataMemory:
 00000004	20600000		add	dar,r0,r0	; clear the data memory addr pointer
 00000005	64806000		ldl	r8			; get the long again
-00000006	31808000		ens r8,r8		; endian swap for right byte order
+00000006	39808000		ens r8,r8		; endian swap for right byte order
 00000007	A2407000		sss	r7			; store PC on the stack
 00000008	C000002B		bra	putChar
-00000009	28808000		sr8	r8,r8
+00000009	33808000		sr8	r8,r8
 0000000a	A2407000		sss	r7
 0000000b	C0000028		bra	putChar
-0000000c	28808000		sr8	r8,r8
+0000000c	33808000		sr8	r8,r8
 0000000d	A2407000		sss	r7
 0000000e	C0000025		bra	putChar
-0000000f	28808000		sr8	r8,r8
+0000000f	33808000		sr8	r8,r8
 00000010	A2407000		sss	r7
 00000011	C0000022		bra	putChar
 00000012	20661000		add	dar,dar,r1	; increment the data pointer
 00000013	64806000		ldl	r8			; get the long again
-00000014	31808000		ens r8,r8		; endian swap for right byte order
+00000014	39808000		ens r8,r8		; endian swap for right byte order
 00000015	A2407000		sss	r7			; store PC on the stack
 00000016	C000001D		bra	putChar
-00000017	28808000		sr8	r8,r8
+00000017	33808000		sr8	r8,r8
 00000018	A2407000		sss	r7
 00000019	C000001A		bra	putChar
-0000001a	28808000		sr8	r8,r8
+0000001a	33808000		sr8	r8,r8
 0000001b	A2407000		sss	r7
 0000001c	C0000017		bra	putChar
-0000001d	28808000		sr8	r8,r8
+0000001d	33808000		sr8	r8,r8
 0000001e	A2407000		sss	r7
 0000001f	C0000014		bra	putChar
 readETCounter:
@@ -41,8 +41,8 @@ readETCounter:
 loopETCounter:
 00000022	20580000		add	par,r8,r0	; counter address
 00000023	84A05000		lpl	r10			; get the counter value
-00000024	28A0A000		sr8	r10,r10	; get the top 16-bits of the counter
-00000025	28A0A000		sr8	r10,r10
+00000024	33A0A000		sr8	r10,r10	; get the top 16-bits of the counter
+00000025	33A0A000		sr8	r10,r10
 00000026	20590000		add par,r9,r0	; Seven Segment Address
 00000027	8550A000		spl	r10			; store value
 00000028	C0FFFFFA		bra	loopETCounter

@@ -17,7 +17,6 @@ readDataMemory:
 	bsr	printString
 loopPS2Read_ScreenWrite:
 	bsr	getPS2Char
-putCharToScreen:
 	bsr	putCharToScreen	; put the character to the screen
 	bsr	putUARTChar
 	bra	loopPS2Read_ScreenWrite
@@ -146,3 +145,48 @@ setCharPos:
 	pull r10						; restore r10
 	pull r9						; restore r9
 	pull	PC						; rts
+
+;
+; putCharToANSIScreen - Put a character to the screen
+; Character to put to screen is in r8
+;
+
+putCharToANSIScreen:
+	push	r9
+	push	PAR
+	push	r10
+	lix		r10,0x2		; TxReady bit
+	lix		PAR,0x0		; UART Status
+waitScreenTxStat:
+	lpl		r9			; Read Status into r9
+	and 	r9,r9,r10
+	bez 	waitScreenTxStat
+	lix 	PAR,0x1
+	spl		r8			; echo the character
+	pull	r10
+	pull	PAR
+	pull	r9
+	pull	PC
+
+;
+; printString - Print a screen to the current screen position
+; pass value : r8 points to the start of the string in Data memory
+; strings are bytes packed into long words
+; strings are null terminated
+;
+
+printString:
+	push	r8					; save r8
+	push	DAR
+	add		DAR,r8,ZERO			; set the start of the string
+nextChar:
+	ldbp	r8					; get the character01
+	cmp		r8,ZERO				; Null terminated string
+	beq		donePrStr			; done if null
+	bsr		putCharToANSIScreen	; write out the character
+	bra		nextChar
+donePrStr:
+	pull	DAR					; restore DAR
+	pull	r8					; restore r8
+	pull	PC					; rts
+	

@@ -11,7 +11,7 @@ repat:
 00000002	42900008		lix		r9,8		; bit count
 loopDIO:
 00000003	85508000		spl		r8			; Output bit
-00000004	27808000		sr1		r8,r8		; get the next bit
+00000004	32808000		sr1		r8,r8		; get the next bit
 00000005	20992000		add		r9,r9,MINUS1 ; decrement the bit count
 00000006	C7FFFFFD		bnz		loopDIO
 endPoint:

@@ -4,7 +4,7 @@ start:
 loop:
 00000001	C0000000		bra	loop
 testBsr:
-00000002	23442000		and	SAR,SAR,MINUS1	; fake rts sequence
+00000002	25442000		and	SAR,SAR,MINUS1	; fake rts sequence
 00000003	A3704000		lss	r7
 ;	rts	 patch r7 as destination
 didntRTS:

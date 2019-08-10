@@ -16,7 +16,7 @@ doneClear:
 readUartStatus:
 0000000c	40501800		lil	r5,0x1800	; UART Status
 0000000d	84905000		lpl	r9			; Read Status into r9
-0000000e	23991000		and r9,r9,r1
+0000000e	25991000		and r9,r9,r1
 0000000f	C3FFFFFD		bez readUartStatus
 00000010	40501801		lil r5,0x1801
 00000011	84A05000		lpl	r10

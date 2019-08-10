@@ -7,7 +7,7 @@ start:
 00000004	A2408000		sss	r8
 00000005	00000000		nop
 00000006	A3904000		lss	r9
-00000007	30389000		cmp	r8,r9
+00000007	38389000		cmp	r8,r9
 00000008	D200001A		bne	failedRead
 ;	bra	passed	
 testLoop:
@@ -28,7 +28,7 @@ ramWriteLoop:
 00000015	409000FE		lil	r9,0xfe		; memory size-2
 ramReadLoop:
 00000016	A3804000		lss	r8			; read the stack
-00000017	30348000		cmp	sar,r8		; compare address to the Stack read
+00000017	38348000		cmp	sar,r8		; compare address to the Stack read
 00000018	D200000A		bne	failedRead	; failed
 00000019	20441000		add	sar,sar,r1	; increment the address
 0000001a	20992000		add	r9,r9,MINUS1	; subtract one from the end count

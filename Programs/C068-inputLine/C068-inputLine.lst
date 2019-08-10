@@ -53,9 +53,9 @@ loopReadLine:
 00000017	D400001E		bsr		waitGetCharFromUART	; Get a character from the UART
 00000018	D400004F		bsr		putCharToANSIScreen	; Put the character to the screen
 00000019	D4000025		bsr		putCharToUART		; Echo character back to the UART
-0000001a	30389000		cmp		r8,r9				; check if received char was end of line
+0000001a	38389000		cmp		r8,r9				; check if received char was end of line
 0000001b	D1000007		beq		gotEOL
-0000001c	3038B000		cmp		r8,r11
+0000001c	3838B000		cmp		r8,r11
 0000001d	D100000A		beq		gotBackspace
 0000001e	61608000		sdb		r8
 0000001f	20661000		add		DAR,DAR,ONE			; increment to next long in buffer
@@ -71,7 +71,7 @@ gotEOL:
 gotBackspace:
 00000027	20662000		add		DAR,DAR,MINUS1
 00000028	42C0000C		lix		r12,lineBuff.lower	; r12 pointer = start of line buffer
-00000029	303C6000		cmp		r12,DAR
+00000029	383C6000		cmp		r12,DAR
 0000002a	CFFFFFED		bgt		loopReadLine
 0000002b	206C0000		add		DAR,r12,r0
 0000002c	C0FFFFEB		bra		loopReadLine
@@ -102,7 +102,7 @@ waitGetCharFromUART:
 00000036	42501800		lix		PAR,0x1800	; UART Status
 waitUartRxStat:
 00000037	84805000		lpl		r8			; Read Status into r8
-00000038	23881000		and 	r8,r8,ONE
+00000038	25881000		and 	r8,r8,ONE
 00000039	C3FFFFFE		bez 	waitUartRxStat
 0000003a	42501801		lix 	PAR,0x1801
 0000003b	84805000		lpl		r8
@@ -122,7 +122,7 @@ putCharToUART:
 00000042	42501800		lix		PAR,0x1800	; UART Status
 waitUartTxStat:
 00000043	84905000		lpl		r9			; Read Status into r9
-00000044	2399A000		and 	r9,r9,r10
+00000044	2599A000		and 	r9,r9,r10
 00000045	C3FFFFFE		bez 	waitUartTxStat
 00000046	42501801		lix 	PAR,0x1801
 00000047	85508000		spl		r8			; echo the character
@@ -144,7 +144,7 @@ printString:
 0000004e	20680000		add		DAR,r8,ZERO		; set the start of the string
 nextChar:
 0000004f	60806000		ldb		r8				; get the character
-00000050	30380000		cmp		r8,ZERO			; Null terminated string
+00000050	38380000		cmp		r8,ZERO			; Null terminated string
 00000051	D1000004		beq		donePrStr		; done if null
 00000052	D4000015		bsr		putCharToANSIScreen	; write out the character
 00000053	20661000		add		DAR,DAR,r1		; Point to next character
@@ -189,7 +189,7 @@ putCharToANSIScreen:
 0000006b	42500000		lix		PAR,0x0		; UART Status
 waitScreenTxStat:
 0000006c	84905000		lpl		r9			; Read Status into r9
-0000006d	2399A000		and 	r9,r9,r10
+0000006d	2599A000		and 	r9,r9,r10
 0000006e	C3FFFFFE		bez 	waitScreenTxStat
 0000006f	42500001		lix 	PAR,0x1
 00000070	85508000		spl		r8			; echo the character
@@ -238,7 +238,7 @@ enableBuzzer:
 00000088	42900010		lix		r9,0x0010		; Buzzer Enable line
 00000089	42502800		lix		PAR,0x2800
 0000008a	84805000		lpl		r8
-0000008b	22889000		or		r8,r8,r9
+0000008b	24889000		or		r8,r8,r9
 0000008c	85508000		spl		r8
 0000008d	A1504000		pull	PAR
 0000008e	A1804000		pull	r8
@@ -256,7 +256,7 @@ disableBuzzer:
 00000094	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
 00000095	42502800		lix		PAR,0x2800
 00000096	84805000		lpl		r8
-00000097	23889000		and		r8,r8,r9
+00000097	25889000		and		r8,r8,r9
 00000098	85508000		spl		r8
 00000099	A1504000		pull	PAR
 0000009a	A1804000		pull	r8
@@ -274,7 +274,7 @@ delay_mS:
 000000a0	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
 000000a1	84905000		lpl		r9				; check the elapsed time counter
-000000a2	30389000		cmp		r8,r9
+000000a2	38389000		cmp		r8,r9
 000000a3	CCFFFFFE		blt		loop_delay_mS
 000000a4	A1904000		pull	r9
 000000a5	A1704000		pull	PC

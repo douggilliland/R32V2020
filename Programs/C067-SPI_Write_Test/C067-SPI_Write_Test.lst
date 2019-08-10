@@ -13,33 +13,37 @@ xfered:			.string "Transfered"
 ;
 
 main:
-00000000	D4000062		bsr		clearScreen			; Not required for this example
+00000000	D400004F		bsr		clearScreen			; Not required for this example
 00000001	42800000		lix		r8,prompt.lower		; r8 contains the pointer to the the prompt 
 00000002	D4000041		bsr		printString			; Print the prompt to the screen
-; Write to SPI-POTX2
+
+; Write ramp output to SPI-POTX2
 ; x6000-x67FF (2KB)	- SPI Address Range
 ; x6000 - d0-d7 = Write value
 ; x6001 - d0 = Write Chip Select line
 ; x6002 - d0 = Busy flag
 ; x6003 - 
-	;bsr		waitSPITxRdy
-00000003	42900080		lix		r9,0x80
+
+00000003	42900080		lix		r9,0x80				; loop terminal count
 reloadr8:
-00000004	42800000		lix		r8,0x00				; sent out low voltage
+00000004	42800000		lix		r8,0x00				; sent out low voltage from pot
 loopForever:
 00000005	D4000007		bsr		writeSPI0
 00000006	20881000		add		r8,r8,r1
-00000007	30389000		cmp		r8,r9
+00000007	38389000		cmp		r8,r9
 00000008	D2FFFFFD		bne		loopForever
 00000009	C0FFFFFB		bra		reloadr8
 
 transferDone:
-0000000a	42800003		lix		r8,xfered.lower		; embedded print string
+0000000a	4280000C		lix		r8,xfered.lower		; embedded print string
 0000000b	D4000038		bsr		printString			; Print the string to the screen
 
-; Write to the first SPI pot
+;
+; writeSPI0 - Write to the first SPI pot
 ; r8 contains the data to write out
 ; 16-bit command Fig 7-1 in the data sheet
+;
+
 writeSPI0:
 0000000c	A0408000		push	r8
 0000000d	42800000		lix		r8,0x00			; start chip select
@@ -60,20 +64,23 @@ writeSPI0:
 0000001c	A1804000		pull	r8
 0000001d	A1704000		pull	PC				; return	
 
+;
 ; waitSPITxRdy - wait for SPI transfer to be complete
 ; Don't write until the busy cycles high then low
 ; R32V2020 is much faster than the SPI interface
 ; Need to wait for the busy to get set and the cleared again
+;
+
 waitSPITxRdy:
 0000001e	A0408000		push	r8			; save r8 since it's used by calling function(s)
 0000001f	42506002		lix		PAR,0x6002	; SPI busy bit address
 loopSPIRdy:				; wait until busy gets set
 00000020	84805000		lpl		r8			; load the busy bit
-00000021	30380000		cmp		r8,r0		; 0 = not yet set
+00000021	38380000		cmp		r8,r0		; 0 = not yet set
 00000022	D1FFFFFE		beq		loopSPIRdy	; wait until busy is set
 loopSPIRdy2:			; wait while busy is set
 00000023	84805000		lpl		r8			; load the busy bit
-00000024	30381000		cmp		r8,r1		; 1 = busy is set
+00000024	38381000		cmp		r8,r1		; 1 = busy is set
 00000025	D1FFFFFE		beq		loopSPIRdy2	; still busy
 00000026	A1804000		pull	r8			; restore r8
 00000027	A1704000		pull	PC			; return
@@ -85,7 +92,7 @@ loopSPIRdy2:			; wait while busy is set
 readUartStatus:
 00000028	D4000004		bsr		waitGetCharFromUART
 putCharToANSIScreenAndUART:
-00000029	D4000044		bsr		putCharToANSIScreen	; put the character to the screen
+00000029	D4000031		bsr		putCharToANSIScreen	; put the character to the screen
 0000002a	D400000B		bsr		putCharToUART
 0000002b	C0FFFFFD		bra		readUartStatus
 
@@ -100,7 +107,7 @@ waitGetCharFromUART:
 0000002d	42501800		lix		PAR,0x1800	; UART Status
 waitUartRxStat:
 0000002e	84805000		lpl		r8			; Read Status into r8
-0000002f	23881000		and 	r8,r8,ONE
+0000002f	25881000		and 	r8,r8,ONE
 00000030	C3FFFFFE		bez 	waitUartRxStat
 00000031	42501801		lix 	PAR,0x1801
 00000032	84805000		lpl		r8
@@ -120,7 +127,7 @@ putCharToUART:
 00000039	42501800		lix		PAR,0x1800	; UART Status
 waitUartTxStat:
 0000003a	84905000		lpl		r9			; Read Status into r9
-0000003b	2399A000		and 	r9,r9,r10
+0000003b	2599A000		and 	r9,r9,r10
 0000003c	C3FFFFFE		bez 	waitUartTxStat
 0000003d	42501801		lix 	PAR,0x1801
 0000003e	85508000		spl		r8			; echo the character
@@ -138,57 +145,37 @@ waitUartTxStat:
 
 printString:
 00000043	A0408000		push	r8				; save r8
-00000044	A0409000		push	r9				; save r9
-00000045	A0406000		push	DAR
-00000046	20680000		add		DAR,r8,ZERO		; set the start of the string
-nextLong:
-00000047	64806000		ldl		r8				; get the string
-00000048	31808000		ens		r8,r8			; swap the endian
-00000049	429000FF		lix		r9,0xff			; mask for null termination check
-0000004a	23998000		and		r9,r9,r8
-0000004b	C3000013		bez		donePrStr
-0000004c	D4000021		bsr		putCharToANSIScreen	; write out the character
-0000004d	28808000		sr8		r8,r8
-0000004e	429000FF		lix		r9,0xff			; mask for null termination check
-0000004f	23998000		and		r9,r9,r8
-00000050	C300000E		bez		donePrStr
-00000051	D400001C		bsr		putCharToANSIScreen	; write out the character
-00000052	28808000		sr8		r8,r8
-00000053	429000FF		lix		r9,0xff			; mask for null termination check
-00000054	23998000		and		r9,r9,r8
-00000055	C3000009		bez		donePrStr
-00000056	D4000017		bsr		putCharToANSIScreen	; write out the character
-00000057	28808000		sr8		r8,r8
-00000058	429000FF		lix		r9,0xff			; mask for null termination check
-00000059	23998000		and		r9,r9,r8
-0000005a	C3000004		bez		donePrStr
-0000005b	D4000012		bsr		putCharToANSIScreen	; write out the character
-lastOfLong:
-0000005c	20661000		add		DAR,DAR,ONE
-0000005d	C0FFFFEA		bra		nextLong
+00000044	A0406000		push	DAR
+00000045	20680000		add		DAR,r8,ZERO		; set the start of the string
+nextChar:
+00000046	60806000		ldb		r8				; get the character
+00000047	38380000		cmp		r8,ZERO			; Null terminated string
+00000048	D1000004		beq		donePrStr		; done if null
+00000049	D4000011		bsr		putCharToANSIScreen	; write out the character
+0000004a	20661000		add		DAR,DAR,r1		; Point to next character
+0000004b	C0FFFFFB		bra		nextChar
 donePrStr:
-0000005e	A1604000		pull	DAR				; restore DAR
-0000005f	A1904000		pull	r9				; restore r9
-00000060	A1804000		pull	r8				; restore r8
-00000061	A1704000		pull	PC				; rts
-	
+0000004c	A1604000		pull	DAR				; restore DAR
+0000004d	A1804000		pull	r8				; restore r8
+0000004e	A1704000		pull	PC				; rts
+
 ;
 ; clearScreen - Clear the screen routine
 ; ANSI Terminal has an escape sequence which clears the screen and homes cursor
 ;
 
 clearScreen:
-00000062	A0408000		push	r8				; save r8
-00000063	4280001B		lix		r8,0x1b			; ESC
-00000064	D4000009		bsr		putCharToANSIScreen
-00000065	4280005B		lix		r8,0x5b			; [
-00000066	D4000007		bsr		putCharToANSIScreen
-00000067	42800032		lix		r8,0x32			; 2
-00000068	D4000005		bsr		putCharToANSIScreen
-00000069	4280004A		lix		r8,0x4A			; J
-0000006a	D4000003		bsr		putCharToANSIScreen
-0000006b	A1804000		pull	r8
-0000006c	A1704000		pull	PC				; rts
+0000004f	A0408000		push	r8				; save r8
+00000050	4280001B		lix		r8,0x1b			; ESC
+00000051	D4000009		bsr		putCharToANSIScreen
+00000052	4280005B		lix		r8,0x5b			; [
+00000053	D4000007		bsr		putCharToANSIScreen
+00000054	42800032		lix		r8,0x32			; 2
+00000055	D4000005		bsr		putCharToANSIScreen
+00000056	4280004A		lix		r8,0x4A			; J
+00000057	D4000003		bsr		putCharToANSIScreen
+00000058	A1804000		pull	r8
+00000059	A1704000		pull	PC				; rts
 
 ;
 ; putCharToANSIScreen - Put a character to the screen
@@ -197,36 +184,36 @@ clearScreen:
 ;
 
 putCharToANSIScreen:
-0000006d	A0409000		push	r9
-0000006e	A040A000		push	r10
-0000006f	A0405000		push	PAR
-00000070	42A00002		lix		r10,0x2		; TxReady bit
-00000071	42500000		lix		PAR,0x0		; UART Status
+0000005a	A0409000		push	r9
+0000005b	A040A000		push	r10
+0000005c	A0405000		push	PAR
+0000005d	42A00002		lix		r10,0x2		; TxReady bit
+0000005e	42500000		lix		PAR,0x0		; UART Status
 waitScreenTxStat:
-00000072	84905000		lpl		r9			; Read Status into r9
-00000073	2399A000		and 	r9,r9,r10
-00000074	C3FFFFFE		bez 	waitScreenTxStat
-00000075	42500001		lix 	PAR,0x1
-00000076	85508000		spl		r8			; echo the character
-00000077	A1504000		pull	PAR
-00000078	A1A04000		pull	r10
-00000079	A1904000		pull	r9
-0000007a	A1704000		pull	PC
+0000005f	84905000		lpl		r9			; Read Status into r9
+00000060	2599A000		and 	r9,r9,r10
+00000061	C3FFFFFE		bez 	waitScreenTxStat
+00000062	42500001		lix 	PAR,0x1
+00000063	85508000		spl		r8			; echo the character
+00000064	A1504000		pull	PAR
+00000065	A1A04000		pull	r10
+00000066	A1904000		pull	r9
+00000067	A1704000		pull	PC
 	
 ;
 ; makeBuzz - Make the buzzer buzz
 ;
 
 makeBuzz:
-0000007b	A0408000		push	r8
-0000007c	42800000		lix		r8,0			; first note is 0
-0000007d	D4000007		bsr 	setNote
-0000007e	D400000D		bsr		enableBuzzer
-0000007f	428000FA		lix		r8,250			; count for 1 Sec
-00000080	D4000023		bsr		delay_mS		; call delay_ms
-00000081	D4000016		bsr		disableBuzzer
-00000082	A1804000		pull	r8
-00000083	A1704000		pull	PC
+00000068	A0408000		push	r8
+00000069	42800000		lix		r8,0			; first note is 0
+0000006a	D4000007		bsr 	setNote
+0000006b	D400000D		bsr		enableBuzzer
+0000006c	428000FA		lix		r8,250			; count for 1 Sec
+0000006d	D4000023		bsr		delay_mS		; call delay_ms
+0000006e	D4000016		bsr		disableBuzzer
+0000006f	A1804000		pull	r8
+00000070	A1704000		pull	PC
 
 ;
 ; setNote - Set the note
@@ -234,67 +221,67 @@ makeBuzz:
 ;
 
 setNote:
-00000084	A0408000		push	r8
-00000085	A0405000		push	PAR
-00000086	42504000		lix		PAR,0x4000
-00000087	85508000		spl		r8
-00000088	A1504000		pull	PAR
-00000089	A1804000		pull	r8
-0000008a	A1704000		pull	PC
+00000071	A0408000		push	r8
+00000072	A0405000		push	PAR
+00000073	42504000		lix		PAR,0x4000
+00000074	85508000		spl		r8
+00000075	A1504000		pull	PAR
+00000076	A1804000		pull	r8
+00000077	A1704000		pull	PC
 
 ;
 ; enableBuzzer
 ;
 
 enableBuzzer:
-0000008b	A0409000		push	r9
-0000008c	A0408000		push	r8
-0000008d	A0405000		push	PAR
-0000008e	42900010		lix		r9,0x0010		; Buzzer Enable line
-0000008f	42502800		lix		PAR,0x2800
-00000090	84805000		lpl		r8
-00000091	22889000		or		r8,r8,r9
-00000092	85508000		spl		r8
-00000093	A1504000		pull	PAR
-00000094	A1804000		pull	r8
-00000095	A1904000		pull	r9
-00000096	A1704000		pull	PC
+00000078	A0409000		push	r9
+00000079	A0408000		push	r8
+0000007a	A0405000		push	PAR
+0000007b	42900010		lix		r9,0x0010		; Buzzer Enable line
+0000007c	42502800		lix		PAR,0x2800
+0000007d	84805000		lpl		r8
+0000007e	24889000		or		r8,r8,r9
+0000007f	85508000		spl		r8
+00000080	A1504000		pull	PAR
+00000081	A1804000		pull	r8
+00000082	A1904000		pull	r9
+00000083	A1704000		pull	PC
 
 ;
 ; disableBuzzer
 ;
 
 disableBuzzer:
-00000097	A0409000		push	r9
-00000098	A0408000		push	r8
-00000099	A0405000		push	PAR
-0000009a	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
-0000009b	42502800		lix		PAR,0x2800
-0000009c	84805000		lpl		r8
-0000009d	23889000		and		r8,r8,r9
-0000009e	85508000		spl		r8
-0000009f	A1504000		pull	PAR
-000000a0	A1804000		pull	r8
-000000a1	A1904000		pull	r9
-000000a2	A1704000		pull	PC
+00000084	A0409000		push	r9
+00000085	A0408000		push	r8
+00000086	A0405000		push	PAR
+00000087	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
+00000088	42502800		lix		PAR,0x2800
+00000089	84805000		lpl		r8
+0000008a	25889000		and		r8,r8,r9
+0000008b	85508000		spl		r8
+0000008c	A1504000		pull	PAR
+0000008d	A1804000		pull	r8
+0000008e	A1904000		pull	r9
+0000008f	A1704000		pull	PC
 	
 ; delay_mS - delay for the number of mSecs passed in r8
 ; pass mSec delay in r8
 ; Routine uses r9
 
 delay_mS:
-000000a3	A0409000		push	r9
-000000a4	A0405000		push	PAR
-000000a5	42503802		lix		PAR,0x3802		; address of the mSec counter
-000000a6	84905000		lpl		r9				; read the peripheral counter into r9
-000000a7	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
+00000090	A0409000		push	r9
+00000091	A0405000		push	PAR
+00000092	42503802		lix		PAR,0x3802		; address of the mSec counter
+00000093	84905000		lpl		r9				; read the peripheral counter into r9
+00000094	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
-000000a8	84905000		lpl		r9				; check the elapsed time counter
-000000a9	30389000		cmp		r8,r9
-000000aa	CCFFFFFE		blt		loop_delay_mS
-000000ab	A1504000		pull	PAR
-000000ac	A1904000		pull	r9
-000000ad	A1704000		pull	PC
+00000095	84905000		lpl		r9				; check the elapsed time counter
+00000096	38389000		cmp		r8,r9
+00000097	CCFFFFFE		blt		loop_delay_mS
+00000098	A1504000		pull	PAR
+00000099	A1904000		pull	r9
+0000009a	A1704000		pull	PC
 
 ;	
 ; delay_uS - delay for the number of uSecs
@@ -303,15 +290,15 @@ loop_delay_mS:
 ;
 
 delay_uS:
-000000ae	A0409000		push	r9
-000000af	A0405000		push	PAR
-000000b0	42503801		lix		PAR,0x3801		; address of the uSec counter
-000000b1	84905000		lpl		r9				; read the peripheral counter into r9
-000000b2	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
+0000009b	A0409000		push	r9
+0000009c	A0405000		push	PAR
+0000009d	42503801		lix		PAR,0x3801		; address of the uSec counter
+0000009e	84905000		lpl		r9				; read the peripheral counter into r9
+0000009f	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_uS:
-000000b3	84905000		lpl		r9				; check the elapsed time counter
-000000b4	30389000		cmp		r8,r9
-000000b5	CCFFFFFE		blt		loop_delay_uS
-000000b6	A1504000		pull	PAR
-000000b7	A1904000		pull	r9
-000000b8	A1704000		pull	PC
+000000a0	84905000		lpl		r9				; check the elapsed time counter
+000000a1	38389000		cmp		r8,r9
+000000a2	CCFFFFFE		blt		loop_delay_uS
+000000a3	A1504000		pull	PAR
+000000a4	A1904000		pull	r9
+000000a5	A1704000		pull	PC

@@ -40,8 +40,8 @@ start:
 0000001d	D4000006		bsr	clearScreen			; Not required for this example
 0000001e	42800000		lix	r8,prompt.lower
 0000001f	D400001D		bsr	printString
-00000020	42800003		lix	r8,firstVal.lower
-00000021	42800004		lix	r8,secVal.lower
+00000020	4280000C		lix	r8,firstVal.lower
+00000021	42800010		lix	r8,secVal.lower
 00000022	01000000		hcf
 
 ;
@@ -76,7 +76,7 @@ putCharToANSIScreen:
 00000032	42500000		lix		PAR,0x0		; UART Status
 waitScreenTxStat:
 00000033	84905000		lpl		r9			; Read Status into r9
-00000034	2399A000		and 	r9,r9,r10
+00000034	2599A000		and 	r9,r9,r10
 00000035	C3FFFFFE		bez 	waitScreenTxStat
 00000036	42500001		lix 	PAR,0x1
 00000037	85508000		spl		r8			; echo the character
@@ -98,7 +98,7 @@ printString:
 0000003e	20680000		add		DAR,r8,ZERO		; set the start of the string
 nextChar:
 0000003f	60806000		ldb		r8				; get the character
-00000040	30380000		cmp		r8,ZERO			; Null terminated string
+00000040	38380000		cmp		r8,ZERO			; Null terminated string
 00000041	D1000004		beq		donePrStr		; done if null
 00000042	D4FFFFEC		bsr		putCharToANSIScreen	; write out the character
 00000043	20661000		add		DAR,DAR,r1		; Point to next character

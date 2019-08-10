@@ -2,12 +2,12 @@ dataPlaceHolder:	.string "R32V2020> "
 secsCount:	.long 0x0
 ; delay_mS Test
 00000000	41600000		liu	DAR,secsCount.upper
-00000001	40600003		lil	DAR,secsCount.lower
+00000001	4060000C		lil	DAR,secsCount.lower
 00000002	42800000		lix	r8,0
 00000003	65608000		sdl	r8
 start:
 00000004	41600000		liu	DAR,secsCount.upper
-00000005	40600003		lil	DAR,secsCount.lower
+00000005	4060000C		lil	DAR,secsCount.lower
 00000006	64806000		ldl	r8
 00000007	D4000015		bsr	wr7Seg8Dig
 00000008	A0408000		push	r8				; save the counter
@@ -26,13 +26,13 @@ delay_mS:
 0000000f	A0409000		push	r9 
 00000010	A0408000		push	r8
 00000011	4290C350		lix	r9,50000	; Count for 50,000 counts = 1 mSec count
-00000012	21889000		mul	r8,r8,r9	; total number of clocks to count
+00000012	22889000		mul	r8,r8,r9	; total number of clocks to count
 00000013	42503800		lix	PAR,0x3800	; address of the elapsed time counter
 00000014	84905000		lpl	r9			; read the peripheral counter into r9
 00000015	20898000		add	r8,r9,r8	; terminal counter to wait until is in r8
 loop_delay_mS:
 00000016	84905000		lpl	r9			; check the elapsed time counter
-00000017	30398000		cmp	r9,r8
+00000017	38398000		cmp	r9,r8
 00000018	CFFFFFFE		bgt	loop_delay_mS
 00000019	A1804000		pull	r8
 0000001a	A1904000		pull	r9

@@ -39,7 +39,7 @@ enableBuzzer:
 00000011	42900010		lix	r9,0x0010		; Buzzer Enable line
 00000012	42502800		lix	PAR,0x2800
 00000013	84805000		lpl	r8
-00000014	22889000		or	r8,r8,r9
+00000014	24889000		or	r8,r8,r9
 00000015	85508000		spl	r8
 00000016	A1504000		pull	PAR
 00000017	A1804000		pull	r8
@@ -57,7 +57,7 @@ disableBuzzer:
 0000001d	4290FFEF		lix	r9,0xffef		; Buzzer Disable line
 0000001e	42502800		lix	PAR,0x2800
 0000001f	84805000		lpl	r8
-00000020	23889000		and	r8,r8,r9
+00000020	25889000		and	r8,r8,r9
 00000021	85508000		spl	r8
 00000022	A1504000		pull	PAR
 00000023	A1804000		pull	r8
@@ -75,7 +75,7 @@ delay_mS:
 00000029	20898000		add	r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
 0000002a	84905000		lpl	r9				; check the elapsed time counter
-0000002b	30389000		cmp	r8,r9
+0000002b	38389000		cmp	r8,r9
 0000002c	CCFFFFFE		blt	loop_delay_mS
 0000002d	A1904000		pull	r9
 0000002e	A1704000		pull	r7

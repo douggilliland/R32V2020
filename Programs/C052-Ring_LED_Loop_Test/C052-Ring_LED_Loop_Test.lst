@@ -1,16 +1,16 @@
-; Read Switches and put to Seven Segment LED Display
+; Read Switches and put to the Ring LEDs
 hello:	.string "R32V2020> "
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
 
 ;
-; Read Switches and put to the Seven Segment LED Display
+; Read Switches and put to the Ring LEDs
 ;
 
 main:
-00000000	D4000064		bsr	clearScreen
+00000000	D4000051		bsr	clearScreen
 00000001	42800000		lix	r8,0x0			; Move cursor to home position
-00000002	D400007E		bsr	setCharPos
+00000002	D400006B		bsr	setCharPos
 readDataMemory:
 00000003	42800000		lix	r8,hello.lower
 00000004	D4000041		bsr	printString
@@ -23,8 +23,8 @@ loopLEDRing:
 00000009	428000FA		lix	r8,250				; wait for 1 second
 0000000a	D400000D		bsr	delay_mS
 0000000b	A1804000		pull	r8
-0000000c	25808000		sl1	r8,r8
-0000000d	30389000		cmp	r8,r9
+0000000c	30808000		sl1	r8,r8
+0000000d	38389000		cmp	r8,r9
 0000000e	D2FFFFF9		bne	loopLEDRing
 0000000f	C0FFFFF7		bra	reload
 
@@ -51,7 +51,7 @@ delay_mS:
 0000001a	20898000		add	r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
 0000001b	84905000		lpl	r9				; check the elapsed time counter
-0000001c	30389000		cmp	r8,r9
+0000001c	38389000		cmp	r8,r9
 0000001d	CCFFFFFE		blt	loop_delay_mS
 0000001e	A1904000		pull	r9
 0000001f	A1704000		pull	PC
@@ -68,7 +68,7 @@ readSws:
 00000022	42900007		lix	r9,0x7
 00000023	42502000		lix	PAR,0x2000	; Switches address
 00000024	84805000		lpl	r8			; Read switches into r9
-00000025	24889000		xor	r8,r8,r9
+00000025	26889000		xor	r8,r8,r9
 00000026	A1904000		pull	r9
 00000027	A1504000		pull	PAR
 00000028	A1704000		pull	PC
@@ -84,7 +84,7 @@ getPS2Char:
 0000002b	42501000		lix	PAR,0x1000	; PS/2 Status
 waitPS2RxStat:
 0000002c	84905000		lpl	r9			; Read Status into r9
-0000002d	23991000		and r9,r9,ONE
+0000002d	25991000		and r9,r9,ONE
 0000002e	C3FFFFFE		bez waitPS2RxStat
 getCharFromPS2:
 0000002f	42500800		lix PAR,0x0800
@@ -109,7 +109,7 @@ putUARTChar:
 0000003a	42501800		lix	PAR,0x1800	; UART Status
 waitUartTxStat:
 0000003b	84905000		lpl	r9			; Read Status into r9
-0000003c	2399A000		and r9,r9,r10
+0000003c	2599A000		and r9,r9,r10
 0000003d	C3FFFFFE		bez waitUartTxStat
 0000003e	42501801		lix PAR,0x1801
 0000003f	85508000		spl	r8			; echo the character
@@ -121,47 +121,27 @@ waitUartTxStat:
 	
 ;
 ; printString - Print a screen to the current screen position
-; pass value : r8 points to the start of the string
-; strings are null terminated
+; pass value : r8 points to the start of the string in Data memory
 ; strings are bytes packed into long words
+; strings are null terminated
 ;
 
 printString:
 00000045	A0408000		push	r8				; save r8
-00000046	A0409000		push	r9				; save r9
-00000047	A0406000		push	DAR
-00000048	20680000		add	DAR,r8,ZERO		; set the start of the string
-nextLong:
-00000049	64806000		ldl	r8				; get the string
-0000004a	31808000		ens	r8,r8			; swap the endian
-0000004b	429000FF		lix	r9,0xff			; mask for null termination check
-0000004c	23998000		and	r9,r9,r8
-0000004d	C3000013		bez	donePrStr
-0000004e	D4000022		bsr	putCharToScreen			; write out the character
-0000004f	28808000		sr8	r8,r8
-00000050	429000FF		lix	r9,0xff			; mask for null termination check
-00000051	23998000		and	r9,r9,r8
-00000052	C300000E		bez	donePrStr
-00000053	D400001D		bsr	putCharToScreen			; write out the character
-00000054	28808000		sr8	r8,r8
-00000055	429000FF		lix	r9,0xff			; mask for null termination check
-00000056	23998000		and	r9,r9,r8
-00000057	C3000009		bez	donePrStr
-00000058	D4000018		bsr	putCharToScreen			; write out the character
-00000059	28808000		sr8	r8,r8
-0000005a	429000FF		lix	r9,0xff			; mask for null termination check
-0000005b	23998000		and	r9,r9,r8
-0000005c	C3000004		bez	donePrStr
-0000005d	D4000013		bsr	putCharToScreen			; write out the character
-lastOfLong:
-0000005e	20661000		add	DAR,DAR,ONE
-0000005f	C0FFFFEA		bra	nextLong
+00000046	A0406000		push	DAR
+00000047	20680000		add		DAR,r8,ZERO		; set the start of the string
+nextChar:
+00000048	60806000		ldb		r8				; get the character
+00000049	38380000		cmp		r8,ZERO			; Null terminated string
+0000004a	D1000004		beq		donePrStr		; done if null
+0000004b	D4000032		bsr		putCharToANSIScreen	; write out the character
+0000004c	20661000		add		DAR,DAR,r1		; Point to next character
+0000004d	C0FFFFFB		bra		nextChar
 donePrStr:
-00000060	A1604000		pull	DAR				; restore DAR
-00000061	A1904000		pull	r9				; restore r9
-00000062	A1804000		pull	r8				; restore r8
-00000063	A1704000		pull	PC				; rts
-	
+0000004e	A1604000		pull	DAR				; restore DAR
+0000004f	A1804000		pull	r8				; restore r8
+00000050	A1704000		pull	PC				; rts
+
 ;
 ; clearScreen - Clear the screen routine
 ; Fills the screen with space characters
@@ -171,19 +151,19 @@ donePrStr:
 ;
 
 clearScreen:
-00000064	A0409000		push	r9				; save r9
-00000065	A0408000		push	r8				; save r8
-00000066	42800000		lix	r8,0x0			; set screen position to home
-00000067	D4000019		bsr	setCharPos
-00000068	42800020		lix	r8,0x0020		; fill with spaces
-00000069	429007FE		lix r9,0x7FE		; loopCount	(1K minus 1)
+00000051	A0409000		push	r9				; save r9
+00000052	A0408000		push	r8				; save r8
+00000053	42800000		lix	r8,0x0			; set screen position to home
+00000054	D4000019		bsr	setCharPos
+00000055	42800020		lix	r8,0x0020		; fill with spaces
+00000056	429007FE		lix r9,0x7FE		; loopCount	(1K minus 1)
 looper:
-0000006a	D4000006		bsr	putCharToScreen
-0000006b	20992000		add r9,r9,MINUS1	; decrement character counter
-0000006c	D2FFFFFE		bne	looper			; loop until complete
-0000006d	A1804000		pull	r8
-0000006e	A1904000		pull	r9
-0000006f	A1704000		pull	PC				; rts
+00000057	D4000006		bsr	putCharToScreen
+00000058	20992000		add r9,r9,MINUS1	; decrement character counter
+00000059	D2FFFFFE		bne	looper			; loop until complete
+0000005a	A1804000		pull	r8
+0000005b	A1904000		pull	r9
+0000005c	A1704000		pull	PC				; rts
 
 ;
 ; putCharToScreen - Put a character to the screen and increment the address
@@ -192,22 +172,22 @@ looper:
 ;
 
 putCharToScreen:
-00000070	A040A000		push	r10					; save r10
-00000071	A0409000		push	r9					; save r9
-00000072	A0406000		push	DAR
-00000073	A0405000		push	PAR
-00000074	42900003		lix	r9,screenPtr.lower	; r9 is the ptr to screenPtr
-00000075	20690000		add	DAR,r9,ZERO			; DAR points to screenPtr
-00000076	64A06000		ldl	r10					; r10 has screenPtr value
-00000077	205A0000		add	PAR,r10,ZERO		; Set PAR to screenPtr
-00000078	81508000		spb	r8					; write character to screen
-00000079	20AA1000		add	r10,r10,ONE			; increment screen pointer
-0000007a	6560A000		sdl	r10					; save new pointer
-0000007b	A1504000		pull PAR					; restore PAR
-0000007c	A1604000		pull DAR					; restore DAR
-0000007d	A1904000		pull r9					; restore r9
-0000007e	A1A04000		pull r10					; restore r10
-0000007f	A1704000		pull	PC					; rts
+0000005d	A040A000		push	r10					; save r10
+0000005e	A0409000		push	r9					; save r9
+0000005f	A0406000		push	DAR
+00000060	A0405000		push	PAR
+00000061	4290000C		lix	r9,screenPtr.lower	; r9 is the ptr to screenPtr
+00000062	20690000		add	DAR,r9,ZERO			; DAR points to screenPtr
+00000063	64A06000		ldl	r10					; r10 has screenPtr value
+00000064	205A0000		add	PAR,r10,ZERO		; Set PAR to screenPtr
+00000065	81508000		spb	r8					; write character to screen
+00000066	20AA1000		add	r10,r10,ONE			; increment screen pointer
+00000067	6560A000		sdl	r10					; save new pointer
+00000068	A1504000		pull PAR					; restore PAR
+00000069	A1604000		pull DAR					; restore DAR
+0000006a	A1904000		pull r9					; restore r9
+0000006b	A1A04000		pull r10					; restore r10
+0000006c	A1704000		pull	PC					; rts
 
 ;
 ; setCharPos - Move to x,y position
@@ -219,19 +199,40 @@ putCharToScreen:
 ;
 
 setCharPos:
-00000080	A0409000		push	r9						; save r9
-00000081	A040A000		push	r10						; save r10
-00000082	A0406000		push	DAR						; save DAR
-00000083	41A00000		liu	r10,screenBase.upper
-00000084	40A00004		lil	r10,screenBase.lower
-00000085	206A0000		add	DAR,r10,ZERO			; DAR points to the screenBase
-00000086	64A06000		ldl	r10						; r10 has the screen base address
-00000087	20A80000		add	r10,r8,ZERO				; add passed position to base
-00000088	41900000		liu	r9,screenPtr.upper
-00000089	40900003		lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
-0000008a	20690000		add	DAR,r9,ZERO				; DAR points to screenPtr
-0000008b	6560A000		sdl	r10						; store new screen address
-0000008c	A1604000		pull DAR						; restore DAR
-0000008d	A1A04000		pull r10						; restore r10
-0000008e	A1904000		pull r9						; restore r9
-0000008f	A1704000		pull	PC						; rts
+0000006d	A0409000		push	r9						; save r9
+0000006e	A040A000		push	r10						; save r10
+0000006f	A0406000		push	DAR						; save DAR
+00000070	41A00000		liu	r10,screenBase.upper
+00000071	40A00010		lil	r10,screenBase.lower
+00000072	206A0000		add	DAR,r10,ZERO			; DAR points to the screenBase
+00000073	64A06000		ldl	r10						; r10 has the screen base address
+00000074	20A80000		add	r10,r8,ZERO				; add passed position to base
+00000075	41900000		liu	r9,screenPtr.upper
+00000076	4090000C		lil	r9,screenPtr.lower		; r9 is the ptr to screenPtr
+00000077	20690000		add	DAR,r9,ZERO				; DAR points to screenPtr
+00000078	6560A000		sdl	r10						; store new screen address
+00000079	A1604000		pull DAR						; restore DAR
+0000007a	A1A04000		pull r10						; restore r10
+0000007b	A1904000		pull r9						; restore r9
+0000007c	A1704000		pull	PC						; rts
+;
+; putCharToANSIScreen - Put a character to the screen
+; Character to put to screen is in r8
+;
+
+putCharToANSIScreen:
+0000007d	A0409000		push	r9
+0000007e	A0405000		push	PAR
+0000007f	A040A000		push	r10
+00000080	42A00002		lix		r10,0x2		; TxReady bit
+00000081	42500000		lix		PAR,0x0		; UART Status
+waitScreenTxStat:
+00000082	84905000		lpl		r9			; Read Status into r9
+00000083	2599A000		and 	r9,r9,r10
+00000084	C3FFFFFE		bez 	waitScreenTxStat
+00000085	42500001		lix 	PAR,0x1
+00000086	85508000		spl		r8			; echo the character
+00000087	A1A04000		pull	r10
+00000088	A1504000		pull	PAR
+00000089	A1904000		pull	r9
+0000008a	A1704000		pull	PC

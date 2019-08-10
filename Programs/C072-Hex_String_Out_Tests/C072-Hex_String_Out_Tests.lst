@@ -40,11 +40,11 @@ hexToScreen:
 00000010	42A0000F		lix		r10,0xF		; bottom nibble mask
 00000011	20980000		add		r9,r8,ZERO	; copy r8 to r9
 anotherDigit:
-00000012	29909000		rol1	r9,r9
-00000013	29909000		rol1	r9,r9
-00000014	29909000		rol1	r9,r9
-00000015	29909000		rol1	r9,r9
-00000016	2389A000		and		r8,r9,r10
+00000012	34909000		rol1	r9,r9
+00000013	34909000		rol1	r9,r9
+00000014	34909000		rol1	r9,r9
+00000015	34909000		rol1	r9,r9
+00000016	2589A000		and		r8,r9,r10
 00000017	D4000009		bsr		outHexCharToScreen
 00000018	20BB2000		add		r11,r11,MINUS1
 00000019	C7FFFFF9		bnz		anotherDigit
@@ -66,7 +66,7 @@ outHexCharToScreen:
 00000022	42503000		lix		PAR,0x3000	; seven seg display
 00000023	85508000		spl		r8
 00000024	4290000A		lix		r9,0x0A
-00000025	30398000		cmp		r9,r8
+00000025	38398000		cmp		r9,r8
 00000026	CC000005		blt		nibbleIsNumber
 00000027	42900037		lix		r9,55
 00000028	20898000		add		r8,r9,r8
@@ -96,15 +96,15 @@ hexToSevenSeg:
 00000037	20680000		add		DAR,r8,ZERO
 00000038	60806000		ldb		r8
 00000039	D4000012		bsr		asciiToHex
-0000003a	22998000		or		r9,r9,r8
-0000003b	25909000		sl1		r9,r9
-0000003c	25909000		sl1		r9,r9
-0000003d	25909000		sl1		r9,r9
-0000003e	25909000		sl1		r9,r9
+0000003a	24998000		or		r9,r9,r8
+0000003b	30909000		sl1		r9,r9
+0000003c	30909000		sl1		r9,r9
+0000003d	30909000		sl1		r9,r9
+0000003e	30909000		sl1		r9,r9
 0000003f	20661000		add		DAR,DAR,ONE
 00000040	60806000		ldb		r8
 00000041	D400000A		bsr		asciiToHex
-00000042	22998000		or		r9,r9,r8
+00000042	24998000		or		r9,r9,r8
 00000043	42503000		lix		PAR,0x3000		; seven segment display
 00000044	85509000		spl		r9
 00000045	A1504000		pull	PAR
@@ -130,46 +130,46 @@ hexToSevenSeg:
 asciiToHex:
 0000004b	A0409000		push	r9
 0000004c	42900066		lix		r9,0x66		; check if letter is > 'f'
-0000004d	30398000		cmp		r9,r8
+0000004d	38398000		cmp		r9,r8
 0000004e	CF000025		bgt		a2h_Error
 0000004f	42900030		lix		r9,0x30		; check if letter is < '0'
-00000050	30398000		cmp		r9,r8	
+00000050	38398000		cmp		r9,r8	
 00000051	CC000022		blt		a2h_Error
 00000052	4290003A		lix		r9,0x3A		; check if letter is between '0' and '9' inclusively
-00000053	30398000		cmp		r9,r8
+00000053	38398000		cmp		r9,r8
 00000054	CC000011		blt		gotDigit
 00000055	42900041		lix		r9,0x41		; check if letter is between '9' and 'A' exclusively
-00000056	30398000		cmp		r9,r8
+00000056	38398000		cmp		r9,r8
 00000057	CC00001C		blt		a2h_Error
 00000058	42900047		lix		r9,0x47		; check if letter is between 'A' and F' inclusively
-00000059	30398000		cmp		r9,r8
+00000059	38398000		cmp		r9,r8
 0000005a	CC000012		blt		gotUpperLetter
 0000005b	42900061		lix		r9,0x61		; check if between 'F' and 'a' exclusively
-0000005c	30398000		cmp		r9,r8
+0000005c	38398000		cmp		r9,r8
 0000005d	CC000016		blt		a2h_Error
 ; Lower case letter
 0000005e	42900057		lix		r9,0x57
-0000005f	24992000		xor		r9,r9,MINUS1
+0000005f	26992000		xor		r9,r9,MINUS1
 00000060	20991000		add		r9,r9,ONE
 00000061	20889000		add		r8,r8,r9
 00000062	4290000F		lix		r9,0x0F
-00000063	23889000		and		r8,r8,r9
+00000063	25889000		and		r8,r8,r9
 00000064	C0000012		bra		doneConvA2H
 gotDigit:
 00000065	42900030		lix		r9,0x30
-00000066	24992000		xor		r9,r9,MINUS1
+00000066	26992000		xor		r9,r9,MINUS1
 00000067	20991000		add		r9,r9,ONE
 00000068	20889000		add		r8,r8,r9
 00000069	4290000F		lix		r9,0x0F
-0000006a	23889000		and		r8,r8,r9
+0000006a	25889000		and		r8,r8,r9
 0000006b	C000000B		bra		doneConvA2H
 gotUpperLetter:
 0000006c	42900037		lix		r9,0x37
-0000006d	24992000		xor		r9,r9,MINUS1
+0000006d	26992000		xor		r9,r9,MINUS1
 0000006e	20991000		add		r9,r9,ONE
 0000006f	20889000		add		r8,r8,r9
 00000070	4290000F		lix		r9,0x0F
-00000071	23889000		and		r8,r8,r9
+00000071	25889000		and		r8,r8,r9
 00000072	C0000004		bra		doneConvA2H
 a2h_Error:
 00000073	42800064		lix		r8,syntaxError.lower
@@ -203,9 +203,9 @@ loopReadLine:
 00000082	D400001E		bsr		waitGetCharFromUART	; Get a character from the UART
 00000083	D400004F		bsr		putCharToANSIScreen	; Put the character to the screen
 00000084	D4000025		bsr		putCharToUART		; Echo character back to the UART
-00000085	30389000		cmp		r8,r9				; check if received char was end of line
+00000085	38389000		cmp		r8,r9				; check if received char was end of line
 00000086	D1000007		beq		gotEOL
-00000087	3038B000		cmp		r8,r11
+00000087	3838B000		cmp		r8,r11
 00000088	D100000A		beq		gotBackspace
 00000089	61608000		sdb		r8
 0000008a	20661000		add		DAR,DAR,ONE			; increment to next long in buffer
@@ -221,7 +221,7 @@ gotEOL:
 gotBackspace:
 00000092	20662000		add		DAR,DAR,MINUS1
 00000093	42C0000C		lix		r12,lineBuff.lower	; r12 pointer = start of line buffer
-00000094	303C6000		cmp		r12,DAR
+00000094	383C6000		cmp		r12,DAR
 00000095	CFFFFFED		bgt		loopReadLine
 00000096	206C0000		add		DAR,r12,r0
 00000097	C0FFFFEB		bra		loopReadLine
@@ -252,7 +252,7 @@ waitGetCharFromUART:
 000000a1	42501800		lix		PAR,0x1800	; UART Status
 waitUartRxStat:
 000000a2	84805000		lpl		r8			; Read Status into r8
-000000a3	23881000		and 	r8,r8,ONE
+000000a3	25881000		and 	r8,r8,ONE
 000000a4	C3FFFFFE		bez 	waitUartRxStat
 000000a5	42501801		lix 	PAR,0x1801
 000000a6	84805000		lpl		r8
@@ -272,7 +272,7 @@ putCharToUART:
 000000ad	42501800		lix		PAR,0x1800	; UART Status
 waitUartTxStat:
 000000ae	84905000		lpl		r9			; Read Status into r9
-000000af	2399A000		and 	r9,r9,r10
+000000af	2599A000		and 	r9,r9,r10
 000000b0	C3FFFFFE		bez 	waitUartTxStat
 000000b1	42501801		lix 	PAR,0x1801
 000000b2	85508000		spl		r8			; echo the character
@@ -294,7 +294,7 @@ printString:
 000000b9	20680000		add		DAR,r8,ZERO		; set the start of the string
 nextChar:
 000000ba	60806000		ldb		r8				; get the character
-000000bb	30380000		cmp		r8,ZERO			; Null terminated string
+000000bb	38380000		cmp		r8,ZERO			; Null terminated string
 000000bc	D1000004		beq		donePrStr		; done if null
 000000bd	D4000015		bsr		putCharToANSIScreen	; write out the character
 000000be	20661000		add		DAR,DAR,r1		; Point to next character
@@ -339,7 +339,7 @@ putCharToANSIScreen:
 000000d6	42500000		lix		PAR,0x0		; UART Status
 waitScreenTxStat:
 000000d7	84905000		lpl		r9			; Read Status into r9
-000000d8	2399A000		and 	r9,r9,r10
+000000d8	2599A000		and 	r9,r9,r10
 000000d9	C3FFFFFE		bez 	waitScreenTxStat
 000000da	42500001		lix 	PAR,0x1
 000000db	85508000		spl		r8			; echo the character
@@ -388,7 +388,7 @@ enableBuzzer:
 000000f3	42900010		lix		r9,0x0010		; Buzzer Enable line
 000000f4	42502800		lix		PAR,0x2800
 000000f5	84805000		lpl		r8
-000000f6	22889000		or		r8,r8,r9
+000000f6	24889000		or		r8,r8,r9
 000000f7	85508000		spl		r8
 000000f8	A1504000		pull	PAR
 000000f9	A1804000		pull	r8
@@ -406,7 +406,7 @@ disableBuzzer:
 000000ff	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
 00000100	42502800		lix		PAR,0x2800
 00000101	84805000		lpl		r8
-00000102	23889000		and		r8,r8,r9
+00000102	25889000		and		r8,r8,r9
 00000103	85508000		spl		r8
 00000104	A1504000		pull	PAR
 00000105	A1804000		pull	r8
@@ -424,7 +424,7 @@ delay_mS:
 0000010b	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
 0000010c	84905000		lpl		r9				; check the elapsed time counter
-0000010d	30389000		cmp		r8,r9
+0000010d	38389000		cmp		r8,r9
 0000010e	CCFFFFFE		blt		loop_delay_mS
 0000010f	A1904000		pull	r9
 00000110	A1704000		pull	PC

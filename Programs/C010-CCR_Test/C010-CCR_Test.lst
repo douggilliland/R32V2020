@@ -14,13 +14,13 @@ start:
 0000000b	20831000		add r8,r3,r1
 0000000c	00000000		nop		; make sure the CCR "sticks" for non-ALU operations
 0000000d	00000000		nop
-0000000e	30300000		cmp r0,r0
+0000000e	38300000		cmp r0,r0
 0000000f	00000000		nop		; make sure the CCR "sticks" for non-ALU operations
 00000010	00000000		nop
-00000011	30301000		cmp r0,r1
+00000011	38301000		cmp r0,r1
 00000012	00000000		nop		; make sure the CCR "sticks" for non-ALU operations
 00000013	00000000		nop
-00000014	30310000		cmp r1,r0
+00000014	38310000		cmp r1,r0
 00000015	00000000		nop		; make sure the CCR "sticks" for non-ALU operations
 00000016	00000000		nop
 00000017	C0FFFFE9		bra start
