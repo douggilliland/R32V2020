@@ -5,13 +5,27 @@ start:
 	lix		r8,0x1234
 	addi	r8,r8,1
 	subi	r8,r8,4
-	cmpi	r8,0x1231
+	cmpi	r8,0x1231	; should be equal
 	beq		goodVal
-	lix		r8,0xBAD
+	bra		badResult
+goodVal:
+	cmpi	r8,0x1233	; should not be equal
+	bne		goodVal2
+	bra		badResult
+goodVal2:
+	cmpi	r8,0x1234
+	bgt		goodVal3
+	bra		badResult
+goodVal3:
+	cmpi	r8,0x1230
+	blt		goodVal4
+	bra		badResult
+goodVal4:
+	lix		r8,0x900d
 	bsr		wr7Seg8Dig
 	bra		forever
-goodVal:
-	lix		r8,0x900d
+badResult:
+	lix		r8,0xBAD
 	bsr		wr7Seg8Dig
 forever:
 	bra		forever

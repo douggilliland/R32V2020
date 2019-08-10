@@ -5,25 +5,39 @@ start:
 00000000	42801234		lix		r8,0x1234
 00000001	21880001		addi	r8,r8,1
 00000002	23880004		subi	r8,r8,4
-00000003	39381231		cmpi	r8,0x1231
-00000004	D1000004		beq		goodVal
-00000005	42800BAD		lix		r8,0xBAD
-00000006	D4000005		bsr		wr7Seg8Dig
-00000007	C0000003		bra		forever
+00000003	39381231		cmpi	r8,0x1231	; should be equal
+00000004	D1000002		beq		goodVal
+00000005	C000000D		bra		badResult
 goodVal:
-00000008	4280900D		lix		r8,0x900d
-00000009	D4000002		bsr		wr7Seg8Dig
+00000006	39381233		cmpi	r8,0x1233	; should not be equal
+00000007	D2000002		bne		goodVal2
+00000008	C000000A		bra		badResult
+goodVal2:
+00000009	39381234		cmpi	r8,0x1234
+0000000a	CF000002		bgt		goodVal3
+0000000b	C0000007		bra		badResult
+goodVal3:
+0000000c	39381230		cmpi	r8,0x1230
+0000000d	CC000002		blt		goodVal4
+0000000e	C0000004		bra		badResult
+goodVal4:
+0000000f	4280900D		lix		r8,0x900d
+00000010	D4000005		bsr		wr7Seg8Dig
+00000011	C0000003		bra		forever
+badResult:
+00000012	42800BAD		lix		r8,0xBAD
+00000013	D4000002		bsr		wr7Seg8Dig
 forever:
-0000000a	C0000000		bra		forever
+00000014	C0000000		bra		forever
 	
 ; wr7Seg8Dig
 ; passed r8 - value to send to the 7 seg display
 
 wr7Seg8Dig:
-0000000b	A0405000		push	PAR
-0000000c	A0408000		push	r8
-0000000d	42503000		lix		PAR,0x3000		; Seven Segment LED lines
-0000000e	85508000		spl		r8				; Write out LED bits
-0000000f	A1804000		pull	r8
-00000010	A1504000		pull	PAR
-00000011	A1704000		pull	PC
+00000015	A0405000		push	PAR
+00000016	A0408000		push	r8
+00000017	42503000		lix		PAR,0x3000		; Seven Segment LED lines
+00000018	85508000		spl		r8				; Write out LED bits
+00000019	A1804000		pull	r8
+0000001a	A1504000		pull	PAR
+0000001b	A1704000		pull	PC
