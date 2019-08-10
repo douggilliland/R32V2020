@@ -47,15 +47,22 @@ architecture struct of R32V2020 is
 
 attribute syn_keep: boolean;
 
-signal	w_Op_NOP : std_logic := '0';		-- No Operation (advance PC)
-signal	w_Op_HCF : std_logic := '0';		-- Halt and Catch Fire
-signal	w_Op_ADD : std_logic := '0';		-- Add 2 regs and store in 3rd
-signal	w_Op_SUB : std_logic := '0';		-- Subtract 2 regs and store in 3rd
-signal	w_Op_CMP : std_logic := '0';		-- Compare 2 regs and set cond codes
-signal	w_Op_MUL	: std_logic := '0';		-- Multiply 2 regs and store in 3rd
-signal	w_Op_OR	: std_logic := '0';		-- OR 2 regs and store in 3rd
-signal	w_Op_AND	: std_logic := '0';		-- AND 2 regs and store in 3rd
-signal	w_Op_XOR	: std_logic := '0';		-- XOR 2 regs and store in 3rd
+signal	w_Op_NOP		: std_logic := '0';		-- No Operation (advance PC)
+signal	w_Op_HCF		: std_logic := '0';		-- Halt and Catch Fire
+signal	w_Op_ADD		: std_logic := '0';		-- Add 2 regs and store in 3rd
+signal	w_Op_ADDI	: std_logic := '0';		-- Add reg and immediate and store in reg
+signal	w_Op_SUB 	: std_logic := '0';		-- Subtract 2 regs and store in 3rd
+signal	w_Op_SUBI	: std_logic := '0';		-- Subtract reg and immediate and store in reg
+signal	w_Op_MUL		: std_logic := '0';		-- Multiply 2 regs and store in 3rd
+signal	w_Op_MULI	: std_logic := '0';		-- Multiply reg and immediate and store in reg
+signal	w_Op_OR		: std_logic := '0';		-- OR 2 regs and store in 3rd
+signal	w_Op_ORI		: std_logic := '0';		-- OR reg and immediate and store in reg
+signal	w_Op_AND		: std_logic := '0';		-- AND 2 regs and store in 3rd
+signal	w_Op_ANDI	: std_logic := '0';		-- AND reg and immediate and store in reg
+signal	w_Op_XOR		: std_logic := '0';		-- XOR 2 regs and store in 3rd
+signal	w_Op_XORI	: std_logic := '0';		-- XOR reg and immediate and store in reg
+signal	w_Op_CMP		: std_logic := '0';		-- Compare 2 regs and set cond codes
+signal	w_Op_CMPI	: std_logic := '0';		-- Compare reg and immediate and store in reg
 --
 signal	w_Op_SL1  : std_logic := '0';		-- Logical Shift left by 1
 signal	w_Op_SL8  : std_logic := '0';		-- Logical Shift left by 8
@@ -195,12 +202,19 @@ begin
 		Op_HCF => w_Op_HCF,
 		-- Category = ALU
 		Op_ADD => w_Op_ADD,
+		Op_ADDI => w_Op_ADDI,
 		Op_SUB => w_Op_SUB,
+		Op_SUBI => w_Op_SUBI,
 		Op_MUL => w_Op_MUL,
+		Op_MULI => w_Op_MULI,
 		Op_CMP => w_Op_CMP,
+		Op_CMPI => w_Op_CMPI,
 		Op_OR  => w_Op_OR,
+		Op_ORI  => w_Op_ORI,
 		Op_AND => w_Op_AND,
+		Op_ANDI => w_Op_ANDI,
 		Op_XOR => w_Op_XOR,
+		Op_XORI => w_Op_XORI,
 		Op_SL1 => w_Op_SL1,
 		Op_SL8 => w_Op_SL8,
 		Op_SR1 => w_Op_SR1,
@@ -282,11 +296,17 @@ CCR_Store : ENTITY work.CCRControl PORT map
 	(
 	-- Category = ALU
 	Op_ADD	=> w_Op_ADD,
+	Op_ADDI	=> w_Op_ADDI,
 	Op_SUB	=> w_Op_SUB,
+	Op_SUBI	=> w_Op_SUBI,
 	Op_MUL	=> w_Op_MUL,
+	Op_MULI	=> w_Op_MULI,
 	Op_OR		=> w_Op_OR,
+	Op_ORI	=> w_Op_ORI,
 	Op_AND	=> w_Op_AND,
+	Op_ANDI	=> w_Op_ANDI,
 	Op_XOR	=> w_Op_XOR,
+	Op_XORI	=> w_Op_XORI,
 	Op_SL1	=> w_Op_SL1,
 	Op_SL8	=> w_Op_SL8,
 	Op_SR1	=> w_Op_SR1,
@@ -295,20 +315,27 @@ CCR_Store : ENTITY work.CCRControl PORT map
 	Op_ROR1	=> w_Op_ROR1,
 	Op_ASR	=> w_Op_ASR,
 	Op_CMP	=> w_Op_CMP,
+	Op_CMPI	=> w_Op_CMPI,
 	o_save_CCR_bits => w_save_CCR_bits
 	);
 
 	ALU : entity work.ALU
 	port map (
+		i_immedVal => i_InstructionRomData(15 downto 0),
 		i_regDataA => o_DataOutFromRegA,
 		i_regDataB => w_regDataB,
 		i_Op_ADD => w_Op_ADD,
+		i_Op_ADDI => w_Op_ADDI,
 		i_Op_SUB => w_Op_SUB,
+		i_Op_SUBI => w_Op_SUBI,
 		i_Op_MUL => w_Op_MUL,
-		i_Op_CMP => w_Op_CMP,
+		i_Op_MULI => w_Op_MULI,
 		i_Op_AND => w_Op_AND,
+		i_Op_ANDI => w_Op_ANDI,
 		i_Op_XOR => w_Op_XOR,
+		i_Op_XORI => w_Op_XORI,
 		i_Op_OR => w_Op_OR,
+		i_Op_ORI => w_Op_ORI,
 		i_Op_SL1 => w_Op_SL1,
 		i_Op_SL8 => w_Op_SL8,
 		i_Op_SR1 => w_Op_SR1,
@@ -317,6 +344,8 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_Op_ROR1 => w_Op_ROR1,
 		i_Op_ASR => w_Op_ASR,
 		i_Op_ENS => w_Op_ENS,
+		i_Op_CMP => w_Op_CMP,
+		i_Op_CMPI => w_Op_CMPI,
  		o_ALUDataOut => w_ALUDataOut,
 		o_CondCodeBits => w_CondCodeBits
 	);

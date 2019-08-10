@@ -34,8 +34,8 @@ entity RegisterFile is
 		i_OP_LIL						: in std_logic := '0';
 		i_OP_LIU						: in std_logic := '0';
 		i_OP_LIX						: in std_logic := '0';
-		i_Op_PUSH						: in std_logic := '0';
-		i_Op_PULL						: in std_logic := '0';
+		i_Op_PUSH					: in std_logic := '0';
+		i_Op_PULL					: in std_logic := '0';
 		i_OP_BSR						: in std_logic := '0';
 		i_Op_LDBP 					: in std_logic := '0';
 		i_Op_SDBP 					: in std_logic := '0';

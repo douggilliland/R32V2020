@@ -16,13 +16,20 @@ entity OpCodeDecoder is
 		Op_NOP		: buffer std_logic;	-- No Operation
 		Op_HCF		: buffer std_logic;	-- Halt and Catch Fire
 		-- Category = ALU
-		Op_ADD		: buffer std_logic;	-- Add and store in reg
+		Op_ADD		: buffer std_logic;	-- Add regs and store in reg
+		Op_ADDI		: buffer std_logic;	-- Add reg and immediate and store in reg
 		Op_SUB		: buffer std_logic;	-- Subtract and store in reg
+		Op_SUBI		: buffer std_logic;	-- Subtract reg and immediate and store in reg
 		Op_MUL		: buffer std_logic;	-- Multiply and store in reg
+		Op_MULI		: buffer std_logic;	-- Multiply reg and immediate and store in reg
 		Op_CMP		: buffer std_logic;	-- Compare two registers and set CCR bits accordingly
+		Op_CMPI		: buffer std_logic;	-- Compare reg and immediate and set CCR bits accordingly
 		Op_OR 		: buffer std_logic;	-- Logical OR registers and store in reg
+		Op_ORI 		: buffer std_logic;	-- Logical OR reg and immediate and store in reg
 		Op_AND		: buffer std_logic;	-- Logical AND registers and store in reg
+		Op_ANDI		: buffer std_logic;	-- Logical AND reg and immediate and store in reg
 		Op_XOR		: buffer std_logic;	-- Logical XOR registers and store in reg
+		Op_XORI		: buffer std_logic;	-- Logical XOR reg and immediate and store in reg
 		Op_SL1		: buffer std_logic;	-- Logical Shift register Left by 1 and store in reg
 		Op_SL8		: buffer std_logic;	-- Logical Shift register Left by 8 and store in reg
 		Op_SR1		: buffer std_logic;	-- Logical Shift register Right by 1 and store in reg
@@ -94,8 +101,9 @@ signal	FlowCtl_OpCode	: std_logic;
 
 begin
 
-o_WrRegFile <= Op_ADD or Op_SUB or Op_MUL or Op_OR or
-	Op_AND or Op_XOR or 	Op_SL1 or Op_SL8 or Op_SR1 or Op_SR8 or
+o_WrRegFile <= Op_ADD or Op_ADDI or Op_SUB or Op_SUBI or Op_MUL or Op_MULI or 
+	Op_OR or Op_ORI or Op_AND or Op_ANDI or Op_XOR or Op_XORI or 	
+	Op_SL1 or Op_SL8 or Op_SR1 or Op_SR8 or
 	Op_ROL1 or Op_ROR1 or Op_ASR or
 	Op_ENS or
 	Op_LIL or Op_LIU or Op_LIX or 
@@ -109,13 +117,18 @@ Op_HCF <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = HCF_OP(4 
 
 -- ALU Opcodes - Arithmetic
 Op_ADD <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ADD_OP(4 downto 0))) else '0';
+Op_ADDI <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ADDI_OP(4 downto 0))) else '0';
 Op_SUB <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SUB_OP(4 downto 0))) else '0';
+Op_SUBI <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SUBI_OP(4 downto 0))) else '0';
 Op_MUL <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = MUL_OP(4 downto 0))) else '0';
-Op_CMP <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = CMP_OP(4 downto 0))) else '0';
+Op_MULI <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = MULI_OP(4 downto 0))) else '0';
 -- ALU Opcodes - Logical
 Op_OR  <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = OR_OP(4 downto 0))) else '0';
+Op_ORI  <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ORI_OP(4 downto 0))) else '0';
 Op_AND <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = AND_OP(4 downto 0))) else '0';
+Op_ANDI <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ANDI_OP(4 downto 0))) else '0';
 Op_XOR <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = XOR_OP(4 downto 0))) else '0';
+Op_XORI <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = XORI_OP(4 downto 0))) else '0';
 -- ALU Opcodes - Shift
 Op_SL1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SL1_OP(4 downto 0))) else '0';
 Op_SL8 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SL8_OP(4 downto 0))) else '0';
@@ -124,6 +137,9 @@ Op_SR8 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SR8_OP(4 dow
 Op_ROL1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ROL1_OP(4 downto 0))) else '0';
 Op_ROR1 <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ROR1_OP(4 downto 0))) else '0';
 Op_ASR <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ASR_OP(4 downto 0))) else '0';
+-- ALU Opcodes - Compare
+Op_CMP <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = CMP_OP(4 downto 0))) else '0';
+Op_CMPI <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = CMPI_OP(4 downto 0))) else '0';
 -- ALU Opcodes - Endian
 Op_ENS <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ENS_OP(4 downto 0))) else '0';
 -- Immediate Opcodes

@@ -125,7 +125,7 @@ set_location_assignment PIN_31 -to spi_sclk
 set_location_assignment PIN_33 -to spi_mosi
 set_location_assignment PIN_38 -to spi_csN
 set_location_assignment PIN_52 -to o_testPoint
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SDA
@@ -184,4 +184,5 @@ set_global_assignment -name VHDL_FILE ../../Components/TERMINAL/ANSIDisplayVGA.v
 set_global_assignment -name CDF_FILE output_files/R32V2020.cdf
 set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32_Load124.vhd
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundGen.vhd
+set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

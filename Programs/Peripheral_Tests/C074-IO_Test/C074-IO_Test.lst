@@ -319,7 +319,7 @@ testRoutine3:
 loopSwRead:
 000000ca	D4000011		bsr		readSws		; returns switches and pushbuttons in r8
 000000cb	42900007		lix		r9,0x7
-000000cc	25889000		and		r8,r8,r9
+000000cc	2A889000		and		r8,r8,r9
 000000cd	42900030		lix		r9,0x30
 000000ce	20889000		add		r8,r8,r9
 000000cf	3838A000		cmp		r8,r10
@@ -350,7 +350,7 @@ readSws:
 000000dd	42900007		lix		r9,0x7
 000000de	42502000		lix		PAR,0x2000	; Switches address
 000000df	84805000		lpl		r8			; Read switches into r9
-000000e0	26889000		xor		r8,r8,r9
+000000e0	2C889000		xor		r8,r8,r9
 000000e1	A1904000		pull	r9
 000000e2	A1504000		pull	PAR
 000000e3	A1704000		pull	PC
@@ -372,7 +372,7 @@ loopSwRead2:
 000000ec	32808000		sr1		r8,r8
 000000ed	32808000		sr1		r8,r8
 000000ee	429000FF		lix		r9,0xff
-000000ef	25889000		and		r8,r8,r9
+000000ef	2A889000		and		r8,r8,r9
 000000f0	3838A000		cmp		r8,r10
 000000f1	D1FFFFF8		beq		loopSwRead2
 000000f2	20A80000		add		r10,r8,r0
@@ -458,9 +458,9 @@ delayFromJumpers:
 00000123	A0409000		push	r9
 00000124	A0408000		push	r8
 00000125	D4000034	 	bsr		readI2CDat_MCP23008		; read headers into r8
-00000126	26882000		xor		r8,r8,MINUS1			; invert headers
+00000126	2C882000		xor		r8,r8,MINUS1			; invert headers
 00000127	429000F0		lix		r9,0xF0
-00000128	25889000		and		r8,r8,r9				; keep 8 bits
+00000128	2A889000		and		r8,r8,r9				; keep 8 bits
 00000129	30808000		sl1		r8,r8
 0000012a	30808000		sl1		r8,r8
 0000012b	30808000		sl1		r8,r8
@@ -617,7 +617,7 @@ i2c_ack:
 00000183	42505801		lix		PAR,0x5801	; Control register
 i2c_ack_loop:
 00000184	84805000		lpl		r8
-00000185	25881000		and		r8,r8,r1	; busy bit is least significant bit
+00000185	2A881000		and		r8,r8,r1	; busy bit is least significant bit
 00000186	C4FFFFFE		be1		i2c_ack_loop
 00000187	A1804000		pull	r8
 00000188	A1504000		pull	PAR
@@ -764,7 +764,7 @@ testTimers:
 	; First test the CPU Instruction Counter
 000001d6	42503803		lix		PAR,0x3803		; CPU Instruction Counter
 000001d7	84905000		lpl		r9				; Get the counter value
-000001d8	26992000		xor		r9,r9,MINUS1	; two's complement of the value read in
+000001d8	2C992000		xor		r9,r9,MINUS1	; two's complement of the value read in
 000001d9	20991000		add		r9,r9,ONE
 000001da	00000000		nop
 000001db	00000000		nop
@@ -784,7 +784,7 @@ testTimers:
 CPUCycleTimerDone:
 000001e9	42503803		lix		PAR,0x3803		; CPU Instruction Counter
 000001ea	84905000		lpl		r9				; Get the counter value
-000001eb	26992000		xor		r9,r9,MINUS1	; two's complement of the value read in
+000001eb	2C992000		xor		r9,r9,MINUS1	; two's complement of the value read in
 000001ec	20991000		add		r9,r9,ONE
 000001ed	00000000		nop
 000001ee	00000000		nop
@@ -839,7 +839,7 @@ hexToSevenSeg:
 00000208	20680000		add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
 00000209	68806000		ldbp	r8
 0000020a	D4000010		bsr		asciiToHex
-0000020b	24998000		or		r9,r9,r8
+0000020b	28998000		or		r9,r9,r8
 0000020c	30909000		sl1		r9,r9
 0000020d	30909000		sl1		r9,r9
 0000020e	30909000		sl1		r9,r9
@@ -847,7 +847,7 @@ hexToSevenSeg:
 	;add		DAR,DAR,ONE
 00000210	60806000		ldb		r8
 00000211	D4000009		bsr		asciiToHex
-00000212	24998000		or		r9,r9,r8
+00000212	28998000		or		r9,r9,r8
 00000213	42503000		lix		PAR,0x3000		; seven segment display
 00000214	85509000		spl		r9
 00000215	20890000		add		r8,r9,ZERO
@@ -891,27 +891,27 @@ asciiToHex:
 0000022c	CC000016		blt		a2h_Error
 ; Lower case letter
 0000022d	42900057		lix		r9,0x57
-0000022e	26992000		xor		r9,r9,MINUS1
+0000022e	2C992000		xor		r9,r9,MINUS1
 0000022f	20991000		add		r9,r9,ONE
 00000230	20889000		add		r8,r8,r9
 00000231	4290000F		lix		r9,0x0F
-00000232	25889000		and		r8,r8,r9
+00000232	2A889000		and		r8,r8,r9
 00000233	C0000012		bra		doneConvA2H
 gotDigit:
 00000234	42900030		lix		r9,0x30
-00000235	26992000		xor		r9,r9,MINUS1
+00000235	2C992000		xor		r9,r9,MINUS1
 00000236	20991000		add		r9,r9,ONE
 00000237	20889000		add		r8,r8,r9
 00000238	4290000F		lix		r9,0x0F
-00000239	25889000		and		r8,r8,r9
+00000239	2A889000		and		r8,r8,r9
 0000023a	C000000B		bra		doneConvA2H
 gotUpperLetter:
 0000023b	42900037		lix		r9,0x37
-0000023c	26992000		xor		r9,r9,MINUS1
+0000023c	2C992000		xor		r9,r9,MINUS1
 0000023d	20991000		add		r9,r9,ONE
 0000023e	20889000		add		r8,r8,r9
 0000023f	4290000F		lix		r9,0x0F
-00000240	25889000		and		r8,r8,r9
+00000240	2A889000		and		r8,r8,r9
 00000241	C0000004		bra		doneConvA2H
 a2h_Error:
 00000242	42800060		lix		r8,syntaxError.lower
@@ -932,7 +932,7 @@ waitGetCharFromUART:
 00000248	42501800		lix		PAR,0x1800	; UART Status
 waitUartRxStat:
 00000249	84805000		lpl		r8			; Read Status into r8
-0000024a	25881000		and 	r8,r8,ONE
+0000024a	2A881000		and 	r8,r8,ONE
 0000024b	C3FFFFFE		bez 	waitUartRxStat
 0000024c	42501801		lix 	PAR,0x1801
 0000024d	84805000		lpl		r8
@@ -952,7 +952,7 @@ putCharToUART:
 00000254	42501800		lix		PAR,0x1800	; UART Status
 waitUartTxStat:
 00000255	84905000		lpl		r9			; Read Status into r9
-00000256	2599A000		and 	r9,r9,r10
+00000256	2A99A000		and 	r9,r9,r10
 00000257	C3FFFFFE		bez 	waitUartTxStat
 00000258	42501801		lix 	PAR,0x1801
 00000259	85508000		spl		r8			; echo the character
@@ -1056,7 +1056,7 @@ putCharToANSIScreen:
 00000290	42500000		lix		PAR,0x0		; UART Status
 waitScreenTxStat:
 00000291	84905000		lpl		r9			; Read Status into r9
-00000292	2599A000		and 	r9,r9,r10
+00000292	2A99A000		and 	r9,r9,r10
 00000293	C3FFFFFE		bez 	waitScreenTxStat
 00000294	42500001		lix 	PAR,0x1
 00000295	85508000		spl		r8			; echo the character
@@ -1105,7 +1105,7 @@ enableBuzzer:
 000002ad	42900010		lix		r9,0x0010		; Buzzer Enable line
 000002ae	42502800		lix		PAR,0x2800
 000002af	84805000		lpl		r8
-000002b0	24889000		or		r8,r8,r9
+000002b0	28889000		or		r8,r8,r9
 000002b1	85508000		spl		r8
 000002b2	A1504000		pull	PAR
 000002b3	A1804000		pull	r8
@@ -1123,7 +1123,7 @@ disableBuzzer:
 000002b9	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
 000002ba	42502800		lix		PAR,0x2800
 000002bb	84805000		lpl		r8
-000002bc	25889000		and		r8,r8,r9
+000002bc	2A889000		and		r8,r8,r9
 000002bd	85508000		spl		r8
 000002be	A1504000		pull	PAR
 000002bf	A1804000		pull	r8
@@ -1157,7 +1157,7 @@ getPS2Char:
 000002cd	42501000		lix	PAR,0x1000	; PS/2 Status
 waitPS2RxStat:
 000002ce	84905000		lpl	r9			; Read Status into r9
-000002cf	25991000		and r9,r9,r1
+000002cf	2A991000		and r9,r9,r1
 000002d0	C3FFFFFE		bez waitPS2RxStat
 getCharFromPS2:
 000002d1	42500800		lix PAR,0x0800
