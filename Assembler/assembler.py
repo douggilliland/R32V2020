@@ -29,7 +29,9 @@ REGISTER_ALIASES = {
 maxValueImm = {
   'IMM_DEST_16': 65535,
   'IMM_DEST_20': 1048575,
-  'IMM_DEST_24': 16777215
+  'IMM_DEST_24': 16777215,
+  'BIN_CMP_IMM': 65535,
+  'BIN_DEST_IMM': 65535
 }
 
 supportedForms = set([
@@ -624,10 +626,12 @@ if __name__ == '__main__':
         outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
 
       elif opSpec['Form'] == 'BIN_DEST_IMM':
+        maxValue = maxValueImm['BIN_DEST_IMM']
+
         lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
         lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
         lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
-        lineAssert(isValidImmediateValue(tokens[3]), num, rawLine, tokens[3] + ' is not a immediate value')
+        lineAssert(isValidImmediateValue(tokens[3], maxValue), num, rawLine, tokens[3] + ' is not a valid immediate value')
 
         outputLine.setInstruction(BinDestImmResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseImmediate(tokens[3])))
 
@@ -639,9 +643,11 @@ if __name__ == '__main__':
         outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseRegister(tokens[2])))
 
       elif opSpec['Form'] == 'BIN_CMP_IMM':
+        maxValue = maxValueImm['BIN_CMP_IMM']
+
         lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
         lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidImmediateValue(tokens[2]), num, rawLine, tokens[2] + ' is not a valid immediate value')
+        lineAssert(isValidImmediateValue(tokens[2], maxValue), num, rawLine, tokens[2] + ' is not a valid immediate value')
 
         outputLine.setInstruction(BinDestImmResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseImmediate(tokens[2])))
 
