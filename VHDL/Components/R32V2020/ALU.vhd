@@ -16,6 +16,7 @@ entity ALU is
 		i_regDataA		: in std_logic_vector(31 downto 0) := x"00000000";
 		i_regDataB		: in std_logic_vector(31 downto 0) := x"00000000";
 		i_Op_ADD			: in std_logic := '0';
+		i_Op_SUB			: in std_logic := '0';
 		i_Op_MUL			: in std_logic := '0';
 		i_Op_CMP			: in std_logic := '0';
 		i_Op_AND			: in std_logic := '0';
@@ -57,6 +58,7 @@ multResult <= i_regDataA * i_regDataB;
 multResultLong <= multResult(32 downto 0);
 
 w_ALUResult <= ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when i_Op_ADD = '1' else
+					((i_regDataA(31)&i_regDataA) - (i_regDataB(31)&i_regDataB)) when i_Op_SUB = '1' else
 					multResultLong when i_Op_MUL = '1' else		-- added multiply
 					(('0'&i_regDataA) and i_regDataB) when i_Op_AND = '1' else
 					(('0'&i_regDataA) or  i_regDataB) when i_Op_OR  = '1' else
@@ -74,7 +76,7 @@ w_ALUResult <= ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when 
 w_EqualToZero	<= '1' when w_ALUResult = '0'&x"00000000" else '0';
 w_NotZero		<= '1' when w_ALUResult /= '0'&x"00000000" else '0';
 w_EqualToOne	<= '1' when w_ALUResult = '0'&x"00000001" else '0';
-w_CarrySet		<= '1' when (((i_Op_ADD = '1') and (w_ALUResult(32) = '1')) or ((multResult(63 downto 32) /= "00000000") and (i_Op_MUL = '1'))) else '0';
+w_CarrySet		<= '1' when ((((i_Op_ADD = '1') or (i_Op_SUB = '1')) and (w_ALUResult(32) = '1')) or ((multResult(63 downto 32) /= "00000000") and (i_Op_MUL = '1'))) else '0';
 w_CarryClear	<= '1' when (((i_Op_ADD = '1') and (w_ALUResult(32) = '0')) or ((multResult(63 downto 32)  = "00000000") and (i_Op_MUL = '1')))  else '0';
 w_GreaterThan  <= '1' when (i_regDataA > i_regDataB) else '0';
 w_LessThan  	<= '1' when (i_regDataA < i_regDataB) else '0';

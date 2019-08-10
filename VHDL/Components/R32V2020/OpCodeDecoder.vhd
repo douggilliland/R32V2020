@@ -17,6 +17,7 @@ entity OpCodeDecoder is
 		Op_HCF		: buffer std_logic;	-- Halt and Catch Fire
 		-- Category = ALU
 		Op_ADD		: buffer std_logic;	-- Add and store in reg
+		Op_SUB		: buffer std_logic;	-- Subtract and store in reg
 		Op_MUL		: buffer std_logic;	-- Multiply and store in reg
 		Op_CMP		: buffer std_logic;	-- Compare two registers and set CCR bits accordingly
 		Op_OR 		: buffer std_logic;	-- Logical OR registers and store in reg
@@ -93,7 +94,7 @@ signal	FlowCtl_OpCode	: std_logic;
 
 begin
 
-o_WrRegFile <= Op_ADD or Op_MUL or Op_OR or
+o_WrRegFile <= Op_ADD or Op_SUB or Op_MUL or Op_OR or
 	Op_AND or Op_XOR or 	Op_SL1 or Op_SL8 or Op_SR1 or Op_SR8 or
 	Op_ROL1 or Op_ROR1 or Op_ASR or
 	Op_ENS or
@@ -108,6 +109,7 @@ Op_HCF <= '1' when (System_OpCode = '1' and (InstrOpCode(4 downto 0) = HCF_OP(4 
 
 -- ALU Opcodes - Arithmetic
 Op_ADD <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = ADD_OP(4 downto 0))) else '0';
+Op_SUB <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = SUB_OP(4 downto 0))) else '0';
 Op_MUL <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = MUL_OP(4 downto 0))) else '0';
 Op_CMP <= '1' when (ALU_OpCode = '1' and (InstrOpCode(4 downto 0) = CMP_OP(4 downto 0))) else '0';
 -- ALU Opcodes - Logical

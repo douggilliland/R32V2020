@@ -10,6 +10,7 @@ use work.R32V2020_Pkg.all;
 
 ENTITY CCRControl IS PORT(
 	Op_ADD			: IN std_logic;	-- Add and store in reg
+	Op_SUB			: IN std_logic;	-- Subtract and store in reg
 	Op_MUL			: IN std_logic;	-- Multiply and store in reg
 	Op_OR				: IN std_logic;	-- Logical OR registers and store in reg
 	Op_AND			: IN std_logic;	-- Logical AND registers and store in reg
@@ -30,7 +31,7 @@ ARCHITECTURE description OF CCRControl IS
 
 BEGIN
 		-- Opcodes that store the CCR bits
-		o_save_CCR_bits <= Op_ADD or Op_MUL or Op_OR or Op_AND or Op_XOR 
+		o_save_CCR_bits <= Op_ADD or Op_SUB or Op_MUL or Op_OR or Op_AND or Op_XOR 
 		or Op_SL1 or Op_SL8 or Op_SR1 or Op_SR8 or Op_ROL1 or Op_ROR1 or Op_ASR 
 		or Op_CMP;
 		

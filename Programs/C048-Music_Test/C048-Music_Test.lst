@@ -18,7 +18,7 @@ nextNote:
 00000005	428002EE		lix		r8,750			; count for 10 mSec
 00000006	D4000016		bsr		delay_mS		; call delay_ms
 00000007	A1804000		pull	r8
-00000008	30380000		cmp		r8,r0
+00000008	38380000		cmp		r8,r0
 00000009	D1000006		beq		looper1
 0000000a	42800000		lix		r8,0
 0000000b	D4000007		bsr 	setNote
@@ -68,7 +68,7 @@ delay_mS:
 00000021	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
 00000022	84905000		lpl		r9				; check the elapsed time counter
-00000023	30389000		cmp		r8,r9
+00000023	38389000		cmp		r8,r9
 00000024	CCFFFFFE		blt		loop_delay_mS
 00000025	A1504000		pull	PAR
 00000026	A1904000		pull	r9
@@ -85,7 +85,7 @@ enableBuzzer:
 0000002c	42900010		lix		r9,0x0010		; Buzzer Enable line
 0000002d	42502800		lix		PAR,0x2800
 0000002e	84805000		lpl		r8
-0000002f	22889000		or		r8,r8,r9
+0000002f	24889000		or		r8,r8,r9
 00000030	85508000		spl		r8
 00000031	A1504000		pull	PAR
 00000032	A1804000		pull	r8
@@ -103,7 +103,7 @@ disableBuzzer:
 00000038	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
 00000039	42502800		lix		PAR,0x2800
 0000003a	84805000		lpl		r8
-0000003b	23889000		and		r8,r8,r9
+0000003b	25889000		and		r8,r8,r9
 0000003c	85508000		spl		r8
 0000003d	A1504000		pull	PAR
 0000003e	A1804000		pull	r8

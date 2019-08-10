@@ -1,0 +1,41 @@
+; SUB Instruction Test
+; Test the SUBtract instruction
+
+rsvd:	.long 0x0
+
+;
+; Test code
+;
+00000000	42A00007		lix		r10,7
+00000001	42900004		lix		r9,4
+00000002	2189A000		sub		r8,r9,r10
+00000003	D4000002		bsr		wr7Seg8Dig
+loopForever:
+00000004	C0000000		bra		loopForever
+	
+wr7Seg8Dig:
+00000005	A0405000		push	PAR
+00000006	42503000		lix		PAR,0x3000		; Seven Segment LED lines
+00000007	85508000		spl		r8				; Write out LED bits
+00000008	A1504000		pull	PAR
+00000009	A1704000		pull	PC
+
+; delay_mS - delay for the number of mSecs passed in r8
+; pass mSec delay in r8
+; Routine uses r9
+
+delay_mS:
+0000000a	A0408000		push	r8
+0000000b	A0409000		push	r9
+0000000c	A0405000		push	PAR
+0000000d	42503802		lix		PAR,0x3802		; address of the mSec counter
+0000000e	84905000		lpl		r9				; read the peripheral counter into r9
+0000000f	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_mS:
+00000010	84905000		lpl		r9				; check the elapsed time counter
+00000011	38389000		cmp		r8,r9
+00000012	CCFFFFFE		blt		loop_delay_mS
+00000013	A1504000		pull	PAR
+00000014	A1904000		pull	r9
+00000015	A1804000		pull	r8
+00000016	A1704000		pull	PC

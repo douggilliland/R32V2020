@@ -1,6 +1,9 @@
 ----------------------------------------------------
 -- VHDL code for 19-bit counter
 -- 50 MHz divided by 2^19 = 45 Hz (low end of the sound) 
+-- d0-d6 are note on Grand Piano
+-- d7 is the enable (high enable)
+--	0xA7 is C4 Middle C
 ----------------------------------------------------
 	
 library ieee ;

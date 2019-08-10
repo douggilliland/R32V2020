@@ -50,6 +50,7 @@ attribute syn_keep: boolean;
 signal	w_Op_NOP : std_logic := '0';		-- No Operation (advance PC)
 signal	w_Op_HCF : std_logic := '0';		-- Halt and Catch Fire
 signal	w_Op_ADD : std_logic := '0';		-- Add 2 regs and store in 3rd
+signal	w_Op_SUB : std_logic := '0';		-- Subtract 2 regs and store in 3rd
 signal	w_Op_CMP : std_logic := '0';		-- Compare 2 regs and set cond codes
 signal	w_Op_MUL	: std_logic := '0';		-- Multiply 2 regs and store in 3rd
 signal	w_Op_OR	: std_logic := '0';		-- OR 2 regs and store in 3rd
@@ -194,6 +195,7 @@ begin
 		Op_HCF => w_Op_HCF,
 		-- Category = ALU
 		Op_ADD => w_Op_ADD,
+		Op_SUB => w_Op_SUB,
 		Op_MUL => w_Op_MUL,
 		Op_CMP => w_Op_CMP,
 		Op_OR  => w_Op_OR,
@@ -280,6 +282,7 @@ CCR_Store : ENTITY work.CCRControl PORT map
 	(
 	-- Category = ALU
 	Op_ADD	=> w_Op_ADD,
+	Op_SUB	=> w_Op_SUB,
 	Op_MUL	=> w_Op_MUL,
 	Op_OR		=> w_Op_OR,
 	Op_AND	=> w_Op_AND,
@@ -300,6 +303,7 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_regDataA => o_DataOutFromRegA,
 		i_regDataB => w_regDataB,
 		i_Op_ADD => w_Op_ADD,
+		i_Op_SUB => w_Op_SUB,
 		i_Op_MUL => w_Op_MUL,
 		i_Op_CMP => w_Op_CMP,
 		i_Op_AND => w_Op_AND,
@@ -346,8 +350,8 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		i_OP_LIL						=> w_Op_LIL,
 		i_OP_LIU						=> w_Op_LIU,
 		i_OP_LIX						=> w_Op_LIX,
-		i_Op_PUSH						=> w_Op_PUSH,
-		i_Op_PULL						=> w_Op_PULL,
+		i_Op_PUSH					=> w_Op_PUSH,
+		i_Op_PULL					=> w_Op_PULL,
 		i_OP_BSR						=> w_Op_BSR,
 		i_Op_LDBP 					=> w_Op_LDBP,
 		i_Op_SDBP 					=> w_Op_SDBP,
