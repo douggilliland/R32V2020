@@ -4,6 +4,7 @@ System,NO_ARGS,Halt and catch fire,HCF,0,0,0,0,0,0,0,1,X,X,X,X,X,X,X,X,X,X,X,X,X
 ALU,BIN_DEST,Add 2 regs and store in 3rd,ADD,0,0,1,0,0,0,0,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
 ALU,BIN_DEST,Subtract 2 regs and store in 3rd,SUB,0,0,1,0,0,0,0,1,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
 ALU,BIN_DEST,Multiply 2 regs and store in 3rd,MUL,0,0,1,0,0,0,1,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
+ALU,BIN_DEST_IMM,Add reg and immediate and store in 1st,ADDI,0,0,1,0,0,0,1,1,rDest,,,,rSrc1,,,,immediate,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
 ALU,BIN_DEST,OR 2 regs and store in 3rd,OR,0,0,1,0,0,1,0,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
 ALU,BIN_DEST,AND 2 regs and store in 3rd,AND,0,0,1,0,0,1,0,1,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,
 ALU,BIN_DEST,XOR 2 regs and store in 3rd,XOR,0,0,1,0,0,1,1,0,rDest,,,,rSrc2,,,,rSrc1,,,,X,X,X,X,X,X,X,X,X,X,X,X,,

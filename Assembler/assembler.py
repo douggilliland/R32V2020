@@ -33,6 +33,7 @@ supportedForms = set([
   'BIN_CMP_IMM',
   'BIN_CONST',
   'BIN_DEST',
+  'BIN_DEST_IMM',
   'IMM_DEST',
   'NO_ARGS',
   'R4_DEST',
@@ -622,6 +623,14 @@ if __name__ == '__main__':
         lineAssert(isValidRegister(tokens[3]), num, rawLine, tokens[3] + ' is not a valid register')
 
         outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
+
+      elif opSpec['Form'] == 'BIN_DEST_IMM':
+        lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+        lineAssert(isValidImmediateValue(tokens[3]), num, rawLine, tokens[3] + ' is not a immediate value')
+
+        outputLine.setInstruction(BinDestImmResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseImmediate(tokens[3])))
 
       elif opSpec['Form'] == 'BIN_CMP':
         lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
