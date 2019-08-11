@@ -159,17 +159,17 @@ begin
 	w_EEPI2CCS		<= '1' when i_peripheralAddress(15 downto 11) = EEPIO_BASE	else '0';	-- x6800-x6FFF (2KB)	- EEPROM I2C Address
 	
 	o_dataFromPeripherals <=
-		x"000000"		& w_ANSI_DispRamDataOutA 	when	ANSI_DisplayCS = '1' else
-		q_kbReadData	 									when	w_kbDatCS		= '1' else
-		w_kbdStatus											when	w_kbStatCS		= '1' else 
-		x"000000"		& w_aciaData 					when	w_aciaCS 		= '1' else
+		x"000000"		& w_ANSI_DispRamDataOutA 			when	ANSI_DisplayCS = '1' else
+		q_kbReadData	 											when	w_kbDatCS		= '1' else
+		w_kbdStatus													when	w_kbStatCS		= '1' else 
+		x"000000"		& w_aciaData 							when	w_aciaCS 		= '1' else
 		x"00000"	& (not i_DIP_switch) & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
-		x"000000"		& w_LatData						when	w_LEDsCS 		= '1' else
-		o_dataFromTimers									when	w_TimersCS		= '1' else
-		x"000000"		& o_i2cData			 			when	w_I2CCS 			= '1' else
-		x"000000"		& o_EEPi2cData		 			when	w_EEPI2CCS		= '1' else
-		x"000000"		& o_spiData						when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
-		x"0000000"&"000" & w_spi_busy					when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
+		x"000000"		& w_LatData								when	w_LEDsCS 		= '1' else
+		o_dataFromTimers											when	w_TimersCS		= '1' else
+		x"000000"		& o_i2cData			 					when	w_I2CCS 			= '1' else
+		x"000000"		& o_EEPi2cData		 					when	w_EEPI2CCS		= '1' else
+		x"000000"		& o_spiData								when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
+		x"0000000"&"000" & w_spi_busy							when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
 		x"FFFFFFFF";
 
 	-- SPIbus Clock
@@ -404,21 +404,21 @@ begin
 	DebounceSwitch1	: entity work.Debouncer
 	port map (
 		i_CLOCK_50	=> i_CLOCK_50,
-		i_PinIn		=> i_switch(0),
+		i_PinIn		=> not i_switch(0),
 		o_PinOut		=> w_Switch(0)
 	);
 	
 	DebounceSwitch2	: entity work.Debouncer
 	port map (
 		i_CLOCK_50	=> i_CLOCK_50,
-		i_PinIn		=> i_switch(1),
+		i_PinIn		=> not i_switch(1),
 		o_PinOut		=> w_Switch(1)
 	);
 	
 	DebounceSwitch3	: entity work.Debouncer
 	port map (
 		i_CLOCK_50	=> i_CLOCK_50,
-		i_PinIn		=> i_switch(2),
+		i_PinIn		=> not i_switch(2),
 		o_PinOut		=> w_Switch(2)
 	);
 

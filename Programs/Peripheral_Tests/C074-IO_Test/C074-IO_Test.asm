@@ -28,7 +28,7 @@ menuItem_12:	.string "12-TBD Test           "
 ;
 
 main:
-	bsr		clearScreen
+	bsr		clearANSIScreenAndUART
 	bsr		printMenu
 	bsr		getLine
 	bsr		parseLine
@@ -70,10 +70,8 @@ printMenu:
 ;
 ; getLine - Reads the UART and fills a buffer with the characters received
 ; r8 received character - Character received from the UART
-; r9 is constant - ENTER key on keyboard
-; r10 is the input buffer length
-; r11 is the BACK key on keyboard
-; r12 used to test the backspace doesn't go past the start of the buffer
+; r9 is the input buffer length
+; r10 used to test the backspace doesn't go past the start of the buffer
 ; DAR points to lineBuff current character position
 ;
 
@@ -81,43 +79,35 @@ getLine:
 	push	r8
 	push	r9
 	push	r10
-	push	r11
-	push	r12
 	push	DAR
 	lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
-	lix		r11,0x7F			; BACK key - rubout
-	lix		r10,79				; number of chars in the line buffer
-	lix		r9,0x0D				; ENTER key - ends the line
+	lix		r9,79				; number of chars in the line buffer
 loopReadLine:
-	bsr		waitGetCharFromUART	; Get a character from the UART
-	bsr		putCharToANSIScreen	; Put the character to the screen
-	bsr		putCharToUART		; Echo character back to the UART
-	cmp		r8,r9				; check if received char was end of line
+	bsr		waitReadPS2_UART		; Get a character from the UART
+	bsr		writeANSI_UART		; Echo character back to the UART
+	cmpi	r8,0x0D				; check if received char was end of line
 	beq		gotEOL
-	cmp		r8,r11
+	cmpi	r8,0x7F
 	beq		gotBackspace
 	sdbp	r8
-;	add		DAR,DAR,ONE			; increment to next long in buffer
-	add		r10,r10,MINUS1
+	add		r9,r9,MINUS1
 	bnz		loopReadLine		; Next char would overflow
 	; tbd add code for line too long	
 gotEOL:
 	lix		r8,0x0A				; Echo line feed after CR
-	bsr		putCharToANSIScreen	; Put the character to the screen
+	bsr		writeANSI_UART	; Put the character to the screen
 	bsr		putCharToUART		; Echo character back to the UART
 	sdb		r0					; null at end of line read
 	bra		doneHandlingLine
 gotBackspace:
 	add		DAR,DAR,MINUS1
-	lix		r12,lineBuff.lower	; r12 pointer = start of line buffer
-	cmp		r12,DAR
+	lix		r10,lineBuff.lower	; r10 pointer = start of line buffer
+	cmp		r10,DAR
 	bgt		loopReadLine
-	add		DAR,r12,r0
+	addi	DAR,r10,0
 	bra		loopReadLine
 doneHandlingLine:
 	pull	DAR
-	pull	r12
-	pull	r11
 	pull	r10
 	pull	r9
 	pull	r8
@@ -130,85 +120,72 @@ doneHandlingLine:
 
 parseLine:
 	push	r8
-	push	r9
-	push	DAR
 	lix		r8,lineBuff.lower
 	bsr		hexToSevenSeg
 ; Check to see if the command is 0x01
-	lix		r9,0x01
-	cmp		r8,r9
+	cmpi	r8,0x01
 	bne		skipTo2
-	bsr		testRoutine1
+	bsr		testRingLEDs
 	bra		doneTests
 ; Check to see if the command is 0x02
 skipTo2:
-	lix		r9,0x02
-	cmp		r8,r9
+	cmpi	r8,0x02
 	bne		skipTo3
-	bsr		testRoutine2
+	bsr		test7Segs
 	bra		doneTests
 ; Check to see if the command is 0x03
 skipTo3:
-	lix		r9,0x03
-	cmp		r8,r9
+	cmpi	r8,0x03
 	bne		skipTo4
-	bsr		testRoutine3
+	bsr		testPushbuttons
 	bra		doneTests
 ; Check to see if the command is 0x04
 skipTo4:
-	lix		r9,0x04
-	cmp		r8,r9
+	cmpi	r8,0x04
 	bne		skipTo5
-	bsr		testRoutine4
+	bsr		testDIPSwitches
 	bra		doneTests
 ; Check to see if the command is 0x05
 skipTo5:
-	lix		r9,0x05
-	cmp		r8,r9
+	cmpi	r8,0x05
 	bne		skipTo6
-	bsr		testRoutine5
+	bsr		testANSIScreen
 	bra		doneTests
 ; Check to see if the command is 0x06
 skipTo6:
-	lix		r9,0x06
-	cmp		r8,r9
+	cmpi	r8,0x06
 	bne		skipTo7
-	bsr		testRoutine6
+	bsr		testSerialPort
 	bra		doneTests
 ; Check to see if the command is 0x07
 skipTo7:
-	lix		r9,0x07
-	cmp		r8,r9
+	cmpi	r8,0x07
 	bne		skipTo8
-	bsr		testRoutine7
+	bsr		testMCP23008
 	bra		doneTests
 ; Check to see if the command is 0x08
 skipTo8:
-	lix		r9,0x08
-	cmp		r8,r9
+	cmpi	r8,0x08
 	bne		skipTo9
-	bsr		testRoutine8
+	bsr		testMCP4231
 	bra		doneTests
 ; Check to see if the command is 0x09
 skipTo9:
-	lix		r9,0x09
-	cmp		r8,r9
+	cmpi	r8,0x09
 	bne		skipTo10
-	bsr		testRoutine9
+	bsr		testPS2Keyboard
 	bra		doneTests
 ; Check to see if the command is 0x10
 skipTo10:
-	lix		r9,0x10
-	cmp		r8,r9
+	cmpi	r8,0x10
 	bne		skipTo11
-	bsr		testRoutine10
+	bsr		testBuzzer
 	bra		doneTests
 ;
 skipTo11:
-	lix		r9,0x11
-	cmp		r8,r9
+	cmpi	r8,0x11
 	bne		skipTo12
-	bsr		testRoutine11
+	bsr		testTBD
 	bra		doneTests
 
 skipTo12:
@@ -219,8 +196,6 @@ skipTo12:
 doneTests:
 	lix		r8,2000
 	bsr		delay_mS
-	pull	DAR
-	pull	r9
 	pull	r8
 	pull	PC
 	
@@ -228,14 +203,14 @@ doneTests:
 ; Test Ring LEDs
 ;
 
-testRoutine1:
+testRingLEDs:
 	push	r8
-	push	r9
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_01.lower
 	bsr		printLine
-	lix		r9,0x1000			; ring has been circled
+	lix		r8,hitAnyKey.lower
+	bsr		printString
 reload:
 	lix		r8,1
 loopLEDRing:
@@ -245,12 +220,13 @@ loopLEDRing:
 	bsr		delay_mS
 	pull	r8
 	sl1		r8,r8
-	cmp		r8,r9
+	cmpi	r8,0x1000
 	bne		loopLEDRing
-	;bra		reload
 	lix		r8,0
 	bsr		putValueToRingLEDs	; put the switches to the 7 Segment LED
-	pull	r9
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0
+	beq		reload
 	pull	r8
 	pull	PC
 	
@@ -270,12 +246,15 @@ putValueToRingLEDs:
 ; Seven Segment Display Test
 ;
 
-testRoutine2:
+test7Segs:
 	push	r8
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_02.lower
 	bsr		printLine
+	lix		r8,hitAnyKey.lower
+	bsr		printString
+rerun7Segs:
 	liu		r8,0x1234
 	lil		r8,0x5678
 	bsr		wr7Seg8Dig
@@ -288,6 +267,9 @@ testRoutine2:
 	bsr		delay_mS
 	lix		r8,0x0
 	bsr		wr7Seg8Dig
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0
+	beq		rerun7Segs
 	pull	r8
 	pull	PC
 	
@@ -305,32 +287,36 @@ wr7Seg8Dig:
 	
 ;
 ; Pushbutton Test
+; r8 used for temporary variables
+; r9 stores the previous button value
 ;
 
-testRoutine3:
+testPushbuttons:
 	push	r8
 	push	r9
-	push	r10
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_03.lower
 	bsr		printLine
-	lix		r10,0x0
+	lix		r8,hitAnyKey.lower
+	bsr		printLine
+	lix		r9,0x0
 loopSwRead:
+	bsr		checkForCharAndDiscard
+	cmpi	r8,1
+	beq		doneWithSwitches
 	bsr		readSws		; returns switches and pushbuttons in r8
-	lix		r9,0x7
-	and		r8,r8,r9
-	lix		r9,0x30
-	add		r8,r8,r9
-	cmp		r8,r10
+	andi	r8,r8,0x7	; just the pushbuttons
+	addi	r8,r8,0x30
+	cmp		r8,r9
 	beq		loopSwRead
-	add		r10,r8,r0
-	bsr		putCharToANSIScreen
+	addi	r9,r8,0
+	bsr		writeANSI_UART
 	bsr		newLine
 	lix		r8,250
 	bsr		delay_mS
 	bra		loopSwRead
-	pull	r10
+doneWithSwitches:
 	pull	r9
 	pull	r8
 	pull	PC
@@ -339,19 +325,16 @@ loopSwRead:
 ; readSws
 ; switches value returned in r8
 ; switches are high when pressed
-; Switches d0-d2 are the pushbutton switches (inverted)
+; Switches d0-d2 are the pushbutton switches (inverted in FPGA hardware)
 ; 	Pushbutton switches are debounced
 ; Switches d3-10 are the DIP switches (not inverted)
 ;
 
 readSws:
 	push	PAR
-	push	r9
-	lix		r9,0x7
 	lix		PAR,0x2000	; Switches address
 	lpl		r8			; Read switches into r9
-	xor		r8,r8,r9
-	pull	r9
+	andi	r8,r8,0xfff	; just the switches
 	pull	PAR
 	pull	PC
 	
@@ -359,49 +342,63 @@ readSws:
 ; DIP Switch Test
 ;
 
-testRoutine4:
+testDIPSwitches:
+	push	r8
+	push	r9
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_04.lower
 	bsr		printLine
-	lix		r10,0x0
+	lix		r8,hitAnyKey.lower
+	bsr		printLine
+	lix		r9,0x0
+	lix		r8,0x0
+	bsr		wr7Seg8Dig
 loopSwRead2:
+	bsr		checkForCharAndDiscard
+	cmpi	r8,1
+	beq		doneWithDIPSwitches
 	bsr		readSws		; returns switches and pushbuttons in r8
 	sr1		r8,r8
 	sr1		r8,r8
 	sr1		r8,r8
 	sr1		r8,r8
-	lix		r9,0xff
-	and		r8,r8,r9
-	cmp		r8,r10
+	andi	r8,r8,0xff
+	cmp		r8,r9
 	beq		loopSwRead2
-	add		r10,r8,r0
+	addi	r9,r8,0
 	bsr		wr7Seg8Dig
-;	bsr		newLine
 	lix		r8,250
 	bsr		delay_mS
 	bra		loopSwRead2
+doneWithDIPSwitches:
+	pull	r9
+	pull	r8
 	pull	PC
 	
 ;
 ; ANSI Screen Test
 ;
 
-testRoutine5:
+testANSIScreen:
 	push	r8
-	push	r9
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_05.lower
 	bsr		printLine
-	lix		r9,0xff		; end with backspace
 	lix		r8,0x20			; start with a space
 anotherCharT5:
 	bsr		putCharToANSIScreen
-	add		r8,r8,ONE
-	cmp		r8,r9
+	addi	r8,r8,1
+	cmpi	r8,0xFF
 	bne		anotherCharT5
-	pull	r9
+	bsr		newLine
+	lix		r8,hitAnyKey.lower
+	bsr		printLine
+keepCheckCharIn:
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0
+	beq		keepCheckCharIn
 	pull	r8
 	pull	PC
 	
@@ -409,21 +406,18 @@ anotherCharT5:
 ; Serial Port Test
 ;
 
-testRoutine6:
+testSerialPort:
 	push	r8
-	push	r9
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_06.lower
 	bsr		printLine
-	lix		r9,0x7f			; end with backspace
 	lix		r8,0x20			; start with a space
 anotherCharT6:
 	bsr		putCharToUART
-	add		r8,r8,ONE
-	cmp		r8,r9
+	addi	r8,r8,1
+	cmpi	r8,0x7f
 	bne		anotherCharT6
-	pull	r9
 	pull	r8
 	pull	PC
 	
@@ -431,10 +425,12 @@ anotherCharT6:
 ; MCP23008 I2C Test
 ;
 
-testRoutine7:
+testMCP23008:
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_07.lower
+	bsr		printLine
+	lix		r8,hitAnyKey.lower
 	bsr		printLine
 ; Code to initialize I2CIO8 card
 	bsr		init_Regs_I2CIO8	; initialize the MCP23008 on the I2CIO8
@@ -444,9 +440,11 @@ loopMain:
 	bsr		wrI2CAdrDat_MCP23008	; write to LEDs
 	bsr		delayFromJumpers
 	sr1		r8,r8					; shift LED bit right by 1
-	cmp		r8,r0
+	cmpi	r8,0
 	bne		loopMain
-	bra		restartLoop				; restart the shifting
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0
+	beq		restartLoop				; restart the shifting
 	pull	PC
 	
 ;
@@ -455,18 +453,15 @@ loopMain:
 ;
 
 delayFromJumpers:
-	push	r9
 	push	r8
  	bsr		readI2CDat_MCP23008		; read headers into r8
 	xor		r8,r8,MINUS1			; invert headers
-	lix		r9,0xF0
-	and		r8,r8,r9				; keep 8 bits
+	andi	r8,r8,0xF0				; keep 8 bits
 	sl1		r8,r8
 	sl1		r8,r8
 	sl1		r8,r8
 	bsr		delay_mS
 	pull	r8
-	pull	r9
 	pull	PC
 
 ;
@@ -617,7 +612,7 @@ i2c_ack:
 	lix		PAR,0x5801	; Control register
 i2c_ack_loop:
 	lpl		r8
-	and		r8,r8,r1	; busy bit is least significant bit
+	andi	r8,r8,0x1	; busy bit is least significant bit
 	be1		i2c_ack_loop
 	pull	r8
 	pull	PAR
@@ -625,33 +620,38 @@ i2c_ack_loop:
 
 ;
 ; MCP4231 SPI Test
-;
-
-testRoutine8:
-	lix		r8,runningString.lower
-	bsr		printString
-	lix		r8,menuItem_08.lower
-	bsr		printLine
 ; Write ramp output to SPI-POTX2
 ; x6000-x67FF (2KB)	- SPI Address Range
 ; x6000 - d0-d7 = Write value
 ; x6001 - d0 = Write Chip Select line
 ; x6002 - d0 = Busy flag
-	lix		r9,0x80				; loop terminal count
+;
+
+testMCP4231:
+	push	r8
+	lix		r8,runningString.lower
+	bsr		printString
+	lix		r8,menuItem_08.lower
+	bsr		printLine
+	lix		r8,hitAnyKey.lower
+	bsr		printLine
 reloadr8:
 	lix		r8,0x00				; sent out low voltage from pot
 loopForever:
 	bsr		writeSPI0
-	add		r8,r8,r1
-	cmp		r8,r9
+	addi	r8,r8,0x1
+	cmpi	r8,0x80
 	bne		loopForever
-	bra		reloadr8
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0
+	beq		reloadr8
+	pull	r8
 	pull	PC
 	
 ;
 ; writeSPI0 - Write to the first SPI pot
 ; r8 contains the data to write out
-; 16-bit command Fig 7-1 in the data sheet
+; 16-bit command Fig 7-1 in the MCP4231 data sheet
 ;
 
 writeSPI0:
@@ -686,11 +686,11 @@ waitSPITxRdy:
 	lix		PAR,0x6002	; SPI busy bit address
 loopSPIRdy:				; wait until busy gets set
 	lpl		r8			; load the busy bit
-	cmp		r8,r0		; 0 = not yet set
+	cmpi	r8,0		; 0 = not yet set
 	beq		loopSPIRdy	; wait until busy is set
 loopSPIRdy2:			; wait while busy is set
 	lpl		r8			; load the busy bit
-	cmp		r8,r1		; 1 = busy is set
+	cmpi	r8,1		; 1 = busy is set
 	beq		loopSPIRdy2	; still busy
 	pull	r8			; restore r8
 	pull	PC			; return
@@ -700,20 +700,17 @@ loopSPIRdy2:			; wait while busy is set
 ; 0x0D
 ;
 
-testRoutine9:
+testPS2Keyboard:
 	push	r8
-	push	r9
 	lix		r8,runningString.lower
 	bsr		printString
 	lix		r8,menuItem_09.lower
 	bsr		printLine
-	lix		r9,0x0D
 loopForeverT9:
 	bsr		getPS2Char
-	bsr		putCharToANSIScreen
-	cmp		r8,r9
+	bsr		writeANSI_UART
+	cmpi	r8,0x0D
 	bne		loopForeverT9
-	pull	r9
 	pull	r8
 	pull	PC
 
@@ -721,7 +718,7 @@ loopForeverT9:
 ; Buzzer Test
 ;
 
-testRoutine10:
+testBuzzer:
 	push	r8
 	lix		r8,runningString.lower
 	bsr		printString
@@ -743,7 +740,7 @@ testRoutine10:
 ;	X3803	CPU Instruction Counter
 ;
 
-testRoutine11:
+testTBD:
 	push	r8
 	lix		r8,runningString.lower
 	bsr		printString
@@ -764,17 +761,14 @@ testTimers:
 	; First test the CPU Instruction Counter
 	lix		PAR,0x3803		; CPU Instruction Counter
 	lpl		r9				; Get the counter value
-	xor		r9,r9,MINUS1	; two's complement of the value read in
-	add		r9,r9,ONE
 	nop
 	nop
 	nop
 	nop
 	nop
 	lpl		r8
-	add		r8,r9,r8
-	lix		r9,0x08			; The above should have taken 8 CPU instructions
-	cmp		r9,r8
+	sub		r9,r9,r8
+	cmpi	r9,0x06
 	beq		CPUCycleTimerDone
 	lix		PAR,0x3000
 	liu		r8,0xDEAD
@@ -784,22 +778,21 @@ testTimers:
 CPUCycleTimerDone:
 	lix		PAR,0x3803		; CPU Instruction Counter
 	lpl		r9				; Get the counter value
-	xor		r9,r9,MINUS1	; two's complement of the value read in
-	add		r9,r9,ONE
 	nop
 	nop
 	nop
 	nop
 	nop
 	lpl		r8
-	add		r8,r9,r8
-	lix		r9,0x08			; The above should have taken 8 CPU instructions
-	cmp		r9,r8
+	sub		r9,r9,r8
+	cmpi	r9,06
 	beq		millisecondTimerDone
-
+	lix		PAR,0x3000
+	liu		r8,0xDEAD
+	lil		r8,0x0002
+	spl		r8
+	bra		timerTestsDone
 millisecondTimerDone:
-
-
 
 timerTestsDone:
 	pull	PAR
@@ -812,7 +805,7 @@ timerTestsDone:
 ; TBD Test
 ;
 
-testRoutine12:
+testRingLEDs2:
 	push	r8
 	push	r9
 	lix		r8,runningString.lower
@@ -860,65 +853,46 @@ hexToSevenSeg:
 ; asciiToHex - Convert a single ASCII hex character into a nibble
 ; Make conversion case insensitive
 ; Character to convert is passed in r8
-; Result is returned in r8
 ;	'0' = 0x30
 ;	'9' = 0x39
 ;	'A' = 0x41
 ;	'F' = 0x46
 ;	'a' = 0x61
 ;	'f' = 0x66
+; Result is returned in r8
+;	0x0-0xf - Legal Values
+;	'DEAD' - Not hex character
 ;
 
 asciiToHex:
-	push	r9
-	lix		r9,0x66		; check if letter is > 'f'
-	cmp		r9,r8
+	cmpi	r8,0x66			; past 'f'
+	blt		a2h_Error
+	cmpi	r8,0x30			; below '0'
 	bgt		a2h_Error
-	lix		r9,0x30		; check if letter is < '0'
-	cmp		r9,r8	
-	blt		a2h_Error
-	lix		r9,0x3A		; check if letter is between '0' and '9' inclusively
-	cmp		r9,r8
-	blt		gotDigit
-	lix		r9,0x41		; check if letter is between '9' and 'A' exclusively
-	cmp		r9,r8
-	blt		a2h_Error
-	lix		r9,0x47		; check if letter is between 'A' and F' inclusively
-	cmp		r9,r8
+	cmpi	r8,0x3A			; '0' - '9'
+	bgt		gotDigit
+	cmpi	r8,0x41			; ':' - '@'
+	bgt		a2h_Error
+	cmpi	r8,0x47			; 'A' - 'F'
 	blt		gotUpperLetter
-	lix		r9,0x61		; check if between 'F' and 'a' exclusively
-	cmp		r9,r8
-	blt		a2h_Error
+	cmpi	r8,0x61			; 'G' - 'tick'
+	bgt		a2h_Error
 ; Lower case letter
-	lix		r9,0x57
-	xor		r9,r9,MINUS1
-	add		r9,r9,ONE
-	add		r8,r8,r9
-	lix		r9,0x0F
-	and		r8,r8,r9
+	subi	r8,r8,0x57
 	bra		doneConvA2H
+; number 0-9
 gotDigit:
-	lix		r9,0x30
-	xor		r9,r9,MINUS1
-	add		r9,r9,ONE
-	add		r8,r8,r9
-	lix		r9,0x0F
-	and		r8,r8,r9
+	subi	r8,r8,0x30
 	bra		doneConvA2H
+; A-F
 gotUpperLetter:
-	lix		r9,0x37
-	xor		r9,r9,MINUS1
-	add		r9,r9,ONE
-	add		r8,r8,r9
-	lix		r9,0x0F
-	and		r8,r8,r9
+	subi	r8,r8,0x37
 	bra		doneConvA2H
 a2h_Error:
 	lix		r8,syntaxError.lower
 	bsr		printString
 	lix		r8,0xDEAD
 doneConvA2H:
-	pull	r9
 	pull	PC
 
 ;
@@ -932,7 +906,7 @@ waitGetCharFromUART:
 	lix		PAR,0x1800	; UART Status
 waitUartRxStat:
 	lpl		r8			; Read Status into r8
-	and 	r8,r8,ONE
+	andi 	r8,r8,0x1
 	bez 	waitUartRxStat
 	lix 	PAR,0x1801
 	lpl		r8
@@ -947,16 +921,13 @@ waitUartRxStat:
 putCharToUART:
 	push	r9
 	push	PAR
-	push	r10
-	lix		r10,0x2
 	lix		PAR,0x1800	; UART Status
 waitUartTxStat:
 	lpl		r9			; Read Status into r9
-	and 	r9,r9,r10
+	andi	r9,r9,0x2
 	bez 	waitUartTxStat
 	lix 	PAR,0x1801
 	spl		r8			; echo the character
-	pull	r10
 	pull	PAR
 	pull	r9
 	pull	PC
@@ -974,9 +945,9 @@ printString:
 	add		DAR,r8,ZERO			; set the start of the string
 nextChar:
 	ldbp	r8					; get the character01
-	cmp		r8,ZERO				; Null terminated string
+	cmpi	r8,0x0				; Null terminated string
 	beq		donePrStr			; done if null
-	bsr		putCharToANSIScreen	; write out the character
+	bsr		writeANSI_UART	; write out the character
 	bra		nextChar
 donePrStr:
 	pull	DAR					; restore DAR
@@ -993,13 +964,12 @@ donePrStr:
 printLine:
 	push	r8					; save r8
 	push	DAR
-	add		DAR,r8,ZERO			; set the start of the string
+	addi	DAR,r8,0x0			; set the start of the string
 nextChar2:
-	ldbp		r8					; get the character
-	cmp		r8,ZERO				; Null terminated string
+	ldbp	r8					; get the character
+	cmpi	r8,0x0				; Null terminated string
 	beq		donePrStr2			; done if null
-	bsr		putCharToANSIScreen	; write out the character
-	;add		DAR,DAR,r1			; Point to next character
+	bsr		writeANSI_UART	; write out the character
 	bra		nextChar2
 donePrStr2:
 	bsr		newLine
@@ -1014,32 +984,27 @@ donePrStr2:
 newLine:
 	push	r8
 	lix		r8,0x0A				; Line Feed
-	bsr		putCharToANSIScreen	; Put the character to the screen
+	bsr		writeANSI_UART	; Put the character to the screen
 	lix		r8,0x0D				; Carriage Return
-	bsr		putCharToANSIScreen	; Put the character to the screen
-	bsr		putCharToUART		; Echo character back to the UART
+	bsr		writeANSI_UART		; Echo character back to the UART
 	pull	r8
 	pull	PC
 
 ;
-; clearScreen - Clear the screen routine
+; clearANSIScreenAndUART - Clear the screen routine
 ; ANSI Terminal has an escape sequence which clears the screen and homes cursor
 ;
 
-clearScreen:
+clearANSIScreenAndUART:
 	push	r8				; save r8
 	lix		r8,0x1b			; ESC
-	bsr		putCharToANSIScreen
-	bsr		putCharToUART
+	bsr		writeANSI_UART
 	lix		r8,0x5b			; [
-	bsr		putCharToANSIScreen
-	bsr		putCharToUART
+	bsr		writeANSI_UART
 	lix		r8,0x32			; 2
-	bsr		putCharToANSIScreen
-	bsr		putCharToUART
+	bsr		writeANSI_UART
 	lix		r8,0x4A			; J
-	bsr		putCharToANSIScreen
-	bsr		putCharToUART
+	bsr		writeANSI_UART
 	pull	r8
 	pull	PC				; rts
 
@@ -1051,16 +1016,13 @@ clearScreen:
 putCharToANSIScreen:
 	push	r9
 	push	PAR
-	push	r10
-	lix		r10,0x2		; TxReady bit
 	lix		PAR,0x0		; UART Status
 waitScreenTxStat:
 	lpl		r9			; Read Status into r9
-	and 	r9,r9,r10
+	andi	r9,r9,0x2
 	bez 	waitScreenTxStat
 	lix 	PAR,0x1
 	spl		r8			; echo the character
-	pull	r10
 	pull	PAR
 	pull	r9
 	pull	PC
@@ -1083,15 +1045,14 @@ makeBuzz:
 ;
 ; setNote - Set the note
 ; pass note in r8
+; returns note
 ;
 
 setNote:
-	push	r8
 	push	PAR
 	lix		PAR,0x4000
 	spl		r8
 	pull	PAR
-	pull	r8
 	pull	PC
 
 ;
@@ -1099,17 +1060,14 @@ setNote:
 ;
 
 enableBuzzer:
-	push	r9
 	push	r8
 	push	PAR
-	lix		r9,0x0010		; Buzzer Enable line
 	lix		PAR,0x2800
 	lpl		r8
-	or		r8,r8,r9
+	ori		r8,r8,0x10
 	spl		r8
 	pull	PAR
 	pull	r8
-	pull	r9
 	pull	PC
 
 ;
@@ -1117,17 +1075,15 @@ enableBuzzer:
 ;
 
 disableBuzzer:
-	push	r9
 	push	r8
 	push	PAR
 	lix		r9,0xffef		; Buzzer Disable line
 	lix		PAR,0x2800
 	lpl		r8
-	and		r8,r8,r9
+	andi	r8,r8,0xffef
 	spl		r8
 	pull	PAR
 	pull	r8
-	pull	r9
 	pull	PC
 	
 ; delay_mS - delay for the number of mSecs passed in r8
@@ -1154,17 +1110,80 @@ loop_delay_mS:
 getPS2Char:
 	push	r9
 	push	PAR
-	lix	PAR,0x1000	; PS/2 Status
+	lix		PAR,0x1000	; PS/2 Status
 waitPS2RxStat:
-	lpl	r9			; Read Status into r9
-	and r9,r9,r1
-	bez waitPS2RxStat
+	lpl		r9			; Read Status into r9
+	andi	r9,r9,0x1
+	bez 	waitPS2RxStat
 getCharFromPS2:
-	lix PAR,0x0800
-	lpl	r8
-	lix	PAR,0x1000	; PS/2 Status
+	lix 	PAR,0x0800
+	lpl		r8
+	lix		PAR,0x1000	; PS/2 Status
 whilePS2RxStat:
 	pull	PAR
 	pull	r9
 	pull	PC
 
+; waitReadPS2_UART
+; wait for character from either 
+;	the PS/2 keyboard and UART serial
+; r8 = read character
+
+waitReadPS2_UART:
+	push	PAR
+checkCharFromPS2:
+	lix		PAR,0x1000	; PS/2 Status
+	lpl		r8			; Read Status
+	andi	r8,r8,0x1	; =1 when char received
+	bez 	checkUARTStat
+	lix 	PAR,0x0800	; PS/2 Data
+	lpl		r8
+	bra		gotPS2Char
+checkUARTStat:
+	lix		PAR,0x1800	; UART Status
+	lpl		r8			; Read Status
+	andi 	r8,r8,0x1	; =1 when char received
+	bez 	checkCharFromPS2
+	lix 	PAR,0x1801	; UART Data
+	lpl		r8
+gotPS2Char:
+	pull	PAR
+	pull	PC
+	
+; checkForCharAndDiscard - Check for a character in UART or PS/2
+; Discard the character received
+; return whether char was present (1) or no char was present (0)
+
+checkForCharAndDiscard:
+	push	PAR
+	lix		PAR,0x1000	; PS/2 Status
+	lpl		r8			; Read Status
+	andi	r8,r8,0x1	; =1 when char received
+	bez 	checkUARTStat2
+	lix 	PAR,0x0800	; PS/2 Data
+	lpl		r8			; throw away char
+	lix		r8,0x1
+	bra		gotChar
+checkUARTStat2:
+	lix		PAR,0x1800	; UART Status
+	lpl		r8			; Read Status
+	andi 	r8,r8,0x1	; =1 when char received
+	bez 	noCharReceived
+	lix 	PAR,0x1801	; UART Data
+	lpl		r8
+	lix		r8,1
+	bra		gotChar
+noCharReceived:
+	lix		r8,0
+gotChar:
+	pull	PAR
+	pull	PC
+
+; writeANSI_UART
+; write out a character to both 
+;	the ANSI screen and the UART
+
+writeANSI_UART:
+	bsr		putCharToANSIScreen
+	bsr		putCharToUART
+	pull	PC

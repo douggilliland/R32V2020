@@ -72,11 +72,11 @@ w_ALUResult <= ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when 
 					((i_regDataB(31)&i_regDataB) - i_immedVal) when i_Op_SUBI = '1' else
 					multResultLong when i_Op_MUL = '1' else		-- added multiply
 					(('0'&i_regDataA) and i_regDataB) when i_Op_AND = '1' else
-					(('0'&i_regDataB) and i_immedVal) when i_Op_ANDI = '1' else
+					(('0'&i_regDataB) and '0'&"0000"&i_immedVal) when i_Op_ANDI = '1' else
 					(('0'&i_regDataA) or  i_regDataB) when i_Op_OR  = '1' else
-					(('0'&i_regDataB) or  i_immedVal) when i_Op_ORI  = '1' else
+					(('0'&i_regDataB) or '0'&"0000"&i_immedVal) when i_Op_ORI  = '1' else
 					(('0'&i_regDataA) xor i_regDataB) when i_Op_XOR = '1' else
-					(('0'&i_regDataB) xor i_immedVal) when i_Op_XORI = '1' else
+					(('0'&i_regDataB) xor '0'&"0000"&i_immedVal) when i_Op_XORI = '1' else
 					(('0'&i_regDataA(30 downto 0)&'0')) when i_Op_SL1 = '1' else
 					(('0'&i_regDataA(23 downto 0)&x"00")) when i_Op_SL8 = '1' else
 					("00"&i_regDataA(31 downto 1)) when i_Op_SR1 = '1' else
@@ -87,19 +87,28 @@ w_ALUResult <= ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when 
 					('0'&i_regDataA(7 downto 0)&i_regDataA(15 downto 8)&i_regDataA(23 downto 16)&i_regDataA(31 downto 24)) when i_Op_ENS = '1' else
 					x"00000000"&'0';
 
-w_EqualToZero	<= '1' when w_ALUResult = '0'&x"00000000" else '0';
-w_NotZero		<= '1' when w_ALUResult /= '0'&x"00000000" else '0';
-w_EqualToOne	<= '1' when w_ALUResult = '0'&x"00000001" else '0';
-w_CarrySet		<= '1' when ((((i_Op_ADD = '1') or (i_Op_SUB = '1')) and (w_ALUResult(32) = '1')) or ((multResult(63 downto 32) /= "00000000") and (i_Op_MUL = '1'))) else '0';
-w_CarryClear	<= '1' when (((i_Op_ADD = '1') and (w_ALUResult(32) = '0')) or ((multResult(63 downto 32)  = "00000000") and (i_Op_MUL = '1')))  else '0';
+w_EqualToZero	<= '1' when w_ALUResult = '0'&x"00000000" else 
+						'0';
+w_EqualToOne	<= '1' when w_ALUResult = '0'&x"00000001" else 
+						'0';
+w_NotZero		<= '1' when w_ALUResult /= '0'&x"00000000" else 
+						'0';
+w_CarrySet		<= '1' when ((((i_Op_ADD = '1') or (i_Op_SUB = '1') or (i_Op_ADDI = '1') or (i_Op_SUBI = '1')) and (w_ALUResult(32) = '1')) or ((multResult(63 downto 32) /= "00000000") and ((i_Op_MUL = '1') or (i_Op_MULI = '1')))) else 
+						'0';
+w_CarryClear	<= '1' when (((i_Op_ADD = '1') and (w_ALUResult(32) = '0')) or ((multResult(63 downto 32)  = "00000000") and (i_Op_MUL = '1')))  else 
+						'0';
 w_GreaterThan  <= '1' when ((i_regDataA            > i_regDataB) and i_Op_CMP  = '1') else 
-						'1' when (((x"0000"&i_immedVal)  > i_regDataB) and i_Op_CMPI = '1') else '0';
+						'1' when (((x"0000"&i_immedVal)  > i_regDataB) and i_Op_CMPI = '1') else 
+						'0';
 w_LessThan  	<= '1' when ((i_regDataA            < i_regDataB) and i_Op_CMP  = '1') else 
-						'1' when (((x"0000"&i_immedVal)  < i_regDataB) and i_Op_CMPI = '1') else '0';
+						'1' when (((x"0000"&i_immedVal)  < i_regDataB) and i_Op_CMPI = '1') else  
+						'0';
 w_EqualCmp    	<= '1' when ((i_regDataA 			   = i_regDataB) and i_Op_CMP  = '1') else 
-						'1' when (((x"0000"&i_immedVal)  = i_regDataB) and i_Op_CMPI = '1') else '0';
+						'1' when (((x"0000"&i_immedVal)  = i_regDataB) and i_Op_CMPI = '1') else  
+						'0';
 w_NotEqualCmp  <= '1' when ((i_regDataA           /= i_regDataB) and i_Op_CMP  = '1') else 
-						'1' when (((x"0000"&i_immedVal) /= i_regDataB) and i_Op_CMPI = '1') else '0';
+						'1' when (((x"0000"&i_immedVal) /= i_regDataB) and i_Op_CMPI = '1') else  
+						'0';
 
 o_CondCodeBits <= x"00000"&			-- bits 12-31
 						"000" &				-- bits 9-11
