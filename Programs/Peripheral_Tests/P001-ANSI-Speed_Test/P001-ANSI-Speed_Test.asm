@@ -90,7 +90,7 @@ doneTests:
 ;
 ; testCharWriteSpeed - Test Char Write Speed
 ; Use microsecond counter - 0x3801 is microsecond counter
-; Measured 0x576 = 1,398 uS for 1024 chars or 1.37 uS/char or 732K chars/sec
+; Measured 0x31F = 799 uS for 1024 chars or 0.78 uS/char or 1.2M chars/sec
 ;
 
 testCharWriteSpeed:
@@ -106,7 +106,13 @@ testCharWriteSpeed:
 	lix		PAR,0x3801	; microsecond counter
 	lpl		r9			; read the counter
 anotherCharTest:
-	bsr		putCharToANSIScreen
+	lix		PAR,0x0		; ANSI Screen Status (UART style)
+waitScreenTxStat3:
+	lpl		r11			; Read Status into r9
+	andi	r11,r11,0x2
+	bez 	waitScreenTxStat3
+	lix 	PAR,0x1		; ANSI Screen Data (UART style)
+	spl		r8			; echo the character
 	subi	r10,r10,1
 	bnz		anotherCharTest
 	lix		PAR,0x3801	; microsecond counter
@@ -134,8 +140,8 @@ reload001:
 	
 ;
 ; testScreenClearSpeed - Test Screen Clear Speed
-; 1024 screen clears take 0x192C1 = 103,105 uS
-;	100.7 uS to clear the screen
+; 1024 screen clears take 0x190CC = 102,604 uS
+;	100.2 uS to clear the screen
 ;
 
 testScreenClearSpeed:
@@ -177,8 +183,8 @@ reload002:
 	
 ;
 ; testScreenScrollSpeed - Test Screen Scroll Speed
-; 1024 lines in 0x0FC8 uSecs = 4,040 uS
-;	 3.945 uS to scroll screen
+; 1024 lines in 0x0FC7 uSecs = 4,039 uS
+;	 3.94 uS to scroll screen
 ;
 
 testScreenScrollSpeed:
@@ -186,6 +192,7 @@ testScreenScrollSpeed:
 	push	r8
 	push	r9
 	push	r10
+	push	r11
 	lix		r8,0x0A				; Line Feed
 	lix		r10,26				; prescroll by 26 lines to get to the bottom of the screen
 scrollAgain:
@@ -199,7 +206,13 @@ scrollAgain:
 	lix		PAR,0x3801	; microsecond counter
 	lpl		r9			; read the counter
 anotherScroll:
-	bsr		putCharToANSIScreen
+	lix		PAR,0x0		; ANSI Screen Status (UART style)
+waitScreenTxStat2:
+	lpl		r11			; Read Status into r9
+	andi	r11,r11,0x2
+	bez 	waitScreenTxStat2
+	lix 	PAR,0x1		; ANSI Screen Data (UART style)
+	spl		r8			; echo the character
 	subi	r10,r10,1
 	bnz		anotherScroll
 	lix		PAR,0x3801	; microsecond counter
@@ -219,10 +232,74 @@ reload003:
 	bsr		checkForCharAndDiscard
 	cmpi	r8,0
 	beq		reload003
+	pull	r11
 	pull	r10
 	pull	r9
 	pull	r8
 	pull	PAR
+	pull	PC
+	
+;
+; clearANSIScreenAndUART - Clear the screen routine
+; ANSI Terminal has an escape sequence which clears the screen and homes cursor
+;
+
+clearANSIScreen:
+	push	r8				; save r8
+	lix		r8,0x1b			; ESC
+	lix		PAR,0x0		; ANSI Screen Status (UART style)
+waitScreenTxStat4:
+	lpl		r11			; Read Status into r9
+	andi	r11,r11,0x2
+	bez 	waitScreenTxStat4
+	lix 	PAR,0x1		; ANSI Screen Data (UART style)
+	spl		r8			; echo the character
+	lix		r8,0x5b			; [
+	lix		PAR,0x0		; ANSI Screen Status (UART style)
+waitScreenTxStat5:
+	lpl		r11			; Read Status into r9
+	andi	r11,r11,0x2
+	bez 	waitScreenTxStat5
+	lix 	PAR,0x1		; ANSI Screen Data (UART style)
+	spl		r8			; echo the character
+	lix		r8,0x32			; 2
+	lix		PAR,0x0		; ANSI Screen Status (UART style)
+waitScreenTxStat6:
+	lpl		r11			; Read Status into r9
+	andi	r11,r11,0x2
+	bez 	waitScreenTxStat6
+	lix 	PAR,0x1		; ANSI Screen Data (UART style)
+	spl		r8			; echo the character
+	lix		r8,0x4A			; J
+	lix		PAR,0x0		; ANSI Screen Status (UART style)
+waitScreenTxStat7:
+	lpl		r11			; Read Status into r9
+	andi	r11,r11,0x2
+	bez 	waitScreenTxStat7
+	lix 	PAR,0x1		; ANSI Screen Data (UART style)
+	spl		r8			; echo the character
+	pull	r8
+	pull	PC				; rts
+
+;
+; putCharToANSIScreen - Put a character to the screen
+; Character to put to screen is in r8
+;
+
+putCharToANSIScreen:
+;	push	r8
+	push	r9
+;	push	PAR
+	lix		PAR,0x0		; ANSI Screen Status (UART style)
+waitScreenTxStat:
+	lpl		r9			; Read Status into r9
+	andi	r9,r9,0x2
+	bez 	waitScreenTxStat
+	lix 	PAR,0x1		; ANSI Screen Data (UART style)
+	spl		r8			; echo the character
+;	pull	PAR
+	pull	r9
+;	pull	r8
 	pull	PC
 	
 ;
@@ -542,43 +619,6 @@ clearANSIScreenAndUART:
 	pull	r8
 	pull	PC				; rts
 
-;
-; clearANSIScreenAndUART - Clear the screen routine
-; ANSI Terminal has an escape sequence which clears the screen and homes cursor
-;
-
-clearANSIScreen:
-	push	r8				; save r8
-	lix		r8,0x1b			; ESC
-	bsr		putCharToANSIScreen
-	lix		r8,0x5b			; [
-	bsr		putCharToANSIScreen
-	lix		r8,0x32			; 2
-	bsr		putCharToANSIScreen
-	lix		r8,0x4A			; J
-	bsr		putCharToANSIScreen
-	pull	r8
-	pull	PC				; rts
-
-;
-; putCharToANSIScreen - Put a character to the screen
-; Character to put to screen is in r8
-;
-
-putCharToANSIScreen:
-	push	r9
-	push	PAR
-	lix		PAR,0x0		; ANSI Screen Status (UART style)
-waitScreenTxStat:
-	lpl		r9			; Read Status into r9
-	andi	r9,r9,0x2
-	bez 	waitScreenTxStat
-	lix 	PAR,0x1		; ANSI Screen Data (UART style)
-	spl		r8			; echo the character
-	pull	PAR
-	pull	r9
-	pull	PC
-	
 ;
 ; delay_mS - delay for the number of mSecs passed in r8
 ; pass mSec delay in r8
