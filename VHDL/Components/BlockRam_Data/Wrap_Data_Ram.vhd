@@ -89,7 +89,7 @@ BEGIN
 	
 	Data_RAM : entity work.BlockRam_Data
 	PORT MAP (
-		address 		=> address(9 downto 2),
+		address 		=> address(11 downto 2),
 		clock 		=> clock,
 		data 			=> uuWrDataByte&umWrDataByte&lmWrDataByte&llWrDataByte,
 		byteena		=> uuByteWrEn&umByteWrEn&lmByteWrEn&llByteWrEn,

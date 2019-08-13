@@ -152,7 +152,7 @@ begin
 	-- Instruction ROM
 	Instr_ROM : entity work.BlockRom_Instruction
 	PORT MAP (
-		address		=> w_InstructionRomAddress(9 downto 0),
+		address		=> w_InstructionRomAddress(11 downto 0),
 		clken			=> w_clkInstrRomAddr,
 		clock 		=> i_CLOCK_50,
 		q 				=> w_InstructionRomData
@@ -161,7 +161,7 @@ begin
 	-- Stack RAM
 	Stack_RAM : entity work.BlockRam_Stack
 	PORT MAP	(
-		address	=> w_StackRamAddress(7 downto 0),
+		address	=> w_StackRamAddress(8 downto 0),
 		clock		=> i_CLOCK_50,
 		data		=> w_dataToStackRam,
 		wren		=> w_writeStackRamEn,
