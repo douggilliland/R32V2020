@@ -7,23 +7,271 @@
 ;	3 - Screen scroll speed
 ;
 
-prompt:			.string "ANSI Speed Test "
+prompt:			.string "ANSI VDU Speed Tests"
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 syntaxError:	.string "Syntax error"
 runningString:	.string "Running..."
+hitAnyKey:		.string "Hit any key to exit..."
 serialOverflow:	.string "Serial port overflow"
+testMetric:		.string "Ran test 1024 times in (uSecs) : "
+menuItem_01:	.string "01 - Character write speed"
+menuItem_02:	.string "02 - Screen clear speed"
+menuItem_03:	.string "03 - Screen scroll speed"
+
 ;
 ; Read a line from the UART and parse the line
 ;
 
 main:
-00000000	D40000F6		bsr		clearANSIScreenAndUART
+00000000	D400013D		bsr		clearANSIScreenAndUART
 00000001	42800000		lix		r8,prompt.lower
-00000002	D40000E1		bsr		printLine
-00000003	D4000003		bsr		getLine
-00000004	D4000024		bsr		callTests
-00000005	C0FFFFFB		bra		main
+00000002	D4000128		bsr		printLine
+00000003	D4000004		bsr		printMenu
+00000004	D40000AC		bsr		getLine
+00000005	D400000B		bsr		callTests
+00000006	C0FFFFFA		bra		main
+
+;
+; printMenu - Print the menu
+;
+
+printMenu:
+00000007	A0408000		push	r8
+00000008	428000DC		lix		r8,menuItem_01.lower
+00000009	D4000121		bsr		printLine
+0000000a	428000F8		lix		r8,menuItem_02.lower
+0000000b	D400011F		bsr		printLine
+0000000c	42800110		lix		r8,menuItem_03.lower
+0000000d	D400011D		bsr		printLine
+0000000e	A1804000		pull	r8
+0000000f	A1704000		pull	PC
+
+;
+; callTests - 
+; line is in lineBuff
+;	1 - Character write speed
+;	2 - Screen clear speed
+;	3 - Screen scroll speed
+; Uses r8 for the command
+;
+
+callTests:
+00000010	A0408000		push	r8
+00000011	42800018		lix		r8,lineBuff.lower
+00000012	D40000CD		bsr		hexToSevenSeg
+; testCharWriteSpeed
+00000013	39380001		cmpi	r8,0x01
+00000014	D2000003		bne		skipTo2
+00000015	D4000010		bsr		testCharWriteSpeed
+00000016	C000000D		bra		doneTests
+; testScreenClearSpeed
+skipTo2:
+00000017	39380002		cmpi	r8,0x02
+00000018	D2000003		bne		skipTo3
+00000019	D400002F		bsr		testScreenClearSpeed
+0000001a	C0000009		bra		doneTests
+; testScreenScrollSpeed
+skipTo3:
+0000001b	39380003		cmpi	r8,0x03
+0000001c	D2000003		bne		skipToEnd
+0000001d	D400004C		bsr		testScreenScrollSpeed
+0000001e	C0000005		bra		doneTests
+; testScreenScrollSpeed
+skipToEnd:
+0000001f	A0408000		push	r8
+00000020	4280006C		lix		r8,syntaxError.lower
+00000021	D40000FE		bsr		printString
+00000022	A1804000		pull	r8
+doneTests:
+00000023	A1804000		pull	r8
+00000024	A1704000		pull	PC
+	
+;
+; testCharWriteSpeed - Test Char Write Speed
+; Use microsecond counter - 0x3801 is microsecond counter
+; Measured 0x576 = 1,398 uS for 1024 chars or 1.37 uS/char or 732K chars/sec
+;
+
+testCharWriteSpeed:
+00000025	A0405000		push	PAR
+00000026	A0408000		push	r8
+00000027	A0409000		push	r9
+00000028	A040A000		push	r10
+00000029	D400011F		bsr		clearANSIScreen
+0000002a	4280000A		lix		r8,10		; Delay for 10 mS to give the screen time to clear
+0000002b	D4000133		bsr		delay_mS
+0000002c	42800031		lix		r8,0x31		; char to print is '1'
+0000002d	42A00400		lix		r10,1024	; print 1024 characters
+0000002e	42503801		lix		PAR,0x3801	; microsecond counter
+0000002f	84905000		lpl		r9			; read the counter
+anotherCharTest:
+00000030	D4000123		bsr		putCharToANSIScreen
+00000031	23AA0001		subi	r10,r10,1
+00000032	C7FFFFFE		bnz		anotherCharTest
+00000033	42503801		lix		PAR,0x3801	; microsecond counter
+00000034	84805000		lpl		r8			; read the counter
+00000035	22898000		sub		r8,r9,r8	; How many microseconds to clear screen?
+00000036	D400009C		bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
+00000037	D40000FF		bsr		newLine
+00000038	A0408000		push	r8
+00000039	428000B8		lix		r8,testMetric.lower
+0000003a	D40000E5		bsr		printString
+0000003b	A1804000		pull	r8
+0000003c	D4000054		bsr		printLong
+0000003d	D40000F9		bsr		newLine
+0000003e	42800088		lix		r8,hitAnyKey.lower
+0000003f	D40000EB		bsr		printLine
+reload001:
+00000040	D4000147		bsr		checkForCharAndDiscard
+00000041	39380000		cmpi	r8,0
+00000042	D1FFFFFE		beq		reload001
+00000043	A1A04000		pull	r10
+00000044	A1904000		pull	r9
+00000045	A1804000		pull	r8
+00000046	A1504000		pull	PAR
+00000047	A1704000		pull	PC
+	
+;
+; testScreenClearSpeed - Test Screen Clear Speed
+; 1024 screen clears take 0x192C1 = 103,105 uS
+;	100.7 uS to clear the screen
+;
+
+testScreenClearSpeed:
+00000048	A0405000		push	PAR
+00000049	A0408000		push	r8
+0000004a	A0409000		push	r9
+0000004b	A040A000		push	r10
+0000004c	4280000A		lix		r8,10		; Delay for 10 mS to give the screen time to clear
+0000004d	D4000111		bsr		delay_mS
+0000004e	42A00400		lix		r10,1024	; clear screen 1024 times
+0000004f	42503801		lix		PAR,0x3801	; microsecond counter
+00000050	84905000		lpl		r9			; read the counter
+clearAgain:
+00000051	D40000F7		bsr		clearANSIScreen
+00000052	23AA0001		subi	r10,r10,1
+00000053	C7FFFFFE		bnz		clearAgain
+00000054	42503801		lix		PAR,0x3801	; microsecond counter
+00000055	84805000		lpl		r8			; read the counter
+00000056	22898000		sub		r8,r9,r8	; How many microseconds to clear screen?
+00000057	D400007B		bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
+00000058	D40000DE		bsr		newLine
+00000059	A0408000		push	r8
+0000005a	428000B8		lix		r8,testMetric.lower
+0000005b	D40000C4		bsr		printString
+0000005c	A1804000		pull	r8
+0000005d	D4000033		bsr		printLong
+0000005e	D40000D8		bsr		newLine
+0000005f	42800088		lix		r8,hitAnyKey.lower
+00000060	D40000BF		bsr		printString
+reload002:
+00000061	D4000126		bsr		checkForCharAndDiscard
+00000062	39380000		cmpi	r8,0
+00000063	D1FFFFFE		beq		reload002
+00000064	A1A04000		pull	r10
+00000065	A1904000		pull	r9
+00000066	A1804000		pull	r8
+00000067	A1504000		pull	PAR
+00000068	A1704000		pull	PC
+	
+;
+; testScreenScrollSpeed - Test Screen Scroll Speed
+; 1024 lines in 0x0FC8 uSecs = 4,040 uS
+;	 3.945 uS to scroll screen
+;
+
+testScreenScrollSpeed:
+00000069	A0405000		push	PAR
+0000006a	A0408000		push	r8
+0000006b	A0409000		push	r9
+0000006c	A040A000		push	r10
+0000006d	4280000A		lix		r8,0x0A				; Line Feed
+0000006e	42A0001A		lix		r10,26				; prescroll by 26 lines to get to the bottom of the screen
+scrollAgain:
+0000006f	D40000E4		bsr		putCharToANSIScreen
+00000070	23AA0001		subi	r10,r10,1
+00000071	C7FFFFFE		bnz		scrollAgain
+00000072	428001F4		lix		r8,500		; Delay for 500 mS to give the screen time to scroll
+00000073	D40000EB		bsr		delay_mS
+00000074	4280000A		lix		r8,0x0A				; Line Feed
+00000075	42A00400		lix		r10,1024
+00000076	42503801		lix		PAR,0x3801	; microsecond counter
+00000077	84905000		lpl		r9			; read the counter
+anotherScroll:
+00000078	D40000DB		bsr		putCharToANSIScreen
+00000079	23AA0001		subi	r10,r10,1
+0000007a	C7FFFFFE		bnz		anotherScroll
+0000007b	42503801		lix		PAR,0x3801	; microsecond counter
+0000007c	84805000		lpl		r8			; read the counter
+0000007d	22898000		sub		r8,r9,r8	; How many microseconds to clear screen?
+0000007e	D4000054		bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
+0000007f	D40000B7		bsr		newLine
+00000080	A0408000		push	r8
+00000081	428000B8		lix		r8,testMetric.lower
+00000082	D400009D		bsr		printString
+00000083	A1804000		pull	r8
+00000084	D400000C		bsr		printLong
+00000085	D40000B1		bsr		newLine
+00000086	42800088		lix		r8,hitAnyKey.lower
+00000087	D4000098		bsr		printString
+reload003:
+00000088	D40000FF		bsr		checkForCharAndDiscard
+00000089	39380000		cmpi	r8,0
+0000008a	D1FFFFFE		beq		reload003
+0000008b	A1A04000		pull	r10
+0000008c	A1904000		pull	r9
+0000008d	A1804000		pull	r8
+0000008e	A1504000		pull	PAR
+0000008f	A1704000		pull	PC
+	
+;
+; printLong
+; r8 contains the long value to print
+;
+
+printLong:
+00000090	A0408000		push	r8
+00000091	A0409000		push	r9
+00000092	A040A000		push	r10
+00000093	A0408000		push	r8				; temporarily save r8
+00000094	42800030		lix		r8,0x30
+00000095	D4000106		bsr		writeANSI_UART
+00000096	42800078		lix		r8,0x78
+00000097	D4000104		bsr		writeANSI_UART
+00000098	A1804000		pull	r8				; restore r8
+00000099	42900008		lix		r9,8			; loop counter
+doNextPrintLong:
+0000009a	34808000		rol1	r8,r8
+0000009b	34808000		rol1	r8,r8
+0000009c	34808000		rol1	r8,r8
+0000009d	34808000		rol1	r8,r8
+0000009e	D4000007		bsr		printHexVal
+0000009f	23990001		subi	r9,r9,1
+000000a0	C7FFFFFA		bnz		doNextPrintLong
+000000a1	A1A04000		pull	r10
+000000a2	A1904000		pull	r9
+000000a3	A1804000		pull	r8
+000000a4	A1704000		pull	PC
+
+;
+; printHexVal
+;
+
+printHexVal:
+000000a5	A0408000		push	r8
+000000a6	2B88000F		andi	r8,r8,0xf
+000000a7	39380009		cmpi	r8,9
+000000a8	CC000004		blt		printHexLetter
+000000a9	21880030		addi	r8,r8,0x30
+000000aa	D40000F1		bsr		writeANSI_UART
+000000ab	C0000003		bra		donePrintHexVal
+printHexLetter:
+000000ac	21880037		addi	r8,r8,0x37		; 'A' - 10
+000000ad	D40000EE		bsr		writeANSI_UART
+donePrintHexVal:
+000000ae	A1804000		pull	r8
+000000af	A1704000		pull	PC
 
 ;
 ; getLine - Reads the UART and fills a buffer with the characters received
@@ -34,208 +282,56 @@ main:
 ;
 
 getLine:
-00000006	A0408000		push	r8
-00000007	A0409000		push	r9
-00000008	A040A000		push	r10
-00000009	A0406000		push	DAR
-0000000a	42600014		lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
-0000000b	4290004F		lix		r9,79				; max number of chars in the line buffer
+000000b0	A0408000		push	r8
+000000b1	A0409000		push	r9
+000000b2	A040A000		push	r10
+000000b3	A0406000		push	DAR
+000000b4	42600018		lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
+000000b5	4290004F		lix		r9,79				; max number of chars in the line buffer
 loopReadLine:
-0000000c	D4000124		bsr		waitReadPS2_UART	; Get a character from the PS/2 or UART
-0000000d	D4000147		bsr		writeANSI_UART		; Echo character back to the ANSI Display and UART
-0000000e	3938000D		cmpi	r8,0x0D				; check if received char was end of line
-0000000f	D1000009		beq		gotEOL
-00000010	3938007F		cmpi	r8,0x7F
-00000011	D100000C		beq		gotBackspace
-00000012	69608000		sdbp	r8
-00000013	23990001		subi	r9,r9,1
-00000014	C7FFFFF8		bnz		loopReadLine		; Next char would overflow
-00000015	42800084		lix		r8,serialOverflow.lower
-00000016	D400013E		bsr		writeANSI_UART		; Put the character to the screen
-00000017	C000000C		bra		doneHandlingLine
+000000b6	D40000C1		bsr		waitReadPS2_UART	; Get a character from the PS/2 or UART
+000000b7	D40000E4		bsr		writeANSI_UART		; Echo character back to the ANSI Display and UART
+000000b8	3938000D		cmpi	r8,0x0D				; check if received char was end of line
+000000b9	D1000009		beq		gotEOL
+000000ba	3938007F		cmpi	r8,0x7F
+000000bb	D100000C		beq		gotBackspace
+000000bc	69608000		sdbp	r8
+000000bd	23990001		subi	r9,r9,1
+000000be	C7FFFFF8		bnz		loopReadLine		; Next char would overflow
+000000bf	428000A0		lix		r8,serialOverflow.lower
+000000c0	D40000DB		bsr		writeANSI_UART		; Put the character to the screen
+000000c1	C000000C		bra		doneHandlingLine
 gotEOL:
-00000018	4280000A		lix		r8,0x0A				; Echo line feed after CR
-00000019	D400013B		bsr		writeANSI_UART		; Put the character to the screen
-0000001a	D40000B3		bsr		putCharToUART		; Echo character back to the UART
-0000001b	61600000		sdb		r0					; null at end of line read
-0000001c	C0000007		bra		doneHandlingLine
+000000c2	4280000A		lix		r8,0x0A				; Echo line feed after CR
+000000c3	D40000D8		bsr		writeANSI_UART		; Put the character to the screen
+000000c4	D4000050		bsr		putCharToUART		; Echo character back to the UART
+000000c5	61600000		sdb		r0					; null at end of line read
+000000c6	C0000007		bra		doneHandlingLine
 gotBackspace:
-0000001d	23660001		subi	DAR,DAR,1
-0000001e	42A00014		lix		r10,lineBuff.lower	; r10 pointer = start of line buffer
-0000001f	383A6000		cmp		r10,DAR
-00000020	CFFFFFEC		bgt		loopReadLine
-00000021	216A0000		addi	DAR,r10,0
-00000022	C0FFFFEA		bra		loopReadLine
+000000c7	23660001		subi	DAR,DAR,1
+000000c8	42A00018		lix		r10,lineBuff.lower	; r10 pointer = start of line buffer
+000000c9	383A6000		cmp		r10,DAR
+000000ca	CFFFFFEC		bgt		loopReadLine
+000000cb	216A0000		addi	DAR,r10,0
+000000cc	C0FFFFEA		bra		loopReadLine
 doneHandlingLine:
-00000023	A1604000		pull	DAR
-00000024	A1A04000		pull	r10
-00000025	A1904000		pull	r9
-00000026	A1804000		pull	r8
-00000027	A1704000		pull	PC
+000000cd	A1604000		pull	DAR
+000000ce	A1A04000		pull	r10
+000000cf	A1904000		pull	r9
+000000d0	A1804000		pull	r8
+000000d1	A1704000		pull	PC
 
-;
-; callTests - 
-; line is in lineBuff
-;	1 - Character write speed
-;	2 - Screen fill speed
-;	3 - Screen clear speed
-;	4 - Screen scroll speed
-; Uses r8 for the command
-;
-
-callTests:
-00000028	A0408000		push	r8
-00000029	42800014		lix		r8,lineBuff.lower
-0000002a	D400006E		bsr		hexToSevenSeg
-; testCharWriteSpeed
-0000002b	39380001		cmpi	r8,0x01
-0000002c	D2000003		bne		skipTo2
-0000002d	D4000012		bsr		testCharWriteSpeed
-0000002e	C000000D		bra		doneTests
-; testScreenClearSpeed
-skipTo2:
-0000002f	39380002		cmpi	r8,0x02
-00000030	D2000003		bne		skipTo3
-00000031	D400002A		bsr		testScreenClearSpeed
-00000032	C0000009		bra		doneTests
-; testScreenScrollSpeed
-skipTo3:
-00000033	39380003		cmpi	r8,0x03
-00000034	D2000003		bne		skipToEnd
-00000035	D400003B		bsr		testScreenScrollSpeed
-00000036	C0000005		bra		doneTests
-; testScreenScrollSpeed
-skipToEnd:
-00000037	A0408000		push	r8
-00000038	42800068		lix		r8,syntaxError.lower
-00000039	D400009F		bsr		printString
-0000003a	A1804000		pull	r8
-doneTests:
-0000003b	428007D0		lix		r8,2000
-0000003c	D40000DB		bsr		delay_mS
-0000003d	A1804000		pull	r8
-0000003e	A1704000		pull	PC
-	
-;
-; testCharWriteSpeed - Test Char Write Speed
-; Use microsecond counter - 0x3801 is microsecond counter
-; Measured 0xAAB = 2731 uS for 1999 chars or 1.36 uS/char or 731K chars/sec
-;
-
-testCharWriteSpeed:
-0000003f	A0405000		push	PAR
-00000040	A0408000		push	r8
-00000041	A0409000		push	r9
-00000042	A040A000		push	r10
-00000043	D40000BE		bsr		clearANSIScreen
-00000044	428001F4		lix		r8,500		; Delay for 500 mS to give the screen time to clear
-00000045	D40000D2		bsr		delay_mS
-00000046	42A007CF		lix		r10,1999	; print 1999 characters
-00000047	42503801		lix		PAR,0x3801	; microsecond counter
-00000048	84905000		lpl		r9			; read the counter
-00000049	42800031		lix		r8,0x31		; char to print is '1'
-anotherCharTest:
-0000004a	D40000C2		bsr		putCharToANSIScreen
-0000004b	23AA0001		subi	r10,r10,1
-0000004c	C7FFFFFE		bnz		anotherCharTest
-0000004d	42503801		lix		PAR,0x3801	; microsecond counter
-0000004e	84805000		lpl		r8			; read the counter
-0000004f	22898000		sub		r8,r9,r8	; How many microseconds to clear screen?
-00000050	D400003B		bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-00000051	A1A04000		pull	r10
-00000052	A1904000		pull	r9
-00000053	A1804000		pull	r8
-00000054	A1504000		pull	PAR
-00000055	A1704000		pull	PC
-	
-;
-; testScreenFillSpeed - Test Screen Fill Speed
-;
-
-testScreenFillSpeed:
-00000056	A0405000		push	PAR
-00000057	A0408000		push	r8
-	
-00000058	A1804000		pull	r8
-00000059	A1504000		pull	PAR
-0000005a	A1704000		pull	PC
-	
-;
-; testScreenClearSpeed - Test Screen Clear Speed
-; 1000 screen clears take 0x1894E = 100,686 uS
-;	100.7 uS to clear the screen
-;
-
-testScreenClearSpeed:
-0000005b	A0405000		push	PAR
-0000005c	A0408000		push	r8
-0000005d	A0409000		push	r9
-0000005e	A040A000		push	r10
-0000005f	428001F4		lix		r8,500		; Delay for 500 mS to give the screen time to clear
-00000060	D40000B7		bsr		delay_mS
-00000061	42A003E8		lix		r10,1000	; clear screen 1000 times
-00000062	42503801		lix		PAR,0x3801	; microsecond counter
-00000063	84905000		lpl		r9			; read the counter
-clearAgain:
-00000064	D400009D		bsr		clearANSIScreen
-00000065	23AA0001		subi	r10,r10,1
-00000066	C7FFFFFE		bnz		clearAgain
-00000067	42503801		lix		PAR,0x3801	; microsecond counter
-00000068	84805000		lpl		r8			; read the counter
-00000069	22898000		sub		r8,r9,r8	; How many microseconds to clear screen?
-0000006a	D4000021		bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-0000006b	A1A04000		pull	r10
-0000006c	A1904000		pull	r9
-0000006d	A1804000		pull	r8
-0000006e	A1504000		pull	PAR
-0000006f	A1704000		pull	PC
-	
-;
-; testScreenScrollSpeed - Test Screen Scroll Speed
-;
-
-testScreenScrollSpeed:
-00000070	A0405000		push	PAR
-00000071	A0408000		push	r8
-00000072	A0409000		push	r9
-00000073	A040A000		push	r10
-00000074	4280000A		lix		r8,0x0A				; Line Feed
-00000075	42A0001A		lix		r10,26
-scrollAgain:
-00000076	D4000096		bsr		putCharToANSIScreen
-00000077	23AA0001		subi	r10,r10,1
-00000078	C7FFFFFE		bnz		scrollAgain
-00000079	428001F4		lix		r8,500		; Delay for 500 mS to give the screen time to scroll
-0000007a	D400009D		bsr		delay_mS
-0000007b	4280000A		lix		r8,0x0A				; Line Feed
-0000007c	42A003E8		lix		r10,1000
-0000007d	42503801		lix		PAR,0x3801	; microsecond counter
-0000007e	84905000		lpl		r9			; read the counter
-anotherScroll:
-0000007f	D400008D		bsr		putCharToANSIScreen
-00000080	23AA0001		subi	r10,r10,1
-00000081	C7FFFFFE		bnz		anotherScroll
-00000082	42503801		lix		PAR,0x3801	; microsecond counter
-00000083	84805000		lpl		r8			; read the counter
-00000084	22898000		sub		r8,r9,r8	; How many microseconds to clear screen?
-00000085	D4000006		bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-00000086	A1A04000		pull	r10
-00000087	A1904000		pull	r9
-00000088	A1804000		pull	r8
-00000089	A1504000		pull	PAR
-0000008a	A1704000		pull	PC
-	
 ; wr7Seg8Dig
 ; passed r8 - value to send to the 7 seg display
 
 wr7Seg8Dig:
-0000008b	A0405000		push	PAR
-0000008c	A0408000		push	r8
-0000008d	42503000		lix		PAR,0x3000		; Seven Segment LED lines
-0000008e	85508000		spl		r8				; Write out LED bits
-0000008f	A1804000		pull	r8
-00000090	A1504000		pull	PAR
-00000091	A1704000		pull	PC
+000000d2	A0405000		push	PAR
+000000d3	A0408000		push	r8
+000000d4	42503000		lix		PAR,0x3000		; Seven Segment LED lines
+000000d5	85508000		spl		r8				; Write out LED bits
+000000d6	A1804000		pull	r8
+000000d7	A1504000		pull	PAR
+000000d8	A1704000		pull	PC
 	
 ;
 ; readSws
@@ -247,12 +343,12 @@ wr7Seg8Dig:
 ;
 
 readSws:
-00000092	A0405000		push	PAR
-00000093	42502000		lix		PAR,0x2000	; Switches address
-00000094	84805000		lpl		r8			; Read switches into r9
-00000095	2B880FFF		andi	r8,r8,0xfff	; just the switches
-00000096	A1504000		pull	PAR
-00000097	A1704000		pull	PC
+000000d9	A0405000		push	PAR
+000000da	42502000		lix		PAR,0x2000	; Switches address
+000000db	84805000		lpl		r8			; Read switches into r9
+000000dc	2B880FFF		andi	r8,r8,0xfff	; just the switches
+000000dd	A1504000		pull	PAR
+000000de	A1704000		pull	PC
 	
 
 ;
@@ -263,29 +359,29 @@ readSws:
 ;
 
 hexToSevenSeg:
-00000098	A0409000		push	r9
-00000099	A0406000		push	DAR
-0000009a	A0405000		push	PAR
-0000009b	42900000		lix		r9,0
-0000009c	21680000		addi	DAR,r8,0		; Address of lineBuff (passed into this routine)
-0000009d	68806000		ldbp	r8				; read the first character of the line
-0000009e	D4000010		bsr		asciiToHex
-0000009f	28998000		or		r9,r9,r8
-000000a0	30909000		sl1		r9,r9
-000000a1	30909000		sl1		r9,r9
-000000a2	30909000		sl1		r9,r9
-000000a3	30909000		sl1		r9,r9
+000000df	A0409000		push	r9
+000000e0	A0406000		push	DAR
+000000e1	A0405000		push	PAR
+000000e2	42900000		lix		r9,0
+000000e3	21680000		addi	DAR,r8,0		; Address of lineBuff (passed into this routine)
+000000e4	68806000		ldbp	r8				; read the first character of the line
+000000e5	D4000010		bsr		asciiToHex
+000000e6	28998000		or		r9,r9,r8
+000000e7	30909000		sl1		r9,r9
+000000e8	30909000		sl1		r9,r9
+000000e9	30909000		sl1		r9,r9
+000000ea	30909000		sl1		r9,r9
 	;add		DAR,DAR,ONE
-000000a4	60806000		ldb		r8				; read the second character of the line
-000000a5	D4000009		bsr		asciiToHex
-000000a6	28998000		or		r9,r9,r8
-000000a7	42503000		lix		PAR,0x3000		; seven segment display
-000000a8	85509000		spl		r9
-000000a9	21890000		addi	r8,r9,0
-000000aa	A1504000		pull	PAR
-000000ab	A1604000		pull	DAR
-000000ac	A1904000		pull	r9
-000000ad	A1704000		pull	PC
+000000eb	60806000		ldb		r8				; read the second character of the line
+000000ec	D4000009		bsr		asciiToHex
+000000ed	28998000		or		r9,r9,r8
+000000ee	42503000		lix		PAR,0x3000		; seven segment display
+000000ef	85509000		spl		r9
+000000f0	21890000		addi	r8,r9,0
+000000f1	A1504000		pull	PAR
+000000f2	A1604000		pull	DAR
+000000f3	A1904000		pull	r9
+000000f4	A1704000		pull	PC
 
 ;
 ; asciiToHex - Convert a single ASCII hex character into a nibble
@@ -303,35 +399,35 @@ hexToSevenSeg:
 ;
 
 asciiToHex:
-000000ae	39380066		cmpi	r8,0x66			; past 'f'
-000000af	CC000011		blt		a2h_Error
-000000b0	39380030		cmpi	r8,0x30			; below '0'
-000000b1	CF00000F		bgt		a2h_Error
-000000b2	3938003A		cmpi	r8,0x3A			; '0' - '9'
-000000b3	CF000009		bgt		gotDigit
-000000b4	39380041		cmpi	r8,0x41			; ':' - '@'
-000000b5	CF00000B		bgt		a2h_Error
-000000b6	39380047		cmpi	r8,0x47			; 'A' - 'F'
-000000b7	CC000007		blt		gotUpperLetter
-000000b8	39380061		cmpi	r8,0x61			; 'G' - 'tick'
-000000b9	CF000007		bgt		a2h_Error
+000000f5	39380066		cmpi	r8,0x66			; past 'f'
+000000f6	CC000011		blt		a2h_Error
+000000f7	39380030		cmpi	r8,0x30			; below '0'
+000000f8	CF00000F		bgt		a2h_Error
+000000f9	3938003A		cmpi	r8,0x3A			; '0' - '9'
+000000fa	CF000009		bgt		gotDigit
+000000fb	39380041		cmpi	r8,0x41			; ':' - '@'
+000000fc	CF00000B		bgt		a2h_Error
+000000fd	39380047		cmpi	r8,0x47			; 'A' - 'F'
+000000fe	CC000007		blt		gotUpperLetter
+000000ff	39380061		cmpi	r8,0x61			; 'G' - 'tick'
+00000100	CF000007		bgt		a2h_Error
 ; Lower case letter
-000000ba	23880057		subi	r8,r8,0x57
-000000bb	C0000008		bra		doneConvA2H
+00000101	23880057		subi	r8,r8,0x57
+00000102	C0000008		bra		doneConvA2H
 ; number 0-9
 gotDigit:
-000000bc	23880030		subi	r8,r8,0x30
-000000bd	C0000006		bra		doneConvA2H
+00000103	23880030		subi	r8,r8,0x30
+00000104	C0000006		bra		doneConvA2H
 ; A-F
 gotUpperLetter:
-000000be	23880037		subi	r8,r8,0x37
-000000bf	C0000004		bra		doneConvA2H
+00000105	23880037		subi	r8,r8,0x37
+00000106	C0000004		bra		doneConvA2H
 a2h_Error:
-000000c0	42800068		lix		r8,syntaxError.lower
-000000c1	D4000017		bsr		printString
-000000c2	4280DEAD		lix		r8,0xDEAD
+00000107	4280006C		lix		r8,syntaxError.lower
+00000108	D4000017		bsr		printString
+00000109	4280DEAD		lix		r8,0xDEAD
 doneConvA2H:
-000000c3	A1704000		pull	PC
+0000010a	A1704000		pull	PC
 
 ;
 ; waitGetCharFromUART
@@ -340,16 +436,16 @@ doneConvA2H:
 ;
 
 waitGetCharFromUART:
-000000c4	A0405000		push	PAR
-000000c5	42501800		lix		PAR,0x1800	; UART Status
+0000010b	A0405000		push	PAR
+0000010c	42501800		lix		PAR,0x1800	; UART Status
 waitUartRxStat:
-000000c6	84805000		lpl		r8			; Read Status into r8
-000000c7	2B880001		andi 	r8,r8,0x1
-000000c8	C3FFFFFE		bez 	waitUartRxStat
-000000c9	42501801		lix 	PAR,0x1801
-000000ca	84805000		lpl		r8
-000000cb	A1504000		pull	PAR
-000000cc	A1704000		pull	PC
+0000010d	84805000		lpl		r8			; Read Status into r8
+0000010e	2B880001		andi 	r8,r8,0x1
+0000010f	C3FFFFFE		bez 	waitUartRxStat
+00000110	42501801		lix 	PAR,0x1801
+00000111	84805000		lpl		r8
+00000112	A1504000		pull	PAR
+00000113	A1704000		pull	PC
 
 ;
 ; putCharToUART - Put a character to the UART
@@ -357,18 +453,18 @@ waitUartRxStat:
 ;
 
 putCharToUART:
-000000cd	A0409000		push	r9
-000000ce	A0405000		push	PAR
-000000cf	42501800		lix		PAR,0x1800	; UART Status
+00000114	A0409000		push	r9
+00000115	A0405000		push	PAR
+00000116	42501800		lix		PAR,0x1800	; UART Status
 waitUartTxStat:
-000000d0	84905000		lpl		r9			; Read Status into r9
-000000d1	2B990002		andi	r9,r9,0x2
-000000d2	C3FFFFFE		bez 	waitUartTxStat
-000000d3	42501801		lix 	PAR,0x1801
-000000d4	85508000		spl		r8			; echo the character
-000000d5	A1504000		pull	PAR
-000000d6	A1904000		pull	r9
-000000d7	A1704000		pull	PC
+00000117	84905000		lpl		r9			; Read Status into r9
+00000118	2B990002		andi	r9,r9,0x2
+00000119	C3FFFFFE		bez 	waitUartTxStat
+0000011a	42501801		lix 	PAR,0x1801
+0000011b	85508000		spl		r8			; echo the character
+0000011c	A1504000		pull	PAR
+0000011d	A1904000		pull	r9
+0000011e	A1704000		pull	PC
 	
 ;
 ; printString - Print a screen to the current screen position
@@ -378,19 +474,19 @@ waitUartTxStat:
 ;
 
 printString:
-000000d8	A0408000		push	r8					; save r8
-000000d9	A0406000		push	DAR
-000000da	20680000		add		DAR,r8,ZERO			; set the start of the string
+0000011f	A0408000		push	r8					; save r8
+00000120	A0406000		push	DAR
+00000121	20680000		add		DAR,r8,ZERO			; set the start of the string
 nextChar:
-000000db	68806000		ldbp	r8					; get the character01
-000000dc	39380000		cmpi	r8,0x0				; Null terminated string
-000000dd	D1000003		beq		donePrStr			; done if null
-000000de	D4000076		bsr		writeANSI_UART		; write out the character
-000000df	C0FFFFFC		bra		nextChar
+00000122	68806000		ldbp	r8					; get the character01
+00000123	39380000		cmpi	r8,0x0				; Null terminated string
+00000124	D1000003		beq		donePrStr			; done if null
+00000125	D4000076		bsr		writeANSI_UART		; write out the character
+00000126	C0FFFFFC		bra		nextChar
 donePrStr:
-000000e0	A1604000		pull	DAR					; restore DAR
-000000e1	A1804000		pull	r8					; restore r8
-000000e2	A1704000		pull	PC					; rts
+00000127	A1604000		pull	DAR					; restore DAR
+00000128	A1804000		pull	r8					; restore r8
+00000129	A1704000		pull	PC					; rts
 	
 ;
 ; printLine - Print a screen to the current screen position with CRLF at the end
@@ -400,33 +496,33 @@ donePrStr:
 ;
 
 printLine:
-000000e3	A0408000		push	r8					; save r8
-000000e4	A0406000		push	DAR
-000000e5	21680000		addi	DAR,r8,0x0			; set the start of the string
+0000012a	A0408000		push	r8					; save r8
+0000012b	A0406000		push	DAR
+0000012c	21680000		addi	DAR,r8,0x0			; set the start of the string
 nextChar2:
-000000e6	68806000		ldbp	r8					; get the character
-000000e7	39380000		cmpi	r8,0x0				; Null terminated string
-000000e8	D1000003		beq		donePrStr2			; done if null
-000000e9	D400006B		bsr		writeANSI_UART	; write out the character
-000000ea	C0FFFFFC		bra		nextChar2
+0000012d	68806000		ldbp	r8					; get the character
+0000012e	39380000		cmpi	r8,0x0				; Null terminated string
+0000012f	D1000003		beq		donePrStr2			; done if null
+00000130	D400006B		bsr		writeANSI_UART	; write out the character
+00000131	C0FFFFFC		bra		nextChar2
 donePrStr2:
-000000eb	D4000004		bsr		newLine
-000000ec	A1604000		pull	DAR					; restore DAR
-000000ed	A1804000		pull	r8					; restore r8
-000000ee	A1704000		pull	PC					; rts
+00000132	D4000004		bsr		newLine
+00000133	A1604000		pull	DAR					; restore DAR
+00000134	A1804000		pull	r8					; restore r8
+00000135	A1704000		pull	PC					; rts
 	
 ;
 ; newLine - Print out a newline (CR-LF)
 ;
 
 newLine:
-000000ef	A0408000		push	r8
-000000f0	4280000A		lix		r8,0x0A				; Line Feed
-000000f1	D4000063		bsr		writeANSI_UART	; Put the character to the screen
-000000f2	4280000D		lix		r8,0x0D				; Carriage Return
-000000f3	D4000061		bsr		writeANSI_UART		; Echo character back to the UART
-000000f4	A1804000		pull	r8
-000000f5	A1704000		pull	PC
+00000136	A0408000		push	r8
+00000137	4280000A		lix		r8,0x0A				; Line Feed
+00000138	D4000063		bsr		writeANSI_UART	; Put the character to the screen
+00000139	4280000D		lix		r8,0x0D				; Carriage Return
+0000013a	D4000061		bsr		writeANSI_UART		; Echo character back to the UART
+0000013b	A1804000		pull	r8
+0000013c	A1704000		pull	PC
 
 ;
 ; clearANSIScreenAndUART - Clear the screen routine
@@ -434,17 +530,17 @@ newLine:
 ;
 
 clearANSIScreenAndUART:
-000000f6	A0408000		push	r8				; save r8
-000000f7	4280001B		lix		r8,0x1b			; ESC
-000000f8	D400005C		bsr		writeANSI_UART
-000000f9	4280005B		lix		r8,0x5b			; [
-000000fa	D400005A		bsr		writeANSI_UART
-000000fb	42800032		lix		r8,0x32			; 2
-000000fc	D4000058		bsr		writeANSI_UART
-000000fd	4280004A		lix		r8,0x4A			; J
-000000fe	D4000056		bsr		writeANSI_UART
-000000ff	A1804000		pull	r8
-00000100	A1704000		pull	PC				; rts
+0000013d	A0408000		push	r8				; save r8
+0000013e	4280001B		lix		r8,0x1b			; ESC
+0000013f	D400005C		bsr		writeANSI_UART
+00000140	4280005B		lix		r8,0x5b			; [
+00000141	D400005A		bsr		writeANSI_UART
+00000142	42800032		lix		r8,0x32			; 2
+00000143	D4000058		bsr		writeANSI_UART
+00000144	4280004A		lix		r8,0x4A			; J
+00000145	D4000056		bsr		writeANSI_UART
+00000146	A1804000		pull	r8
+00000147	A1704000		pull	PC				; rts
 
 ;
 ; clearANSIScreenAndUART - Clear the screen routine
@@ -452,17 +548,17 @@ clearANSIScreenAndUART:
 ;
 
 clearANSIScreen:
-00000101	A0408000		push	r8				; save r8
-00000102	4280001B		lix		r8,0x1b			; ESC
-00000103	D4000009		bsr		putCharToANSIScreen
-00000104	4280005B		lix		r8,0x5b			; [
-00000105	D4000007		bsr		putCharToANSIScreen
-00000106	42800032		lix		r8,0x32			; 2
-00000107	D4000005		bsr		putCharToANSIScreen
-00000108	4280004A		lix		r8,0x4A			; J
-00000109	D4000003		bsr		putCharToANSIScreen
-0000010a	A1804000		pull	r8
-0000010b	A1704000		pull	PC				; rts
+00000148	A0408000		push	r8				; save r8
+00000149	4280001B		lix		r8,0x1b			; ESC
+0000014a	D4000009		bsr		putCharToANSIScreen
+0000014b	4280005B		lix		r8,0x5b			; [
+0000014c	D4000007		bsr		putCharToANSIScreen
+0000014d	42800032		lix		r8,0x32			; 2
+0000014e	D4000005		bsr		putCharToANSIScreen
+0000014f	4280004A		lix		r8,0x4A			; J
+00000150	D4000003		bsr		putCharToANSIScreen
+00000151	A1804000		pull	r8
+00000152	A1704000		pull	PC				; rts
 
 ;
 ; putCharToANSIScreen - Put a character to the screen
@@ -470,18 +566,18 @@ clearANSIScreen:
 ;
 
 putCharToANSIScreen:
-0000010c	A0409000		push	r9
-0000010d	A0405000		push	PAR
-0000010e	42500000		lix		PAR,0x0		; ANSI Screen Status (UART style)
+00000153	A0409000		push	r9
+00000154	A0405000		push	PAR
+00000155	42500000		lix		PAR,0x0		; ANSI Screen Status (UART style)
 waitScreenTxStat:
-0000010f	84905000		lpl		r9			; Read Status into r9
-00000110	2B990002		andi	r9,r9,0x2
-00000111	C3FFFFFE		bez 	waitScreenTxStat
-00000112	42500001		lix 	PAR,0x1		; ANSI Screen Data (UART style)
-00000113	85508000		spl		r8			; echo the character
-00000114	A1504000		pull	PAR
-00000115	A1904000		pull	r9
-00000116	A1704000		pull	PC
+00000156	84905000		lpl		r9			; Read Status into r9
+00000157	2B990002		andi	r9,r9,0x2
+00000158	C3FFFFFE		bez 	waitScreenTxStat
+00000159	42500001		lix 	PAR,0x1		; ANSI Screen Data (UART style)
+0000015a	85508000		spl		r8			; echo the character
+0000015b	A1504000		pull	PAR
+0000015c	A1904000		pull	r9
+0000015d	A1704000		pull	PC
 	
 ;
 ; delay_mS - delay for the number of mSecs passed in r8
@@ -490,18 +586,18 @@ waitScreenTxStat:
 ;
 
 delay_mS:
-00000117	A0408000		push	r8
-00000118	A0409000		push	r9
-00000119	42503802		lix		PAR,0x3802		; address of the mSec counter
-0000011a	84905000		lpl		r9				; read the peripheral counter into r9
-0000011b	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
+0000015e	A0408000		push	r8
+0000015f	A0409000		push	r9
+00000160	42503802		lix		PAR,0x3802		; address of the mSec counter
+00000161	84905000		lpl		r9				; read the peripheral counter into r9
+00000162	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
-0000011c	84905000		lpl		r9				; check the elapsed time counter
-0000011d	38389000		cmp		r8,r9
-0000011e	CCFFFFFE		blt		loop_delay_mS
-0000011f	A1904000		pull	r9
-00000120	A1804000		pull	r8
-00000121	A1704000		pull	PC
+00000163	84905000		lpl		r9				; check the elapsed time counter
+00000164	38389000		cmp		r8,r9
+00000165	CCFFFFFE		blt		loop_delay_mS
+00000166	A1904000		pull	r9
+00000167	A1804000		pull	r8
+00000168	A1704000		pull	PC
 
 ;
 ; getPS2Char
@@ -510,23 +606,23 @@ loop_delay_mS:
 ;
 
 getPS2Char:
-00000122	A0408000		push	r8
-00000123	A0409000		push	r9
-00000124	A0405000		push	PAR
-00000125	42501000		lix		PAR,0x1000	; PS/2 Status
+00000169	A0408000		push	r8
+0000016a	A0409000		push	r9
+0000016b	A0405000		push	PAR
+0000016c	42501000		lix		PAR,0x1000	; PS/2 Status
 waitPS2RxStat:
-00000126	84905000		lpl		r9			; Read Status into r9
-00000127	2B990001		andi	r9,r9,0x1
-00000128	C3FFFFFE		bez 	waitPS2RxStat
+0000016d	84905000		lpl		r9			; Read Status into r9
+0000016e	2B990001		andi	r9,r9,0x1
+0000016f	C3FFFFFE		bez 	waitPS2RxStat
 getCharFromPS2:
-00000129	42500800		lix 	PAR,0x0800
-0000012a	84805000		lpl		r8
-0000012b	42501000		lix		PAR,0x1000	; PS/2 Status
+00000170	42500800		lix 	PAR,0x0800
+00000171	84805000		lpl		r8
+00000172	42501000		lix		PAR,0x1000	; PS/2 Status
 whilePS2RxStat:
-0000012c	A1504000		pull	PAR
-0000012d	A1904000		pull	r9
-0000012e	A1804000		pull	r8
-0000012f	A1704000		pull	PC
+00000173	A1504000		pull	PAR
+00000174	A1904000		pull	r9
+00000175	A1804000		pull	r8
+00000176	A1704000		pull	PC
 
 ;
 ; waitReadPS2_UART
@@ -536,54 +632,54 @@ whilePS2RxStat:
 ;
 
 waitReadPS2_UART:
-00000130	A0405000		push	PAR
+00000177	A0405000		push	PAR
 checkCharFromPS2:
-00000131	42501000		lix		PAR,0x1000			; PS/2 Status
-00000132	84805000		lpl		r8					; Read Status
-00000133	2B880001		andi	r8,r8,0x1			; =1 when char received
-00000134	C3000004		bez 	checkUARTStat
-00000135	42500800		lix 	PAR,0x0800			; PS/2 Data
-00000136	84805000		lpl		r8
-00000137	C0000007		bra		gotPS2Char
+00000178	42501000		lix		PAR,0x1000			; PS/2 Status
+00000179	84805000		lpl		r8					; Read Status
+0000017a	2B880001		andi	r8,r8,0x1			; =1 when char received
+0000017b	C3000004		bez 	checkUARTStat
+0000017c	42500800		lix 	PAR,0x0800			; PS/2 Data
+0000017d	84805000		lpl		r8
+0000017e	C0000007		bra		gotPS2Char
 checkUARTStat:
-00000138	42501800		lix		PAR,0x1800			; UART Status
-00000139	84805000		lpl		r8					; Read Status
-0000013a	2B880001		andi 	r8,r8,0x1			; =1 when char received
-0000013b	C3FFFFF6		bez 	checkCharFromPS2
-0000013c	42501801		lix 	PAR,0x1801			; UART Data
-0000013d	84805000		lpl		r8
+0000017f	42501800		lix		PAR,0x1800			; UART Status
+00000180	84805000		lpl		r8					; Read Status
+00000181	2B880001		andi 	r8,r8,0x1			; =1 when char received
+00000182	C3FFFFF6		bez 	checkCharFromPS2
+00000183	42501801		lix 	PAR,0x1801			; UART Data
+00000184	84805000		lpl		r8
 gotPS2Char:
-0000013e	A1504000		pull	PAR
-0000013f	A1704000		pull	PC
+00000185	A1504000		pull	PAR
+00000186	A1704000		pull	PC
 	
 ; checkForCharAndDiscard - Check for a character in UART or PS/2
 ; Discard the character received
 ; return whether char was present (1) or no char was present (0)
 
 checkForCharAndDiscard:
-00000140	A0405000		push	PAR
-00000141	42501000		lix		PAR,0x1000		; PS/2 Status
-00000142	84805000		lpl		r8				; Read Status
-00000143	2B880001		andi	r8,r8,0x1		; =1 when char received
-00000144	C3000005		bez 	checkUARTStat2
-00000145	42500800		lix 	PAR,0x0800		; PS/2 Data
-00000146	84805000		lpl		r8				; throw away char
-00000147	42800001		lix		r8,0x1
-00000148	C000000A		bra		gotChar
+00000187	A0405000		push	PAR
+00000188	42501000		lix		PAR,0x1000		; PS/2 Status
+00000189	84805000		lpl		r8				; Read Status
+0000018a	2B880001		andi	r8,r8,0x1		; =1 when char received
+0000018b	C3000005		bez 	checkUARTStat2
+0000018c	42500800		lix 	PAR,0x0800		; PS/2 Data
+0000018d	84805000		lpl		r8				; throw away char
+0000018e	42800001		lix		r8,0x1
+0000018f	C000000A		bra		gotChar
 checkUARTStat2:
-00000149	42501800		lix		PAR,0x1800		; UART Status
-0000014a	84805000		lpl		r8				; Read Status
-0000014b	2B880001		andi 	r8,r8,0x1		; =1 when char received
-0000014c	C3000005		bez 	noCharReceived
-0000014d	42501801		lix 	PAR,0x1801		; UART Data
-0000014e	84805000		lpl		r8
-0000014f	42800001		lix		r8,1
-00000150	C0000002		bra		gotChar
+00000190	42501800		lix		PAR,0x1800		; UART Status
+00000191	84805000		lpl		r8				; Read Status
+00000192	2B880001		andi 	r8,r8,0x1		; =1 when char received
+00000193	C3000005		bez 	noCharReceived
+00000194	42501801		lix 	PAR,0x1801		; UART Data
+00000195	84805000		lpl		r8
+00000196	42800001		lix		r8,1
+00000197	C0000002		bra		gotChar
 noCharReceived:
-00000151	42800000		lix		r8,0
+00000198	42800000		lix		r8,0
 gotChar:
-00000152	A1504000		pull	PAR
-00000153	A1704000		pull	PC
+00000199	A1504000		pull	PAR
+0000019a	A1704000		pull	PC
 
 ;
 ; writeANSI_UART
@@ -592,6 +688,6 @@ gotChar:
 ;
 
 writeANSI_UART:
-00000154	D4FFFFB8		bsr		putCharToANSIScreen
-00000155	D4FFFF78		bsr		putCharToUART
-00000156	A1704000		pull	PC
+0000019b	D4FFFFB8		bsr		putCharToANSIScreen
+0000019c	D4FFFF78		bsr		putCharToUART
+0000019d	A1704000		pull	PC

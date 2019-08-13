@@ -7,12 +7,18 @@
 ;	3 - Screen scroll speed
 ;
 
-prompt:			.string "ANSI Speed Test "
+prompt:			.string "ANSI VDU Speed Tests"
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 syntaxError:	.string "Syntax error"
 runningString:	.string "Running..."
+hitAnyKey:		.string "Hit any key to exit..."
 serialOverflow:	.string "Serial port overflow"
+testMetric:		.string "Ran test 1024 times in (uSecs) : "
+menuItem_01:	.string "01 - Character write speed"
+menuItem_02:	.string "02 - Screen clear speed"
+menuItem_03:	.string "03 - Screen scroll speed"
+
 ;
 ; Read a line from the UART and parse the line
 ;
@@ -21,9 +27,251 @@ main:
 	bsr		clearANSIScreenAndUART
 	lix		r8,prompt.lower
 	bsr		printLine
+	bsr		printMenu
 	bsr		getLine
 	bsr		callTests
 	bra		main
+
+;
+; printMenu - Print the menu
+;
+
+printMenu:
+	push	r8
+	lix		r8,menuItem_01.lower
+	bsr		printLine
+	lix		r8,menuItem_02.lower
+	bsr		printLine
+	lix		r8,menuItem_03.lower
+	bsr		printLine
+	pull	r8
+	pull	PC
+
+;
+; callTests - 
+; line is in lineBuff
+;	1 - Character write speed
+;	2 - Screen clear speed
+;	3 - Screen scroll speed
+; Uses r8 for the command
+;
+
+callTests:
+	push	r8
+	lix		r8,lineBuff.lower
+	bsr		hexToSevenSeg
+; testCharWriteSpeed
+	cmpi	r8,0x01
+	bne		skipTo2
+	bsr		testCharWriteSpeed
+	bra		doneTests
+; testScreenClearSpeed
+skipTo2:
+	cmpi	r8,0x02
+	bne		skipTo3
+	bsr		testScreenClearSpeed
+	bra		doneTests
+; testScreenScrollSpeed
+skipTo3:
+	cmpi	r8,0x03
+	bne		skipToEnd
+	bsr		testScreenScrollSpeed
+	bra		doneTests
+; testScreenScrollSpeed
+skipToEnd:
+	push	r8
+	lix		r8,syntaxError.lower
+	bsr		printString
+	pull	r8
+doneTests:
+	pull	r8
+	pull	PC
+	
+;
+; testCharWriteSpeed - Test Char Write Speed
+; Use microsecond counter - 0x3801 is microsecond counter
+; Measured 0x576 = 1,398 uS for 1024 chars or 1.37 uS/char or 732K chars/sec
+;
+
+testCharWriteSpeed:
+	push	PAR
+	push	r8
+	push	r9
+	push	r10
+	bsr		clearANSIScreen
+	lix		r8,10		; Delay for 10 mS to give the screen time to clear
+	bsr		delay_mS
+	lix		r8,0x31		; char to print is '1'
+	lix		r10,1024	; print 1024 characters
+	lix		PAR,0x3801	; microsecond counter
+	lpl		r9			; read the counter
+anotherCharTest:
+	bsr		putCharToANSIScreen
+	subi	r10,r10,1
+	bnz		anotherCharTest
+	lix		PAR,0x3801	; microsecond counter
+	lpl		r8			; read the counter
+	sub		r8,r9,r8	; How many microseconds to clear screen?
+	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
+	bsr		newLine
+	push	r8
+	lix		r8,testMetric.lower
+	bsr		printString
+	pull	r8
+	bsr		printLong
+	bsr		newLine
+	lix		r8,hitAnyKey.lower
+	bsr		printLine
+reload001:
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0
+	beq		reload001
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PAR
+	pull	PC
+	
+;
+; testScreenClearSpeed - Test Screen Clear Speed
+; 1024 screen clears take 0x192C1 = 103,105 uS
+;	100.7 uS to clear the screen
+;
+
+testScreenClearSpeed:
+	push	PAR
+	push	r8
+	push	r9
+	push	r10
+	lix		r8,10		; Delay for 10 mS to give the screen time to clear
+	bsr		delay_mS
+	lix		r10,1024	; clear screen 1024 times
+	lix		PAR,0x3801	; microsecond counter
+	lpl		r9			; read the counter
+clearAgain:
+	bsr		clearANSIScreen
+	subi	r10,r10,1
+	bnz		clearAgain
+	lix		PAR,0x3801	; microsecond counter
+	lpl		r8			; read the counter
+	sub		r8,r9,r8	; How many microseconds to clear screen?
+	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
+	bsr		newLine
+	push	r8
+	lix		r8,testMetric.lower
+	bsr		printString
+	pull	r8
+	bsr		printLong
+	bsr		newLine
+	lix		r8,hitAnyKey.lower
+	bsr		printString
+reload002:
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0
+	beq		reload002
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PAR
+	pull	PC
+	
+;
+; testScreenScrollSpeed - Test Screen Scroll Speed
+; 1024 lines in 0x0FC8 uSecs = 4,040 uS
+;	 3.945 uS to scroll screen
+;
+
+testScreenScrollSpeed:
+	push	PAR
+	push	r8
+	push	r9
+	push	r10
+	lix		r8,0x0A				; Line Feed
+	lix		r10,26				; prescroll by 26 lines to get to the bottom of the screen
+scrollAgain:
+	bsr		putCharToANSIScreen
+	subi	r10,r10,1
+	bnz		scrollAgain
+	lix		r8,500		; Delay for 500 mS to give the screen time to scroll
+	bsr		delay_mS
+	lix		r8,0x0A				; Line Feed
+	lix		r10,1024
+	lix		PAR,0x3801	; microsecond counter
+	lpl		r9			; read the counter
+anotherScroll:
+	bsr		putCharToANSIScreen
+	subi	r10,r10,1
+	bnz		anotherScroll
+	lix		PAR,0x3801	; microsecond counter
+	lpl		r8			; read the counter
+	sub		r8,r9,r8	; How many microseconds to clear screen?
+	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
+	bsr		newLine
+	push	r8
+	lix		r8,testMetric.lower
+	bsr		printString
+	pull	r8
+	bsr		printLong
+	bsr		newLine
+	lix		r8,hitAnyKey.lower
+	bsr		printString
+reload003:
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0
+	beq		reload003
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PAR
+	pull	PC
+	
+;
+; printLong
+; r8 contains the long value to print
+;
+
+printLong:
+	push	r8
+	push	r9
+	push	r10
+	push	r8				; temporarily save r8
+	lix		r8,0x30
+	bsr		writeANSI_UART
+	lix		r8,0x78
+	bsr		writeANSI_UART
+	pull	r8				; restore r8
+	lix		r9,8			; loop counter
+doNextPrintLong:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal
+	subi	r9,r9,1
+	bnz		doNextPrintLong
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; printHexVal
+;
+
+printHexVal:
+	push	r8
+	andi	r8,r8,0xf
+	cmpi	r8,9
+	blt		printHexLetter
+	addi	r8,r8,0x30
+	bsr		writeANSI_UART
+	bra		donePrintHexVal
+printHexLetter:
+	addi	r8,r8,0x37		; 'A' - 10
+	bsr		writeANSI_UART
+donePrintHexVal:
+	pull	r8
+	pull	PC
 
 ;
 ; getLine - Reads the UART and fills a buffer with the characters received
@@ -73,160 +321,6 @@ doneHandlingLine:
 	pull	r8
 	pull	PC
 
-;
-; callTests - 
-; line is in lineBuff
-;	1 - Character write speed
-;	2 - Screen fill speed
-;	3 - Screen clear speed
-;	4 - Screen scroll speed
-; Uses r8 for the command
-;
-
-callTests:
-	push	r8
-	lix		r8,lineBuff.lower
-	bsr		hexToSevenSeg
-; testCharWriteSpeed
-	cmpi	r8,0x01
-	bne		skipTo2
-	bsr		testCharWriteSpeed
-	bra		doneTests
-; testScreenClearSpeed
-skipTo2:
-	cmpi	r8,0x02
-	bne		skipTo3
-	bsr		testScreenClearSpeed
-	bra		doneTests
-; testScreenScrollSpeed
-skipTo3:
-	cmpi	r8,0x03
-	bne		skipToEnd
-	bsr		testScreenScrollSpeed
-	bra		doneTests
-; testScreenScrollSpeed
-skipToEnd:
-	push	r8
-	lix		r8,syntaxError.lower
-	bsr		printString
-	pull	r8
-doneTests:
-	lix		r8,2000
-	bsr		delay_mS
-	pull	r8
-	pull	PC
-	
-;
-; testCharWriteSpeed - Test Char Write Speed
-; Use microsecond counter - 0x3801 is microsecond counter
-; Measured 0xAAB = 2731 uS for 1999 chars or 1.36 uS/char or 731K chars/sec
-;
-
-testCharWriteSpeed:
-	push	PAR
-	push	r8
-	push	r9
-	push	r10
-	bsr		clearANSIScreen
-	lix		r8,500		; Delay for 500 mS to give the screen time to clear
-	bsr		delay_mS
-	lix		r10,1999	; print 1999 characters
-	lix		PAR,0x3801	; microsecond counter
-	lpl		r9			; read the counter
-	lix		r8,0x31		; char to print is '1'
-anotherCharTest:
-	bsr		putCharToANSIScreen
-	subi	r10,r10,1
-	bnz		anotherCharTest
-	lix		PAR,0x3801	; microsecond counter
-	lpl		r8			; read the counter
-	sub		r8,r9,r8	; How many microseconds to clear screen?
-	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-	pull	r10
-	pull	r9
-	pull	r8
-	pull	PAR
-	pull	PC
-	
-;
-; testScreenFillSpeed - Test Screen Fill Speed
-;
-
-testScreenFillSpeed:
-	push	PAR
-	push	r8
-	
-	pull	r8
-	pull	PAR
-	pull	PC
-	
-;
-; testScreenClearSpeed - Test Screen Clear Speed
-; 1000 screen clears take 0x1894E = 100,686 uS
-;	100.7 uS to clear the screen
-;
-
-testScreenClearSpeed:
-	push	PAR
-	push	r8
-	push	r9
-	push	r10
-	lix		r8,500		; Delay for 500 mS to give the screen time to clear
-	bsr		delay_mS
-	lix		r10,1000	; clear screen 1000 times
-	lix		PAR,0x3801	; microsecond counter
-	lpl		r9			; read the counter
-clearAgain:
-	bsr		clearANSIScreen
-	subi	r10,r10,1
-	bnz		clearAgain
-	lix		PAR,0x3801	; microsecond counter
-	lpl		r8			; read the counter
-	sub		r8,r9,r8	; How many microseconds to clear screen?
-	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-	pull	r10
-	pull	r9
-	pull	r8
-	pull	PAR
-	pull	PC
-	
-;
-; testScreenScrollSpeed - Test Screen Scroll Speed
-; 1000 lines in 0x0F69 secs = 3,945 uS
-;	 3.945 uS to scroll screen
-;
-
-testScreenScrollSpeed:
-	push	PAR
-	push	r8
-	push	r9
-	push	r10
-	lix		r8,0x0A				; Line Feed
-	lix		r10,26
-scrollAgain:
-	bsr		putCharToANSIScreen
-	subi	r10,r10,1
-	bnz		scrollAgain
-	lix		r8,500		; Delay for 500 mS to give the screen time to scroll
-	bsr		delay_mS
-	lix		r8,0x0A				; Line Feed
-	lix		r10,1000
-	lix		PAR,0x3801	; microsecond counter
-	lpl		r9			; read the counter
-anotherScroll:
-	bsr		putCharToANSIScreen
-	subi	r10,r10,1
-	bnz		anotherScroll
-	lix		PAR,0x3801	; microsecond counter
-	lpl		r8			; read the counter
-	sub		r8,r9,r8	; How many microseconds to clear screen?
-	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-	pull	r10
-	pull	r9
-	pull	r8
-	pull	PAR
-	pull	PC
-	
 ; wr7Seg8Dig
 ; passed r8 - value to send to the 7 seg display
 
