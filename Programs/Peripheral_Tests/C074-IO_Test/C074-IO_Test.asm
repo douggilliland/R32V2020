@@ -465,6 +465,54 @@ delayFromJumpers:
 	pull	PC
 
 ;
+; printLong
+; r8 contains the long value to print
+;
+
+printLong:
+	push	r8
+	push	r9
+	push	r10
+	push	r8				; temporarily save r8
+	lix		r8,0x30
+	bsr		writeANSI_UART
+	lix		r8,0x78
+	bsr		writeANSI_UART
+	pull	r8				; restore r8
+	lix		r9,8			; loop counter
+doNextPrintLong:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal
+	subi	r9,r9,1
+	bnz		doNextPrintLong
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; printHexVal
+;
+
+printHexVal:
+	push	r8
+	andi	r8,r8,0xf
+	cmpi	r8,9
+	blt		printHexLetter
+	addi	r8,r8,0x30
+	bsr		writeANSI_UART
+	bra		donePrintHexVal
+printHexLetter:
+	addi	r8,r8,0x37		; 'A' - 10
+	bsr		writeANSI_UART
+donePrintHexVal:
+	pull	r8
+	pull	PC
+
+;
 ; init_Regs_I2CIO8 - Set IO Dir
 ;
 
