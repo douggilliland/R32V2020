@@ -1,4 +1,4 @@
--- This file is copyright by Grant Searle 2014
+-- This file is copyright by Grant Searle 2014 with modifications by Doug Gilliland
 -- You are free to use this file in your own projects but must never charge for it nor use it without
 -- acknowledgement.
 -- Please ask permission from Grant Searle before republishing elsewhere.
@@ -13,7 +13,7 @@
 -- Grant Searle
 -- eMail address available on my main web page link above.
 --
--- Changed Grant's code to remove the PS/2 keyboard
+-- DG: Changed Grant's code to remove the PS/2 keyboard
 --		Keyboard was not clean ASCII due to remapping certain keys
 --
 -- Interface matches ACIA software interface address/control/status contents
@@ -34,7 +34,7 @@
 --			d7 		= Interrupt Enable (1=enable interrupts)
 -- Data Register
 --		Register Select = 1
---		Read = Read data from the data register
+--		Read = Read data from the data register (not implemented due to kbd removal)
 --		Write = Write data to the data register
 
 library ieee;
@@ -52,7 +52,6 @@ entity ANSIDisplayVGA is
 		constant CLOCKS_PER_SCANLINE : integer := 1600; -- NTSC/PAL = 3200
 		constant DISPLAY_TOP_SCANLINE : integer := 35+40;
 		constant DISPLAY_LEFT_CLOCK : integer := 288; -- NTSC/PAL = 600+
---		constant DISPLAY_LEFT_CLOCK : integer := 298; -- NTSC/PAL = 600+
 		constant VERT_SCANLINES : integer := 525; -- NTSC=262, PAL=312
 		constant VSYNC_SCANLINES : integer := 2; -- NTSC/PAL = 4
 		constant HSYNC_CLOCKS : integer := 192;  -- NTSC/PAL = 235
@@ -74,7 +73,6 @@ entity ANSIDisplayVGA is
 		dataIn		: in  std_logic_vector(7 downto 0);
 		dataOut		: out std_logic_vector(7 downto 0);
 		n_int			: out std_logic;
-		--n_rts		: out std_logic :='0';
 
 		-- RGB video signals
 		videoR0		: out std_logic;
@@ -85,11 +83,7 @@ entity ANSIDisplayVGA is
 		videoB1		: out std_logic;
 		hSync  		: buffer  std_logic;
 		vSync  		: buffer  std_logic;
-		o_hActive	: out std_logic;
-
-		-- Monochrome video signals
-		video			: buffer std_logic;
-		sync  		: out  std_logic
+		o_hActive	: out std_logic
  );
 end ANSIDisplayVGA;
 
@@ -112,7 +106,6 @@ architecture rtl of ANSIDisplayVGA is
 constant HORIZ_CHAR_MAX : integer := HORIZ_CHARS-1;
 constant VERT_CHAR_MAX : integer := VERT_CHARS-1;
 constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
-
 
 	signal	func_reset: std_logic := '0';
 
@@ -174,12 +167,6 @@ constant CHARS_PER_SCREEN : integer := HORIZ_CHARS*VERT_CHARS;
 	signal	statusReg : std_logic_vector(7 downto 0) := (others => '0');
 	signal	controlReg : std_logic_vector(7 downto 0) := "00000000";
 
---	type	kbBuffArray is array (0 to 7) of std_logic_vector(6 downto 0);
---	signal	kbBuffer : kbBuffArray;
---
---	signal	kbInPointer: integer range 0 to 15 :=0;   -- registered on clk
---	signal	kbReadPointer: integer range 0 to 15 :=0; -- registered on n_rd
---	signal	kbBuffCount: integer range 0 to 15 :=0;   -- combinational
 	signal	dispByteWritten : std_logic := '0';
 	signal	dispByteSent : std_logic := '0';
 
@@ -340,7 +327,7 @@ end generate GEN_NO_ATTRAM;
 	dispAddr <= (startAddr + charHoriz+(charVert * HORIZ_CHARS)) mod CHARS_PER_SCREEN;
 	cursAddr <= (startAddr + cursorHoriz+(cursorVert * HORIZ_CHARS)) mod CHARS_PER_SCREEN;
 
-	sync <= vSync and hSync; -- composite sync for mono video out
+--	sync <= vSync and hSync; -- composite sync for mono video out
 
 	-- SCREEN RENDERING
 	screen_render: process (clk)
@@ -409,7 +396,7 @@ end generate GEN_NO_ATTRAM;
 						videoG1 <= dispAttWRData(1);
 						videoB1 <= dispAttWRData(2);
 
-						video <= '1'; -- Monochrome video out
+--						video <= '1'; -- Monochrome video out
 					else
 						if charData(7-to_integer(unsigned(pixelCount))) = '1' then
 						-- Foreground
@@ -458,7 +445,7 @@ end generate GEN_NO_ATTRAM;
 								videoB1 <= dispAttData(6);
 							end if;
 						end if;
-						video <= charData(7-to_integer(unsigned(pixelCount))); -- Monochrome video out
+						--video <= charData(7-to_integer(unsigned(pixelCount))); -- Monochrome video out
 					end if;
 					if pixelCount = 6 then -- move output pipeline back by 1 clock to allow readout on posedge
 						charHoriz <= charHoriz+1;
@@ -473,14 +460,14 @@ end generate GEN_NO_ATTRAM;
 				videoG1 <= '0';
 				videoB1 <= '0';
 
-				video <= '0'; -- Monochrome video out
+				--video <= '0'; -- Monochrome video out
                                 pixelClockCount <= (others => '0');
 			end if;
 		end if;
 	end process;
 
 
-	-- Hardware cursor blink
+	-- Hardware cursor blink 1/2 sec on, 1/2 sec off
 	cursor_blink: process(clk)
 	begin
 		if rising_edge(clk) then
@@ -499,7 +486,7 @@ end generate GEN_NO_ATTRAM;
 
 
 	-- minimal 6850 compatibility
-	statusReg(0) <= '0'; -- when kbInPointer=kbReadPointer else '1';
+	statusReg(0) <= '0';
 	statusReg(1) <= '1' when dispByteWritten=dispByteSent else '0';
 	statusReg(2) <= '0'; --n_dcd;
 	statusReg(3) <= '0'; --n_cts;

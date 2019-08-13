@@ -13082,7 +13082,6 @@ clk => cursBlinkCount[22].CLK
 clk => cursBlinkCount[23].CLK
 clk => cursBlinkCount[24].CLK
 clk => cursBlinkCount[25].CLK
-clk => video~reg0.CLK
 clk => videoB1~reg0.CLK
 clk => videoG1~reg0.CLK
 clk => videoR1~reg0.CLK
@@ -13200,8 +13199,6 @@ videoB1 <= videoB1~reg0.DB_MAX_OUTPUT_PORT_TYPE
 hSync <= hSync~reg0.DB_MAX_OUTPUT_PORT_TYPE
 vSync <= vSync~reg0.DB_MAX_OUTPUT_PORT_TYPE
 o_hActive <= hActive.DB_MAX_OUTPUT_PORT_TYPE
-video <= video~reg0.DB_MAX_OUTPUT_PORT_TYPE
-sync <= sync.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |R32V2020_A4CE10_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|SansBoldRom:\GEN_EXT_SCHARS:fontRom
