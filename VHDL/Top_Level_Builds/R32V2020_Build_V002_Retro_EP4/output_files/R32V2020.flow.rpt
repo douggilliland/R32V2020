@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Sun Jul 28 10:25:13 2019
+Tue Aug 13 14:12:32 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,21 +40,21 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sun Jul 28 10:25:07 2019       ;
+; Flow Status                        ; Successful - Tue Aug 13 14:12:28 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_RETRO_EP4_top                      ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE6E22C6                                 ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,571 / 6,272 ( 73 % )                      ;
-;     Total combinational functions  ; 4,401 / 6,272 ( 70 % )                      ;
-;     Dedicated logic registers      ; 1,433 / 6,272 ( 23 % )                      ;
-; Total registers                    ; 1433                                        ;
+; Total logic elements               ; 5,309 / 6,272 ( 85 % )                      ;
+;     Total combinational functions  ; 5,154 / 6,272 ( 82 % )                      ;
+;     Dedicated logic registers      ; 1,396 / 6,272 ( 22 % )                      ;
+; Total registers                    ; 1396                                        ;
 ; Total pins                         ; 23 / 92 ( 25 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 98,432 / 276,480 ( 36 % )                   ;
-; Embedded Multiplier 9-bit elements ; 8 / 30 ( 27 % )                             ;
+; Embedded Multiplier 9-bit elements ; 12 / 30 ( 40 % )                            ;
 ; Total PLLs                         ; 0 / 2 ( 0 % )                               ;
 +------------------------------------+---------------------------------------------+
 
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 07/28/2019 10:23:43 ;
+; Start date & time ; 08/13/2019 14:11:22 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                     ; Value                                                          ; Default Value ; Entity Name            ; Section Id ;
 +-------------------------------------+----------------------------------------------------------------+---------------+------------------------+------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                         ; Auto          ; --                     ; --         ;
-; COMPILER_SIGNATURE_ID               ; 198690285320223.156432382216912                                ; --            ; --                     ; --         ;
+; COMPILER_SIGNATURE_ID               ; 193569097813697.156571988219680                                ; --            ; --                     ; --         ;
 ; ENABLE_SIGNALTAP                    ; Off                                                            ; --            ; --                     ; --         ;
 ; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                            ; On            ; --                     ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                             ; --            ; --                     ; --         ;
@@ -105,11 +105,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:58     ; 1.0                     ; 4886 MB             ; 00:01:27                           ;
-; Fitter               ; 00:00:19     ; 1.1                     ; 5570 MB             ; 00:00:25                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4708 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:05     ; 1.2                     ; 4831 MB             ; 00:00:05                           ;
-; Total                ; 00:01:24     ; --                      ; --                  ; 00:01:59                           ;
+; Analysis & Synthesis ; 00:00:44     ; 1.0                     ; 4880 MB             ; 00:01:07                           ;
+; Fitter               ; 00:00:15     ; 1.1                     ; 5574 MB             ; 00:00:23                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4712 MB             ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:03     ; 1.2                     ; 4837 MB             ; 00:00:04                           ;
+; Total                ; 00:01:04     ; --                      ; --                  ; 00:01:35                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -118,10 +118,10 @@ refer to the applicable agreement for further details.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
