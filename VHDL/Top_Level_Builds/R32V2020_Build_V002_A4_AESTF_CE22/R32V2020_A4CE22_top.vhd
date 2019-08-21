@@ -10,7 +10,7 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 library work;
 use work.R32V2020_Pkg.all;
 
-entity R32V2020_A4CE10_top is
+entity R32V2020_A4CE22_top is
 	port(
 		n_reset				: in std_logic := '1';
 		i_CLOCK_50			: in std_logic;
@@ -22,7 +22,9 @@ entity R32V2020_A4CE10_top is
 		i_SerRxd				: in std_logic := '1';
 		o_SerTxd				: out std_logic := '1';
 		-- VGA pins
-		o_VideoVect			: out std_logic_vector(2 downto 0) := "000"; -- rgb
+		o_vid_Red			: out std_logic_Vector(4 downto 0) := "00000";
+		o_vid_Grn			: out std_logic_Vector(5 downto 0) := "000000";
+		o_vid_Blu			: out std_logic_Vector(4 downto 0) := "00000";
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
 		-- Seven Segment LED pins
@@ -49,9 +51,9 @@ entity R32V2020_A4CE10_top is
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
 		);
-end R32V2020_A4CE10_top;
+end R32V2020_A4CE22_top;
 
-architecture struct of R32V2020_A4CE10_top is
+architecture struct of R32V2020_A4CE22_top is
 
 	signal	w_Red_Hi		:		std_logic := '0';
 	signal	w_Red_Lo		:		std_logic := '0';
@@ -62,10 +64,6 @@ architecture struct of R32V2020_A4CE10_top is
 	signal	w_hActive	:		std_logic := '0';
 
 begin
-
-	o_VideoVect(2) <= w_Red_Hi or w_Red_Lo;
-	o_VideoVect(1) <= w_Grn_Hi or w_Grn_Lo;
-	o_VideoVect(0) <= w_Blu_Hi or w_Blu_Lo;
 
 	R32V2020_top : entity work.R32V2020_top
 		port map (
@@ -80,12 +78,12 @@ begin
 		i_SerRxd		=> i_SerRxd,
 		o_SerTxd		=> o_SerTxd,
 		-- VGA pins
-		o_vid_Red_Hi	=> w_Red_Hi,
-		o_vid_Red_Lo	=> w_Red_Lo,
-		o_vid_Grn_Hi	=> w_Grn_Hi,
-		o_vid_Grn_Lo	=> w_Grn_Lo,
-		o_vid_Blu_Hi	=> w_Blu_Hi,
-		o_vid_Blu_Lo	=> w_Blu_Lo,
+		o_vid_Red_Hi	=> o_vid_Red(4),
+		o_vid_Red_Lo	=> o_vid_Red(3),
+		o_vid_Grn_Hi	=> o_vid_Grn(5),
+		o_vid_Grn_Lo	=> o_vid_Grn(4),
+		o_vid_Blu_Hi	=> o_vid_Blu(4),
+		o_vid_Blu_Lo	=> o_vid_Blu(3),
 		o_hSync			=> o_hSync,
 		o_vSync			=> o_vSync,
 		o_hActive		=> w_hActive,
