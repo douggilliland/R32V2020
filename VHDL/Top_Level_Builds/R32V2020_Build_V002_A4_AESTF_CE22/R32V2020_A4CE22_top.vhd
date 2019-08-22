@@ -50,7 +50,7 @@ entity R32V2020_A4CE22_top is
       spi_miso				: in std_logic := '1';
 		o_testPoint			: out std_logic := '1';
 		-- PS/2 Keyboard pins
-		i_ps2Clk				: in std_logic := '1';
+		i_ps2Clk			: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
 		);
 end R32V2020_A4CE22_top;
