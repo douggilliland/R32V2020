@@ -28,12 +28,14 @@ entity R32V2020_A4CE22_top is
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
 		-- Seven Segment LED pins
-		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
-		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
-		-- LED Ring
---		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
-		-- 8 bit I/O Latch
---		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
+--		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
+--		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
+		U2_138_select		: out std_logic := '0';
+		o_U2_138_A			: out std_logic_vector(2 downto 0) := "000";
+		-- Matrix
+		o_dataOut			: out std_logic_vector(7 downto 0) := x"00";
+		o_U3_138_select	: out std_logic := '0';
+--		o_U3_138_A			: out std_logic_vector(2 downto 0) := "000";
 		-- I2C Clock and Data
 		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
@@ -62,9 +64,14 @@ architecture struct of R32V2020_A4CE22_top is
 	signal	w_Blu_Hi		:		std_logic := '0';
 	signal	w_Blu_Lo		:		std_logic := '0';
 	signal	w_hActive	:		std_logic := '0';
+	signal	w_Anode_Activate	:	std_logic_vector(7 downto 0);
 
 begin
 
+	o_U2_138_A(2) <= w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(5) or w_Anode_Activate(4);
+	o_U2_138_A(1) <= w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(3) or w_Anode_Activate(2);
+	o_U2_138_A(0) <= w_Anode_Activate(7) or w_Anode_Activate(5) or w_Anode_Activate(3) or w_Anode_Activate(1);
+	
 	R32V2020_top : entity work.R32V2020_top
 		port map (
 		n_reset		=> n_reset,
@@ -88,8 +95,8 @@ begin
 		o_vSync			=> o_vSync,
 		o_hActive		=> w_hActive,
 		-- Seven Segment LED pins
-		o_Anode_Activate	=> o_Anode_Activate,
-		o_LED7Seg_out		=> o_LED7Seg_out,
+		o_Anode_Activate	=> w_Anode_Activate,
+--		o_LED7Seg_out		=> o_LED7Seg_out,
 		-- LED Ring
 --		o_LEDRing_out		=> o_LEDRing_out,
 		-- 8 bit I/O Latch

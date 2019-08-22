@@ -67,13 +67,12 @@ set_global_assignment -name SMART_RECOMPILE ON
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_SerTxd
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vSync
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to o_vSync
 set_instance_assignment -name SLEW_RATE 2 -to o_vSync
 set_instance_assignment -name SLEW_RATE 2 -to o_SerTxd
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_BUZZER
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_hSync
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to o_BUZZER
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to o_hSync
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to io_I2C_SDA
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundTable01.VHD
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundGen.vhd
 set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32_Load124.vhd
@@ -143,22 +142,6 @@ set_location_assignment PIN_B1 -to i_ps2Clk
 set_location_assignment PIN_C2 -to i_ps2Data
 set_location_assignment PIN_T5 -to i_SerRxd
 set_location_assignment PIN_T6 -to o_SerTxd
-set_location_assignment PIN_D1 -to o_LED7Seg_out[0]
-set_location_assignment PIN_F3 -to o_LED7Seg_out[1]
-set_location_assignment PIN_F2 -to o_LED7Seg_out[2]
-set_location_assignment PIN_F1 -to o_LED7Seg_out[3]
-set_location_assignment PIN_G2 -to o_LED7Seg_out[4]
-set_location_assignment PIN_G1 -to o_LED7Seg_out[5]
-set_location_assignment PIN_E7 -to o_LED7Seg_out[6]
-set_location_assignment PIN_E6 -to o_LED7Seg_out[7]
-set_location_assignment PIN_J13 -to o_Anode_Activate[0]
-set_location_assignment PIN_F16 -to o_Anode_Activate[1]
-set_location_assignment PIN_G15 -to o_Anode_Activate[2]
-set_location_assignment PIN_D16 -to o_Anode_Activate[3]
-set_location_assignment PIN_F15 -to o_Anode_Activate[4]
-set_location_assignment PIN_C16 -to o_Anode_Activate[5]
-set_location_assignment PIN_D15 -to o_Anode_Activate[6]
-set_location_assignment PIN_B16 -to o_Anode_Activate[7]
 set_location_assignment PIN_N1 -to o_vid_Red[0]
 set_location_assignment PIN_N2 -to o_vid_Red[1]
 set_location_assignment PIN_L1 -to o_vid_Red[2]
@@ -175,4 +158,17 @@ set_location_assignment PIN_T3 -to o_vid_Blu[1]
 set_location_assignment PIN_R4 -to o_vid_Blu[2]
 set_location_assignment PIN_R3 -to o_vid_Blu[3]
 set_location_assignment PIN_N5 -to o_vid_Blu[4]
+set_location_assignment PIN_E6 -to o_dataOut[7]
+set_location_assignment PIN_E7 -to o_dataOut[6]
+set_location_assignment PIN_G1 -to o_dataOut[5]
+set_location_assignment PIN_G2 -to o_dataOut[4]
+set_location_assignment PIN_F1 -to o_dataOut[3]
+set_location_assignment PIN_F2 -to o_dataOut[2]
+set_location_assignment PIN_F3 -to o_dataOut[1]
+set_location_assignment PIN_D1 -to o_dataOut[0]
+set_location_assignment PIN_J1 -to o_U3_138_select
+set_location_assignment PIN_G5 -to U2_138_select
+set_location_assignment PIN_L3 -to o_U2_138_A[2]
+set_location_assignment PIN_L4 -to o_U2_138_A[1]
+set_location_assignment PIN_F8 -to o_U2_138_A[0]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
