@@ -28,10 +28,16 @@ entity R32V2020_A4CE22_top is
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
 		-- Seven Segment LED pins
+		-- The other FPGA cards have I/O pins which select the display digit
+		-- This board has a 3:8 decoder for the digits
+		-- The address lines of the decoder are shared with the matrix display
+		-- There are separate select lines for the two display so they both
+		-- A mux is required to use both displays
+		-- The 8 discrete LEDs, the seven segment (plus period) and the matrix LED share common activations
 --		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 --		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
-		U2_138_select		: out std_logic := '0';
-		o_U2_138_A			: out std_logic_vector(2 downto 0) := "000";
+		SevSegDemuxSel		: out std_logic := '1';
+		LEDDemuxAddr		: out std_logic_vector(2 downto 0) := "000";
 		-- Matrix
 		o_dataOut			: out std_logic_vector(7 downto 0) := x"00";
 		o_U3_138_select	: out std_logic := '0';
@@ -68,9 +74,9 @@ architecture struct of R32V2020_A4CE22_top is
 
 begin
 
-	o_U2_138_A(2) <= w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(5) or w_Anode_Activate(4);
-	o_U2_138_A(1) <= w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(3) or w_Anode_Activate(2);
-	o_U2_138_A(0) <= w_Anode_Activate(7) or w_Anode_Activate(5) or w_Anode_Activate(3) or w_Anode_Activate(1);
+	LEDDemuxAddr(2) <= w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(5) or w_Anode_Activate(4);
+	LEDDemuxAddr(1) <= w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(3) or w_Anode_Activate(2);
+	LEDDemuxAddr(0) <= w_Anode_Activate(7) or w_Anode_Activate(5) or w_Anode_Activate(3) or w_Anode_Activate(1);
 	
 	R32V2020_top : entity work.R32V2020_top
 		port map (
