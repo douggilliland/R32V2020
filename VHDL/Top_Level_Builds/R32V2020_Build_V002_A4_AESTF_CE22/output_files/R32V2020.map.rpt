@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Fri Aug 23 10:16:17 2019
+Fri Aug 23 11:16:47 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -96,16 +96,16 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Aug 23 10:16:17 2019       ;
+; Analysis & Synthesis Status        ; Successful - Fri Aug 23 11:16:47 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE22_top                         ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 5,601                                       ;
-;     Total combinational functions  ; 5,193                                       ;
-;     Dedicated logic registers      ; 1,453                                       ;
-; Total registers                    ; 1453                                        ;
-; Total pins                         ; 58                                          ;
+; Total logic elements               ; 5,611                                       ;
+;     Total combinational functions  ; 5,195                                       ;
+;     Dedicated logic registers      ; 1,461                                       ;
+; Total registers                    ; 1461                                        ;
+; Total pins                         ; 63                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 229,504                                     ;
 ; Embedded Multiplier 9-bit elements ; 12                                          ;
@@ -322,30 +322,30 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+------------------+
 ; Resource                                    ; Usage            ;
 +---------------------------------------------+------------------+
-; Estimated Total logic elements              ; 5,601            ;
+; Estimated Total logic elements              ; 5,611            ;
 ;                                             ;                  ;
-; Total combinational functions               ; 5193             ;
+; Total combinational functions               ; 5195             ;
 ; Logic element usage by number of LUT inputs ;                  ;
 ;     -- 4 input functions                    ; 2719             ;
-;     -- 3 input functions                    ; 1279             ;
-;     -- <=2 input functions                  ; 1195             ;
+;     -- 3 input functions                    ; 1285             ;
+;     -- <=2 input functions                  ; 1191             ;
 ;                                             ;                  ;
 ; Logic elements by mode                      ;                  ;
-;     -- normal mode                          ; 4066             ;
+;     -- normal mode                          ; 4068             ;
 ;     -- arithmetic mode                      ; 1127             ;
 ;                                             ;                  ;
-; Total registers                             ; 1453             ;
-;     -- Dedicated logic registers            ; 1453             ;
+; Total registers                             ; 1461             ;
+;     -- Dedicated logic registers            ; 1461             ;
 ;     -- I/O registers                        ; 0                ;
 ;                                             ;                  ;
-; I/O pins                                    ; 58               ;
+; I/O pins                                    ; 63               ;
 ; Total memory bits                           ; 229504           ;
 ;                                             ;                  ;
 ; Embedded Multiplier 9-bit elements          ; 12               ;
 ;                                             ;                  ;
 ; Maximum fan-out node                        ; i_CLOCK_50~input ;
-; Maximum fan-out                             ; 1187             ;
-; Total fan-out                               ; 25800            ;
+; Maximum fan-out                             ; 1195             ;
+; Total fan-out                               ; 25855            ;
 ; Average fan-out                             ; 3.73             ;
 +---------------------------------------------+------------------+
 
@@ -355,8 +355,8 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 ; Compilation Hierarchy Node                                                                                                              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                                                                                                                                                                                                             ; Entity Name                       ; Library Name ;
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
-; |R32V2020_A4CE22_top                                                                                                                    ; 5193 (1)            ; 1453 (0)                  ; 229504      ; 12           ; 0       ; 6         ; 58   ; 0            ; |R32V2020_A4CE22_top                                                                                                                                                                                                                                                                                                                                            ; R32V2020_A4CE22_top               ; work         ;
-;    |R32V2020_top:R32V2020_top|                                                                                                          ; 4978 (0)            ; 1321 (0)                  ; 229504      ; 12           ; 0       ; 6         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top                                                                                                                                                                                                                                                                                                                  ; R32V2020_top                      ; work         ;
+; |R32V2020_A4CE22_top                                                                                                                    ; 5195 (1)            ; 1461 (0)                  ; 229504      ; 12           ; 0       ; 6         ; 63   ; 0            ; |R32V2020_A4CE22_top                                                                                                                                                                                                                                                                                                                                            ; R32V2020_A4CE22_top               ; work         ;
+;    |R32V2020_top:R32V2020_top|                                                                                                          ; 4980 (0)            ; 1329 (0)                  ; 229504      ; 12           ; 0       ; 6         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top                                                                                                                                                                                                                                                                                                                  ; R32V2020_top                      ; work         ;
 ;       |BlockRam_Stack:Stack_RAM|                                                                                                        ; 94 (0)              ; 65 (0)                    ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM                                                                                                                                                                                                                                                                                         ; BlockRam_Stack                    ; work         ;
 ;          |altsyncram:altsyncram_component|                                                                                              ; 94 (0)              ; 65 (0)                    ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component                                                                                                                                                                                                                                                         ; altsyncram                        ; work         ;
 ;             |altsyncram_61s3:auto_generated|                                                                                            ; 94 (0)              ; 65 (0)                    ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_61s3:auto_generated                                                                                                                                                                                                                          ; altsyncram_61s3                   ; work         ;
@@ -370,8 +370,8 @@ refer to the applicable agreement for further details.
 ;                |sld_mod_ram_rom:mgl_prim2|                                                                                              ; 96 (75)             ; 68 (59)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_hq34:auto_generated|sld_mod_ram_rom:mgl_prim2                                                                                                                                                                                          ; sld_mod_ram_rom                   ; work         ;
 ;                   |sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr|                                                                  ; 21 (21)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_hq34:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr                                                                                                                                       ; sld_rom_sr                        ; work         ;
 ;       |Debouncer:DebounceResetSwitch|                                                                                                   ; 3 (3)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|Debouncer:DebounceResetSwitch                                                                                                                                                                                                                                                                                    ; Debouncer                         ; work         ;
-;       |PeripheralInterface:Peripherals|                                                                                                 ; 2237 (135)          ; 714 (36)                  ; 49280       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals                                                                                                                                                                                                                                                                                  ; PeripheralInterface               ; work         ;
-;          |ANSIDisplayVGA:SVGA|                                                                                                          ; 961 (783)           ; 203 (203)                 ; 49152       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA                                                                                                                                                                                                                                                              ; ANSIDisplayVGA                    ; work         ;
+;       |PeripheralInterface:Peripherals|                                                                                                 ; 2239 (136)          ; 722 (36)                  ; 49280       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals                                                                                                                                                                                                                                                                                  ; PeripheralInterface               ; work         ;
+;          |ANSIDisplayVGA:SVGA|                                                                                                          ; 960 (782)           ; 203 (203)                 ; 49152       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA                                                                                                                                                                                                                                                              ; ANSIDisplayVGA                    ; work         ;
 ;             |DisplayRam2K:\GEN_2KATTRAM:dispAttRam|                                                                                     ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|DisplayRam2K:\GEN_2KATTRAM:dispAttRam                                                                                                                                                                                                                        ; DisplayRam2K                      ; work         ;
 ;                |altsyncram:altsyncram_component|                                                                                        ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|DisplayRam2K:\GEN_2KATTRAM:dispAttRam|altsyncram:altsyncram_component                                                                                                                                                                                        ; altsyncram                        ; work         ;
 ;                   |altsyncram_ldr3:auto_generated|                                                                                      ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|DisplayRam2K:\GEN_2KATTRAM:dispAttRam|altsyncram:altsyncram_component|altsyncram_ldr3:auto_generated                                                                                                                                                         ; altsyncram_ldr3                   ; work         ;
@@ -393,6 +393,7 @@ refer to the applicable agreement for further details.
 ;          |Debouncer:DebounceSwitch2|                                                                                                    ; 4 (4)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Debouncer:DebounceSwitch2                                                                                                                                                                                                                                                        ; Debouncer                         ; work         ;
 ;          |Debouncer:DebounceSwitch3|                                                                                                    ; 4 (4)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Debouncer:DebounceSwitch3                                                                                                                                                                                                                                                        ; Debouncer                         ; work         ;
 ;          |Loadable_7S8D_LED:SevenSegDisplay|                                                                                            ; 48 (48)             ; 21 (21)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Loadable_7S8D_LED:SevenSegDisplay                                                                                                                                                                                                                                                ; Loadable_7S8D_LED                 ; work         ;
+;          |REG_16:LedRing|                                                                                                               ; 0 (0)               ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|REG_16:LedRing                                                                                                                                                                                                                                                                   ; REG_16                            ; work         ;
 ;          |REG_32:SevenSegmentDisplayLatch|                                                                                              ; 0 (0)               ; 32 (32)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|REG_32:SevenSegmentDisplayLatch                                                                                                                                                                                                                                                  ; REG_32                            ; work         ;
 ;          |REG_8:LedBuzzerLatch|                                                                                                         ; 0 (0)               ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|REG_8:LedBuzzerLatch                                                                                                                                                                                                                                                             ; REG_8                             ; work         ;
 ;          |Timer_Unit:timers|                                                                                                            ; 160 (129)           ; 124 (113)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Timer_Unit:timers                                                                                                                                                                                                                                                                ; Timer_Unit                        ; work         ;
@@ -401,8 +402,8 @@ refer to the applicable agreement for further details.
 ;             |altsyncram:rxBuffer_rtl_0|                                                                                                 ; 0 (0)               ; 0 (0)                     ; 128         ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|altsyncram:rxBuffer_rtl_0                                                                                                                                                                                                                                      ; altsyncram                        ; work         ;
 ;                |altsyncram_3ce1:auto_generated|                                                                                         ; 0 (0)               ; 0 (0)                     ; 128         ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|altsyncram:rxBuffer_rtl_0|altsyncram_3ce1:auto_generated                                                                                                                                                                                                       ; altsyncram_3ce1                   ; work         ;
 ;          |i2c:eepi2cIF|                                                                                                                 ; 48 (48)             ; 34 (34)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF                                                                                                                                                                                                                                                                     ; i2c                               ; work         ;
-;          |i2c:i2cIF|                                                                                                                    ; 48 (48)             ; 34 (34)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF                                                                                                                                                                                                                                                                        ; i2c                               ; work         ;
-;          |ps2_keyboard_to_ascii:ps2Keyboard|                                                                                            ; 671 (608)           ; 86 (28)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard                                                                                                                                                                                                                                                ; ps2_keyboard_to_ascii             ; work         ;
+;          |i2c:i2cIF|                                                                                                                    ; 47 (47)             ; 34 (34)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF                                                                                                                                                                                                                                                                        ; i2c                               ; work         ;
+;          |ps2_keyboard_to_ascii:ps2Keyboard|                                                                                            ; 674 (611)           ; 86 (28)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard                                                                                                                                                                                                                                                ; ps2_keyboard_to_ascii             ; work         ;
 ;             |ps2_keyboard:ps2_keyboard_0|                                                                                               ; 63 (21)             ; 58 (34)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0                                                                                                                                                                                                                    ; ps2_keyboard                      ; work         ;
 ;                |debounce:debounce_ps2_clk|                                                                                              ; 21 (21)             ; 12 (12)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk                                                                                                                                                                                          ; debounce                          ; work         ;
 ;                |debounce:debounce_ps2_data|                                                                                             ; 21 (21)             ; 12 (12)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_data                                                                                                                                                                                         ; debounce                          ; work         ;
@@ -733,12 +734,12 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 1453  ;
+; Total registers                              ; 1461  ;
 ; Number of registers using Synchronous Clear  ; 191   ;
 ; Number of registers using Synchronous Load   ; 140   ;
-; Number of registers using Asynchronous Clear ; 826   ;
+; Number of registers using Asynchronous Clear ; 834   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 1159  ;
+; Number of registers using Clock Enable       ; 1167  ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -750,7 +751,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|spi:spiMaster|cs                                                                                                                                                                                                                                                      ; 2       ;
 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|spi:spiMaster|shift_reg[7]                                                                                                                                                                                                                                            ; 2       ;
-; R32V2020_top:R32V2020_top|Debouncer:DebounceResetSwitch|o_PinOut                                                                                                                                                                                                                                                                ; 672     ;
+; R32V2020_top:R32V2020_top|Debouncer:DebounceResetSwitch|o_PinOut                                                                                                                                                                                                                                                                ; 680     ;
 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|dispAttWRData[0]                                                                                                                                                                                                                                  ; 4       ;
 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|cursorOn                                                                                                                                                                                                                                          ; 1       ;
 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ANSIDisplayVGA:SVGA|dispAttWRData[1]                                                                                                                                                                                                                                  ; 4       ;
@@ -1804,20 +1805,20 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------------------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "R32V2020_top:R32V2020_top"                                                                         ;
-+---------------------+--------+----------+-------------------------------------------------------------------------------------+
-; Port                ; Type   ; Severity ; Details                                                                             ;
-+---------------------+--------+----------+-------------------------------------------------------------------------------------+
-; i_sercts            ; Input  ; Info     ; Stuck at GND                                                                        ;
-; o_serrts            ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; o_hactive           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; o_anode_activate[0] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; o_ledring_out       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; o_latchio           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; o_testpoint         ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; o_note              ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+---------------------+--------+----------+-------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "R32V2020_top:R32V2020_top"                                                                          ;
++----------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port                 ; Type   ; Severity ; Details                                                                             ;
++----------------------+--------+----------+-------------------------------------------------------------------------------------+
+; i_sercts             ; Input  ; Info     ; Stuck at GND                                                                        ;
+; o_serrts             ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; o_hactive            ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; o_anode_activate[0]  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; o_ledring_out[11..8] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; o_latchio            ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; o_testpoint          ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; o_note               ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1836,13 +1837,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 139                         ;
-; cycloneiii_ff         ; 1321                        ;
+; boundary_port         ; 144                         ;
+; cycloneiii_ff         ; 1329                        ;
 ;     CLR               ; 83                          ;
 ;     CLR SCLR          ; 6                           ;
 ;     CLR SLD           ; 1                           ;
 ;     ENA               ; 298                         ;
-;     ENA CLR           ; 522                         ;
+;     ENA CLR           ; 530                         ;
 ;     ENA CLR SCLR      ; 33                          ;
 ;     ENA CLR SLD       ; 103                         ;
 ;     ENA SCLR          ; 71                          ;
@@ -1851,22 +1852,22 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     SCLR              ; 44                          ;
 ;     plain             ; 133                         ;
 ; cycloneiii_io_obuf    ; 4                           ;
-; cycloneiii_lcell_comb ; 4987                        ;
+; cycloneiii_lcell_comb ; 4997                        ;
 ;     arith             ; 1118                        ;
 ;         2 data inputs ; 655                         ;
 ;         3 data inputs ; 463                         ;
-;     normal            ; 3869                        ;
+;     normal            ; 3879                        ;
 ;         0 data inputs ; 18                          ;
-;         1 data inputs ; 89                          ;
-;         2 data inputs ; 397                         ;
-;         3 data inputs ; 735                         ;
+;         1 data inputs ; 97                          ;
+;         2 data inputs ; 393                         ;
+;         3 data inputs ; 741                         ;
 ;         4 data inputs ; 2630                        ;
 ; cycloneiii_mac_mult   ; 6                           ;
 ; cycloneiii_mac_out    ; 6                           ;
 ; cycloneiii_ram_block  ; 128                         ;
 ;                       ;                             ;
 ; Max LUT depth         ; 19.60                       ;
-; Average LUT depth     ; 8.15                        ;
+; Average LUT depth     ; 8.14                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1875,7 +1876,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:24     ;
+; Top            ; 00:00:20     ;
 +----------------+--------------+
 
 
@@ -1885,11 +1886,11 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Fri Aug 23 10:15:16 2019
+    Info: Processing started: Fri Aug 23 11:15:51 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (12021): Found 2 design units, including 1 entities, in source file r32v2020_a4ce22_top.vhd
-    Info (12022): Found design unit 1: R32V2020_A4CE22_top-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 61
+    Info (12022): Found design unit 1: R32V2020_A4CE22_top-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 63
     Info (12023): Found entity 1: R32V2020_A4CE22_top File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 13
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/soundgen/soundtable01.vhd
     Info (12022): Found design unit 1: SoundTable01-behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SoundGen/SoundTable01.VHD Line: 24
@@ -2031,7 +2032,7 @@ Info (12021): Found 1 design units, including 0 entities, in source file /users/
 Info (12127): Elaborating entity "R32V2020_A4CE22_top" for the top level hierarchy
 Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE22_top.vhd(38): used explicit default value for signal "o_LED7SegDemuxSel" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 38
 Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE22_top.vhd(41): used explicit default value for signal "o_MatrixLED_select" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 41
-Info (12128): Elaborating entity "R32V2020_top" for hierarchy "R32V2020_top:R32V2020_top" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 93
+Info (12128): Elaborating entity "R32V2020_top" for hierarchy "R32V2020_top:R32V2020_top" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 101
 Warning (10540): VHDL Signal Declaration warning at R32V2020_top.vhd(34): used explicit default value for signal "o_hActive" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 34
 Warning (10540): VHDL Signal Declaration warning at R32V2020_top.vhd(54): used explicit default value for signal "o_testPoint" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 54
 Info (12128): Elaborating entity "Debouncer" for hierarchy "R32V2020_top:R32V2020_top|Debouncer:DebounceResetSwitch" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 112
@@ -2506,7 +2507,7 @@ Info (12128): Elaborating entity "ps2_keyboard" for hierarchy "R32V2020_top:R32V
 Info (12128): Elaborating entity "debounce" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 67
 Info (12128): Elaborating entity "bufferedUART" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 427
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2019.08.23.10:15:40 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2019.08.23.11:16:14 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -2755,18 +2756,18 @@ Info (17049): 4 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "i_I2C_INT" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 45
-Info (21057): Implemented 5883 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 21 input pins
-    Info (21059): Implemented 37 output pins
+    Warning (15610): No output dependent on input pin "i_I2C_INT" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/R32V2020_A4CE22_top.vhd Line: 47
+Info (21057): Implemented 5898 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 18 input pins
+    Info (21059): Implemented 45 output pins
     Info (21060): Implemented 4 bidirectional pins
-    Info (21061): Implemented 5680 logic cells
+    Info (21061): Implemented 5690 logic cells
     Info (21064): Implemented 128 RAM segments
     Info (21062): Implemented 12 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 158 warnings
-    Info: Peak virtual memory: 4889 megabytes
-    Info: Processing ended: Fri Aug 23 10:16:17 2019
-    Info: Elapsed time: 00:01:01
-    Info: Total CPU time (on all processors): 00:01:33
+    Info: Peak virtual memory: 4887 megabytes
+    Info: Processing ended: Fri Aug 23 11:16:47 2019
+    Info: Elapsed time: 00:00:56
+    Info: Total CPU time (on all processors): 00:01:25
 
 

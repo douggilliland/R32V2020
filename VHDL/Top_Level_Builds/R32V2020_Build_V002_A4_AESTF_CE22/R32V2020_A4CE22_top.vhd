@@ -15,7 +15,7 @@ entity R32V2020_A4CE22_top is
 		n_reset				: in std_logic := '1';
 		i_CLOCK_50			: in std_logic;
 		-- Switches, LEDs, Buzzer pins
-		i_switch				: in std_logic_vector(2 downto 0) := "111";
+--		i_switch				: in std_logic_vector(2 downto 0) := "111";
 		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
 		o_BUZZER				: buffer std_logic := '0';
 		-- Serial port pins
@@ -39,6 +39,8 @@ entity R32V2020_A4CE22_top is
 		o_LEDDemuxAddr		: out std_logic_vector(2 downto 0) := "000";
 		-- Matrix
 		o_MatrixLED_select : out std_logic := '0';
+		-- 
+		o_LEDRing_out		: out std_logic_vector(7 downto 0);
 		-- I2C Clock and Data
 		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
@@ -63,10 +65,16 @@ architecture struct of R32V2020_A4CE22_top is
 	signal	w_Red					:		std_logic_vector(1 downto 0) := "00";
 	signal	w_Grn					:		std_logic_vector(1 downto 0) := "00";
 	signal	w_Blu					:		std_logic_vector(1 downto 0) := "00";
-	signal	w_Anode_Activate	:		std_logic_vector(7 downto 0) := "01010101";
+	signal	w_Anode_Activate	:		std_logic_vector(7 downto 0);
+	signal	w_LEDRing_out		:		std_logic_vector(11 downto 0);
+	signal	w_Switch				:		std_logic_vector(2 downto 0);
 	
 begin
 
+	w_Switch <= i_dipSwitch(2 downto 0);
+	--
+	o_LEDRing_out <= w_LEDRing_out(7 downto 0);
+	
 	-- Map the 2:2:2 video from the core to the 5:6:6 of the FPGA base card
 	o_vid_Red <= w_Red(1) & w_Red(1) & w_Red(0) & w_Red(0) & w_Red(0);
 	o_vid_Grn <= w_Grn(1) & w_Grn(1) & w_Grn(0) & w_Grn(0) & w_Grn(0) & w_Grn(0);
@@ -95,7 +103,7 @@ begin
 		n_reset		=> n_reset,
 		i_CLOCK_50	=> i_CLOCK_50,
 		-- Switches, LEDs, Buzzer pins
-		i_switch		=> i_switch,
+		i_switch		=> w_Switch,
 		i_dipSwitch	=> i_dipSwitch,
 		--o_LED		=> ,
 		o_BUZZER		=> o_BUZZER,
@@ -115,7 +123,7 @@ begin
 		o_Anode_Activate	=> w_Anode_Activate,
 		o_LED7Seg_out		=> o_LED7Seg_out,
 		-- LED Ring
---		o_LEDRing_out		=> o_LEDRing_out,
+		o_LEDRing_out		=> w_LEDRing_out,
 		-- 8 bit I/O Latch
 --		o_LatchIO			=> o_LatchIO,
 		-- I2C Clock and Data

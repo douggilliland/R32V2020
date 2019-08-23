@@ -1,12 +1,12 @@
 |R32V2020_A4CE22_top
 n_reset => r32v2020_top:R32V2020_top.n_reset
 i_CLOCK_50 => r32v2020_top:R32V2020_top.i_CLOCK_50
-i_switch[0] => r32v2020_top:R32V2020_top.i_switch[0]
-i_switch[1] => r32v2020_top:R32V2020_top.i_switch[1]
-i_switch[2] => r32v2020_top:R32V2020_top.i_switch[2]
 i_dipSwitch[0] => r32v2020_top:R32V2020_top.i_dipSwitch[0]
+i_dipSwitch[0] => r32v2020_top:R32V2020_top.i_switch[0]
 i_dipSwitch[1] => r32v2020_top:R32V2020_top.i_dipSwitch[1]
+i_dipSwitch[1] => r32v2020_top:R32V2020_top.i_switch[1]
 i_dipSwitch[2] => r32v2020_top:R32V2020_top.i_dipSwitch[2]
+i_dipSwitch[2] => r32v2020_top:R32V2020_top.i_switch[2]
 i_dipSwitch[3] => r32v2020_top:R32V2020_top.i_dipSwitch[3]
 i_dipSwitch[4] => r32v2020_top:R32V2020_top.i_dipSwitch[4]
 i_dipSwitch[5] => r32v2020_top:R32V2020_top.i_dipSwitch[5]
@@ -46,6 +46,14 @@ o_LEDDemuxAddr[0] <= o_LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
 o_LEDDemuxAddr[1] <= o_LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
 o_LEDDemuxAddr[2] <= o_LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
 o_MatrixLED_select <= <GND>
+o_LEDRing_out[0] <= r32v2020_top:R32V2020_top.o_LEDRing_out[0]
+o_LEDRing_out[1] <= r32v2020_top:R32V2020_top.o_LEDRing_out[1]
+o_LEDRing_out[2] <= r32v2020_top:R32V2020_top.o_LEDRing_out[2]
+o_LEDRing_out[3] <= r32v2020_top:R32V2020_top.o_LEDRing_out[3]
+o_LEDRing_out[4] <= r32v2020_top:R32V2020_top.o_LEDRing_out[4]
+o_LEDRing_out[5] <= r32v2020_top:R32V2020_top.o_LEDRing_out[5]
+o_LEDRing_out[6] <= r32v2020_top:R32V2020_top.o_LEDRing_out[6]
+o_LEDRing_out[7] <= r32v2020_top:R32V2020_top.o_LEDRing_out[7]
 io_I2C_SCL <> r32v2020_top:R32V2020_top.io_I2C_SCL
 io_I2C_SDA <> r32v2020_top:R32V2020_top.io_I2C_SDA
 i_I2C_INT => r32v2020_top:R32V2020_top.i_I2C_INT
