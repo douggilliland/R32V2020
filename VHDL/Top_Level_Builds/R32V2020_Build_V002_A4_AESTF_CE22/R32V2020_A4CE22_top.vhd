@@ -63,16 +63,16 @@ end R32V2020_A4CE22_top;
 
 architecture struct of R32V2020_A4CE22_top is
 
-	signal	w_Red_Hi		:		std_logic := '0';
-	signal	w_Red_Lo		:		std_logic := '0';
-	signal	w_Grn_Hi		:		std_logic := '0';
-	signal	w_Grn_Lo		:		std_logic := '0';
-	signal	w_Blu_Hi		:		std_logic := '0';
-	signal	w_Blu_Lo		:		std_logic := '0';
-	signal	w_hActive	:		std_logic := '0';
-	signal	w_Anode_Activate	:	std_logic_vector(7 downto 0);
-
+	signal	w_Red					:		std_logic_vector(1 downto 0) := "00";
+	signal	w_Grn					:		std_logic_vector(1 downto 0) := "00";
+	signal	w_Blu					:		std_logic_vector(1 downto 0) := "00";
+	signal	w_Anode_Activate	:		std_logic_vector(7 downto 0);
+	
 begin
+
+	o_vid_Red <= w_Red(1) & w_Red(1) & w_Red(0) & w_Red(0) & w_Red(0);
+	o_vid_Grn <= w_Grn(1) & w_Grn(1) & w_Grn(0) & w_Grn(0) & w_Grn(0) & w_Grn(0);
+	o_vid_Blu <= w_Blu(1) & w_Blu(1) & w_Blu(0) & w_Blu(0) & w_Blu(0);
 
 	LEDDemuxAddr(2) <= not (w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(5) or w_Anode_Activate(4));
 	LEDDemuxAddr(1) <= not (w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(3) or w_Anode_Activate(2));
@@ -91,15 +91,14 @@ begin
 		i_SerRxd		=> i_SerRxd,
 		o_SerTxd		=> o_SerTxd,
 		-- VGA pins
-		o_vid_Red_Hi	=> o_vid_Red(4),
-		o_vid_Red_Lo	=> o_vid_Red(3),
-		o_vid_Grn_Hi	=> o_vid_Grn(5),
-		o_vid_Grn_Lo	=> o_vid_Grn(4),
-		o_vid_Blu_Hi	=> o_vid_Blu(4),
-		o_vid_Blu_Lo	=> o_vid_Blu(3),
+		o_vid_Red_Hi	=> w_Red(1),
+		o_vid_Red_Lo	=> w_Red(0),
+		o_vid_Grn_Hi	=> w_Grn(1),
+		o_vid_Grn_Lo	=> w_Grn(0),
+		o_vid_Blu_Hi	=> w_Blu(1),
+		o_vid_Blu_Lo	=> w_Blu(0),
 		o_hSync			=> o_hSync,
 		o_vSync			=> o_vSync,
-		o_hActive		=> w_hActive,
 		-- Seven Segment LED pins
 		o_Anode_Activate	=> w_Anode_Activate,
 		o_LED7Seg_out		=> o_LED7Seg_out,
