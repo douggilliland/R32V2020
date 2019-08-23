@@ -41,6 +41,7 @@ entity R32V2020_A4CE22_top is
 		o_MatrixLED_select : out std_logic := '0';
 		-- 
 		o_LEDRing_out		: out std_logic_vector(7 downto 0);
+		o_LED_D7				: out std_logic := '1';
 		-- I2C Clock and Data
 		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
@@ -73,7 +74,8 @@ begin
 
 	w_Switch <= i_dipSwitch(2 downto 0);
 	--
-	o_LEDRing_out <= w_LEDRing_out(7 downto 0);
+	o_LEDRing_out	<= w_LEDRing_out(7 downto 0);
+	o_LED_D7			<= w_LEDRing_out(8);
 	
 	-- Map the 2:2:2 video from the core to the 5:6:6 of the FPGA base card
 	o_vid_Red <= w_Red(1) & w_Red(1) & w_Red(0) & w_Red(0) & w_Red(0);

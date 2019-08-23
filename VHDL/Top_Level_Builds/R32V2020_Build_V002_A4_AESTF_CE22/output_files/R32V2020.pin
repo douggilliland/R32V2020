@@ -77,7 +77,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : A6        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : A7        :        :                   :         : 8         :                
 i_dipSwitch[3]               : A8        : input  : 3.3-V LVCMOS      :         : 8         : Y              
 i_dipSwitch[4]               : A9        : input  : 3.3-V LVCMOS      :         : 7         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : A10       :        :                   :         : 7         :                
+spi_sclk                     : A10       : output : 3.3-V LVCMOS      :         : 7         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : A11       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : A12       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : A13       :        :                   :         : 7         :                
@@ -93,7 +93,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : B6        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : B7        :        :                   :         : 8         :                
 i_dipSwitch[2]               : B8        : input  : 3.3-V LVCMOS      :         : 8         : Y              
 i_dipSwitch[5]               : B9        : input  : 3.3-V LVCMOS      :         : 7         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : B10       :        :                   :         : 7         :                
+spi_mosi                     : B10       : output : 3.3-V LVCMOS      :         : 7         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : B11       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : B12       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : B13       :        :                   :         : 7         :                
@@ -107,7 +107,7 @@ VCCIO8                       : C4        : power  :                   : 3.3V    
 GND                          : C5        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C6        :        :                   :         : 8         :                
 VCCIO8                       : C7        : power  :                   : 3.3V    : 8         :                
-io_I2C_SCL                   : C8        : bidir  : 3.3-V LVCMOS      :         : 8         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C8        :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C9        :        :                   :         : 7         :                
 VCCIO7                       : C10       : power  :                   : 3.3V    : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C11       :        :                   :         : 7         :                
@@ -123,8 +123,8 @@ VCCD_PLL3                    : D4        : power  :                   : 1.2V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : D5        :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : D6        :        :                   :         : 8         :                
 GND                          : D7        : gnd    :                   :         :           :                
-io_I2C_SDA                   : D8        : bidir  : 3.3-V LVCMOS      :         : 8         : N              
-spi_sclk                     : D9        : output : 3.3-V LVCMOS      :         : 7         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : D8        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D9        :        :                   :         : 7         :                
 GND                          : D10       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : D11       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : D12       :        :                   :         : 7         :                
@@ -139,8 +139,8 @@ GND                          : E4        : gnd    :                   :         
 GNDA3                        : E5        : gnd    :                   :         :           :                
 o_LED7Seg_out[7]             : E6        : output : 3.3-V LVCMOS      :         : 8         : Y              
 o_LED7Seg_out[6]             : E7        : output : 3.3-V LVCMOS      :         : 8         : Y              
-spi_csN                      : E8        : output : 3.3-V LVCMOS      :         : 8         : N              
-spi_mosi                     : E9        : output : 3.3-V LVCMOS      :         : 7         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : E8        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E9        :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : E10       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : E11       :        :                   :         : 7         :                
 GNDA2                        : E12       : gnd    :                   :         :           :                
@@ -209,7 +209,7 @@ GND                          : J10       : gnd    :                   :         
 GND                          : J11       : gnd    :                   :         :           :                
 VCCINT                       : J12       : power  :                   : 1.2V    :           :                
 o_LEDRing_out[0]             : J13       : output : 3.3-V LVCMOS      :         : 5         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : J14       :        :                   :         : 5         :                
+spi_csN                      : J14       : output : 3.3-V LVCMOS      :         : 5         : N              
 n_reset                      : J15       : input  : 3.3-V LVCMOS      :         : 5         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : J16       :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : K1        :        :                   :         : 2         :                
@@ -251,7 +251,7 @@ GND                          : M4        : gnd    :                   :         
 GNDA1                        : M5        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : M6        :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : M7        :        :                   :         : 3         :                
-io_EEP_I2C_SCL               : M8        : bidir  : 3.3-V LVCMOS      :         : 3         : N              
+o_LED_D7                     : M8        : output : 3.3-V LVCMOS      :         : 3         : Y              
 VCCINT                       : M9        : power  :                   : 1.2V    :           :                
 o_hSync                      : M10       : output : 3.3-V LVCMOS      :         : 4         : Y              
 VCCINT                       : M11       : power  :                   : 1.2V    :           :                
@@ -274,8 +274,8 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : N11       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : N12       :        :                   :         : 4         :                
 VCCD_PLL4                    : N13       : power  :                   : 1.2V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N14       :        :                   :         : 5         :                
-i_I2C_INT                    : N15       : input  : 3.3-V LVCMOS      :         : 5         : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : N16       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : N15       :        :                   :         : 5         :                
+i_I2C_INT                    : N16       : input  : 3.3-V LVCMOS      :         : 5         : N              
 o_vid_Grn[4]                 : P1        : output : 3.3-V LVCMOS      :         : 2         : Y              
 o_vid_Grn[5]                 : P2        : output : 3.3-V LVCMOS      :         : 2         : Y              
 o_vid_Grn[1]                 : P3        : output : 3.3-V LVCMOS      :         : 3         : Y              
@@ -283,10 +283,10 @@ VCCIO3                       : P4        : power  :                   : 3.3V    
 GND                          : P5        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : P6        :        :                   :         : 3         :                
 VCCIO3                       : P7        : power  :                   : 3.3V    : 3         :                
-io_EEP_I2C_SDA               : P8        : bidir  : 3.3-V LVCMOS      :         : 3         : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : P9        :        :                   :         : 4         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P8        :        :                   :         : 3         :                
+io_I2C_SDA                   : P9        : bidir  : 3.3-V LVCMOS      :         : 4         : N              
 VCCIO4                       : P10       : power  :                   : 3.3V    : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : P11       :        :                   :         : 4         :                
+io_I2C_SCL                   : P11       : bidir  : 3.3-V LVCMOS      :         : 4         : N              
 GND                          : P12       : gnd    :                   :         :           :                
 VCCIO4                       : P13       : power  :                   : 3.3V    : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : P14       :        :                   :         : 4         :                
@@ -318,8 +318,8 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : T7        :        :                   :      
 GND+                         : T8        :        :                   :         : 3         :                
 GND+                         : T9        :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : T10       :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : T11       :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : T12       :        :                   :         : 4         :                
+io_EEP_I2C_SDA               : T11       : bidir  : 3.3-V LVCMOS      :         : 4         : N              
+io_EEP_I2C_SCL               : T12       : bidir  : 3.3-V LVCMOS      :         : 4         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : T13       :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : T14       :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : T15       :        :                   :         : 4         :                
