@@ -17,7 +17,7 @@ entity R32V2020_A4CE22_top is
 		-- Switches, LEDs, Buzzer pins
 		i_switch				: in std_logic_vector(2 downto 0) := "111";
 		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
-		o_BUZZER				: out std_logic := '0';
+		o_BUZZER				: buffer std_logic := '0';
 		-- Serial port pins
 		i_SerRxd				: in std_logic := '1';
 		o_SerTxd				: out std_logic := '1';
@@ -35,7 +35,7 @@ entity R32V2020_A4CE22_top is
 		-- A mux is required to use both displays
 		-- The 8 discrete LEDs, the seven segment (plus period) and the matrix LED share common activations
 --		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
---		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
+		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
 		SevSegDemuxSel		: out std_logic := '1';
 		LEDDemuxAddr		: out std_logic_vector(2 downto 0) := "000";
 		-- Matrix
@@ -74,9 +74,9 @@ architecture struct of R32V2020_A4CE22_top is
 
 begin
 
-	LEDDemuxAddr(2) <= w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(5) or w_Anode_Activate(4);
-	LEDDemuxAddr(1) <= w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(3) or w_Anode_Activate(2);
-	LEDDemuxAddr(0) <= w_Anode_Activate(7) or w_Anode_Activate(5) or w_Anode_Activate(3) or w_Anode_Activate(1);
+	LEDDemuxAddr(2) <= not (w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(5) or w_Anode_Activate(4));
+	LEDDemuxAddr(1) <= not (w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(3) or w_Anode_Activate(2));
+	LEDDemuxAddr(0) <= not (w_Anode_Activate(7) or w_Anode_Activate(5) or w_Anode_Activate(3) or w_Anode_Activate(1));
 	
 	R32V2020_top : entity work.R32V2020_top
 		port map (
@@ -102,7 +102,7 @@ begin
 		o_hActive		=> w_hActive,
 		-- Seven Segment LED pins
 		o_Anode_Activate	=> w_Anode_Activate,
---		o_LED7Seg_out		=> o_LED7Seg_out,
+		o_LED7Seg_out		=> o_LED7Seg_out,
 		-- LED Ring
 --		o_LEDRing_out		=> o_LEDRing_out,
 		-- 8 bit I/O Latch
