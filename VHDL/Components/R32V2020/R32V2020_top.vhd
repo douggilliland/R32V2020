@@ -197,7 +197,7 @@ begin
 		o_dataFromPeripherals	=> w_dataFromPeripherals,
 		i_peripheralRdStrobe		=> w_peripheralRdEn,
 		i_peripheralWrStrobe		=> w_peripheralWrEn,
-		-- Physical connections to/from the FPGA pins
+		-- Pass throughs to/from the FPGA pins
 		i_switch						=> i_switch,
 		i_DIP_switch				=> i_dipSwitch,
 		--o_LED							=> o_LED,

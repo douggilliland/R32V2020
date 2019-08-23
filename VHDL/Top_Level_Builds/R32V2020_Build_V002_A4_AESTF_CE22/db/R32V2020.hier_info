@@ -41,19 +41,11 @@ o_LED7Seg_out[4] <= r32v2020_top:R32V2020_top.o_LED7Seg_out[4]
 o_LED7Seg_out[5] <= r32v2020_top:R32V2020_top.o_LED7Seg_out[5]
 o_LED7Seg_out[6] <= r32v2020_top:R32V2020_top.o_LED7Seg_out[6]
 o_LED7Seg_out[7] <= r32v2020_top:R32V2020_top.o_LED7Seg_out[7]
-SevSegDemuxSel <= <VCC>
-LEDDemuxAddr[0] <= LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
-LEDDemuxAddr[1] <= LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
-LEDDemuxAddr[2] <= LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
-o_dataOut[0] <= <GND>
-o_dataOut[1] <= <GND>
-o_dataOut[2] <= <GND>
-o_dataOut[3] <= <GND>
-o_dataOut[4] <= <GND>
-o_dataOut[5] <= <GND>
-o_dataOut[6] <= <GND>
-o_dataOut[7] <= <GND>
-o_U3_138_select <= <GND>
+o_LED7SegDemuxSel <= <VCC>
+o_LEDDemuxAddr[0] <= o_LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
+o_LEDDemuxAddr[1] <= o_LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
+o_LEDDemuxAddr[2] <= o_LEDDemuxAddr.DB_MAX_OUTPUT_PORT_TYPE
+o_MatrixLED_select <= <GND>
 io_I2C_SCL <> r32v2020_top:R32V2020_top.io_I2C_SCL
 io_I2C_SDA <> r32v2020_top:R32V2020_top.io_I2C_SDA
 i_I2C_INT => r32v2020_top:R32V2020_top.i_I2C_INT
@@ -63,7 +55,6 @@ spi_sclk <= r32v2020_top:R32V2020_top.spi_sclk
 spi_csN <= r32v2020_top:R32V2020_top.spi_csN
 spi_mosi <= r32v2020_top:R32V2020_top.spi_mosi
 spi_miso => r32v2020_top:R32V2020_top.spi_miso
-o_testPoint <= <VCC>
 i_ps2Clk => r32v2020_top:R32V2020_top.i_ps2Clk
 i_ps2Data => r32v2020_top:R32V2020_top.i_ps2Data
 

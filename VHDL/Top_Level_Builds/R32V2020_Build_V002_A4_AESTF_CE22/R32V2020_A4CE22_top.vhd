@@ -34,14 +34,11 @@ entity R32V2020_A4CE22_top is
 		-- There are separate select lines for the two display so they both
 		-- A mux is required to use both displays
 		-- The 8 discrete LEDs, the seven segment (plus period) and the matrix LED share common activations
---		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
-		SevSegDemuxSel		: out std_logic := '1';
-		LEDDemuxAddr		: out std_logic_vector(2 downto 0) := "000";
+		o_LED7SegDemuxSel	: out std_logic := '1';
+		o_LEDDemuxAddr		: out std_logic_vector(2 downto 0) := "000";
 		-- Matrix
-		o_dataOut			: out std_logic_vector(7 downto 0) := x"00";
-		o_U3_138_select	: out std_logic := '0';
---		o_U3_138_A			: out std_logic_vector(2 downto 0) := "000";
+		o_MatrixLED_select : out std_logic := '0';
 		-- I2C Clock and Data
 		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
@@ -54,7 +51,7 @@ entity R32V2020_A4CE22_top is
       spi_csN				: out std_logic := '1';
       spi_mosi				: out std_logic := '1';
       spi_miso				: in std_logic := '1';
-		o_testPoint			: out std_logic := '1';
+		--o_testPoint			: out std_logic := '1';
 		-- PS/2 Keyboard pins
 		i_ps2Clk			: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -66,17 +63,32 @@ architecture struct of R32V2020_A4CE22_top is
 	signal	w_Red					:		std_logic_vector(1 downto 0) := "00";
 	signal	w_Grn					:		std_logic_vector(1 downto 0) := "00";
 	signal	w_Blu					:		std_logic_vector(1 downto 0) := "00";
-	signal	w_Anode_Activate	:		std_logic_vector(7 downto 0);
+	signal	w_Anode_Activate	:		std_logic_vector(7 downto 0) := "01010101";
 	
 begin
 
+	-- Map the 2:2:2 video from the core to the 5:6:6 of the FPGA base card
 	o_vid_Red <= w_Red(1) & w_Red(1) & w_Red(0) & w_Red(0) & w_Red(0);
 	o_vid_Grn <= w_Grn(1) & w_Grn(1) & w_Grn(0) & w_Grn(0) & w_Grn(0) & w_Grn(0);
 	o_vid_Blu <= w_Blu(1) & w_Blu(1) & w_Blu(0) & w_Blu(0) & w_Blu(0);
 
-	LEDDemuxAddr(2) <= not (w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(5) or w_Anode_Activate(4));
-	LEDDemuxAddr(1) <= not (w_Anode_Activate(7) or w_Anode_Activate(6) or w_Anode_Activate(3) or w_Anode_Activate(2));
-	LEDDemuxAddr(0) <= not (w_Anode_Activate(7) or w_Anode_Activate(5) or w_Anode_Activate(3) or w_Anode_Activate(1));
+	-- Convert the seven segment drives into mux addresses for the 74LS138 decoder
+	o_LEDDemuxAddr(2) <= '1' when w_Anode_Activate(7) = '0' else
+								'1' when w_Anode_Activate(6) = '0' else
+								'1' when w_Anode_Activate(5) = '0' else
+								'1' when w_Anode_Activate(4) = '0' else
+								'0';
+	o_LEDDemuxAddr(1)<= 	'1' when w_Anode_Activate(7)= '0' else
+								'1' when w_Anode_Activate(6)= '0' else
+								'1' when w_Anode_Activate(3)= '0' else
+								'1' when w_Anode_Activate(2)= '0' else
+								'0';
+
+	o_LEDDemuxAddr(0) <= '1' when w_Anode_Activate(7) = '0' else
+								'1' when w_Anode_Activate(5) = '0' else
+								'1' when w_Anode_Activate(3) = '0' else
+								'1' when w_Anode_Activate(1) = '0' else
+								'0';
 	
 	R32V2020_top : entity work.R32V2020_top
 		port map (
