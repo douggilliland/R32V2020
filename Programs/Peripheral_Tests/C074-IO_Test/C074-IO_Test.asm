@@ -40,6 +40,7 @@ main:
 
 printMenu:
 	push	r8
+	bsr		newLine
 	lix		r8,menuItem_01.lower
 	bsr		printString
 	lix		r8,menuItem_02.lower
