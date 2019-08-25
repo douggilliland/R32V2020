@@ -8,7 +8,7 @@ keyToStart:		.string "Any key to start"
 guessString:	.string "Guess a hex number (0x00-0xFF) : "
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-syntaxError:	.string "Bad number error"
+syntaxError:	.string "*** Bad number error ***"
 tooHigh:		.string "Your guess was too high"
 tooLow:			.string "Your guess was too low"
 notRight:		.string "Wrong guess"
@@ -28,35 +28,44 @@ main:
 	bsr		newLine_ANSI_UART
 	lix		r8,keyToStart.lower
 	bsr		printString_ANSI_UART
+	lix		r14,0
 waitForKeyHit:
 	bsr		checkForCharAndDiscard
 	cmpi	r8,0x00
 	beq		waitForKeyHit
+	bsr		newLine_ANSI_UART
 	bsr		randomNumber
-	bsr		newLine_ANSI_UART
-	bsr		printLong
-	bsr		newLine_ANSI_UART
 	addi	r15,r8,0				; r15 has the random number
 notRightCode:
+	addi	r14,r14,1
 	lix		r8,guessString.lower
 	bsr		printString_ANSI_UART
 	bsr		getLine
 	lix		r8,lineBuff.lower
 	bsr		hexToSevenSeg
 	andi	r8,r8,0xff
-	bsr		printLong
-	bsr		newLine_ANSI_UART
-	; compare r8 and r15
-	; if r8=r15 then you are done
 	cmp		r8,r15
 	beq		guessedIt
-	lix		r8,notRight.lower
+	blt		tooHighCase
+tooLowCase:
+	lix		r8,tooLow.lower
+	bsr		printString_ANSI_UART
+	bsr		newLine_ANSI_UART
+	bra		notRightCode
+tooHighCase:
+	lix		r8,tooHigh.lower
 	bsr		printString_ANSI_UART
 	bsr		newLine_ANSI_UART
 	bra		notRightCode
 guessedIt:
 	lix		r8,gotItRight.lower
 	bsr		printString_ANSI_UART
+	bsr		newLine_ANSI_UART
+	lix		r8,numberOfGuesses.lower
+	bsr		printString_ANSI_UART
+	addi	r8,r14,0
+	bsr		printLong
+	bsr		newLine_ANSI_UART
 endStop:
 	bra		endStop
 
@@ -275,7 +284,9 @@ gotUpperLetter:
 	bra		doneConvA2H
 a2h_Error:
 	lix		r8,syntaxError.lower
+	bsr		newLine_ANSI_UART
 	bsr		printString_ANSI_UART
+	bsr		newLine_ANSI_UART
 	lix		r8,0xDEAD
 doneConvA2H:
 	pull	PC
