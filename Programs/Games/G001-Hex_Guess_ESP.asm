@@ -4,6 +4,7 @@
 ;
 
 banner:			.string "G001-Hex_Guess_ESP"
+keyToStart:		.string "Any key to start"
 guessString:	.string "Guess a hex number (0x00-0xFF) : "
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
@@ -25,7 +26,16 @@ main:
 	bsr		printString_ANSI_UART
 	bsr		newLine_ANSI_UART
 	bsr		newLine_ANSI_UART
+	lix		r8,keyToStart.lower
+	bsr		printString_ANSI_UART
+waitForKeyHit:
+	bsr		checkForCharAndDiscard
+	cmpi	r8,0x00
+	beq		waitForKeyHit
 	bsr		randomNumber
+	bsr		newLine_ANSI_UART
+	bsr		printLong
+	bsr		newLine_ANSI_UART
 	addi	r15,r8,0				; r15 has the random number
 notRightCode:
 	lix		r8,guessString.lower
@@ -33,6 +43,9 @@ notRightCode:
 	bsr		getLine
 	lix		r8,lineBuff.lower
 	bsr		hexToSevenSeg
+	andi	r8,r8,0xff
+	bsr		printLong
+	bsr		newLine_ANSI_UART
 	; compare r8 and r15
 	; if r8=r15 then you are done
 	cmp		r8,r15
@@ -47,8 +60,17 @@ guessedIt:
 endStop:
 	bra		endStop
 
+;
+; randomNumber - Generate a random number - 8-bit value
+; 0x3800 is the Oscillator clock counter
+;
+
 randomNumber:
-	lix		r8,0
+	push	PAR
+	lix		PAR,0x3800
+	lpl		r8
+	andi	r8,r8,0xff
+	pull	PAR
 	pull	PC
 ;
 ; printMenu - Print the menu
@@ -193,6 +215,7 @@ hexToSevenSeg:
 	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
 	ldbp	r8
 	bsr		asciiToHex
+	andi	r8,r8,0xf
 	or		r9,r9,r8
 	sl1		r9,r9
 	sl1		r9,r9
@@ -201,6 +224,7 @@ hexToSevenSeg:
 	;add		DAR,DAR,ONE
 	ldb		r8
 	bsr		asciiToHex
+	andi	r8,r8,0xf
 	or		r9,r9,r8
 	lix		PAR,0x3000		; seven segment display
 	spl		r9
@@ -237,7 +261,7 @@ asciiToHex:
 	cmpi	r8,0x47			; 'A' - 'F'
 	blt		gotUpperLetter
 	cmpi	r8,0x61			; 'G' - 'tick'
-	bgt		a2h_Error
+	blt		a2h_Error
 ; Lower case letter
 	subi	r8,r8,0x57
 	bra		doneConvA2H
