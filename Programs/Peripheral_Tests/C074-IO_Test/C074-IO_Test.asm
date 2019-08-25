@@ -30,7 +30,7 @@ menuItem_12:	.string "12-TBD Test           "
 main:
 	bsr		clearANSIScreenAndUART
 	bsr		printMenu
-	bsr		getLine
+	bsr		readToLineBuffer
 	bsr		parseLine
 	bra		main
 
@@ -46,37 +46,37 @@ printMenu:
 	lix		r8,menuItem_02.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_03.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,menuItem_04.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_05.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_06.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,menuItem_07.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_08.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_09.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,menuItem_10.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_11.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,prompt.lower
 	bsr		printString_ANSI_UART
 	pull	r8
 	pull	PC
 
 ;
-; getLine - Reads the UART and fills a buffer with the characters received
+; readToLineBuffer - Reads the UART and fills a buffer with the characters received
 ; r8 received character - Character received from the UART
 ; r9 is the input buffer length
 ; r10 used to test the backspace doesn't go past the start of the buffer
 ; DAR points to lineBuff current character position
 ;
 
-getLine:
+readToLineBuffer:
 	push	r8
 	push	r9
 	push	r10
@@ -209,7 +209,7 @@ testRingLEDs:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_01.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,hitAnyKey.lower
 	bsr		printString_ANSI_UART
 reload:
@@ -252,7 +252,7 @@ test7Segs:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_02.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,hitAnyKey.lower
 	bsr		printString_ANSI_UART
 rerun7Segs:
@@ -298,9 +298,9 @@ testPushbuttons:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_03.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,hitAnyKey.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r9,0x0
 loopSwRead:
 	bsr		checkForCharAndDiscard
@@ -349,9 +349,9 @@ testDIPSwitches:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_04.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,hitAnyKey.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r9,0x0
 	lix		r8,0x0
 	bsr		wr7Seg8Dig
@@ -413,7 +413,7 @@ testANSIScreen:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_05.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,0x20			; start with a space
 anotherCharT5:
 	bsr		putCharToANSIScreen
@@ -517,7 +517,7 @@ brtYelOnGrn:	.string "[93;42m"
 ; Hit any key to continue
 	bsr		newLine_ANSI_UART
 	lix		r8,hitAnyKey.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 keepCheckCharIn:
 	bsr		checkForCharAndDiscard
 	cmpi	r8,0
@@ -534,7 +534,7 @@ testSerialPort:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_06.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,0x20			; start with a space
 anotherCharT6:
 	bsr		putCharToUART
@@ -552,9 +552,9 @@ testMCP23008:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_07.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,hitAnyKey.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 ; Code to initialize I2CIO8 card
 	bsr		init_Regs_I2CIO8	; initialize the MCP23008 on the I2CIO8
 restartLoop:
@@ -803,9 +803,9 @@ testMCP4231:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_08.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,hitAnyKey.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 reloadr8:
 	lix		r8,0x00				; sent out low voltage from pot
 loopForever:
@@ -876,7 +876,7 @@ testPS2Keyboard:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_09.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 loopForeverT9:
 	bsr		getPS2Char
 	bsr		writeANSI_UART
@@ -894,7 +894,7 @@ testBuzzer:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_10.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	bsr		enableBuzzer
 	lix		r8,0x100
 	bsr		delay_mS
@@ -916,7 +916,7 @@ testTBD:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_11.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	bsr		testTimers
 	pull	r8
 	pull	PC
@@ -982,7 +982,7 @@ testRingLEDs2:
 	lix		r8,runningString.lower
 	bsr		printString_ANSI_UART
 	lix		r8,menuItem_12.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	;
 	pull	r9
 	pull	r8
@@ -1149,13 +1149,13 @@ donePrANSIStr:
 	pull	PC					; rts
 	
 ;
-; printLine - Print a screen to the current screen position with CRLF at the end
+; printLinebuffer_ANSI_UART - Print a screen to the current screen position with CRLF at the end
 ; pass value : r8 points to the start of the string in Data memory
 ; strings are bytes packed into long words
 ; strings are null terminated
 ;
 
-printLine:
+printLinebuffer_ANSI_UART:
 	push	r8					; save r8
 	push	DAR
 	addi	DAR,r8,0x0			; set the start of the string

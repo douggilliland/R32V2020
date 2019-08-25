@@ -11,9 +11,8 @@ lineBuff:		.string "123456789012345678901234567890123456789012345678901234567890
 syntaxError:	.string "*** Bad number error ***"
 tooHigh:		.string "Your guess was too high"
 tooLow:			.string "Your guess was too low"
-notRight:		.string "Wrong guess"
 gotItRight:		.string "Congratulations, you got it right"
-numberOfGuesses:	.string "Number of Guesses : "
+numberOfGuesses: .string "Number of Guesses : "
 
 ;
 ; Read a line from the UART and parse the line
@@ -37,7 +36,7 @@ waitForKeyHit:
 	beq		waitForKeyHit
 	bsr		newLine_ANSI_UART		; extra LF to move down
 runAgain:
-	bsr		randomNumber			; pull random number from counter
+	bsr		randomNumber_8bits		; pull random number from counter
 	addi	r15,r8,0				; r15 has the random number
 notRightCode:
 	addi	r14,r14,1				; increment number of tries
@@ -71,6 +70,7 @@ guessedIt:
 	bsr		printLong
 	bsr		newLine_ANSI_UART
 endStop:
+	bsr		newLine_ANSI_UART
 	lix		r8,keyToStart.lower		; wait for keypress to ensure random number
 	bsr		printString_ANSI_UART
 	lix		r14,0					; number of tries
@@ -81,11 +81,11 @@ waitForKeyHit2:
 	bsr		newLine_ANSI_UART
 	bra		runAgain
 ;
-; randomNumber - Generate a random number - 8-bit value
+; randomNumber_8bits - Generate a random number - 8-bit value
 ; 0x3800 is the Oscillator clock counter
 ;
 
-randomNumber:
+randomNumber_8bits:
 	push	PAR
 	lix		PAR,0x3800
 	lpl		r8
@@ -373,13 +373,13 @@ donePrANSIStr:
 	pull	PC					; rts
 	
 ;
-; printLine - Print a screen to the current screen position with CRLF at the end
+; printLinebuffer_ANSI_UART - Print a screen to the current screen position with CRLF at the end
 ; pass value : r8 points to the start of the string in Data memory
 ; strings are bytes packed into long words
 ; strings are null terminated
 ;
 
-printLine:
+printLinebuffer_ANSI_UART:
 	push	r8					; save r8
 	push	DAR
 	addi	DAR,r8,0x0			; set the start of the string
