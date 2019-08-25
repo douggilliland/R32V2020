@@ -17,58 +17,69 @@ numberOfGuesses:	.string "Number of Guesses : "
 
 ;
 ; Read a line from the UART and parse the line
+; r14 = number of tries
+; r15 = random number
 ;
 
 main:
-	bsr		clearANSIScreenAndUART
-	bsr		newLine_ANSI_UART
-	lix		r8,banner.lower
+	bsr		clearANSIScreenAndUART	; clear both screens
+	bsr		newLine_ANSI_UART		; UART does not start at the top of the screen
+	lix		r8,banner.lower			; print program banner
 	bsr		printString_ANSI_UART
+	bsr		newLine_ANSI_UART		; start 2 lines down
 	bsr		newLine_ANSI_UART
-	bsr		newLine_ANSI_UART
-	lix		r8,keyToStart.lower
+	lix		r8,keyToStart.lower		; wait for keypress to ensure random number
 	bsr		printString_ANSI_UART
-	lix		r14,0
+	lix		r14,0					; number of tries
 waitForKeyHit:
-	bsr		checkForCharAndDiscard
-	cmpi	r8,0x00
+	bsr		checkForCharAndDiscard	; returns 1 when key was pressed
+	cmpi	r8,0x00					; wait for keypress
 	beq		waitForKeyHit
-	bsr		newLine_ANSI_UART
-	bsr		randomNumber
+	bsr		newLine_ANSI_UART		; extra LF to move down
+runAgain:
+	bsr		randomNumber			; pull random number from counter
 	addi	r15,r8,0				; r15 has the random number
 notRightCode:
-	addi	r14,r14,1
+	addi	r14,r14,1				; increment number of tries
 	lix		r8,guessString.lower
 	bsr		printString_ANSI_UART
-	bsr		getLine
+	bsr		readToLineBuffer		; read in the line
+	; count add length check here
 	lix		r8,lineBuff.lower
-	bsr		hexToSevenSeg
-	andi	r8,r8,0xff
-	cmp		r8,r15
-	beq		guessedIt
-	blt		tooHighCase
+	bsr		hexToSevenSeg			; convert input string to hex pair (single 8 bit value)
+	andi	r8,r8,0xff				; extra mask (probably no longer needed)
+	cmp		r8,r15					; check if guess is correct
+	beq		guessedIt				; guessed correctly
+	blt		tooHighCase				; guess was too high
 tooLowCase:
-	lix		r8,tooLow.lower
+	lix		r8,tooLow.lower			; not equal or high means too low
 	bsr		printString_ANSI_UART
 	bsr		newLine_ANSI_UART
-	bra		notRightCode
+	bra		notRightCode			; try again
 tooHighCase:
-	lix		r8,tooHigh.lower
+	lix		r8,tooHigh.lower		; guess was too high
 	bsr		printString_ANSI_UART
 	bsr		newLine_ANSI_UART
-	bra		notRightCode
+	bra		notRightCode			; try again
 guessedIt:
-	lix		r8,gotItRight.lower
+	lix		r8,gotItRight.lower		; guess was correct
 	bsr		printString_ANSI_UART
 	bsr		newLine_ANSI_UART
-	lix		r8,numberOfGuesses.lower
+	lix		r8,numberOfGuesses.lower ; print number of guesses
 	bsr		printString_ANSI_UART
-	addi	r8,r14,0
+	addi	r8,r14,0				; printLong needs value in r8
 	bsr		printLong
 	bsr		newLine_ANSI_UART
 endStop:
-	bra		endStop
-
+	lix		r8,keyToStart.lower		; wait for keypress to ensure random number
+	bsr		printString_ANSI_UART
+	lix		r14,0					; number of tries
+waitForKeyHit2:
+	bsr		checkForCharAndDiscard	; returns 1 when key was pressed
+	cmpi	r8,0x00					; wait for keypress
+	beq		waitForKeyHit2
+	bsr		newLine_ANSI_UART
+	bra		runAgain
 ;
 ; randomNumber - Generate a random number - 8-bit value
 ; 0x3800 is the Oscillator clock counter
@@ -81,26 +92,16 @@ randomNumber:
 	andi	r8,r8,0xff
 	pull	PAR
 	pull	PC
-;
-; printMenu - Print the menu
-;
-
-printBanner:
-	push	r8
-	lix		r8,banner.lower
-	bsr		printString_ANSI_UART
-	pull	r8
-	pull	PC
 
 ;
-; getLine - Reads the UART and fills a buffer with the characters received
+; readToLineBuffer - Reads the UART and fills a buffer with the characters received
 ; r8 received character - Character received from the UART
 ; r9 is the input buffer length
 ; r10 used to test the backspace doesn't go past the start of the buffer
 ; DAR points to lineBuff current character position
 ;
 
-getLine:
+readToLineBuffer:
 	push	r8
 	push	r9
 	push	r10
@@ -230,7 +231,6 @@ hexToSevenSeg:
 	sl1		r9,r9
 	sl1		r9,r9
 	sl1		r9,r9
-	;add		DAR,DAR,ONE
 	ldb		r8
 	bsr		asciiToHex
 	andi	r8,r8,0xf

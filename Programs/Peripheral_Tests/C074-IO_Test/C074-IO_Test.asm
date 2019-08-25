@@ -1003,14 +1003,15 @@ hexToSevenSeg:
 	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
 	ldbp	r8
 	bsr		asciiToHex
+	andi	r8,r8,0xf
 	or		r9,r9,r8
 	sl1		r9,r9
 	sl1		r9,r9
 	sl1		r9,r9
 	sl1		r9,r9
-	;add		DAR,DAR,ONE
 	ldb		r8
 	bsr		asciiToHex
+	andi	r8,r8,0xf
 	or		r9,r9,r8
 	lix		PAR,0x3000		; seven segment display
 	spl		r9
@@ -1047,7 +1048,7 @@ asciiToHex:
 	cmpi	r8,0x47			; 'A' - 'F'
 	blt		gotUpperLetter
 	cmpi	r8,0x61			; 'G' - 'tick'
-	bgt		a2h_Error
+	blt		a2h_Error
 ; Lower case letter
 	subi	r8,r8,0x57
 	bra		doneConvA2H
