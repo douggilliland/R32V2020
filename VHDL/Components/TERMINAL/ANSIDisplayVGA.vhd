@@ -663,7 +663,7 @@ end generate GEN_NO_ATTRAM;
 								dispAttWRData(7) <= attBold;
 							else
 								dispAttWRData(2 downto 0) <=std_logic_vector(to_unsigned(param1-40,3));
-								dispAttWRData(3) <= attBold;
+								dispAttWRData(3) <= attBold;		-- TBD - this looks wrong to me DGG
 							end if;
 						end if;
 						if param1 > 89 and param1 < 98 then

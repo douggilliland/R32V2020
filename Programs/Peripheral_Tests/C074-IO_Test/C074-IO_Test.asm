@@ -40,31 +40,31 @@ main:
 
 printMenu:
 	push	r8
-	bsr		newLine
+	bsr		newLine_ANSI_UART
 	lix		r8,menuItem_01.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_02.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_03.lower
 	bsr		printLine
 	lix		r8,menuItem_04.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_05.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_06.lower
 	bsr		printLine
 	lix		r8,menuItem_07.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_08.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_09.lower
 	bsr		printLine
 	lix		r8,menuItem_10.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_11.lower
 	bsr		printLine
 	lix		r8,prompt.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	pull	r8
 	pull	PC
 
@@ -192,7 +192,7 @@ skipTo11:
 skipTo12:
 	push	r8
 	lix		r8,syntaxError.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	pull	r8
 doneTests:
 	lix		r8,2000
@@ -207,11 +207,11 @@ doneTests:
 testRingLEDs:
 	push	r8
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_01.lower
 	bsr		printLine
 	lix		r8,hitAnyKey.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 reload:
 	lix		r8,1
 loopLEDRing:
@@ -250,11 +250,11 @@ putValueToRingLEDs:
 test7Segs:
 	push	r8
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_02.lower
 	bsr		printLine
 	lix		r8,hitAnyKey.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 rerun7Segs:
 	liu		r8,0x1234
 	lil		r8,0x5678
@@ -296,7 +296,7 @@ testPushbuttons:
 	push	r8
 	push	r9
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_03.lower
 	bsr		printLine
 	lix		r8,hitAnyKey.lower
@@ -313,7 +313,7 @@ loopSwRead:
 	beq		loopSwRead
 	addi	r9,r8,0
 	bsr		writeANSI_UART
-	bsr		newLine
+	bsr		newLine_ANSI_UART
 	lix		r8,250
 	bsr		delay_mS
 	bra		loopSwRead
@@ -347,7 +347,7 @@ testDIPSwitches:
 	push	r8
 	push	r9
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_04.lower
 	bsr		printLine
 	lix		r8,hitAnyKey.lower
@@ -378,13 +378,40 @@ doneWithDIPSwitches:
 	pull	PC
 	
 ;
+; printANSICode - Send the ANSI Escape Sequence
+; r8 - points to the string
+; This routine supplies the ESC
+;
+
+printANSICode:
+	push	r8
+	push	r8
+	lix		r8,0x1b			; ESC
+	bsr		putCharToANSIScreen
+	pull	r8
+	bsr		printString_ANSI
+	pull	r8
+	pull	PC
+
+;
 ; ANSI Screen Test
 ;
+
+redString:		.string "Red "
+greenString:	.string "Green "
+blueString:		.string "Blue "
+cyanString:		.string "Cyan "
+magentaString:	.string "Magenta "
+yellowString:	.string "Yellow "
+blackString:	.string "Black "
+grayString:		.string "Gray "
+onString:		.string "on "
+brightString:	.string "Bright "
 
 testANSIScreen:
 	push	r8
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_05.lower
 	bsr		printLine
 	lix		r8,0x20			; start with a space
@@ -393,7 +420,102 @@ anotherCharT5:
 	addi	r8,r8,1
 	cmpi	r8,0xFF
 	bne		anotherCharT5
-	bsr		newLine
+	bsr		newLine_ANSI
+; Test screen character colors
+; Light characters
+defaultColors:	.string "[0;1m"
+	lix		r8,defaultColors.lower
+	bsr		printANSICode
+redChars:	.string	"[31;22m"
+	lix		r8,redChars.lower
+	bsr		printANSICode
+	lix		r8,redString.lower
+	bsr		printString_ANSI
+grnChars:	.string	"[32m"
+	lix		r8,grnChars.lower
+	bsr		printANSICode
+	lix		r8,greenString.lower
+	bsr		printString_ANSI
+bluChars:	.string	"[34m"
+	lix		r8,bluChars.lower
+	bsr		printANSICode
+	lix		r8,blueString.lower
+	bsr		printString_ANSI
+cyanChars:	.string	"[36m"
+	lix		r8,cyanChars.lower
+	bsr		printANSICode
+	lix		r8,cyanString.lower
+	bsr		printString_ANSI
+magChars:	.string	"[35m"
+	lix		r8,magChars.lower
+	bsr		printANSICode
+	lix		r8,magentaString.lower
+	bsr		printString_ANSI
+yelChars:	.string	"[33m"
+	lix		r8,yelChars.lower
+	bsr		printANSICode
+	lix		r8,yellowString.lower
+	bsr		printString_ANSI
+	bsr		newLine_ANSI
+	lix		r8,defaultColors.lower
+	bsr		printANSICode
+; Bright characters
+redChars2:	.string	"[31;1m"
+	lix		r8,redChars2.lower
+	bsr		printANSICode
+	lix		r8,redString.lower
+	bsr		printString_ANSI
+	lix		r8,grnChars.lower
+	bsr		printANSICode
+	lix		r8,greenString.lower
+	bsr		printString_ANSI
+	lix		r8,bluChars.lower
+	bsr		printANSICode
+	lix		r8,blueString.lower
+	bsr		printString_ANSI
+	lix		r8,cyanChars.lower
+	bsr		printANSICode
+	lix		r8,cyanString.lower
+	bsr		printString_ANSI
+	lix		r8,magChars.lower
+	bsr		printANSICode
+	lix		r8,magentaString.lower
+	bsr		printString_ANSI
+	lix		r8,yelChars.lower
+	bsr		printANSICode
+	lix		r8,yellowString.lower
+	bsr		printString_ANSI
+	bsr		newLine_ANSI
+	lix		r8,defaultColors.lower
+	bsr		printANSICode
+; Red on Black
+redOnBlackANSI:	.string	"[27;40;31m"
+	lix		r8,redOnBlackANSI.lower
+	bsr		printANSICode
+	lix		r8,redString.lower
+	bsr		printString_ANSI
+	lix		r8,onString.lower
+	bsr		printString_ANSI
+	lix		r8,grayString.lower
+	bsr		printString_ANSI
+; Bright Yellow on Green
+brtYelOnGrn:	.string "[93;42m"
+	lix		r8,brtYelOnGrn.lower
+	bsr		printANSICode
+	lix		r8,brightString.lower
+	bsr		printString_ANSI
+	lix		r8,yellowString.lower
+	bsr		printString_ANSI
+	lix		r8,onString.lower
+	bsr		printString_ANSI
+	lix		r8,greenString.lower
+	bsr		printString_ANSI
+; Reset to default colors
+	lix		r8,defaultColors.lower
+	bsr		printANSICode
+	bsr		newLine_ANSI
+; Hit any key to continue
+	bsr		newLine_ANSI_UART
 	lix		r8,hitAnyKey.lower
 	bsr		printLine
 keepCheckCharIn:
@@ -410,7 +532,7 @@ keepCheckCharIn:
 testSerialPort:
 	push	r8
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_06.lower
 	bsr		printLine
 	lix		r8,0x20			; start with a space
@@ -428,7 +550,7 @@ anotherCharT6:
 
 testMCP23008:
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_07.lower
 	bsr		printLine
 	lix		r8,hitAnyKey.lower
@@ -679,7 +801,7 @@ i2c_ack_loop:
 testMCP4231:
 	push	r8
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_08.lower
 	bsr		printLine
 	lix		r8,hitAnyKey.lower
@@ -752,7 +874,7 @@ loopSPIRdy2:			; wait while busy is set
 testPS2Keyboard:
 	push	r8
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_09.lower
 	bsr		printLine
 loopForeverT9:
@@ -770,7 +892,7 @@ loopForeverT9:
 testBuzzer:
 	push	r8
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_10.lower
 	bsr		printLine
 	bsr		enableBuzzer
@@ -792,7 +914,7 @@ testBuzzer:
 testTBD:
 	push	r8
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_11.lower
 	bsr		printLine
 	bsr		testTimers
@@ -858,7 +980,7 @@ testRingLEDs2:
 	push	r8
 	push	r9
 	lix		r8,runningString.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,menuItem_12.lower
 	bsr		printLine
 	;
@@ -939,7 +1061,7 @@ gotUpperLetter:
 	bra		doneConvA2H
 a2h_Error:
 	lix		r8,syntaxError.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	lix		r8,0xDEAD
 doneConvA2H:
 	pull	PC
@@ -982,13 +1104,13 @@ waitUartTxStat:
 	pull	PC
 	
 ;
-; printString - Print a screen to the current screen position
+; printString_ANSI_UART - Print a screen to the current screen position
 ; pass value : r8 points to the start of the string in Data memory
 ; strings are bytes packed into long words
 ; strings are null terminated
 ;
 
-printString:
+printString_ANSI_UART:
 	push	r8					; save r8
 	push	DAR
 	add		DAR,r8,ZERO			; set the start of the string
@@ -999,6 +1121,28 @@ nextChar:
 	bsr		writeANSI_UART	; write out the character
 	bra		nextChar
 donePrStr:
+	pull	DAR					; restore DAR
+	pull	r8					; restore r8
+	pull	PC					; rts
+	
+;
+; printString_ANSI - Print a screen to the current screen position
+; pass value : r8 points to the start of the string in Data memory
+; strings are bytes packed into long words
+; strings are null terminated
+;
+
+printString_ANSI:
+	push	r8					; save r8
+	push	DAR
+	add		DAR,r8,ZERO			; set the start of the string
+nextCharANSI:
+	ldbp	r8					; get the character01
+	cmpi	r8,0x0				; Null terminated string
+	beq		donePrANSIStr		; done if null
+	bsr		putCharToANSIScreen	; write out the character
+	bra		nextCharANSI
+donePrANSIStr:
 	pull	DAR					; restore DAR
 	pull	r8					; restore r8
 	pull	PC					; rts
@@ -1021,21 +1165,34 @@ nextChar2:
 	bsr		writeANSI_UART	; write out the character
 	bra		nextChar2
 donePrStr2:
-	bsr		newLine
+	bsr		newLine_ANSI_UART
 	pull	DAR					; restore DAR
 	pull	r8					; restore r8
 	pull	PC					; rts
 	
 ;
-; newLine - Print out a newline (CR-LF)
+; newLine_ANSI_UART - Print out a newLine_ANSI_UART (CR-LF)
 ;
 
-newLine:
+newLine_ANSI_UART:
 	push	r8
 	lix		r8,0x0A				; Line Feed
 	bsr		writeANSI_UART	; Put the character to the screen
 	lix		r8,0x0D				; Carriage Return
 	bsr		writeANSI_UART		; Echo character back to the UART
+	pull	r8
+	pull	PC
+
+;
+; newLine_ANSI - Print out a newLine_ANSI (CR-LF)
+;
+
+newLine_ANSI:
+	push	r8
+	lix		r8,0x0A				; Line Feed
+	bsr		putCharToANSIScreen	; Put the character to the screen
+	lix		r8,0x0D				; Carriage Return
+	bsr		putCharToANSIScreen	; Echo character back to the UART
 	pull	r8
 	pull	PC
 

@@ -362,7 +362,8 @@ CCR_Store : ENTITY work.CCRControl PORT map
 		w_ALUDataOut;
 		
 	o_dataToStackRam <= o_DataOutFromRegA when (w_Op_BSR = '0') else
-							(o_InstructionRomAddress + 1) when (w_Op_BSR = '1') ;
+							(o_InstructionRomAddress + 1) when (w_Op_BSR = '1') else
+							x"00000000";
 		
 	RegisterFile : entity work.RegisterFile
 	port map (

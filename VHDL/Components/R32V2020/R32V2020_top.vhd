@@ -31,7 +31,7 @@ entity R32V2020_top is
 		o_vid_Blu_Lo		: out std_logic := '0';
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
-		o_hActive			: out std_logic := '0';
+		--o_hActive			: out std_logic := '0';
 		-- Seven Segment LED pins
 		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
@@ -51,7 +51,7 @@ entity R32V2020_top is
       spi_csN				: out std_logic := '1';
       spi_mosi				: out std_logic := '1';
       spi_miso				: in std_logic := '1';
-		o_testPoint			: out std_logic := '1';
+--		o_testPoint			: out std_logic := '1';
 		-- Music generator
 		o_Note				: out std_logic := '0';
 		-- PS/2 Keyboard pins
