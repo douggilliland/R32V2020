@@ -79,6 +79,7 @@ architecture struct of PeripheralInterface is
 	signal w_I2CCS					:	std_logic := '0';
 	signal w_SPICS					:	std_logic := '0';
 	signal w_EEPI2CCS				:	std_logic := '0';
+	signal w_KDBPOLCS				:	std_logic := '0';
 	-- Serial Port controls
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
@@ -138,14 +139,15 @@ architecture struct of PeripheralInterface is
 	constant I2CIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"B";
 	constant SPIIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"C";
 	constant EEPIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"D";
+	constant KBDPOL_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"E";
 
 begin
 
 	-- Peripheral Address decoder
 	-- Currently only uses 16-bits of address
-	ANSI_DisplayCS <= '1' when i_peripheralAddress(15 downto 11) = ANSI_BASE	else '0';	-- x0000-x07FF (2KB) - Display RAM
-	w_kbDatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '0';	-- x0800-x0FFF (2KB)	- Keyboard Data
-	w_kbStatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBST_BASE	else '0';	-- x1000-x17FF (2KB)	- Keyboard Status
+	ANSI_DisplayCS <= '1' when i_peripheralAddress(15 downto 11) = ANSI_BASE	else '0';	-- x0000-x07FF (2KB) - Display RAM (Memory Mapped Display uses range)
+	w_kbDatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '0';	-- x0800-x0FFF (2KB)	- Latched Keyboard Data
+	w_kbStatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBST_BASE	else '0';	-- x1000-x17FF (2KB)	- Latched Keyboard Status
 	w_aciaCS 		<= '1' when i_peripheralAddress(15 downto 11) = ACIA_BASE	else '0';	-- x1800-x1FFF (2KB)	- UART
 	w_SwitchesCS	<= '1' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '0';	-- x2000-x27FF (2KB)	- Pushbutton Switches
 	w_LEDsCS			<= '1' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '0';	-- x2800-x2FFF (2KB)	- Individual LEDs
@@ -157,20 +159,23 @@ begin
 	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- External I2C Address
 	w_SPICS			<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- SPI Address
 	w_EEPI2CCS		<= '1' when i_peripheralAddress(15 downto 11) = EEPIO_BASE	else '0';	-- x6800-x6FFF (2KB)	- EEPROM I2C Address
+	w_KDBPOLCS		<= '1' when i_peripheralAddress(15 downto 11) = KBDPOL_BASE	else '0';	-- x7900-x77FF (2KB)	- Polled keyboard
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_ANSI_DispRamDataOutA 			when	ANSI_DisplayCS = '1' else
 		q_kbReadData	 											when	w_kbDatCS		= '1' else
 		w_kbdStatus													when	w_kbStatCS		= '1' else 
-		x"000000"		& w_aciaData 							when	w_aciaCS 		= '1' else
+		x"000000"			& w_aciaData 						when	w_aciaCS 		= '1' else
 		x"00000"	& (not i_DIP_switch) & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
-		x"000000"		& w_LatData								when	w_LEDsCS 		= '1' else
+		x"000000"			& w_LatData							when	w_LEDsCS 		= '1' else
 		o_dataFromTimers											when	w_TimersCS		= '1' else
-		x"000000"		& o_i2cData			 					when	w_I2CCS 			= '1' else
-		x"000000"		& o_EEPi2cData		 					when	w_EEPI2CCS		= '1' else
-		x"000000"		& o_spiData								when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
-		x"0000000"&"000" & w_spi_busy							when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
-		x"FFFFFFFF";
+		x"000000"			& o_i2cData			 				when	w_I2CCS 			= '1' else
+		x"000000"			& o_EEPi2cData		 				when	w_EEPI2CCS		= '1' else
+		x"000000"			& o_spiData							when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
+		x"0000000"&"000" 	& w_spi_busy						when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
+		x"0000000"&"000" 	& w_kbDataValid					when	(w_KDBPOLCS = '0' and i_peripheralAddress(1) = '0') else		-- Polled keyb status
+		x"000000"&'0'		& w_kbReadData						when	(w_KDBPOLCS = '0' and i_peripheralAddress(1) = '1') else
+		x"DEAD1234";	-- Read of a non-existing interface
 
 	-- SPIbus Clock
 	-- 50 MHz divided by 6 is 50/6 = 8.33 MHz

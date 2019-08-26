@@ -59,7 +59,7 @@ architecture struct of R32V2020_A4CE10_top is
 	signal	w_Grn_Lo		:		std_logic := '0';
 	signal	w_Blu_Hi		:		std_logic := '0';
 	signal	w_Blu_Lo		:		std_logic := '0';
-	signal	w_hActive	:		std_logic := '0';
+--	signal	w_hActive	:		std_logic := '0';
 
 begin
 
@@ -88,7 +88,7 @@ begin
 		o_vid_Blu_Lo	=> w_Blu_Lo,
 		o_hSync			=> o_hSync,
 		o_vSync			=> o_vSync,
-		o_hActive		=> w_hActive,
+--		o_hActive		=> w_hActive,
 		-- Seven Segment LED pins
 		o_Anode_Activate	=> o_Anode_Activate,
 		o_LED7Seg_out		=> o_LED7Seg_out,

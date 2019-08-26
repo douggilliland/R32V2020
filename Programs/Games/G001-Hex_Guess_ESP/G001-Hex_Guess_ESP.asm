@@ -82,15 +82,16 @@ waitForKeyHit2:
 	bra		runAgain
 ;
 ; randomNumber_8bits - Generate a random number - 8-bit value
-; 0x3800 is the Oscillator clock counter
+; 0x3803 is the Processor instruction counter
+; The number relies on the delay in the user hitting the key at a random time
 ;
 
 randomNumber_8bits:
 	push	PAR
-	lix		PAR,0x3800
+	lix		PAR,0x3803
 	lpl		r8
-	sr1		r8,r8
-	sr1		r8,r8
+;	sr1		r8,r8
+;	sr1		r8,r8
 	andi	r8,r8,0xff
 	pull	PAR
 	pull	PC
