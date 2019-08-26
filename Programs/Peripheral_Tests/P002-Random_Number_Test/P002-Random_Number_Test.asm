@@ -27,7 +27,7 @@ waitForKeyHit:
 	bsr		checkForCharAndDiscard	; returns 1 when key was pressed
 	cmpi	r8,0x00					; wait for keypress
 	beq		waitForKeyHit
-	bsr		newLine_ANSI_UART		; extra LF to move down
+;	bsr		newLine_ANSI_UART		; extra LF to move down
 runAgain:
 	bsr		randomNumber_8bits		; pull random number from counter
 	bsr		printLong
