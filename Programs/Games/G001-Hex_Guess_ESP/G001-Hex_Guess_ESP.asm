@@ -8,7 +8,7 @@ keyToStart:		.string "Any key to start"
 guessString:	.string "Guess a hex number (0x00-0xFF) : "
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-syntaxError:	.string "*** Bad number error ***"
+syntaxError:	.string "*** Bad number error (at a2h_Error) ***"
 tooHigh:		.string "Your guess was too high"
 tooLow:			.string "Your guess was too low"
 gotItRight:		.string "Congratulations, you got it right"
@@ -89,6 +89,8 @@ randomNumber_8bits:
 	push	PAR
 	lix		PAR,0x3800
 	lpl		r8
+	sr1		r8,r8
+	sr1		r8,r8
 	andi	r8,r8,0xff
 	pull	PAR
 	pull	PC
@@ -139,14 +141,6 @@ doneHandlingLine:
 	pull	r8
 	pull	PC
 
-readSws:
-	push	PAR
-	lix		PAR,0x2000	; Switches address
-	lpl		r8			; Read switches into r9
-	andi	r8,r8,0xfff	; just the switches
-	pull	PAR
-	pull	PC
-	
 ;
 ; printANSICode - Send the ANSI Escape Sequence
 ; r8 - points to the string
@@ -225,6 +219,8 @@ hexToSevenSeg:
 	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
 	ldbp	r8
 	bsr		asciiToHex
+	cmpi	r8,0xDEAD
+	beq		badHexVal
 	andi	r8,r8,0xf
 	or		r9,r9,r8
 	sl1		r9,r9
@@ -233,11 +229,21 @@ hexToSevenSeg:
 	sl1		r9,r9
 	ldb		r8
 	bsr		asciiToHex
+	cmpi	r8,0xDEAD
+	beq		badHexVal
 	andi	r8,r8,0xf
 	or		r9,r9,r8
 	lix		PAR,0x3000		; seven segment display
 	spl		r9
 	add		r8,r9,ZERO
+	bra		valOKDone
+badHexVal:
+	lix		r8,syntaxError.lower
+	bsr		newLine_ANSI_UART
+	bsr		printString_ANSI_UART
+	bsr		newLine_ANSI_UART
+	lix		r8,0xDEAD
+valOKDone:
 	pull	PAR
 	pull	DAR
 	pull	r9
@@ -617,4 +623,21 @@ gotChar:
 writeANSI_UART:
 	bsr		putCharToANSIScreen
 	bsr		putCharToUART
+	pull	PC
+
+;
+; readSws
+; switches value returned in r8
+; switches are high when pressed
+; Switches d0-d2 are the pushbutton switches (inverted in FPGA hardware)
+; 	Pushbutton switches are debounced
+; Switches d3-10 are the DIP switches (not inverted)
+;
+
+readSws:
+	push	PAR
+	lix		PAR,0x2000	; Switches address
+	lpl		r8			; Read switches into r8
+	andi	r8,r8,0xfff	; just the switches
+	pull	PAR
 	pull	PC
