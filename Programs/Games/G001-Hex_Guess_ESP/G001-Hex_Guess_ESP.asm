@@ -66,8 +66,8 @@ guessedIt:
 	bsr		newLine_ANSI_UART
 	lix		r8,numberOfGuesses.lower ; print number of guesses
 	bsr		printString_ANSI_UART
-	addi	r8,r14,0				; printLong needs value in r8
-	bsr		printLong
+	addi	r8,r14,0				; printLongANSI_UART needs value in r8
+	bsr		printLongANSI_UART
 	bsr		newLine_ANSI_UART
 endStop:
 	bsr		newLine_ANSI_UART
@@ -159,11 +159,11 @@ printANSICode:
 	pull	PC
 
 ;
-; printLong
+; printLongANSI_UART
 ; r8 contains the long value to print
 ;
 
-printLong:
+printLongANSI_UART:
 	push	r8
 	push	r9
 	push	r10
@@ -174,14 +174,45 @@ printLong:
 	bsr		writeANSI_UART
 	pull	r8				; restore r8
 	lix		r9,8			; loop counter
-doNextPrintLong:
+doNextprintLongANSI_UART:
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
 	bsr		printHexVal
 	subi	r9,r9,1
-	bnz		doNextPrintLong
+	bnz		doNextprintLongANSI_UART
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; printShortANSI_UART
+; r8 contains the long value to print
+;
+
+printShortANSI_UART:
+	push	r8
+	push	r9
+	push	r10
+	push	r8				; temporarily save r8
+	lix		r8,0x30
+	bsr		writeANSI_UART
+	lix		r8,0x78
+	bsr		writeANSI_UART
+	pull	r8				; restore r8
+	lix		r9,1			; loop counter
+	sll8	r8,r8
+	sll8	r8,r8
+doNextprintShortANSI_UART:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal
+	subi	r9,r9,1
+	bnz		doNextprintShortANSI_UART
 	pull	r10
 	pull	r9
 	pull	r8
