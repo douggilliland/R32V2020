@@ -4,7 +4,7 @@
 ;
 
 banner:			.string "G001-Hex_Guess_ESP"
-keyToStart:		.string "Any key to start"
+keyToStart:		.string "Hit any key to start"
 guessString:	.string "Guess a hex number (0x00-0xFF) : "
 ; lineBuff is 80 characters long
 lineBuff:		.string "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
@@ -54,10 +54,12 @@ tooLowCase:
 	lix		r8,tooLow.lower			; not equal or high means too low
 	bsr		printString_ANSI_UART
 	bsr		newLine_ANSI_UART
+	bsr		newLine_ANSI_UART
 	bra		notRightCode			; try again
 tooHighCase:
 	lix		r8,tooHigh.lower		; guess was too high
 	bsr		printString_ANSI_UART
+	bsr		newLine_ANSI_UART
 	bsr		newLine_ANSI_UART
 	bra		notRightCode			; try again
 guessedIt:
@@ -66,8 +68,8 @@ guessedIt:
 	bsr		newLine_ANSI_UART
 	lix		r8,numberOfGuesses.lower ; print number of guesses
 	bsr		printString_ANSI_UART
-	addi	r8,r14,0				; printLong needs value in r8
-	bsr		printLong
+	addi	r8,r14,0				; printLongANSI_UART needs value in r8
+	bsr		printByteANSI_UART
 	bsr		newLine_ANSI_UART
 endStop:
 	bsr		newLine_ANSI_UART
@@ -82,15 +84,16 @@ waitForKeyHit2:
 	bra		runAgain
 ;
 ; randomNumber_8bits - Generate a random number - 8-bit value
-; 0x3800 is the Oscillator clock counter
+; 0x3803 is the Processor instruction counter
+; The number relies on the delay in the user hitting the key at a random time
 ;
 
 randomNumber_8bits:
 	push	PAR
-	lix		PAR,0x3800
+	lix		PAR,0x3803
 	lpl		r8
-	sr1		r8,r8
-	sr1		r8,r8
+;	sr1		r8,r8
+;	sr1		r8,r8
 	andi	r8,r8,0xff
 	pull	PAR
 	pull	PC
@@ -123,7 +126,7 @@ loopReadLine:
 	; tbd add code for line too long	
 gotEOL:
 	lix		r8,0x0A				; Echo line feed after CR
-	bsr		writeANSI_UART	; Put the character to the screen
+	bsr		putCharToANSIScreen	; Put the character to the screen
 	bsr		putCharToUART		; Echo character back to the UART
 	sdb		r0					; null at end of line read
 	bra		doneHandlingLine
@@ -158,11 +161,11 @@ printANSICode:
 	pull	PC
 
 ;
-; printLong
+; printLongANSI_UART
 ; r8 contains the long value to print
 ;
 
-printLong:
+printLongANSI_UART:
 	push	r8
 	push	r9
 	push	r10
@@ -173,14 +176,77 @@ printLong:
 	bsr		writeANSI_UART
 	pull	r8				; restore r8
 	lix		r9,8			; loop counter
-doNextPrintLong:
+doNextprintLongANSI_UART:
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
 	bsr		printHexVal
 	subi	r9,r9,1
-	bnz		doNextPrintLong
+	bnz		doNextprintLongANSI_UART
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; printShortANSI_UART
+; r8 contains the short value to print
+;
+
+printShortANSI_UART:
+	push	r8
+	push	r9
+	push	r10
+	push	r8				; temporarily save r8
+	lix		r8,0x30
+	bsr		writeANSI_UART
+	lix		r8,0x78
+	bsr		writeANSI_UART
+	pull	r8				; restore r8
+	lix		r9,4			; loop counter
+	sl8		r8,r8
+	sl8		r8,r8
+doNextprintShortANSI_UART:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal
+	subi	r9,r9,1
+	bnz		doNextprintShortANSI_UART
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; printByteANSI_UART
+; r8 contains the short value to print
+;
+
+printByteANSI_UART:
+	push	r8
+	push	r9
+	push	r10
+	push	r8				; temporarily save r8
+	lix		r8,0x30
+	bsr		writeANSI_UART
+	lix		r8,0x78
+	bsr		writeANSI_UART
+	pull	r8				; restore r8
+	lix		r9,2			; loop counter
+	sl8		r8,r8
+	sl8		r8,r8
+	sl8		r8,r8
+doNextprintByteANSI_UART:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal
+	subi	r9,r9,1
+	bnz		doNextprintShortANSI_UART
 	pull	r10
 	pull	r9
 	pull	r8

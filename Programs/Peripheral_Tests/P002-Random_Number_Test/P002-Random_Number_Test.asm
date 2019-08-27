@@ -30,17 +30,17 @@ waitForKeyHit:
 ;	bsr		newLine_ANSI_UART		; extra LF to move down
 runAgain:
 	bsr		randomNumber_8bits		; pull random number from counter
-	bsr		printLong
+	bsr		printShortANSI_UART
 	bsr		newLine_ANSI_UART		; start 2 lines down
 	bra		waitForKeyHit
 ;
 ; randomNumber_8bits - Generate a random number - 8-bit value
-; 0x3800 is the Oscillator clock counter
+; 0x3803 is the Processor Instruction Cycle counter
 ;
 
 randomNumber_8bits:
 	push	PAR
-	lix		PAR,0x3800
+	lix		PAR,0x3803
 	lpl		r8
 	sr1		r8,r8
 	sr1		r8,r8
@@ -111,11 +111,11 @@ printANSICode:
 	pull	PC
 
 ;
-; printLong
+; printLongANSI_UART
 ; r8 contains the long value to print
 ;
 
-printLong:
+printLongANSI_UART:
 	push	r8
 	push	r9
 	push	r10
@@ -126,14 +126,45 @@ printLong:
 	bsr		writeANSI_UART
 	pull	r8				; restore r8
 	lix		r9,8			; loop counter
-doNextPrintLong:
+doNextprintLongANSI_UART:
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
 	bsr		printHexVal
 	subi	r9,r9,1
-	bnz		doNextPrintLong
+	bnz		doNextprintLongANSI_UART
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; printShortANSI_UART
+; r8 contains the long value to print
+;
+
+printShortANSI_UART:
+	push	r8
+	push	r9
+	push	r10
+	push	r8				; temporarily save r8
+	lix		r8,0x30
+	bsr		writeANSI_UART
+	lix		r8,0x78
+	bsr		writeANSI_UART
+	pull	r8				; restore r8
+	lix		r9,1			; loop counter
+	rol8	r8,r8
+	rol8	r8,r8
+doNextprintShortANSI_UART:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal
+	subi	r9,r9,1
+	bnz		doNextprintShortANSI_UART
 	pull	r10
 	pull	r9
 	pull	r8
