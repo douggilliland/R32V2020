@@ -19,7 +19,7 @@ readDataMemory:
 	lix	r8,hello.lower
 	bsr	printString
 loopPS2Read_ScreenWrite:
-	bsr	getPS2Char
+	bsr	getPS2CharPolled
 	bsr	putCharToANSIScreen	; put the character to the screen
 	bsr	putUARTChar
 	bra	loopPS2Read_ScreenWrite
@@ -32,19 +32,36 @@ loopPS2Read_ScreenWrite:
 getPS2Char:
 	push	r9
 	push	PAR
-	liu	PAR,0x0000
-	lil	PAR,0x0801	; PS/2 Status
+	lix	PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
 	lpl	r9			; Read Status into r9
 	and r9,r9,r1
 	bez waitPS2RxStat
 getCharFromPS2:
-	liu	PAR,0x0000
-	lil PAR,0x0800
+	lix PAR,0x0800
 	lpl	r8
-	liu	PAR,0x0000
-	lil	PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
+	pull	PAR
+	pull	r9
+	pull	PC
+
+;
+; getPS2Char
+; returns character received in r8
+;
+
+getPS2CharPolled:
+	push	r9
+	push	PAR
+	lix	PAR,0x0803	; PS/2 Status
+waitPS2RxStatPolled:
+	lpl	r9			; Read Status into r9
+	and r9,r9,r1
+	bez waitPS2RxStatPolled
+getCharFromPS2Polled:
+	lix PAR,0x0802
+	lpl	r8
+whilePS2RxStatPolled:
 	pull	PAR
 	pull	r9
 	pull	PC
