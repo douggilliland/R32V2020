@@ -164,6 +164,19 @@ begin
 		x"0000000"&"000" 	& w_spi_busy						when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
 		x"DEAD1234";	-- Read of a non-existing interface
 
+	-- PS/2 keyboard wrapper
+	kbdWrap : entity work.Wrap_Keyboard
+	port map (
+		i_CLOCK_50				=> i_CLOCK_50,
+		i_n_reset				=> n_reset,
+		i_kbCS					=> w_kbCS,
+		i_peripheralAddress	=>	i_peripheralAddress,
+		i_rd_Kbd					=> w_kbCS and i_peripheralRdStrobe,
+		i_ps2_clk				=> i_PS2_CLK,
+		i_ps2_data				=> i_PS2_DATA,
+		o_kbdDat					=> w_kbdDat
+		);
+	
 	-- SPIbus Clock
 	-- 50 MHz divided by 6 is 50/6 = 8.33 MHz
 	-- 50/50 duty cycle (3 clocks high/3 clocks low)
@@ -364,20 +377,6 @@ begin
 	-- Buzzer enable - comes up with the buzzer off
 	o_BUZZER <= not w_LatData(4);
 
-
-	-- PS/2 keyboard wrapper
-	kbdWrap : entity work.Wrap_Keyboard
-	port map (
-		i_CLOCK_50				=> i_CLOCK_50,
-		i_n_reset				=> n_reset,
-		i_peripheralAddress	=>	i_peripheralAddress,
-		i_rd_Kbd					=> w_kbCS and i_peripheralRdStrobe,
-		i_ps2_clk				=> i_PS2_CLK,
-		i_ps2_data				=> i_PS2_DATA,
-		o_kbdDat					=> w_kbdDat
-		);
-	
-	
 	-- Switch debouncers
 	DebounceSwitch1	: entity work.Debouncer
 	port map (

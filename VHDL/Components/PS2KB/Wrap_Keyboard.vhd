@@ -5,7 +5,8 @@ USE ieee.std_logic_unsigned.all;
 ENTITY Wrap_Keyboard IS
 port (
 		i_CLOCK_50					: IN  STD_LOGIC;  -- input clock
-		i_n_reset						: IN  STD_LOGIC;  -- 
+		i_n_reset					: IN  STD_LOGIC;  -- 
+		i_kbCS						: IN  STD_LOGIC;  -- 
 		i_peripheralAddress		: IN  STD_LOGIC_vector(31 downto 0) := x"00000000"; -- address
 		i_rd_Kbd						: IN  STD_LOGIC;  --
 		i_ps2_clk					: IN  STD_LOGIC;  --
@@ -52,7 +53,7 @@ BEGIN
 			if W_kbDataValid = '1' and w_latKbDV1 = '0' then
 				w_kbdStatus <= x"01";			-- set at edge of dataValid
 				q_kbReadData <= '0' & w_kbReadData;
-			elsif (i_rd_Kbd = '1') then
+			elsif ((i_rd_Kbd = '1') and (i_kbCS = '1')) then
 				w_kbdStatus <= x"00";
 			end if;
 		end if;

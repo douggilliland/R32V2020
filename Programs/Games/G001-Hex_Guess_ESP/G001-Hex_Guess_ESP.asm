@@ -613,7 +613,7 @@ loop_delay_mS:
 getPS2Char:
 	push	r9
 	push	PAR
-	lix		PAR,0x1000	; PS/2 Status
+	lix		PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
 	lpl		r9			; Read Status into r9
 	andi	r9,r9,0x1
@@ -621,7 +621,7 @@ waitPS2RxStat:
 getCharFromPS2:
 	lix 	PAR,0x0800
 	lpl		r8
-	lix		PAR,0x1000	; PS/2 Status
+	lix		PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 	pull	PAR
 	pull	r9
@@ -635,7 +635,7 @@ whilePS2RxStat:
 waitReadPS2_UART:
 	push	PAR
 checkCharFromPS2:
-	lix		PAR,0x1000	; PS/2 Status
+	lix		PAR,0x0801	; PS/2 Status
 	lpl		r8			; Read Status
 	andi	r8,r8,0x1	; =1 when char received
 	bez 	checkUARTStat
@@ -659,7 +659,7 @@ gotPS2Char:
 
 checkForCharAndDiscard:
 	push	PAR
-	lix		PAR,0x1000	; PS/2 Status
+	lix		PAR,0x0801	; PS/2 Status
 	lpl		r8			; Read Status
 	andi	r8,r8,0x1	; =1 when char received
 	bez 	checkUARTStat2
