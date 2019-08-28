@@ -66,8 +66,8 @@ architecture struct of PeripheralInterface is
 	attribute syn_keep: boolean;
 	-- Peripheral Chip Selects
 	signal ANSI_DisplayCS 		:	std_logic := '0';
-	signal w_kbDatCS 				:	std_logic := '0';
-	signal w_kbStatCS				:	std_logic := '0';
+	signal w_kbCS 					:	std_logic := '0';
+	signal w_kbd					:	std_logic_vector(7 downto 0);
 	signal w_aciaCS 				:	std_logic := '0';
 	signal w_SwitchesCS			:	std_logic := '0';
 	signal w_LEDsCS				:	std_logic := '0';
@@ -89,8 +89,6 @@ architecture struct of PeripheralInterface is
 	signal w_kbdStatus			:	std_logic_vector(31 downto 0);
 	signal w_kbReadData			:	std_logic_vector(6 downto 0);
 	signal q_kbReadData			:	std_logic_vector(31 downto 0);
-	signal w_kbDataValid			:	std_logic;
-	signal w_latKbDV1				:	std_logic := '0';
 	-- Serial Port
 	signal w_aciaData				:	std_logic_vector(7 downto 0);
 	-- Display
@@ -126,8 +124,7 @@ architecture struct of PeripheralInterface is
 	-- Address bits 15 down to 11
 	-- Some interfaces use lower address bits to select data/control-status
 	constant ANSI_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"0";
-	constant KBDAT_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"1";
-	constant KBST_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"2";
+	constant KB_BASE 		: std_Logic_Vector(4 downto 0) := '0'&x"1";
 	constant ACIA_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"3";
 	constant SWS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"4";
 	constant LEDS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"5";
@@ -139,15 +136,13 @@ architecture struct of PeripheralInterface is
 	constant I2CIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"B";
 	constant SPIIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"C";
 	constant EEPIO_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"D";
-	constant KBDPOL_BASE	: std_Logic_Vector(4 downto 0) := '0'&x"E";
 
 begin
 
 	-- Peripheral Address decoder
 	-- Currently only uses 16-bits of address
 	ANSI_DisplayCS <= '1' when i_peripheralAddress(15 downto 11) = ANSI_BASE	else '0';	-- x0000-x07FF (2KB) - Display RAM (Memory Mapped Display uses range)
-	w_kbDatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '0';	-- x0800-x0FFF (2KB)	- Latched Keyboard Data
-	w_kbStatCS 		<= '1' when i_peripheralAddress(15 downto 11) = KBST_BASE	else '0';	-- x1000-x17FF (2KB)	- Latched Keyboard Status
+	w_kbCS	 		<= '1' when i_peripheralAddress(15 downto 11) = KBDAT_BASE	else '0';	-- x0800-x0FFF (2KB)	- Keyboard
 	w_aciaCS 		<= '1' when i_peripheralAddress(15 downto 11) = ACIA_BASE	else '0';	-- x1800-x1FFF (2KB)	- UART
 	w_SwitchesCS	<= '1' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '0';	-- x2000-x27FF (2KB)	- Pushbutton Switches
 	w_LEDsCS			<= '1' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '0';	-- x2800-x2FFF (2KB)	- Individual LEDs
@@ -159,11 +154,10 @@ begin
 	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- External I2C Address
 	w_SPICS			<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- SPI Address
 	w_EEPI2CCS		<= '1' when i_peripheralAddress(15 downto 11) = EEPIO_BASE	else '0';	-- x6800-x6FFF (2KB)	- EEPROM I2C Address
-	w_KDBPOLCS		<= '1' when i_peripheralAddress(15 downto 11) = KBDPOL_BASE	else '0';	-- x7900-x77FF (2KB)	- Polled keyboard
 	
 	o_dataFromPeripherals <=
 		x"000000"		& w_ANSI_DispRamDataOutA 			when	ANSI_DisplayCS = '1' else
-		q_kbReadData	 											when	w_kbDatCS		= '1' else
+		x"000000"		& w_kbd				 					when	w_kbDatCS		= '1' else
 		w_kbdStatus													when	w_kbStatCS		= '1' else 
 		x"000000"			& w_aciaData 						when	w_aciaCS 		= '1' else
 		x"00000"	& (not i_DIP_switch) & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
@@ -173,8 +167,8 @@ begin
 		x"000000"			& o_EEPi2cData		 				when	w_EEPI2CCS		= '1' else
 		x"000000"			& o_spiData							when	(w_SPICS = '1' and i_peripheralAddress(1) = '0') else
 		x"0000000"&"000" 	& w_spi_busy						when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
-		x"0000000"&"000" 	& w_kbDataValid					when	(w_KDBPOLCS = '0' and i_peripheralAddress(1) = '0') else		-- Polled keyb status
-		x"000000"&'0'		& w_kbReadData						when	(w_KDBPOLCS = '0' and i_peripheralAddress(1) = '1') else
+--		x"0000000"&"000" 	& w_kbDataValid					when	(w_KDBPOLCS = '0' and i_peripheralAddress(1) = '0') else		-- Polled keyb status
+--		x"000000"&'0'		& w_kbReadData						when	(w_KDBPOLCS = '0' and i_peripheralAddress(1) = '1') else
 		x"DEAD1234";	-- Read of a non-existing interface
 
 	-- SPIbus Clock
@@ -376,35 +370,19 @@ begin
 	o_LED <= w_LatData(3 downto 0);
 	-- Buzzer enable - comes up with the buzzer off
 	o_BUZZER <= not w_LatData(4);
-	
-	-- PS/2 keyboard - ASCII output
-	ps2Keyboard : entity work.ps2_keyboard_to_ascii
+
+
+	-- PS/2 keyboard wrapper
+	kbdWrap : entity work.Wrap_Keyboard
 	port map (
-		clk			=> i_CLOCK_50,
-		ps2_clk		=> i_PS2_CLK,
-		ps2_data		=> i_PS2_DATA,	
-		ascii_code	=> w_kbReadData,
-		ascii_new	=> w_kbDataValid
-	);
+		clk						=> i_CLOCK_50,
+		i_peripheralAddress	=>	i_peripheralAddress,
+		ps2_clk					=> i_PS2_CLK,
+		ps2_data					=> i_PS2_DATA,
+		i_kbdDat					=> kbd
+		);
 	
-	-- Latch up the keyboard data when data valid signal is present
-
-	process (i_CLOCK_50, n_reset, W_kbDataValid, w_kbReadData, w_kbDatCS, i_peripheralRdStrobe)
-	begin
-		if n_reset = '0' then
-			w_latKbDV1 <= '0';
-			w_kbdStatus <= x"00000000";
-		elsif rising_edge(i_CLOCK_50)  then
-			w_latKbDV1 <= W_kbDataValid;
-			if W_kbDataValid = '1' and w_latKbDV1 = '0' then
-				w_kbdStatus <= x"00000001";			-- set at edge of dataValid
-				q_kbReadData <= x"000000" & '0' & w_kbReadData;
-			elsif ((w_kbDatCS = '1') and (i_peripheralRdStrobe = '1')) then
-				w_kbdStatus <= x"00000000";
-			end if;
-		end if;
-	end process;
-
+	
 	-- Switch debouncers
 	DebounceSwitch1	: entity work.Debouncer
 	port map (
