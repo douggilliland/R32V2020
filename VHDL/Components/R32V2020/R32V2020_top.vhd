@@ -51,7 +51,6 @@ entity R32V2020_top is
       spi_csN				: out std_logic := '1';
       spi_mosi				: out std_logic := '1';
       spi_miso				: in std_logic := '1';
---		o_testPoint			: out std_logic := '1';
 		-- Music generator
 		o_Note				: out std_logic := '0';
 		-- PS/2 Keyboard pins

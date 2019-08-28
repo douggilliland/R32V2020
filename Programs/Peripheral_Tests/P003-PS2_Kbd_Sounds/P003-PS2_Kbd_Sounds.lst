@@ -1,0 +1,209 @@
+; Read PS/2 keyboard character in polled mode
+; Put character to the Screen
+; Requires V002 Peripherals build with ANSI screen support
+; On RETRO-EP4 card, requires PuTTY to be running to read serial port
+; PuTTY needs to be in Hardware Handshake mode
+; SigRok PS/2 decoder https://www.sigrok.org/blog/new-protocol-decoder-ps2
+
+prompt:	.string "R32V2020> "
+missingHandshake: .string "*** Run PuTTY and enable hardware handshake ***"
+screenPtr:	.long 0x0000
+screenBase:	.long 0x0
+
+;
+; Read PS/2 character and put it to the SVGA Display and the Serial Port
+;
+
+main:
+00000000	D4000047		bsr		clearANSIScreen
+00000001	42800000		lix		r8,prompt.lower
+00000002	D400003A		bsr		printString
+soundOff:
+00000003	4290003F		lix		r9,0x3F				; Sound generator note off (middle of range)
+00000004	42504000		lix		PAR,0x4000			; Sound generator
+00000005	85509000		spl		r9					; shut note off
+loopPS2Read_ScreenWrite:
+00000006	D400001C		bsr		getPS2Polled		; Check for polled char
+00000007	38382000		cmp		r8,MINUS1
+00000008	D1FFFFFB		beq		soundOff
+00000009	2B88007F		andi	r8,r8,0x7f			; mask the non-note bits
+0000000a	29880080		ori		r8,r8,0x80			; turn on the note enable
+0000000b	42504000		lix		PAR,0x4000			; Sound generator
+0000000c	85508000		spl		r8
+0000000d	4280000A		lix		r8,10				; set the delay between repeats
+0000000e	D400004F		bsr		delay_mS
+0000000f	C0FFFFF7		bra		loopPS2Read_ScreenWrite
+
+;
+; getPS2Char
+; returns character received in r8
+;
+
+getPS2Char:
+00000010	A0405000		push	PAR
+00000011	42500801		lix		PAR,0x0801	; PS/2 Status
+waitPS2RxStat:
+00000012	84805000		lpl		r8			; Read Status into r9
+00000013	2B880001		andi 	r8,r8,1
+00000014	C3FFFFFE		bez 	waitPS2RxStat
+getCharFromPS2:
+00000015	42500800		lix 	PAR,0x0800
+00000016	84805000		lpl		r8
+whilePS2RxStat:
+00000017	A1504000		pull	PAR
+00000018	A1704000		pull	PC
+
+;
+; waitPS2CharPolled - Check the polled character interface
+; wait for a character
+; return when a character is present
+; returns character received in r8
+;
+
+waitPS2CharPolled:
+00000019	A0405000		push	PAR
+0000001a	42500803		lix		PAR,0x0803	; PS/2 Status
+waitPS2RxStatPolled:
+0000001b	84805000		lpl		r8			; Read Status into r8
+0000001c	2B880001		andi 	r8,r8,0x1
+0000001d	C3FFFFFE		bez 	waitPS2RxStatPolled
+getCharFromPS2Polled:
+0000001e	42500802		lix 	PAR,0x0802
+0000001f	84805000		lpl		r8
+whilePS2RxStatPolled:
+00000020	A1504000		pull	PAR
+00000021	A1704000		pull	PC
+
+;
+; getPS2Polled - Checks the polling status
+; returns 
+;	-1 if there is no character, 
+;	character if there is a character
+;
+
+getPS2Polled:
+00000022	A0405000		push	PAR
+00000023	42500803		lix		PAR,0x0803	; PS/2 Status
+00000024	84805000		lpl		r8			; Read Status into r8
+00000025	2B880001		andi	r8,r8,0x1
+00000026	C3000004		bez		charNotPresent
+00000027	42500802		lix		PAR,0x0802
+00000028	84805000		lpl		r8
+00000029	C0000002		bra		gotCharIn
+charNotPresent:
+0000002a	20802000		add		r8,ZERO,MINUS1
+gotCharIn:
+0000002b	A1504000		pull	PAR
+0000002c	A1704000		pull	PC
+
+;
+; putUARTChar - Put a character to the UART
+; passed character in r8 is sent out the UART
+;
+
+putUARTChar:
+0000002d	A0405000		push	PAR
+0000002e	A0408000		push	r8
+0000002f	42501800		lix		PAR,0x1800	; UART Status
+waitUartTxStat:
+00000030	84805000		lpl		r8			; Read Status into r8
+00000031	2B880002		andi 	r8,r8,0x2
+00000032	C7000005		bnz 	uartRdy
+; Remind user to enable HW handshake
+; would be better to add a HW handshake timeout
+; Since the USB is so much faster it is unlikely this path 
+;	will be exercised. 
+; It's more likely that PuTTY needed to be run in HW handshake mode.
+handshakeStuck:
+00000033	4280000C		lix		r8,missingHandshake.lower
+00000034	D4000008		bsr		printString
+00000035	A1804000		pull	r8
+00000036	C0000004		bra		getOut
+uartRdy:
+00000037	42501801		lix 	PAR,0x1801
+00000038	A1804000		pull	r8
+00000039	85508000		spl		r8			; echo the character
+getOut:
+0000003a	A1504000		pull	PAR
+0000003b	A1704000		pull	PC
+	
+;
+; printString - Print a screen to the current screen position
+; pass value : r8 points to the start of the string in Data memory
+; strings are bytes packed into long words
+; strings are null terminated
+;
+
+printString:
+0000003c	A0408000		push	r8				; save r8
+0000003d	A0406000		push	DAR
+0000003e	21680000		addi	DAR,r8,0x0		; set the start of the string
+nextChar:
+0000003f	68806000		ldbp	r8				; get the character
+00000040	39380000		cmpi	r8,0x0			; Null terminated string
+00000041	D1000003		beq		donePrStr		; done if null
+00000042	D4000010		bsr		putCharToANSIScreen	; write out the character
+00000043	C0FFFFFC		bra		nextChar
+donePrStr:
+00000044	A1604000		pull	DAR				; restore DAR
+00000045	A1804000		pull	r8				; restore r8
+00000046	A1704000		pull	PC				; rts
+
+;
+; clearANSIScreen - Clear the screen routine
+; ANSI Terminal has an escape sequence which clears the screen and homes cursor
+; No passed value
+; Uses r8 (saved during function)
+; no return value
+;
+
+clearANSIScreen:
+00000047	A0408000		push	r8				; save r8
+00000048	4280001B		lix		r8,0x1b			; ESC
+00000049	D4000009		bsr		putCharToANSIScreen
+0000004a	4280005B		lix		r8,0x5b			; [
+0000004b	D4000007		bsr		putCharToANSIScreen
+0000004c	42800032		lix		r8,0x32			; 2
+0000004d	D4000005		bsr		putCharToANSIScreen
+0000004e	4280004A		lix		r8,0x4A			; J
+0000004f	D4000003		bsr		putCharToANSIScreen
+00000050	A1804000		pull	r8
+00000051	A1704000		pull	PC				; rts
+
+;
+; putCharToANSIScreen - Put a character to the screen
+; r8 - Character to put to screen
+; r8 - returns character that was sent to screen
+;
+
+putCharToANSIScreen:
+00000052	A0405000		push	PAR
+00000053	A0408000		push	r8
+00000054	42500000		lix		PAR,0x0		; ANSI Screen (UART-style) Status
+waitScreenTxStat:
+00000055	84805000		lpl		r8			; Read Status into r9
+00000056	2B880002		andi 	r8,r8,0x2
+00000057	C3FFFFFE		bez 	waitScreenTxStat
+00000058	42500001		lix 	PAR,0x1		; ANSI Screen (UART-style) Data
+00000059	A1804000		pull	r8
+0000005a	85508000		spl		r8			; send character to the screen
+0000005b	A1504000		pull	PAR
+0000005c	A1704000		pull	PC
+	
+; delay_mS - delay for the number of mSecs passed in r8
+; pass mSec delay in r8
+; Routine uses r9
+
+delay_mS:
+0000005d	A0408000		push	r8
+0000005e	A0409000		push	r9
+0000005f	42503802		lix		PAR,0x3802		; address of the mSec counter
+00000060	84905000		lpl		r9				; read the peripheral counter into r9
+00000061	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_mS:
+00000062	84905000		lpl		r9				; check the elapsed time counter
+00000063	38389000		cmp		r8,r9
+00000064	CCFFFFFE		blt		loop_delay_mS
+00000065	A1904000		pull	r9
+00000066	A1804000		pull	r8
+00000067	A1704000		pull	PC
