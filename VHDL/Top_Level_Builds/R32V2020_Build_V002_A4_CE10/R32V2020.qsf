@@ -144,6 +144,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_hSync
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SDA
 set_location_assignment PIN_7 -to io_EEP_I2C_SCL
 set_location_assignment PIN_3 -to io_EEP_I2C_SDA
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/Wrap_Keyboard.vhd
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundTable01.VHD
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundGen.vhd
 set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32_Load124.vhd
