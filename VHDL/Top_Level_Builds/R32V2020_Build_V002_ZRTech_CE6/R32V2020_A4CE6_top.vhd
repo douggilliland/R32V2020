@@ -46,7 +46,7 @@ entity R32V2020_A4CE6_top is
 --    spi_miso				: in std_logic := '1';
 --	o_testPoint			: out std_logic := '1';
 		-- Music generator
---		o_Note				: out std_logic := '0';
+		o_Note				: out std_logic := '0';
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -115,7 +115,7 @@ begin
 --      spi_mosi				=> spi_mosi,
 --      spi_miso				=> spi_miso,
 		-- Music generator
---		o_Note				=> o_Note,
+		o_Note				=> o_Note,
 		-- PS/2 Keyboard pins
 		i_ps2Clk				=> i_ps2Clk,
 		i_ps2Data			=> i_ps2Data
