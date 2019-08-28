@@ -7,7 +7,7 @@ start:
 readDataMemory:
 00000004	20600000		add	dar,r0,r0	; clear the data memory addr pointer
 00000005	64806000		ldl	r8			; get the long again
-00000006	39808000		ens r8,r8		; endian swap for right byte order
+00000006	3A808000		ens r8,r8		; endian swap for right byte order
 00000007	A2407000		sss	r7			; store PC on the stack
 00000008	C000002F		bra	putChar
 00000009	33808000		sr8	r8,r8
@@ -21,7 +21,7 @@ readDataMemory:
 00000011	C0000026		bra	putChar
 00000012	20661000		add	dar,dar,r1	; increment the data pointer
 00000013	64806000		ldl	r8			; get the long again
-00000014	39808000		ens r8,r8		; endian swap for right byte order
+00000014	3A808000		ens r8,r8		; endian swap for right byte order
 00000015	A2407000		sss	r7			; store PC on the stack
 00000016	C0000021		bra	putChar
 00000017	33808000		sr8	r8,r8
@@ -35,13 +35,13 @@ readDataMemory:
 0000001f	C0000018		bra	putChar
 readKBStat:
 00000020	42E00800		lix	r14,0x0800
-00000021	42C01000		lix	r12,0x1000
+00000021	42C00801		lix	r12,0x0801
 00000022	42D00010		lix	r13,0x0010	; 16th column on the screen (middle of the first line)
 loopStatRead:
 00000023	205C0000		add	par,r12,r0	; kb status address
 loopReadKbStat:
 00000024	84B05000		lpl	r11			; get the kb status value
-00000025	25BB1000		and	r11,r11,r1	; test the data present bit
+00000025	2ABB1000		and	r11,r11,r1	; test the data present bit
 00000026	C3FFFFFE		bez	loopReadKbStat
 readKeyboardData:
 00000027	205E0000		add	par,r14,r0	; keyboard data port address

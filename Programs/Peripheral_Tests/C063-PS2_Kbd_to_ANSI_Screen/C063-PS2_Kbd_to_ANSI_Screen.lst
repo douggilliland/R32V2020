@@ -33,17 +33,17 @@ getPS2Char:
 00000007	A0409000		push	r9
 00000008	A0405000		push	PAR
 00000009	41500000		liu	PAR,0x0000
-0000000a	40501000		lil	PAR,0x1000	; PS/2 Status
+0000000a	40500801		lil	PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
 0000000b	84905000		lpl	r9			; Read Status into r9
-0000000c	25991000		and r9,r9,r1
+0000000c	2A991000		and r9,r9,r1
 0000000d	C3FFFFFE		bez waitPS2RxStat
 getCharFromPS2:
 0000000e	41500000		liu	PAR,0x0000
 0000000f	40500800		lil PAR,0x0800
 00000010	84805000		lpl	r8
 00000011	41500000		liu	PAR,0x0000
-00000012	40501000		lil	PAR,0x1000	; PS/2 Status
+00000012	40500801		lil	PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 00000013	A1504000		pull	PAR
 00000014	A1904000		pull	r9
@@ -63,7 +63,7 @@ putUARTChar:
 0000001b	40501800		lil	PAR,0x1800	; UART Status
 waitUartTxStat:
 0000001c	84905000		lpl	r9			; Read Status into r9
-0000001d	2599A000		and r9,r9,r10
+0000001d	2A99A000		and r9,r9,r10
 0000001e	C7000004		bnz uartRdy
 ; remind user to enable HW handshake
 0000001f	4280000C		lix	r8,missingHandshake.lower
@@ -135,7 +135,7 @@ putCharToANSIScreen:
 00000044	42500000		lix		PAR,0x0		; UART Status
 waitScreenTxStat:
 00000045	84905000		lpl		r9			; Read Status into r9
-00000046	2599A000		and 	r9,r9,r10
+00000046	2A99A000		and 	r9,r9,r10
 00000047	C3FFFFFE		bez 	waitScreenTxStat
 00000048	42500001		lix 	PAR,0x1
 00000049	85508000		spl		r8			; echo the character

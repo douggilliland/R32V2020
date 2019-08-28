@@ -33,7 +33,7 @@ getPS2Char:
 	push	r9
 	push	PAR
 	liu	PAR,0x0000
-	lil	PAR,0x1000	; PS/2 Status
+	lil	PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
 	lpl	r9			; Read Status into r9
 	and r9,r9,r1
@@ -43,7 +43,7 @@ getCharFromPS2:
 	lil PAR,0x0800
 	lpl	r8
 	liu	PAR,0x0000
-	lil	PAR,0x1000	; PS/2 Status
+	lil	PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 	pull	PAR
 	pull	r9

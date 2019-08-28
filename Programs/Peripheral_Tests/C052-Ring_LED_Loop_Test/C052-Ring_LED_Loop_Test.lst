@@ -14,7 +14,7 @@ main:
 readDataMemory:
 00000003	42800000		lix	r8,hello.lower
 00000004	D4000041		bsr	printString
-00000005	42901000		lix	r9,0x1000			; ring has been circled
+00000005	42900801		lix	r9,0x0801			; ring has been circled
 reload:
 00000006	42800001		lix	r8,1
 loopLEDRing:
@@ -68,7 +68,7 @@ readSws:
 00000022	42900007		lix	r9,0x7
 00000023	42502000		lix	PAR,0x2000	; Switches address
 00000024	84805000		lpl	r8			; Read switches into r9
-00000025	26889000		xor	r8,r8,r9
+00000025	2C889000		xor	r8,r8,r9
 00000026	A1904000		pull	r9
 00000027	A1504000		pull	PAR
 00000028	A1704000		pull	PC
@@ -81,15 +81,15 @@ readSws:
 getPS2Char:
 00000029	A0409000		push	r9
 0000002a	A0405000		push	PAR
-0000002b	42501000		lix	PAR,0x1000	; PS/2 Status
+0000002b	42500801		lix	PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
 0000002c	84905000		lpl	r9			; Read Status into r9
-0000002d	25991000		and r9,r9,ONE
+0000002d	2A991000		and r9,r9,ONE
 0000002e	C3FFFFFE		bez waitPS2RxStat
 getCharFromPS2:
 0000002f	42500800		lix PAR,0x0800
 00000030	84805000		lpl	r8
-00000031	42501000		lix	PAR,0x1000	; PS/2 Status
+00000031	42500801		lix	PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 00000032	A1504000		pull	PAR
 00000033	A1904000		pull	r9
@@ -109,7 +109,7 @@ putUARTChar:
 0000003a	42501800		lix	PAR,0x1800	; UART Status
 waitUartTxStat:
 0000003b	84905000		lpl	r9			; Read Status into r9
-0000003c	2599A000		and r9,r9,r10
+0000003c	2A99A000		and r9,r9,r10
 0000003d	C3FFFFFE		bez waitUartTxStat
 0000003e	42501801		lix PAR,0x1801
 0000003f	85508000		spl	r8			; echo the character
@@ -228,7 +228,7 @@ putCharToANSIScreen:
 00000081	42500000		lix		PAR,0x0		; UART Status
 waitScreenTxStat:
 00000082	84905000		lpl		r9			; Read Status into r9
-00000083	2599A000		and 	r9,r9,r10
+00000083	2A99A000		and 	r9,r9,r10
 00000084	C3FFFFFE		bez 	waitScreenTxStat
 00000085	42500001		lix 	PAR,0x1
 00000086	85508000		spl		r8			; echo the character

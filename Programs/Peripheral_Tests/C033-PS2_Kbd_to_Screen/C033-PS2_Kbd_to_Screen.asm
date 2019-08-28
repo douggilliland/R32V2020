@@ -35,7 +35,7 @@ readDataMemory:
 	bra	putChar
 readKBStat:
 	lix	r14,0x0800
-	lix	r12,0x1000
+	lix	r12,0x0801
 	lix	r13,0x0010	; 16th column on the screen (middle of the first line)
 loopStatRead:
 	add	par,r12,r0	; kb status address

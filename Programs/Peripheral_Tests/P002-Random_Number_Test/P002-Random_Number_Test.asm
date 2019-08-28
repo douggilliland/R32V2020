@@ -141,7 +141,7 @@ doNextprintLongANSI_UART:
 
 ;
 ; printShortANSI_UART
-; r8 contains the long value to print
+; r8 contains the short value to print
 ;
 
 printShortANSI_UART:
@@ -154,10 +154,42 @@ printShortANSI_UART:
 	lix		r8,0x78
 	bsr		writeANSI_UART
 	pull	r8				; restore r8
-	lix		r9,1			; loop counter
-	rol8	r8,r8
-	rol8	r8,r8
+	lix		r9,4			; loop counter
+	sl8		r8,r8
+	sl8		r8,r8
 doNextprintShortANSI_UART:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal
+	subi	r9,r9,1
+	bnz		doNextprintShortANSI_UART
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; printByteANSI_UART
+; r8 contains the short value to print
+;
+
+printByteANSI_UART:
+	push	r8
+	push	r9
+	push	r10
+	push	r8				; temporarily save r8
+	lix		r8,0x30
+	bsr		writeANSI_UART
+	lix		r8,0x78
+	bsr		writeANSI_UART
+	pull	r8				; restore r8
+	lix		r9,2			; loop counter
+	sl8		r8,r8
+	sl8		r8,r8
+	sl8		r8,r8
+doNextprintByteANSI_UART:
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
@@ -531,7 +563,7 @@ loop_delay_mS:
 getPS2Char:
 	push	r9
 	push	PAR
-	lix		PAR,0x1000	; PS/2 Status
+	lix		PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
 	lpl		r9			; Read Status into r9
 	andi	r9,r9,0x1
@@ -539,7 +571,7 @@ waitPS2RxStat:
 getCharFromPS2:
 	lix 	PAR,0x0800
 	lpl		r8
-	lix		PAR,0x1000	; PS/2 Status
+	lix		PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 	pull	PAR
 	pull	r9
@@ -553,7 +585,7 @@ whilePS2RxStat:
 waitReadPS2_UART:
 	push	PAR
 checkCharFromPS2:
-	lix		PAR,0x1000	; PS/2 Status
+	lix		PAR,0x0801	; PS/2 Status
 	lpl		r8			; Read Status
 	andi	r8,r8,0x1	; =1 when char received
 	bez 	checkUARTStat
@@ -577,7 +609,7 @@ gotPS2Char:
 
 checkForCharAndDiscard:
 	push	PAR
-	lix		PAR,0x1000	; PS/2 Status
+	lix		PAR,0x0801	; PS/2 Status
 	lpl		r8			; Read Status
 	andi	r8,r8,0x1	; =1 when char received
 	bez 	checkUARTStat2

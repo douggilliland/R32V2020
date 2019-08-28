@@ -649,7 +649,7 @@ getPS2Char:
 00000187	A0408000		push	r8
 00000188	A0409000		push	r9
 00000189	A0405000		push	PAR
-0000018a	42501000		lix		PAR,0x1000	; PS/2 Status
+0000018a	42500801		lix		PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
 0000018b	84905000		lpl		r9			; Read Status into r9
 0000018c	2B990001		andi	r9,r9,0x1
@@ -657,7 +657,7 @@ waitPS2RxStat:
 getCharFromPS2:
 0000018e	42500800		lix 	PAR,0x0800
 0000018f	84805000		lpl		r8
-00000190	42501000		lix		PAR,0x1000	; PS/2 Status
+00000190	42500801		lix		PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 00000191	A1504000		pull	PAR
 00000192	A1904000		pull	r9
@@ -674,7 +674,7 @@ whilePS2RxStat:
 waitReadPS2_UART:
 00000195	A0405000		push	PAR
 checkCharFromPS2:
-00000196	42501000		lix		PAR,0x1000			; PS/2 Status
+00000196	42500801		lix		PAR,0x0801			; PS/2 Status
 00000197	84805000		lpl		r8					; Read Status
 00000198	2B880001		andi	r8,r8,0x1			; =1 when char received
 00000199	C3000004		bez 	checkUARTStat
@@ -698,7 +698,7 @@ gotPS2Char:
 
 checkForCharAndDiscard:
 000001a5	A0405000		push	PAR
-000001a6	42501000		lix		PAR,0x1000		; PS/2 Status
+000001a6	42500801		lix		PAR,0x0801		; PS/2 Status
 000001a7	84805000		lpl		r8				; Read Status
 000001a8	2B880001		andi	r8,r8,0x1		; =1 when char received
 000001a9	C3000005		bez 	checkUARTStat2

@@ -14,7 +14,7 @@ main:
 readDataMemory:
 	lix	r8,hello.lower
 	bsr	printString
-	lix	r9,0x1000			; ring has been circled
+	lix	r9,0x0801			; ring has been circled
 reload:
 	lix	r8,1
 loopLEDRing:
@@ -81,7 +81,7 @@ readSws:
 getPS2Char:
 	push	r9
 	push	PAR
-	lix	PAR,0x1000	; PS/2 Status
+	lix	PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
 	lpl	r9			; Read Status into r9
 	and r9,r9,ONE
@@ -89,7 +89,7 @@ waitPS2RxStat:
 getCharFromPS2:
 	lix PAR,0x0800
 	lpl	r8
-	lix	PAR,0x1000	; PS/2 Status
+	lix	PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 	pull	PAR
 	pull	r9
