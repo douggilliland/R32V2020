@@ -131,6 +131,7 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to io_I2C_SDA
 set_instance_assignment -name SLEW_RATE 2 -to io_I2C_SDA
 set_location_assignment PIN_42 -to o_Note
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/Wrap_Keyboard.vhd
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundTable01.VHD
 set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/Wrap_Data_Ram.vhd
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020_top.vhd
