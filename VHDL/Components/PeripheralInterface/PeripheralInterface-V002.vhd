@@ -55,6 +55,12 @@ entity PeripheralInterface is
       spi_miso						: in std_logic := '1';
 		-- Music generator
 		o_Note						: out std_logic := '0';
+		-- sd cARD
+		o_sdCS						: out std_logic := '1';
+		o_sdMOSI						: out std_logic := '0';
+		i_sdMISO						: in std_logic := '0';
+		o_sdSCLK						: out std_logic := '0';
+		o_driveLED					: out std_logic := '0';
 		-- PS/2 keyboard
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
@@ -87,6 +93,10 @@ architecture struct of PeripheralInterface is
 	signal w_serialClock			:	std_logic;
 	-- Serial Port
 	signal w_aciaData				:	std_logic_vector(7 downto 0);
+	-- SD card
+	signal w_sdCardData			:	std_logic_vector(7 downto 0);
+	signal w_SDCARDCS				:	std_logic := '0';
+
 	-- Display
 	signal w_ANSI_DispRamDataOutA	:	std_logic_vector(7 downto 0);
 	-- Timers
@@ -121,6 +131,7 @@ architecture struct of PeripheralInterface is
 	-- Some interfaces use lower address bits to select data/control-status
 	constant ANSI_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"0";
 	constant KB_BASE 		: std_Logic_Vector(4 downto 0) := '0'&x"1";
+	constant SDCARD_BASE : std_Logic_Vector(4 downto 0) := '0'&x"2";
 	constant ACIA_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"3";
 	constant SWS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"4";
 	constant LEDS_BASE 	: std_Logic_Vector(4 downto 0) := '0'&x"5";
@@ -139,6 +150,7 @@ begin
 	-- Currently only uses 16-bits of address
 	ANSI_DisplayCS <= '1' when i_peripheralAddress(15 downto 11) = ANSI_BASE	else '0';	-- x0000-x07FF (2KB) - Display RAM (Memory Mapped Display uses range)
 	w_kbCS	 		<= '1' when i_peripheralAddress(15 downto 11) = KB_BASE		else '0';	-- x0800-x0FFF (2KB)	- Keyboard
+	w_SDCARDCS		<= '1' when i_peripheralAddress(15 downto 11) = SDCARD_BASE	else '0';	-- x1000-x17FF (2KB)	- SD Card
 	w_aciaCS 		<= '1' when i_peripheralAddress(15 downto 11) = ACIA_BASE	else '0';	-- x1800-x1FFF (2KB)	- UART
 	w_SwitchesCS	<= '1' when i_peripheralAddress(15 downto 11) = SWS_BASE		else '0';	-- x2000-x27FF (2KB)	- Pushbutton Switches
 	w_LEDsCS			<= '1' when i_peripheralAddress(15 downto 11) = LEDS_BASE	else '0';	-- x2800-x2FFF (2KB)	- Individual LEDs
@@ -154,6 +166,7 @@ begin
 	o_dataFromPeripherals <=
 		x"000000"		& w_ANSI_DispRamDataOutA 			when	ANSI_DisplayCS = '1' else
 		x"000000"		& w_kbdDat			 					when	w_kbCS			= '1' else
+		x"000000"		& w_sdCardData	 						when	w_SDCARDCS		= '1' else
 		x"000000"			& w_aciaData 						when	w_aciaCS 		= '1' else
 		x"00000"	& (not i_DIP_switch) & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
 		x"000000"			& w_LatData							when	w_LEDsCS 		= '1' else
@@ -164,6 +177,23 @@ begin
 		x"0000000"&"000" 	& w_spi_busy						when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
 		x"DEAD1234";	-- Read of a non-existing interface
 
+	sd_Card	:	entity work.sd_controller_NealC
+	port map (
+		clk		=> i_CLOCK_50,
+		n_reset	=> n_reset,
+		n_rd		=> w_SDCARDCS and i_peripheralWrStrobe,
+		n_wr		=> w_SDCARDCS and i_peripheralRdStrobe,
+		dataIn	=> i_dataToPeripherals(7 downto 0),
+		dataOut	=> w_sdCardData,
+		regAddr	=> i_peripheralAddress(2 downTo 0),
+		sdCS 		=> o_sdCS,
+		sdMOSI	=> o_sdMOSI,
+		sdMISO	=> i_sdMISO,
+		sdSCLK	=> o_sdSCLK,
+		driveLED	=> o_driveLED
+	);
+
+	
 	-- PS/2 keyboard wrapper
 	kbdWrap : entity work.Wrap_Keyboard
 	port map (

@@ -53,6 +53,12 @@ entity R32V2020_top is
       spi_miso				: in std_logic := '1';
 		-- Music generator
 		o_Note				: out std_logic := '0';
+		-- sd cARD
+		o_sdCS				: out std_logic := '1';
+		o_sdMOSI				: out std_logic := '0';
+		i_sdMISO				: in std_logic := '0';
+		o_sdSCLK				: out std_logic := '0';
+		o_driveLED			: out std_logic := '0';
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -215,6 +221,12 @@ begin
 		io_I2C_SCL					=> io_I2C_SCL,
 		io_I2C_SDA					=> io_I2C_SDA,
 		io_I2C_INT					=> i_I2C_INT,
+		-- sd cARD
+		o_sdCS						=> o_sdCS,
+		o_sdMOSI						=> o_sdMOSI,
+		i_sdMISO						=> i_sdMISO,
+		o_sdSCLK						=> o_sdSCLK,
+		o_driveLED					=> o_driveLED,
 		spi_sclk						=> spi_sclk,
       spi_csN						=> spi_csN,
       spi_mosi						=> spi_mosi,

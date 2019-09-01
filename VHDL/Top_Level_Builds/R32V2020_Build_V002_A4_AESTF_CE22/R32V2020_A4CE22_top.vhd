@@ -49,6 +49,14 @@ entity R32V2020_A4CE22_top is
 		-- EEPROM I2C connections
 		io_EEP_I2C_SCL		: inout std_logic := '1';
 		io_EEP_I2C_SDA		: inout std_logic := '1';
+		-- Music generator
+		o_Note				: out std_logic := '0';
+		-- sd cARD
+		o_sdCS				: out std_logic := '1';
+		o_sdMOSI				: out std_logic := '0';
+		i_sdMISO				: in std_logic := '0';
+		o_sdSCLK				: out std_logic := '0';
+		o_driveLED			: out std_logic := '0';
 		-- SPIbus
 		spi_sclk				: out std_logic := '1';
       spi_csN				: out std_logic := '1';
@@ -135,6 +143,12 @@ begin
 		-- EEPROM I2C connections
 		io_EEP_I2C_SCL		=> io_EEP_I2C_SCL,
 		io_EEP_I2C_SDA		=> io_EEP_I2C_SDA,
+		-- sd cARD
+		o_sdCS						=> o_sdCS,
+		o_sdMOSI						=> o_sdMOSI,
+		i_sdMISO						=> i_sdMISO,
+		o_sdSCLK						=> o_sdSCLK,
+		o_driveLED					=> o_driveLED,
 		-- SPIbus
 		spi_sclk				=> spi_sclk,
       spi_csN				=> spi_csN,

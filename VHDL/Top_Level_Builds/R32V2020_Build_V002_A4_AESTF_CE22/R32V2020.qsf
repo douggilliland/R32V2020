@@ -127,6 +127,7 @@ set_location_assignment PIN_C16 -to o_LEDRing_out[5]
 set_location_assignment PIN_D15 -to o_LEDRing_out[6]
 set_location_assignment PIN_B16 -to o_LEDRing_out[7]
 set_location_assignment PIN_M8 -to o_LED_D7
+set_global_assignment -name VHDL_FILE ../../Components/SDCARD/sd_controller_NealC.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/Wrap_Keyboard.vhd
 set_global_assignment -name VHDL_FILE R32V2020_A4CE22_top.vhd
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundTable01.VHD
@@ -181,4 +182,10 @@ set_global_assignment -name VHDL_FILE ../../Components/Timers/Timer_Unit.vhd
 set_global_assignment -name CDF_FILE "output_files/R32V2020-EEPROM.cdf"
 set_global_assignment -name VHDL_FILE "../../Components/PeripheralInterface/PeripheralInterface-V002.vhd"
 set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020_Pkg.vhd
+set_location_assignment PIN_J2 -to o_sdCS
+set_location_assignment PIN_L8 -to o_sdMISO
+set_location_assignment PIN_P6 -to o_sdMOSI
+set_location_assignment PIN_K2 -to o_sdSCLK
+set_location_assignment PIN_R5 -to io_EEP_I2C_SCL
+set_location_assignment PIN_T4 -to io_EEP_I2C_SDA
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
