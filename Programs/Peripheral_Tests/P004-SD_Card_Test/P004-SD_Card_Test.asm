@@ -1,6 +1,9 @@
 ; P004-SD_Card_Test - Test the SD Card interface
+; Testing on A-ESTF FPGA development card
+;	http://land-boards.com/blwiki/index.php?title=A-ESTF_V2_EP4CE22_Board
 ; Not all FPGA cards have built-in SD Card sockets
-; Can wire up to IO pins (if there are any)
+; On other cards, should be able to wire up to IO pins (if there are any)
+; Dumps SD Card to the ANSI VGA screen
 ;
 ; Original VHDL code was based on the Multicomp design by Grant Searle
 ; Enhanced by Neal Crook to support SDHC cards
@@ -34,22 +37,39 @@
 ;
 
 
-prompt:	.string "R32V2020> "
+prompt:	.string "SDHC Dump Utility v0.0.1"
 missingHandshake: .string "*** Run PuTTY and enable hardware handshake ***"
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
 syntaxError:	.string "*** Bad number error (at a2h_Error) ***"
+anyKeyToContinue:	.string "Hit any key to continue"
+blockNumber:	.string "Block Number 0x"
 
 ;
-; Read PS/2 character and put it to the SVGA Display and the Serial Port
+; Read an SD card block - one at a time
 ;
 
 main:
 	bsr		clearScreen_ANSI
 	lix		r8,prompt.lower
 	bsr		printString_ANSI
-	lix		r8,0					; read block 0 to start with
+	bsr		newLine_ANSI
+	lix		r9,0					; read block 0 to start with
+readNextBlock:
+	lix		r8,blockNumber.lower
+	bsr		printString_ANSI
+	addi	r8,r9,0
+	bsr		printLong_ANSI
+	bsr		newLine_ANSI
+	addi	r8,r9,0
 	bsr		readDumpBlock_SDCard
+	bsr		newLine_ANSI
+	lix		r8,anyKeyToContinue.lower
+	bsr		printString_ANSI
+	bsr		getChar_PS2
+	bsr		newLine_ANSI
+	addi	r9,r9,512
+	bra		readNextBlock
 loopForever:
 	bra		loopForever
 	
@@ -401,6 +421,33 @@ doNextprintLong_ANSI_UART:
 	bsr		printHexVal_ANSI_UART
 	subi	r9,r9,1
 	bnz		doNextprintLong_ANSI_UART
+	pull	r9
+	pull	r8
+	pull	PC
+
+;
+; printLong_ANSI
+; r8 contains the long value to print
+;
+
+printLong_ANSI:
+	push	r8
+	push	r9
+	push	r8				; temporarily save r8
+	lix		r8,0x30			; print 0x
+	bsr		putChar_ANSI
+	lix		r8,0x78
+	bsr		putChar_ANSI
+	pull	r8				; restore r8
+	lix		r9,8			; loop counter
+doNextprintLong_ANSI:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal_ANSI
+	subi	r9,r9,1
+	bnz		doNextprintLong_ANSI
 	pull	r9
 	pull	r8
 	pull	PC

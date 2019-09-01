@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Sun Sep 01 12:16:48 2019
+Sun Sep 01 13:58:56 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -102,7 +102,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Sep 01 12:16:48 2019       ;
+; Analysis & Synthesis Status        ; Successful - Sun Sep 01 13:58:56 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE22_top                         ;
@@ -2079,7 +2079,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:24     ;
+; Top            ; 00:00:20     ;
 +----------------+--------------+
 
 
@@ -2164,9 +2164,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sun Sep 01 12:15:37 2019
+    Info: Processing started: Sun Sep 01 13:57:50 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/sdcard/sd_controller_nealc.vhd
     Info (12022): Found design unit 1: sd_controller_NealC-rtl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SDCARD/sd_controller_NealC.vhd Line: 124
@@ -2394,7 +2393,7 @@ Info (12128): Elaborating entity "altsyncram_ou44" for hierarchy "R32V2020_top:R
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_dg53.tdf
     Info (12023): Found entity 1: altsyncram_dg53 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_dg53.tdf Line: 27
 Info (12128): Elaborating entity "altsyncram_dg53" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_ou44:auto_generated|altsyncram_dg53:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_ou44.tdf Line: 35
-Critical Warning (127005): Memory depth (4096) in the design file differs from memory depth (312) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/Programs/Peripheral_Tests/P004-SD_Card_Test/P004-SD_Card_Test_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
+Critical Warning (127005): Memory depth (4096) in the design file differs from memory depth (356) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/Programs/Peripheral_Tests/P004-SD_Card_Test/P004-SD_Card_Test_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
 Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_ou44:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_ou44.tdf Line: 36
 Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_ou44:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_ou44.tdf Line: 36
 Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_ou44:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_ou44.tdf Line: 36
@@ -2541,7 +2540,7 @@ Info (12128): Elaborating entity "altsyncram_4354" for hierarchy "R32V2020_top:R
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_ri23.tdf
     Info (12023): Found entity 1: altsyncram_ri23 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_ri23.tdf Line: 27
 Info (12128): Elaborating entity "altsyncram_ri23" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_4354:auto_generated|altsyncram_ri23:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_4354.tdf Line: 38
-Critical Warning (127005): Memory depth (1024) in the design file differs from memory depth (27) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/Programs/Peripheral_Tests/P004-SD_Card_Test/P004-SD_Card_Test_dat.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 63
+Critical Warning (127005): Memory depth (1024) in the design file differs from memory depth (41) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/Programs/Peripheral_Tests/P004-SD_Card_Test/P004-SD_Card_Test_dat.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 63
 Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_4354:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_4354.tdf Line: 39
 Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_4354:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_4354.tdf Line: 39
 Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_4354:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_4354.tdf Line: 39
@@ -2696,7 +2695,6 @@ Info (12128): Elaborating entity "counterLoadable" for hierarchy "R32V2020_top:R
 Info (12128): Elaborating entity "SoundTable01" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|SoundGen:SoundGenerator|SoundTable01:soundTable" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SoundGen/SoundGen.vhd Line: 52
 Info (12128): Elaborating entity "Loadable_7S8D_LED" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Loadable_7S8D_LED:SevenSegDisplay" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 349
 Info (12128): Elaborating entity "bufferedUART" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 434
-Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_3524.tdf
     Info (12023): Found entity 1: altsyncram_3524 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/altsyncram_3524.tdf Line: 27
 Info (12021): Found 1 design units, including 1 entities, in source file db/mux_ssc.tdf
@@ -2719,7 +2717,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr
     Info (12023): Found entity 1: cmpr_ngc File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_AESTF_CE22/db/cmpr_ngc.tdf Line: 22
 Info (12033): Analysis and Synthesis generated Signal Tap or debug node instance "auto_signaltap_0"
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2019.09.01.12:16:09 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2019.09.01.13:58:22 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -2855,10 +2853,10 @@ Info (21057): Implemented 6917 device resources after synthesis - the final reso
     Info (21061): Implemented 6669 logic cells
     Info (21064): Implemented 161 RAM segments
     Info (21062): Implemented 12 DSP elements
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 37 warnings
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 35 warnings
     Info: Peak virtual memory: 4902 megabytes
-    Info: Processing ended: Sun Sep 01 12:16:49 2019
-    Info: Elapsed time: 00:01:12
-    Info: Total CPU time (on all processors): 00:01:43
+    Info: Processing ended: Sun Sep 01 13:58:56 2019
+    Info: Elapsed time: 00:01:06
+    Info: Total CPU time (on all processors): 00:01:34
 
 
