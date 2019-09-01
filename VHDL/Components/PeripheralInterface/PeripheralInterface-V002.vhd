@@ -181,8 +181,8 @@ begin
 	port map (
 		clk		=> i_CLOCK_50,
 		n_reset	=> n_reset,
-		n_rd		=> w_SDCARDCS and i_peripheralWrStrobe,
-		n_wr		=> w_SDCARDCS and i_peripheralRdStrobe,
+		n_rd		=> w_SDCARDCS and i_peripheralRdStrobe,
+		n_wr		=> w_SDCARDCS and i_peripheralWrStrobe,
 		dataIn	=> i_dataToPeripherals(7 downto 0),
 		dataOut	=> w_sdCardData,
 		regAddr	=> i_peripheralAddress(2 downTo 0),

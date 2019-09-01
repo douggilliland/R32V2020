@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Sun Sep 01 08:26:18 2019
+Sun Sep 01 12:45:49 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sun Sep 01 08:26:11 2019       ;
+; Flow Status                        ; Successful - Sun Sep 01 12:45:49 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE22_top                         ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C8                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 5,716 / 22,320 ( 26 % )                     ;
-;     Total combinational functions  ; 5,502 / 22,320 ( 25 % )                     ;
-;     Dedicated logic registers      ; 1,686 / 22,320 ( 8 % )                      ;
-; Total registers                    ; 1686                                        ;
+; Total logic elements               ; 6,332 / 22,320 ( 28 % )                     ;
+;     Total combinational functions  ; 5,867 / 22,320 ( 26 % )                     ;
+;     Dedicated logic registers      ; 2,188 / 22,320 ( 10 % )                     ;
+; Total registers                    ; 2188                                        ;
 ; Total pins                         ; 70 / 154 ( 45 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 229,504 / 608,256 ( 38 % )                  ;
+; Total memory bits                  ; 233,728 / 608,256 ( 38 % )                  ;
 ; Embedded Multiplier 9-bit elements ; 12 / 132 ( 9 % )                            ;
 ; Total PLLs                         ; 0 / 4 ( 0 % )                               ;
 +------------------------------------+---------------------------------------------+
@@ -64,40 +64,68 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 08/31/2019 22:48:19 ;
+; Start date & time ; 09/01/2019 12:15:38 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                                        ;
-+-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------+
-; Assignment Name                     ; Value                                                          ; Default Value ; Entity Name         ; Section Id ;
-+-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------+
-; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                         ; Auto          ; --                  ; --         ;
-; COMPILER_SIGNATURE_ID               ; 198690285320223.156730609812272                                ; --            ; --                  ; --         ;
-; ENABLE_SIGNALTAP                    ; Off                                                            ; --            ; --                  ; --         ;
-; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                            ; On            ; --                  ; --         ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                                             ; --            ; --                  ; --         ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                                              ; --            ; --                  ; --         ;
-; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.cmp ; --            ; --                  ; --         ;
-; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.ppf ; --            ; --                  ; --         ;
-; NUM_PARALLEL_PROCESSORS             ; 4                                                              ; --            ; --                  ; --         ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --                  ; --         ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --                  ; --         ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                     ; --            ; --                  ; --         ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                     ; --            ; --                  ; --         ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE22_top ; Top        ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE22_top ; Top        ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE22_top ; Top        ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                            ; --            ; --                  ; --         ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                          ; --            ; --                  ; --         ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                   ; --            ; --                  ; --         ;
-; SMART_RECOMPILE                     ; On                                                             ; Off           ; --                  ; --         ;
-; TOP_LEVEL_ENTITY                    ; R32V2020_A4CE22_top                                            ; R32V2020      ; --                  ; --         ;
-; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                                          ; --            ; --                  ; --         ;
-+-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                              ;
++-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------------+
+; Assignment Name                     ; Value                                                          ; Default Value ; Entity Name         ; Section Id       ;
++-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                         ; Auto          ; --                  ; --               ;
+; COMPILER_SIGNATURE_ID               ; 198690285320223.156735453809644                                ; --            ; --                  ; --               ;
+; ENABLE_SIGNALTAP                    ; On                                                             ; --            ; --                  ; --               ;
+; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                            ; On            ; --                  ; --               ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                                             ; --            ; --                  ; --               ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                                              ; --            ; --                  ; --               ;
+; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.cmp ; --            ; --                  ; --               ;
+; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.ppf ; --            ; --                  ; --               ;
+; NUM_PARALLEL_PROCESSORS             ; 4                                                              ; --            ; --                  ; --               ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --                  ; --               ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --                  ; --               ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                     ; --            ; --                  ; --               ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                     ; --            ; --                  ; --               ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE22_top ; Top              ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE22_top ; Top              ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                         ; --            ; R32V2020_A4CE22_top ; Top              ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                            ; --            ; --                  ; --               ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                          ; --            ; --                  ; --               ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                   ; --            ; --                  ; --               ;
+; SLD_FILE                            ; db/stp1_auto_stripped.stp                                      ; --            ; --                  ; --               ;
+; SLD_NODE_CREATOR_ID                 ; 110                                                            ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_ENTITY_NAME                ; sld_signaltap                                                  ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_BLOCK_TYPE=AUTO                                        ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_DATA_BITS=33                                               ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_BITS=1                                             ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_BITS=33                                  ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_NODE_INFO=805334528                                        ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_POWER_UP_TRIGGER=0                                         ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK=000000000000000000000000                    ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK_LENGTH=24                                   ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0                  ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SEGMENT_SIZE=128                                           ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ATTRIBUTE_MEM_MODE=OFF                                     ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_FLOW_USE_GENERATED=0                                 ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_BITS=11                                              ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_BUFFER_FULL_STOP=1                                         ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_CURRENT_RESOURCE_WIDTH=1                                   ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INCREMENTAL_ROUTING=1                                      ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL=1                                            ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SAMPLE_DEPTH=128                                           ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_IN_ENABLED=0                                       ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_PIPELINE=0                                         ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_PIPELINE=0                                             ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_COUNTER_PIPELINE=0                                         ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ADVANCED_TRIGGER_ENTITY=basic,1,                           ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL_PIPELINE=1                                   ; --            ; --                  ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ENABLE_ADVANCED_TRIGGER=0                                  ; --            ; --                  ; auto_signaltap_0 ;
+; SMART_RECOMPILE                     ; On                                                             ; Off           ; --                  ; --               ;
+; TOP_LEVEL_ENTITY                    ; R32V2020_A4CE22_top                                            ; R32V2020      ; --                  ; --               ;
+; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                                          ; --            ; --                  ; --               ;
++-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -105,15 +133,24 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:01     ; 1.0                     ; 4875 MB             ; 00:01:29                           ;
-; Fitter               ; 00:00:22     ; 1.1                     ; 5596 MB             ; 00:00:31                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4698 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:07     ; 1.2                     ; 4841 MB             ; 00:00:07                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4730 MB             ; 00:00:02                           ;
-; Fitter               ; 00:00:25     ; 1.1                     ; 5598 MB             ; 00:00:31                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4698 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:06     ; 1.2                     ; 4842 MB             ; 00:00:06                           ;
-; Total                ; 00:02:09     ; --                      ; --                  ; 00:02:51                           ;
+; Analysis & Synthesis ; 00:01:07     ; 1.0                     ; 4902 MB             ; 00:01:39                           ;
+; Partition Merge      ; 00:00:03     ; 1.0                     ; 4715 MB             ; 00:00:03                           ;
+; Fitter               ; 00:00:25     ; 1.1                     ; 5606 MB             ; 00:00:34                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4703 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:07     ; 1.2                     ; 4849 MB             ; 00:00:07                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4731 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4731 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 4701 MB             ; 00:00:04                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4733 MB             ; 00:00:03                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4733 MB             ; 00:00:03                           ;
+; Assembler            ; 00:00:05     ; 1.0                     ; 4701 MB             ; 00:00:04                           ;
+; MIF/HEX Update       ; 00:00:03     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4733 MB             ; 00:00:03                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 4702 MB             ; 00:00:04                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4733 MB             ; 00:00:03                           ;
+; MIF/HEX Update       ; 00:00:03     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 4701 MB             ; 00:00:04                           ;
+; Total                ; 00:02:20     ; --                      ; --                  ; 00:03:02                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -123,13 +160,22 @@ refer to the applicable agreement for further details.
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
 ; Analysis & Synthesis ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Partition Merge      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -137,13 +183,22 @@ refer to the applicable agreement for further details.
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020 --merge=on
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
 quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_fit --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
-quartus_sta R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 
 
 

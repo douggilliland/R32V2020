@@ -382,7 +382,7 @@ donePrStr:
 printString_ANSI:
 	push	r8					; save r8
 	push	DAR
-	add		DAR,r8,ZERO			; set the start of the string
+	addi	DAR,r8,0x0		; set the start of the string
 nextCharANSI:
 	ldbp	r8					; get the character01
 	cmpi	r8,0x0				; Null terminated string
@@ -561,45 +561,37 @@ loop_delay_mS:
 ;
 
 getPS2Char:
-	push	r9
 	push	PAR
 	lix		PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
-	lpl		r9			; Read Status into r9
-	andi	r9,r9,0x1
+	lpl		r8			; Read Status into r9
+	andi 	r8,r8,1
 	bez 	waitPS2RxStat
 getCharFromPS2:
 	lix 	PAR,0x0800
 	lpl		r8
-	lix		PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 	pull	PAR
-	pull	r9
 	pull	PC
 
-; waitReadPS2_UART
-; wait for character from either 
-;	the PS/2 keyboard and UART serial
-; r8 = read character
+;
+; waitPS2CharPolled - Check the polled character interface
+; wait for a character
+; return when a character is present
+; returns character received in r8
+;
 
-waitReadPS2_UART:
+waitPS2CharPolled:
 	push	PAR
-checkCharFromPS2:
-	lix		PAR,0x0801	; PS/2 Status
-	lpl		r8			; Read Status
-	andi	r8,r8,0x1	; =1 when char received
-	bez 	checkUARTStat
-	lix 	PAR,0x0800	; PS/2 Data
+	lix		PAR,0x0803	; PS/2 Status
+waitPS2RxStatPolled:
+	lpl		r8			; Read Status into r8
+	andi 	r8,r8,0x1
+	bez 	waitPS2RxStatPolled
+getCharFromPS2Polled:
+	lix 	PAR,0x0802
 	lpl		r8
-	bra		gotPS2Char
-checkUARTStat:
-	lix		PAR,0x1800	; UART Status
-	lpl		r8			; Read Status
-	andi 	r8,r8,0x1	; =1 when char received
-	bez 	checkCharFromPS2
-	lix 	PAR,0x1801	; UART Data
-	lpl		r8
-gotPS2Char:
+whilePS2RxStatPolled:
 	pull	PAR
 	pull	PC
 	

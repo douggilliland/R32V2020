@@ -105,17 +105,17 @@ generic (
                                                   -- sdSCLK of 500kHz.
 );
 port (
-	sdCS : out std_logic;
-	sdMOSI : out std_logic;
-	sdMISO : in std_logic;
-	sdSCLK : out std_logic;
+	clk : in std_logic;
 	n_reset : in std_logic;
 	n_rd : in std_logic;
 	n_wr : in std_logic;
 	dataIn : in std_logic_vector(7 downto 0);
 	dataOut : out std_logic_vector(7 downto 0);
 	regAddr : in std_logic_vector(2 downto 0);
-	clk : in std_logic;
+	sdCS : out std_logic;
+	sdMOSI : out std_logic;
+	sdMISO : in std_logic;
+	sdSCLK : out std_logic;
 	driveLED : out std_logic := '1'
 );
 
@@ -173,7 +173,7 @@ signal data_sig : std_logic_vector(7 downto 0) := x"00";
 signal din_latched : std_logic_vector(7 downto 0) := x"00";
 signal dout : std_logic_vector(7 downto 0) := x"00";
 
-signal sdhc : std_logic := '0';
+signal sdhc : std_logic := '1';		-- Set SD card type, 0=SD, 1=SDHC
 
 signal sd_read_flag : std_logic := '0';
 signal host_read_flag : std_logic := '0';
