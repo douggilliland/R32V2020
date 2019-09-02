@@ -37,7 +37,7 @@
 ;
 
 
-prompt:	.string "SDHC Dump Utility v0.0.1"
+prompt:	.string "(R32V2020) SDHC Dump Utility v0.0.1"
 missingHandshake: .string "*** Run PuTTY and enable hardware handshake ***"
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
