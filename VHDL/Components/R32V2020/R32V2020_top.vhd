@@ -227,6 +227,7 @@ begin
 		i_sdMISO						=> i_sdMISO,
 		o_sdSCLK						=> o_sdSCLK,
 		o_driveLED					=> o_driveLED,
+		--
 		spi_sclk						=> spi_sclk,
       spi_csN						=> spi_csN,
       spi_mosi						=> spi_mosi,

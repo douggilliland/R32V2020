@@ -117,6 +117,13 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to spi_csN
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vSync
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Red_Lo
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Red_Hi
+set_global_assignment -name TOP_LEVEL_ENTITY R32V2020_RETRO_EP4_top
+set_location_assignment PIN_3 -to o_LEDRing[3]
+set_location_assignment PIN_7 -to o_LEDRing[2]
+set_location_assignment PIN_10 -to o_LEDRing[1]
+set_location_assignment PIN_11 -to o_LEDRing[0]
+set_global_assignment -name VHDL_FILE ../../Components/SDCARD/sd_controller_NealC.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/Wrap_Keyboard.vhd
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundTable01.VHD
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundGen.vhd
 set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32_Load124.vhd
@@ -169,10 +176,9 @@ set_global_assignment -name VHDL_FILE "../../Components/PeripheralInterface/Peri
 set_global_assignment -name VHDL_FILE ../../Components/TERMINAL/ANSIDisplayVGA.vhd
 set_global_assignment -name VHDL_FILE R32V2020_RETRO_EP4_top.vhd
 set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/Wrap_Data_Ram.vhd
-set_global_assignment -name TOP_LEVEL_ENTITY R32V2020_RETRO_EP4_top
-set_location_assignment PIN_3 -to o_LEDRing[3]
-set_location_assignment PIN_7 -to o_LEDRing[2]
-set_location_assignment PIN_10 -to o_LEDRing[1]
-set_location_assignment PIN_11 -to o_LEDRing[0]
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name VHDL_FILE Wrap_Keyboard.vhd
+set_location_assignment PIN_59 -to i_sdMISO
+set_location_assignment PIN_58 -to o_sdCS
+set_location_assignment PIN_60 -to o_sdSCLK
+set_location_assignment PIN_55 -to o_sdMOSI
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
