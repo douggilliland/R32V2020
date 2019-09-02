@@ -60,8 +60,8 @@ main:
 	bsr		newLine_ANSI
 	lix		r8,10					; give the SD card 10 mS
 	bsr		delay_mS
-;	lix		r8,512					; write to the second block
-;	bsr		writeBlock_SDCard
+	lix		r8,512					; write to the second block
+	bsr		writeBlock_SDCard
 	lix		r9,0					; start with block 0
 readNextBlock:
 	lix		r8,blockNumber.lower	; Block Number message
