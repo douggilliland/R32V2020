@@ -43,10 +43,14 @@ screenPtr:	.long 0x0000
 screenBase:	.long 0x0
 syntaxError:	.string "*** Bad number error (at a2h_Error) ***"
 anyKeyToContinue:	.string "Hit any key to continue"
-blockNumber:	.string "Block Number 0x"
+blockNumber:	.string "Block Address : 0x"
 
 ;
-; Read an SD card block - one at a time
+; Write the second block of the SD card with a fixed pattern of data
+; Read an SD card block - one block at a time
+; Prints the contents of the block to the ANSI screen
+; Hit a key on the PS/2 keyboard to advance to the next block
+; r9 = block number
 ;
 
 main:
@@ -54,21 +58,25 @@ main:
 	lix		r8,prompt.lower
 	bsr		printString_ANSI
 	bsr		newLine_ANSI
-	lix		r9,0					; read block 0 to start with
+	lix		r8,10					; give the SD card 10 mS
+	bsr		delay_mS
+;	lix		r8,512					; write to the second block
+;	bsr		writeBlock_SDCard
+	lix		r9,0					; start with block 0
 readNextBlock:
-	lix		r8,blockNumber.lower
+	lix		r8,blockNumber.lower	; Block Number message
 	bsr		printString_ANSI
-	addi	r8,r9,0
+	addi	r8,r9,0					; print the current block number
 	bsr		printLong_ANSI
 	bsr		newLine_ANSI
-	addi	r8,r9,0
+	addi	r8,r9,0					; r9 holds block number, pass in r8
 	bsr		readDumpBlock_SDCard
 	bsr		newLine_ANSI
 	lix		r8,anyKeyToContinue.lower
 	bsr		printString_ANSI
 	bsr		getChar_PS2
 	bsr		newLine_ANSI
-	addi	r9,r9,512
+	addi	r9,r9,512				; Go to next block address
 	bra		readNextBlock
 loopForever:
 	bra		loopForever
@@ -93,6 +101,7 @@ readDumpBlock_SDCard:
 	push	r8
 	push	r9
 	push	r10
+	push	r11
 	push	PAR
 	lix		PAR,0x1001			; SDSTATUS
 waitForSDStatusRdRdy:
@@ -107,10 +116,11 @@ waitForSDStatusRdRdy:
 	spbp	r8					; SDLBA1
 	sr8		r8,r8
 	spb		r8					; SDLBA2
-	lix		r9,0
+	lix		r9,0				; Write 0 to SDCONTROL to issue read command
 	lix		PAR,0x1001			; SDCONTROL
 	spb		r9
 	lix		r9,512				; 512 characters to read
+	lix		r11,24				; print newLine_ANSI every 24 values
 nextSDReadChar:
 	lix		PAR,0x1001			; SDSTATUS
 waitSDCharPresent:
@@ -122,8 +132,66 @@ waitSDCharPresent:
 	bsr		printByte_ANSI		; char is in r8
 	lix		r8,0x20
 	bsr		putChar_ANSI ; space between characters
+	subi	r11,r11,1
+	bnz		skipNewLineSDBlockRd
+	bsr		newLine_ANSI		; print newLine_ANSI every 24 values
+	lix		r11,24
+skipNewLineSDBlockRd:
 	subi	r9,r9,1
 	bnz		nextSDReadChar
+	pull	PAR
+	pull	r11
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
+	
+;
+; writeBlock_SDCard
+;
+; To write a 512-byte block to the SDCARD:
+; Wait until SDSTATUS=0x80 (ensures previous cmd has completed)
+; Write SDLBA0, SDLBA1 SDLBA2 to select block index to write to
+; Write 1 to SDCONTROL to issue write command
+; Loop 512 times:
+;     Wait until SDSTATUS=0xA0 (block busy)
+;     Write byte to SDDATA
+;
+
+writeBlock_SDCard:
+	push	r8
+	push	r9
+	push	r10
+	push	PAR
+	lix		PAR,0x1001			; SDSTATUS
+waitForSDStatusWrRdy:
+	lpl		r9
+	cmpi	r9,0x80
+	bne		waitForSDStatusWrRdy
+	sr8		r8,r8				; Shift SD card block address right by 9 bits
+	sr1		r8,r8
+	lix		PAR,0x1002
+	spbp	r8					; SDLBA0
+	sr8		r8,r8
+	spbp	r8					; SDLBA1
+	sr8		r8,r8
+	spb		r8					; SDLBA2
+	lix		r9,1				; Write 0 to SDCONTROL to issue write command
+	lix		PAR,0x1001			; SDCONTROL
+	spb		r9
+	lix		r9,512				; 512 characters to read
+	lix		r11,24				; print newLine_ANSI every 24 values
+nextSDWriteChar:
+	lix		PAR,0x1001			; SDSTATUS
+waitSDCharPresentWr:
+	lpb		r10
+	cmpi	r10,0xA0
+	bne		waitSDCharPresentWr
+	lix		PAR,0x1000			; SDDATA
+	lix		r8,0xAA
+	spb		r8
+	subi	r9,r9,1
+	bnz		nextSDWriteChar
 	pull	PAR
 	pull	r10
 	pull	r9
