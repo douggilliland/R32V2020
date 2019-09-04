@@ -1,9 +1,11 @@
 -- VHDL SD card interface
 -- Reads and writes a single block of data as a data stream
-
+--
 -- Adapted from design by Steven J. Merrifield, June 2008
+--		https://pastebin.com/HW3ru1cC
 -- Read states are derived from the Apple II emulator by Stephen Edwards
-
+--		https://github.com/MiSTer-devel/Apple-II_MiSTer
+--
 -- This version of the code contains modifications copyright by Grant Searle 2013
 -- You are free to use this file in your own projects but must never charge for it nor use it without
 -- acknowledgement.
@@ -69,7 +71,6 @@
 -- SDCONTROL (WO)
 --    b7:0   0x00 Read block
 --           0x01 Write block
---
 --
 -- To read a 512-byte block from the SDCARD:
 -- Wait until SDSTATUS=0x80 (ensures previous cmd has completed)
