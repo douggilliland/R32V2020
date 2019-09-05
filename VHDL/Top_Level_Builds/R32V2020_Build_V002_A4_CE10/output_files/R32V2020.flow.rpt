@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Thu Sep 05 08:39:45 2019
+Thu Sep 05 13:37:14 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Sep 05 08:39:40 2019       ;
+; Flow Status                        ; Successful - Thu Sep 05 13:37:07 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE10_top                         ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE10E22C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 5,941 / 10,320 ( 58 % )                     ;
-;     Total combinational functions  ; 5,709 / 10,320 ( 55 % )                     ;
-;     Dedicated logic registers      ; 1,725 / 10,320 ( 17 % )                     ;
-; Total registers                    ; 1725                                        ;
+; Total logic elements               ; 6,145 / 10,320 ( 60 % )                     ;
+;     Total combinational functions  ; 5,900 / 10,320 ( 57 % )                     ;
+;     Dedicated logic registers      ; 1,807 / 10,320 ( 18 % )                     ;
+; Total registers                    ; 1807                                        ;
 ; Total pins                         ; 70 / 92 ( 76 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 229,504 / 423,936 ( 54 % )                  ;
+; Total memory bits                  ; 237,696 / 423,936 ( 56 % )                  ;
 ; Embedded Multiplier 9-bit elements ; 12 / 46 ( 26 % )                            ;
 ; Total PLLs                         ; 0 / 2 ( 0 % )                               ;
 +------------------------------------+---------------------------------------------+
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/05/2019 08:26:15 ;
+; Start date & time ; 09/05/2019 13:35:43 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
@@ -76,13 +76,14 @@ refer to the applicable agreement for further details.
 ; Assignment Name                     ; Value                                                          ; Default Value ; Entity Name         ; Section Id ;
 +-------------------------------------+----------------------------------------------------------------+---------------+---------------------+------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                         ; Auto          ; --                  ; --         ;
-; COMPILER_SIGNATURE_ID               ; 193569097813697.156768637407516                                ; --            ; --                  ; --         ;
+; COMPILER_SIGNATURE_ID               ; 193569097813697.156770494314608                                ; --            ; --                  ; --         ;
 ; ENABLE_SIGNALTAP                    ; Off                                                            ; --            ; --                  ; --         ;
 ; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                            ; On            ; --                  ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                             ; --            ; --                  ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                                              ; --            ; --                  ; --         ;
 ; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.cmp ; --            ; --                  ; --         ;
 ; MISC_FILE                           ; ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.ppf ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/BlockRam_Data/BlockRam_Data2.cmp              ; --            ; --                  ; --         ;
 ; NUM_PARALLEL_PROCESSORS             ; 4                                                              ; --            ; --                  ; --         ;
 ; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --                  ; --         ;
 ; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                              ; --            ; --                  ; --         ;
@@ -105,15 +106,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:50     ; 1.0                     ; 4892 MB             ; 00:01:13                           ;
-; Fitter               ; 00:00:17     ; 1.1                     ; 5592 MB             ; 00:00:25                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 4714 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:04     ; 1.2                     ; 4847 MB             ; 00:00:04                           ;
-; Fitter               ; 00:00:05     ; 1.0                     ; 4961 MB             ; 00:00:05                           ;
-; Fitter               ; 00:00:16     ; 1.1                     ; 5602 MB             ; 00:00:24                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 4713 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:04     ; 1.2                     ; 4845 MB             ; 00:00:04                           ;
-; Total                ; 00:01:38     ; --                      ; --                  ; 00:02:19                           ;
+; Analysis & Synthesis ; 00:00:57     ; 1.0                     ; 4904 MB             ; 00:01:24                           ;
+; Fitter               ; 00:00:20     ; 1.1                     ; 5588 MB             ; 00:00:31                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4713 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:06     ; 1.3                     ; 4848 MB             ; 00:00:06                           ;
+; Total                ; 00:01:25     ; --                      ; --                  ; 00:02:03                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -126,10 +123,6 @@ refer to the applicable agreement for further details.
 ; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -138,10 +131,6 @@ refer to the applicable agreement for further details.
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
-quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
-quartus_sta R32V2020 -c R32V2020
-quartus_fit --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_fit --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
 

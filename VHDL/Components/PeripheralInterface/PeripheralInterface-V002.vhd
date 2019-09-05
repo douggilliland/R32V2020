@@ -96,7 +96,6 @@ architecture struct of PeripheralInterface is
 	-- SD card
 	signal w_sdCardData			:	std_logic_vector(7 downto 0);
 	signal w_SDCARDCS				:	std_logic := '0';
-
 	-- Display
 	signal w_ANSI_DispRamDataOutA	:	std_logic_vector(7 downto 0);
 	-- Timers
@@ -402,6 +401,9 @@ begin
     q(11 downto 0)	=> w_LEDRing_out
 	);
 	
+	-- Output Latch controls 4 LEDs and the buzzer
+	-- d0-d3 are the LEDs
+	-- d4 is the buzzer
 	-- Output LEDs (if the card has them
 	o_LED <= w_LatData(3 downto 0);
 	-- Buzzer enable - comes up with the buzzer off
@@ -430,7 +432,7 @@ begin
 	);
 
 	-- 6850 ACIA (UART)
-	-- Runs up to 115,200 baud
+	-- Runs at 115,200 baud
 	UART : entity work.bufferedUART
 		port map(
 			clk 		=> i_CLOCK_50,

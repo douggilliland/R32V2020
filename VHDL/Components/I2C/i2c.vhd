@@ -55,9 +55,9 @@ port (
 	CPU_CLK			: in std_logic;
 	i_ENA				: in std_logic := '0';
 	i_ADRSEL			: in std_logic := '0';
+	i_WR				: in std_logic := '0';
 	i_DATA_IN		: in std_logic_vector(7 downto 0);
 	o_DATA_OUT		: out std_logic_vector(7 downto 0);
-	i_WR				: in std_logic := '0';
 	io_I2C_SCL		: inout std_logic;
 	io_I2C_SDA		: inout std_logic);
 end i2c;
