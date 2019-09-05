@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Thu Sep 05 13:37:14 2019
+Thu Sep 05 16:31:29 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Sep 05 13:37:07 2019       ;
+; Flow Status                        ; Successful - Thu Sep 05 16:31:29 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE10_top                         ;
@@ -110,7 +110,21 @@ refer to the applicable agreement for further details.
 ; Fitter               ; 00:00:20     ; 1.1                     ; 5588 MB             ; 00:00:31                           ;
 ; Assembler            ; 00:00:02     ; 1.0                     ; 4713 MB             ; 00:00:02                           ;
 ; Timing Analyzer      ; 00:00:06     ; 1.3                     ; 4848 MB             ; 00:00:06                           ;
-; Total                ; 00:01:25     ; --                      ; --                  ; 00:02:03                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4731 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4718 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4733 MB             ; 00:00:01                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4718 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4718 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4718 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
+; Total                ; 00:01:48     ; --                      ; --                  ; 00:02:30                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -123,6 +137,20 @@ refer to the applicable agreement for further details.
 ; Fitter               ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AACPAETDGI       ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -133,6 +161,20 @@ quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 
 
 
