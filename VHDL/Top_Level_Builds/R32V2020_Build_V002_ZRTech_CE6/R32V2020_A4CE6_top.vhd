@@ -1,5 +1,6 @@
 -- Top Level Entity for top of R32V2020 RISC CPU design
 -- Build_V002 switches out memory mapped XVGA for ANSI compatible VGA
+-- There is a level above this in most cases which connects to the specific FPGA board
 
 library ieee;
 use ieee.std_logic_1164.all;

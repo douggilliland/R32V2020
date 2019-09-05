@@ -16,6 +16,7 @@ entity R32V2020_A4CE6_top is
 		-- Switches, LEDs, Buzzer pins
 		i_switch				: in std_logic_vector(2 downto 0) := "111";
 		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
+		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
 		--o_LED				: out std_logic_vector(3 downto 0);
 		o_BUZZER				: out std_logic := '0';
 		-- Serial port pins
@@ -30,7 +31,6 @@ entity R32V2020_A4CE6_top is
 		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
 		-- LED Ring
-		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
 		-- 8 bit I/O Latch
 		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- I2C Clock and Data
@@ -43,6 +43,9 @@ entity R32V2020_A4CE6_top is
 		i_sdMISO				: in std_logic := '0';
 		o_sdSCLK				: out std_logic := '0';
 		o_driveLED			: out std_logic := '0';
+		-- EEPROM I2C connections
+		io_EEP_I2C_SCL		: inout std_logic := '1';
+		io_EEP_I2C_SDA		: inout std_logic := '1';
 		-- SPIbus
 		-- spi_sclk				: out std_logic := '1';
       -- spi_csN				: out std_logic := '1';
@@ -59,12 +62,24 @@ end R32V2020_A4CE6_top;
 
 architecture struct of R32V2020_A4CE6_top is
 
+	signal	w_Red_Hi		:		std_logic := '0';
+	signal	w_Red_Lo		:		std_logic := '0';
+	signal	w_Grn_Hi		:		std_logic := '0';
+	signal	w_Grn_Lo		:		std_logic := '0';
+	signal	w_Blu_Hi		:		std_logic := '0';
+	signal	w_Blu_Lo		:		std_logic := '0';
+--	signal	w_hActive	:		std_logic := '0';
+
 --attribute syn_keep: boolean;
 --attribute syn_keep of w_Switch: signal is true;
 
 begin
 
-	middle : entity work.R32V2020_top
+	o_VideoVect(2) <= w_Red_Hi or w_Red_Lo;
+	o_VideoVect(1) <= w_Grn_Hi or w_Grn_Lo;
+	o_VideoVect(0) <= w_Blu_Hi or w_Blu_Lo;
+
+	R32V2020_top : entity work.R32V2020_top
 		port map (
 		n_reset		=> n_reset,
 		i_CLOCK_50	=> i_CLOCK_50,
@@ -78,11 +93,15 @@ begin
 		o_SerTxd		=> o_SerTxd,
 		--o_SerRts				: out std_logic;
 		-- VGA pins
-		o_vid_Red_Hi	=> o_VideoVect(2),
-		o_vid_Grn_Hi	=> o_VideoVect(1),
-		o_vid_Blu_Hi	=> o_VideoVect(0),
+		o_vid_Red_Hi	=> w_Red_Hi,
+		o_vid_Red_Lo	=> w_Red_Lo,
+		o_vid_Grn_Hi	=> w_Grn_Hi,
+		o_vid_Grn_Lo	=> w_Grn_Lo,
+		o_vid_Blu_Hi	=> w_Blu_Hi,
+		o_vid_Blu_Lo	=> w_Blu_Lo,
 		o_hSync			=> o_hSync,
 		o_vSync			=> o_vSync,
+--		o_hActive		=> w_hActive,
 		-- Seven Segment LED pins
 		o_Anode_Activate	=> o_Anode_Activate,
 		o_LED7Seg_out		=> o_LED7Seg_out,
@@ -94,12 +113,15 @@ begin
 		io_I2C_SCL			=> io_I2C_SCL,
 		io_I2C_SDA			=> io_I2C_SDA,
 		i_I2C_INT			=> i_I2C_INT,		
-		-- sd cARD
+		-- sd Card
 		o_sdCS				=> o_sdCS,
 		o_sdMOSI				=> o_sdMOSI,
 		i_sdMISO				=> i_sdMISO,
 		o_sdSCLK				=> o_sdSCLK,
 		o_driveLED			=> o_driveLED,
+		-- EEPROM I2C connections
+		io_EEP_I2C_SCL		=> io_EEP_I2C_SCL,
+		io_EEP_I2C_SDA		=> io_EEP_I2C_SDA,
 		-- SPIbus
 --		spi_sclk				=> spi_sclk,
 --      spi_csN				=> spi_csN,
