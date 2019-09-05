@@ -37,12 +37,18 @@ entity R32V2020_A4CE6_top is
 		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
 		i_I2C_INT			: in std_logic := '0';
+		-- sd cARD
+		o_sdCS				: out std_logic := '1';
+		o_sdMOSI				: out std_logic := '0';
+		i_sdMISO				: in std_logic := '0';
+		o_sdSCLK				: out std_logic := '0';
+		o_driveLED			: out std_logic := '0';
 		-- SPIbus
-		spi_sclk				: out std_logic := '1';
-      spi_csN				: out std_logic := '1';
-      spi_mosi				: out std_logic := '1';
-      spi_miso				: in std_logic := '1';
-		o_testPoint			: out std_logic := '1';
+		-- spi_sclk				: out std_logic := '1';
+      -- spi_csN				: out std_logic := '1';
+      -- spi_mosi				: out std_logic := '1';
+      -- spi_miso				: in std_logic := '1';
+		-- o_testPoint			: out std_logic := '1';
 		-- Music generator
 		o_Note				: out std_logic := '0';
 		-- PS/2 Keyboard pins
@@ -87,13 +93,19 @@ begin
 		-- I2C Clock and Data
 		io_I2C_SCL			=> io_I2C_SCL,
 		io_I2C_SDA			=> io_I2C_SDA,
-		i_I2C_INT			=> i_I2C_INT,
+		i_I2C_INT			=> i_I2C_INT,		
+		-- sd cARD
+		o_sdCS				=> o_sdCS,
+		o_sdMOSI				=> o_sdMOSI,
+		i_sdMISO				=> i_sdMISO,
+		o_sdSCLK				=> o_sdSCLK,
+		o_driveLED			=> o_driveLED,
 		-- SPIbus
-		spi_sclk				=> spi_sclk,
-      spi_csN				=> spi_csN,
-      spi_mosi				=> spi_mosi,
-      spi_miso				=> spi_miso,
-		-- Music generator
+--		spi_sclk				=> spi_sclk,
+--      spi_csN				=> spi_csN,
+--      spi_mosi				=> spi_mosi,
+--      spi_miso				=> spi_miso,
+--		-- Music generator
 		o_Note				=> o_Note,
 		-- PS/2 Keyboard pins
 		i_ps2Clk				=> i_ps2Clk,
