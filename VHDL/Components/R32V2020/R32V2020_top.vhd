@@ -166,7 +166,7 @@ begin
 	-- Stack RAM
 	Stack_RAM : entity work.BlockRam_Stack
 	PORT MAP	(
-		address	=> w_StackRamAddress(8 downto 0),
+		address	=> w_StackRamAddress(6 downto 0),
 		clock		=> i_CLOCK_50,
 		data		=> w_dataToStackRam,
 		wren		=> w_writeStackRamEn,

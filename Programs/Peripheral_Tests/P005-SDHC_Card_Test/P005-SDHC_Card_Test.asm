@@ -141,11 +141,11 @@ waitForSDStatusRdRdy:
 	spbp	r8					; SDLBA1
 	sr8		r8,r8
 	spb		r8					; SDLBA2
-	lix		r9,0				; Write 0 to SDCONTROL to issue read command
+	lix		r8,0				; Write 0 to SDCONTROL to issue read command
 	lix		PAR,0x1001			; SDCONTROL
-	spb		r9
-	lix		r9,512				; 512 characters to read
+	spb		r8
 	lix		r11,24				; print newLine_ANSI every 24 values
+	lix		r9,512				; 512 characters to read
 nextSDReadChar:
 	lix		PAR,0x1001			; SDSTATUS
 waitSDCharPresent:
