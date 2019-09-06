@@ -85,24 +85,44 @@ blockNumber:	.string "Block Address : 0x"
 ;
 
 main:
+	lix		PAR,0x3000
+	lix		r8,0x1
+	spl		r8
 	bsr		clearScreen_ANSI
 	lix		r8,prompt.lower
 	bsr		printString_ANSI
 	bsr		newLine_ANSI
+	lix		PAR,0x3000
+	lix		r8,0x2
+	spl		r8
 	lix		r8,10					; give the SD card 10 mS
 	bsr		delay_mS
+	lix		PAR,0x3000
+	lix		r8,0x3
+	spl		r8
 	bsr		fillTxBufferRAM
-	lix		r8,512					; write to the second block
+	lix		PAR,0x3000
+	lix		r8,0x4
+	spl		r8
+	lix		r8,1					; write to the second block
 	bsr		writeBufferRAMToSDHCCard
+	lix		PAR,0x3000
+	lix		r8,0x5
+	spl		r8
 	lix		r9,0					; start with block 0
 readNextBlock:
 	lix		r8,blockNumber.lower	; Block Number message
 	bsr		printString_ANSI
-	addi	r8,r9,0					; print the current block number
+	addi	r8,r9,0
 	bsr		printLong_ANSI
 	bsr		newLine_ANSI
-	addi	r8,r9,0					; r9 holds block number, pass in r8
+	lix		PAR,0x3000
+	lix		r12,0x6
+	spl		r12
 	bsr		readSDHCCardIntoRdBufferRAM
+	lix		PAR,0x3000
+	lix		r8,0x7
+	spl		r8
 	bsr		newLine_ANSI
 	lix		r8,anyKeyToContinue.lower
 	bsr		printString_ANSI
@@ -137,13 +157,12 @@ readSDHCCardIntoRdBufferRAM:
 	push	r8
 	push	r9
 	push	r10
-	push	r11
 	push	PAR
 	push	DAR
-	lix		PAR,0x1001			; SDSTATUS
 	lix		DAR,0x1200			; Start of the Read buffer in Data Memory
+	lix		PAR,0x1001			; SDSTATUS
 waitForSDStatusRdRdy:
-	lpl		r9
+	lpb		r9
 	cmpi	r9,0x80
 	bne		waitForSDStatusRdRdy
 	lix		PAR,0x1002
@@ -152,25 +171,23 @@ waitForSDStatusRdRdy:
 	spbp	r8					; SDLBA1
 	sr8		r8,r8
 	spb		r8					; SDLBA2
-	lix		r9,0				; Write 0 to SDCONTROL to issue read command
+	lix		r8,0				; Write 0 to SDCONTROL to issue read command
 	lix		PAR,0x1001			; SDCONTROL
-	spb		r9
+	spb		r8
 	lix		r9,512				; 512 characters to read
-	lix		r11,24				; print newLine_ANSI every 24 values
 nextSDReadChar:
 	lix		PAR,0x1001			; SDSTATUS
 waitSDCharPresent:
-	lpl		r10
-	cmpi	r10,0xE0
+	lpb		r8
+	cmpi	r8,0xE0			; read byte ready
 	bne		waitSDCharPresent
 	lix		PAR,0x1000			; SDDATA - read data from SPI data buffer
-	lpb		r8
-	sdbp	r8					; Store data into Data Memory
+	lpb		r8					; read byte from SD Card
+	sdbp	r8					; Store byte into Data Memory
 	subi	r9,r9,1
 	bnz		nextSDReadChar
 	pull	DAR
 	pull	PAR
-	pull	r11
 	pull	r10
 	pull	r9
 	pull	r8
@@ -229,18 +246,18 @@ waitForSDStatusWrRdy:
 	sr8		r8,r8
 	spb		r8					; SDLBA2
 	lix		PAR,0x1001			; SDCONTROL
-	lix		r8,1				; Write 0 to SDCONTROL to issue write command
+	lix		r8,1				; Write 1 to SDCONTROL to issue write command
 	spb		r8
 	lix		r9,512				; 512 characters to write
 nextSDWriteChar:
 	lix		PAR,0x1001			; SDSTATUS address
 waitSDCharPresentWr:
-	lpl		r10
-	cmpi	r10,0xA0			; 0xA0 flags that the last transfer is complete
+	lpb		r8
+	cmpi	r8,0xA0				; 0xA0 flags that the previous transfer is complete
 	bne		waitSDCharPresentWr
 	lix		PAR,0x1000			; SDDATA address
-	ldbp	r9					; Get data from the data buffer memory
-	spb		r9					; Write out to SPI bus
+	ldbp	r10					; Get data from the data buffer memory
+	spb		r10					; Write out to SPI bus
 	subi	r9,r9,1
 	bnz		nextSDWriteChar
 	pull	DAR

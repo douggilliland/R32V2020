@@ -45,23 +45,23 @@ ARCHITECTURE SYN OF Wrap_Data_Ram IS
 BEGIN
 
 	-- Data out from the RAM gets routed to the proper lanes
-	dataOut(31 downto 16) <= dataOutFromRAM(31 downto 16) when ((address(12) = '0') and (i_loadData = '1') and (i_longData  = '1')) else
+	dataOut(31 downto 16) <= dataOutFromRAM(31 downto 16)  when ((address(12) = '0') and (i_loadData = '1') and (i_longData  = '1')) else
 									 dataOutFromRAM2(31 downto 16) when ((address(12) = '1') and (i_loadData = '1') and (i_longData  = '1')) else
 									 x"0000";
-	dataOut(15 downto 8)  <= dataOutFromRAM(15 downto 8)  when ((address(12) = '0') and (i_loadData = '1') and (i_longData  = '1')) else
-									 dataOutFromRAM(31 downto 24) when ((address(12) = '0') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '0')) else
-									 dataOutFromRAM(15 downto 8)  when ((address(12) = '0') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '1')) else
-									 dataOutFromRAM2(15 downto 8)  when (((address(12) = '1') and i_loadData = '1') and (i_longData  = '1')) else
-									 dataOutFromRAM2(31 downto 24) when ((address(12) = '1') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '0')) else
-									 dataOutFromRAM2(15 downto 8)  when ((address(12) = '1') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '1')) else
+	dataOut(15 downto 8)  <= dataOutFromRAM(15 downto 8)   when ((address(12) = '0') and (i_loadData = '1') and (i_longData  = '1')) 								else
+									 dataOutFromRAM(31 downto 24)  when ((address(12) = '0') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '0'))	else
+									 dataOutFromRAM(15 downto 8)   when ((address(12) = '0') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '1'))	else
+									 dataOutFromRAM2(15 downto 8)  when ((address(12) = '1') and (i_loadData = '1') and (i_longData  = '1'))									else
+									 dataOutFromRAM2(31 downto 24) when ((address(12) = '1') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '0'))	else
+									 dataOutFromRAM2(15 downto 8)  when ((address(12) = '1') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '1'))	else
 									 x"00";
 	dataOut(7 downto 0)   <= 
-									 dataOutFromRAM(7 downto 0)   when ((address(12) = '0') and (i_loadData = '1') and (i_longData = '1')) else
-									 dataOutFromRAM(15 downto 8)  when ((address(12) = '0') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '0')) else
-									 dataOutFromRAM(31 downto 24) when ((address(12) = '0') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '0') and (address(0) = '0')) else
-									 dataOutFromRAM(23 downto 16) when ((address(12) = '0') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '0') and (address(0) = '1')) else
-									 dataOutFromRAM(15 downto 8)  when ((address(12) = '0') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '1') and (address(0) = '0')) else
-									 dataOutFromRAM(7 downto 0)   when ((address(12) = '0') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '1') and (address(0) = '1')) else
+									 dataOutFromRAM(7 downto 0)   when  ((address(12) = '0') and (i_loadData = '1') and (i_longData = '1')) else
+									 dataOutFromRAM(15 downto 8)  when  ((address(12) = '0') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '0')) else
+									 dataOutFromRAM(31 downto 24) when  ((address(12) = '0') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '0') and (address(0) = '0')) else
+									 dataOutFromRAM(23 downto 16) when  ((address(12) = '0') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '0') and (address(0) = '1')) else
+									 dataOutFromRAM(15 downto 8)  when  ((address(12) = '0') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '1') and (address(0) = '0')) else
+									 dataOutFromRAM(7 downto 0)   when  ((address(12) = '0') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '1') and (address(0) = '1')) else
 									 dataOutFromRAM2(7 downto 0)   when ((address(12) = '1') and (i_loadData = '1') and (i_longData = '1')) else
 									 dataOutFromRAM2(15 downto 8)  when ((address(12) = '1') and (i_loadData = '1') and (i_shortData = '1') and (address(1) = '0')) else
 									 dataOutFromRAM2(31 downto 24) when ((address(12) = '1') and (i_loadData = '1') and (i_byteData = '1')  and (address(1) = '0') and (address(0) = '0')) else
@@ -116,8 +116,8 @@ BEGIN
 		clock 		=> clock,
 		data 			=> uuWrDataByte&umWrDataByte&lmWrDataByte&llWrDataByte,
 		byteena		=> uuByteWrEn&umByteWrEn&lmByteWrEn&llByteWrEn,
-		rden			=> rden and address(12) and (not address(11)) and (not address(10)),
-		wren 			=> wren and address(12) and (not address(11)) and (not address(10)),
+		rden			=> rden and address(12),
+		wren 			=> wren and address(12),
 		q 				=> dataOutFromRAM2
 	);
 		

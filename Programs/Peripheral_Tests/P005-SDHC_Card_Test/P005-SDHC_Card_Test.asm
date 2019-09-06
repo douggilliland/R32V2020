@@ -135,8 +135,6 @@ waitForSDStatusRdRdy:
 	lpl		r9
 	cmpi	r9,0x80
 	bne		waitForSDStatusRdRdy
-;	sr8		r8,r8				; Shift SD card block address right by 9 bits for SD cards
-;	sr1		r8,r8
 	lix		PAR,0x1002
 	spbp	r8					; SDLBA0
 	sr8		r8,r8
