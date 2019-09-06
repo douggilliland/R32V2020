@@ -1,9 +1,10 @@
 ; P006-SDHC_Blk_Rd_Test - Read a block from the SDHC Card into Data RAM
 ;
-; Testing on A-ESTF FPGA development card
-;	http://land-boards.com/blwiki/index.php?title=A-ESTF_V2_EP4CE22_Board
-; Not all FPGA cards have built-in SD Card sockets
-; On other cards, should be able to wire up to IO pins (if there are any)
+; Tested on EP4CE10 FPGA development card
+;	http://land-boards.com/blwiki/index.php?title=A-C4E10_Cyclone_IV_FPGA_EP4CE10E22C8N_Development_Board
+; This FPGA cards have does not have a built-in SD Card socket
+; Wires up to IO pins through EPXX-GVS card
+;	http://land-boards.com/blwiki/index.php?title=EPXX-GVS
 ; Dumps SDHC Card to the ANSI VGA screen
 ;
 ; There are three types of SD cards
@@ -85,30 +86,18 @@ blockNumber:	.string "Block Address : 0x"
 ;
 
 main:
-	lix		PAR,0x3000
-	lix		r8,0x1
-	spl		r8
 	bsr		clearScreen_ANSI
 	lix		r8,prompt.lower
 	bsr		printString_ANSI
 	bsr		newLine_ANSI
-	lix		PAR,0x3000
-	lix		r8,0x2
-	spl		r8
 	lix		r8,10					; give the SD card 10 mS
 	bsr		delay_mS
-	lix		PAR,0x3000
-	lix		r8,0x3
-	spl		r8
 	bsr		fillTxBufferRAM
 	lix		PAR,0x3000
 	lix		r8,0x4
 	spl		r8
 	lix		r8,1					; write to the second block
 	bsr		writeBufferRAMToSDHCCard
-	lix		PAR,0x3000
-	lix		r8,0x5
-	spl		r8
 	lix		r9,0					; start with block 0
 readNextBlock:
 	lix		r8,blockNumber.lower	; Block Number message
@@ -116,23 +105,46 @@ readNextBlock:
 	addi	r8,r9,0
 	bsr		printLong_ANSI
 	bsr		newLine_ANSI
-	lix		PAR,0x3000
-	lix		r12,0x6
-	spl		r12
 	bsr		readSDHCCardIntoRdBufferRAM
-	lix		PAR,0x3000
-	lix		r8,0x7
-	spl		r8
+	bsr		dumpBufferRAM
 	bsr		newLine_ANSI
 	lix		r8,anyKeyToContinue.lower
 	bsr		printString_ANSI
 	bsr		getChar_PS2
 	bsr		newLine_ANSI
+	bsr		newLine_ANSI
 	addi	r9,r9,1					; Go to next block address
 	bra		readNextBlock
 loopForever:
 	bra		loopForever
-	
+
+;
+; dumpBufferRAM
+;
+
+dumpBufferRAM:
+	push	r8
+	push	r9
+	push	r10
+	lix		r10,24
+	lix		r9,512
+	lix		DAR,0x1200
+getAnotherDataRdVal:
+	ldbp	r8
+	bsr		printByte_ANSI
+	lix		r8,0x20
+	bsr		putChar_ANSI
+	subi	r10,r10,1
+	bnz		skipFeedDumpBuff
+	bsr		newLine_ANSI
+	lix		r10,24
+skipFeedDumpBuff:
+	subi	r9,r9,1
+	bnz		getAnotherDataRdVal
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
 
 ;
 ; readSDHCCardIntoRdBufferRAM
