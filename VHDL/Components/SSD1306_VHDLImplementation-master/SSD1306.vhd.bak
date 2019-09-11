@@ -1,0 +1,82 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity PCD8544 is
+	port(
+		PDO: out std_logic_vector(7 downto 0);
+		Clk, Rst, Bsy: in std_logic;
+		Trig, CD: out std_logic
+	);
+end PCD8544;
+
+architecture Ar of PCD8544 is
+constant AMNT_INSTRS: natural := 27;
+type IAR is array (0 to AMNT_INSTRS-1) of std_logic_vector(7 downto 0);
+--signal Instrs: IAR := (x"21", x"06", x"13", x"cb", x"0c", x"80", x"40");
+signal Instrs: IAR := (x"A8", x"3F", x"D3", x"00", x"40", x"A1", x"DA", x"12", x"81", x"7F", x"20", x"00", x"21", x"00", x"7F", x"22", x"00", x"07", x"A6", x"DB", x"40", x"A4", x"D5", x"80", x"8D", x"14", x"AF");
+
+type PStates is (Init, Draw);
+type SStates is (BusyWaitA, BusyWaitB, Writing, Done);
+
+signal SPISt: SStates := Done;
+signal PSt: PStates := Init;
+signal PInstr: unsigned(7 downto 0);
+
+begin
+	process(Clk, Rst, Bsy)
+	begin
+		if(Rst = '0') then
+			PSt <= Init;
+			SPISt <= Done;
+			PInstr <= (others => '0');
+		elsif(rising_edge(Clk)) then
+			if(PSt = Init) then
+				CD <= '0';
+				if(SPISt = Done) then
+--					if(PInstr = 0) then PDO <= x"21";
+--					elsif(PInstr = 1) then PDO <= x"06";
+--					elsif(PInstr = 2) then PDO <= x"13";
+--					elsif(PInstr = 3) then PDO <= x"80" or x"40";
+--					elsif(PInstr = 4) then PDO <= x"0c";
+--					elsif(PInstr = 5) then PDO <= x"80";
+--					elsif(PInstr = 6) then PDO <= x"40"; end if;
+
+					PDO <= (Instrs(to_integer(PInstr)));
+					
+					Trig <= '1';
+					SPISt <= BusyWaitA;
+				elsif(SPISt = BusyWaitA) then
+					if(Bsy = '1') then
+						PInstr <= PInstr + 1;
+						SPISt <= Writing;
+						Trig <= '0';
+					end if;
+				else
+					if(Bsy = '0') then
+						SPISt <= Done;
+						if(PInstr = AMNT_INSTRS) then
+							PSt <= Draw;
+							PInstr <= (others => '0');
+						end if;
+					end if;
+				end if;
+			else --Draw
+				CD <= '1';
+				if(SPISt = Done) then
+					PDO <= std_logic_vector(PInstr);			
+					Trig <= '1';
+					SPISt <= BusyWaitA;
+				elsif(SPISt = BusyWaitA) then
+					if(Bsy = '1') then
+						PInstr <= PInstr + 1;
+						SPISt <= Writing;
+						Trig <= '0';
+					end if;
+				else
+					if(Bsy = '0') then SPISt <= Done; end if;
+				end if;
+			end if;
+		end if;
+	end process;
+end Ar;

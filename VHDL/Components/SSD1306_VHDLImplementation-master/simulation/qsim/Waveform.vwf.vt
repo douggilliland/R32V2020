@@ -1,0 +1,319 @@
+// Copyright (C) 1991-2013 Altera Corporation
+// Your use of Altera Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Altera Program License 
+// Subscription Agreement, Altera MegaCore Function License 
+// Agreement, or other applicable license agreement, including, 
+// without limitation, that your use is for the sole purpose of 
+// programming logic devices manufactured by Altera and sold by 
+// Altera or its authorized distributors.  Please refer to the 
+// applicable agreement for further details.
+
+// *****************************************************************************
+// This file contains a Verilog test bench with test vectors .The test vectors  
+// are exported from a vector file in the Quartus Waveform Editor and apply to  
+// the top level entity of the current Quartus project .The user can use this   
+// testbench to simulate his design using a third-party simulation tool .       
+// *****************************************************************************
+// Generated on "07/08/2015 00:18:13"
+                                                                        
+// Verilog Self-Checking Test Bench (with test vectors) for design :    SSD1306_VHDLImplementation
+// 
+// Simulation tool : 3rd Party
+// 
+
+`timescale 1 ps/ 1 ps
+module SSD1306_VHDLImplementation_vlg_sample_tst(
+	CLKI,
+	RSTI,
+	sampler_tx
+);
+input  CLKI;
+input  RSTI;
+output sampler_tx;
+
+reg sample;
+time current_time;
+always @(CLKI or RSTI)
+                                                                                
+begin                                                 
+ if ($realtime > 0)                                   
+ begin                                                
+	if ($realtime == 0 || $realtime != current_time)  
+	begin									          
+		if (sample === 1'bx)                          
+			sample = 0;                               
+		else                                          
+			sample = ~sample;                         
+	end										          
+	current_time = $realtime;					      
+ end                                                  
+end                                                   
+
+assign sampler_tx = sample;
+endmodule
+
+module SSD1306_VHDLImplementation_vlg_check_tst (
+	CD,
+	CLKO,
+	CS,
+	DO,
+	RSTO,
+	sampler_rx
+);
+input  CD;
+input  CLKO;
+input  CS;
+input  DO;
+input  RSTO;
+input sampler_rx;
+
+reg  CD_expected;
+reg  CLKO_expected;
+reg  CS_expected;
+reg  DO_expected;
+reg  RSTO_expected;
+
+reg  CD_prev;
+reg  CLKO_prev;
+reg  CS_prev;
+reg  DO_prev;
+reg  RSTO_prev;
+
+reg  CD_expected_prev;
+reg  CLKO_expected_prev;
+reg  CS_expected_prev;
+reg  DO_expected_prev;
+reg  RSTO_expected_prev;
+
+reg  last_CD_exp;
+reg  last_CLKO_exp;
+reg  last_CS_exp;
+reg  last_DO_exp;
+reg  last_RSTO_exp;
+
+reg trigger;
+
+integer i;
+integer nummismatches;
+
+reg [1:5] on_first_change ;
+
+
+initial
+begin
+trigger = 0;
+i = 0;
+nummismatches = 0;
+on_first_change = 5'b1;
+end
+
+// update real /o prevs
+
+always @(trigger)
+begin
+	CD_prev = CD;
+	CLKO_prev = CLKO;
+	CS_prev = CS;
+	DO_prev = DO;
+	RSTO_prev = RSTO;
+end
+
+// update expected /o prevs
+
+always @(trigger)
+begin
+	CD_expected_prev = CD_expected;
+	CLKO_expected_prev = CLKO_expected;
+	CS_expected_prev = CS_expected;
+	DO_expected_prev = DO_expected;
+	RSTO_expected_prev = RSTO_expected;
+end
+
+
+
+// expected CD
+initial
+begin
+	CD_expected = 1'bX;
+end 
+
+// expected CLKO
+initial
+begin
+	CLKO_expected = 1'bX;
+end 
+
+// expected CS
+initial
+begin
+	CS_expected = 1'bX;
+end 
+
+// expected DO
+initial
+begin
+	DO_expected = 1'bX;
+end 
+
+// expected RSTO
+initial
+begin
+	RSTO_expected = 1'bX;
+end 
+// generate trigger
+always @(CD_expected or CD or CLKO_expected or CLKO or CS_expected or CS or DO_expected or DO or RSTO_expected or RSTO)
+begin
+	trigger <= ~trigger;
+end
+
+always @(posedge sampler_rx or negedge sampler_rx)
+begin
+`ifdef debug_tbench
+	$display("Scanning pattern %d @time = %t",i,$realtime );
+	i = i + 1;
+	$display("| expected CD = %b | expected CLKO = %b | expected CS = %b | expected DO = %b | expected RSTO = %b | ",CD_expected_prev,CLKO_expected_prev,CS_expected_prev,DO_expected_prev,RSTO_expected_prev);
+	$display("| real CD = %b | real CLKO = %b | real CS = %b | real DO = %b | real RSTO = %b | ",CD_prev,CLKO_prev,CS_prev,DO_prev,RSTO_prev);
+`endif
+	if (
+		( CD_expected_prev !== 1'bx ) && ( CD_prev !== CD_expected_prev )
+		&& ((CD_expected_prev !== last_CD_exp) ||
+			on_first_change[1])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port CD :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", CD_expected_prev);
+		$display ("     Real value = %b", CD_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[1] = 1'b0;
+		last_CD_exp = CD_expected_prev;
+	end
+	if (
+		( CLKO_expected_prev !== 1'bx ) && ( CLKO_prev !== CLKO_expected_prev )
+		&& ((CLKO_expected_prev !== last_CLKO_exp) ||
+			on_first_change[2])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port CLKO :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", CLKO_expected_prev);
+		$display ("     Real value = %b", CLKO_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[2] = 1'b0;
+		last_CLKO_exp = CLKO_expected_prev;
+	end
+	if (
+		( CS_expected_prev !== 1'bx ) && ( CS_prev !== CS_expected_prev )
+		&& ((CS_expected_prev !== last_CS_exp) ||
+			on_first_change[3])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port CS :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", CS_expected_prev);
+		$display ("     Real value = %b", CS_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[3] = 1'b0;
+		last_CS_exp = CS_expected_prev;
+	end
+	if (
+		( DO_expected_prev !== 1'bx ) && ( DO_prev !== DO_expected_prev )
+		&& ((DO_expected_prev !== last_DO_exp) ||
+			on_first_change[4])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port DO :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", DO_expected_prev);
+		$display ("     Real value = %b", DO_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[4] = 1'b0;
+		last_DO_exp = DO_expected_prev;
+	end
+	if (
+		( RSTO_expected_prev !== 1'bx ) && ( RSTO_prev !== RSTO_expected_prev )
+		&& ((RSTO_expected_prev !== last_RSTO_exp) ||
+			on_first_change[5])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port RSTO :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", RSTO_expected_prev);
+		$display ("     Real value = %b", RSTO_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[5] = 1'b0;
+		last_RSTO_exp = RSTO_expected_prev;
+	end
+
+	trigger <= ~trigger;
+end
+initial 
+
+begin 
+$timeformat(-12,3," ps",6);
+#1000000;
+if (nummismatches > 0)
+	$display ("%d mismatched vectors : Simulation failed !",nummismatches);
+else
+	$display ("Simulation passed !");
+$finish;
+end 
+endmodule
+
+module SSD1306_VHDLImplementation_vlg_vec_tst();
+// constants                                           
+// general purpose registers
+reg CLKI;
+reg RSTI;
+// wires                                               
+wire CD;
+wire CLKO;
+wire CS;
+wire DO;
+wire RSTO;
+
+wire sampler;                             
+
+// assign statements (if any)                          
+SSD1306_VHDLImplementation i1 (
+// port map - connection between master ports and signals/registers   
+	.CD(CD),
+	.CLKI(CLKI),
+	.CLKO(CLKO),
+	.CS(CS),
+	.\DO (DO),
+	.RSTI(RSTI),
+	.RSTO(RSTO)
+);
+
+// RSTI
+always
+begin
+	RSTI = 1'b0;
+	RSTI = #10000 1'b1;
+	#990000;
+end 
+
+// CLKI
+always
+begin
+	CLKI = 1'b0;
+	CLKI = #250 1'b1;
+	#250;
+end 
+
+SSD1306_VHDLImplementation_vlg_sample_tst tb_sample (
+	.CLKI(CLKI),
+	.RSTI(RSTI),
+	.sampler_tx(sampler)
+);
+
+SSD1306_VHDLImplementation_vlg_check_tst tb_out(
+	.CD(CD),
+	.CLKO(CLKO),
+	.CS(CS),
+	.DO(DO),
+	.RSTO(RSTO),
+	.sampler_rx(sampler)
+);
+endmodule
+

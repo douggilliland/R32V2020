@@ -1,0 +1,13 @@
+
+State Machine - |SSD1306_VHDLImplementation|SPI:instS|State
+Name State.DShift State.CSLow State.CSHigh 
+State.CSHigh 0 0 0 
+State.CSLow 0 1 1 
+State.DShift 1 0 1 
+
+State Machine - |SSD1306_VHDLImplementation|SSD1306:inst2|SPISt
+Name SPISt.BusyWaitA SPISt.Writing SPISt.BusyWaitB SPISt.Done 
+SPISt.Done 0 0 0 0 
+SPISt.BusyWaitB 0 0 1 1 
+SPISt.Writing 0 1 0 1 
+SPISt.BusyWaitA 1 0 0 1 
