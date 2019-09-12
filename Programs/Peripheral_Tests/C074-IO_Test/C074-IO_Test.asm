@@ -1333,7 +1333,7 @@ whilePS2RxStat:
 
 ; waitReadPS2_UART
 ; wait for character from either 
-;	the PS/2 keyboard and UART serial
+;	the PS/2 keyboard or the UART serial
 ; r8 = read character
 
 waitReadPS2_UART:
