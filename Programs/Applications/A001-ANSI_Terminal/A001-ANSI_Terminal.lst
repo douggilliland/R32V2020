@@ -18,9 +18,9 @@ lineBuff:		.string "123456789012345678901234567890123456789012345678901234567890
 syntaxError:	.string "Syntax error"
 
 main:
-00000000	D4000060		bsr		clearANSIScreen
+00000000	D4000062		bsr		clearANSIScreen
 00000001	42800000		lix		r8,prompt.lower
-00000002	D4000095		bsr		printString_ANSI
+00000002	D4000097		bsr		printString_ANSI
 loopANSITerminal:
 ; Check PS/2 for character - If there's a character put it to the serial
 00000003	D4000003		bsr		ps2ToSerial
@@ -67,22 +67,24 @@ skipRdPS2:
 	
 serialToANSI:
 00000017	A0405000		push	PAR
-00000018	42501800		lix		PAR,0x1800	; UART Status
-00000019	84805000		lpl		r8			; Read Status into r8
-0000001a	2B880001		andi 	r8,r8,0x1
-0000001b	C3000008		bez 	noSerialChar
-0000001c	42501801		lix 	PAR,0x1801
-0000001d	84805000		lpl		r8
+00000018	A0409000		push	r9
+00000019	42501800		lix		PAR,0x1800	; UART Status
+0000001a	84805000		lpl		r8			; Read Status into r8
+0000001b	2B880001		andi 	r8,r8,0x1
+0000001c	C3000009		bez 	noSerialChar
+0000001d	42501801		lix 	PAR,0x1801
+0000001e	84805000		lpl		r8
+0000001f	42500000		lix		PAR,0x0		; UART Status
 waitANSITxRdy:
-0000001e	84905000		lpl		r9			; Read Status into r9
-0000001f	2B990002		andi	r9,r9,0x2
-00000020	C3FFFFFE		bez 	waitANSITxRdy
-00000021	42500001		lix 	PAR,0x1
-00000022	85508000		spl		r8			; echo the character
+00000020	84905000		lpl		r9			; Read Status into r9
+00000021	2B990002		andi	r9,r9,0x2
+00000022	C3FFFFFE		bez 	waitANSITxRdy
+00000023	42500001		lix 	PAR,0x1
+00000024	85508000		spl		r8			; echo the character
 noSerialChar:
-00000023	A1504000		pull	PAR
-00000024	A1704000		pull	PC
-00000025	A1704000		pull	PC
+00000025	A1904000		pull	r9
+00000026	A1504000		pull	PAR
+00000027	A1704000		pull	PC
 
 ;
 ; putCharToANSIScreen - Put a character to the screen
@@ -90,18 +92,18 @@ noSerialChar:
 ;
 
 putCharToANSIScreen:
-00000026	A0409000		push	r9
-00000027	A0405000		push	PAR
-00000028	42500000		lix		PAR,0x0		; UART Status
+00000028	A0409000		push	r9
+00000029	A0405000		push	PAR
+0000002a	42500000		lix		PAR,0x0		; UART Status
 waitScreenTxStat:
-00000029	84905000		lpl		r9			; Read Status into r9
-0000002a	2B990002		andi	r9,r9,0x2
-0000002b	C3FFFFFE		bez 	waitScreenTxStat
-0000002c	42500001		lix 	PAR,0x1
-0000002d	85508000		spl		r8			; echo the character
-0000002e	A1504000		pull	PAR
-0000002f	A1904000		pull	r9
-00000030	A1704000		pull	PC
+0000002b	84905000		lpl		r9			; Read Status into r9
+0000002c	2B990002		andi	r9,r9,0x2
+0000002d	C3FFFFFE		bez 	waitScreenTxStat
+0000002e	42500001		lix 	PAR,0x1
+0000002f	85508000		spl		r8			; echo the character
+00000030	A1504000		pull	PAR
+00000031	A1904000		pull	r9
+00000032	A1704000		pull	PC
 	
 ;
 ; waitGetCharFromUART
@@ -110,16 +112,16 @@ waitScreenTxStat:
 ;
 
 waitGetCharFromUART:
-00000031	A0405000		push	PAR
-00000032	42501800		lix		PAR,0x1800	; UART Status
+00000033	A0405000		push	PAR
+00000034	42501800		lix		PAR,0x1800	; UART Status
 waitUartRxStat:
-00000033	84805000		lpl		r8			; Read Status into r8
-00000034	2B880001		andi 	r8,r8,0x1
-00000035	C3FFFFFE		bez 	waitUartRxStat
-00000036	42501801		lix 	PAR,0x1801
-00000037	84805000		lpl		r8
-00000038	A1504000		pull	PAR
-00000039	A1704000		pull	PC
+00000035	84805000		lpl		r8			; Read Status into r8
+00000036	2B880001		andi 	r8,r8,0x1
+00000037	C3FFFFFE		bez 	waitUartRxStat
+00000038	42501801		lix 	PAR,0x1801
+00000039	84805000		lpl		r8
+0000003a	A1504000		pull	PAR
+0000003b	A1704000		pull	PC
 
 ;
 ; putCharToUART - Put a character to the UART
@@ -127,18 +129,18 @@ waitUartRxStat:
 ;
 
 putCharToUART:
-0000003a	A0409000		push	r9
-0000003b	A0405000		push	PAR
-0000003c	42501800		lix		PAR,0x1800	; UART Status
+0000003c	A0409000		push	r9
+0000003d	A0405000		push	PAR
+0000003e	42501800		lix		PAR,0x1800	; UART Status
 waitUartTxStat:
-0000003d	84905000		lpl		r9			; Read Status into r9
-0000003e	2B990002		andi	r9,r9,0x2
-0000003f	C3FFFFFE		bez 	waitUartTxStat
-00000040	42501801		lix 	PAR,0x1801
-00000041	85508000		spl		r8			; echo the character
-00000042	A1504000		pull	PAR
-00000043	A1904000		pull	r9
-00000044	A1704000		pull	PC
+0000003f	84905000		lpl		r9			; Read Status into r9
+00000040	2B990002		andi	r9,r9,0x2
+00000041	C3FFFFFE		bez 	waitUartTxStat
+00000042	42501801		lix 	PAR,0x1801
+00000043	85508000		spl		r8			; echo the character
+00000044	A1504000		pull	PAR
+00000045	A1904000		pull	r9
+00000046	A1704000		pull	PC
 	
 ;
 ; getPS2Char
@@ -146,21 +148,21 @@ waitUartTxStat:
 ;
 
 getPS2Char:
-00000045	A0409000		push	r9
-00000046	A0405000		push	PAR
-00000047	42500801		lix		PAR,0x0801	; PS/2 Status
+00000047	A0409000		push	r9
+00000048	A0405000		push	PAR
+00000049	42500801		lix		PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
-00000048	84905000		lpl		r9			; Read Status into r9
-00000049	2B990001		andi	r9,r9,0x1
-0000004a	C3FFFFFE		bez 	waitPS2RxStat
+0000004a	84905000		lpl		r9			; Read Status into r9
+0000004b	2B990001		andi	r9,r9,0x1
+0000004c	C3FFFFFE		bez 	waitPS2RxStat
 getCharFromPS2:
-0000004b	42500800		lix 	PAR,0x0800
-0000004c	84805000		lpl		r8
-0000004d	42500801		lix		PAR,0x0801	; PS/2 Status
+0000004d	42500800		lix 	PAR,0x0800
+0000004e	84805000		lpl		r8
+0000004f	42500801		lix		PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
-0000004e	A1504000		pull	PAR
-0000004f	A1904000		pull	r9
-00000050	A1704000		pull	PC
+00000050	A1504000		pull	PAR
+00000051	A1904000		pull	r9
+00000052	A1704000		pull	PC
 
 ;
 ; printANSICode - Send the ANSI Escape Sequence
@@ -169,27 +171,27 @@ whilePS2RxStat:
 ;
 
 printANSICode:
-00000051	A0408000		push	r8
-00000052	A0408000		push	r8
-00000053	4280001B		lix		r8,0x1b			; ESC
-00000054	D4FFFFD2		bsr		putCharToANSIScreen
-00000055	A1804000		pull	r8
-00000056	D4000041		bsr		printString_ANSI
+00000053	A0408000		push	r8
+00000054	A0408000		push	r8
+00000055	4280001B		lix		r8,0x1b			; ESC
+00000056	D4FFFFD2		bsr		putCharToANSIScreen
 00000057	A1804000		pull	r8
-00000058	A1704000		pull	PC
+00000058	D4000041		bsr		printString_ANSI
+00000059	A1804000		pull	r8
+0000005a	A1704000		pull	PC
 
 ;
 ; newLine_ANSI - Print out a newLine_ANSI (CR-LF)
 ;
 
 newLine_ANSI:
-00000059	A0408000		push	r8
-0000005a	4280000A		lix		r8,0x0A				; Line Feed
-0000005b	D4FFFFCB		bsr		putCharToANSIScreen	; Put the character to the screen
-0000005c	4280000D		lix		r8,0x0D				; Carriage Return
-0000005d	D4FFFFC9		bsr		putCharToANSIScreen	; Echo character back to the UART
-0000005e	A1804000		pull	r8
-0000005f	A1704000		pull	PC
+0000005b	A0408000		push	r8
+0000005c	4280000A		lix		r8,0x0A				; Line Feed
+0000005d	D4FFFFCB		bsr		putCharToANSIScreen	; Put the character to the screen
+0000005e	4280000D		lix		r8,0x0D				; Carriage Return
+0000005f	D4FFFFC9		bsr		putCharToANSIScreen	; Echo character back to the UART
+00000060	A1804000		pull	r8
+00000061	A1704000		pull	PC
 
 ;
 ; clearANSIScreen - Clear the screen routine
@@ -197,64 +199,64 @@ newLine_ANSI:
 ;
 
 clearANSIScreen:
-00000060	A0408000		push	r8				; save r8
-00000061	4280001B		lix		r8,0x1b			; ESC
-00000062	D4FFFFC4		bsr		putCharToANSIScreen
-00000063	4280005B		lix		r8,0x5b			; [
-00000064	D4FFFFC2		bsr		putCharToANSIScreen
-00000065	42800032		lix		r8,0x32			; 2
-00000066	D4FFFFC0		bsr		putCharToANSIScreen
-00000067	4280004A		lix		r8,0x4A			; J
-00000068	D4FFFFBE		bsr		putCharToANSIScreen
-00000069	A1804000		pull	r8
-0000006a	A1704000		pull	PC
+00000062	A0408000		push	r8				; save r8
+00000063	4280001B		lix		r8,0x1b			; ESC
+00000064	D4FFFFC4		bsr		putCharToANSIScreen
+00000065	4280005B		lix		r8,0x5b			; [
+00000066	D4FFFFC2		bsr		putCharToANSIScreen
+00000067	42800032		lix		r8,0x32			; 2
+00000068	D4FFFFC0		bsr		putCharToANSIScreen
+00000069	4280004A		lix		r8,0x4A			; J
+0000006a	D4FFFFBE		bsr		putCharToANSIScreen
+0000006b	A1804000		pull	r8
+0000006c	A1704000		pull	PC
 	
 ;
 ; enableBuzzer
 ;
 
 enableBuzzer:
-0000006b	A0408000		push	r8
-0000006c	A0405000		push	PAR
-0000006d	42502800		lix		PAR,0x2800
-0000006e	84805000		lpl		r8
-0000006f	29880010		ori		r8,r8,0x10
-00000070	85508000		spl		r8
-00000071	A1504000		pull	PAR
-00000072	A1804000		pull	r8
-00000073	A1704000		pull	PC
+0000006d	A0408000		push	r8
+0000006e	A0405000		push	PAR
+0000006f	42502800		lix		PAR,0x2800
+00000070	84805000		lpl		r8
+00000071	29880010		ori		r8,r8,0x10
+00000072	85508000		spl		r8
+00000073	A1504000		pull	PAR
+00000074	A1804000		pull	r8
+00000075	A1704000		pull	PC
 
 ;
 ; disableBuzzer
 ;
 
 disableBuzzer:
-00000074	A0408000		push	r8
-00000075	A0405000		push	PAR
-00000076	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
-00000077	42502800		lix		PAR,0x2800
-00000078	84805000		lpl		r8
-00000079	2B88FFEF		andi	r8,r8,0xffef
-0000007a	85508000		spl		r8
-0000007b	A1504000		pull	PAR
-0000007c	A1804000		pull	r8
-0000007d	A1704000		pull	PC
+00000076	A0408000		push	r8
+00000077	A0405000		push	PAR
+00000078	4290FFEF		lix		r9,0xffef		; Buzzer Disable line
+00000079	42502800		lix		PAR,0x2800
+0000007a	84805000		lpl		r8
+0000007b	2B88FFEF		andi	r8,r8,0xffef
+0000007c	85508000		spl		r8
+0000007d	A1504000		pull	PAR
+0000007e	A1804000		pull	r8
+0000007f	A1704000		pull	PC
 	
 ; delay_mS - delay for the number of mSecs passed in r8
 ; pass mSec delay in r8
 ; Routine uses r9
 
 delay_mS:
-0000007e	A0409000		push	r9
-0000007f	42503802		lix		PAR,0x3802		; address of the mSec counter
-00000080	84905000		lpl		r9				; read the peripheral counter into r9
-00000081	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
+00000080	A0409000		push	r9
+00000081	42503802		lix		PAR,0x3802		; address of the mSec counter
+00000082	84905000		lpl		r9				; read the peripheral counter into r9
+00000083	20898000		add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
-00000082	84905000		lpl		r9				; check the elapsed time counter
-00000083	38389000		cmp		r8,r9
-00000084	CCFFFFFE		blt		loop_delay_mS
-00000085	A1904000		pull	r9
-00000086	A1704000		pull	PC
+00000084	84905000		lpl		r9				; check the elapsed time counter
+00000085	38389000		cmp		r8,r9
+00000086	CCFFFFFE		blt		loop_delay_mS
+00000087	A1904000		pull	r9
+00000088	A1704000		pull	PC
 
 ;
 ; putValueToRingLEDs
@@ -262,11 +264,11 @@ loop_delay_mS:
 ;
 
 putValueToRingLEDs:
-00000087	A0405000		push	PAR
-00000088	42504800		lix		PAR,0x4800		; Ring LED address
-00000089	85508000		spl		r8				; Write out LED bits
-0000008a	A1504000		pull	PAR
-0000008b	A1704000		pull	PC
+00000089	A0405000		push	PAR
+0000008a	42504800		lix		PAR,0x4800		; Ring LED address
+0000008b	85508000		spl		r8				; Write out LED bits
+0000008c	A1504000		pull	PAR
+0000008d	A1704000		pull	PC
 
 ;
 ; wr7Seg8Dig
@@ -274,11 +276,11 @@ putValueToRingLEDs:
 ;
 
 wr7Seg8Dig:
-0000008c	A0405000		push	PAR
-0000008d	42503000		lix		PAR,0x3000		; Seven Segment LED lines
-0000008e	85508000		spl		r8				; Write out LED bits
-0000008f	A1504000		pull	PAR
-00000090	A1704000		pull	PC
+0000008e	A0405000		push	PAR
+0000008f	42503000		lix		PAR,0x3000		; Seven Segment LED lines
+00000090	85508000		spl		r8				; Write out LED bits
+00000091	A1504000		pull	PAR
+00000092	A1704000		pull	PC
 	
 ;
 ; readSws
@@ -290,12 +292,12 @@ wr7Seg8Dig:
 ;
 
 readSws:
-00000091	A0405000		push	PAR
-00000092	42502000		lix		PAR,0x2000	; Switches address
-00000093	84805000		lpl		r8			; Read switches into r9
-00000094	2B880FFF		andi	r8,r8,0xfff	; just the switches
-00000095	A1504000		pull	PAR
-00000096	A1704000		pull	PC
+00000093	A0405000		push	PAR
+00000094	42502000		lix		PAR,0x2000	; Switches address
+00000095	84805000		lpl		r8			; Read switches into r9
+00000096	2B880FFF		andi	r8,r8,0xfff	; just the switches
+00000097	A1504000		pull	PAR
+00000098	A1704000		pull	PC
 
 ;
 ; printString_ANSI - Print a screen to the current screen position
@@ -305,17 +307,17 @@ readSws:
 ;
 
 printString_ANSI:
-00000097	A0408000		push	r8					; save r8
-00000098	A0406000		push	DAR
-00000099	20680000		add		DAR,r8,ZERO			; set the start of the string
+00000099	A0408000		push	r8					; save r8
+0000009a	A0406000		push	DAR
+0000009b	20680000		add		DAR,r8,ZERO			; set the start of the string
 nextCharANSI:
-0000009a	68806000		ldbp	r8					; get the character01
-0000009b	39380000		cmpi	r8,0x0				; Null terminated string
-0000009c	D1000003		beq		donePrANSIStr		; done if null
-0000009d	D4FFFF89		bsr		putCharToANSIScreen	; write out the character
-0000009e	C0FFFFFC		bra		nextCharANSI
+0000009c	68806000		ldbp	r8					; get the character01
+0000009d	39380000		cmpi	r8,0x0				; Null terminated string
+0000009e	D1000003		beq		donePrANSIStr		; done if null
+0000009f	D4FFFF89		bsr		putCharToANSIScreen	; write out the character
+000000a0	C0FFFFFC		bra		nextCharANSI
 donePrANSIStr:
-0000009f	A1604000		pull	DAR					; restore DAR
-000000a0	A1804000		pull	r8					; restore r8
-000000a1	A1704000		pull	PC					; rts
+000000a1	A1604000		pull	DAR					; restore DAR
+000000a2	A1804000		pull	r8					; restore r8
+000000a3	A1704000		pull	PC					; rts
 	

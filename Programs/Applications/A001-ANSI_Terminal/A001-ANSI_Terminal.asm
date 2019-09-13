@@ -67,12 +67,14 @@ skipRdPS2:
 	
 serialToANSI:
 	push	PAR
+	push	r9
 	lix		PAR,0x1800	; UART Status
 	lpl		r8			; Read Status into r8
 	andi 	r8,r8,0x1
 	bez 	noSerialChar
 	lix 	PAR,0x1801
 	lpl		r8
+	lix		PAR,0x0		; UART Status
 waitANSITxRdy:
 	lpl		r9			; Read Status into r9
 	andi	r9,r9,0x2
@@ -80,8 +82,8 @@ waitANSITxRdy:
 	lix 	PAR,0x1
 	spl		r8			; echo the character
 noSerialChar:
+	pull	r9
 	pull	PAR
-	pull	PC
 	pull	PC
 
 ;
