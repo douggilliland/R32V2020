@@ -18,7 +18,6 @@ entity R32V2020 is
 		i_InstructionRomData		: in std_logic_vector(31 downto 0) := x"00000000";
 		o_InstructionRomAddress	: buffer std_logic_vector(31 downto 0) := x"00000000";
 		o_clkInstrRomAddr			: out std_logic := '0';
---		o_clkInstrRomData			: out std_logic := '0';
 		-- Stack RAM connections
 		o_StackRamAddress			: out std_logic_vector(31 downto 0) := x"00000000";
 		o_dataToStackRam			: out std_logic_vector(31 downto 0) := x"00000000";
