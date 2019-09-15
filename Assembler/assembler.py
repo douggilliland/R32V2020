@@ -88,6 +88,13 @@ def lineAssert(condition, baseZeroLineNumber, rawLine, message):
     print rawLine
     exit(1)
 
+def precompileAssert(condition, rawLine, message):
+  if not condition:
+    print message
+    print ''
+    print rawLine
+    exit(1)
+
 def todo(message = 'something'):
   print "Incomplete TODO:", message
 
@@ -467,6 +474,26 @@ def stripComments(line):
 
   return resultLine
 
+def inlineIncludes(asmPath, originalLines):
+  lines = []
+
+  for line in originalLines:
+    if line.upper().startswith('#INCLUDE'):
+      tokens = re.split('[\s<>]+', line)
+      precompileAssert(len(tokens) == 3, line, 'Could not parse the include file from #include directive')
+      includedPath = os.path.join(os.path.dirname(asmPath), tokens[1])
+
+      precompileAssert(os.path.exists(includedPath), line, 'Could not find included path, looked at ' + includedPath)
+
+      with open(includedPath, 'r') as f:
+        for includedLine in f:
+          lines.append(includedLine)
+
+    else:
+      lines.append(line)
+
+  return lines
+
 if __name__ == '__main__':
   if '--gen-constants' in sys.argv:
     with open(os.path.join(myDir, 'OpCodeConstants.vhd'), 'w') as f:
@@ -488,212 +515,215 @@ if __name__ == '__main__':
   datFile = asmPath[0:-4]+'_dat.HEX'
   lstFile = asmPath[0:-4]+'.lst'
 
-  # Parse and write output
   with open(asmPath, 'r') as f:
-    for num, rawLine in enumerate(f):
+    mainText = [line.strip() for line in f.readlines()]
 
-      outputLine = OutputLine(rawLine, currentAddress)
+  allLines = inlineIncludes(asmPath, mainText)
 
-      output.append(outputLine)
+  for num, rawLine in enumerate(allLines):
 
-      line = stripComments(rawLine)
+    outputLine = OutputLine(rawLine, currentAddress)
 
-      # Ignore empty lines
-      if line.strip() == '':
-        continue
+    output.append(outputLine)
 
-      tokens = re.split('[\s|,]+', line.strip())
+    line = stripComments(rawLine)
 
-      if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.STRING':
-        address = tokens[0][:-1]
+    # Ignore empty lines
+    if line.strip() == '':
+      continue
 
-        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
+    tokens = re.split('[\s|,]+', line.strip())
 
-        string = line[line.index('.')+7:].strip()
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.STRING':
+      address = tokens[0][:-1]
 
-        lineAssert(isValidString(string), num, rawLine, string + ' is not a valid string literal')
+      lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
 
-        constant = StringConstant(string)
+      string = line[line.index('.')+7:].strip()
 
-        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
+      lineAssert(isValidString(string), num, rawLine, string + ' is not a valid string literal')
 
-        constantAddresses.add(address)
-        constants.append(constant)
-        addressByConstant[constant] = address
-        continue
+      constant = StringConstant(string)
 
-      if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
-        shorts = []
-        address = tokens[0][:-1]
+      lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
-        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
+      constantAddresses.add(address)
+      constants.append(constant)
+      addressByConstant[constant] = address
+      continue
 
-        longToken = tokens[2]
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
+      shorts = []
+      address = tokens[0][:-1]
 
-        lineAssert(isValidLong(longToken), num, rawLine, longToken + ' is not a valid long')
+      lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
 
-        constant = LongConstant(longToken)
+      longToken = tokens[2]
 
-        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
+      lineAssert(isValidLong(longToken), num, rawLine, longToken + ' is not a valid long')
 
-        constantAddresses.add(address)
-        constants.append(constant)
-        addressByConstant[constant] = address
-        continue
+      constant = LongConstant(longToken)
 
-      if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
-        shorts = []
-        address = tokens[0][:-1]
+      lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
-        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
+      constantAddresses.add(address)
+      constants.append(constant)
+      addressByConstant[constant] = address
+      continue
 
-        for shortToken in tokens[2:]:
-          lineAssert(isValidShort(shortToken), num, rawLine, shortToken + ' is not a valid short')
-          shorts.append(parseShort(shortToken))
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
+      shorts = []
+      address = tokens[0][:-1]
 
-        constant = ShortConstant(shorts)
+      lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
 
-        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
+      for shortToken in tokens[2:]:
+        lineAssert(isValidShort(shortToken), num, rawLine, shortToken + ' is not a valid short')
+        shorts.append(parseShort(shortToken))
 
-        constantAddresses.add(address)
-        constants.append(constant)
-        addressByConstant[constant] = address
-        continue
+      constant = ShortConstant(shorts)
 
-      if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
-        bytes = []
-        address = tokens[0][:-1]
+      lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
-        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
+      constantAddresses.add(address)
+      constants.append(constant)
+      addressByConstant[constant] = address
+      continue
 
-        for byteToken in tokens[2:]:
-          lineAssert(isValidByte(byteToken), num, rawLine, byteToken + ' is not a valid byte')
-          bytes.append(parseByte(byteToken))
+    if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
+      bytes = []
+      address = tokens[0][:-1]
 
-        constant = ByteConstant(bytes)
+      lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
 
-        lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
+      for byteToken in tokens[2:]:
+        lineAssert(isValidByte(byteToken), num, rawLine, byteToken + ' is not a valid byte')
+        bytes.append(parseByte(byteToken))
 
-        constantAddresses.add(address)
-        constants.append(constant)
-        addressByConstant[constant] = address
-        continue
+      constant = ByteConstant(bytes)
 
-      if tokens[0][-1] == ':':
-        address = tokens[0][:-1]
+      lineAssert(address not in constantAddresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
-        lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
-        lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after label')
-        lineAssert(address not in addresses, num, rawLine, address + ' has already been used as a label earlier in the program')
+      constantAddresses.add(address)
+      constants.append(constant)
+      addressByConstant[constant] = address
+      continue
 
-        addresses[address] = currentAddress
+    if tokens[0][-1] == ':':
+      address = tokens[0][:-1]
 
-        continue
+      lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
+      lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after label')
+      lineAssert(address not in addresses, num, rawLine, address + ' has already been used as a label earlier in the program')
 
-      op = tokens[0].upper()
+      addresses[address] = currentAddress
 
-      lineAssert(op in opByCode, num, rawLine, 'Unknown op ' + op)
+      continue
 
-      currentAddress += 1
+    op = tokens[0].upper()
 
-      opSpec = opByCode[op]
+    lineAssert(op in opByCode, num, rawLine, 'Unknown op ' + op)
 
-      if opSpec['Form'] == 'NO_ARGS':
-        lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
+    currentAddress += 1
 
-        outputLine.setInstruction(NoArgsResolver(opSpec['CategorizedOp']))
+    opSpec = opByCode[op]
 
-      elif opSpec['Form'] == 'BIN_CONST':
-        lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
+    if opSpec['Form'] == 'NO_ARGS':
+      lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
 
-        outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(opSpec['D23']), parseRegister(opSpec['D19']), parseRegister(opSpec['D15'])))
+      outputLine.setInstruction(NoArgsResolver(opSpec['CategorizedOp']))
 
-      elif opSpec['Form'] == 'ADDR':
-        lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
+    elif opSpec['Form'] == 'BIN_CONST':
+      lineAssert(len(tokens) == 1, num, rawLine, 'Unexpected trailing tokens after op')
 
-        lineAssert(isValidAddress(tokens[1]), num, rawLine, formatAddressError(tokens[1]))
+      outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(opSpec['D23']), parseRegister(opSpec['D19']), parseRegister(opSpec['D15'])))
 
-        outputLine.setInstruction(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, currentAddress-1))
+    elif opSpec['Form'] == 'ADDR':
+      lineAssert(len(tokens) == 2, num, rawLine, 'Unexpected trailing tokens after op')
 
-      elif opSpec['Form'] == 'BIN_DEST':
-        lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
-        lineAssert(isValidRegister(tokens[3]), num, rawLine, tokens[3] + ' is not a valid register')
+      lineAssert(isValidAddress(tokens[1]), num, rawLine, formatAddressError(tokens[1]))
 
-        outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
+      outputLine.setInstruction(AddressResolver(opSpec['CategorizedOp'], tokens[1], rawLine, num, currentAddress-1))
 
-      elif opSpec['Form'] == 'BIN_DEST_IMM':
-        maxValue = maxValueImm['BIN_DEST_IMM']
+    elif opSpec['Form'] == 'BIN_DEST':
+      lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[3]), num, rawLine, tokens[3] + ' is not a valid register')
 
-        lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
-        lineAssert(isValidImmediateValue(tokens[3], maxValue), num, rawLine, tokens[3] + ' is not a valid immediate value')
+      outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseRegister(tokens[3])))
 
-        outputLine.setInstruction(BinDestImmResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseImmediate(tokens[3])))
+    elif opSpec['Form'] == 'BIN_DEST_IMM':
+      maxValue = maxValueImm['BIN_DEST_IMM']
 
-      elif opSpec['Form'] == 'BIN_CMP':
-        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+      lineAssert(len(tokens) == 4, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+      lineAssert(isValidImmediateValue(tokens[3], maxValue), num, rawLine, tokens[3] + ' is not a valid immediate value')
 
-        outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseRegister(tokens[2])))
+      outputLine.setInstruction(BinDestImmResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2]), parseImmediate(tokens[3])))
 
-      elif opSpec['Form'] == 'BIN_CMP_IMM':
-        maxValue = maxValueImm['BIN_CMP_IMM']
+    elif opSpec['Form'] == 'BIN_CMP':
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
-        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidImmediateValue(tokens[2], maxValue), num, rawLine, tokens[2] + ' is not a valid immediate value')
+      outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseRegister(tokens[2])))
 
-        outputLine.setInstruction(BinDestImmResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseImmediate(tokens[2])))
+    elif opSpec['Form'] == 'BIN_CMP_IMM':
+      maxValue = maxValueImm['BIN_CMP_IMM']
 
-      elif opSpec['Form'] == 'BIN_R1_DEST':
-        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidImmediateValue(tokens[2], maxValue), num, rawLine, tokens[2] + ' is not a valid immediate value')
 
-        outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 1, parseRegister(tokens[2])))
+      outputLine.setInstruction(BinDestImmResolver(opSpec['CategorizedOp'], 3, parseRegister(tokens[1]), parseImmediate(tokens[2])))
 
-      elif opSpec['Form'] in ['IMM_DEST_16', 'IMM_DEST_20', 'IMM_DEST_24']:
-        form = opSpec['Form']
-        maxValue = maxValueImm[form]
+    elif opSpec['Form'] == 'BIN_R1_DEST':
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
 
-        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(
-          isValidImmediateValue(tokens[2], maxValue) or isValidDataLabelReference(tokens[2]),
-          num,
-          rawLine,
-          tokens[2] + ' is neither a valid immediate value or a valid data label reference'
-        )
+      outputLine.setInstruction(BinDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), 1, parseRegister(tokens[2])))
 
-        if isValidImmediateValue(tokens[2], maxValue):
-          outputLine.setInstruction(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
-        else:
-          outputLine.setInstruction(DataLabelReferenceDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), tokens[2], num, rawLine))
+    elif opSpec['Form'] in ['IMM_DEST_16', 'IMM_DEST_20', 'IMM_DEST_24']:
+      form = opSpec['Form']
+      maxValue = maxValueImm[form]
 
-      elif opSpec['Form'] == 'UN_DEST':
-        lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-        lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 3 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(
+        isValidImmediateValue(tokens[2], maxValue) or isValidDataLabelReference(tokens[2]),
+        num,
+        rawLine,
+        tokens[2] + ' is neither a valid immediate value or a valid data label reference'
+      )
 
-        outputLine.setInstruction(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2])))
-
-      elif opSpec['Form'] in ['R4_DEST', 'R5_DEST', 'R6_DEST']:
-        lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-
-        outputLine.setInstruction(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), constantFormRegister[opSpec['Form']]))
-
-      elif opSpec['Form'] in ['UN_R1_DEST', 'UN_R4_DEST', 'UN_R5_DEST', 'UN_R6_DEST']:
-        lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
-        lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
-
-        outputLine.setInstruction(UnDestResolver(opSpec['CategorizedOp'], constantFormRegister[opSpec['Form']], parseRegister(tokens[1])))
+      if isValidImmediateValue(tokens[2], maxValue):
+        outputLine.setInstruction(ImmDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseImmediate(tokens[2])))
       else:
-        lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
+        outputLine.setInstruction(DataLabelReferenceDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), tokens[2], num, rawLine))
+
+    elif opSpec['Form'] == 'UN_DEST':
+      lineAssert(len(tokens) == 3, num, rawLine, 'Expected 2 arguments after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+      lineAssert(isValidRegister(tokens[2]), num, rawLine, tokens[2] + ' is not a valid register')
+
+      outputLine.setInstruction(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), parseRegister(tokens[2])))
+
+    elif opSpec['Form'] in ['R4_DEST', 'R5_DEST', 'R6_DEST']:
+      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+
+      outputLine.setInstruction(UnDestResolver(opSpec['CategorizedOp'], parseRegister(tokens[1]), constantFormRegister[opSpec['Form']]))
+
+    elif opSpec['Form'] in ['UN_R1_DEST', 'UN_R4_DEST', 'UN_R5_DEST', 'UN_R6_DEST']:
+      lineAssert(len(tokens) == 2, num, rawLine, 'Expected 1 argument after op but got ' + str(len(tokens) - 1))
+      lineAssert(isValidRegister(tokens[1]), num, rawLine, tokens[1] + ' is not a valid register')
+
+      outputLine.setInstruction(UnDestResolver(opSpec['CategorizedOp'], constantFormRegister[opSpec['Form']], parseRegister(tokens[1])))
+    else:
+      lineAssert(False, num, rawLine, 'Unexpectedly failed to parse line')
 
   dataAddresses = {}
 
