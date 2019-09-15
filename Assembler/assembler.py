@@ -487,10 +487,10 @@ def inlineIncludes(asmPath, originalLines):
 
       with open(includedPath, 'r') as f:
         for includedLine in f:
-          lines.append(includedLine)
+          lines.append(includedLine.strip() + '\n')
 
     else:
-      lines.append(line)
+      lines.append(line.strip() + '\n')
 
   return lines
 
