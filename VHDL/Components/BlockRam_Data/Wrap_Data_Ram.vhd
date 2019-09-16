@@ -110,15 +110,15 @@ BEGIN
 		q 				=> dataOutFromRAM
 	);
 	
---	Data_RAM_2 : entity work.BlockRam_Data2
---	PORT MAP (
---		address 		=> address(9 downto 2),
---		clock 		=> clock,
---		data 			=> uuWrDataByte&umWrDataByte&lmWrDataByte&llWrDataByte,
---		byteena		=> uuByteWrEn&umByteWrEn&lmByteWrEn&llByteWrEn,
---		rden			=> rden and address(12),
---		wren 			=> wren and address(12),
---		q 				=> dataOutFromRAM2
---	);
+	Data_RAM_2 : entity work.BlockRam_Data2
+	PORT MAP (
+		address 		=> address(9 downto 2),
+		clock 		=> clock,
+		data 			=> uuWrDataByte&umWrDataByte&lmWrDataByte&llWrDataByte,
+		byteena		=> uuByteWrEn&umByteWrEn&lmByteWrEn&llByteWrEn,
+		rden			=> rden and address(12),
+		wren 			=> wren and address(12),
+		q 				=> dataOutFromRAM2
+	);
 		
 end;

@@ -157,7 +157,7 @@ begin
 	-- Instruction ROM
 	Instr_ROM : entity work.BlockRom_Instruction
 	PORT MAP (
-		address		=> w_InstructionRomAddress(11 downto 0),
+		address		=> w_InstructionRomAddress(10 downto 0),
 		clken			=> w_clkInstrRomAddr,
 		clock 		=> i_CLOCK_50,
 		q 				=> w_InstructionRomData
