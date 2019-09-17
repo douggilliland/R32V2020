@@ -28,7 +28,7 @@ menuItem_12:	.string "12-TBD Test           "
 ;
 
 main:
-00000000	D400035F	bsr		clearScreen_ANSI_UART
+00000000	D4000373	bsr		clearScreen_ANSI_UART
 00000001	D4000004	bsr		printMenu
 00000002	D40001AA	bsr		readToLineBuffer
 00000003	D400001E	bsr		parseLine
@@ -40,31 +40,31 @@ main:
 
 printMenu:
 00000005	A0408000	push	r8
-00000006	D4000352	bsr		newLine_ANSI_UART
+00000006	D4000366	bsr		newLine_ANSI_UART
 00000007	42800094	lix		r8,menuItem_01.lower
-00000008	D4000339	bsr		printString_ANSI_UART
+00000008	D400034D	bsr		printString_ANSI_UART
 00000009	428000AC	lix		r8,menuItem_02.lower
-0000000a	D4000337	bsr		printString_ANSI_UART
+0000000a	D400034B	bsr		printString_ANSI_UART
 0000000b	428000C4	lix		r8,menuItem_03.lower
-0000000c	D4000340	bsr		printLinebuffer_ANSI_UART
+0000000c	D4000354	bsr		printLinebuffer_ANSI_UART
 0000000d	428000DC	lix		r8,menuItem_04.lower
-0000000e	D4000333	bsr		printString_ANSI_UART
+0000000e	D4000347	bsr		printString_ANSI_UART
 0000000f	428000F4	lix		r8,menuItem_05.lower
-00000010	D4000331	bsr		printString_ANSI_UART
+00000010	D4000345	bsr		printString_ANSI_UART
 00000011	4280010C	lix		r8,menuItem_06.lower
-00000012	D400033A	bsr		printLinebuffer_ANSI_UART
+00000012	D400034E	bsr		printLinebuffer_ANSI_UART
 00000013	42800124	lix		r8,menuItem_07.lower
-00000014	D400032D	bsr		printString_ANSI_UART
+00000014	D4000341	bsr		printString_ANSI_UART
 00000015	4280013C	lix		r8,menuItem_08.lower
-00000016	D400032B	bsr		printString_ANSI_UART
+00000016	D400033F	bsr		printString_ANSI_UART
 00000017	42800154	lix		r8,menuItem_09.lower
-00000018	D4000334	bsr		printLinebuffer_ANSI_UART
+00000018	D4000348	bsr		printLinebuffer_ANSI_UART
 00000019	4280016C	lix		r8,menuItem_10.lower
-0000001a	D4000327	bsr		printString_ANSI_UART
+0000001a	D400033B	bsr		printString_ANSI_UART
 0000001b	42800184	lix		r8,menuItem_11.lower
-0000001c	D4000330	bsr		printLinebuffer_ANSI_UART
+0000001c	D4000344	bsr		printLinebuffer_ANSI_UART
 0000001d	42800000	lix		r8,prompt.lower
-0000001e	D4000323	bsr		printString_ANSI_UART
+0000001e	D4000337	bsr		printString_ANSI_UART
 0000001f	A1804000	pull	r8
 00000020	A1704000	pull	PC
 
@@ -146,11 +146,11 @@ skipTo11:
 skipTo12:
 00000050	A0408000	push	r8
 00000051	42800060	lix		r8,syntaxError.lower
-00000052	D40002EF	bsr		printString_ANSI_UART
+00000052	D4000303	bsr		printString_ANSI_UART
 00000053	A1804000	pull	r8
 doneTests:
 00000054	428007D0	lix		r8,2000
-00000055	D400027D	bsr		delay_mS
+00000055	D4000291	bsr		delay_mS
 00000056	A1804000	pull	r8
 00000057	A1704000	pull	PC
 
@@ -161,18 +161,18 @@ doneTests:
 testRingLEDs:
 00000058	A0408000	push	r8
 00000059	42800070	lix		r8,runningString.lower
-0000005a	D40002E7	bsr		printString_ANSI_UART
+0000005a	D40002FB	bsr		printString_ANSI_UART
 0000005b	42800094	lix		r8,menuItem_01.lower
-0000005c	D40002F0	bsr		printLinebuffer_ANSI_UART
+0000005c	D4000304	bsr		printLinebuffer_ANSI_UART
 0000005d	4280007C	lix		r8,hitAnyKey.lower
-0000005e	D40002E3	bsr		printString_ANSI_UART
+0000005e	D40002F7	bsr		printString_ANSI_UART
 reload:
 0000005f	42800001	lix		r8,1
 loopLEDRing:
 00000060	D4000145	bsr		putValueToRingLEDs	; put the switches to the 7 Segment LED
 00000061	A0408000	push	r8
 00000062	428000FA	lix		r8,250				; wait for 1 second
-00000063	D400026F	bsr		delay_mS
+00000063	D4000283	bsr		delay_mS
 00000064	A1804000	pull	r8
 00000065	30808000	sl1		r8,r8
 00000066	39380801	cmpi	r8,0x0801
@@ -192,22 +192,22 @@ loopLEDRing:
 test7Segs:
 0000006f	A0408000	push	r8
 00000070	42800070	lix		r8,runningString.lower
-00000071	D40002D0	bsr		printString_ANSI_UART
+00000071	D40002E4	bsr		printString_ANSI_UART
 00000072	428000AC	lix		r8,menuItem_02.lower
-00000073	D40002D9	bsr		printLinebuffer_ANSI_UART
+00000073	D40002ED	bsr		printLinebuffer_ANSI_UART
 00000074	4280007C	lix		r8,hitAnyKey.lower
-00000075	D40002CC	bsr		printString_ANSI_UART
+00000075	D40002E0	bsr		printString_ANSI_UART
 rerun7Segs:
 00000076	41801234	liu		r8,0x1234
 00000077	40805678	lil		r8,0x5678
 00000078	D400017B	bsr		wr7Seg8Dig
 00000079	428007D0	lix		r8,2000
-0000007a	D4000258	bsr		delay_mS
+0000007a	D400026C	bsr		delay_mS
 0000007b	4180ABCD	liu		r8,0xABCD
 0000007c	4080EF12	lil		r8,0xEF12
 0000007d	D4000176	bsr		wr7Seg8Dig
 0000007e	428007D0	lix		r8,2000
-0000007f	D4000253	bsr		delay_mS
+0000007f	D4000267	bsr		delay_mS
 00000080	42800000	lix		r8,0x0
 00000081	D4000172	bsr		wr7Seg8Dig
 00000082	D400023C	bsr		checkForCharAndDiscard
@@ -239,11 +239,11 @@ testPushbuttons:
 00000087	A0408000	push	r8
 00000088	A0409000	push	r9
 00000089	42800070	lix		r8,runningString.lower
-0000008a	D40002B7	bsr		printString_ANSI_UART
+0000008a	D40002CB	bsr		printString_ANSI_UART
 0000008b	428000C4	lix		r8,menuItem_03.lower
-0000008c	D40002C0	bsr		printLinebuffer_ANSI_UART
+0000008c	D40002D4	bsr		printLinebuffer_ANSI_UART
 0000008d	4280007C	lix		r8,hitAnyKey.lower
-0000008e	D40002BE	bsr		printLinebuffer_ANSI_UART
+0000008e	D40002D2	bsr		printLinebuffer_ANSI_UART
 0000008f	42900000	lix		r9,0x0
 loopSwRead:
 00000090	D400022E	bsr		checkForCharAndDiscard
@@ -255,10 +255,10 @@ loopSwRead:
 00000096	38389000	cmp		r8,r9
 00000097	D1FFFFF9	beq		loopSwRead
 00000098	21980000	addi	r9,r8,0
-00000099	D4000319	bsr		printByte_ANSI_UART
-0000009a	D40002BE	bsr		newLine_ANSI_UART
+00000099	D400032D	bsr		printByte_ANSI_UART
+0000009a	D40002D2	bsr		newLine_ANSI_UART
 0000009b	428000FA	lix		r8,250
-0000009c	D4000236	bsr		delay_mS
+0000009c	D400024A	bsr		delay_mS
 0000009d	C0FFFFF3	bra		loopSwRead
 doneWithSwitches:
 0000009e	A1904000	pull	r9
@@ -273,11 +273,11 @@ testDIPSwitches:
 000000a1	A0408000	push	r8
 000000a2	A0409000	push	r9
 000000a3	42800070	lix		r8,runningString.lower
-000000a4	D400029D	bsr		printString_ANSI_UART
+000000a4	D40002B1	bsr		printString_ANSI_UART
 000000a5	428000DC	lix		r8,menuItem_04.lower
-000000a6	D40002A6	bsr		printLinebuffer_ANSI_UART
+000000a6	D40002BA	bsr		printLinebuffer_ANSI_UART
 000000a7	4280007C	lix		r8,hitAnyKey.lower
-000000a8	D40002A4	bsr		printLinebuffer_ANSI_UART
+000000a8	D40002B8	bsr		printLinebuffer_ANSI_UART
 000000a9	42900000	lix		r9,0x0
 000000aa	42800000	lix		r8,0x0
 000000ab	D4000148	bsr		wr7Seg8Dig
@@ -296,7 +296,7 @@ loopSwRead2:
 000000b7	21980000	addi	r9,r8,0
 000000b8	D400013B	bsr		wr7Seg8Dig
 000000b9	428000FA	lix		r8,250
-000000ba	D4000218	bsr		delay_mS
+000000ba	D400022C	bsr		delay_mS
 000000bb	C0FFFFF1	bra		loopSwRead2
 doneWithDIPSwitches:
 000000bc	A1904000	pull	r9
@@ -321,16 +321,16 @@ brightString:	.string "Bright "
 testANSIScreen:
 000000bf	A0408000	push	r8
 000000c0	42800070	lix		r8,runningString.lower
-000000c1	D4000280	bsr		printString_ANSI_UART
+000000c1	D4000294	bsr		printString_ANSI_UART
 000000c2	428000F4	lix		r8,menuItem_05.lower
-000000c3	D4000289	bsr		printLinebuffer_ANSI_UART
+000000c3	D400029D	bsr		printLinebuffer_ANSI_UART
 000000c4	42800020	lix		r8,0x20			; start with a space
 anotherCharT5:
-000000c5	D4000242	bsr		putChar_ANSI
+000000c5	D4000256	bsr		putChar_ANSI
 000000c6	21880001	addi	r8,r8,1
 000000c7	393800FF	cmpi	r8,0xFF
 000000c8	D2FFFFFD	bne		anotherCharT5
-000000c9	D4000249	bsr		newLine_ANSI
+000000c9	D400025D	bsr		newLine_ANSI
 ; Test screen character colors
 ; Light characters
 defaultColors:	.string "[0;1m"
@@ -340,33 +340,33 @@ redChars:	.string	"[31;22m"
 000000cc	4280020C	lix		r8,redChars.lower
 000000cd	D40000FE	bsr		printANSICode
 000000ce	428001B4	lix		r8,redString.lower
-000000cf	D400024A	bsr		printString_ANSI
+000000cf	D400025E	bsr		printString_ANSI
 grnChars:	.string	"[32m"
 000000d0	42800214	lix		r8,grnChars.lower
 000000d1	D40000FA	bsr		printANSICode
 000000d2	428001BC	lix		r8,greenString.lower
-000000d3	D4000246	bsr		printString_ANSI
+000000d3	D400025A	bsr		printString_ANSI
 bluChars:	.string	"[34m"
 000000d4	4280021C	lix		r8,bluChars.lower
 000000d5	D40000F6	bsr		printANSICode
 000000d6	428001C4	lix		r8,blueString.lower
-000000d7	D4000242	bsr		printString_ANSI
+000000d7	D4000256	bsr		printString_ANSI
 cyanChars:	.string	"[36m"
 000000d8	42800224	lix		r8,cyanChars.lower
 000000d9	D40000F2	bsr		printANSICode
 000000da	428001CC	lix		r8,cyanString.lower
-000000db	D400023E	bsr		printString_ANSI
+000000db	D4000252	bsr		printString_ANSI
 magChars:	.string	"[35m"
 000000dc	4280022C	lix		r8,magChars.lower
 000000dd	D40000EE	bsr		printANSICode
 000000de	428001D4	lix		r8,magentaString.lower
-000000df	D400023A	bsr		printString_ANSI
+000000df	D400024E	bsr		printString_ANSI
 yelChars:	.string	"[33m"
 000000e0	42800234	lix		r8,yelChars.lower
 000000e1	D40000EA	bsr		printANSICode
 000000e2	428001E0	lix		r8,yellowString.lower
-000000e3	D4000236	bsr		printString_ANSI
-000000e4	D400022E	bsr		newLine_ANSI
+000000e3	D400024A	bsr		printString_ANSI
+000000e4	D4000242	bsr		newLine_ANSI
 000000e5	42800204	lix		r8,defaultColors.lower
 000000e6	D40000E5	bsr		printANSICode
 ; Bright characters
@@ -374,28 +374,28 @@ redChars2:	.string	"[31;1m"
 000000e7	4280023C	lix		r8,redChars2.lower
 000000e8	D40000E3	bsr		printANSICode
 000000e9	428001B4	lix		r8,redString.lower
-000000ea	D400022F	bsr		printString_ANSI
+000000ea	D4000243	bsr		printString_ANSI
 000000eb	42800214	lix		r8,grnChars.lower
 000000ec	D40000DF	bsr		printANSICode
 000000ed	428001BC	lix		r8,greenString.lower
-000000ee	D400022B	bsr		printString_ANSI
+000000ee	D400023F	bsr		printString_ANSI
 000000ef	4280021C	lix		r8,bluChars.lower
 000000f0	D40000DB	bsr		printANSICode
 000000f1	428001C4	lix		r8,blueString.lower
-000000f2	D4000227	bsr		printString_ANSI
+000000f2	D400023B	bsr		printString_ANSI
 000000f3	42800224	lix		r8,cyanChars.lower
 000000f4	D40000D7	bsr		printANSICode
 000000f5	428001CC	lix		r8,cyanString.lower
-000000f6	D4000223	bsr		printString_ANSI
+000000f6	D4000237	bsr		printString_ANSI
 000000f7	4280022C	lix		r8,magChars.lower
 000000f8	D40000D3	bsr		printANSICode
 000000f9	428001D4	lix		r8,magentaString.lower
-000000fa	D400021F	bsr		printString_ANSI
+000000fa	D4000233	bsr		printString_ANSI
 000000fb	42800234	lix		r8,yelChars.lower
 000000fc	D40000CF	bsr		printANSICode
 000000fd	428001E0	lix		r8,yellowString.lower
-000000fe	D400021B	bsr		printString_ANSI
-000000ff	D4000213	bsr		newLine_ANSI
+000000fe	D400022F	bsr		printString_ANSI
+000000ff	D4000227	bsr		newLine_ANSI
 00000100	42800204	lix		r8,defaultColors.lower
 00000101	D40000CA	bsr		printANSICode
 ; Red on Black
@@ -403,31 +403,31 @@ redOnBlackANSI:	.string	"[27;40;31m"
 00000102	42800244	lix		r8,redOnBlackANSI.lower
 00000103	D40000C8	bsr		printANSICode
 00000104	428001B4	lix		r8,redString.lower
-00000105	D4000214	bsr		printString_ANSI
+00000105	D4000228	bsr		printString_ANSI
 00000106	428001F8	lix		r8,onString.lower
-00000107	D4000212	bsr		printString_ANSI
+00000107	D4000226	bsr		printString_ANSI
 00000108	428001F0	lix		r8,grayString.lower
-00000109	D4000210	bsr		printString_ANSI
+00000109	D4000224	bsr		printString_ANSI
 ; Bright Yellow on Green
 brtYelOnGrn:	.string "[93;42m"
 0000010a	42800250	lix		r8,brtYelOnGrn.lower
 0000010b	D40000C0	bsr		printANSICode
 0000010c	428001FC	lix		r8,brightString.lower
-0000010d	D400020C	bsr		printString_ANSI
+0000010d	D4000220	bsr		printString_ANSI
 0000010e	428001E0	lix		r8,yellowString.lower
-0000010f	D400020A	bsr		printString_ANSI
+0000010f	D400021E	bsr		printString_ANSI
 00000110	428001F8	lix		r8,onString.lower
-00000111	D4000208	bsr		printString_ANSI
+00000111	D400021C	bsr		printString_ANSI
 00000112	428001BC	lix		r8,greenString.lower
-00000113	D4000206	bsr		printString_ANSI
+00000113	D400021A	bsr		printString_ANSI
 ; Reset to default colors
 00000114	42800204	lix		r8,defaultColors.lower
 00000115	D40000B6	bsr		printANSICode
-00000116	D40001FC	bsr		newLine_ANSI
+00000116	D4000210	bsr		newLine_ANSI
 ; Hit any key to continue
-00000117	D4000241	bsr		newLine_ANSI_UART
+00000117	D4000255	bsr		newLine_ANSI_UART
 00000118	4280007C	lix		r8,hitAnyKey.lower
-00000119	D4000233	bsr		printLinebuffer_ANSI_UART
+00000119	D4000247	bsr		printLinebuffer_ANSI_UART
 keepCheckCharIn:
 0000011a	D40001A4	bsr		checkForCharAndDiscard
 0000011b	39380000	cmpi	r8,0
@@ -442,9 +442,9 @@ keepCheckCharIn:
 testSerialPort:
 0000011f	A0408000	push	r8
 00000120	42800070	lix		r8,runningString.lower
-00000121	D4000220	bsr		printString_ANSI_UART
+00000121	D4000234	bsr		printString_ANSI_UART
 00000122	4280010C	lix		r8,menuItem_06.lower
-00000123	D4000229	bsr		printLinebuffer_ANSI_UART
+00000123	D400023D	bsr		printLinebuffer_ANSI_UART
 00000124	42800020	lix		r8,0x20			; start with a space
 anotherCharT6:
 00000125	D4000172	bsr		putChar_UART
@@ -460,11 +460,11 @@ anotherCharT6:
 
 testMCP23008:
 0000012b	42800070	lix		r8,runningString.lower
-0000012c	D4000215	bsr		printString_ANSI_UART
+0000012c	D4000229	bsr		printString_ANSI_UART
 0000012d	42800124	lix		r8,menuItem_07.lower
-0000012e	D400021E	bsr		printLinebuffer_ANSI_UART
+0000012e	D4000232	bsr		printLinebuffer_ANSI_UART
 0000012f	4280007C	lix		r8,hitAnyKey.lower
-00000130	D400021C	bsr		printLinebuffer_ANSI_UART
+00000130	D4000230	bsr		printLinebuffer_ANSI_UART
 ; Code to initialize I2CIO8 card
 00000131	D40000E7	bsr		init_Regs_I2CIO8	; initialize the MCP23008 on the I2CIO8
 restartLoop:
@@ -493,7 +493,7 @@ delayFromJumpers:
 00000140	30808000	sl1		r8,r8
 00000141	30808000	sl1		r8,r8
 00000142	30808000	sl1		r8,r8
-00000143	D400018F	bsr		delay_mS
+00000143	D40001A3	bsr		delay_mS
 00000144	A1804000	pull	r8
 00000145	A1704000	pull	PC
 
@@ -509,11 +509,11 @@ delayFromJumpers:
 testMCP4231:
 00000146	A0408000	push	r8
 00000147	42800070	lix		r8,runningString.lower
-00000148	D40001F9	bsr		printString_ANSI_UART
+00000148	D400020D	bsr		printString_ANSI_UART
 00000149	4280013C	lix		r8,menuItem_08.lower
-0000014a	D4000202	bsr		printLinebuffer_ANSI_UART
+0000014a	D4000216	bsr		printLinebuffer_ANSI_UART
 0000014b	4280007C	lix		r8,hitAnyKey.lower
-0000014c	D4000200	bsr		printLinebuffer_ANSI_UART
+0000014c	D4000214	bsr		printLinebuffer_ANSI_UART
 reloadr8:
 0000014d	42800000	lix		r8,0x00				; sent out low voltage from pot
 loopForever:
@@ -535,12 +535,12 @@ loopForever:
 testPS2Keyboard:
 00000157	A0408000	push	r8
 00000158	42800070	lix		r8,runningString.lower
-00000159	D40001E8	bsr		printString_ANSI_UART
+00000159	D40001FC	bsr		printString_ANSI_UART
 0000015a	42800154	lix		r8,menuItem_09.lower
-0000015b	D40001F1	bsr		printLinebuffer_ANSI_UART
+0000015b	D4000205	bsr		printLinebuffer_ANSI_UART
 loopForeverT9:
 0000015c	D4000146	bsr		getPS2Char
-0000015d	D4000255	bsr		printByte_ANSI_UART
+0000015d	D4000269	bsr		printByte_ANSI_UART
 0000015e	3938000D	cmpi	r8,0x0D
 0000015f	D2FFFFFD	bne		loopForeverT9
 00000160	A1804000	pull	r8
@@ -553,13 +553,13 @@ loopForeverT9:
 testBuzzer:
 00000162	A0408000	push	r8
 00000163	42800070	lix		r8,runningString.lower
-00000164	D40001DD	bsr		printString_ANSI_UART
+00000164	D40001F1	bsr		printString_ANSI_UART
 00000165	4280016C	lix		r8,menuItem_10.lower
-00000166	D40001E6	bsr		printLinebuffer_ANSI_UART
-00000167	D4000188	bsr		enableBuzzer
+00000166	D40001FA	bsr		printLinebuffer_ANSI_UART
+00000167	D400019C	bsr		enableBuzzer
 00000168	42800100	lix		r8,0x100
-00000169	D4000169	bsr		delay_mS
-0000016a	D400018E	bsr		disableBuzzer
+00000169	D400017D	bsr		delay_mS
+0000016a	D40001A2	bsr		disableBuzzer
 0000016b	A1804000	pull	r8
 0000016c	A1704000	pull	PC
 
@@ -575,9 +575,9 @@ testBuzzer:
 testTBD:
 0000016d	A0408000	push	r8
 0000016e	42800070	lix		r8,runningString.lower
-0000016f	D40001D2	bsr		printString_ANSI_UART
+0000016f	D40001E6	bsr		printString_ANSI_UART
 00000170	42800184	lix		r8,menuItem_11.lower
-00000171	D40001DB	bsr		printLinebuffer_ANSI_UART
+00000171	D40001EF	bsr		printLinebuffer_ANSI_UART
 00000172	D4000003	bsr		testTimers
 00000173	A1804000	pull	r8
 00000174	A1704000	pull	PC
@@ -640,9 +640,9 @@ testRingLEDs2:
 0000019c	A0408000	push	r8
 0000019d	A0409000	push	r9
 0000019e	42800070	lix		r8,runningString.lower
-0000019f	D40001A2	bsr		printString_ANSI_UART
+0000019f	D40001B6	bsr		printString_ANSI_UART
 000001a0	4280019C	lix		r8,menuItem_12.lower
-000001a1	D40001AB	bsr		printLinebuffer_ANSI_UART
+000001a1	D40001BF	bsr		printLinebuffer_ANSI_UART
 ;
 000001a2	A1904000	pull	r9
 000001a3	A1804000	pull	r8
@@ -728,7 +728,7 @@ readToLineBuffer:
 000001b1	4290004F	lix		r9,79				; number of chars in the line buffer
 loopReadLine:
 000001b2	D40000FC	bsr		waitReadPS2_UART	; Get a character from the UART
-000001b3	D40001B7	bsr		write_ANSI_UART		; Echo character back to the UART
+000001b3	D40001CB	bsr		write_ANSI_UART		; Echo character back to the UART
 000001b4	3938000D	cmpi	r8,0x0D				; check if received char was end of line
 000001b5	D1000006	beq		gotEOL
 000001b6	3938007F	cmpi	r8,0x7F
@@ -739,7 +739,7 @@ loopReadLine:
 ; tbd add code for line too long
 gotEOL:
 000001bb	4280000A	lix		r8,0x0A				; Echo line feed after CR
-000001bc	D40001AE	bsr		write_ANSI_UART	; Put the character to the screen
+000001bc	D40001C2	bsr		write_ANSI_UART	; Put the character to the screen
 000001bd	D40000DA	bsr		putChar_UART		; Echo character back to the UART
 000001be	61600000	sdb		r0					; null at end of line read
 000001bf	C0000007	bra		doneHandlingLine
@@ -767,9 +767,9 @@ printANSICode:
 000001cb	A0408000	push	r8
 000001cc	A0408000	push	r8
 000001cd	4280001B	lix		r8,0x1b			; ESC
-000001ce	D4000139	bsr		putChar_ANSI
+000001ce	D400014D	bsr		putChar_ANSI
 000001cf	A1804000	pull	r8
-000001d0	D4000149	bsr		printString_ANSI
+000001d0	D400015D	bsr		printString_ANSI
 000001d1	A1804000	pull	r8
 000001d2	A1704000	pull	PC
 
@@ -784,9 +784,9 @@ printLong:
 000001d5	A040A000	push	r10
 000001d6	A0408000	push	r8				; temporarily save r8
 000001d7	42800030	lix		r8,0x30
-000001d8	D4000192	bsr		write_ANSI_UART
+000001d8	D40001A6	bsr		write_ANSI_UART
 000001d9	42800078	lix		r8,0x78
-000001da	D4000190	bsr		write_ANSI_UART
+000001da	D40001A4	bsr		write_ANSI_UART
 000001db	A1804000	pull	r8				; restore r8
 000001dc	42900008	lix		r9,8			; loop counter
 doNextPrintLong:
@@ -812,11 +812,11 @@ printHexVal:
 000001ea	39380009	cmpi	r8,9
 000001eb	CC000004	blt		printHexLetter
 000001ec	21880030	addi	r8,r8,0x30
-000001ed	D400017D	bsr		write_ANSI_UART
+000001ed	D4000191	bsr		write_ANSI_UART
 000001ee	C0000003	bra		donePrintHexVal
 printHexLetter:
 000001ef	21880037	addi	r8,r8,0x37		; 'A' - 10
-000001f0	D400017A	bsr		write_ANSI_UART
+000001f0	D400018E	bsr		write_ANSI_UART
 donePrintHexVal:
 000001f1	A1804000	pull	r8
 000001f2	A1704000	pull	PC
@@ -850,7 +850,7 @@ hexToSevenSeg:
 000001fd	42900000	lix		r9,0
 000001fe	20680000	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
 000001ff	68806000	ldbp	r8
-00000200	D400016D	bsr		asciiToHex_ANSI_UART
+00000200	D4000181	bsr		asciiToHex_ANSI_UART
 00000201	2B88000F	andi	r8,r8,0xf
 00000202	28998000	or		r9,r9,r8
 00000203	30909000	sl1		r9,r9
@@ -858,7 +858,7 @@ hexToSevenSeg:
 00000205	30909000	sl1		r9,r9
 00000206	30909000	sl1		r9,r9
 00000207	60806000	ldb		r8
-00000208	D4000165	bsr		asciiToHex_ANSI_UART
+00000208	D4000179	bsr		asciiToHex_ANSI_UART
 00000209	2B88000F	andi	r8,r8,0xf
 0000020a	28998000	or		r9,r9,r8
 0000020b	42503000	lix		PAR,0x3000		; seven segment display
@@ -1140,10 +1140,8 @@ waitUartTxStat:
 000002a1	A1704000	pull	PC
 
 ;--------------------------------------------------------------------
-; ps2.asm
-
 ; ps2.asm - Functions to read the PS/2 keyboard
-
+;
 ; Address	Function
 ; x0800 	Latched Keyboard Data
 ; x0801 	Latched Keyboard Status
@@ -1226,6 +1224,49 @@ gotChar:
 000002d0	A1504000	pull	PAR
 000002d1	A1704000	pull	PC
 
+;
+; waitCharPolled_PS2 - Check the polled character interface
+; wait for a character
+; return when a character is present
+; returns character received in r8
+;
+
+waitCharPolled_PS2:
+000002d2	A0405000	push	PAR
+000002d3	42500803	lix		PAR,0x0803	; PS/2 Status
+waitPS2RxStatPolled:
+000002d4	84805000	lpl		r8			; Read Status into r8
+000002d5	2B880001	andi 	r8,r8,0x1
+000002d6	C3FFFFFE	bez 	waitPS2RxStatPolled
+getCharFromPS2Polled:
+000002d7	42500802	lix 	PAR,0x0802
+000002d8	84805000	lpl		r8
+whilePS2RxStatPolled:
+000002d9	A1504000	pull	PAR
+000002da	A1704000	pull	PC
+
+;
+; checkGetStat_PS2 - Checks the polling status
+; Polled interface is active while the keyboard key is pressed
+; returns
+;	-1 if there is no character,
+;	character if there is a character
+;
+
+checkGetStat_PS2:
+000002db	A0405000	push	PAR
+000002dc	42500803	lix		PAR,0x0803	; PS/2 Status
+000002dd	84805000	lpl		r8			; Read Status into r8
+000002de	2B880001	andi	r8,r8,0x1
+000002df	C3000004	bez		charNotPresent
+000002e0	42500802	lix		PAR,0x0802
+000002e1	84805000	lpl		r8
+000002e2	C0000002	bra		gotCharIn
+charNotPresent:
+000002e3	20802000	add		r8,ZERO,MINUS1
+gotCharIn:
+000002e4	A1504000	pull	PAR
+000002e5	A1704000	pull	PC
 ;--------------------------------------------------------------------
 ; timers.asm
 
@@ -1234,16 +1275,16 @@ gotChar:
 ; Routine uses r9
 
 delay_mS:
-000002d2	A0409000	push	r9
-000002d3	42503802	lix		PAR,0x3802		; address of the mSec counter
-000002d4	84905000	lpl		r9				; read the peripheral counter into r9
-000002d5	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+000002e6	A0409000	push	r9
+000002e7	42503802	lix		PAR,0x3802		; address of the mSec counter
+000002e8	84905000	lpl		r9				; read the peripheral counter into r9
+000002e9	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_mS:
-000002d6	84905000	lpl		r9				; check the elapsed time counter
-000002d7	38389000	cmp		r8,r9
-000002d8	CCFFFFFE	blt		loop_delay_mS
-000002d9	A1904000	pull	r9
-000002da	A1704000	pull	PC
+000002ea	84905000	lpl		r9				; check the elapsed time counter
+000002eb	38389000	cmp		r8,r9
+000002ec	CCFFFFFE	blt		loop_delay_mS
+000002ed	A1904000	pull	r9
+000002ee	A1704000	pull	PC
 
 ;
 ; delay_uS - delay for the number of uSecs
@@ -1252,18 +1293,18 @@ loop_delay_mS:
 ;
 
 delay_uS:
-000002db	A0409000	push	r9
-000002dc	A0405000	push	PAR
-000002dd	42503801	lix		PAR,0x3801		; address of the uSec counter
-000002de	84905000	lpl		r9				; read the peripheral counter into r9
-000002df	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+000002ef	A0409000	push	r9
+000002f0	A0405000	push	PAR
+000002f1	42503801	lix		PAR,0x3801		; address of the uSec counter
+000002f2	84905000	lpl		r9				; read the peripheral counter into r9
+000002f3	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
 loop_delay_uS:
-000002e0	84905000	lpl		r9				; check the elapsed time counter
-000002e1	38389000	cmp		r8,r9
-000002e2	CCFFFFFE	blt		loop_delay_uS
-000002e3	A1504000	pull	PAR
-000002e4	A1904000	pull	r9
-000002e5	A1704000	pull	PC
+000002f4	84905000	lpl		r9				; check the elapsed time counter
+000002f5	38389000	cmp		r8,r9
+000002f6	CCFFFFFE	blt		loop_delay_uS
+000002f7	A1504000	pull	PAR
+000002f8	A1904000	pull	r9
+000002f9	A1704000	pull	PC
 
 ;--------------------------------------------------------------------
 ; buzzer.asm
@@ -1273,45 +1314,45 @@ loop_delay_uS:
 ;
 
 makeBuzz:
-000002e6	A0408000	push	r8
-000002e7	42800000	lix		r8,0			; first note is 0
-000002e8	D400001A	bsr 	setNote
-000002e9	D4000006	bsr		enableBuzzer
-000002ea	428000FA	lix		r8,250			; count for 1 Sec
-000002eb	D4FFFFE7	bsr		delay_mS		; call delay_ms
-000002ec	D400000C	bsr		disableBuzzer
-000002ed	A1804000	pull	r8
-000002ee	A1704000	pull	PC
+000002fa	A0408000	push	r8
+000002fb	42800000	lix		r8,0			; first note is 0
+000002fc	D400001A	bsr 	setNote
+000002fd	D4000006	bsr		enableBuzzer
+000002fe	428000FA	lix		r8,250			; count for 1 Sec
+000002ff	D4FFFFE7	bsr		delay_mS		; call delay_ms
+00000300	D400000C	bsr		disableBuzzer
+00000301	A1804000	pull	r8
+00000302	A1704000	pull	PC
 ;
 ; enableBuzzer
 ;
 
 enableBuzzer:
-000002ef	A0408000	push	r8
-000002f0	A0405000	push	PAR
-000002f1	42502800	lix		PAR,0x2800
-000002f2	84805000	lpl		r8
-000002f3	29880010	ori		r8,r8,0x10
-000002f4	85508000	spl		r8
-000002f5	A1504000	pull	PAR
-000002f6	A1804000	pull	r8
-000002f7	A1704000	pull	PC
+00000303	A0408000	push	r8
+00000304	A0405000	push	PAR
+00000305	42502800	lix		PAR,0x2800
+00000306	84805000	lpl		r8
+00000307	29880010	ori		r8,r8,0x10
+00000308	85508000	spl		r8
+00000309	A1504000	pull	PAR
+0000030a	A1804000	pull	r8
+0000030b	A1704000	pull	PC
 
 ;
 ; disableBuzzer
 ;
 
 disableBuzzer:
-000002f8	A0408000	push	r8
-000002f9	A0405000	push	PAR
-000002fa	4290FFEF	lix		r9,0xffef		; Buzzer Disable line
-000002fb	42502800	lix		PAR,0x2800
-000002fc	84805000	lpl		r8
-000002fd	2B88FFEF	andi	r8,r8,0xffef
-000002fe	85508000	spl		r8
-000002ff	A1504000	pull	PAR
-00000300	A1804000	pull	r8
-00000301	A1704000	pull	PC
+0000030c	A0408000	push	r8
+0000030d	A0405000	push	PAR
+0000030e	4290FFEF	lix		r9,0xffef		; Buzzer Disable line
+0000030f	42502800	lix		PAR,0x2800
+00000310	84805000	lpl		r8
+00000311	2B88FFEF	andi	r8,r8,0xffef
+00000312	85508000	spl		r8
+00000313	A1504000	pull	PAR
+00000314	A1804000	pull	r8
+00000315	A1704000	pull	PC
 
 ;--------------------------------------------------------------------
 ; music.asm
@@ -1323,11 +1364,11 @@ disableBuzzer:
 ;
 
 setNote:
-00000302	A0405000	push	PAR
-00000303	42504000	lix		PAR,0x4000
-00000304	85508000	spl		r8
-00000305	A1504000	pull	PAR
-00000306	A1704000	pull	PC
+00000316	A0405000	push	PAR
+00000317	42504000	lix		PAR,0x4000
+00000318	85508000	spl		r8
+00000319	A1504000	pull	PAR
+0000031a	A1704000	pull	PC
 ;--------------------------------------------------------------------
 ; ANSIScreen.asm
 
@@ -1337,31 +1378,31 @@ setNote:
 ;
 
 putChar_ANSI:
-00000307	A0409000	push	r9
-00000308	A0405000	push	PAR
-00000309	42500000	lix		PAR,0x0		; UART Status
+0000031b	A0409000	push	r9
+0000031c	A0405000	push	PAR
+0000031d	42500000	lix		PAR,0x0		; UART Status
 waitScreenTxStat:
-0000030a	84905000	lpl		r9			; Read Status into r9
-0000030b	2B990002	andi	r9,r9,0x2
-0000030c	C3FFFFFE	bez 	waitScreenTxStat
-0000030d	42500001	lix 	PAR,0x1
-0000030e	85508000	spl		r8			; echo the character
-0000030f	A1504000	pull	PAR
-00000310	A1904000	pull	r9
-00000311	A1704000	pull	PC
+0000031e	84905000	lpl		r9			; Read Status into r9
+0000031f	2B990002	andi	r9,r9,0x2
+00000320	C3FFFFFE	bez 	waitScreenTxStat
+00000321	42500001	lix 	PAR,0x1
+00000322	85508000	spl		r8			; echo the character
+00000323	A1504000	pull	PAR
+00000324	A1904000	pull	r9
+00000325	A1704000	pull	PC
 
 ;
 ; newLine_ANSI - Print out a newLine_ANSI (CR-LF)
 ;
 
 newLine_ANSI:
-00000312	A0408000	push	r8
-00000313	4280000A	lix		r8,0x0A				; Line Feed
-00000314	D4FFFFF3	bsr		putChar_ANSI	; Put the character to the screen
-00000315	4280000D	lix		r8,0x0D				; Carriage Return
-00000316	D4FFFFF1	bsr		putChar_ANSI	; Echo character back to the UART
-00000317	A1804000	pull	r8
-00000318	A1704000	pull	PC
+00000326	A0408000	push	r8
+00000327	4280000A	lix		r8,0x0A				; Line Feed
+00000328	D4FFFFF3	bsr		putChar_ANSI	; Put the character to the screen
+00000329	4280000D	lix		r8,0x0D				; Carriage Return
+0000032a	D4FFFFF1	bsr		putChar_ANSI	; Echo character back to the UART
+0000032b	A1804000	pull	r8
+0000032c	A1704000	pull	PC
 
 ;
 ; printString_ANSI - Print a screen to the current screen position
@@ -1371,19 +1412,19 @@ newLine_ANSI:
 ;
 
 printString_ANSI:
-00000319	A0408000	push	r8					; save r8
-0000031a	A0406000	push	DAR
-0000031b	20680000	add		DAR,r8,ZERO			; set the start of the string
+0000032d	A0408000	push	r8					; save r8
+0000032e	A0406000	push	DAR
+0000032f	20680000	add		DAR,r8,ZERO			; set the start of the string
 nextCharANSI:
-0000031c	68806000	ldbp	r8					; get the character01
-0000031d	39380000	cmpi	r8,0x0				; Null terminated string
-0000031e	D1000003	beq		donePrANSIStr		; done if null
-0000031f	D4FFFFE8	bsr		putChar_ANSI	; write out the character
-00000320	C0FFFFFC	bra		nextCharANSI
+00000330	68806000	ldbp	r8					; get the character01
+00000331	39380000	cmpi	r8,0x0				; Null terminated string
+00000332	D1000003	beq		donePrANSIStr		; done if null
+00000333	D4FFFFE8	bsr		putChar_ANSI	; write out the character
+00000334	C0FFFFFC	bra		nextCharANSI
 donePrANSIStr:
-00000321	A1604000	pull	DAR					; restore DAR
-00000322	A1804000	pull	r8					; restore r8
-00000323	A1704000	pull	PC					; rts
+00000335	A1604000	pull	DAR					; restore DAR
+00000336	A1804000	pull	r8					; restore r8
+00000337	A1704000	pull	PC					; rts
 
 ;
 ; printByte_ANSI
@@ -1391,44 +1432,44 @@ donePrANSIStr:
 ;
 
 printByte_ANSI:
-00000324	A0408000	push	r8
-00000325	A0409000	push	r9
-00000326	A0408000	push	r8				; temporarily save r8
-00000327	A1804000	pull	r8				; restore r8
-00000328	42900002	lix		r9,2			; loop counter
-00000329	31808000	sl8		r8,r8
-0000032a	31808000	sl8		r8,r8
-0000032b	31808000	sl8		r8,r8
+00000338	A0408000	push	r8
+00000339	A0409000	push	r9
+0000033a	A0408000	push	r8				; temporarily save r8
+0000033b	A1804000	pull	r8				; restore r8
+0000033c	42900002	lix		r9,2			; loop counter
+0000033d	31808000	sl8		r8,r8
+0000033e	31808000	sl8		r8,r8
+0000033f	31808000	sl8		r8,r8
 doNextprintByte_ANSI:
-0000032c	34808000	rol1	r8,r8
-0000032d	34808000	rol1	r8,r8
-0000032e	34808000	rol1	r8,r8
-0000032f	34808000	rol1	r8,r8
-00000330	D4000006	bsr		printHexVal_ANSI
-00000331	23990001	subi	r9,r9,1
-00000332	C7FFFFFA	bnz		doNextprintByte_ANSI
-00000333	A1904000	pull	r9
-00000334	A1804000	pull	r8
-00000335	A1704000	pull	PC
+00000340	34808000	rol1	r8,r8
+00000341	34808000	rol1	r8,r8
+00000342	34808000	rol1	r8,r8
+00000343	34808000	rol1	r8,r8
+00000344	D4000006	bsr		printHexVal_ANSI
+00000345	23990001	subi	r9,r9,1
+00000346	C7FFFFFA	bnz		doNextprintByte_ANSI
+00000347	A1904000	pull	r9
+00000348	A1804000	pull	r8
+00000349	A1704000	pull	PC
 
 ;
 ; printHexValANSI_UART
 ;
 
 printHexVal_ANSI:
-00000336	A0408000	push	r8
-00000337	2B88000F	andi	r8,r8,0xf
-00000338	39380009	cmpi	r8,9
-00000339	CC000004	blt		printHexLetterANSI
-0000033a	21880030	addi	r8,r8,0x30
-0000033b	D4FFFFCC	bsr		putChar_ANSI
-0000033c	C0000003	bra		donePrintHexValANSI
+0000034a	A0408000	push	r8
+0000034b	2B88000F	andi	r8,r8,0xf
+0000034c	39380009	cmpi	r8,9
+0000034d	CC000004	blt		printHexLetterANSI
+0000034e	21880030	addi	r8,r8,0x30
+0000034f	D4FFFFCC	bsr		putChar_ANSI
+00000350	C0000003	bra		donePrintHexValANSI
 printHexLetterANSI:
-0000033d	21880037	addi	r8,r8,0x37		; 'A' - 10
-0000033e	D4FFFFC9	bsr		putChar_ANSI
+00000351	21880037	addi	r8,r8,0x37		; 'A' - 10
+00000352	D4FFFFC9	bsr		putChar_ANSI
 donePrintHexValANSI:
-0000033f	A1804000	pull	r8
-00000340	A1704000	pull	PC
+00000353	A1804000	pull	r8
+00000354	A1704000	pull	PC
 ;--------------------------------------------------------------------
 ; ANSI_UART_io.asm
 
@@ -1444,19 +1485,19 @@ donePrintHexValANSI:
 ;
 
 printString_ANSI_UART:
-00000341	A0408000	push	r8					; save r8
-00000342	A0406000	push	DAR
-00000343	20680000	add		DAR,r8,ZERO			; set the start of the string
+00000355	A0408000	push	r8					; save r8
+00000356	A0406000	push	DAR
+00000357	20680000	add		DAR,r8,ZERO			; set the start of the string
 nextChar:
-00000344	68806000	ldbp	r8					; get the character01
-00000345	39380000	cmpi	r8,0x0				; Null terminated string
-00000346	D1000003	beq		donePrStr			; done if null
-00000347	D4000023	bsr		write_ANSI_UART	; write out the character
-00000348	C0FFFFFC	bra		nextChar
+00000358	68806000	ldbp	r8					; get the character01
+00000359	39380000	cmpi	r8,0x0				; Null terminated string
+0000035a	D1000003	beq		donePrStr			; done if null
+0000035b	D4000023	bsr		write_ANSI_UART	; write out the character
+0000035c	C0FFFFFC	bra		nextChar
 donePrStr:
-00000349	A1604000	pull	DAR					; restore DAR
-0000034a	A1804000	pull	r8					; restore r8
-0000034b	A1704000	pull	PC					; rts
+0000035d	A1604000	pull	DAR					; restore DAR
+0000035e	A1804000	pull	r8					; restore r8
+0000035f	A1704000	pull	PC					; rts
 
 ;
 ; printLinebuffer_ANSI_UART - Print a screen to the current screen position with CRLF at the end
@@ -1466,33 +1507,33 @@ donePrStr:
 ;
 
 printLinebuffer_ANSI_UART:
-0000034c	A0408000	push	r8					; save r8
-0000034d	A0406000	push	DAR
-0000034e	21680000	addi	DAR,r8,0x0			; set the start of the string
+00000360	A0408000	push	r8					; save r8
+00000361	A0406000	push	DAR
+00000362	21680000	addi	DAR,r8,0x0			; set the start of the string
 nextChar2:
-0000034f	68806000	ldbp	r8					; get the character
-00000350	39380000	cmpi	r8,0x0				; Null terminated string
-00000351	D1000003	beq		donePrStr2			; done if null
-00000352	D4000018	bsr		write_ANSI_UART	; write out the character
-00000353	C0FFFFFC	bra		nextChar2
+00000363	68806000	ldbp	r8					; get the character
+00000364	39380000	cmpi	r8,0x0				; Null terminated string
+00000365	D1000003	beq		donePrStr2			; done if null
+00000366	D4000018	bsr		write_ANSI_UART	; write out the character
+00000367	C0FFFFFC	bra		nextChar2
 donePrStr2:
-00000354	D4000004	bsr		newLine_ANSI_UART
-00000355	A1604000	pull	DAR					; restore DAR
-00000356	A1804000	pull	r8					; restore r8
-00000357	A1704000	pull	PC					; rts
+00000368	D4000004	bsr		newLine_ANSI_UART
+00000369	A1604000	pull	DAR					; restore DAR
+0000036a	A1804000	pull	r8					; restore r8
+0000036b	A1704000	pull	PC					; rts
 
 ;
 ; newLine_ANSI_UART - Print out a newLine_ANSI_UART (CR-LF)
 ;
 
 newLine_ANSI_UART:
-00000358	A0408000	push	r8
-00000359	4280000A	lix		r8,0x0A				; Line Feed
-0000035a	D4000010	bsr		write_ANSI_UART	; Put the character to the screen
-0000035b	4280000D	lix		r8,0x0D				; Carriage Return
-0000035c	D400000E	bsr		write_ANSI_UART		; Echo character back to the UART
-0000035d	A1804000	pull	r8
-0000035e	A1704000	pull	PC
+0000036c	A0408000	push	r8
+0000036d	4280000A	lix		r8,0x0A				; Line Feed
+0000036e	D4000010	bsr		write_ANSI_UART	; Put the character to the screen
+0000036f	4280000D	lix		r8,0x0D				; Carriage Return
+00000370	D400000E	bsr		write_ANSI_UART		; Echo character back to the UART
+00000371	A1804000	pull	r8
+00000372	A1704000	pull	PC
 
 ;
 ; clearScreen_ANSI_UART - Clear the screen routine
@@ -1500,26 +1541,26 @@ newLine_ANSI_UART:
 ;
 
 clearScreen_ANSI_UART:
-0000035f	A0408000	push	r8				; save r8
-00000360	4280001B	lix		r8,0x1b			; ESC
-00000361	D4000009	bsr		write_ANSI_UART
-00000362	4280005B	lix		r8,0x5b			; [
-00000363	D4000007	bsr		write_ANSI_UART
-00000364	42800032	lix		r8,0x32			; 2
-00000365	D4000005	bsr		write_ANSI_UART
-00000366	4280004A	lix		r8,0x4A			; J
-00000367	D4000003	bsr		write_ANSI_UART
-00000368	A1804000	pull	r8
-00000369	A1704000	pull	PC				; rts
+00000373	A0408000	push	r8				; save r8
+00000374	4280001B	lix		r8,0x1b			; ESC
+00000375	D4000009	bsr		write_ANSI_UART
+00000376	4280005B	lix		r8,0x5b			; [
+00000377	D4000007	bsr		write_ANSI_UART
+00000378	42800032	lix		r8,0x32			; 2
+00000379	D4000005	bsr		write_ANSI_UART
+0000037a	4280004A	lix		r8,0x4A			; J
+0000037b	D4000003	bsr		write_ANSI_UART
+0000037c	A1804000	pull	r8
+0000037d	A1704000	pull	PC				; rts
 
 ; write_ANSI_UART
 ; write out a character to both
 ;	the ANSI screen and the UART
 
 write_ANSI_UART:
-0000036a	D4FFFF9D	bsr		putChar_ANSI
-0000036b	D4FFFF2C	bsr		putChar_UART
-0000036c	A1704000	pull	PC
+0000037e	D4FFFF9D	bsr		putChar_ANSI
+0000037f	D4FFFF18	bsr		putChar_UART
+00000380	A1704000	pull	PC
 
 ;
 ; asciiToHex_ANSI_UART - Convert a single ASCII hex character into a nibble
@@ -1537,37 +1578,37 @@ write_ANSI_UART:
 ;
 
 asciiToHex_ANSI_UART:
-0000036d	39380066	cmpi	r8,0x66			; past 'f'
-0000036e	CC000011	blt		a2h_Error
-0000036f	39380030	cmpi	r8,0x30			; below '0'
-00000370	CF00000F	bgt		a2h_Error
-00000371	3938003A	cmpi	r8,0x3A			; '0' - '9'
-00000372	CF000009	bgt		gotDigit
-00000373	39380041	cmpi	r8,0x41			; ':' - '@'
-00000374	CF00000B	bgt		a2h_Error
-00000375	39380047	cmpi	r8,0x47			; 'A' - 'F'
-00000376	CC000007	blt		gotUpperLetter
-00000377	39380061	cmpi	r8,0x61			; 'G' - 'tick'
-00000378	CC000007	blt		a2h_Error
+00000381	39380066	cmpi	r8,0x66			; past 'f'
+00000382	CC000011	blt		a2h_Error
+00000383	39380030	cmpi	r8,0x30			; below '0'
+00000384	CF00000F	bgt		a2h_Error
+00000385	3938003A	cmpi	r8,0x3A			; '0' - '9'
+00000386	CF000009	bgt		gotDigit
+00000387	39380041	cmpi	r8,0x41			; ':' - '@'
+00000388	CF00000B	bgt		a2h_Error
+00000389	39380047	cmpi	r8,0x47			; 'A' - 'F'
+0000038a	CC000007	blt		gotUpperLetter
+0000038b	39380061	cmpi	r8,0x61			; 'G' - 'tick'
+0000038c	CC000007	blt		a2h_Error
 ; Lower case letter
-00000379	23880057	subi	r8,r8,0x57
-0000037a	C000000A	bra		doneConvA2H
+0000038d	23880057	subi	r8,r8,0x57
+0000038e	C000000A	bra		doneConvA2H
 ; number 0-9
 gotDigit:
-0000037b	23880030	subi	r8,r8,0x30
-0000037c	C0000008	bra		doneConvA2H
+0000038f	23880030	subi	r8,r8,0x30
+00000390	C0000008	bra		doneConvA2H
 ; A-F
 gotUpperLetter:
-0000037d	23880037	subi	r8,r8,0x37
-0000037e	C0000006	bra		doneConvA2H
+00000391	23880037	subi	r8,r8,0x37
+00000392	C0000006	bra		doneConvA2H
 a2h_Error:
-0000037f	42800060	lix		r8,syntaxError.lower
-00000380	D4FFFFD8	bsr		newLine_ANSI_UART
-00000381	D4FFFFC0	bsr		printString_ANSI_UART
-00000382	D4FFFFD6	bsr		newLine_ANSI_UART
-00000383	4280DEAD	lix		r8,0xDEAD
+00000393	42800060	lix		r8,syntaxError.lower
+00000394	D4FFFFD8	bsr		newLine_ANSI_UART
+00000395	D4FFFFC0	bsr		printString_ANSI_UART
+00000396	D4FFFFD6	bsr		newLine_ANSI_UART
+00000397	4280DEAD	lix		r8,0xDEAD
 doneConvA2H:
-00000384	A1704000	pull	PC
+00000398	A1704000	pull	PC
 
 ; hexToSevenSeg_ANSI_UART - Convert a two ASCII digit value into a hex byte
 ; Passed: r8 points to the start of the hex string
@@ -1576,61 +1617,61 @@ doneConvA2H:
 ;
 
 hexToSevenSeg_ANSI_UART:
-00000385	A0409000	push	r9
-00000386	A0406000	push	DAR
-00000387	A0405000	push	PAR
-00000388	42900000	lix		r9,0
-00000389	20680000	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
-0000038a	68806000	ldbp	r8
-0000038b	D4FFFFE2	bsr		asciiToHex_ANSI_UART
-0000038c	3938DEAD	cmpi	r8,0xDEAD
-0000038d	D1000011	beq		badHexVal
-0000038e	2B88000F	andi	r8,r8,0xf
-0000038f	28998000	or		r9,r9,r8
-00000390	30909000	sl1		r9,r9
-00000391	30909000	sl1		r9,r9
-00000392	30909000	sl1		r9,r9
-00000393	30909000	sl1		r9,r9
-00000394	60806000	ldb		r8
-00000395	D4FFFFD8	bsr		asciiToHex_ANSI_UART
-00000396	3938DEAD	cmpi	r8,0xDEAD
-00000397	D1000007	beq		badHexVal
-00000398	2B88000F	andi	r8,r8,0xf
-00000399	28998000	or		r9,r9,r8
-0000039a	42503000	lix		PAR,0x3000		; seven segment display
-0000039b	85509000	spl		r9
-0000039c	20890000	add		r8,r9,ZERO
-0000039d	C0000006	bra		valOKDone
+00000399	A0409000	push	r9
+0000039a	A0406000	push	DAR
+0000039b	A0405000	push	PAR
+0000039c	42900000	lix		r9,0
+0000039d	20680000	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
+0000039e	68806000	ldbp	r8
+0000039f	D4FFFFE2	bsr		asciiToHex_ANSI_UART
+000003a0	3938DEAD	cmpi	r8,0xDEAD
+000003a1	D1000011	beq		badHexVal
+000003a2	2B88000F	andi	r8,r8,0xf
+000003a3	28998000	or		r9,r9,r8
+000003a4	30909000	sl1		r9,r9
+000003a5	30909000	sl1		r9,r9
+000003a6	30909000	sl1		r9,r9
+000003a7	30909000	sl1		r9,r9
+000003a8	60806000	ldb		r8
+000003a9	D4FFFFD8	bsr		asciiToHex_ANSI_UART
+000003aa	3938DEAD	cmpi	r8,0xDEAD
+000003ab	D1000007	beq		badHexVal
+000003ac	2B88000F	andi	r8,r8,0xf
+000003ad	28998000	or		r9,r9,r8
+000003ae	42503000	lix		PAR,0x3000		; seven segment display
+000003af	85509000	spl		r9
+000003b0	20890000	add		r8,r9,ZERO
+000003b1	C0000006	bra		valOKDone
 badHexVal:
-0000039e	42800060	lix		r8,syntaxError.lower
-0000039f	D4FFFFB9	bsr		newLine_ANSI_UART
-000003a0	D4FFFFA1	bsr		printString_ANSI_UART
-000003a1	D4FFFFB7	bsr		newLine_ANSI_UART
-000003a2	4280DEAD	lix		r8,0xDEAD
+000003b2	42800060	lix		r8,syntaxError.lower
+000003b3	D4FFFFB9	bsr		newLine_ANSI_UART
+000003b4	D4FFFFA1	bsr		printString_ANSI_UART
+000003b5	D4FFFFB7	bsr		newLine_ANSI_UART
+000003b6	4280DEAD	lix		r8,0xDEAD
 valOKDone:
-000003a3	A1504000	pull	PAR
-000003a4	A1604000	pull	DAR
-000003a5	A1904000	pull	r9
-000003a6	A1704000	pull	PC
+000003b7	A1504000	pull	PAR
+000003b8	A1604000	pull	DAR
+000003b9	A1904000	pull	r9
+000003ba	A1704000	pull	PC
 
 ;
 ; printHexVal_ANSI_UART
 ;
 
 printHexVal_ANSI_UART:
-000003a7	A0408000	push	r8
-000003a8	2B88000F	andi	r8,r8,0xf
-000003a9	39380009	cmpi	r8,9
-000003aa	CC000004	blt		printHexLetterANSI_UART
-000003ab	21880030	addi	r8,r8,0x30
-000003ac	D4FFFFBE	bsr		write_ANSI_UART
-000003ad	C0000003	bra		doneprintHexValANSI_UART
+000003bb	A0408000	push	r8
+000003bc	2B88000F	andi	r8,r8,0xf
+000003bd	39380009	cmpi	r8,9
+000003be	CC000004	blt		printHexLetterANSI_UART
+000003bf	21880030	addi	r8,r8,0x30
+000003c0	D4FFFFBE	bsr		write_ANSI_UART
+000003c1	C0000003	bra		doneprintHexValANSI_UART
 printHexLetterANSI_UART:
-000003ae	21880037	addi	r8,r8,0x37		; 'A' - 10
-000003af	D4FFFFBB	bsr		write_ANSI_UART
+000003c2	21880037	addi	r8,r8,0x37		; 'A' - 10
+000003c3	D4FFFFBB	bsr		write_ANSI_UART
 doneprintHexValANSI_UART:
-000003b0	A1804000	pull	r8
-000003b1	A1704000	pull	PC
+000003c4	A1804000	pull	r8
+000003c5	A1704000	pull	PC
 
 ;
 ; printByte_ANSI_UART
@@ -1638,31 +1679,31 @@ doneprintHexValANSI_UART:
 ;
 
 printByte_ANSI_UART:
-000003b2	A0408000	push	r8
-000003b3	A0409000	push	r9
-000003b4	A040A000	push	r10
-000003b5	A0408000	push	r8				; temporarily save r8
-000003b6	42800030	lix		r8,0x30
-000003b7	D4FFFFB3	bsr		write_ANSI_UART
-000003b8	42800078	lix		r8,0x78
-000003b9	D4FFFFB1	bsr		write_ANSI_UART
-000003ba	A1804000	pull	r8				; restore r8
-000003bb	42900002	lix		r9,2			; loop counter
-000003bc	31808000	sl8		r8,r8
-000003bd	31808000	sl8		r8,r8
-000003be	31808000	sl8		r8,r8
+000003c6	A0408000	push	r8
+000003c7	A0409000	push	r9
+000003c8	A040A000	push	r10
+000003c9	A0408000	push	r8				; temporarily save r8
+000003ca	42800030	lix		r8,0x30
+000003cb	D4FFFFB3	bsr		write_ANSI_UART
+000003cc	42800078	lix		r8,0x78
+000003cd	D4FFFFB1	bsr		write_ANSI_UART
+000003ce	A1804000	pull	r8				; restore r8
+000003cf	42900002	lix		r9,2			; loop counter
+000003d0	31808000	sl8		r8,r8
+000003d1	31808000	sl8		r8,r8
+000003d2	31808000	sl8		r8,r8
 doNextprintByteANSI_UART:
-000003bf	34808000	rol1	r8,r8
-000003c0	34808000	rol1	r8,r8
-000003c1	34808000	rol1	r8,r8
-000003c2	34808000	rol1	r8,r8
-000003c3	D4FFFFE4	bsr		printHexVal_ANSI_UART
-000003c4	23990001	subi	r9,r9,1
-000003c5	C7000011	bnz		doNextprintShortANSI_UART
-000003c6	A1A04000	pull	r10
-000003c7	A1904000	pull	r9
-000003c8	A1804000	pull	r8
-000003c9	A1704000	pull	PC
+000003d3	34808000	rol1	r8,r8
+000003d4	34808000	rol1	r8,r8
+000003d5	34808000	rol1	r8,r8
+000003d6	34808000	rol1	r8,r8
+000003d7	D4FFFFE4	bsr		printHexVal_ANSI_UART
+000003d8	23990001	subi	r9,r9,1
+000003d9	C7000011	bnz		doNextprintShortANSI_UART
+000003da	A1A04000	pull	r10
+000003db	A1904000	pull	r9
+000003dc	A1804000	pull	r8
+000003dd	A1704000	pull	PC
 
 ;
 ; printShort_ANSI_UART
@@ -1670,30 +1711,30 @@ doNextprintByteANSI_UART:
 ;
 
 printShort_ANSI_UART:
-000003ca	A0408000	push	r8
-000003cb	A0409000	push	r9
-000003cc	A040A000	push	r10
-000003cd	A0408000	push	r8				; temporarily save r8
-000003ce	42800030	lix		r8,0x30
-000003cf	D4FFFF9B	bsr		write_ANSI_UART
-000003d0	42800078	lix		r8,0x78
-000003d1	D4FFFF99	bsr		write_ANSI_UART
-000003d2	A1804000	pull	r8				; restore r8
-000003d3	42900004	lix		r9,4			; loop counter
-000003d4	31808000	sl8		r8,r8
-000003d5	31808000	sl8		r8,r8
+000003de	A0408000	push	r8
+000003df	A0409000	push	r9
+000003e0	A040A000	push	r10
+000003e1	A0408000	push	r8				; temporarily save r8
+000003e2	42800030	lix		r8,0x30
+000003e3	D4FFFF9B	bsr		write_ANSI_UART
+000003e4	42800078	lix		r8,0x78
+000003e5	D4FFFF99	bsr		write_ANSI_UART
+000003e6	A1804000	pull	r8				; restore r8
+000003e7	42900004	lix		r9,4			; loop counter
+000003e8	31808000	sl8		r8,r8
+000003e9	31808000	sl8		r8,r8
 doNextprintShortANSI_UART:
-000003d6	34808000	rol1	r8,r8
-000003d7	34808000	rol1	r8,r8
-000003d8	34808000	rol1	r8,r8
-000003d9	34808000	rol1	r8,r8
-000003da	D4FFFFCD	bsr		printHexVal_ANSI_UART
-000003db	23990001	subi	r9,r9,1
-000003dc	C7FFFFFA	bnz		doNextprintShortANSI_UART
-000003dd	A1A04000	pull	r10
-000003de	A1904000	pull	r9
-000003df	A1804000	pull	r8
-000003e0	A1704000	pull	PC
+000003ea	34808000	rol1	r8,r8
+000003eb	34808000	rol1	r8,r8
+000003ec	34808000	rol1	r8,r8
+000003ed	34808000	rol1	r8,r8
+000003ee	D4FFFFCD	bsr		printHexVal_ANSI_UART
+000003ef	23990001	subi	r9,r9,1
+000003f0	C7FFFFFA	bnz		doNextprintShortANSI_UART
+000003f1	A1A04000	pull	r10
+000003f2	A1904000	pull	r9
+000003f3	A1804000	pull	r8
+000003f4	A1704000	pull	PC
 
 ;
 ; printLong_ANSI_UART
@@ -1701,34 +1742,34 @@ doNextprintShortANSI_UART:
 ;
 
 printLong_ANSI_UART:
-000003e1	A0408000	push	r8
-000003e2	A0409000	push	r9
-000003e3	A040A000	push	r10
-000003e4	A0408000	push	r8				; temporarily save r8
-000003e5	42800030	lix		r8,0x30
-000003e6	D4FFFF84	bsr		write_ANSI_UART
-000003e7	42800078	lix		r8,0x78
-000003e8	D4FFFF82	bsr		write_ANSI_UART
-000003e9	A1804000	pull	r8				; restore r8
-000003ea	42900008	lix		r9,8			; loop counter
+000003f5	A0408000	push	r8
+000003f6	A0409000	push	r9
+000003f7	A040A000	push	r10
+000003f8	A0408000	push	r8				; temporarily save r8
+000003f9	42800030	lix		r8,0x30
+000003fa	D4FFFF84	bsr		write_ANSI_UART
+000003fb	42800078	lix		r8,0x78
+000003fc	D4FFFF82	bsr		write_ANSI_UART
+000003fd	A1804000	pull	r8				; restore r8
+000003fe	42900008	lix		r9,8			; loop counter
 doNextprintLongANSI_UART:
-000003eb	34808000	rol1	r8,r8
-000003ec	34808000	rol1	r8,r8
-000003ed	34808000	rol1	r8,r8
-000003ee	34808000	rol1	r8,r8
-000003ef	D4FFFFB8	bsr		printHexVal_ANSI_UART
-000003f0	23990001	subi	r9,r9,1
-000003f1	C7FFFFFA	bnz		doNextprintLongANSI_UART
-000003f2	A1A04000	pull	r10
-000003f3	A1904000	pull	r9
-000003f4	A1804000	pull	r8
-000003f5	A1704000	pull	PC
+000003ff	34808000	rol1	r8,r8
+00000400	34808000	rol1	r8,r8
+00000401	34808000	rol1	r8,r8
+00000402	34808000	rol1	r8,r8
+00000403	D4FFFFB8	bsr		printHexVal_ANSI_UART
+00000404	23990001	subi	r9,r9,1
+00000405	C7FFFFFA	bnz		doNextprintLongANSI_UART
+00000406	A1A04000	pull	r10
+00000407	A1904000	pull	r9
+00000408	A1804000	pull	r8
+00000409	A1704000	pull	PC
 
 ; putChar_ANSI_UART
 ; write out a character to both
 ;	the ANSI screen and the UART
 
 putChar_ANSI_UART:
-000003f6	D4FFFF11	bsr		putChar_ANSI
-000003f7	D4FFFEA0	bsr		putChar_UART
-000003f8	A1704000	pull	PC
+0000040a	D4FFFF11	bsr		putChar_ANSI
+0000040b	D4FFFE8C	bsr		putChar_UART
+0000040c	A1704000	pull	PC

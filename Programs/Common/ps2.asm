@@ -7,25 +7,22 @@
 ; x0802 	Polled Keyboard Data
 ; x0803 	Polled Keyboard Status
 ;
-; getPS2Char
+; getChar_PS2
 ; returns character received in r8
 ;
 
-getPS2Char:
-	push	r9
+getChar_PS2:
 	push	PAR
 	lix		PAR,0x0801	; PS/2 Status
 waitPS2RxStat:
-	lpl		r9			; Read Status into r9
-	andi	r9,r9,0x1
+	lpl		r8			; Read Status into r9
+	andi 	r8,r8,1
 	bez 	waitPS2RxStat
 getCharFromPS2:
 	lix 	PAR,0x0800
 	lpl		r8
-	lix		PAR,0x0801	; PS/2 Status
 whilePS2RxStat:
 	pull	PAR
-	pull	r9
 	pull	PC
 
 ; waitReadPS2_UART

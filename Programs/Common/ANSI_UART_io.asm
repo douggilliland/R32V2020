@@ -209,26 +209,24 @@ doneprintHexValANSI_UART:
 printByte_ANSI_UART:
 	push	r8
 	push	r9
-	push	r10
 	push	r8				; temporarily save r8
-	lix		r8,0x30
-	bsr		write_ANSI_UART
+	lix		r8,0x30			; print 0x
+	bsr		putChar_ANSI_UART
 	lix		r8,0x78
-	bsr		write_ANSI_UART
+	bsr		putChar_ANSI_UART
 	pull	r8				; restore r8
 	lix		r9,2			; loop counter
 	sl8		r8,r8
 	sl8		r8,r8
 	sl8		r8,r8
-doNextprintByteANSI_UART:
+doNextprintByte_ANSI_UART:
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
 	bsr		printHexVal_ANSI_UART
 	subi	r9,r9,1
-	bnz		doNextprintShortANSI_UART
-	pull	r10
+	bnz		doNextprintByte_ANSI_UART
 	pull	r9
 	pull	r8
 	pull	PC

@@ -1,6 +1,8 @@
 ;--------------------------------------------------------------------
 ; uart.asm
 
+missingHandshake: .string "*** Run PuTTY and enable hardware handshake ***"
+
 ;
 ; waitGetCharFromUART
 ; returns character received in r8
@@ -25,16 +27,29 @@ waitUartRxStat:
 ;
 
 putChar_UART:
-	push	r9
 	push	PAR
+	push	r8
 	lix		PAR,0x1800	; UART Status
 waitUartTxStat:
-	lpl		r9			; Read Status into r9
-	andi	r9,r9,0x2
-	bez 	waitUartTxStat
+	lpl		r8			; Read Status into r8
+	andi 	r8,r8,0x2
+	bnz 	uartRdy
+; Remind user to enable HW handshake
+; would be better to add a HW handshake timeout
+; Since the USB is so much faster it is unlikely this path 
+;	will be exercised. 
+; For cards with RS-232 serial this would be a serious concern
+; It's more likely that PuTTY needed to be run in HW handshake mode.
+handshakeStuck:
+	lix		r8,missingHandshake.lower
+	bsr		printString_ANSI
+	pull	r8
+	bra		getOut
+uartRdy:
 	lix 	PAR,0x1801
+	pull	r8
 	spl		r8			; echo the character
+getOut:
 	pull	PAR
-	pull	r9
 	pull	PC
 	

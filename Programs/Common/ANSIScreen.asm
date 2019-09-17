@@ -82,7 +82,7 @@ doNextprintByte_ANSI:
 	pull	PC
 	
 ;
-; printHexValANSI_UART
+; printHexValANSI
 ;
 
 printHexVal_ANSI:
@@ -97,5 +97,53 @@ printHexLetterANSI:
 	addi	r8,r8,0x37		; 'A' - 10
 	bsr		putChar_ANSI
 donePrintHexValANSI:
+	pull	r8
+	pull	PC
+	
+;
+; clearScreen_ANSI - Clear the screen routine
+; ANSI Terminal has an escape sequence which clears the screen and homes cursor
+; No passed value
+; Uses r8 (saved during function)
+; no return value
+;
+
+clearScreen_ANSI:
+	push	r8				; save r8
+	lix		r8,0x1b			; ESC
+	bsr		putChar_ANSI
+	lix		r8,0x5b			; [
+	bsr		putChar_ANSI
+	lix		r8,0x32			; 2
+	bsr		putChar_ANSI
+	lix		r8,0x4A			; J
+	bsr		putChar_ANSI
+	pull	r8
+	pull	PC				; rts
+
+;
+; printLong_ANSI
+; r8 contains the long value to print
+;
+
+printLong_ANSI:
+	push	r8
+	push	r9
+	push	r8				; temporarily save r8
+	lix		r8,0x30			; print 0x
+	bsr		putChar_ANSI
+	lix		r8,0x78
+	bsr		putChar_ANSI
+	pull	r8				; restore r8
+	lix		r9,8			; loop counter
+doNextprintLong_ANSI:
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	rol1	r8,r8
+	bsr		printHexVal_ANSI
+	subi	r9,r9,1
+	bnz		doNextprintLong_ANSI
+	pull	r9
 	pull	r8
 	pull	PC
