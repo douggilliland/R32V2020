@@ -4,7 +4,7 @@ start:
 	lix	SAR,helloWorld.LOWER
 ;	add	SAR,r0,r0	; Initialize Stack Pointer (used for return address)
 	sss	r7			; push the call address -1
-	bra	clearScreen
+	bra	clearMemMapScreen
 	add	par,r0,r0	; start of screen
 readDataMemory:
 	add	dar,r0,r0	; clear the data memory addr pointer
@@ -47,14 +47,14 @@ loopETCounter:
 	spl	r10			; store value
 	bra	loopETCounter
 ;
-; clearScreen - Clear the screen routine
+; clearMemMapScreen - Clear the screen routine
 ; Fills the screen with space characters
 ; Screen is memory mapped
 ; Screen is 64 columns by 32 rows = 2KB total space
 ; Return address (-1) is on the stack - need to increment before return
 ;
 
-clearScreen:
+clearMemMapScreen:
 	add par,r0,r0	; start of screen character memory
 	lix	r8,0x0020	; fill with spaces
 	lix r9,0x7FE	; loopCount	(1K minus 1)

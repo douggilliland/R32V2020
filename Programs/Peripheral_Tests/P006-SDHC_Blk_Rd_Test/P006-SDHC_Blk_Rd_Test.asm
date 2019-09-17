@@ -567,7 +567,7 @@ doNextprintLong_ANSI_UART:
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
-	bsr		printHexVal_ANSI_UART
+	bsr		printHexValANSI_UART
 	subi	r9,r9,1
 	bnz		doNextprintLong_ANSI_UART
 	pull	r9
@@ -623,7 +623,7 @@ doNextprintShort_ANSI_UART:
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
-	bsr		printHexVal_ANSI_UART
+	bsr		printHexValANSI_UART
 	subi	r9,r9,1
 	bnz		doNextprintShort_ANSI_UART
 	pull	r9
@@ -653,7 +653,7 @@ doNextprintByte_ANSI_UART:
 	rol1	r8,r8
 	rol1	r8,r8
 	rol1	r8,r8
-	bsr		printHexVal_ANSI_UART
+	bsr		printHexValANSI_UART
 	subi	r9,r9,1
 	bnz		doNextprintByte_ANSI_UART
 	pull	r9
@@ -696,10 +696,10 @@ putChar_ANSI_UART:
 	pull	PC
 
 ;
-; printHexVal_ANSI_UART
+; printHexValANSI_UART
 ;
 
-printHexVal_ANSI_UART:
+printHexValANSI_UART:
 	push	r8
 	andi	r8,r8,0xf
 	cmpi	r8,9
@@ -715,7 +715,7 @@ donePrintHexVal:
 	pull	PC
 
 ;
-; printHexVal_ANSI_UART
+; printHexValANSI_UART
 ;
 
 printHexVal_ANSI:
