@@ -70,7 +70,6 @@
 ;
 
 prompt:	.string "(R32V2020) SDHC Data RAM Test Utility v0.0.1"
-missingHandshake: .string "*** Run PuTTY and enable hardware handshake ***"
 screenPtr:	.long 0x0000
 screenBase:	.long 0x0
 syntaxError:	.string "*** Bad number error (at a2h_Error) ***"

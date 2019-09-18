@@ -24,11 +24,11 @@ menuItem_03:	.string "03 - Screen scroll speed"
 ;
 
 main:
-	bsr		clearANSIScreenAndUART
+	bsr		clearScreen_ANSI_UART
 	lix		r8,prompt.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	bsr		printMenu
-	bsr		getLine
+	bsr		readToLineBuffer
 	bsr		callTests
 	bra		main
 
@@ -39,11 +39,11 @@ main:
 printMenu:
 	push	r8
 	lix		r8,menuItem_01.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,menuItem_02.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	lix		r8,menuItem_03.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 	pull	r8
 	pull	PC
 
@@ -59,7 +59,7 @@ printMenu:
 callTests:
 	push	r8
 	lix		r8,lineBuff.lower
-	bsr		hexToSevenSeg
+	bsr		hexToSevenSeg_ANSI_UART
 ; testCharWriteSpeed
 	cmpi	r8,0x01
 	bne		skipTo2
@@ -81,7 +81,7 @@ skipTo3:
 skipToEnd:
 	push	r8
 	lix		r8,syntaxError.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	pull	r8
 doneTests:
 	pull	r8
@@ -98,7 +98,7 @@ testCharWriteSpeed:
 	push	r8
 	push	r9
 	push	r10
-	bsr		clearANSIScreen
+	bsr		clearScreen_ANSI
 	lix		r8,10		; Delay for 10 mS to give the screen time to clear
 	bsr		delay_mS
 	lix		r8,0x31		; char to print is '1'
@@ -119,15 +119,15 @@ waitScreenTxStat3:
 	lpl		r8			; read the counter
 	sub		r8,r9,r8	; How many microseconds to clear screen?
 	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-	bsr		newLine
+	bsr		newLine_ANSI_UART
 	push	r8
 	lix		r8,testMetric.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	pull	r8
-	bsr		printLong
-	bsr		newLine
+	bsr		printLong_ANSI_UART
+	bsr		newLine_ANSI_UART
 	lix		r8,hitAnyKey.lower
-	bsr		printLine
+	bsr		printLinebuffer_ANSI_UART
 reload001:
 	bsr		checkForCharAndDiscard
 	cmpi	r8,0
@@ -155,22 +155,22 @@ testScreenClearSpeed:
 	lix		PAR,0x3801	; microsecond counter
 	lpl		r9			; read the counter
 clearAgain:
-	bsr		clearANSIScreen
+	bsr		clearScreen_ANSI
 	subi	r10,r10,1
 	bnz		clearAgain
 	lix		PAR,0x3801	; microsecond counter
 	lpl		r8			; read the counter
 	sub		r8,r9,r8	; How many microseconds to clear screen?
 	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-	bsr		newLine
+	bsr		newLine_ANSI_UART
 	push	r8
 	lix		r8,testMetric.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	pull	r8
-	bsr		printLong
-	bsr		newLine
+	bsr		printLong_ANSI_UART
+	bsr		newLine_ANSI_UART
 	lix		r8,hitAnyKey.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 reload002:
 	bsr		checkForCharAndDiscard
 	cmpi	r8,0
@@ -196,7 +196,7 @@ testScreenScrollSpeed:
 	lix		r8,0x0A				; Line Feed
 	lix		r10,26				; prescroll by 26 lines to get to the bottom of the screen
 scrollAgain:
-	bsr		putCharToANSIScreen
+	bsr		putChar_ANSI
 	subi	r10,r10,1
 	bnz		scrollAgain
 	lix		r8,500		; Delay for 500 mS to give the screen time to scroll
@@ -219,15 +219,15 @@ waitScreenTxStat2:
 	lpl		r8			; read the counter
 	sub		r8,r9,r8	; How many microseconds to clear screen?
 	bsr		wr7Seg8Dig	; put number of microseconds out to 7 seg display
-	bsr		newLine
+	bsr		newLine_ANSI_UART
 	push	r8
 	lix		r8,testMetric.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 	pull	r8
-	bsr		printLong
-	bsr		newLine
+	bsr		printLong_ANSI_UART
+	bsr		newLine_ANSI_UART
 	lix		r8,hitAnyKey.lower
-	bsr		printString
+	bsr		printString_ANSI_UART
 reload003:
 	bsr		checkForCharAndDiscard
 	cmpi	r8,0
@@ -239,495 +239,11 @@ reload003:
 	pull	PAR
 	pull	PC
 	
-;
-; clearANSIScreenAndUART - Clear the screen routine
-; ANSI Terminal has an escape sequence which clears the screen and homes cursor
-;
-
-clearANSIScreen:
-	push	r8				; save r8
-	lix		r8,0x1b			; ESC
-	lix		PAR,0x0		; ANSI Screen Status (UART style)
-waitScreenTxStat4:
-	lpl		r11			; Read Status into r9
-	andi	r11,r11,0x2
-	bez 	waitScreenTxStat4
-	lix 	PAR,0x1		; ANSI Screen Data (UART style)
-	spl		r8			; echo the character
-	lix		r8,0x5b			; [
-	lix		PAR,0x0		; ANSI Screen Status (UART style)
-waitScreenTxStat5:
-	lpl		r11			; Read Status into r9
-	andi	r11,r11,0x2
-	bez 	waitScreenTxStat5
-	lix 	PAR,0x1		; ANSI Screen Data (UART style)
-	spl		r8			; echo the character
-	lix		r8,0x32			; 2
-	lix		PAR,0x0		; ANSI Screen Status (UART style)
-waitScreenTxStat6:
-	lpl		r11			; Read Status into r9
-	andi	r11,r11,0x2
-	bez 	waitScreenTxStat6
-	lix 	PAR,0x1		; ANSI Screen Data (UART style)
-	spl		r8			; echo the character
-	lix		r8,0x4A			; J
-	lix		PAR,0x0		; ANSI Screen Status (UART style)
-waitScreenTxStat7:
-	lpl		r11			; Read Status into r9
-	andi	r11,r11,0x2
-	bez 	waitScreenTxStat7
-	lix 	PAR,0x1		; ANSI Screen Data (UART style)
-	spl		r8			; echo the character
-	pull	r8
-	pull	PC				; rts
-
-;
-; putCharToANSIScreen - Put a character to the screen
-; Character to put to screen is in r8
-;
-
-putCharToANSIScreen:
-;	push	r8
-	push	r9
-;	push	PAR
-	lix		PAR,0x0		; ANSI Screen Status (UART style)
-waitScreenTxStat:
-	lpl		r9			; Read Status into r9
-	andi	r9,r9,0x2
-	bez 	waitScreenTxStat
-	lix 	PAR,0x1		; ANSI Screen Data (UART style)
-	spl		r8			; echo the character
-;	pull	PAR
-	pull	r9
-;	pull	r8
-	pull	PC
-	
-;
-; printLong
-; r8 contains the long value to print
-;
-
-printLong:
-	push	r8
-	push	r9
-	push	r10
-	push	r8				; temporarily save r8
-	lix		r8,0x30
-	bsr		writeANSI_UART
-	lix		r8,0x78
-	bsr		writeANSI_UART
-	pull	r8				; restore r8
-	lix		r9,8			; loop counter
-doNextPrintLong:
-	rol1	r8,r8
-	rol1	r8,r8
-	rol1	r8,r8
-	rol1	r8,r8
-	bsr		printHexVal
-	subi	r9,r9,1
-	bnz		doNextPrintLong
-	pull	r10
-	pull	r9
-	pull	r8
-	pull	PC
-
-;
-; printHexVal
-;
-
-printHexVal:
-	push	r8
-	andi	r8,r8,0xf
-	cmpi	r8,9
-	blt		printHexLetter
-	addi	r8,r8,0x30
-	bsr		writeANSI_UART
-	bra		donePrintHexVal
-printHexLetter:
-	addi	r8,r8,0x37		; 'A' - 10
-	bsr		writeANSI_UART
-donePrintHexVal:
-	pull	r8
-	pull	PC
-
-;
-; getLine - Reads the UART and fills a buffer with the characters received
-; r8 received character - Character received from the UART
-; r9 is the input buffer length
-; r10 used to test the backspace doesn't go past the start of the buffer
-; DAR points to lineBuff current character position
-;
-
-getLine:
-	push	r8
-	push	r9
-	push	r10
-	push	DAR
-	lix		DAR,lineBuff.lower	; DAR pointer = start of line buffer
-	lix		r9,79				; max number of chars in the line buffer
-loopReadLine:
-	bsr		waitReadPS2_UART	; Get a character from the PS/2 or UART
-	bsr		writeANSI_UART		; Echo character back to the ANSI Display and UART
-	cmpi	r8,0x0D				; check if received char was end of line
-	beq		gotEOL
-	cmpi	r8,0x7F
-	beq		gotBackspace
-	sdbp	r8
-	subi	r9,r9,1
-	bnz		loopReadLine		; Next char would overflow
-	lix		r8,serialOverflow.lower
-	bsr		writeANSI_UART		; Put the character to the screen
-	bra		doneHandlingLine
-gotEOL:
-	lix		r8,0x0A				; Echo line feed after CR
-	bsr		writeANSI_UART		; Put the character to the screen
-	bsr		putCharToUART		; Echo character back to the UART
-	sdb		r0					; null at end of line read
-	bra		doneHandlingLine
-gotBackspace:
-	subi	DAR,DAR,1
-	lix		r10,lineBuff.lower	; r10 pointer = start of line buffer
-	cmp		r10,DAR
-	bgt		loopReadLine
-	addi	DAR,r10,0
-	bra		loopReadLine
-doneHandlingLine:
-	pull	DAR
-	pull	r10
-	pull	r9
-	pull	r8
-	pull	PC
-
-; wr7Seg8Dig
-; passed r8 - value to send to the 7 seg display
-
-wr7Seg8Dig:
-	push	PAR
-	push	r8
-	lix		PAR,0x3000		; Seven Segment LED lines
-	spl		r8				; Write out LED bits
-	pull	r8
-	pull	PAR
-	pull	PC
-	
-;
-; readSws
-; switches value returned in r8
-; switches are high when pressed
-; Switches d0-d2 are the pushbutton switches (inverted in FPGA hardware)
-; 	Pushbutton switches are debounced
-; Switches d3-10 are the DIP switches (not inverted)
-;
-
-readSws:
-	push	PAR
-	lix		PAR,0x2000	; Switches address
-	lpl		r8			; Read switches into r9
-	andi	r8,r8,0xfff	; just the switches
-	pull	PAR
-	pull	PC
-	
-
-;
-; hexToSevenSeg - Convert a two ASCII digit value into a hex byte
-; Passed: r8 points to the start of the hex string
-; Returned: r8 contains the hex value of the string
-; Put the byte to the Seven Segment Display
-;
-
-hexToSevenSeg:
-	push	r9
-	push	DAR
-	push	PAR
-	lix		r9,0
-	addi	DAR,r8,0		; Address of lineBuff (passed into this routine)
-	ldbp	r8				; read the first character of the line
-	bsr		asciiToHex
-	or		r9,r9,r8
-	sl1		r9,r9
-	sl1		r9,r9
-	sl1		r9,r9
-	sl1		r9,r9
-	;add		DAR,DAR,ONE
-	ldb		r8				; read the second character of the line
-	bsr		asciiToHex
-	or		r9,r9,r8
-	lix		PAR,0x3000		; seven segment display
-	spl		r9
-	addi	r8,r9,0
-	pull	PAR
-	pull	DAR
-	pull	r9
-	pull	PC
-
-;
-; asciiToHex - Convert a single ASCII hex character into a nibble
-; Make conversion case insensitive
-; Character to convert is passed in r8
-;	'0' = 0x30
-;	'9' = 0x39
-;	'A' = 0x41
-;	'F' = 0x46
-;	'a' = 0x61
-;	'f' = 0x66
-; Result is returned in r8
-;	0x0-0xf - Legal Values
-;	'DEAD' - Not hex character
-;
-
-asciiToHex:
-	cmpi	r8,0x66			; past 'f'
-	blt		a2h_Error
-	cmpi	r8,0x30			; below '0'
-	bgt		a2h_Error
-	cmpi	r8,0x3A			; '0' - '9'
-	bgt		gotDigit
-	cmpi	r8,0x41			; ':' - '@'
-	bgt		a2h_Error
-	cmpi	r8,0x47			; 'A' - 'F'
-	blt		gotUpperLetter
-	cmpi	r8,0x61			; 'G' - 'tick'
-	bgt		a2h_Error
-; Lower case letter
-	subi	r8,r8,0x57
-	bra		doneConvA2H
-; number 0-9
-gotDigit:
-	subi	r8,r8,0x30
-	bra		doneConvA2H
-; A-F
-gotUpperLetter:
-	subi	r8,r8,0x37
-	bra		doneConvA2H
-a2h_Error:
-	lix		r8,syntaxError.lower
-	bsr		printString
-	lix		r8,0xDEAD
-doneConvA2H:
-	pull	PC
-
-;
-; waitGetCharFromUART
-; returns character received in r8
-; function is blocking until a character is received from the UART
-;
-
-waitGetCharFromUART:
-	push	PAR
-	lix		PAR,0x1800	; UART Status
-waitUartRxStat:
-	lpl		r8			; Read Status into r8
-	andi 	r8,r8,0x1
-	bez 	waitUartRxStat
-	lix 	PAR,0x1801
-	lpl		r8
-	pull	PAR
-	pull	PC
-
-;
-; putCharToUART - Put a character to the UART
-; passed character in r8 is sent out the UART
-;
-
-putCharToUART:
-	push	r9
-	push	PAR
-	lix		PAR,0x1800	; UART Status
-waitUartTxStat:
-	lpl		r9			; Read Status into r9
-	andi	r9,r9,0x2
-	bez 	waitUartTxStat
-	lix 	PAR,0x1801
-	spl		r8			; echo the character
-	pull	PAR
-	pull	r9
-	pull	PC
-	
-;
-; printString - Print a screen to the current screen position
-; pass value : r8 points to the start of the string in Data memory
-; strings are bytes packed into long words
-; strings are null terminated
-;
-
-printString:
-	push	r8					; save r8
-	push	DAR
-	add		DAR,r8,ZERO			; set the start of the string
-nextChar:
-	ldbp	r8					; get the character01
-	cmpi	r8,0x0				; Null terminated string
-	beq		donePrStr			; done if null
-	bsr		writeANSI_UART		; write out the character
-	bra		nextChar
-donePrStr:
-	pull	DAR					; restore DAR
-	pull	r8					; restore r8
-	pull	PC					; rts
-	
-;
-; printLine - Print a screen to the current screen position with CRLF at the end
-; pass value : r8 points to the start of the string in Data memory
-; strings are bytes packed into long words
-; strings are null terminated
-;
-
-printLine:
-	push	r8					; save r8
-	push	DAR
-	addi	DAR,r8,0x0			; set the start of the string
-nextChar2:
-	ldbp	r8					; get the character
-	cmpi	r8,0x0				; Null terminated string
-	beq		donePrStr2			; done if null
-	bsr		writeANSI_UART	; write out the character
-	bra		nextChar2
-donePrStr2:
-	bsr		newLine
-	pull	DAR					; restore DAR
-	pull	r8					; restore r8
-	pull	PC					; rts
-	
-;
-; newLine - Print out a newline (CR-LF)
-;
-
-newLine:
-	push	r8
-	lix		r8,0x0A				; Line Feed
-	bsr		writeANSI_UART	; Put the character to the screen
-	lix		r8,0x0D				; Carriage Return
-	bsr		writeANSI_UART		; Echo character back to the UART
-	pull	r8
-	pull	PC
-
-;
-; clearANSIScreenAndUART - Clear the screen routine
-; ANSI Terminal has an escape sequence which clears the screen and homes cursor
-;
-
-clearANSIScreenAndUART:
-	push	r8				; save r8
-	lix		r8,0x1b			; ESC
-	bsr		writeANSI_UART
-	lix		r8,0x5b			; [
-	bsr		writeANSI_UART
-	lix		r8,0x32			; 2
-	bsr		writeANSI_UART
-	lix		r8,0x4A			; J
-	bsr		writeANSI_UART
-	pull	r8
-	pull	PC				; rts
-
-;
-; delay_mS - delay for the number of mSecs passed in r8
-; pass mSec delay in r8
-; Routine uses r8,r9 (restores r8, r9 when returning)
-;
-
-delay_mS:
-	push	r8
-	push	r9
-	lix		PAR,0x3802		; address of the mSec counter
-	lpl		r9				; read the peripheral counter into r9
-	add		r8,r9,r8		; terminal counter to wait until is in r8
-loop_delay_mS:
-	lpl		r9				; check the elapsed time counter
-	cmp		r8,r9
-	blt		loop_delay_mS
-	pull	r9
-	pull	r8
-	pull	PC
-
-;
-; getPS2Char
-; returns character received in r8
-; Routine uses r8,r9 (restores r8, r9 when returning)
-;
-
-getPS2Char:
-	push	r8
-	push	r9
-	push	PAR
-	lix		PAR,0x0801	; PS/2 Status
-waitPS2RxStat:
-	lpl		r9			; Read Status into r9
-	andi	r9,r9,0x1
-	bez 	waitPS2RxStat
-getCharFromPS2:
-	lix 	PAR,0x0800
-	lpl		r8
-	lix		PAR,0x0801	; PS/2 Status
-whilePS2RxStat:
-	pull	PAR
-	pull	r9
-	pull	r8
-	pull	PC
-
-;
-; waitReadPS2_UART
-; wait for character from either 
-;	the PS/2 keyboard and UART serial
-; r8 = read character
-;
-
-waitReadPS2_UART:
-	push	PAR
-checkCharFromPS2:
-	lix		PAR,0x0801			; PS/2 Status
-	lpl		r8					; Read Status
-	andi	r8,r8,0x1			; =1 when char received
-	bez 	checkUARTStat
-	lix 	PAR,0x0800			; PS/2 Data
-	lpl		r8
-	bra		gotPS2Char
-checkUARTStat:
-	lix		PAR,0x1800			; UART Status
-	lpl		r8					; Read Status
-	andi 	r8,r8,0x1			; =1 when char received
-	bez 	checkCharFromPS2
-	lix 	PAR,0x1801			; UART Data
-	lpl		r8
-gotPS2Char:
-	pull	PAR
-	pull	PC
-	
-; checkForCharAndDiscard - Check for a character in UART or PS/2
-; Discard the character received
-; return whether char was present (1) or no char was present (0)
-
-checkForCharAndDiscard:
-	push	PAR
-	lix		PAR,0x0801		; PS/2 Status
-	lpl		r8				; Read Status
-	andi	r8,r8,0x1		; =1 when char received
-	bez 	checkUARTStat2
-	lix 	PAR,0x0800		; PS/2 Data
-	lpl		r8				; throw away char
-	lix		r8,0x1
-	bra		gotChar
-checkUARTStat2:
-	lix		PAR,0x1800		; UART Status
-	lpl		r8				; Read Status
-	andi 	r8,r8,0x1		; =1 when char received
-	bez 	noCharReceived
-	lix 	PAR,0x1801		; UART Data
-	lpl		r8
-	lix		r8,1
-	bra		gotChar
-noCharReceived:
-	lix		r8,0
-gotChar:
-	pull	PAR
-	pull	PC
-
-;
-; writeANSI_UART
-; write out a character to both 
-;	the ANSI screen and the UART
-;
-
-writeANSI_UART:
-	bsr		putCharToANSIScreen
-	bsr		putCharToUART
-	pull	PC
+#include <..\..\common\ANSIScreen.asm>
+#include <..\..\common\ANSI_UART_io.asm>
+#include <..\..\common\ps2.asm>
+#include <..\..\common\uart.asm>
+#include <..\..\common\timers.asm>
+#include <..\..\common\switches.asm>
+#include <..\..\common\SevenSegLEDs.asm>
+#include <..\..\common\bufferedIO.asm>

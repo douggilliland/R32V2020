@@ -539,7 +539,7 @@ testPS2Keyboard:
 	lix		r8,menuItem_09.lower
 	bsr		printLinebuffer_ANSI_UART
 loopForeverT9:
-	bsr		getPS2Char
+	bsr		getChar_PS2
 	bsr		printByte_ANSI_UART
 	cmpi	r8,0x0D
 	bne		loopForeverT9

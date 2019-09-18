@@ -47,22 +47,6 @@ doneHandlingLine:
 	pull	PC
 
 ;
-; printANSICode - Send the ANSI Escape Sequence
-; r8 - points to the string
-; This routine supplies the ESC
-;
-
-printANSICode:
-	push	r8
-	push	r8
-	lix		r8,0x1b			; ESC
-	bsr		putChar_ANSI
-	pull	r8
-	bsr		printString_ANSI
-	pull	r8
-	pull	PC
-
-;
 ; printLong
 ; r8 contains the long value to print
 ;

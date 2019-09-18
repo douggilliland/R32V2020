@@ -21,6 +21,45 @@ waitScreenTxStat:
 	pull	PC
 
 ;
+; clearScreen_ANSI - Clear the screen routine
+; ANSI Terminal has an escape sequence which clears the screen and homes cursor
+; No passed value
+; Uses r8 (saved during function)
+; no return value
+;
+
+clearScreen_ANSI:
+	push	r8				; save r8
+	lix		r8,0x1b			; ESC
+	bsr		putChar_ANSI
+	lix		r8,0x5b			; [
+	bsr		putChar_ANSI
+	lix		r8,0x32			; 2
+	bsr		putChar_ANSI
+	lix		r8,0x4A			; J
+	bsr		putChar_ANSI
+	pull	r8
+	pull	PC				; rts
+
+;
+; printANSICode - Send the ANSI Escape Sequence
+; printCode_ANSI - Send the ANSI Escape Sequence
+; r8 - points to the string
+; This routine supplies the ESC
+;
+
+printANSICode:
+printCode_ANSI:
+	push	r8
+	push	r8
+	lix		r8,0x1b			; ESC
+	bsr		putChar_ANSI
+	pull	r8
+	bsr		printString_ANSI
+	pull	r8
+	pull	PC
+	
+;
 ; newLine_ANSI - Print out a newLine_ANSI (CR-LF)
 ;
 
@@ -100,27 +139,6 @@ donePrintHexValANSI:
 	pull	r8
 	pull	PC
 	
-;
-; clearScreen_ANSI - Clear the screen routine
-; ANSI Terminal has an escape sequence which clears the screen and homes cursor
-; No passed value
-; Uses r8 (saved during function)
-; no return value
-;
-
-clearScreen_ANSI:
-	push	r8				; save r8
-	lix		r8,0x1b			; ESC
-	bsr		putChar_ANSI
-	lix		r8,0x5b			; [
-	bsr		putChar_ANSI
-	lix		r8,0x32			; 2
-	bsr		putChar_ANSI
-	lix		r8,0x4A			; J
-	bsr		putChar_ANSI
-	pull	r8
-	pull	PC				; rts
-
 ;
 ; printLong_ANSI
 ; r8 contains the long value to print
