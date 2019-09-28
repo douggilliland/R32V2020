@@ -1,0 +1,180 @@
+; Read PS/2 keyboard character and put it to the Memory Mapped XGA Screen
+; This program requires a build of R32V2020 that has memory mapped video
+; Example: R32V2020_Build_V002_A4_CE6_MMVid
+
+prompt: .string "R32V2020"
+
+start:
+00000000	D400000B	bsr		clearScreen_XGA
+00000001	42500000	lix		par,0				; start of screen
+00000002	42600000	lix		dar,prompt.lower	; clear the data memory addr pointer
+readDataMemory:
+00000003	68806000	ldbp	r8					; get the long again
+00000004	39380000	cmpi	r8,0
+00000005	D1000003	beq		doneWithPrompt
+00000006	D4000012	bsr		putChar_MemMapXGA
+00000007	C0FFFFFC	bra		readDataMemory
+doneWithPrompt:
+00000008	D4000012	bsr		getChar_PS2
+storeToScreen:
+00000009	D400000F	bsr		putChar_MemMapXGA
+0000000a	C0FFFFFE	bra		doneWithPrompt
+
+;
+; clearScreen_XGA - Clear the screen routine
+; Fills the screen with space characters
+; Screen is memory mapped
+; Screen is 64 columns by 32 rows = 2KB total space
+; Return address (-1) is on the stack - need to increment before return
+;
+
+clearScreen_XGA:
+0000000b	A0405000	push	PAR
+0000000c	A0409000	push	r9
+0000000d	A0408000	push	r8
+0000000e	42500000	lix 	par,0x0000	; start of screen character memory
+0000000f	42800020	lix		r8,0x20		; fill with spaces
+00000010	42900800	lix 	r9,0x800	; loopCount	(2K)
+looper:
+00000011	89508000	spbp 	r8			; put the character to the screen
+00000012	23990001	subi 	r9,r9,1		; decrement character counter
+00000013	C7FFFFFE	bnz		looper		; loop until complete
+00000014	A1804000	pull	r8
+00000015	A1904000	pull	r9
+00000016	A1504000	pull	PAR
+00000017	A1704000	pull	PC
+
+;
+; putChar_MemMapXGA - Put a character to the screen and increment the address
+; Character to put to screen is in r8
+; Return address (-1) is on the stack - need to increment before return
+;
+
+putChar_MemMapXGA:
+00000018	89508000	spbp	r8			; write character to peripheral bus
+00000019	A1704000	pull	PC
+;--------------------------------------------------------------------
+; ps2.asm - Functions to read the PS/2 keyboard
+;
+; Address	Function
+; x0800 	Latched Keyboard Data
+; x0801 	Latched Keyboard Status
+; x0802 	Polled Keyboard Data
+; x0803 	Polled Keyboard Status
+;
+; getChar_PS2
+; returns character received in r8
+;
+
+getChar_PS2:
+0000001a	A0405000	push	PAR
+0000001b	42500801	lix		PAR,0x0801	; PS/2 Status
+waitPS2RxStat:
+0000001c	84805000	lpl		r8			; Read Status into r9
+0000001d	2B880001	andi 	r8,r8,1
+0000001e	C3FFFFFE	bez 	waitPS2RxStat
+getCharFromPS2:
+0000001f	42500800	lix 	PAR,0x0800
+00000020	84805000	lpl		r8
+whilePS2RxStat:
+00000021	A1504000	pull	PAR
+00000022	A1704000	pull	PC
+
+; waitReadPS2_UART
+; wait for character from either
+;	the PS/2 keyboard or the UART serial
+; r8 = read character
+
+waitReadPS2_UART:
+00000023	A0405000	push	PAR
+checkCharFromPS2:
+00000024	42500801	lix		PAR,0x0801	; PS/2 Status
+00000025	84805000	lpl		r8			; Read Status
+00000026	2B880001	andi	r8,r8,0x1	; =1 when char received
+00000027	C3000004	bez 	checkUARTStat
+00000028	42500800	lix 	PAR,0x0800	; PS/2 Data
+00000029	84805000	lpl		r8
+0000002a	C0000007	bra		gotPS2Char
+checkUARTStat:
+0000002b	42501800	lix		PAR,0x1800	; UART Status
+0000002c	84805000	lpl		r8			; Read Status
+0000002d	2B880001	andi 	r8,r8,0x1	; =1 when char received
+0000002e	C3FFFFF6	bez 	checkCharFromPS2
+0000002f	42501801	lix 	PAR,0x1801	; UART Data
+00000030	84805000	lpl		r8
+gotPS2Char:
+00000031	A1504000	pull	PAR
+00000032	A1704000	pull	PC
+
+; checkForCharAndDiscard - Check for a character in UART or PS/2
+; Discard the character received
+; return whether char was present (1) or no char was present (0)
+
+checkForCharAndDiscard:
+00000033	A0405000	push	PAR
+00000034	42500801	lix		PAR,0x0801	; PS/2 Status
+00000035	84805000	lpl		r8			; Read Status
+00000036	2B880001	andi	r8,r8,0x1	; =1 when char received
+00000037	C3000005	bez 	checkUARTStat2
+00000038	42500800	lix 	PAR,0x0800	; PS/2 Data
+00000039	84805000	lpl		r8			; throw away char
+0000003a	42800001	lix		r8,0x1
+0000003b	C000000A	bra		gotChar
+checkUARTStat2:
+0000003c	42501800	lix		PAR,0x1800	; UART Status
+0000003d	84805000	lpl		r8			; Read Status
+0000003e	2B880001	andi 	r8,r8,0x1	; =1 when char received
+0000003f	C3000005	bez 	noCharReceived
+00000040	42501801	lix 	PAR,0x1801	; UART Data
+00000041	84805000	lpl		r8
+00000042	42800001	lix		r8,1
+00000043	C0000002	bra		gotChar
+noCharReceived:
+00000044	42800000	lix		r8,0
+gotChar:
+00000045	A1504000	pull	PAR
+00000046	A1704000	pull	PC
+
+;
+; waitCharPolled_PS2 - Check the polled character interface
+; wait for a character
+; return when a character is present
+; returns character received in r8
+;
+
+waitCharPolled_PS2:
+00000047	A0405000	push	PAR
+00000048	42500803	lix		PAR,0x0803	; PS/2 Status
+waitPS2RxStatPolled:
+00000049	84805000	lpl		r8			; Read Status into r8
+0000004a	2B880001	andi 	r8,r8,0x1
+0000004b	C3FFFFFE	bez 	waitPS2RxStatPolled
+getCharFromPS2Polled:
+0000004c	42500802	lix 	PAR,0x0802
+0000004d	84805000	lpl		r8
+whilePS2RxStatPolled:
+0000004e	A1504000	pull	PAR
+0000004f	A1704000	pull	PC
+
+;
+; checkGetStat_PS2 - Checks the polling status
+; Polled interface is active while the keyboard key is pressed
+; returns
+;	-1 if there is no character,
+;	character if there is a character
+;
+
+checkGetStat_PS2:
+00000050	A0405000	push	PAR
+00000051	42500803	lix		PAR,0x0803	; PS/2 Status
+00000052	84805000	lpl		r8			; Read Status into r8
+00000053	2B880001	andi	r8,r8,0x1
+00000054	C3000004	bez		charNotPresent
+00000055	42500802	lix		PAR,0x0802
+00000056	84805000	lpl		r8
+00000057	C0000002	bra		gotCharIn
+charNotPresent:
+00000058	20802000	add		r8,ZERO,MINUS1
+gotCharIn:
+00000059	A1504000	pull	PAR
+0000005a	A1704000	pull	PC
