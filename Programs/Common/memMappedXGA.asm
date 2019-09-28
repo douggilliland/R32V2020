@@ -49,8 +49,8 @@ setScreenLocation_mmXGA:
 	lix		DAR,screenX.lower
 	sdlp	r8					; X location
 	sdlp	r9					; Y location
-	muli	r9,r9,0x50			; location is Y*80+X
-	sdlp	r9					; Y location * 80
+	muli	r9,r9,0x40			; location is Y*63+X
+	sdlp	r9					; Y location * 64
 	add		PAR,r9,r8
 	sdl		PAR					; Y location
 	pull	r9

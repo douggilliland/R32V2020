@@ -39,11 +39,40 @@ anotherHorizTop:
 	bsr		putChar_mmXGA
 	subi	r9,r9,1
 	bnz		anotherHorizTop
-	lix		r8,0xCD				; upper left corner
+	lix		r8,0xCD				; upper right corner
 	bsr		putChar_mmXGA
-	lix		r8,0x0114			; location 20,1
+; vertical left side
+	lix		r9,0x1E				; 30 rows high
+	lix		r8,0x0114			; location 20,0
+	bsr		setScreenLocation_mmXGA	
+	lix		r8,0x8C				; vertical line
+anotherLeftVert:
+	bsr		putChar_mmXGA
+	addi	PAR,PAR,0x3F
+	subi	r9,r9,1
+	bnz		anotherLeftVert
+; vertical right side
+	lix		r9,0x1E				; 30 rows high
+	lix		r8,0x0129			; location 41,1
 	bsr		setScreenLocation_mmXGA
-	lix		r8,0x8c				; vertical line
+	lix		r8,0x8B				; vertical line
+anotherLeftVert2:
+	bsr		putChar_mmXGA
+	addi	PAR,PAR,0x3F
+	subi	r9,r9,1
+	bnz		anotherLeftVert2
+; Draw bottom box
+	lix		r8,0x1F14			; location 20,0
+	bsr		setScreenLocation_mmXGA
+	lix		r8,0xCB				; lower left corner
+	bsr		putChar_mmXGA
+	lix		r9,0x14				; 20 chars wide
+anotherHorizBottom:
+	lix		r8,0x84				; horizontal line
+	bsr		putChar_mmXGA
+	subi	r9,r9,1
+	bnz		anotherHorizBottom
+	lix		r8,0xCE				; upper right corner
 	bsr		putChar_mmXGA
 	
 	pull	r9
