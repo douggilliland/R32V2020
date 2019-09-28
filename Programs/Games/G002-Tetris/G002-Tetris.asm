@@ -3,6 +3,15 @@
 ; Example: R32V2020_Build_V002_A4_CE6_MMVid 
 
 prompt: .string "FakeTris 0.01"
+; Tetris shapes from
+;	https://raw.githubusercontent.com/OneLoneCoder/videos/master/OneLoneCoder_Tetris.cpp
+tetrisShape0:	.string "..X...X...X...X."
+tetrisShape1:	.string "..X..XX...X....."
+tetrisShape2:	.string ".....XX..XX....."
+tetrisShape3:	.string "..X..XX..X......"
+tetrisShape4:	.string ".X...XX...X....."
+tetrisShape5:	.string ".X...X...XX....."
+tetrisShape16:	.string "..X...X..XX....."
 
 start:
 	bsr		clearScreen_mmXGA
@@ -16,6 +25,11 @@ readDataMemory:
 	bra		readDataMemory
 doneWithPrompt:
 	bsr		drawTetrisBorder
+putUpSprite:
+	lix		r8,0x011F			; location 20,0
+	bsr		setScreenLocation_mmXGA
+	lix		r8,0xE2				; upper left corner
+	bsr		putChar_mmXGA
 loopProg:
 	bsr		getChar_PS2
 storeToScreen:
