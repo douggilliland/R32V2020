@@ -13,7 +13,7 @@ entity Mem_Mapped_XVGA is
 		cpuAddress	: in std_logic_vector(10 downto 0);
 		cpuDataOut	: in std_logic_vector(7 downto 0);
 		dataOut		: out std_logic_vector(7 downto 0);
-		VoutVect		: out std_logic_vector(2 downto 0);
+		VoutVect		: out std_logic_vector(5 downto 0);
 		hSync			: out	std_logic;
 		vSync			: out	std_logic
 		);
@@ -30,7 +30,7 @@ architecture struct of Mem_Mapped_XVGA is
 
 begin
 		
-	VoutVect <= video&video&hAct;
+	VoutVect <= video&video&video&video&video&video;
 	
 	Video_XVGA_64x32 : entity work.Video_XVGA_64x32
 	port map (

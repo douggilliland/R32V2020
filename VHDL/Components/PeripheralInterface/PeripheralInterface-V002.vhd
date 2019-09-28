@@ -11,7 +11,6 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 library work;
 use work.R32V2020_Pkg.all;
 
-entity PeripheralInterface is
 	port(
 		n_reset						: in std_logic := '1';
 		i_CLOCK_50					: in std_logic := '1';
@@ -35,7 +34,7 @@ entity PeripheralInterface is
 		i_rxd							: in std_logic := '1';								-- Serial receive (from UART)
 		o_txd							: out std_logic;										-- Serial transmit (to UART)
 		o_rts							: out std_logic;										-- Serial Hardware Handshake (to UART)
-		i_cts							: in std_logic := '0';								-- Serial Hardware Handshake (from UART)
+		i_cts							: in std_logic := '0';
 		-- Video
 		o_VideoOut					: out std_logic_vector(5 downto 0);				-- VGA lines rr,gg,bb
 		o_hSync						: out std_logic := '1';
@@ -85,7 +84,6 @@ architecture struct of PeripheralInterface is
 	signal w_I2CCS					:	std_logic := '0';
 	signal w_SPICS					:	std_logic := '0';
 	signal w_EEPI2CCS				:	std_logic := '0';
-	signal w_KDBPOLCS				:	std_logic := '0';
 	-- Serial Port controls
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
@@ -123,6 +121,8 @@ architecture struct of PeripheralInterface is
 	signal w_spi_busy				: 	std_logic := '0';
 	-- Music/Tone generator
 	signal w_BUZZER				: 	std_logic := '0';
+
+
 
 	-- Address decoder addresses
 	-- Provides for up to 32 "chip selects"
@@ -192,7 +192,6 @@ begin
 		driveLED	=> o_driveLED
 	);
 
-	
 	-- PS/2 keyboard wrapper
 	kbdWrap : entity work.Wrap_Keyboard
 	port map (

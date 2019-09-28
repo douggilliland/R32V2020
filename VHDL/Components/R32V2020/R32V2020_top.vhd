@@ -213,7 +213,7 @@ begin
 		i_rxd							=> i_SerRxd,
 		o_txd							=> o_SerTxd,
 		o_rts							=> o_SerRts,
-		i_cts							=> i_SerCts,
+--		i_cts							=> i_SerCts,
 		o_LEDRing_out				=> o_LEDRing_out,
 		o_VideoOut					=> o_VideoVect,
 		o_hSync						=> o_hSync,
