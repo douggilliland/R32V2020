@@ -1,6 +1,6 @@
-screenX:	.long	0
-screenY:	.long	0
-
+screenX:	.LONG	0x0
+screenY:	.LONG	0x0
+screenAdr:	.LONG	0x0
 ;
 ; clearScreen_XGA - Clear the screen routine
 ; Fills the screen with space characters
@@ -8,7 +8,7 @@ screenY:	.long	0
 ; Screen is 64 columns by 32 rows = 2KB total space
 ;
 
-clearScreen_XGA:
+clearScreen_mmXGA:
 	push	PAR
 	push	r9
 	push	r8
@@ -30,26 +30,41 @@ looper:
 ; PAR = set to the current screen location
 ;
 
-putChar_MemMapXGA:
+putChar_mmXGA:
 	spbp	r8			; write character to peripheral bus
 	pull	PC
 
 ;
 ; setScreenLocation_XGA - Set PAR to a particular screen location
+; Also sets the variables screenX and screenY
 ; r8 - screen location
 ;	d0-d7 = X coordinate
 ;	d8-d15 = Y coordinate
 ;
 
-setScreenLocation_XGA:
-	push	r8
+setScreenLocation_mmXGA:
 	push	r9
+	sr8		r9,r8
+	andi	r8,r8,0x00ff
 	lix		DAR,screenX.lower
-	ldlp	r8					; X location
-	ldl		r9					; Y location
-	muli	PAR,r9,80
-	add		PAR,PAR,r8
+	sdlp	r8					; X location
+	sdlp	r9					; Y location
+	muli	r9,r9,0x50			; location is Y*80+X
+	sdlp	r9					; Y location * 80
+	add		PAR,r9,r8
+	sdl		PAR					; Y location
 	pull	r9
-	pull	r8
 	pull	PC
 	
+;
+; dumpCharSet_xxXGA
+;
+
+dumpCharSet_xxXGA:
+	lix		r8,0x0
+nextCharDump:
+	bsr		putChar_mmXGA
+	addi	r8,r8,1
+	cmpi	r8,0x100
+	bne		nextCharDump
+	pull 	PC

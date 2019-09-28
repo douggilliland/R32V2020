@@ -63,7 +63,7 @@ begin
 
 o_ALUDataOut <= w_ALUResult(31 downto 0);
 multResult <= 	i_regDataA * i_regDataB when i_Op_MUL = '1' else
-					i_regDataA * (x"0000" & i_immedVal) when i_Op_MULI = '1' else
+					i_regDataB * (x"0000" & i_immedVal) when i_Op_MULI = '1' else
 					x"0000000000000000";
 multResultLong <= multResult(32 downto 0);
 
@@ -71,7 +71,7 @@ w_ALUResult <= ((i_regDataA(31)&i_regDataA) + (i_regDataB(31)&i_regDataB)) when 
 					((i_regDataB(31)&i_regDataB) + i_immedVal) when i_Op_ADDI = '1' else
 					((i_regDataA(31)&i_regDataA) - (i_regDataB(31)&i_regDataB)) when i_Op_SUB = '1' else
 					((i_regDataB(31)&i_regDataB) - i_immedVal) when i_Op_SUBI = '1' else
-					multResultLong when i_Op_MUL = '1' else		-- added multiply
+					multResultLong when (i_Op_MUL = '1' or i_Op_MULI = '1') else		-- added multiply
 					(('0'&i_regDataA) and i_regDataB) when i_Op_AND = '1' else
 					(('0'&i_regDataB) and '0'&"0000"&i_immedVal) when i_Op_ANDI = '1' else
 					(('0'&i_regDataA) or  i_regDataB) when i_Op_OR  = '1' else

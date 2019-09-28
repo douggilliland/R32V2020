@@ -284,7 +284,10 @@ class LongConstant:
     self.longToken = longToken[2:]
 
   def resolveHex(self):
-    return [int(self.longToken, 16)]
+    try:
+      return [int(self.longToken, 16)]
+    except ValueError:
+      print 'resolveHex error: ',self.longToken
 
 def hexOfAsciiCode(char):
   return hex(ord(char))[2:]
