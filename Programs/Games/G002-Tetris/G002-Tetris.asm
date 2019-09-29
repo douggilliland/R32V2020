@@ -2,9 +2,13 @@
 ; This program requires a build of R32V2020 that has memory mapped video
 ; Example: R32V2020_Build_V002_A4_CE6_MMVid 
 
-title: .string "FakeTris 0.01"
-; Tetris shapes from
+title: 	.string "FakeTris x.x1"
+score:	.string "Score : "
+scoreValue:	.long	0x0
+
+; Tetris shapes drawn from
 ;	https://raw.githubusercontent.com/OneLoneCoder/videos/master/OneLoneCoder_Tetris.cpp
+
 tetrisShape0:	.string "..X...X...X...X."
 tetrisShape1:	.string "..X..XX...X....."
 tetrisShape2:	.string ".....XX..XX....."
@@ -15,20 +19,22 @@ tetrisShape16:	.string "..X...X..XX....."
 
 start:
 	bsr		clearScreen_mmXGA
-printTitle:
-	lix		par,0				; start of screen
-	lix		dar,title.lower	; clear the data memory addr pointer
-readDataMemory:
-	ldbp	r8					; get the character
-	cmpi	r8,0
-	beq		doneWithPrompt
-	bsr		putCharIncrPAR_mmXGA
-	bra		readDataMemory
-doneWithPrompt:
+; Print the title
+	lix		r8,0x0000			; Upper left corner of screen
+	bsr		setScreenCharLoc_mmXGA
+	lix		r8,title.lower		; clear the data memory addr pointer
+	bsr		printString_mmXGA
+; Print the score string
+	lix		r8,0x0200			; Two lines down on left side of screen
+	bsr		setScreenCharLoc_mmXGA
+	lix		r8,score.lower		; clear the data memory addr pointer
+	bsr		printString_mmXGA
+; Print the initial score value
+	bsr		printScore_tetris
 ; Draw the border of the playfield
 	bsr		drawPlayfieldBorder
 ; Draw the first sprite
-	lix		r8,0x011F			; location 31,1
+	lix		r8,0x011f			; location 31,1
 	bsr		setSpriteLocation_mmXGA
 	lix		r8,0xE2				; circle char for now
 	bsr		putSprite_mmXGA		; put sprite on screen
@@ -130,11 +136,30 @@ anotherHorizBottom:
 	bnz		anotherHorizBottom
 	lix		r8,0xCE				; upper right corner
 	spbp	r8
-	
 	pull	r9
 	pull	r8
 	pull	PC
 	
+;
+; printScore_tetris
+;
+
+printScore_tetris:
+	
+	; lix		r8,0x0204			; 
+	; bsr		setScreenCharLoc_mmXGA
+	; lix		r8,0x33
+	; bsr		putChar_mmXGA
+	; lix		r8,0x34
+	; bsr		putChar_mmXGA
+
+	lix		r8,0x0208			; 
+	bsr		setScreenCharLoc_mmXGA
+	lix		DAR,scoreValue.lower
+	ldl		r8
+	bsr		printLong_mmXGA
+	pull	PC
+
 #include <..\..\common\MemMappedXGA.asm>
 #include <..\..\common\spritesMM.asm>
 #include <..\..\common\ps2.asm>
