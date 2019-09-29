@@ -38,7 +38,15 @@ start:
 	bsr		setSpriteLocation_mmXGA
 	lix		r8,0xE2				; circle char for now
 	bsr		putSprite_mmXGA		; put sprite on screen
+	lix		r8,1000
+	bra		setTimer_mS
+	lix		DAR,scoreValue.lower
+	lix		r8,0x0
+	sdl		r8
 loopProg:
+	bsr		checkForCountReached_mS
+	cmpi	r8,1
+	beq		newScore
 	bsr		checkGetStat_PS2
 	andi	r8,r8,0x5F			; upper to lower
 	cmpi	r8,0x41				; 'a'
@@ -145,21 +153,29 @@ anotherHorizBottom:
 ;
 
 printScore_tetris:
-	
-	; lix		r8,0x0204			; 
-	; bsr		setScreenCharLoc_mmXGA
-	; lix		r8,0x33
-	; bsr		putChar_mmXGA
-	; lix		r8,0x34
-	; bsr		putChar_mmXGA
-
-	lix		r8,0x0208			; 
+	lix		r8,0x0208			; print the score at 8,2
 	bsr		setScreenCharLoc_mmXGA
 	lix		DAR,scoreValue.lower
 	ldl		r8
 	bsr		printLong_mmXGA
 	pull	PC
+	
+;
+; printScore_tetris
+;
 
+newScore:
+	push	DAR
+	push	r8
+	lix		DAR,scoreValue.lower
+	ldl		r8
+	addi	r8,r8,1
+	sdl		r8
+	bsr		printScore_tetris
+	pull	r8
+	pull	DAR
+	pull	PC
+	
 #include <..\..\common\MemMappedXGA.asm>
 #include <..\..\common\spritesMM.asm>
 #include <..\..\common\ps2.asm>
