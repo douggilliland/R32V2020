@@ -25,21 +25,32 @@ looper:
 	pull	PC
 
 ;
-; putChar_MemMapXGA - Put a character to the screen and increment the address
+; putCharIncr_mmXGA - Put a character to the screen and increment PAR
+; r8 = Character to put to screen
+; PAR = set to the current screen location
+;
+
+putCharIncr_mmXGA:
+	spbp	r8			; write character to peripheral bus
+	pull	PC
+
+;
+; putChar_mmXGA - Put a character to the screen
 ; r8 = Character to put to screen
 ; PAR = set to the current screen location
 ;
 
 putChar_mmXGA:
-	spbp	r8			; write character to peripheral bus
+	spb		r8			; write character to peripheral bus
 	pull	PC
 
 ;
 ; setScreenLocation_XGA - Set PAR to a particular screen location
-; Also sets the variables screenX and screenY
+; Also sets the variables screenX and screenY in memory
 ; r8 - screen location
 ;	d0-d7 = X coordinate
 ;	d8-d15 = Y coordinate
+; PAR - Peripheral Address Register - set to the screen address of the current char
 ;
 
 setScreenLocation_mmXGA:
@@ -49,13 +60,29 @@ setScreenLocation_mmXGA:
 	lix		DAR,screenX.lower
 	sdlp	r8					; X location
 	sdlp	r9					; Y location
-	muli	r9,r9,0x40			; location is Y*63+X
+	muli	r9,r9,0x40			; location is Y*64+X
 	sdlp	r9					; Y location * 64
 	add		PAR,r9,r8
 	sdl		PAR					; Y location
 	pull	r9
 	pull	PC
 	
+;
+; setParToCurrentCharLoc_mmXGA - Sets PAR to the current character location
+;
+
+setParToCurrentCharLoc_mmXGA:
+	push	r8
+	push	r9
+	lix		DAR,screenX.lower
+	ldlp	r8
+	ldl		r9					; screenY is the next location
+	muli	r9,r9,0x40			; 64 chars wide screen
+	add		PAR,r8,r9
+	pull	r9
+	pull	r8
+	pull	PC
+
 ;
 ; dumpCharSet_xxXGA
 ;
