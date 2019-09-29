@@ -1,0 +1,167 @@
+; delay_mS Test
+versionString:	.string "R32V2020 > "		; here to prevent an empty data file
+start:
+00000000	428003E8	lix		r8,1000
+00000001	D4000012	bsr		setTimer_mS
+00000002	42900000	lix		r9,0
+incCounter:
+00000003	21890000	addi	r8,r9,0
+00000004	D400003F	bsr 	wr7Seg8Dig
+waitUntilDone:
+00000005	D400001E	bsr		checkForCountReached_mS
+00000006	39380001	cmpi	r8,0x1
+00000007	D2FFFFFE	bne		waitUntilDone
+00000008	21990001	addi	r9,r9,1
+00000009	C0FFFFFA	bra		incCounter
+
+;--------------------------------------------------------------------
+; timers.asm
+
+longTimeWait:	.long 0x0
+longTimeDelta:	.long 0x0
+
+; delay_mS - delay for the number of mSecs passed in r8
+; pass mSec delay in r8
+; Routine uses r9
+
+delay_mS:
+0000000a	A0409000	push	r9
+0000000b	42503802	lix		PAR,0x3802		; address of the mSec counter
+0000000c	84905000	lpl		r9				; read the peripheral counter into r9
+0000000d	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_mS:
+0000000e	84905000	lpl		r9				; check the elapsed time counter
+0000000f	38389000	cmp		r8,r9
+00000010	CCFFFFFE	blt		loop_delay_mS
+00000011	A1904000	pull	r9
+00000012	A1704000	pull	PC
+
+;
+; setTimer_mS - sets a software timer in mSec from the current mSec time
+; Non-blocking routine
+; Wrap around problem at 2^32 mS (every 4.3 million seconds = 49 days)
+; Needs to be checked from checkForCountReached_mS routine
+; longTimeWait - global that contains the terminal count time
+; r8 is the number of mS until the counter expires
+;
+
+setTimer_mS:
+00000013	A0408000	push	r8
+00000014	A0409000	push	r9
+00000015	A0406000	push	DAR
+00000016	A0405000	push	PAR
+00000017	42600010	lix		DAR,longTimeDelta.lower
+00000018	65608000	sdl		r8				; keep the delta time - might use it again
+00000019	42503802	lix		PAR,0x3802		; address of the mSec counter
+0000001a	84905000	lpl		r9				; read the peripheral counter into r9
+0000001b	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+0000001c	4260000C	lix		DAR,longTimeWait.lower
+0000001d	65608000	sdl		r8
+0000001e	A1504000	pull	PAR
+0000001f	A1604000	pull	DAR
+00000020	A1904000	pull	r9
+00000021	A1804000	pull	r8
+00000022	A1704000	pull	PC
+
+;
+; checkForCountReached_mS
+; Presumptively reloads the terminal count for the next cycle
+;	Can be over-riden by calling setTimer_mS again
+; Returns
+; r8 - 0 = Counter is not yet expired
+;      1 = Counter is expired
+;
+
+checkForCountReached_mS:
+00000023	A0409000	push	r9
+00000024	A0406000	push	DAR
+00000025	A0405000	push	PAR
+00000026	4260000C	lix		DAR,longTimeWait.lower
+00000027	64806000	ldl		r8
+00000028	42503802	lix		PAR,0x3802		; address of the mSec counter
+00000029	84905000	lpl		r9				; read the peripheral counter into r9
+0000002a	38398000	cmp		r9,r8
+0000002b	CF000008	bgt		returnTimerNotYet
+0000002c	42600010	lix		DAR,longTimeDelta.lower
+0000002d	64806000	ldl		r8				;  See, we did use the delta time again
+0000002e	20889000	add		r8,r8,r9
+0000002f	4260000C	lix		DAR,longTimeWait.lower
+00000030	65608000	sdl		r8
+00000031	42800001	lix		r8,0x1
+00000032	C0000002	bra		timerDone
+returnTimerNotYet:
+00000033	42800000	lix		r8,0x0
+timerDone:
+00000034	A1504000	pull	PAR
+00000035	A1604000	pull	DAR
+00000036	A1904000	pull	r9
+00000037	A1704000	pull	PC
+
+;
+; delay_uS - delay for the number of uSecs
+; pass mSec delay in r8
+; Uses routine uses r9 (saved and restored)
+;
+
+delay_uS:
+00000038	A0409000	push	r9
+00000039	A0405000	push	PAR
+0000003a	42503801	lix		PAR,0x3801		; address of the uSec counter
+0000003b	84905000	lpl		r9				; read the peripheral counter into r9
+0000003c	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_uS:
+0000003d	84905000	lpl		r9				; check the elapsed time counter
+0000003e	38389000	cmp		r8,r9
+0000003f	CCFFFFFE	blt		loop_delay_uS
+00000040	A1504000	pull	PAR
+00000041	A1904000	pull	r9
+00000042	A1704000	pull	PC
+
+;--------------------------------------------------------------------
+; SevenSegLEDs.asm
+
+; wr7Seg8Dig
+; passed r8 - value to send to the 7 seg display
+
+wr7Seg8Dig:
+00000043	A0405000	push	PAR
+00000044	A0408000	push	r8
+00000045	42503000	lix		PAR,0x3000		; Seven Segment LED lines
+00000046	85508000	spl		r8				; Write out LED bits
+00000047	A1804000	pull	r8
+00000048	A1504000	pull	PAR
+00000049	A1704000	pull	PC
+
+;
+; hexToSevenSeg - Convert a two ASCII digit value into a hex byte
+; Passed: r8 points to the start of the hex string
+; Returned: r8 contains the hex value of the string
+; Put the byte to the Seven Segment Display
+;
+
+hexToSevenSeg:
+0000004a	A0409000	push	r9
+0000004b	A0406000	push	DAR
+0000004c	A0405000	push	PAR
+0000004d	42900000	lix		r9,0
+0000004e	20680000	add		DAR,r8,ZERO		; Address of lineBuff (passed into this routine)
+0000004f	68806000	ldbp	r8
+;	bsr		asciiToHex_ANSI_UART
+00000050	2B88000F	andi	r8,r8,0xf
+00000051	28998000	or		r9,r9,r8
+00000052	30909000	sl1		r9,r9
+00000053	30909000	sl1		r9,r9
+00000054	30909000	sl1		r9,r9
+00000055	30909000	sl1		r9,r9
+00000056	60806000	ldb		r8
+;	bsr		asciiToHex_ANSI_UART
+00000057	2B88000F	andi	r8,r8,0xf
+00000058	28998000	or		r9,r9,r8
+00000059	42503000	lix		PAR,0x3000		; seven segment display
+0000005a	85509000	spl		r9
+0000005b	20890000	add		r8,r9,ZERO
+0000005c	A1504000	pull	PAR
+0000005d	A1604000	pull	DAR
+0000005e	A1904000	pull	r9
+0000005f	A1704000	pull	PC
+
