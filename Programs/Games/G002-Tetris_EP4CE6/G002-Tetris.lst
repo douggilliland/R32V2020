@@ -1,0 +1,762 @@
+; Tetris game
+; This program requires a build of R32V2020 that has memory mapped video
+; Example: R32V2020_Build_V002_A4_CE6_MMVid
+
+title: 	.string "FakeTris 0.01"
+score:	.string "Score : "
+scoreValue:	.long	0x0
+
+start:
+00000000	D4000105	bsr		clearScreen_mmXGA
+; Print the title
+00000001	42800000	lix		r8,0x0000			; Upper left corner of screen
+00000002	D40000E6	bsr		setScreenCharLoc_mmXGA
+00000003	42800000	lix		r8,title.lower		; clear the data memory addr pointer
+00000004	D4000097	bsr		printString_mmXGA
+; Print the score string
+00000005	42800200	lix		r8,0x0200			; Two lines down on left side of screen
+00000006	D40000E2	bsr		setScreenCharLoc_mmXGA
+00000007	42800010	lix		r8,score.lower		; clear the data memory addr pointer
+00000008	D4000093	bsr		printString_mmXGA
+; Print the initial score value
+00000009	D400007E	bsr		printScore_tetris
+; Draw the border of the playfield
+0000000a	D400004E	bsr		drawPlayfieldBorder
+; Get the new tetris char
+0000000b	D400002F	bsr		pickNewTetrisSymbol
+; Draw the first sprite
+0000000c	4280011F	lix		r8,0x011f			; location 31,1
+0000000d	D400011A	bsr		setSpriteLocation_mmXGA
+0000000e	428000E2	lix		r8,0xE2				; circle char for now
+0000000f	D4000106	bsr		putSprite_mmXGA		; put sprite on screen
+00000010	428003E8	lix		r8,1000
+00000011	C0000163	bra		setTimer_mS
+00000012	4260001C	lix		DAR,scoreValue.lower
+00000013	42800000	lix		r8,0x0
+00000014	65608000	sdl		r8
+loopProg:
+00000015	D400016F	bsr		checkForCountReached_mS
+00000016	39380001	cmpi	r8,1
+00000017	D100007A	beq		newScore
+00000018	D4000151	bsr		checkGetStat_PS2
+00000019	2B88005F	andi	r8,r8,0x5F			; upper to lower
+0000001a	39380041	cmpi	r8,0x41				; 'a'
+0000001b	D1000004	beq		moveSpriteLeft
+0000001c	39380044	cmpi	r8,0x44				; 'd'
+0000001d	D100000E	beq		moveSpriteRight
+0000001e	C0FFFFF7	bra		loopProg			; not an 'a' or 'd'
+moveSpriteLeft:
+0000001f	426000E0	lix		DAR,currentSpriteX.lower
+00000020	64906000	ldl		r9
+00000021	39390015	cmpi	r9,0x15				; check to see if already at left edge
+00000022	D1FFFFF3	beq		loopProg
+00000023	42800020	lix		r8,0x20				; write out a space to erase sprite
+00000024	D40000F1	bsr		putSprite_mmXGA
+00000025	23550001	subi	PAR,PAR,1			; go left
+00000026	428000E2	lix		r8,0xE2				; circle character (for now)
+00000027	64906000	ldl		r9
+00000028	23990001	subi	r9,r9,1
+00000029	65609000	sdl		r9
+0000002a	C000000C	bra		storeToScreen
+moveSpriteRight:
+0000002b	426000E0	lix		DAR,currentSpriteX.lower
+0000002c	64906000	ldl		r9
+0000002d	39390028	cmpi	r9,0x28				; check to see if already at edge
+0000002e	D1FFFFE7	beq		loopProg
+0000002f	42800020	lix		r8,0x20				; write out a space to erase sprite
+00000030	D40000E5	bsr		putSprite_mmXGA
+00000031	21550001	addi	PAR,PAR,1			; go right
+00000032	428000E2	lix		r8,0xE2				; circle character (for now)
+00000033	64906000	ldl		r9
+00000034	21990001	addi	r9,r9,1
+00000035	65609000	sdl		r9
+storeToScreen:
+00000036	D40000DF	bsr		putSprite_mmXGA
+00000037	42800064	lix		r8,100				; wait for a bit
+00000038	D4000161	bsr		delay_mS
+00000039	C0FFFFDC	bra		loopProg
+
+sot:			.string "SoT"
+randoNumber:	.long	0x0
+currentTetrisSprite:	.string	"UUUUUUUUUUUUUUUU"
+; Tetris shapes drawn from
+;	https://raw.githubusercontent.com/OneLoneCoder/videos/master/OneLoneCoder_Tetris.cpp
+tetrisShape0:	.string "..X...X...X...X."
+tetrisShape1:	.string "..X..XX...X....."
+tetrisShape2:	.string ".....XX..XX....."
+tetrisShape3:	.string "..X..XX..X......"
+tetrisShape4:	.string ".X...XX...X....."
+tetrisShape5:	.string ".X...X...XX....."
+tetrisShape6:	.string "..X...X..XX....."
+eot:			.string "EnT"
+
+;
+; pickNewTetrisSymbol
+; Pick a new random tetris symbol (0-6)
+; Nothing passed
+; Nothing returned
+; Uses a bunch of registers
+; Globals
+;	currentTetrisSprite - populated with 16 chars representing tetris char
+;
+
+pickNewTetrisSymbol:
+0000003a	A0408000	push	r8
+0000003b	A0409000	push	r9
+0000003c	A040A000	push	r10
+0000003d	A040B000	push	r11
+0000003e	A0406000	push	DAR
+getNewRando:
+0000003f	D400016E	bsr		randomNumber_8bits
+00000040	2B880007	andi	r8,r8,0x07					; random from 0-7
+00000041	39380007	cmpi	r8,0x07
+00000042	D1FFFFFD	beq		getNewRando
+00000043	25880010	muli	r8,r8,0x10					; offset to tetrisChar (in longs?)
+00000044	4290003C	lix		r9,tetrisShape0.lower		; Base tetris shape
+00000045	20889000	add		r8,r8,r9					; r8 points to the start of the selected tetris shape
+00000046	42600024	lix		DAR,randoNumber.lower		; save the offset to the tetris char selected by random number
+00000047	65608000	sdl		r8
+00000048	42B00010	lix		r11,0x10						; copy 16 shorts
+00000049	42900028	lix		r9,currentTetrisSprite.lower	; r9 points to the destination
+; copy the tetris shape that was selected to currentTetrisSprite
+loopNextTetrisChar:
+0000004a	21680000	addi	DAR,r8,0x0
+0000004b	68A06000	ldbp	r10							; r10 is the current 4 characters
+0000004c	21860000	addi	r8,DAR,0					; save updated src pointer to next 4 bytes into r8
+0000004d	21690000	addi	DAR,r9,0x0
+0000004e	6960A000	sdbp	r10
+0000004f	21960000	addi	r9,DAR,0					; save updated dst pointer to next 4 bytes into r9
+00000050	23BB0001	subi	r11,r11,0x1
+00000051	C7FFFFF9	bnz		loopNextTetrisChar
+doneMovingTetrisChar:
+00000052	A1604000	pull	DAR
+00000053	A1B04000	pull	r11
+00000054	A1A04000	pull	r10
+00000055	A1904000	pull	r9
+00000056	A1804000	pull	r8
+00000057	A1704000	pull	PC
+
+;
+; drawBorder - draw the border around the FakeTis window
+;
+
+drawPlayfieldBorder:
+00000058	A0408000	push	r8
+00000059	A0409000	push	r9
+; Draw upper left corner
+0000005a	42800014	lix		r8,0x0014			; location 20,0
+0000005b	31808000	sl8		r8,r8				; shift over the address
+0000005c	218800CC	addi	r8,r8,0xCC			; upper left corner chars
+0000005d	D4000099	bsr		putCharXY_mmXGA		; put upper left corner on screen
+0000005e	21550001	addi	PAR,PAR,1			; get ready to draw horizontal line
+; Draw top horizontal line
+0000005f	42900014	lix		r9,0x14				; 20 chars wide top line
+anotherHorizTop:
+00000060	42800083	lix		r8,0x83				; horizontal line
+00000061	89508000	spbp	r8
+00000062	23990001	subi	r9,r9,1
+00000063	C7FFFFFD	bnz		anotherHorizTop
+; Draw upper right corner
+00000064	428000CD	lix		r8,0xCD				; upper right corner
+00000065	81508000	spb		r8
+; Draw vertical left side
+00000066	4290001E	lix		r9,0x1E				; 30 rows high
+00000067	42800114	lix		r8,0x0114			; location 20,1
+00000068	31808000	sl8		r8,r8
+00000069	2188008C	addi	r8,r8,0x8C			; vertical line left side
+0000006a	D400008C	bsr		putCharXY_mmXGA		; put first vertical bar to the screen
+anotherLeftVert:
+0000006b	81508000	spb		r8					; write character to the screen
+0000006c	21550040	addi	PAR,PAR,0x40
+0000006d	23990001	subi	r9,r9,1
+0000006e	C7FFFFFD	bnz		anotherLeftVert
+; Draw vertical right side
+0000006f	4290001E	lix		r9,0x1E				; 30 rows high
+00000070	42800129	lix		r8,0x0129			; location 41,1
+00000071	31808000	sl8		r8,r8
+00000072	2188008B	addi	r8,r8,0x8B			; vertical line right side
+00000073	D4000083	bsr		putCharXY_mmXGA		; put first vertical bar to the screen
+anotherLeftVert2:
+00000074	81508000	spb		r8
+00000075	21550040	addi	PAR,PAR,0x40
+00000076	23990001	subi	r9,r9,1
+00000077	C7FFFFFD	bnz		anotherLeftVert2
+; Draw left bottom corner
+00000078	42801F14	lix		r8,0x1F14			; location 20,31
+00000079	31808000	sl8		r8,r8				; shift over the address
+0000007a	218800CB	addi	r8,r8,0xCB			; lower left corner
+0000007b	D400007B	bsr		putCharXY_mmXGA		; put bottom left corner on screen
+0000007c	21550001	addi	PAR,PAR,1			; get ready to draw horizontal line
+0000007d	42900014	lix		r9,0x14				; 20 chars wide
+anotherHorizBottom:
+0000007e	42800084	lix		r8,0x84				; horizontal line
+0000007f	89508000	spbp	r8
+00000080	23990001	subi	r9,r9,1
+00000081	C7FFFFFD	bnz		anotherHorizBottom
+00000082	428000CE	lix		r8,0xCE				; upper right corner
+00000083	89508000	spbp	r8
+00000084	A1904000	pull	r9
+00000085	A1804000	pull	r8
+00000086	A1704000	pull	PC
+
+;
+; printScore_tetris
+;
+
+printScore_tetris:
+00000087	A0406000	push	DAR
+00000088	A0408000	push	r8
+00000089	42800208	lix		r8,0x0208			; print the score at 8,2
+0000008a	D400005E	bsr		setScreenCharLoc_mmXGA
+0000008b	4260001C	lix		DAR,scoreValue.lower
+0000008c	64806000	ldl		r8
+0000008d	D400001C	bsr		printLong_mmXGA
+0000008e	A1804000	pull	r8
+0000008f	A1604000	pull	DAR
+00000090	A1704000	pull	PC
+
+;
+; printScore_tetris
+;
+
+newScore:
+00000091	A0406000	push	DAR
+00000092	A0408000	push	r8
+00000093	4260001C	lix		DAR,scoreValue.lower
+00000094	64806000	ldl		r8
+00000095	21880001	addi	r8,r8,1
+00000096	65608000	sdl		r8
+00000097	D4FFFFF0	bsr		printScore_tetris
+00000098	A1804000	pull	r8
+00000099	A1604000	pull	DAR
+0000009a	A1704000	pull	PC
+
+; Routines that handle output to Memory Mapped XGA display
+; Character set
+;	https://github.com/douggilliland/R32V2020/wiki/Memory-Mapped-Display#Extended_Character_Set_Bitmaps
+
+memMappedXGAConstants:	.string "MMX"
+screenX:		.LONG	0x0
+screenY:		.LONG	0x0
+;screenAdr:		.LONG	0x0
+
+;
+; printString_mmXGA - Print a string to the screen
+; String will wrap around to next line if it goes past the right side
+; Minimal protection against going off the scree (just won't print)
+; r8 points to the string in data memory
+; Globals
+;	screenX, screenY - print the first character here
+;
+
+printString_mmXGA:
+0000009b	A0408000	push	r8					; Not required but keeps string pointer the same on return
+0000009c	A0406000	push	DAR
+0000009d	21680000	addi	DAR,r8,0x0			; Set DAR to start of the string
+0000009e	D400003D	bsr		setParToCurrentCharLoc_mmXGA
+printStringGetChar:
+0000009f	68806000	ldbp	r8					; get the character
+000000a0	39380000	cmpi	r8,0
+000000a1	D1000005	beq		donePrintingString
+000000a2	39350800	cmpi	PAR,0x0800			; next character would be off the screen so don't print it
+000000a3	D1000003	beq		donePrintingString
+000000a4	89508000	spbp	r8
+000000a5	C0FFFFFA	bra		printStringGetChar
+donePrintingString:
+000000a6	A1604000	pull	DAR
+000000a7	A1804000	pull	r8
+000000a8	A1704000	pull	PC
+
+;
+; printLong_mmXGA - Print a long to the screen
+; r8 - value to print to the screen
+;
+
+printLong_mmXGA:
+000000a9	A0408000	push	r8
+000000aa	A0409000	push	r9
+000000ab	A0408000	push	r8				; temporarily save r8
+000000ac	42800030	lix		r8,0x30			; print 0x
+000000ad	D400001A	bsr		putChar_mmXGA
+000000ae	42800078	lix		r8,0x78
+000000af	D4000018	bsr		putChar_mmXGA
+000000b0	A1804000	pull	r8				; restore r8
+000000b1	42900008	lix		r9,8			; loop counter
+doNextprintLong_mmXGA:		; get nibble
+000000b2	34808000	rol1	r8,r8
+000000b3	34808000	rol1	r8,r8
+000000b4	34808000	rol1	r8,r8
+000000b5	34808000	rol1	r8,r8
+000000b6	D4000006	bsr		printHexVal_mmXGA
+000000b7	23990001	subi	r9,r9,1
+000000b8	C7FFFFFA	bnz		doNextprintLong_mmXGA
+000000b9	A1904000	pull	r9
+000000ba	A1804000	pull	r8
+000000bb	A1704000	pull	PC
+
+;
+; printHexVal_mmXGA
+;
+
+printHexVal_mmXGA:
+000000bc	A0408000	push	r8
+000000bd	2B88000F	andi	r8,r8,0xf
+000000be	39380009	cmpi	r8,9
+000000bf	CC000004	blt		printHexLetter_mmXGA
+000000c0	21880030	addi	r8,r8,0x30
+000000c1	D4000006	bsr		putChar_mmXGA
+000000c2	C0000003	bra		donePrintHexVal_mmXGA
+printHexLetter_mmXGA:
+000000c3	21880037	addi	r8,r8,0x37		; 'A' - 10
+000000c4	D4000003	bsr		putChar_mmXGA
+donePrintHexVal_mmXGA:
+000000c5	A1804000	pull	r8
+000000c6	A1704000	pull	PC
+
+;
+; putChar_mmXGA - Put a character to the screen
+; r8 = Character to put to screen
+; Globals:
+;	screenX, screenY location of the place to put the character
+;
+
+putChar_mmXGA:
+000000c7	A0409000	push	r9
+000000c8	A040A000	push	r10
+000000c9	A0405000	push	PAR
+000000ca	A0406000	push	DAR
+000000cb	426000D0	lix		DAR,screenX.lower	; X location
+000000cc	64906000	ldl		r9
+000000cd	426000D4	lix		DAR,screenY.lower	; Y location
+000000ce	64A06000	ldl		r10
+000000cf	25AA0040	muli	r10,r10,0x40
+000000d0	205A9000	add		PAR,r10,r9			; PAR points to screen location
+000000d1	81508000	spb		r8					; write character to Display
+000000d2	426000D0	lix		DAR,screenX.lower	; X location
+000000d3	64906000	ldl		r9
+000000d4	21990001	addi	r9,r9,1
+; should compare to see if end of line and increment y taking care to not overflow bottom of screen
+000000d5	65609000	sdl		r9
+000000d6	A1604000	pull	DAR
+000000d7	A1504000	pull	PAR
+000000d8	A1A04000	pull	r10
+000000d9	A1904000	pull	r9
+000000da	A1704000	pull	PC
+
+;
+; setParToCurrentCharLoc_mmXGA - Sets PAR to the current character location
+; Globals
+;	screenX, screenY - print the first character here
+;
+
+setParToCurrentCharLoc_mmXGA:
+000000db	A0408000	push	r8
+000000dc	A0409000	push	r9
+000000dd	A0406000	push	DAR
+000000de	426000D0	lix		DAR,screenX.lower
+000000df	64806000	ldl		r8
+000000e0	426000D4	lix		DAR,screenY.lower
+000000e1	64906000	ldl		r9					; currentSpriteY is the next location
+000000e2	25990040	muli	r9,r9,0x40			; 64 chars wide screen
+000000e3	20589000	add		PAR,r8,r9
+000000e4	A1604000	pull	DAR
+000000e5	A1904000	pull	r9
+000000e6	A1804000	pull	r8
+000000e7	A1704000	pull	PC
+
+;
+; setScreenCharLoc_mmXGA
+; r8 - location
+; 	d8..d15 = position Y
+;	d8..d7 = position X
+;
+
+setScreenCharLoc_mmXGA:
+000000e8	A0408000	push	r8
+000000e9	A0409000	push	r9
+000000ea	A0406000	push	DAR
+000000eb	33908000	sr8		r9,r8
+000000ec	2B9900FF	andi	r9,r9,0x0ff
+000000ed	2B8800FF	andi	r8,r8,0x0ff
+000000ee	426000D0	lix		DAR,screenX.lower
+000000ef	65608000	sdl		r8
+000000f0	426000D4	lix		DAR,screenY.lower
+000000f1	65609000	sdl		r9
+000000f2	A1604000	pull	DAR
+000000f3	A1904000	pull	r9
+000000f4	A1804000	pull	r8
+000000f5	A1704000	pull	PC
+
+;
+; putCharXY_mmXGA - Put a single character to the Memory Mapped XGA screen at a X,Y location
+; r8 = X,Y,Character to put to screen
+; 	d16..d23 = position Y
+;	d8..d15 = position X
+;	d0..d7 = character to write
+; Registers used:
+;	r8 - character to write (after processing)
+;	r9 - X location
+;	r10 - Y location
+; Globals:
+;	screenX, screenY location of the place to put the character
+; Leaves PAR at character location
+;
+
+putCharXY_mmXGA:
+000000f6	A040A000	push	r10
+000000f7	A0409000	push	r9
+;	push	PAR
+000000f8	33908000	sr8		r9,r8				; r9 has the X location
+000000f9	2B8800FF	andi	r8,r8,0xff			; mask off address bits leaving character
+000000fa	33A09000	sr8		r10,r9				; r10 has the Y location
+000000fb	2BAA00FF	andi	r10,r10,0xff		; mask off any extra bits
+000000fc	2B9900FF	andi	r9,r9,0xff			; mask off any extra bits
+000000fd	255A0040	muli	PAR,r10,0x40
+000000fe	20559000	add		PAR,PAR,r9
+000000ff	81508000	spb		r8					; write character to Display
+;	pull	PAR
+00000100	A1904000	pull	r9
+00000101	A1A04000	pull	r10
+00000102	A1704000	pull	PC
+
+;
+; putCharIncrPAR_mmXGA - Put a character to the screen and increment PAR
+; Useful for filling line with stuff
+; r8 = Character to put to screen
+; PAR = set to the current screen location
+;
+
+putCharIncrPAR_mmXGA:
+00000103	89508000	spbp	r8			; write character to peripheral bus
+00000104	A1704000	pull	PC
+
+;
+; clearScreen_mmXGA - "Clear" the screen routine
+; Fills the screen with space characters
+; Screen is memory mapped
+; Screen is 64 columns by 32 rows = 2KB total space
+; Performance:
+;	Loop writes 4 locations in 6 instructions
+;	80 nS/instruction * 6 instructions = 480 nS
+;	512 times through loop
+;	245.76 uS screen clear time
+;
+
+clearScreen_mmXGA:
+00000105	A0405000	push	PAR
+00000106	A0409000	push	r9
+00000107	A0408000	push	r8
+00000108	42500000	lix 	par,0x0000	; start of screen character memory
+00000109	42800020	lix		r8,0x20		; fill with spaces
+0000010a	42900200	lix 	r9,0x200	; loopCount	(2K)
+looper:
+0000010b	89508000	spbp 	r8			; put the character to the screen
+0000010c	89508000	spbp 	r8			; put the character to the screen
+0000010d	89508000	spbp 	r8			; put the character to the screen
+0000010e	89508000	spbp 	r8			; put the character to the screen
+0000010f	23990001	subi 	r9,r9,1		; decrement character counter
+00000110	C7FFFFFB	bnz		looper		; loop until complete
+00000111	A1804000	pull	r8
+00000112	A1904000	pull	r9
+00000113	A1504000	pull	PAR
+00000114	A1704000	pull	PC
+; Sprites handler
+
+spritesStartHere:	.string "Sprites"
+currentSpriteX:	.LONG	0x0
+currentSpriteY:	.LONG	0x0
+spriteMemLoc:	.LONG	0x0
+
+;
+; putSprite_mmXGA - Put a sprite character to the screen
+; r8 = Sprite to put to screen
+; Globals:
+;	currentSpriteX, currentSpriteY location of the place to put the character
+;
+
+putSprite_mmXGA:
+00000115	A0409000	push	r9
+00000116	A040A000	push	r10
+00000117	A0405000	push	PAR
+00000118	A0406000	push	DAR
+00000119	426000E0	lix		DAR,currentSpriteX.lower
+0000011a	64906000	ldl		r9					; X location
+0000011b	426000E4	lix		DAR,currentSpriteY.lower
+0000011c	64A06000	ldl		r10					; Y location
+0000011d	25AA0040	muli	r10,r10,0x40		; 64 column offset
+0000011e	205A9000	add		PAR,r10,r9			; PAR points to screen location
+0000011f	81508000	spb		r8					; write character to Display
+00000120	426000E8	lix		DAR,spriteMemLoc.lower
+00000121	65605000	sdl		PAR
+00000122	A1604000	pull	DAR
+00000123	A1504000	pull	PAR
+00000124	A1A04000	pull	r10
+00000125	A1904000	pull	r9
+00000126	A1704000	pull	PC
+
+;
+; setSpriteLocation_mmXGA
+; Sets the variables currentSpriteX and currentSpriteY in data memory
+; r8 - screen location
+;	d0-d7 = X coordinate
+;	d8-d15 = Y coordinate
+;
+
+setSpriteLocation_mmXGA:
+00000127	A0406000	push	DAR
+00000128	A0409000	push	r9
+00000129	33908000	sr8		r9,r8
+0000012a	2B9900FF	andi	r9,r9,0x00ff		; Y
+0000012b	2B8800FF	andi	r8,r8,0x00ff		; X
+0000012c	426000E0	lix		DAR,currentSpriteX.lower
+0000012d	65608000	sdl		r8					; X location
+0000012e	426000E4	lix		DAR,currentSpriteY.lower
+0000012f	65609000	sdl		r9					; Y location
+00000130	A1904000	pull	r9
+00000131	A1604000	pull	DAR
+00000132	A1704000	pull	PC
+
+;--------------------------------------------------------------------
+; ps2.asm - Functions to read the PS/2 keyboard
+;
+; Address	Function
+; x0800 	Latched Keyboard Data
+; x0801 	Latched Keyboard Status
+; x0802 	Polled Keyboard Data
+; x0803 	Polled Keyboard Status
+;
+; getChar_PS2
+; returns character received in r8
+;
+
+getChar_PS2:
+00000133	A0405000	push	PAR
+00000134	42500801	lix		PAR,0x0801	; PS/2 Status
+waitPS2RxStat:
+00000135	84805000	lpl		r8			; Read Status into r9
+00000136	2B880001	andi 	r8,r8,1
+00000137	C3FFFFFE	bez 	waitPS2RxStat
+getCharFromPS2:
+00000138	42500800	lix 	PAR,0x0800
+00000139	84805000	lpl		r8
+whilePS2RxStat:
+0000013a	A1504000	pull	PAR
+0000013b	A1704000	pull	PC
+
+; waitReadPS2_UART
+; wait for character from either
+;	the PS/2 keyboard or the UART serial
+; r8 = read character
+
+waitReadPS2_UART:
+0000013c	A0405000	push	PAR
+checkCharFromPS2:
+0000013d	42500801	lix		PAR,0x0801	; PS/2 Status
+0000013e	84805000	lpl		r8			; Read Status
+0000013f	2B880001	andi	r8,r8,0x1	; =1 when char received
+00000140	C3000004	bez 	checkUARTStat
+00000141	42500800	lix 	PAR,0x0800	; PS/2 Data
+00000142	84805000	lpl		r8
+00000143	C0000007	bra		gotPS2Char
+checkUARTStat:
+00000144	42501800	lix		PAR,0x1800	; UART Status
+00000145	84805000	lpl		r8			; Read Status
+00000146	2B880001	andi 	r8,r8,0x1	; =1 when char received
+00000147	C3FFFFF6	bez 	checkCharFromPS2
+00000148	42501801	lix 	PAR,0x1801	; UART Data
+00000149	84805000	lpl		r8
+gotPS2Char:
+0000014a	A1504000	pull	PAR
+0000014b	A1704000	pull	PC
+
+; checkForCharAndDiscard - Check for a character in UART or PS/2
+; Discard the character received
+; return whether char was present (1) or no char was present (0)
+
+checkForCharAndDiscard:
+0000014c	A0405000	push	PAR
+0000014d	42500801	lix		PAR,0x0801	; PS/2 Status
+0000014e	84805000	lpl		r8			; Read Status
+0000014f	2B880001	andi	r8,r8,0x1	; =1 when char received
+00000150	C3000005	bez 	checkUARTStat2
+00000151	42500800	lix 	PAR,0x0800	; PS/2 Data
+00000152	84805000	lpl		r8			; throw away char
+00000153	42800001	lix		r8,0x1
+00000154	C000000A	bra		gotChar
+checkUARTStat2:
+00000155	42501800	lix		PAR,0x1800	; UART Status
+00000156	84805000	lpl		r8			; Read Status
+00000157	2B880001	andi 	r8,r8,0x1	; =1 when char received
+00000158	C3000005	bez 	noCharReceived
+00000159	42501801	lix 	PAR,0x1801	; UART Data
+0000015a	84805000	lpl		r8
+0000015b	42800001	lix		r8,1
+0000015c	C0000002	bra		gotChar
+noCharReceived:
+0000015d	42800000	lix		r8,0
+gotChar:
+0000015e	A1504000	pull	PAR
+0000015f	A1704000	pull	PC
+
+;
+; waitCharPolled_PS2 - Check the polled character interface
+; wait for a character
+; return when a character is present
+; returns character received in r8
+;
+
+waitCharPolled_PS2:
+00000160	A0405000	push	PAR
+00000161	42500803	lix		PAR,0x0803	; PS/2 Status
+waitPS2RxStatPolled:
+00000162	84805000	lpl		r8			; Read Status into r8
+00000163	2B880001	andi 	r8,r8,0x1
+00000164	C3FFFFFE	bez 	waitPS2RxStatPolled
+getCharFromPS2Polled:
+00000165	42500802	lix 	PAR,0x0802
+00000166	84805000	lpl		r8
+whilePS2RxStatPolled:
+00000167	A1504000	pull	PAR
+00000168	A1704000	pull	PC
+
+;
+; checkGetStat_PS2 - Checks the polling status
+; Polled interface is active while the keyboard key is pressed
+; returns
+;	-1 if there is no character,
+;	character if there is a character
+;
+
+checkGetStat_PS2:
+00000169	A0405000	push	PAR
+0000016a	42500803	lix		PAR,0x0803	; PS/2 Status
+0000016b	84805000	lpl		r8			; Read Status into r8
+0000016c	2B880001	andi	r8,r8,0x1
+0000016d	C3000004	bez		charNotPresent
+0000016e	42500802	lix		PAR,0x0802
+0000016f	84805000	lpl		r8
+00000170	C0000002	bra		gotCharIn
+charNotPresent:
+00000171	20802000	add		r8,ZERO,MINUS1
+gotCharIn:
+00000172	A1504000	pull	PAR
+00000173	A1704000	pull	PC
+;--------------------------------------------------------------------
+; timers.asm
+
+longTimeWait:	.long 0x0
+longTimeDelta:	.long 0x0
+
+;
+; setTimer_mS - sets a software timer in mSec from the current mSec time
+; Non-blocking routine
+; Wrap around problem at 2^32 mS (every 4.3 million seconds = 49 days)
+; Timer is checked from checkForCountReached_mS routine
+; longTimeWait - global that contains the terminal count time
+; r8 is the number of mS until the counter expires
+;
+
+setTimer_mS:
+00000174	A0408000	push	r8
+00000175	A0409000	push	r9
+00000176	A0406000	push	DAR
+00000177	A0405000	push	PAR
+00000178	426000F0	lix		DAR,longTimeDelta.lower
+00000179	65608000	sdl		r8				; keep the delta time - might use it again
+0000017a	42503802	lix		PAR,0x3802		; address of the mSec counter
+0000017b	84905000	lpl		r9				; read the peripheral counter into r9
+0000017c	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+0000017d	426000EC	lix		DAR,longTimeWait.lower
+0000017e	65608000	sdl		r8
+0000017f	A1504000	pull	PAR
+00000180	A1604000	pull	DAR
+00000181	A1904000	pull	r9
+00000182	A1804000	pull	r8
+00000183	A1704000	pull	PC
+
+;
+; checkForCountReached_mS
+; Presumptively reloads the terminal count for the next cycle
+;	Can be over-riden by calling setTimer_mS again
+; Returns
+; r8 - 0 = Counter is not yet expired
+;      1 = Counter is expired
+;
+
+checkForCountReached_mS:
+00000184	A0409000	push	r9
+00000185	A0406000	push	DAR
+00000186	A0405000	push	PAR
+00000187	426000EC	lix		DAR,longTimeWait.lower
+00000188	64806000	ldl		r8
+00000189	42503802	lix		PAR,0x3802		; address of the mSec counter
+0000018a	84905000	lpl		r9				; read the peripheral counter into r9
+0000018b	38398000	cmp		r9,r8
+0000018c	CF000008	bgt		returnTimerNotYet
+0000018d	426000F0	lix		DAR,longTimeDelta.lower
+0000018e	64806000	ldl		r8				;  See, we did use the delta time again
+0000018f	20889000	add		r8,r8,r9
+00000190	426000EC	lix		DAR,longTimeWait.lower
+00000191	65608000	sdl		r8
+00000192	42800001	lix		r8,0x1
+00000193	C0000002	bra		timerDone
+returnTimerNotYet:
+00000194	42800000	lix		r8,0x0
+timerDone:
+00000195	A1504000	pull	PAR
+00000196	A1604000	pull	DAR
+00000197	A1904000	pull	r9
+00000198	A1704000	pull	PC
+
+; delay_mS - delay for the number of mSecs passed in r8
+; pass mSec delay in r8
+; Routine uses r9
+
+delay_mS:
+00000199	A0409000	push	r9
+0000019a	42503802	lix		PAR,0x3802		; address of the mSec counter
+0000019b	84905000	lpl		r9				; read the peripheral counter into r9
+0000019c	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_mS:
+0000019d	84905000	lpl		r9				; check the elapsed time counter
+0000019e	38389000	cmp		r8,r9
+0000019f	CCFFFFFE	blt		loop_delay_mS
+000001a0	A1904000	pull	r9
+000001a1	A1704000	pull	PC
+
+;
+; delay_uS - delay for the number of uSecs
+; pass mSec delay in r8
+; Uses routine uses r9 (saved and restored)
+;
+
+delay_uS:
+000001a2	A0409000	push	r9
+000001a3	A0405000	push	PAR
+000001a4	42503801	lix		PAR,0x3801		; address of the uSec counter
+000001a5	84905000	lpl		r9				; read the peripheral counter into r9
+000001a6	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_uS:
+000001a7	84905000	lpl		r9				; check the elapsed time counter
+000001a8	38389000	cmp		r8,r9
+000001a9	CCFFFFFE	blt		loop_delay_uS
+000001aa	A1504000	pull	PAR
+000001ab	A1904000	pull	r9
+000001ac	A1704000	pull	PC
+
+;
+; randomNumber_8bits - Generate a random number - 8-bit value
+; 0x3803 is the Processor Instruction Cycle counter
+; r8 - random number returned in r8
+;
+
+randomNumber_8bits:
+000001ad	A0405000	push	PAR
+000001ae	42503803	lix		PAR,0x3803
+000001af	84805000	lpl		r8
+000001b0	32808000	sr1		r8,r8
+000001b1	32808000	sr1		r8,r8
+000001b2	2B8800FF	andi	r8,r8,0xff
+000001b3	A1504000	pull	PAR
+000001b4	A1704000	pull	PC
+

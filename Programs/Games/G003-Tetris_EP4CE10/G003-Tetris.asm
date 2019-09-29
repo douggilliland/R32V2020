@@ -2,20 +2,9 @@
 ; This program requires a build of R32V2020 that has memory mapped video
 ; Example: R32V2020_Build_V002_A4_CE6_MMVid 
 
-title: 	.string "FakeTris x.x1"
+title: 	.string "FakeTris 0.01"
 score:	.string "Score : "
 scoreValue:	.long	0x0
-
-; Tetris shapes drawn from
-;	https://raw.githubusercontent.com/OneLoneCoder/videos/master/OneLoneCoder_Tetris.cpp
-
-tetrisShape0:	.string "..X...X...X...X."
-tetrisShape1:	.string "..X..XX...X....."
-tetrisShape2:	.string ".....XX..XX....."
-tetrisShape3:	.string "..X..XX..X......"
-tetrisShape4:	.string ".X...XX...X....."
-tetrisShape5:	.string ".X...X...XX....."
-tetrisShape16:	.string "..X...X..XX....."
 
 start:
 	bsr		clearScreen_mmXGA
@@ -33,6 +22,8 @@ start:
 	bsr		printScore_tetris
 ; Draw the border of the playfield
 	bsr		drawPlayfieldBorder
+; Get the new tetris char
+	bsr		pickNewTetrisSymbol
 ; Draw the first sprite
 	lix		r8,0x011f			; location 31,1
 	bsr		setSpriteLocation_mmXGA
@@ -84,6 +75,69 @@ storeToScreen:
 	lix		r8,100				; wait for a bit
 	bsr		delay_mS
 	bra		loopProg
+
+; 0x20
+sot:			.string "SoT"
+; 0x24
+randoNumber:	.long	0x0
+; 0x28
+currentTetrisSprite:	.string	"UUUUUUUUUUUUUUUU"
+; Tetris shapes drawn from
+;	https://raw.githubusercontent.com/OneLoneCoder/videos/master/OneLoneCoder_Tetris.cpp
+tetrisShape0:	.string "..X...X...X...X."
+tetrisShape1:	.string "..X..XX...X....."
+tetrisShape2:	.string ".....XX..XX....."
+tetrisShape3:	.string "..X..XX..X......"
+tetrisShape4:	.string ".X...XX...X....."
+tetrisShape5:	.string ".X...X...XX....."
+tetrisShape6:	.string "..X...X..XX....."
+eot:			.string "EnT"
+
+;
+; pickNewTetrisSymbol
+; Pick a new random tetris symbol (0-6)
+; Nothing passed
+; Nothing returned
+; Uses a bunch of registers
+; Globals
+;	currentTetrisSprite - populated with 16 chars representing tetris char
+;
+
+pickNewTetrisSymbol:
+	push	r8
+	push	r9
+	push	r10
+	push	r11
+	push	DAR
+getNewRando:
+	bsr		randomNumber_8bits
+	andi	r8,r8,0x07					; random from 0-7
+	cmpi	r8,0x07
+	beq		getNewRando
+	muli	r8,r8,0x14					; offset to tetrisChar (in longs)
+	lix		r9,tetrisShape0.lower		; Base tetris shape
+	add		r8,r8,r9					; r8 points to the start of the selected tetris shape
+	lix		DAR,randoNumber.lower		; save the offset to the tetris char selected by random number
+	sdl		r8
+	lix		r11,0x10						; copy 16 bytes
+	lix		r9,currentTetrisSprite.lower	; r9 points to the destination
+; copy the tetris shape that was selected to currentTetrisSprite
+loopNextTetrisChar:
+	addi	DAR,r8,0x0
+	ldbp	r10							; r10 is the current 4 characters
+	addi	r8,DAR,0					; save updated src pointer to next 4 bytes into r8
+	addi	DAR,r9,0x0
+	sdbp	r10
+	addi	r9,DAR,0					; save updated dst pointer to next 4 bytes into r9
+	subi	r11,r11,0x1
+	bnz		loopNextTetrisChar
+doneMovingTetrisChar:
+	pull	DAR
+	pull	r11
+	pull	r10
+	pull	r9
+	pull	r8
+	pull	PC
 
 ;
 ; drawBorder - draw the border around the FakeTis window
@@ -153,11 +207,15 @@ anotherHorizBottom:
 ;
 
 printScore_tetris:
+	push	DAR
+	push	r8
 	lix		r8,0x0208			; print the score at 8,2
 	bsr		setScreenCharLoc_mmXGA
 	lix		DAR,scoreValue.lower
 	ldl		r8
 	bsr		printLong_mmXGA
+	pull	r8
+	pull	DAR
 	pull	PC
 	
 ;
