@@ -1,0 +1,1 @@
+zeroLong: .long 0

@@ -279,15 +279,26 @@ class ShortConstant:
 
     return [output]
 
+def unsafeParseBinary(token):
+  strippedOfBinary = token.replace("'", '').replace('B', '').replace('b', '')
+
+  return int(strippedOfBinary, 2)
+
+def parseImmediate(token):
+  try:
+    return int(token)
+  except:
+    try:
+      return int(token, 0)
+    except:
+      return unsafeParseBinary(token)
+
 class LongConstant:
   def __init__(self, longToken):
-    self.longToken = longToken[2:]
+    self.longToken = longToken
 
   def resolveHex(self):
-    try:
-      return [int(self.longToken, 16)]
-    except ValueError:
-      print 'resolveHex error: ',self.longToken
+    return [parseImmediate(self.longToken)]
 
 def hexOfAsciiCode(char):
   return hex(ord(char))[2:]
@@ -377,20 +388,6 @@ def parseRegister(token):
     return REGISTER_ALIASES[token.upper()]
 
   return int(token[1:])
-
-def unsafeParseBinary(token):
-  strippedOfBinary = token.replace("'", '').replace('B', '').replace('b', '')
-
-  return int(strippedOfBinary, 2)
-
-def parseImmediate(token):
-  try:
-    return int(token)
-  except:
-    try:
-      return int(token, 0)
-    except:
-      return unsafeParseBinary(token)
 
 def parseByte(token):
   return int(token, 0)
@@ -556,7 +553,6 @@ if __name__ == '__main__':
       continue
 
     if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
-      shorts = []
       address = tokens[0][:-1]
 
       lineAssert(isValidAddress(address), num, rawLine, formatAddressError(address))
