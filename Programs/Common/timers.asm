@@ -4,27 +4,11 @@
 longTimeWait:	.long 0x0
 longTimeDelta:	.long 0x0
 
-; delay_mS - delay for the number of mSecs passed in r8
-; pass mSec delay in r8
-; Routine uses r9
-
-delay_mS:
-	push	r9
-	lix		PAR,0x3802		; address of the mSec counter
-	lpl		r9				; read the peripheral counter into r9
-	add		r8,r9,r8		; terminal counter to wait until is in r8
-loop_delay_mS:
-	lpl		r9				; check the elapsed time counter
-	cmp		r8,r9
-	blt		loop_delay_mS
-	pull	r9
-	pull	PC
-
 ;
 ; setTimer_mS - sets a software timer in mSec from the current mSec time
 ; Non-blocking routine
 ; Wrap around problem at 2^32 mS (every 4.3 million seconds = 49 days)
-; Needs to be checked from checkForCountReached_mS routine
+; Timer is checked from checkForCountReached_mS routine
 ; longTimeWait - global that contains the terminal count time
 ; r8 is the number of mS until the counter expires
 ;
@@ -81,6 +65,22 @@ timerDone:
 	pull	r9
 	pull	PC
 
+; delay_mS - delay for the number of mSecs passed in r8
+; pass mSec delay in r8
+; Routine uses r9
+
+delay_mS:
+	push	r9
+	lix		PAR,0x3802		; address of the mSec counter
+	lpl		r9				; read the peripheral counter into r9
+	add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_mS:
+	lpl		r9				; check the elapsed time counter
+	cmp		r8,r9
+	blt		loop_delay_mS
+	pull	r9
+	pull	PC
+
 ;	
 ; delay_uS - delay for the number of uSecs
 ; pass mSec delay in r8
@@ -99,5 +99,21 @@ loop_delay_uS:
 	blt		loop_delay_uS
 	pull	PAR
 	pull	r9
+	pull	PC
+
+;
+; randomNumber_8bits - Generate a random number - 8-bit value
+; 0x3803 is the Processor Instruction Cycle counter
+; r8 - random number returned in r8
+;
+
+randomNumber_8bits:
+	push	PAR
+	lix		PAR,0x3803
+	lpl		r8
+	sr1		r8,r8
+	sr1		r8,r8
+	andi	r8,r8,0xff
+	pull	PAR
 	pull	PC
 
