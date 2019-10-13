@@ -330,6 +330,7 @@ class OutputLine:
   def setInstruction(self, instruction):
     self.instruction = instruction
 
+defines = {}
 output = []
 addresses = {}
 constantAddresses = set()
@@ -365,12 +366,18 @@ def isValidString(text):
 
   return walker.strip() == ''
 
-def isValidAddress(token):
+def isAlphaNumOrUnderscore(token):
   for char in token:
     if not (char.isalnum() or char == '_'):
       return False
 
   return True
+
+def isValidDefineTerm(token):
+  return isAlphaNumOrUnderscore(token)
+
+def isValidAddress(token):
+  return isAlphaNumOrUnderscore(token)
 
 def isValidDataLabelReference(token):
   parts = token.split('.')
@@ -477,6 +484,17 @@ class FileLine:
     self.rawLine = rawLine
     self.lineNumber = lineNumber
 
+def replaceDefines(tokens, defines):
+  results = []
+
+  for token in tokens:
+    if token in defines:
+      results.append(defines[token])
+    else:
+      results.append(token)
+
+  return results
+
 def inlineIncludes(asmPath, originalLines):
   lines = []
 
@@ -535,7 +553,18 @@ if __name__ == '__main__':
     if line.strip() == '':
       continue
 
-    tokens = re.split('[\s|,]+', line.strip())
+    tokens = replaceDefines(re.split('[\s|,]+', line.strip()), defines)
+
+    if len(tokens) > 0 and tokens[0].upper() == '#DEFINE':
+      lineAssert(len(tokens) == 3, fileLine, '#DEFINE terms expect 2 arguments (the term then a value) but ' + str(len(tokens)-1) + ' were given')
+
+      defineTerm = tokens[1]
+      value = tokens[2]
+
+      lineAssert(isValidDefineTerm(defineTerm), fileLine, defineTerm + ' is not a valid name in a #DEFINE directive (must be alpha-numeric, can contain underscores)')
+
+      defines[defineTerm] = value
+      continue
 
     if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.STRING':
       address = tokens[0][:-1]
