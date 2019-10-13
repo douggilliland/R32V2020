@@ -22,6 +22,32 @@ class StripCommentsSpecs(unittest.TestCase):
   def test_semicolons_in_strings_are_not_thrown_off_by_escaped_double_quotes(self):
     self.assertEqual(assembler.stripComments('hi: .string "foo; \\" ; bar"'), 'hi: .string "foo; \\" ; bar"')
 
+class ReplaceDefinsSpecs(unittest.TestCase):
+  def test_no_defines_keeps_the_original_tokens(self):
+    input = ['a', 'b', 'c']
+
+    self.assertEqual(assembler.replaceDefines(input, {}), input)
+
+  def test_no_matching_defines_keeps_the_original_tokens(self):
+    input = ['a', 'b', 'c']
+
+    self.assertEqual(assembler.replaceDefines(input, { 'd': 'foo' }), input)
+
+  def test_single_matches_replace(self):
+    input = ['a', 'b', 'c']
+
+    self.assertEqual(assembler.replaceDefines(input, { 'a': 'foo' }), ['foo', 'b', 'c'])
+
+  def test_multiple_repeated_matches_all_replace(self):
+    input = ['a', 'b', 'a']
+
+    self.assertEqual(assembler.replaceDefines(input, { 'a': 'foo' }), ['foo', 'b', 'foo'])
+
+  def test_multiple_distinct_matches_all_replace(self):
+    input = ['a', 'b', 'c']
+
+    self.assertEqual(assembler.replaceDefines(input, { 'a': 'foo', 'c': 'bar' }), ['foo', 'b', 'bar'])
+
 class FormatHexSpecs(unittest.TestCase):
   def test_a_case_that_looks_like_an_add_instruction_at_addres_0_works(self):
     resolver = assembler.BinDestResolver(32, 7, 0, 0)
