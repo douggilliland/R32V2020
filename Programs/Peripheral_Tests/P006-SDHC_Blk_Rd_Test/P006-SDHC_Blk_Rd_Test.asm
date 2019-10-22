@@ -36,7 +36,7 @@
 ; SDHC can be upto 32GByte but this design can only access the low 8GByte
 ; Code for R32V2020 RISC CPU
 ;
-; SD Card base address is x1000
+; SD Card base address is 0x1000
 ; Register Addresses
 ;    0x1000    SDDATA        read/write data
 ;    0x1001    SDSTATUS      read
