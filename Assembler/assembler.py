@@ -326,9 +326,13 @@ class OutputLine:
     self.rawLine = rawLine
     self.instructionAddress = currentAddress
     self.instruction = None
+    self.isData = False
 
   def setInstruction(self, instruction):
     self.instruction = instruction
+
+  def flagAsData(self):
+    self.isData = True
 
 defines = {}
 output = []
@@ -582,6 +586,7 @@ if __name__ == '__main__':
       constantAddresses.add(address)
       constants.append(constant)
       addressByConstant[constant] = address
+      outputLine.flagAsData()
       continue
 
     if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.LONG':
@@ -600,6 +605,7 @@ if __name__ == '__main__':
       constantAddresses.add(address)
       constants.append(constant)
       addressByConstant[constant] = address
+      outputLine.flagAsData()
       continue
 
     if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.SHORT':
@@ -619,6 +625,7 @@ if __name__ == '__main__':
       constantAddresses.add(address)
       constants.append(constant)
       addressByConstant[constant] = address
+      outputLine.flagAsData()
       continue
 
     if len(tokens) > 1 and tokens[0][-1] == ':' and tokens[1].upper() == '.BYTE':
@@ -638,6 +645,7 @@ if __name__ == '__main__':
       constantAddresses.add(address)
       constants.append(constant)
       addressByConstant[constant] = address
+      outputLine.flagAsData()
       continue
 
     if tokens[0][-1] == ':':
@@ -769,6 +777,8 @@ if __name__ == '__main__':
 
   with open(insFile, 'w') as instF:
     with open(lstFile, 'w') as listF:
+      currentAddress = 0
+
       for line in output:
         if line.instruction != None:
           instData = formatInstructionHex(line.instructionAddress, line.instruction, addresses, dataAddresses)
@@ -776,5 +786,10 @@ if __name__ == '__main__':
           addr = hex(line.instructionAddress)[2:]
           paddedAddr = '0'*(8 - len(addr)) + addr
           listF.write(paddedAddr + '\t' + instData[9:17] + '\t')
+        if line.isData:
+          addr = hex(currentAddress)[2:]
+          paddedAddr = '0'*(8 - len(addr)) + addr
+          listF.write(paddedAddr + '\t')
+          currentAddress += 1
         listF.write(line.rawLine)
       instF.write(':00000001FF\n')
