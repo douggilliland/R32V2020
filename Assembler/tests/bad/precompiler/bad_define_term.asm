@@ -1,0 +1,1 @@
+#DEFINE foo$ 42
