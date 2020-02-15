@@ -1,5 +1,5 @@
 Fitter report for R32V2020
-Sat Feb 15 12:44:52 2020
+Sat Feb 15 13:34:17 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -73,7 +73,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Sat Feb 15 12:44:52 2020       ;
+; Fitter Status                      ; Successful - Sat Feb 15 13:34:17 2020       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_RETRO_EP4_top                      ;
@@ -161,14 +161,14 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.12        ;
+; Average used               ; 1.11        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   4.0%      ;
-;     Processor 3            ;   3.9%      ;
-;     Processor 4            ;   3.8%      ;
+;     Processor 2            ;   3.6%      ;
+;     Processor 3            ;   3.5%      ;
+;     Processor 4            ;   3.5%      ;
 +----------------------------+-------------+
 
 
@@ -2662,7 +2662,7 @@ Info (332111): Found 2 clocks
     Info (332111): ======== ============
     Info (332111):  100.000 altera_reserved_tck
     Info (332111):   20.000   i_CLOCK_50
-Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN T2 (CLK2, DIFFCLK_1p)) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 14
+Info (176353): Automatically promoted node i_CLOCK_50~input (placed in PIN T2 (CLK2, DIFFCLK_1p)) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 15
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G4
 Info (176353): Automatically promoted node altera_internal_jtag~TCKUTAP 
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
@@ -2727,7 +2727,7 @@ Info (176353): Automatically promoted node R32V2020_top:middle|PeripheralInterfa
 Info (176233): Starting register packing
 Info (176235): Finished register packing
     Extra Info (176219): No registers were packed into other blocks
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:05
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:06
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
@@ -2741,42 +2741,42 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:03
-Info (11888): Total time spent on timing analysis during the Fitter is 1.42 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 1.52 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:03
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:04
 Warning (169177): 23 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin sdRamData[0] uses I/O standard 3.3-V LVTTL at AA10 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[1] uses I/O standard 3.3-V LVTTL at AB9 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[2] uses I/O standard 3.3-V LVTTL at AA9 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[3] uses I/O standard 3.3-V LVTTL at AB8 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[4] uses I/O standard 3.3-V LVTTL at AA8 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[5] uses I/O standard 3.3-V LVTTL at AB7 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[6] uses I/O standard 3.3-V LVTTL at AA7 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[7] uses I/O standard 3.3-V LVTTL at AB5 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[8] uses I/O standard 3.3-V LVTTL at Y7 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[9] uses I/O standard 3.3-V LVTTL at W8 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[10] uses I/O standard 3.3-V LVTTL at Y8 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[11] uses I/O standard 3.3-V LVTTL at V9 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[12] uses I/O standard 3.3-V LVTTL at V10 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[13] uses I/O standard 3.3-V LVTTL at Y10 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[14] uses I/O standard 3.3-V LVTTL at W10 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin sdRamData[15] uses I/O standard 3.3-V LVTTL at V11 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Info (169178): Pin i_SerCts uses I/O standard 3.3-V LVTTL at J21 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 18
-    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVTTL at T2 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 14
-    Info (169178): Pin i_sdMISO uses I/O standard 3.3-V LVTTL at A20 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 41
-    Info (169178): Pin i_n_reset uses I/O standard 3.3-V LVTTL at W13 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 13
-    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVTTL at H21 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 16
-    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVTTL at R1 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 44
-    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVTTL at R2 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 45
+    Info (169178): Pin sdRamData[0] uses I/O standard 3.3-V LVTTL at AA10 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[1] uses I/O standard 3.3-V LVTTL at AB9 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[2] uses I/O standard 3.3-V LVTTL at AA9 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[3] uses I/O standard 3.3-V LVTTL at AB8 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[4] uses I/O standard 3.3-V LVTTL at AA8 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[5] uses I/O standard 3.3-V LVTTL at AB7 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[6] uses I/O standard 3.3-V LVTTL at AA7 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[7] uses I/O standard 3.3-V LVTTL at AB5 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[8] uses I/O standard 3.3-V LVTTL at Y7 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[9] uses I/O standard 3.3-V LVTTL at W8 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[10] uses I/O standard 3.3-V LVTTL at Y8 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[11] uses I/O standard 3.3-V LVTTL at V9 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[12] uses I/O standard 3.3-V LVTTL at V10 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[13] uses I/O standard 3.3-V LVTTL at Y10 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[14] uses I/O standard 3.3-V LVTTL at W10 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin sdRamData[15] uses I/O standard 3.3-V LVTTL at V11 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Info (169178): Pin i_SerCts uses I/O standard 3.3-V LVTTL at J21 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 19
+    Info (169178): Pin i_CLOCK_50 uses I/O standard 3.3-V LVTTL at T2 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 15
+    Info (169178): Pin i_sdMISO uses I/O standard 3.3-V LVTTL at A20 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 42
+    Info (169178): Pin i_n_reset uses I/O standard 3.3-V LVTTL at W13 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 14
+    Info (169178): Pin i_SerRxd uses I/O standard 3.3-V LVTTL at H21 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 17
+    Info (169178): Pin i_ps2Clk uses I/O standard 3.3-V LVTTL at R1 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 45
+    Info (169178): Pin i_ps2Data uses I/O standard 3.3-V LVTTL at R2 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 46
 Info (144001): Generated suppressed messages file C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/output_files/R32V2020.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 8 warnings
-    Info: Peak virtual memory: 5589 megabytes
-    Info: Processing ended: Sat Feb 15 12:44:54 2020
-    Info: Elapsed time: 00:00:26
-    Info: Total CPU time (on all processors): 00:00:35
+    Info: Peak virtual memory: 5583 megabytes
+    Info: Processing ended: Sat Feb 15 13:34:19 2020
+    Info: Elapsed time: 00:00:27
+    Info: Total CPU time (on all processors): 00:00:34
 
 
 +----------------------------+

@@ -1,3 +1,4 @@
+-- Top level
 -- Wrap the R32V2020 RISC CPU with a board specific wrapper
 
 library ieee;
@@ -18,23 +19,23 @@ entity R32V2020_RETRO_EP4_top is
 		i_SerCts				: in std_logic		:= '0';
 		o_SerRts				: out std_logic	:= '1';
 		-- VGA pins
-		o_vid_Red_Hi		: out std_logic := '1';
-		o_vid_Red_Lo		: out std_logic := '1';
-		o_vid_Grn_Hi		: out std_logic := '1';
-		o_vid_Grn_Lo		: out std_logic := '1';
-		o_vid_Blu_Hi		: out std_logic := '1';
-		o_vid_Blu_Lo		: out std_logic := '1';
-		o_hSync				: out std_logic := '1';
-		o_vSync				: out std_logic := '1';
+		o_vid_Red_Hi		: out std_logic	:= '1';
+		o_vid_Red_Lo		: out std_logic	:= '1';
+		o_vid_Grn_Hi		: out std_logic	:= '1';
+		o_vid_Grn_Lo		: out std_logic	:= '1';
+		o_vid_Blu_Hi		: out std_logic	:= '1';
+		o_vid_Blu_Lo		: out std_logic	:= '1';
+		o_hSync				: out std_logic	:= '1';
+		o_vSync				: out std_logic	:= '1';
 		-- Not using the SD RAM but reserving pins and making inactive
-		n_sdRamCas	: out std_logic := '1';		-- CAS on schematic
-		n_sdRamRas	: out std_logic := '1';		-- RAS
-		n_sdRamWe	: out std_logic := '1';		-- SDWE
-		n_sdRamCe	: out std_logic := '1';		-- SD_NCS0
-		sdRamClk		: out std_logic := '1';		-- SDCLK0
-		sdRamClkEn	: out std_logic := '1';		-- SDCKE0
-		sdRamAddr	: out std_logic_vector(14 downto 0) := "000"&x"000";
-		sdRamData	: in std_logic_vector(15 downto 0);
+		n_sdRamCas			: out std_logic := '1';		-- CAS on schematic
+		n_sdRamRas			: out std_logic := '1';		-- RAS
+		n_sdRamWe			: out std_logic := '1';		-- SDWE
+		n_sdRamCe			: out std_logic := '1';		-- SD_NCS0
+		sdRamClk				: out std_logic := '1';		-- SDCLK0
+		sdRamClkEn			: out std_logic := '1';		-- SDCKE0
+		sdRamAddr			: out std_logic_vector(14 downto 0) := "000"&x"000";
+		sdRamData			: in std_logic_vector(15 downto 0);
 		-- sd cARD
 		o_sdCS				: out std_logic := '1';
 		o_sdMOSI				: out std_logic := '0';
@@ -71,7 +72,7 @@ middle : entity work.R32V2020_top
 		o_vid_Blu_Lo		=> o_vid_Blu_Lo,
 		o_hSync				=> o_hSync,
 		o_vSync				=> o_vSync,
-		-- sd cARD pass-through
+		-- SD Card pass-through
 		o_sdCS				=> o_sdCS,
 		o_sdMOSI				=> o_sdMOSI,
 		i_sdMISO				=> i_sdMISO,

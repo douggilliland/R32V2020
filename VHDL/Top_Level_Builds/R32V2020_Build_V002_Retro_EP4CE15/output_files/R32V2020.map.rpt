@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Sat Feb 15 11:35:27 2020
+Sat Feb 15 13:33:51 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -100,7 +100,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Feb 15 11:35:27 2020       ;
+; Analysis & Synthesis Status        ; Successful - Sat Feb 15 13:33:51 2020       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_RETRO_EP4_top                      ;
@@ -1994,7 +1994,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:25     ;
+; Top            ; 00:00:26     ;
 +----------------+--------------+
 
 
@@ -2004,7 +2004,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Feb 15 11:34:17 2020
+    Info: Processing started: Sat Feb 15 13:32:40 2020
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/blockram_data/blockram_data2.vhd
@@ -2148,20 +2148,20 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
     Info (12022): Found design unit 1: ANSIDisplayVGA-rtl File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 90
     Info (12023): Found entity 1: ANSIDisplayVGA File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/TERMINAL/ANSIDisplayVGA.vhd Line: 45
 Info (12021): Found 2 design units, including 1 entities, in source file r32v2020_retro_ep4_top.vhd
-    Info (12022): Found design unit 1: R32V2020_RETRO_EP4_top-struct File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 49
-    Info (12023): Found entity 1: R32V2020_RETRO_EP4_top File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 11
+    Info (12022): Found design unit 1: R32V2020_RETRO_EP4_top-struct File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 50
+    Info (12023): Found entity 1: R32V2020_RETRO_EP4_top File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 12
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/blockram_data/wrap_data_ram.vhd
     Info (12022): Found design unit 1: Wrap_Data_Ram-SYN File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 31
     Info (12023): Found entity 1: Wrap_Data_Ram File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 13
 Info (12127): Elaborating entity "R32V2020_RETRO_EP4_top" for the top level hierarchy
-Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(30): used explicit default value for signal "n_sdRamCas" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 30
-Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(31): used explicit default value for signal "n_sdRamRas" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 31
-Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(32): used explicit default value for signal "n_sdRamWe" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 32
-Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(33): used explicit default value for signal "n_sdRamCe" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 33
-Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(34): used explicit default value for signal "sdRamClk" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 34
-Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(35): used explicit default value for signal "sdRamClkEn" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 35
-Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(36): used explicit default value for signal "sdRamAddr" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-Info (12128): Elaborating entity "R32V2020_top" for hierarchy "R32V2020_top:middle" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 56
+Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(31): used explicit default value for signal "n_sdRamCas" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 31
+Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(32): used explicit default value for signal "n_sdRamRas" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 32
+Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(33): used explicit default value for signal "n_sdRamWe" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 33
+Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(34): used explicit default value for signal "n_sdRamCe" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 34
+Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(35): used explicit default value for signal "sdRamClk" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 35
+Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(36): used explicit default value for signal "sdRamClkEn" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
+Warning (10540): VHDL Signal Declaration warning at R32V2020_RETRO_EP4_top.vhd(37): used explicit default value for signal "sdRamAddr" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+Info (12128): Elaborating entity "R32V2020_top" for hierarchy "R32V2020_top:middle" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 57
 Info (12128): Elaborating entity "Debouncer" for hierarchy "R32V2020_top:middle|Debouncer:DebounceResetSwitch" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 117
 Info (12128): Elaborating entity "R32V2020" for hierarchy "R32V2020_top:middle|R32V2020:R32V2020_CPU" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 125
 Warning (10036): Verilog HDL or VHDL warning at R32V2020.vhd(49): object "w_Op_NOP" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 49
@@ -2612,7 +2612,7 @@ Info (12128): Elaborating entity "SoundTable01" for hierarchy "R32V2020_top:midd
 Info (12128): Elaborating entity "Loadable_7S8D_LED" for hierarchy "R32V2020_top:middle|PeripheralInterface:Peripherals|Loadable_7S8D_LED:SevenSegDisplay" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 348
 Info (12128): Elaborating entity "bufferedUART" for hierarchy "R32V2020_top:middle|PeripheralInterface:Peripherals|bufferedUART:UART" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-V002.vhd Line: 436
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2020.02.15.11:34:46 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2020.02.15.13:33:09 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -2729,48 +2729,48 @@ Warning (13050): Open-drain buffer(s) that do not directly drive top-level pin(s
 Info (13000): Registers with preset signals will power-up high File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/SDCARD/sd_controller_NealC.vhd Line: 116
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "n_sdRamCas" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 30
-    Warning (13410): Pin "n_sdRamRas" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 31
-    Warning (13410): Pin "n_sdRamWe" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 32
-    Warning (13410): Pin "n_sdRamCe" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 33
-    Warning (13410): Pin "sdRamClk" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 34
-    Warning (13410): Pin "sdRamClkEn" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 35
-    Warning (13410): Pin "sdRamAddr[0]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[1]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[2]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[3]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[4]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[5]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[6]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[7]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[8]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[9]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[10]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[11]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[12]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[13]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
-    Warning (13410): Pin "sdRamAddr[14]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
+    Warning (13410): Pin "n_sdRamCas" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 31
+    Warning (13410): Pin "n_sdRamRas" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 32
+    Warning (13410): Pin "n_sdRamWe" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 33
+    Warning (13410): Pin "n_sdRamCe" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 34
+    Warning (13410): Pin "sdRamClk" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 35
+    Warning (13410): Pin "sdRamClkEn" is stuck at VCC File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 36
+    Warning (13410): Pin "sdRamAddr[0]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[1]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[2]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[3]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[4]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[5]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[6]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[7]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[8]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[9]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[10]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[11]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[12]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[13]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (13410): Pin "sdRamAddr[14]" is stuck at GND File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
 Info (286031): Timing-Driven Synthesis is running on partition "Top"
 Info (17049): 4 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 16 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "sdRamData[0]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[1]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[2]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[3]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[4]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[5]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[6]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[7]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[8]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[9]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[10]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[11]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[12]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[13]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[14]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
-    Warning (15610): No output dependent on input pin "sdRamData[15]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 37
+    Warning (15610): No output dependent on input pin "sdRamData[0]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[1]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[2]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[3]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[4]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[5]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[6]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[7]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[8]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[9]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[10]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[11]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[12]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[13]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[14]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
+    Warning (15610): No output dependent on input pin "sdRamData[15]" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_Retro_EP4CE15/R32V2020_RETRO_EP4_top.vhd Line: 38
 Info (21057): Implemented 6325 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 26 input pins
     Info (21059): Implemented 35 output pins
@@ -2778,9 +2778,9 @@ Info (21057): Implemented 6325 device resources after synthesis - the final reso
     Info (21064): Implemented 160 RAM segments
     Info (21062): Implemented 12 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 70 warnings
-    Info: Peak virtual memory: 4879 megabytes
-    Info: Processing ended: Sat Feb 15 11:35:27 2020
-    Info: Elapsed time: 00:01:10
-    Info: Total CPU time (on all processors): 00:01:41
+    Info: Peak virtual memory: 4884 megabytes
+    Info: Processing ended: Sat Feb 15 13:33:51 2020
+    Info: Elapsed time: 00:01:11
+    Info: Total CPU time (on all processors): 00:01:39
 
 
