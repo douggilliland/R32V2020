@@ -1,0 +1,400 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II 32-bit
+# Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+# Date created = 18:01:55  March 31, 2019
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		uk101_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE15F23C8
+set_global_assignment -name TOP_LEVEL_ENTITY R32V2020_A4CE6_top
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:01:55  MARCH 31, 2019"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 8
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 4
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name INFER_RAMS_FROM_RAW_LOGIC OFF
+set_global_assignment -name AUTO_SHIFT_REGISTER_RECOGNITION ALWAYS
+set_global_assignment -name ENABLE_SIGNALTAP ON
+set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
+#
+set_location_assignment PIN_T2 -to i_CLOCK_50
+set_location_assignment PIN_W13 -to i_n_reset
+# PS/2
+set_location_assignment PIN_R1 -to i_ps2Clk
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_ps2Clk
+set_location_assignment PIN_R2 -to i_ps2Data
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_ps2Data
+# Serial
+set_location_assignment PIN_H22 -to o_SerTxd
+set_location_assignment PIN_H21 -to i_SerRxd
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_SerRxd
+# Video
+set_location_assignment PIN_C22 -to o_vid_Red_Lo
+set_location_assignment PIN_C21 -to o_vid_Red_Hi
+set_location_assignment PIN_D22 -to o_vid_Grn_Lo
+set_location_assignment PIN_D21 -to o_vid_Grn_Hi
+set_location_assignment PIN_E22 -to o_vid_Blu_Lo
+set_location_assignment PIN_E21 -to o_vid_Blu_Hi
+set_location_assignment PIN_F21 -to o_hSync
+set_location_assignment PIN_F22 -to o_vSync
+# SDRAM
+set_location_assignment PIN_Y6 -to sdRamClk
+set_location_assignment PIN_W6 -to sdRamClkEn
+set_location_assignment PIN_AA4 -to n_sdRamCas
+set_location_assignment PIN_AA3 -to n_sdRamCe
+set_location_assignment PIN_AB3 -to n_sdRamRas
+set_location_assignment PIN_AB4 -to n_sdRamWe
+set_location_assignment PIN_V2 -to sdRamAddr[0]
+set_location_assignment PIN_V1 -to sdRamAddr[1]
+set_location_assignment PIN_U2 -to sdRamAddr[2]
+set_location_assignment PIN_U1 -to sdRamAddr[3]
+set_location_assignment PIN_V3 -to sdRamAddr[4]
+set_location_assignment PIN_V4 -to sdRamAddr[5]
+set_location_assignment PIN_Y2 -to sdRamAddr[6]
+set_location_assignment PIN_AA1 -to sdRamAddr[7]
+set_location_assignment PIN_Y3 -to sdRamAddr[8]
+set_location_assignment PIN_V5 -to sdRamAddr[9]
+set_location_assignment PIN_W1 -to sdRamAddr[10]
+set_location_assignment PIN_Y4 -to sdRamAddr[11]
+set_location_assignment PIN_V6 -to sdRamAddr[12]
+set_location_assignment PIN_Y1 -to sdRamAddr[13]
+set_location_assignment PIN_W2 -to sdRamAddr[14]
+set_location_assignment PIN_AA10 -to sdRamData[0]
+set_location_assignment PIN_AB9 -to sdRamData[1]
+set_location_assignment PIN_AA9 -to sdRamData[2]
+set_location_assignment PIN_AB8 -to sdRamData[3]
+set_location_assignment PIN_AA8 -to sdRamData[4]
+set_location_assignment PIN_AB7 -to sdRamData[5]
+set_location_assignment PIN_AA7 -to sdRamData[6]
+set_location_assignment PIN_AB5 -to sdRamData[7]
+set_location_assignment PIN_Y7 -to sdRamData[8]
+set_location_assignment PIN_W8 -to sdRamData[9]
+set_location_assignment PIN_Y8 -to sdRamData[10]
+set_location_assignment PIN_V9 -to sdRamData[11]
+set_location_assignment PIN_V10 -to sdRamData[12]
+set_location_assignment PIN_Y10 -to sdRamData[13]
+set_location_assignment PIN_W10 -to sdRamData[14]
+set_location_assignment PIN_V11 -to sdRamData[15]
+# SD Card
+set_location_assignment PIN_B19 -to o_sdCS
+set_location_assignment PIN_B20 -to o_sdSCLK
+set_location_assignment PIN_A20 -to i_sdMISO
+set_location_assignment PIN_A19 -to o_sdMOSI
+#
+set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
+set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_SerTxd
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vSync
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_hSync
+set_instance_assignment -name SLEW_RATE 2 -to o_vSync
+set_instance_assignment -name SLEW_RATE 2 -to o_SerTxd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_XGA/Video_XVGA_64x32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_XGA/Mem_Mapped_XVGA.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_XGA/DisplayRam2k.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_XGA/CharRom.VHD
+set_global_assignment -name VHDL_FILE ../../Components/PeripheralInterface/PeripheralInterface.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data2.vhd
+set_global_assignment -name VHDL_FILE ../../Components/SDCARD/sd_controller_NealC.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/Wrap_Keyboard.vhd
+set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundTable01.VHD
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/Wrap_Data_Ram.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020_top.vhd
+set_global_assignment -name VHDL_FILE R32V2020_A4CE6_top.vhd
+set_global_assignment -name VHDL_FILE "../../Components/SPI/ReVerSE-U16/spi.vhd"
+set_global_assignment -name VHDL_FILE ../../Components/I2C/i2c.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/debounce.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020_Pkg.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Debounce/Debounce.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Seven_Seg_8_Digit/Loadable_7S8D_LED.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/RegisterFile.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/OpCodeDecoder.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/OpCode_Cat_Decoder.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/OneHotStateMachine.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/FlowControl.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/CCRControl.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/ALU.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_8.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/CounterLoadable.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/Counter.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Multiplexers/MUX_16x32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_LD_At_Reset.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_CONSTANT.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_1.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Stack/BlockRam_Stack.vhd
+set_global_assignment -name VHDL_FILE ../../Components/UART/bufferedUART.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_16.vhd
+set_global_assignment -name QIP_FILE ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.qip
+set_global_assignment -name SDC_FILE ../SDC1.sdc
+set_global_assignment -name VHDL_FILE ../../Components/Timers/Timer_Unit.vhd
+set_global_assignment -name CDF_FILE "output_files/R32V2020-EEPROM.cdf"
+set_global_assignment -name CDF_FILE output_files/R32V2020.cdf
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32_Load124.vhd
+set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundGen.vhd
+set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to i_CLOCK_50 -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[16]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[17]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[18]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[19]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[20]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[21]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[22]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[23]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[24]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[25]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[26]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[27]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[28]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[29]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[30]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[31]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|OneHotStateMachine:StateMachine|Pre_Q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|OneHotStateMachine:StateMachine|Pre_Q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|OneHotStateMachine:StateMachine|Pre_Q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|OneHotStateMachine:StateMachine|Pre_Q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[16]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[17]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[18]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[19]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[20]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[21]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[22]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[23]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[24]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[25]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[26]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[27]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[28]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[29]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[30]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[31]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:programCounter|Pre_Q[9]" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=32" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334528" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_COUNTER_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:dataRamAddress|Pre_Q[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r10Lower|q[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[80] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[81] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[82] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[83] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r11Lower|q[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[84] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[85] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[86] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[87] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[88] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[89] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[90] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[91] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[92] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[93] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[94] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[95] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[96] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[97] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[98] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[99] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Lower|q[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[100] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[101] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[102] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[103] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[104] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[105] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[106] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[107] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[108] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[109] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[110] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[111] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[112] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[113] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[114] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[115] -to "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r9Lower|q[9]" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=116" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=116" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=120" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=1024" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=1024" -section_id auto_signaltap_0
+set_location_assignment PIN_E4 -to o_driveLED
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp

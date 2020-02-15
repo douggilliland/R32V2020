@@ -41,6 +41,7 @@ entity R32V2020_RETRO_EP4_top is
 		o_sdMOSI				: out std_logic := '0';
 		i_sdMISO				: in std_logic := '0';
 		o_sdSCLK				: out std_logic := '0';
+		o_driveLED			: out std_logic;
 		-- PS/2 Keyboard pins
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
@@ -48,9 +49,6 @@ entity R32V2020_RETRO_EP4_top is
 end R32V2020_RETRO_EP4_top;
 
 architecture struct of R32V2020_RETRO_EP4_top is
-
-signal	o_VideoVect		: std_logic_Vector(5 downto 0);
-signal	w_LEDRing		: std_logic_Vector(11 downto 0);
 
 begin
 
@@ -77,6 +75,7 @@ middle : entity work.R32V2020_top
 		o_sdMOSI				=> o_sdMOSI,
 		i_sdMISO				=> i_sdMISO,
 		o_sdSCLK				=> o_sdSCLK,
+		o_driveLED			=> o_driveLED,
 		-- PS/2 Keyboard pins pass-through
 		i_ps2Clk				=> i_ps2Clk,
 		i_ps2Data			=> i_ps2Data

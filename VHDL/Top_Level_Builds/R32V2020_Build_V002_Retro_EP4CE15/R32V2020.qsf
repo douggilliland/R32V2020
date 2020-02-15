@@ -66,6 +66,7 @@ set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name SMART_RECOMPILE ON
 #
 set_location_assignment PIN_T2 -to i_CLOCK_50
+set_location_assignment PIN_W13 -to i_n_reset
 # PS/2
 set_location_assignment PIN_R1 -to i_ps2Clk
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_ps2Clk
@@ -87,8 +88,7 @@ set_location_assignment PIN_E22 -to o_vid_Blu_Lo
 set_location_assignment PIN_E21 -to o_vid_Blu_Hi
 set_location_assignment PIN_F21 -to o_hSync
 set_location_assignment PIN_F22 -to o_vSync
-# I2C
-# 
+# SD Card
 set_location_assignment PIN_B19 -to o_sdCS
 set_location_assignment PIN_B20 -to o_sdSCLK
 set_location_assignment PIN_A20 -to i_sdMISO
@@ -154,6 +154,44 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_sdCS
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i_sdMISO
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_sdMOSI
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_sdSCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i_n_reset
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamCas
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamWe
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamCe
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamRas
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[14]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamClk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamClkEn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[15]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[14]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[5]
 set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data2.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/Wrap_Keyboard.vhd
 set_global_assignment -name VHDL_FILE ../../Components/SDCARD/sd_controller_NealC.vhd
@@ -209,43 +247,4 @@ set_global_assignment -name VHDL_FILE "../../Components/PeripheralInterface/Peri
 set_global_assignment -name VHDL_FILE ../../Components/TERMINAL/ANSIDisplayVGA.vhd
 set_global_assignment -name VHDL_FILE R32V2020_RETRO_EP4_top.vhd
 set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/Wrap_Data_Ram.vhd
-set_location_assignment PIN_W13 -to i_n_reset
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i_n_reset
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamCas
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamWe
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamCe
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamRas
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[14]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[13]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[12]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[11]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[10]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamClk
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[10]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamAddr[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamClkEn
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[15]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[11]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[12]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[14]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[13]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[5]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
