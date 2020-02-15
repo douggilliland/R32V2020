@@ -11,6 +11,7 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 library work;
 use work.R32V2020_Pkg.all;
 
+entity PeripheralInterface is
 	port(
 		n_reset						: in std_logic := '1';
 		i_CLOCK_50					: in std_logic := '1';

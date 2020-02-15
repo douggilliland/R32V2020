@@ -195,6 +195,7 @@ begin
 	port MAP (
 		n_reset						=> resetLow,
 		i_CLOCK_50					=> i_CLOCK_50,
+		-- State pins
 		i_OneHotState				=> w_OneHotState,
 		-- Peripheral Memory Mapped Space Address/Data/Control lines
 		i_peripheralAddress		=> w_peripheralAddress,
@@ -202,7 +203,7 @@ begin
 		o_dataFromPeripherals	=> w_dataFromPeripherals,
 		i_peripheralRdStrobe		=> w_peripheralRdEn,
 		i_peripheralWrStrobe		=> w_peripheralWrEn,
-		-- Pass throughs to/from the FPGA pins
+		-- I/O pass through to/from the FPGA pins
 		i_switch						=> i_switch,
 		i_DIP_switch				=> i_dipSwitch,
 		--o_LED							=> o_LED,
@@ -210,31 +211,35 @@ begin
 		o_Anode_Activate 			=> o_Anode_Activate,
 		o_LED7Seg_out				=> o_LED7Seg_out,
 		o_LatchIO					=> o_LatchIO,
+		o_LEDRing_out				=> o_LEDRing_out,
+		o_Note						=> o_Note,
+		-- Serial
 		i_rxd							=> i_SerRxd,
 		o_txd							=> o_SerTxd,
 		o_rts							=> o_SerRts,
---		i_cts							=> i_SerCts,
-		o_LEDRing_out				=> o_LEDRing_out,
+		i_cts							=> i_SerCts,
+		-- Video
 		o_VideoOut					=> o_VideoVect,
 		o_hSync						=> o_hSync,
 		o_vSync						=> o_vSync,
+		-- I2C
 		io_I2C_SCL					=> io_I2C_SCL,
 		io_I2C_SDA					=> io_I2C_SDA,
 		io_I2C_INT					=> i_I2C_INT,
-		-- sd cARD
+		-- SD Card
 		o_sdCS						=> o_sdCS,
 		o_sdMOSI						=> o_sdMOSI,
 		i_sdMISO						=> i_sdMISO,
 		o_sdSCLK						=> o_sdSCLK,
 		o_driveLED					=> o_driveLED,
-		--
+		-- SPI
 		spi_sclk						=> spi_sclk,
       spi_csN						=> spi_csN,
       spi_mosi						=> spi_mosi,
       spi_miso						=> spi_miso,
+		-- EEPROM
 		io_EEP_I2C_SCL				=> io_EEP_I2C_SCL,
 		io_EEP_I2C_SDA				=> io_EEP_I2C_SDA,
-		o_Note						=> o_Note,
 		--o_testPoint					=> o_testPoint,
 		i_PS2_CLK					=> i_ps2Clk,
 		i_PS2_DATA					=> i_ps2Data
