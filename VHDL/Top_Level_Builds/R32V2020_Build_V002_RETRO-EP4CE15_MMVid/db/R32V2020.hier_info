@@ -13586,7 +13586,7 @@ TDO <= WORD_SR[0].DB_MAX_OUTPUT_PORT_TYPE
 |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals
 n_reset => sd_controller_nealc:sd_Card.n_reset
 n_reset => wrap_keyboard:kbdWrap.i_n_reset
-n_reset => mem_mapped_xvga:SVGA.n_reset
+n_reset => mem_mapped_xvga:XVGA.n_reset
 n_reset => timer_unit:timers.n_reset
 n_reset => process_0.IN1
 n_reset => process_0.IN1
@@ -13633,7 +13633,7 @@ i_CLOCK_50 => wrap_keyboard:kbdWrap.i_CLOCK_50
 i_CLOCK_50 => spi:spiMaster.CPU_CLK
 i_CLOCK_50 => i2c:i2cIF.CPU_CLK
 i_CLOCK_50 => i2c:eepi2cIF.CPU_CLK
-i_CLOCK_50 => mem_mapped_xvga:SVGA.CLK_50
+i_CLOCK_50 => mem_mapped_xvga:XVGA.CLK_50
 i_CLOCK_50 => videoclk_xvga_1024x768:clockGen.inclk0
 i_CLOCK_50 => timer_unit:timers.i_CLOCK_50
 i_CLOCK_50 => soundgen:SoundGenerator.clk
@@ -13655,42 +13655,42 @@ i_peripheralAddress[0] => wrap_keyboard:kbdWrap.i_peripheralAddress[0]
 i_peripheralAddress[0] => spi:spiMaster.A
 i_peripheralAddress[0] => i2c:i2cIF.i_ADRSEL
 i_peripheralAddress[0] => i2c:eepi2cIF.i_ADRSEL
-i_peripheralAddress[0] => mem_mapped_xvga:SVGA.cpuAddress[0]
+i_peripheralAddress[0] => mem_mapped_xvga:XVGA.cpuAddress[0]
 i_peripheralAddress[0] => timer_unit:timers.i_peripheralAddress[0]
 i_peripheralAddress[0] => buffereduart:UART.regSel
 i_peripheralAddress[1] => o_dataFromPeripherals.IN1
 i_peripheralAddress[1] => sd_controller_nealc:sd_Card.regAddr[1]
 i_peripheralAddress[1] => wrap_keyboard:kbdWrap.i_peripheralAddress[1]
-i_peripheralAddress[1] => mem_mapped_xvga:SVGA.cpuAddress[1]
+i_peripheralAddress[1] => mem_mapped_xvga:XVGA.cpuAddress[1]
 i_peripheralAddress[1] => timer_unit:timers.i_peripheralAddress[1]
 i_peripheralAddress[1] => o_dataFromPeripherals.IN1
 i_peripheralAddress[2] => sd_controller_nealc:sd_Card.regAddr[2]
 i_peripheralAddress[2] => wrap_keyboard:kbdWrap.i_peripheralAddress[2]
-i_peripheralAddress[2] => mem_mapped_xvga:SVGA.cpuAddress[2]
+i_peripheralAddress[2] => mem_mapped_xvga:XVGA.cpuAddress[2]
 i_peripheralAddress[2] => timer_unit:timers.i_peripheralAddress[2]
 i_peripheralAddress[3] => wrap_keyboard:kbdWrap.i_peripheralAddress[3]
-i_peripheralAddress[3] => mem_mapped_xvga:SVGA.cpuAddress[3]
+i_peripheralAddress[3] => mem_mapped_xvga:XVGA.cpuAddress[3]
 i_peripheralAddress[3] => timer_unit:timers.i_peripheralAddress[3]
 i_peripheralAddress[4] => wrap_keyboard:kbdWrap.i_peripheralAddress[4]
-i_peripheralAddress[4] => mem_mapped_xvga:SVGA.cpuAddress[4]
+i_peripheralAddress[4] => mem_mapped_xvga:XVGA.cpuAddress[4]
 i_peripheralAddress[4] => timer_unit:timers.i_peripheralAddress[4]
 i_peripheralAddress[5] => wrap_keyboard:kbdWrap.i_peripheralAddress[5]
-i_peripheralAddress[5] => mem_mapped_xvga:SVGA.cpuAddress[5]
+i_peripheralAddress[5] => mem_mapped_xvga:XVGA.cpuAddress[5]
 i_peripheralAddress[5] => timer_unit:timers.i_peripheralAddress[5]
 i_peripheralAddress[6] => wrap_keyboard:kbdWrap.i_peripheralAddress[6]
-i_peripheralAddress[6] => mem_mapped_xvga:SVGA.cpuAddress[6]
+i_peripheralAddress[6] => mem_mapped_xvga:XVGA.cpuAddress[6]
 i_peripheralAddress[6] => timer_unit:timers.i_peripheralAddress[6]
 i_peripheralAddress[7] => wrap_keyboard:kbdWrap.i_peripheralAddress[7]
-i_peripheralAddress[7] => mem_mapped_xvga:SVGA.cpuAddress[7]
+i_peripheralAddress[7] => mem_mapped_xvga:XVGA.cpuAddress[7]
 i_peripheralAddress[7] => timer_unit:timers.i_peripheralAddress[7]
 i_peripheralAddress[8] => wrap_keyboard:kbdWrap.i_peripheralAddress[8]
-i_peripheralAddress[8] => mem_mapped_xvga:SVGA.cpuAddress[8]
+i_peripheralAddress[8] => mem_mapped_xvga:XVGA.cpuAddress[8]
 i_peripheralAddress[8] => timer_unit:timers.i_peripheralAddress[8]
 i_peripheralAddress[9] => wrap_keyboard:kbdWrap.i_peripheralAddress[9]
-i_peripheralAddress[9] => mem_mapped_xvga:SVGA.cpuAddress[9]
+i_peripheralAddress[9] => mem_mapped_xvga:XVGA.cpuAddress[9]
 i_peripheralAddress[9] => timer_unit:timers.i_peripheralAddress[9]
 i_peripheralAddress[10] => wrap_keyboard:kbdWrap.i_peripheralAddress[10]
-i_peripheralAddress[10] => mem_mapped_xvga:SVGA.cpuAddress[10]
+i_peripheralAddress[10] => mem_mapped_xvga:XVGA.cpuAddress[10]
 i_peripheralAddress[10] => timer_unit:timers.i_peripheralAddress[10]
 i_peripheralAddress[11] => Equal0.IN9
 i_peripheralAddress[11] => Equal1.IN9
@@ -13808,7 +13808,7 @@ i_dataToPeripherals[0] => sd_controller_nealc:sd_Card.dataIn[0]
 i_dataToPeripherals[0] => spi:spiMaster.DI[0]
 i_dataToPeripherals[0] => i2c:i2cIF.i_DATA_IN[0]
 i_dataToPeripherals[0] => i2c:eepi2cIF.i_DATA_IN[0]
-i_dataToPeripherals[0] => mem_mapped_xvga:SVGA.cpuDataOut[0]
+i_dataToPeripherals[0] => mem_mapped_xvga:XVGA.cpuDataOut[0]
 i_dataToPeripherals[0] => timer_unit:timers.i_dataToTimers[0]
 i_dataToPeripherals[0] => soundgen:SoundGenerator.d[0]
 i_dataToPeripherals[0] => reg_32:SevenSegmentDisplayLatch.d[0]
@@ -13820,7 +13820,7 @@ i_dataToPeripherals[1] => sd_controller_nealc:sd_Card.dataIn[1]
 i_dataToPeripherals[1] => spi:spiMaster.DI[1]
 i_dataToPeripherals[1] => i2c:i2cIF.i_DATA_IN[1]
 i_dataToPeripherals[1] => i2c:eepi2cIF.i_DATA_IN[1]
-i_dataToPeripherals[1] => mem_mapped_xvga:SVGA.cpuDataOut[1]
+i_dataToPeripherals[1] => mem_mapped_xvga:XVGA.cpuDataOut[1]
 i_dataToPeripherals[1] => timer_unit:timers.i_dataToTimers[1]
 i_dataToPeripherals[1] => soundgen:SoundGenerator.d[1]
 i_dataToPeripherals[1] => reg_32:SevenSegmentDisplayLatch.d[1]
@@ -13832,7 +13832,7 @@ i_dataToPeripherals[2] => sd_controller_nealc:sd_Card.dataIn[2]
 i_dataToPeripherals[2] => spi:spiMaster.DI[2]
 i_dataToPeripherals[2] => i2c:i2cIF.i_DATA_IN[2]
 i_dataToPeripherals[2] => i2c:eepi2cIF.i_DATA_IN[2]
-i_dataToPeripherals[2] => mem_mapped_xvga:SVGA.cpuDataOut[2]
+i_dataToPeripherals[2] => mem_mapped_xvga:XVGA.cpuDataOut[2]
 i_dataToPeripherals[2] => timer_unit:timers.i_dataToTimers[2]
 i_dataToPeripherals[2] => soundgen:SoundGenerator.d[2]
 i_dataToPeripherals[2] => reg_32:SevenSegmentDisplayLatch.d[2]
@@ -13844,7 +13844,7 @@ i_dataToPeripherals[3] => sd_controller_nealc:sd_Card.dataIn[3]
 i_dataToPeripherals[3] => spi:spiMaster.DI[3]
 i_dataToPeripherals[3] => i2c:i2cIF.i_DATA_IN[3]
 i_dataToPeripherals[3] => i2c:eepi2cIF.i_DATA_IN[3]
-i_dataToPeripherals[3] => mem_mapped_xvga:SVGA.cpuDataOut[3]
+i_dataToPeripherals[3] => mem_mapped_xvga:XVGA.cpuDataOut[3]
 i_dataToPeripherals[3] => timer_unit:timers.i_dataToTimers[3]
 i_dataToPeripherals[3] => soundgen:SoundGenerator.d[3]
 i_dataToPeripherals[3] => reg_32:SevenSegmentDisplayLatch.d[3]
@@ -13856,7 +13856,7 @@ i_dataToPeripherals[4] => sd_controller_nealc:sd_Card.dataIn[4]
 i_dataToPeripherals[4] => spi:spiMaster.DI[4]
 i_dataToPeripherals[4] => i2c:i2cIF.i_DATA_IN[4]
 i_dataToPeripherals[4] => i2c:eepi2cIF.i_DATA_IN[4]
-i_dataToPeripherals[4] => mem_mapped_xvga:SVGA.cpuDataOut[4]
+i_dataToPeripherals[4] => mem_mapped_xvga:XVGA.cpuDataOut[4]
 i_dataToPeripherals[4] => timer_unit:timers.i_dataToTimers[4]
 i_dataToPeripherals[4] => soundgen:SoundGenerator.d[4]
 i_dataToPeripherals[4] => reg_32:SevenSegmentDisplayLatch.d[4]
@@ -13868,7 +13868,7 @@ i_dataToPeripherals[5] => sd_controller_nealc:sd_Card.dataIn[5]
 i_dataToPeripherals[5] => spi:spiMaster.DI[5]
 i_dataToPeripherals[5] => i2c:i2cIF.i_DATA_IN[5]
 i_dataToPeripherals[5] => i2c:eepi2cIF.i_DATA_IN[5]
-i_dataToPeripherals[5] => mem_mapped_xvga:SVGA.cpuDataOut[5]
+i_dataToPeripherals[5] => mem_mapped_xvga:XVGA.cpuDataOut[5]
 i_dataToPeripherals[5] => timer_unit:timers.i_dataToTimers[5]
 i_dataToPeripherals[5] => soundgen:SoundGenerator.d[5]
 i_dataToPeripherals[5] => reg_32:SevenSegmentDisplayLatch.d[5]
@@ -13880,7 +13880,7 @@ i_dataToPeripherals[6] => sd_controller_nealc:sd_Card.dataIn[6]
 i_dataToPeripherals[6] => spi:spiMaster.DI[6]
 i_dataToPeripherals[6] => i2c:i2cIF.i_DATA_IN[6]
 i_dataToPeripherals[6] => i2c:eepi2cIF.i_DATA_IN[6]
-i_dataToPeripherals[6] => mem_mapped_xvga:SVGA.cpuDataOut[6]
+i_dataToPeripherals[6] => mem_mapped_xvga:XVGA.cpuDataOut[6]
 i_dataToPeripherals[6] => timer_unit:timers.i_dataToTimers[6]
 i_dataToPeripherals[6] => soundgen:SoundGenerator.d[6]
 i_dataToPeripherals[6] => reg_32:SevenSegmentDisplayLatch.d[6]
@@ -13892,7 +13892,7 @@ i_dataToPeripherals[7] => sd_controller_nealc:sd_Card.dataIn[7]
 i_dataToPeripherals[7] => spi:spiMaster.DI[7]
 i_dataToPeripherals[7] => i2c:i2cIF.i_DATA_IN[7]
 i_dataToPeripherals[7] => i2c:eepi2cIF.i_DATA_IN[7]
-i_dataToPeripherals[7] => mem_mapped_xvga:SVGA.cpuDataOut[7]
+i_dataToPeripherals[7] => mem_mapped_xvga:XVGA.cpuDataOut[7]
 i_dataToPeripherals[7] => timer_unit:timers.i_dataToTimers[7]
 i_dataToPeripherals[7] => soundgen:SoundGenerator.d[7]
 i_dataToPeripherals[7] => reg_32:SevenSegmentDisplayLatch.d[7]
@@ -14059,14 +14059,14 @@ i_rxd => buffereduart:UART.rxd
 o_txd <= buffereduart:UART.txd
 o_rts <= buffereduart:UART.n_rts
 i_cts => buffereduart:UART.n_cts
-o_VideoOut[0] <= mem_mapped_xvga:SVGA.VoutVect[0]
-o_VideoOut[1] <= mem_mapped_xvga:SVGA.VoutVect[1]
-o_VideoOut[2] <= mem_mapped_xvga:SVGA.VoutVect[2]
-o_VideoOut[3] <= mem_mapped_xvga:SVGA.VoutVect[3]
-o_VideoOut[4] <= mem_mapped_xvga:SVGA.VoutVect[4]
-o_VideoOut[5] <= mem_mapped_xvga:SVGA.VoutVect[5]
-o_hSync <= mem_mapped_xvga:SVGA.hSync
-o_vSync <= mem_mapped_xvga:SVGA.vSync
+o_VideoOut[0] <= mem_mapped_xvga:XVGA.VoutVect[0]
+o_VideoOut[1] <= mem_mapped_xvga:XVGA.VoutVect[1]
+o_VideoOut[2] <= mem_mapped_xvga:XVGA.VoutVect[2]
+o_VideoOut[3] <= mem_mapped_xvga:XVGA.VoutVect[3]
+o_VideoOut[4] <= mem_mapped_xvga:XVGA.VoutVect[4]
+o_VideoOut[5] <= mem_mapped_xvga:XVGA.VoutVect[5]
+o_hSync <= mem_mapped_xvga:XVGA.hSync
+o_vSync <= mem_mapped_xvga:XVGA.vSync
 o_hActive <= <GND>
 io_I2C_SCL <> i2c:i2cIF.io_I2C_SCL
 io_I2C_SDA <> i2c:i2cIF.io_I2C_SDA
@@ -15162,9 +15162,9 @@ io_I2C_SCL <> io_I2C_SCL
 io_I2C_SDA <> io_I2C_SDA
 
 
-|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:SVGA
+|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA
 n_reset => ~NO_FANOUT~
-Video_Clk => video_xvga_64x32:Video_XVGA_64x32.clk
+Video_Clk => video_xvga_64x32:Video_XVGA_Bit_Mapped.clk
 Video_Clk => displayram2k:DisplayRAM.clock_b
 CLK_50 => displayram2k:DisplayRAM.clock_a
 n_dispRamCS => comb.IN0
@@ -15196,17 +15196,17 @@ dataOut[4] <= displayram2k:DisplayRAM.q_a[4]
 dataOut[5] <= displayram2k:DisplayRAM.q_a[5]
 dataOut[6] <= displayram2k:DisplayRAM.q_a[6]
 dataOut[7] <= displayram2k:DisplayRAM.q_a[7]
-VoutVect[0] <= video_xvga_64x32:Video_XVGA_64x32.video
-VoutVect[1] <= video_xvga_64x32:Video_XVGA_64x32.video
-VoutVect[2] <= video_xvga_64x32:Video_XVGA_64x32.video
-VoutVect[3] <= video_xvga_64x32:Video_XVGA_64x32.video
-VoutVect[4] <= video_xvga_64x32:Video_XVGA_64x32.video
-VoutVect[5] <= video_xvga_64x32:Video_XVGA_64x32.video
-hSync <= video_xvga_64x32:Video_XVGA_64x32.hSync
-vSync <= video_xvga_64x32:Video_XVGA_64x32.vSync
+VoutVect[0] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
+VoutVect[1] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
+VoutVect[2] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
+VoutVect[3] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
+VoutVect[4] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
+VoutVect[5] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
+hSync <= video_xvga_64x32:Video_XVGA_Bit_Mapped.hSync
+vSync <= video_xvga_64x32:Video_XVGA_Bit_Mapped.vSync
 
 
-|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:SVGA|Video_XVGA_64x32:Video_XVGA_64x32
+|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|Video_XVGA_64x32:Video_XVGA_Bit_Mapped
 charAddr[0] <= theCharRow[0].DB_MAX_OUTPUT_PORT_TYPE
 charAddr[1] <= theCharRow[1].DB_MAX_OUTPUT_PORT_TYPE
 charAddr[2] <= theCharRow[2].DB_MAX_OUTPUT_PORT_TYPE
@@ -15286,7 +15286,7 @@ hSync <= n_hSync.DB_MAX_OUTPUT_PORT_TYPE
 hAct <= hAct~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:SVGA|DisplayRam2k:DisplayRAM
+|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|DisplayRam2k:DisplayRAM
 address_a[0] => altsyncram:altsyncram_component.address_a[0]
 address_a[1] => altsyncram:altsyncram_component.address_a[1]
 address_a[2] => altsyncram:altsyncram_component.address_a[2]
@@ -15347,7 +15347,7 @@ q_b[6] <= altsyncram:altsyncram_component.q_b[6]
 q_b[7] <= altsyncram:altsyncram_component.q_b[7]
 
 
-|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:SVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component
+|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component
 wren_a => altsyncram_2sq3:auto_generated.wren_a
 rden_a => ~NO_FANOUT~
 wren_b => altsyncram_2sq3:auto_generated.wren_b
@@ -15423,7 +15423,7 @@ eccstatus[1] <= <GND>
 eccstatus[2] <= <GND>
 
 
-|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:SVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_2sq3:auto_generated
+|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_2sq3:auto_generated
 address_a[0] => ram_block1a0.PORTAADDR
 address_a[0] => ram_block1a1.PORTAADDR
 address_a[0] => ram_block1a2.PORTAADDR
@@ -15666,7 +15666,7 @@ wren_b => ram_block1a6.PORTBWE
 wren_b => ram_block1a7.PORTBWE
 
 
-|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:SVGA|CharRom:CharROM
+|R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|CharRom:CharROM
 address[0] => Mux0.IN2058
 address[0] => Mux1.IN2058
 address[0] => Mux2.IN2058

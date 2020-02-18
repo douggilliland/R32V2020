@@ -1,0 +1,193 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II 32-bit
+# Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+# Date created = 18:01:55  March 31, 2019
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		uk101_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE15F23C8
+set_global_assignment -name TOP_LEVEL_ENTITY R32V2020_A4CE6_top
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:01:55  MARCH 31, 2019"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 8
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name INFER_RAMS_FROM_RAW_LOGIC OFF
+set_global_assignment -name AUTO_SHIFT_REGISTER_RECOGNITION ALWAYS
+set_global_assignment -name ENABLE_SIGNALTAP OFF
+set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
+#
+set_location_assignment PIN_T2 -to i_CLOCK_50
+set_location_assignment PIN_W13 -to i_n_reset
+# PS/2
+set_location_assignment PIN_R1 -to i_ps2Clk
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_ps2Clk
+set_location_assignment PIN_R2 -to i_ps2Data
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_ps2Data
+# Serial
+set_location_assignment PIN_H22 -to o_SerTxd
+set_location_assignment PIN_H21 -to i_SerRxd
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_SerRxd
+# Video
+set_location_assignment PIN_C22 -to o_vid_Red_Lo
+set_location_assignment PIN_C21 -to o_vid_Red_Hi
+set_location_assignment PIN_D22 -to o_vid_Grn_Lo
+set_location_assignment PIN_D21 -to o_vid_Grn_Hi
+set_location_assignment PIN_E22 -to o_vid_Blu_Lo
+set_location_assignment PIN_E21 -to o_vid_Blu_Hi
+set_location_assignment PIN_F21 -to o_hSync
+set_location_assignment PIN_F22 -to o_vSync
+# SDRAM
+set_location_assignment PIN_Y6 -to sdRamClk
+set_location_assignment PIN_W6 -to sdRamClkEn
+set_location_assignment PIN_AA4 -to n_sdRamCas
+set_location_assignment PIN_AA3 -to n_sdRamCe
+set_location_assignment PIN_AB3 -to n_sdRamRas
+set_location_assignment PIN_AB4 -to n_sdRamWe
+set_location_assignment PIN_V2 -to sdRamAddr[0]
+set_location_assignment PIN_V1 -to sdRamAddr[1]
+set_location_assignment PIN_U2 -to sdRamAddr[2]
+set_location_assignment PIN_U1 -to sdRamAddr[3]
+set_location_assignment PIN_V3 -to sdRamAddr[4]
+set_location_assignment PIN_V4 -to sdRamAddr[5]
+set_location_assignment PIN_Y2 -to sdRamAddr[6]
+set_location_assignment PIN_AA1 -to sdRamAddr[7]
+set_location_assignment PIN_Y3 -to sdRamAddr[8]
+set_location_assignment PIN_V5 -to sdRamAddr[9]
+set_location_assignment PIN_W1 -to sdRamAddr[10]
+set_location_assignment PIN_Y4 -to sdRamAddr[11]
+set_location_assignment PIN_V6 -to sdRamAddr[12]
+set_location_assignment PIN_Y1 -to sdRamAddr[13]
+set_location_assignment PIN_W2 -to sdRamAddr[14]
+set_location_assignment PIN_AA10 -to sdRamData[0]
+set_location_assignment PIN_AB9 -to sdRamData[1]
+set_location_assignment PIN_AA9 -to sdRamData[2]
+set_location_assignment PIN_AB8 -to sdRamData[3]
+set_location_assignment PIN_AA8 -to sdRamData[4]
+set_location_assignment PIN_AB7 -to sdRamData[5]
+set_location_assignment PIN_AA7 -to sdRamData[6]
+set_location_assignment PIN_AB5 -to sdRamData[7]
+set_location_assignment PIN_Y7 -to sdRamData[8]
+set_location_assignment PIN_W8 -to sdRamData[9]
+set_location_assignment PIN_Y8 -to sdRamData[10]
+set_location_assignment PIN_V9 -to sdRamData[11]
+set_location_assignment PIN_V10 -to sdRamData[12]
+set_location_assignment PIN_Y10 -to sdRamData[13]
+set_location_assignment PIN_W10 -to sdRamData[14]
+set_location_assignment PIN_V11 -to sdRamData[15]
+# SD Card
+set_location_assignment PIN_B19 -to o_sdCS
+set_location_assignment PIN_B20 -to o_sdSCLK
+set_location_assignment PIN_A20 -to i_sdMISO
+set_location_assignment PIN_A19 -to o_sdMOSI
+set_location_assignment PIN_E4 -to o_driveLED
+#
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_SerTxd
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vSync
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_hSync
+#
+set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
+set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name SLEW_RATE 2 -to o_vSync
+set_instance_assignment -name SLEW_RATE 2 -to o_SerTxd
+set_global_assignment -name VHDL_FILE R32V2020_A4CE6_top.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_XGA/DisplayRam2k.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_XGA/CharRom.VHD
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data2.vhd
+set_global_assignment -name VHDL_FILE ../../Components/SDCARD/sd_controller_NealC.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/Wrap_Keyboard.vhd
+set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundTable01.VHD
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/Wrap_Data_Ram.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020_top.vhd
+set_global_assignment -name VHDL_FILE "../../Components/SPI/ReVerSE-U16/spi.vhd"
+set_global_assignment -name VHDL_FILE ../../Components/I2C/i2c.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard_to_ascii.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/ps2_keyboard.vhd
+set_global_assignment -name VHDL_FILE ../../Components/PS2KB/debounce.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020_Pkg.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Debounce/Debounce.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Seven_Seg_8_Digit/Loadable_7S8D_LED.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/RegisterFile.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/R32V2020.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/OpCodeDecoder.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/OpCode_Cat_Decoder.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/OneHotStateMachine.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/FlowControl.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/CCRControl.vhd
+set_global_assignment -name VHDL_FILE ../../Components/R32V2020/ALU.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_8.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/CounterLoadable.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/Counter.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Multiplexers/MUX_16x32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_LD_At_Reset.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32_CONSTANT.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_32.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_1.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Stack/BlockRam_Stack.vhd
+set_global_assignment -name VHDL_FILE ../../Components/UART/bufferedUART.vhd
+set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_16.vhd
+set_global_assignment -name QIP_FILE ../../Components/VGA/Mem_Mapped_XGA/VideoClk_XVGA_1024x768.qip
+set_global_assignment -name SDC_FILE ../SDC1.sdc
+set_global_assignment -name VHDL_FILE ../../Components/Timers/Timer_Unit.vhd
+set_global_assignment -name CDF_FILE "output_files/R32V2020-EEPROM.cdf"
+set_global_assignment -name CDF_FILE output_files/R32V2020.cdf
+set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32_Load124.vhd
+set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundGen.vhd
+set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Bit_Mapped_SVGA/Video_XVGA_Bit_Mapped.vhd
+set_global_assignment -name VHDL_FILE ../../Components/VGA/Bit_Mapped_SVGA/Bit_Mapped_XVGA.vhd
+set_global_assignment -name VHDL_FILE "../../Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd"
+set_global_assignment -name VHDL_FILE ../../Components/PeripheralInterface/PeripheralInterface_BitMappedVideo.vhd
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

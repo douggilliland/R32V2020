@@ -1,3 +1,6 @@
+-- XGA
+-- 800x600
+
 library ieee;
 use ieee.std_logic_1164.all;
 use  IEEE.STD_LOGIC_ARITH.all;
@@ -32,39 +35,39 @@ begin
 		
 	VoutVect <= video&video&video&video&video&video;
 	
-	Video_XVGA_64x32 : entity work.Video_XVGA_64x32
+	Video_XVGA_Bit_Mapped : entity work.Video_XVGA_64x32
 	port map (
 		charAddr => charAddr,
 		charData => charData,
 		dispAddr => dispAddrB,
 		dispData => dispRamDataOutB,
-		clk		 => Video_Clk,
-		video => video,
-		vsync => vSync,
-		hsync => hSync,
-		hAct => hAct
+		clk		=> Video_Clk,
+		video		=> video,
+		vsync		=> vSync,
+		hsync		=> hSync,
+		hAct		=> hAct
 	);	
 
 	DisplayRAM: entity work.DisplayRam2k 
 	port map
 	(
-		address_a => cpuAddress(10 downto 0),
-		address_b => dispAddrB,
-		clock_a	=> CLK_50,
-		clock_b	=> Video_Clk,
-		data_a => cpuDataOut,
-		data_b => (others => '0'),
-		wren_a => not(n_memWR or n_dispRamCS),
-		wren_b => '0',
-		q_a => dataOut,
-		q_b => dispRamDataOutB
+		address_a	=> cpuAddress(10 downto 0),
+		address_b	=> dispAddrB,
+		clock_a		=> CLK_50,
+		clock_b		=> Video_Clk,
+		data_a		=> cpuDataOut,
+		data_b		=> (others => '0'),
+		wren_a		=> not(n_memWR or n_dispRamCS),
+		wren_b		=> '0',
+		q_a			=> dataOut,
+		q_b			=> dispRamDataOutB
 	);
 
 	CharROM: entity work.CharRom
 	port map
 	(
-		address => charAddr,
-		q => charData
+		address	=> charAddr,
+		q			=> charData
 	);
 
 end;

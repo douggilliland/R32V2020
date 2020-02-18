@@ -294,9 +294,9 @@ begin
 		io_I2C_SDA		=> io_EEP_I2C_SDA								-- Data to/from external I2C interface
 	);
 
--- Memory Mapped Video Display 80x25
--- On SVGA display
-	SVGA : entity work.Mem_Mapped_XVGA
+-- Memory Mapped Video Display 64x32
+-- On XVGA display
+	XVGA : entity work.Mem_Mapped_XVGA
 		port map (
 			n_reset		=> n_reset,
 			Video_Clk	=> w_Video_Clk,
