@@ -13,9 +13,9 @@ library ieee;
 
 entity Video_XVGA_Bit_Mapped is
 	port (
-		charAddr 	: out STD_LOGIC_VECTOR(10 downto 0);
+		charAddr 	: out STD_LOGIC_VECTOR(14 downto 0);
 		charData 	: in STD_LOGIC_VECTOR(7 downto 0);
-		dispAddr 	: out STD_LOGIC_VECTOR(10 downto 0);
+		dispAddr 	: out STD_LOGIC_VECTOR(14 downto 0);
 		dispData 	: in STD_LOGIC_VECTOR(7 downto 0);
 		clk    	 	: in  std_logic;								-- 25.6 MHz clock
 		video			: out std_logic;
@@ -23,9 +23,9 @@ entity Video_XVGA_Bit_Mapped is
 		hSync  		: out  std_logic;
 		hAct			: out  std_logic
    );
-end Video_XVGA_64x32;
+end Video_XVGA_Bit_Mapped;
 
-architecture rtl of Video_XVGA_64x32 is
+architecture rtl of Video_XVGA_Bit_Mapped is
 
 	signal n_hSync   : std_logic := '1';	-- Active low horizontal sync
 	signal n_vSync   : std_logic := '1';	-- Active low vertical sync
@@ -40,7 +40,7 @@ begin
 	vSync <= n_vSync;
 	hSync <= n_hSync;
 	
-	dispAddr <= theCharRow(7 downto 3) & horizCount(9 downto 4);
+	dispAddr <= vertLineCount(9 downto 1) & horizCount(9 downto 4);
 	charAddr <= dispData & theCharRow(2 downto 0);
 		
 	PROCESS (clk, prescaleRow)
@@ -51,7 +51,7 @@ begin
 --		64x32 characters displayed per screen
 -- Video Timing
 --		Horizontal Line Timing Details
---			XVGA (spec - http://www.tinyvga.com/vga-timing/800x600@60Hz)
+--			XGA (spec - http://www.tinyvga.com/vga-timing/1024x768@60Hz
 --				Pixel clock		65 MHz 
 --				Entire line		1344 clocks	20.6 uS		48.363 KHz
 --				Active pixels	1024 clocks	15.75 uS

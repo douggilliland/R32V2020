@@ -96,7 +96,7 @@ architecture struct of PeripheralInterface is
 	signal w_sdCardData			:	std_logic_vector(7 downto 0);
 	signal w_SDCARDCS				:	std_logic := '0';
 	-- Display
-	signal w_dispRamDataOutA	:	std_logic_vector(7 downto 0);
+	signal w_dispRamDataOut		:	std_logic_vector(7 downto 0);
 	-- Timers
 	signal o_dataFromTimers		:	std_logic_vector(31 downto 0);
 	-- Parallel I/O Ports
@@ -161,7 +161,7 @@ begin
 	w_I2CCS			<= '1' when i_peripheralAddress(15 downto 11) = I2CIO_BASE	else '0';	-- x5800-x5FFF (2KB)	- External I2C Address
 	w_SPICS			<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- SPI Address
 	w_EEPI2CCS		<= '1' when i_peripheralAddress(15 downto 11) = EEPIO_BASE	else '0';	-- x6800-x6FFF (2KB)	- EEPROM I2C Address
-	w_dispRamCS 	<= '1' when i_peripheralAddress(15) = "100"						else '0';	-- x8000-xDFFF (24KB) - Bit Mapped Display RAM
+	w_dispRamCS 	<= '1' when i_peripheralAddress(15 downto 13) = "100"			else '0';	-- x8000-xDFFF (24KB) - Bit Mapped Display RAM
 	
 	o_dataFromPeripherals <=
 		x"000000"			& w_dispRamDataOut 				when	w_dispRamCS 	= '1' else
@@ -296,7 +296,7 @@ begin
 
 -- Memory Mapped Video Display 64x32
 -- On XVGA display
-	XVGA : entity work.Bit_Mapped_XVGA
+	XVGA : entity work.Bit_Mapped_XGA
 		port map (
 			n_reset		=> n_reset,
 			Video_Clk	=> w_Video_Clk,
@@ -311,7 +311,7 @@ begin
 			vSync			=> o_vSync
 			);
 	
-	clockGen : ENTITY work.VideoClk_XVGA_1024x768
+	clockGen : ENTITY work.VideoClk_XGA_1024x768
 	PORT map (
 		areset	=> not n_reset,
 		inclk0	=> i_CLOCK_50,
