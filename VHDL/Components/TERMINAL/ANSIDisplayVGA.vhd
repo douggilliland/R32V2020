@@ -15,6 +15,8 @@
 --
 -- DG: Changed Grant's code to remove the PS/2 keyboard
 --		Keyboard was not clean ASCII due to remapping certain keys
+-- DG: Removes Composite Video and Composite video sync
+-- DG: Removes RTS signal
 --
 -- Interface matches ACIA software interface address/control/status contents
 -- http://www.swtpc.com/mholley/Notebook/Hardware_ACIA.pdf
