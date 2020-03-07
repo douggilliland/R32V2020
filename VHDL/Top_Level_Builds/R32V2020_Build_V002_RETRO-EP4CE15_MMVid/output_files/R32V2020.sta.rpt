@@ -1,5 +1,5 @@
 Timing Analyzer report for R32V2020
-Sat Mar 07 13:58:26 2020
+Sat Mar 07 14:20:18 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -125,14 +125,14 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.53        ;
+; Average used               ; 1.56        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;  21.3%      ;
-;     Processor 3            ;  17.0%      ;
-;     Processor 4            ;  14.2%      ;
+;     Processor 2            ;  23.2%      ;
+;     Processor 3            ;  17.9%      ;
+;     Processor 4            ;  14.7%      ;
 +----------------------------+-------------+
 
 
@@ -141,7 +141,7 @@ refer to the applicable agreement for further details.
 +---------------+--------+--------------------------+
 ; SDC File Path ; Status ; Read at                  ;
 +---------------+--------+--------------------------+
-; ../SDC1.sdc   ; OK     ; Sat Mar 07 13:58:22 2020 ;
+; ../SDC1.sdc   ; OK     ; Sat Mar 07 14:20:13 2020 ;
 +---------------+--------+--------------------------+
 
 
@@ -1773,6 +1773,8 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 ; 0.402 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF|w_rw_flag                                                                                                           ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF|w_rw_flag                                                                                                           ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.072      ; 0.669      ;
 ; 0.402 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF|w_phase[1]                                                                                                          ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF|w_phase[1]                                                                                                          ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.072      ; 0.669      ;
 ; 0.402 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF|state.s_stop                                                                                                        ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF|state.s_stop                                                                                                        ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.072      ; 0.669      ;
+; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|led_on_count[0]                                                                                   ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|led_on_count[0]                                                                                   ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
+; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|\fsm:bit_counter[6]                                                                               ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|\fsm:bit_counter[6]                                                                               ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_ack                                                                                                            ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_ack                                                                                                            ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txBitCount[0]                                                                                               ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txBitCount[0]                                                                                               ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txBitCount[1]                                                                                               ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txBitCount[1]                                                                                               ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
@@ -1786,8 +1788,6 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_nbit[0]                                                                                                        ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_nbit[0]                                                                                                        ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|state.s_start                                                                                                    ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|state.s_start                                                                                                    ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Timer_Unit:timers|q_MicrosecondCounter[0]                                                                                     ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Timer_Unit:timers|q_MicrosecondCounter[0]                                                                                     ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
-; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|led_on_count[0]                                                                                   ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|led_on_count[0]                                                                                   ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
-; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|\fsm:bit_counter[6]                                                                               ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|\fsm:bit_counter[6]                                                                               ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[45]                                                                                       ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[45]                                                                                       ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[44]                                                                                       ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[44]                                                                                       ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
 ; 0.403 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[43]                                                                                       ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[43]                                                                                       ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.071      ; 0.669      ;
@@ -2874,7 +2874,6 @@ Worst Case Available Settling Time: 36.189 ns
 ; 0.179  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_rw_flag                                                                                                        ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_rw_flag                                                                                                        ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.044      ; 0.307      ;
 ; 0.186  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Wrap_Keyboard:kbdWrap|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk|counter_out[8]  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Wrap_Keyboard:kbdWrap|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk|counter_out[8]  ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.037      ; 0.307      ;
 ; 0.186  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Wrap_Keyboard:kbdWrap|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk|counter_out[3]  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Wrap_Keyboard:kbdWrap|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk|counter_out[3]  ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.037      ; 0.307      ;
-; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|\fsm:bit_counter[3]                                                                               ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|\fsm:bit_counter[3]                                                                               ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txd                                                                                                         ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txd                                                                                                         ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txBuffer[7]                                                                                                 ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|txBuffer[7]                                                                                                 ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_ack                                                                                                            ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_ack                                                                                                            ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
@@ -2890,6 +2889,7 @@ Worst Case Available Settling Time: 36.189 ns
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|state.s_start                                                                                                    ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|state.s_start                                                                                                    ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_phase[1]                                                                                                       ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:eepi2cIF|w_phase[1]                                                                                                       ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Timer_Unit:timers|q_MicrosecondCounter[0]                                                                                     ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Timer_Unit:timers|q_MicrosecondCounter[0]                                                                                     ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|\fsm:bit_counter[3]                                                                               ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|\fsm:bit_counter[3]                                                                               ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_mode                                                                                          ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_mode                                                                                          ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[47]                                                                                       ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[47]                                                                                       ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
 ; 0.187  ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[45]                                                                                       ; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card|cmd_out[45]                                                                                       ; i_CLOCK_50   ; i_CLOCK_50  ; 0.000        ; 0.036      ; 0.307      ;
@@ -4015,7 +4015,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Mar 07 13:58:19 2020
+    Info: Processing started: Sat Mar 07 14:20:10 2020
 Info: Command: quartus_sta R32V2020 -c R32V2020
 Info: qsta_default_script.tcl version: #1
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
@@ -4172,8 +4172,8 @@ Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 12 warnings
     Info: Peak virtual memory: 4853 megabytes
-    Info: Processing ended: Sat Mar 07 13:58:26 2020
-    Info: Elapsed time: 00:00:07
+    Info: Processing ended: Sat Mar 07 14:20:18 2020
+    Info: Elapsed time: 00:00:08
     Info: Total CPU time (on all processors): 00:00:08
 
 

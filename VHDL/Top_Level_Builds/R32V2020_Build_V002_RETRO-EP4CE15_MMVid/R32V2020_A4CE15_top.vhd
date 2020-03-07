@@ -9,7 +9,7 @@ use  IEEE.STD_LOGIC_UNSIGNED.all;
 library work;
 use work.R32V2020_Pkg.all;
 
-entity R32V2020_A4CE6_top is
+entity R32V2020_A4CE15_top is
 	port(
 		i_n_reset				: in std_logic := '1';
 		i_CLOCK_50			: in std_logic;
@@ -45,9 +45,9 @@ entity R32V2020_A4CE6_top is
 		i_ps2Clk				: in std_logic := '1';
 		i_ps2Data			: in std_logic := '1'		
 		);
-end R32V2020_A4CE6_top;
+end R32V2020_A4CE15_top;
 
-architecture struct of R32V2020_A4CE6_top is
+architecture struct of R32V2020_A4CE15_top is
 
 	signal	w_Red_Hi		:		std_logic := '0';
 	signal	w_Red_Lo		:		std_logic := '0';
