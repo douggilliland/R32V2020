@@ -35,7 +35,7 @@ begin
 		
 	VoutVect <= video&video&video&video&video&video;
 	
-	Video_XVGA_Bit_Mapped : entity work.Video_XVGA_64x32
+	Video_XVGA : entity work.Video_XVGA_64x32
 	port map (
 		charAddr => charAddr,
 		charData => charData,

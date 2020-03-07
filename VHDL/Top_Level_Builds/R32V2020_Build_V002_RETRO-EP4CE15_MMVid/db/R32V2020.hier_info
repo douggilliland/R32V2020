@@ -3,6 +3,8 @@ i_n_reset => r32v2020_top:R32V2020_top.n_reset
 i_CLOCK_50 => r32v2020_top:R32V2020_top.i_CLOCK_50
 i_SerRxd => r32v2020_top:R32V2020_top.i_SerRxd
 o_SerTxd <= r32v2020_top:R32V2020_top.o_SerTxd
+i_SerCts => r32v2020_top:R32V2020_top.i_SerCts
+o_SerRts <= r32v2020_top:R32V2020_top.o_SerRts
 o_vid_Red_Hi <= r32v2020_top:R32V2020_top.o_vid_Red_Hi
 o_vid_Red_Lo <= r32v2020_top:R32V2020_top.o_vid_Red_Lo
 o_vid_Grn_Hi <= r32v2020_top:R32V2020_top.o_vid_Grn_Hi
@@ -15164,7 +15166,7 @@ io_I2C_SDA <> io_I2C_SDA
 
 |R32V2020_A4CE15_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA
 n_reset => ~NO_FANOUT~
-Video_Clk => video_xvga_64x32:Video_XVGA_Bit_Mapped.clk
+Video_Clk => video_xvga_64x32:Video_XVGA.clk
 Video_Clk => displayram2k:DisplayRAM.clock_b
 CLK_50 => displayram2k:DisplayRAM.clock_a
 n_dispRamCS => comb.IN0
@@ -15196,17 +15198,17 @@ dataOut[4] <= displayram2k:DisplayRAM.q_a[4]
 dataOut[5] <= displayram2k:DisplayRAM.q_a[5]
 dataOut[6] <= displayram2k:DisplayRAM.q_a[6]
 dataOut[7] <= displayram2k:DisplayRAM.q_a[7]
-VoutVect[0] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
-VoutVect[1] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
-VoutVect[2] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
-VoutVect[3] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
-VoutVect[4] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
-VoutVect[5] <= video_xvga_64x32:Video_XVGA_Bit_Mapped.video
-hSync <= video_xvga_64x32:Video_XVGA_Bit_Mapped.hSync
-vSync <= video_xvga_64x32:Video_XVGA_Bit_Mapped.vSync
+VoutVect[0] <= video_xvga_64x32:Video_XVGA.video
+VoutVect[1] <= video_xvga_64x32:Video_XVGA.video
+VoutVect[2] <= video_xvga_64x32:Video_XVGA.video
+VoutVect[3] <= video_xvga_64x32:Video_XVGA.video
+VoutVect[4] <= video_xvga_64x32:Video_XVGA.video
+VoutVect[5] <= video_xvga_64x32:Video_XVGA.video
+hSync <= video_xvga_64x32:Video_XVGA.hSync
+vSync <= video_xvga_64x32:Video_XVGA.vSync
 
 
-|R32V2020_A4CE15_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|Video_XVGA_64x32:Video_XVGA_Bit_Mapped
+|R32V2020_A4CE15_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|Video_XVGA_64x32:Video_XVGA
 charAddr[0] <= theCharRow[0].DB_MAX_OUTPUT_PORT_TYPE
 charAddr[1] <= theCharRow[1].DB_MAX_OUTPUT_PORT_TYPE
 charAddr[2] <= theCharRow[2].DB_MAX_OUTPUT_PORT_TYPE

@@ -1,6 +1,9 @@
 -- Wrap_Data_Ram.vhd
 -- Wrapper for the Data RAM 
 -- Provides chip Selects and data routing for byte, short, long read/writes
+-- 2 RAM spaces
+--		Main Data RAM
+--		SPI Buffer RAM
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -99,6 +102,7 @@ BEGIN
 							x"00";
 	llWrDataByte <= dataIn(7 downto 0);
 	
+	-- Main Data Ram
 	Data_RAM_1 : entity work.BlockRam_Data
 	PORT MAP (
 		address 		=> address(11 downto 2),
@@ -110,6 +114,7 @@ BEGIN
 		q 				=> dataOutFromRAM
 	);
 	
+	-- 512B block for SPI SD Card buffer
 	Data_RAM_2 : entity work.BlockRam_Data2
 	PORT MAP (
 		address 		=> address(9 downto 2),
