@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Tue Feb 18 19:24:36 2020
+Sat Mar 07 11:13:49 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -36,7 +36,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Tue Feb 18 19:24:36 2020           ;
+; Analysis & Synthesis Status        ; Failed - Sat Mar 07 11:13:49 2020           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE6_top                          ;
@@ -162,7 +162,7 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Tue Feb 18 19:24:16 2020
+    Info: Processing started: Sat Mar 07 11:13:35 2020
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/vga/bit_mapped_xga/videoclk_xga_1024x768.vhd
@@ -172,7 +172,7 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
     Info (12022): Found design unit 1: Video_XVGA_Bit_Mapped-rtl File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Video_XVGA_Bit_Mapped.vhd Line: 28
     Info (12023): Found entity 1: Video_XVGA_Bit_Mapped File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Video_XVGA_Bit_Mapped.vhd Line: 14
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/vga/bit_mapped_xga/bit_mapped_xga.vhd
-    Info (12022): Found design unit 1: Bit_Mapped_XGA-struct File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 25
+    Info (12022): Found design unit 1: Bit_Mapped_XGA-struct File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 27
     Info (12023): Found entity 1: Bit_Mapped_XGA File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 9
 Info (12021): Found 2 design units, including 1 entities, in source file r32v2020_a4ce6_top.vhd
     Info (12022): Found design unit 1: R32V2020_A4CE6_top-struct File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 50
@@ -299,350 +299,12 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/displayram/displayram8kb.vhd
     Info (12022): Found design unit 1: displayram8kb-SYN File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/DisplayRAM/DisplayRam8KB.vhd Line: 59
     Info (12023): Found entity 1: DisplayRam8KB File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/DisplayRAM/DisplayRam8KB.vhd Line: 42
-Info (12127): Elaborating entity "R32V2020_A4CE6_top" for the top level hierarchy
-Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE6_top.vhd(30): used explicit default value for signal "n_sdRamCas" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 30
-Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE6_top.vhd(31): used explicit default value for signal "n_sdRamRas" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 31
-Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE6_top.vhd(32): used explicit default value for signal "n_sdRamWe" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 32
-Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE6_top.vhd(33): used explicit default value for signal "n_sdRamCe" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 33
-Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE6_top.vhd(34): used explicit default value for signal "sdRamClk" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 34
-Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE6_top.vhd(35): used explicit default value for signal "sdRamClkEn" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 35
-Warning (10540): VHDL Signal Declaration warning at R32V2020_A4CE6_top.vhd(36): used explicit default value for signal "sdRamAddr" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 36
-Info (12128): Elaborating entity "R32V2020_top" for hierarchy "R32V2020_top:R32V2020_top" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/R32V2020_A4CE6_top.vhd Line: 65
-Info (12128): Elaborating entity "Debouncer" for hierarchy "R32V2020_top:R32V2020_top|Debouncer:DebounceResetSwitch" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 117
-Info (12128): Elaborating entity "R32V2020" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 125
-Warning (10036): Verilog HDL or VHDL warning at R32V2020.vhd(49): object "w_Op_NOP" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 49
-Info (12128): Elaborating entity "OneHotStateMachine" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|OneHotStateMachine:StateMachine" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 188
-Info (12128): Elaborating entity "OpCodeDecoder" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|OpCodeDecoder:opcodeDecoder" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 196
-Info (12128): Elaborating entity "OpCode_Cat_Decoder" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|OpCodeDecoder:opcodeDecoder|OpCode_Cat_Decoder:opc_Cat_Decoder" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 193
-Info (12128): Elaborating entity "FlowControl" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|FlowControl:FlowControl" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 275
-Info (12128): Elaborating entity "CCRControl" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|CCRControl:CCR_Store" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 294
-Info (12128): Elaborating entity "ALU" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|ALU:ALU" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 321
-Info (12128): Elaborating entity "RegisterFile" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 367
-Info (12128): Elaborating entity "REG_32" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_32:conditionCodeRegister" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 130
-Info (12128): Elaborating entity "COUNT_32" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32:stackAddress" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 139
-Info (12128): Elaborating entity "COUNT_32_Load124" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|COUNT_32_Load124:peripheralAddress" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 153
-Info (12128): Elaborating entity "REG_16" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|REG_16:r8Upper" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 202
-Info (12128): Elaborating entity "MUX_16x32" for hierarchy "R32V2020_top:R32V2020_top|R32V2020:R32V2020_CPU|RegisterFile:RegisterFile|MUX_16x32:muxA" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 330
-Info (12128): Elaborating entity "BlockRom_Instruction" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 158
-Info (12128): Elaborating entity "altsyncram" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
-Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
-Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
-    Info (12134): Parameter "address_aclr_a" = "NONE"
-    Info (12134): Parameter "address_aclr_b" = "NONE"
-    Info (12134): Parameter "address_reg_b" = "CLOCK1"
-    Info (12134): Parameter "byte_size" = "8"
-    Info (12134): Parameter "byteena_aclr_a" = "UNUSED"
-    Info (12134): Parameter "byteena_aclr_b" = "NONE"
-    Info (12134): Parameter "byteena_reg_b" = "CLOCK1"
-    Info (12134): Parameter "clock_enable_core_a" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_core_b" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_input_a" = "NORMAL"
-    Info (12134): Parameter "clock_enable_input_b" = "NORMAL"
-    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_output_b" = "NORMAL"
-    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
-    Info (12134): Parameter "ecc_pipeline_stage_enabled" = "FALSE"
-    Info (12134): Parameter "enable_ecc" = "FALSE"
-    Info (12134): Parameter "implement_in_les" = "OFF"
-    Info (12134): Parameter "indata_aclr_a" = "UNUSED"
-    Info (12134): Parameter "indata_aclr_b" = "NONE"
-    Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "../../../../Programs/Games/G003-Tetris_EP4CE10/G003-Tetris_ins.HEX"
-    Info (12134): Parameter "init_file_layout" = "PORT_A"
-    Info (12134): Parameter "maximum_depth" = "0"
-    Info (12134): Parameter "numwords_a" = "2048"
-    Info (12134): Parameter "numwords_b" = "0"
-    Info (12134): Parameter "operation_mode" = "ROM"
-    Info (12134): Parameter "outdata_aclr_a" = "NONE"
-    Info (12134): Parameter "outdata_aclr_b" = "NONE"
-    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
-    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
-    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
-    Info (12134): Parameter "ram_block_type" = "AUTO"
-    Info (12134): Parameter "rdcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "rdcontrol_reg_b" = "CLOCK1"
-    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "DONT_CARE"
-    Info (12134): Parameter "read_during_write_mode_port_a" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "stratixiv_m144k_allow_dual_clocks" = "ON"
-    Info (12134): Parameter "width_a" = "32"
-    Info (12134): Parameter "width_b" = "1"
-    Info (12134): Parameter "width_byteena_a" = "1"
-    Info (12134): Parameter "width_byteena_b" = "1"
-    Info (12134): Parameter "width_eccstatus" = "3"
-    Info (12134): Parameter "widthad_a" = "11"
-    Info (12134): Parameter "widthad_b" = "1"
-    Info (12134): Parameter "wrcontrol_aclr_a" = "UNUSED"
-    Info (12134): Parameter "wrcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
-    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=INST"
-    Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_m734.tdf
-    Info (12023): Found entity 1: altsyncram_m734 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_m734.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_m734" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m734:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_5p33.tdf
-    Info (12023): Found entity 1: altsyncram_5p33 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_5p33.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_5p33" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m734:auto_generated|altsyncram_5p33:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_m734.tdf Line: 35
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m734:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_m734.tdf Line: 36
-Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m734:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_m734.tdf Line: 36
-Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m734:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_m734.tdf Line: 36
-    Info (12134): Parameter "CVALUE" = "00000000000000000000000000000000"
-    Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
-    Info (12134): Parameter "IS_READABLE" = "1"
-    Info (12134): Parameter "NODE_NAME" = "1229869908"
-    Info (12134): Parameter "NUMWORDS" = "2048"
-    Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
-    Info (12134): Parameter "WIDTH_WORD" = "32"
-    Info (12134): Parameter "WIDTHAD" = "11"
-Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m734:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 302
-Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m734:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
-Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m734:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 828
-Info (12128): Elaborating entity "BlockRam_Stack" for hierarchy "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 167
-Info (12128): Elaborating entity "altsyncram" for hierarchy "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
-Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
-Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
-    Info (12134): Parameter "address_aclr_a" = "UNUSED"
-    Info (12134): Parameter "address_aclr_b" = "NONE"
-    Info (12134): Parameter "address_reg_b" = "CLOCK1"
-    Info (12134): Parameter "byte_size" = "8"
-    Info (12134): Parameter "byteena_aclr_a" = "UNUSED"
-    Info (12134): Parameter "byteena_aclr_b" = "NONE"
-    Info (12134): Parameter "byteena_reg_b" = "CLOCK1"
-    Info (12134): Parameter "clock_enable_core_a" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_core_b" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_input_b" = "NORMAL"
-    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_output_b" = "NORMAL"
-    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
-    Info (12134): Parameter "ecc_pipeline_stage_enabled" = "FALSE"
-    Info (12134): Parameter "enable_ecc" = "FALSE"
-    Info (12134): Parameter "implement_in_les" = "OFF"
-    Info (12134): Parameter "indata_aclr_a" = "UNUSED"
-    Info (12134): Parameter "indata_aclr_b" = "NONE"
-    Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "UNUSED"
-    Info (12134): Parameter "init_file_layout" = "PORT_A"
-    Info (12134): Parameter "maximum_depth" = "0"
-    Info (12134): Parameter "numwords_a" = "128"
-    Info (12134): Parameter "numwords_b" = "0"
-    Info (12134): Parameter "operation_mode" = "SINGLE_PORT"
-    Info (12134): Parameter "outdata_aclr_a" = "NONE"
-    Info (12134): Parameter "outdata_aclr_b" = "NONE"
-    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
-    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
-    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
-    Info (12134): Parameter "ram_block_type" = "AUTO"
-    Info (12134): Parameter "rdcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "rdcontrol_reg_b" = "CLOCK1"
-    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "DONT_CARE"
-    Info (12134): Parameter "read_during_write_mode_port_a" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "stratixiv_m144k_allow_dual_clocks" = "ON"
-    Info (12134): Parameter "width_a" = "32"
-    Info (12134): Parameter "width_b" = "1"
-    Info (12134): Parameter "width_byteena_a" = "1"
-    Info (12134): Parameter "width_byteena_b" = "1"
-    Info (12134): Parameter "width_eccstatus" = "3"
-    Info (12134): Parameter "widthad_a" = "7"
-    Info (12134): Parameter "widthad_b" = "1"
-    Info (12134): Parameter "wrcontrol_aclr_a" = "UNUSED"
-    Info (12134): Parameter "wrcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
-    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=STAK"
-    Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_71s3.tdf
-    Info (12023): Found entity 1: altsyncram_71s3 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_71s3.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_71s3" for hierarchy "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_fdp2.tdf
-    Info (12023): Found entity 1: altsyncram_fdp2 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_fdp2.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_fdp2" for hierarchy "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|altsyncram_fdp2:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_71s3.tdf Line: 36
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_71s3.tdf Line: 37
-Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_71s3.tdf Line: 37
-Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_71s3.tdf Line: 37
-    Info (12134): Parameter "CVALUE" = "00000000000000000000000000000000"
-    Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
-    Info (12134): Parameter "IS_READABLE" = "1"
-    Info (12134): Parameter "NODE_NAME" = "1398030667"
-    Info (12134): Parameter "NUMWORDS" = "128"
-    Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
-    Info (12134): Parameter "WIDTH_WORD" = "32"
-    Info (12134): Parameter "WIDTHAD" = "7"
-Info (12128): Elaborating entity "Wrap_Data_Ram" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 178
-Info (12128): Elaborating entity "BlockRam_Data" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 102
-Info (12128): Elaborating entity "altsyncram" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 63
-Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 63
-Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 63
-    Info (12134): Parameter "address_aclr_a" = "UNUSED"
-    Info (12134): Parameter "address_aclr_b" = "NONE"
-    Info (12134): Parameter "address_reg_b" = "CLOCK1"
-    Info (12134): Parameter "byte_size" = "8"
-    Info (12134): Parameter "byteena_aclr_a" = "UNUSED"
-    Info (12134): Parameter "byteena_aclr_b" = "NONE"
-    Info (12134): Parameter "byteena_reg_b" = "CLOCK1"
-    Info (12134): Parameter "clock_enable_core_a" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_core_b" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_input_b" = "NORMAL"
-    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_output_b" = "NORMAL"
-    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
-    Info (12134): Parameter "ecc_pipeline_stage_enabled" = "FALSE"
-    Info (12134): Parameter "enable_ecc" = "FALSE"
-    Info (12134): Parameter "implement_in_les" = "OFF"
-    Info (12134): Parameter "indata_aclr_a" = "UNUSED"
-    Info (12134): Parameter "indata_aclr_b" = "NONE"
-    Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "../../../../Programs/Games/G003-Tetris_EP4CE10/G003-Tetris_dat.HEX"
-    Info (12134): Parameter "init_file_layout" = "PORT_A"
-    Info (12134): Parameter "maximum_depth" = "0"
-    Info (12134): Parameter "numwords_a" = "1024"
-    Info (12134): Parameter "numwords_b" = "0"
-    Info (12134): Parameter "operation_mode" = "SINGLE_PORT"
-    Info (12134): Parameter "outdata_aclr_a" = "NONE"
-    Info (12134): Parameter "outdata_aclr_b" = "NONE"
-    Info (12134): Parameter "outdata_reg_a" = "CLOCK0"
-    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
-    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
-    Info (12134): Parameter "ram_block_type" = "AUTO"
-    Info (12134): Parameter "rdcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "rdcontrol_reg_b" = "CLOCK1"
-    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "DONT_CARE"
-    Info (12134): Parameter "read_during_write_mode_port_a" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "stratixiv_m144k_allow_dual_clocks" = "ON"
-    Info (12134): Parameter "width_a" = "32"
-    Info (12134): Parameter "width_b" = "1"
-    Info (12134): Parameter "width_byteena_a" = "4"
-    Info (12134): Parameter "width_byteena_b" = "1"
-    Info (12134): Parameter "width_eccstatus" = "3"
-    Info (12134): Parameter "widthad_a" = "10"
-    Info (12134): Parameter "widthad_b" = "1"
-    Info (12134): Parameter "wrcontrol_aclr_a" = "UNUSED"
-    Info (12134): Parameter "wrcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
-    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=DATA"
-    Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_8c34.tdf
-    Info (12023): Found entity 1: altsyncram_8c34 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_8c34.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_8c34" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_8c34:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_vr03.tdf
-    Info (12023): Found entity 1: altsyncram_vr03 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_vr03.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_vr03" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_8c34:auto_generated|altsyncram_vr03:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_8c34.tdf Line: 38
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_8c34:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_8c34.tdf Line: 39
-Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_8c34:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_8c34.tdf Line: 39
-Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_8c34:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_8c34.tdf Line: 39
-    Info (12134): Parameter "CVALUE" = "00000000000000000000000000000000"
-    Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
-    Info (12134): Parameter "IS_READABLE" = "1"
-    Info (12134): Parameter "NODE_NAME" = "1145132097"
-    Info (12134): Parameter "NUMWORDS" = "1024"
-    Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
-    Info (12134): Parameter "WIDTH_WORD" = "32"
-    Info (12134): Parameter "WIDTHAD" = "10"
-Info (12128): Elaborating entity "BlockRam_Data2" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 113
-Info (12128): Elaborating entity "altsyncram" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data2.vhd Line: 63
-Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data2.vhd Line: 63
-Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data2.vhd Line: 63
-    Info (12134): Parameter "address_aclr_a" = "UNUSED"
-    Info (12134): Parameter "address_aclr_b" = "NONE"
-    Info (12134): Parameter "address_reg_b" = "CLOCK1"
-    Info (12134): Parameter "byte_size" = "8"
-    Info (12134): Parameter "byteena_aclr_a" = "UNUSED"
-    Info (12134): Parameter "byteena_aclr_b" = "NONE"
-    Info (12134): Parameter "byteena_reg_b" = "CLOCK1"
-    Info (12134): Parameter "clock_enable_core_a" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_core_b" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_input_b" = "NORMAL"
-    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_output_b" = "NORMAL"
-    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
-    Info (12134): Parameter "ecc_pipeline_stage_enabled" = "FALSE"
-    Info (12134): Parameter "enable_ecc" = "FALSE"
-    Info (12134): Parameter "implement_in_les" = "OFF"
-    Info (12134): Parameter "indata_aclr_a" = "UNUSED"
-    Info (12134): Parameter "indata_aclr_b" = "NONE"
-    Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "UNUSED"
-    Info (12134): Parameter "init_file_layout" = "PORT_A"
-    Info (12134): Parameter "maximum_depth" = "0"
-    Info (12134): Parameter "numwords_a" = "256"
-    Info (12134): Parameter "numwords_b" = "0"
-    Info (12134): Parameter "operation_mode" = "SINGLE_PORT"
-    Info (12134): Parameter "outdata_aclr_a" = "NONE"
-    Info (12134): Parameter "outdata_aclr_b" = "NONE"
-    Info (12134): Parameter "outdata_reg_a" = "CLOCK0"
-    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
-    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
-    Info (12134): Parameter "ram_block_type" = "AUTO"
-    Info (12134): Parameter "rdcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "rdcontrol_reg_b" = "CLOCK1"
-    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "DONT_CARE"
-    Info (12134): Parameter "read_during_write_mode_port_a" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "stratixiv_m144k_allow_dual_clocks" = "ON"
-    Info (12134): Parameter "width_a" = "32"
-    Info (12134): Parameter "width_b" = "1"
-    Info (12134): Parameter "width_byteena_a" = "4"
-    Info (12134): Parameter "width_byteena_b" = "1"
-    Info (12134): Parameter "width_eccstatus" = "3"
-    Info (12134): Parameter "widthad_a" = "8"
-    Info (12134): Parameter "widthad_b" = "1"
-    Info (12134): Parameter "wrcontrol_aclr_a" = "UNUSED"
-    Info (12134): Parameter "wrcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
-    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=NONE"
-    Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_6ts3.tdf
-    Info (12023): Found entity 1: altsyncram_6ts3 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_6ts3.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_6ts3" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_k9q2.tdf
-    Info (12023): Found entity 1: altsyncram_k9q2 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_k9q2.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_k9q2" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|altsyncram_k9q2:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_6ts3.tdf Line: 38
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_6ts3.tdf Line: 39
-Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_6ts3.tdf Line: 39
-Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_RETRO-EP4CE15_BMVid/db/altsyncram_6ts3.tdf Line: 39
-    Info (12134): Parameter "CVALUE" = "00000000000000000000000000000000"
-    Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
-    Info (12134): Parameter "IS_READABLE" = "1"
-    Info (12134): Parameter "NODE_NAME" = "0"
-    Info (12134): Parameter "NUMWORDS" = "256"
-    Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
-    Info (12134): Parameter "WIDTH_WORD" = "32"
-    Info (12134): Parameter "WIDTHAD" = "8"
-Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 799
-Info (12128): Elaborating entity "PeripheralInterface" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 194
-Warning (10540): VHDL Signal Declaration warning at PeripheralInterface-BitMappedVideo.vhd(43): used explicit default value for signal "o_hActive" because signal was never assigned a value File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd Line: 43
-Critical Warning (10920): VHDL Incomplete Partial Association warning at PeripheralInterface-BitMappedVideo.vhd(397): port or argument "q" has 4/16 unassociated elements File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd Line: 397
-Info (12128): Elaborating entity "sd_controller_NealC" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|sd_controller_NealC:sd_Card" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd Line: 180
-Info (12128): Elaborating entity "Wrap_Keyboard" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Wrap_Keyboard:kbdWrap" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd Line: 197
-Info (12128): Elaborating entity "ps2_keyboard_to_ascii" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Wrap_Keyboard:kbdWrap|ps2_keyboard_to_ascii:ps2Keyboard" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PS2KB/Wrap_Keyboard.vhd Line: 35
-Info (12128): Elaborating entity "ps2_keyboard" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Wrap_Keyboard:kbdWrap|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii.vhd Line: 70
-Info (12128): Elaborating entity "debounce" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Wrap_Keyboard:kbdWrap|ps2_keyboard_to_ascii:ps2Keyboard|ps2_keyboard:ps2_keyboard_0|debounce:debounce_ps2_clk" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 67
-Info (12128): Elaborating entity "spi" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|spi:spiMaster" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd Line: 231
-Info (12128): Elaborating entity "i2c" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|i2c:i2cIF" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd Line: 270
-Info (12128): Elaborating entity "Bit_Mapped_XGA" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Bit_Mapped_XGA:XVGA" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd Line: 299
-Warning (10541): VHDL Signal Declaration warning at Bit_Mapped_XGA.vhd(28): used implicit default value for signal "dispRamDataOut" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 28
-Warning (10036): Verilog HDL or VHDL warning at Bit_Mapped_XGA.vhd(29): object "charAddr" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 29
-Warning (10036): Verilog HDL or VHDL warning at Bit_Mapped_XGA.vhd(33): object "hAct" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 33
-Warning (10036): Verilog HDL or VHDL warning at Bit_Mapped_XGA.vhd(34): object "displayCSA" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 34
-Warning (10036): Verilog HDL or VHDL warning at Bit_Mapped_XGA.vhd(35): object "displayCSB" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 35
-Warning (10036): Verilog HDL or VHDL warning at Bit_Mapped_XGA.vhd(36): object "displayCSC" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 36
-Error (10028): Can't resolve multiple constant drivers for net "dataOut[7]" at Bit_Mapped_XGA.vhd(63) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 63
-Error (10029): Constant driver at Bit_Mapped_XGA.vhd(44) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 44
-Error (10028): Can't resolve multiple constant drivers for net "dataOut[6]" at Bit_Mapped_XGA.vhd(63) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 63
-Error (10028): Can't resolve multiple constant drivers for net "dataOut[5]" at Bit_Mapped_XGA.vhd(63) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 63
-Error (10028): Can't resolve multiple constant drivers for net "dataOut[4]" at Bit_Mapped_XGA.vhd(63) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 63
-Error (10028): Can't resolve multiple constant drivers for net "dataOut[3]" at Bit_Mapped_XGA.vhd(63) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 63
-Error (10028): Can't resolve multiple constant drivers for net "dataOut[2]" at Bit_Mapped_XGA.vhd(63) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 63
-Error (10028): Can't resolve multiple constant drivers for net "dataOut[1]" at Bit_Mapped_XGA.vhd(63) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 63
-Error (10028): Can't resolve multiple constant drivers for net "dataOut[0]" at Bit_Mapped_XGA.vhd(63) File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 63
-Error (12152): Can't elaborate user hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Bit_Mapped_XGA:XVGA" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface-BitMappedVideo.vhd Line: 299
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 10 errors, 16 warnings
-    Error: Peak virtual memory: 4827 megabytes
-    Error: Processing ended: Tue Feb 18 19:24:37 2020
-    Error: Elapsed time: 00:00:21
-    Error: Total CPU time (on all processors): 00:00:36
+Error (10482): VHDL error at Bit_Mapped_XGA.vhd(73): object "dataOutA" is used but not declared File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 73
+Error (10558): VHDL error at Bit_Mapped_XGA.vhd(73): cannot associate formal port "q_a" of mode "out" with an expression File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 73
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 0 warnings
+    Error: Peak virtual memory: 4790 megabytes
+    Error: Processing ended: Sat Mar 07 11:13:50 2020
+    Error: Elapsed time: 00:00:15
+    Error: Total CPU time (on all processors): 00:00:30
 
 

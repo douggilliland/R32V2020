@@ -71,18 +71,24 @@ set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_ps2Clk
 set_location_assignment PIN_R2 -to i_ps2Data
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_ps2Data
 # Serial
-set_location_assignment PIN_H22 -to o_SerTxd
-set_location_assignment PIN_H21 -to i_SerRxd
+set_location_assignment PIN_B10 -to o_SerTxd
+set_location_assignment PIN_B13 -to i_SerRxd
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to i_SerRxd
 # Video
-set_location_assignment PIN_C22 -to o_vid_Red_Lo
-set_location_assignment PIN_C21 -to o_vid_Red_Hi
-set_location_assignment PIN_D22 -to o_vid_Grn_Lo
-set_location_assignment PIN_D21 -to o_vid_Grn_Hi
-set_location_assignment PIN_E22 -to o_vid_Blu_Lo
-set_location_assignment PIN_E21 -to o_vid_Blu_Hi
-set_location_assignment PIN_F21 -to o_hSync
-set_location_assignment PIN_F22 -to o_vSync
+set_location_assignment PIN_B15 -to o_vid_Red_Lo
+set_location_assignment PIN_A15 -to o_vid_Red_Hi
+set_location_assignment PIN_B16 -to o_vid_Grn_Lo
+set_location_assignment PIN_A16 -to o_vid_Grn_Hi
+set_location_assignment PIN_B17 -to o_vid_Blu_Lo
+set_location_assignment PIN_A17 -to o_vid_Blu_Hi
+set_location_assignment PIN_B18 -to o_hSync
+set_location_assignment PIN_A18 -to o_vSync
+# SD Card
+set_location_assignment PIN_B19 -to o_sdCS
+set_location_assignment PIN_B20 -to o_sdSCLK
+set_location_assignment PIN_A20 -to i_sdMISO
+set_location_assignment PIN_A19 -to o_sdMOSI
+set_location_assignment PIN_E4 -to o_driveLED
 # SDRAM
 set_location_assignment PIN_Y6 -to sdRamClk
 set_location_assignment PIN_W6 -to sdRamClkEn
@@ -121,12 +127,38 @@ set_location_assignment PIN_V10 -to sdRamData[12]
 set_location_assignment PIN_Y10 -to sdRamData[13]
 set_location_assignment PIN_W10 -to sdRamData[14]
 set_location_assignment PIN_V11 -to sdRamData[15]
-# SD Card
-set_location_assignment PIN_B19 -to o_sdCS
-set_location_assignment PIN_B20 -to o_sdSCLK
-set_location_assignment PIN_A20 -to i_sdMISO
-set_location_assignment PIN_A19 -to o_sdMOSI
-set_location_assignment PIN_E4 -to o_driveLED
+# SRAM
+set_location_assignment PIN_F1 -to n_sRamCS
+set_location_assignment PIN_J2 -to n_sRamOE
+set_location_assignment PIN_B4 -to n_sRamWE
+set_location_assignment PIN_E1 -to sramData[0]
+set_location_assignment PIN_C1 -to sramData[1]
+set_location_assignment PIN_B1 -to sramData[2]
+set_location_assignment PIN_B3 -to sramData[3]
+set_location_assignment PIN_B2 -to sramData[4]
+set_location_assignment PIN_C2 -to sramData[5]
+set_location_assignment PIN_D2 -to sramData[6]
+set_location_assignment PIN_F2 -to sramData[7]
+set_location_assignment PIN_H1 -to sramAddress[0]
+set_location_assignment PIN_J1 -to sramAddress[1]
+set_location_assignment PIN_M1 -to sramAddress[2]
+set_location_assignment PIN_N1 -to sramAddress[3]
+set_location_assignment PIN_P1 -to sramAddress[4]
+set_location_assignment PIN_P2 -to sramAddress[5]
+set_location_assignment PIN_N2 -to sramAddress[6]
+set_location_assignment PIN_M2 -to sramAddress[7]
+set_location_assignment PIN_H2 -to sramAddress[8]
+set_location_assignment PIN_A3 -to sramAddress[9]
+set_location_assignment PIN_A4 -to sramAddress[10]
+set_location_assignment PIN_C3 -to sramAddress[11]
+set_location_assignment PIN_A5 -to sramAddress[12]
+set_location_assignment PIN_A6 -to sramAddress[13]
+set_location_assignment PIN_A7 -to sramAddress[14]
+set_location_assignment PIN_A8 -to sramAddress[15]
+set_location_assignment PIN_B7 -to sramAddress[16]
+set_location_assignment PIN_B6 -to sramAddress[17]
+set_location_assignment PIN_B5 -to sramAddress[18]
+set_location_assignment PIN_C4 -to sramAddress[19]
 #
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_SerTxd
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vSync
@@ -142,7 +174,6 @@ set_instance_assignment -name SLEW_RATE 2 -to o_SerTxd
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to n_sdRamCas
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to o_vid_Blu_Hi
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to o_vid_Blu_Hi
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name VHDL_FILE R32V2020_A4CE6_top.vhd
 set_global_assignment -name VHDL_FILE ../../Components/VGA/Mem_Mapped_XGA/DisplayRam2k.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PeripheralInterface/PeripheralInterface.vhd
@@ -182,11 +213,13 @@ set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/Bloc
 set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Stack/BlockRam_Stack.vhd
 set_global_assignment -name VHDL_FILE ../../Components/UART/bufferedUART.vhd
 set_global_assignment -name VHDL_FILE ../../Components/Registers/REG_16.vhd
-set_global_assignment -name SDC_FILE ../SDC1.sdc
 set_global_assignment -name VHDL_FILE ../../Components/Timers/Timer_Unit.vhd
-set_global_assignment -name CDF_FILE "output_files/R32V2020-EEPROM.cdf"
-set_global_assignment -name CDF_FILE output_files/R32V2020.cdf
 set_global_assignment -name VHDL_FILE ../../Components/COUNTER/COUNTER_32_Load124.vhd
 set_global_assignment -name VHDL_FILE ../../Components/SoundGen/SoundGen.vhd
-set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
 set_global_assignment -name VHDL_FILE ../../Components/VGA/Bit_Mapped_SVGA/BitMapped_XVGA.vhd
+set_global_assignment -name SDC_FILE ../SDC1.sdc
+set_global_assignment -name CDF_FILE "output_files/R32V2020-EEPROM.cdf"
+set_global_assignment -name CDF_FILE output_files/R32V2020.cdf
+set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
