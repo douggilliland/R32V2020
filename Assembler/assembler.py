@@ -69,7 +69,7 @@ constantFormRegister = {
   'UN_R6_DEST': 6
 }
 
-for i in xrange(0, 16):
+for i in range(0, 16):
   validRegisters.add('R' + str(i))
 
 for alias in REGISTER_ALIASES:
@@ -77,32 +77,32 @@ for alias in REGISTER_ALIASES:
 
 def userAssert(condition, message):
   if not condition:
-    print message
+    print(message)
     exit(1)
 
 def lineAssert(condition, fileLine, message):
   if not condition:
-    print message
-    print ''
-    print 'File', fileLine.fileName + ',', 'line', str(fileLine.lineNumber + 1) + ':'
-    print fileLine.rawLine
+    print(message)
+    print('')
+    print('File', fileLine.fileName + ',', 'line', str(fileLine.lineNumber + 1) + ':')
+    print(fileLine.rawLine)
     exit(1)
 
 def precompileAssert(condition, rawLine, message):
   if not condition:
-    print message
-    print ''
-    print rawLine
+    print(message)
+    print('')
+    print(rawLine)
     exit(1)
 
 def todo(message = 'something'):
-  print "Incomplete TODO:", message
+  print("Incomplete TODO:", message)
 
 def assemblerAssert(condition, message):
   if not condition:
-    print message
-    print ''
-    print '(This is a compiler-level error indicating an assembler programmer mistake not an assembler user mistake)'
+    print(message)
+    print('')
+    print('(This is a compiler-level error indicating an assembler programmer mistake not an assembler user mistake)')
     exit(1)
 
 myDir = os.path.dirname(__file__)
@@ -306,10 +306,10 @@ class StringConstant:
 
   def resolveHex(self):
     chunks = []
-    for i in xrange(0, len(self.string), 4):
+    for i in range(0, len(self.string), 4):
       hex = ''
 
-      for j in xrange(i, i+4):
+      for j in range(i, i+4):
         if j < len(self.string):
           hex += hexOfAsciiCode(self.string[j])
         else:
@@ -529,7 +529,7 @@ if __name__ == '__main__':
         padded = '0'*(8 - len(code)) + code
 
         f.write('constant ' + op['Opcode'].upper() + '_OP \t: std_logic_vector(7 downto 0) := "' + padded + '";\n')
-      print 'Constants written to OpCodeConstants.vhd'
+      print('Constants written to OpCodeConstants.vhd')
       exit()
 
   userAssert(len(sys.argv) == 2, 'Usage: python assembler.py <input assembly>')

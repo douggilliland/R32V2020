@@ -143,8 +143,8 @@ setScreenCharLoc_mmXGA:
 	push	r9
 	push	DAR
 	sr8		r9,r8
-	andi	r9,r9,0x0ff
-	andi	r8,r8,0x0ff
+	andi	r9,r9,0x03f		; mask to 64 cols
+	andi	r8,r8,0x01f		; makk to 32 rows
 	lix		DAR,screenX.lower
 	sdl		r8
 	lix		DAR,screenY.lower

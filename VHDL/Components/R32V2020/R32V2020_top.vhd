@@ -9,6 +9,10 @@ library work;
 use work.R32V2020_Pkg.all;
 
 entity R32V2020_top is
+	generic(
+		constant DATA_SRAM_SIZE_PASS : integer := 2048;
+		constant INST_SRAM_SIZE : integer := 8192
+	);
 	port(
 		n_reset				: in std_logic := '1';
 		i_CLOCK_50			: in std_logic;
@@ -155,13 +159,60 @@ begin
 	);
 
 	-- Instruction ROM
-	Instr_ROM : entity work.BlockRom_Instruction
-	PORT MAP (
-		address		=> w_InstructionRomAddress(10 downto 0),
-		clken			=> w_clkInstrRomAddr,
-		clock 		=> i_CLOCK_50,
-		q 				=> w_InstructionRomData
-	);
+	GEN_4KB_INST_ROM: if (INST_SRAM_SIZE=4096) generate
+	begin
+		Instr_ROM : entity work.BlockRom_Instruction_4K
+		PORT MAP (
+			address		=> w_InstructionRomAddress(9 downto 0),
+			clken			=> w_clkInstrRomAddr,
+			clock 		=> i_CLOCK_50,
+			q 				=> w_InstructionRomData
+		);
+	end generate GEN_4KB_INST_ROM;
+	
+	GEN_8KB_INST_ROM: if (INST_SRAM_SIZE=8192) generate
+	begin
+		Instr_ROM : entity work.BlockRom_Instruction_8K
+		PORT MAP (
+			address		=> w_InstructionRomAddress(10 downto 0),
+			clken			=> w_clkInstrRomAddr,
+			clock 		=> i_CLOCK_50,
+			q 				=> w_InstructionRomData
+		);
+	end generate GEN_8KB_INST_ROM;
+	
+	GEN_16KB_INST_ROM: if (INST_SRAM_SIZE=16384) generate
+	begin
+		Instr_ROM : entity work.BlockRom_Instruction_16K
+		PORT MAP (
+			address		=> w_InstructionRomAddress(11 downto 0),
+			clken			=> w_clkInstrRomAddr,
+			clock 		=> i_CLOCK_50,
+			q 				=> w_InstructionRomData
+		);
+	end generate GEN_16KB_INST_ROM;
+	
+	GEN_32KB_INST_ROM: if (INST_SRAM_SIZE=32768) generate
+	begin
+		Instr_ROM : entity work.BlockRom_Instruction_32K
+		PORT MAP (
+			address		=> w_InstructionRomAddress(12 downto 0),
+			clken			=> w_clkInstrRomAddr,
+			clock 		=> i_CLOCK_50,
+			q 				=> w_InstructionRomData
+		);
+	end generate GEN_32KB_INST_ROM;
+	
+	GEN_64KB_INST_ROM: if (INST_SRAM_SIZE=65536) generate
+	begin
+		Instr_ROM : entity work.BlockRom_Instruction_64K
+		PORT MAP (
+			address		=> w_InstructionRomAddress(13 downto 0),
+			clken			=> w_clkInstrRomAddr,
+			clock 		=> i_CLOCK_50,
+			q 				=> w_InstructionRomData
+		);
+	end generate GEN_64KB_INST_ROM;
 	
 	-- Stack RAM
 	Stack_RAM : entity work.BlockRam_Stack
@@ -174,8 +225,10 @@ begin
 	);
 
 	-- Data RAM
-	
 	Data_RAM_Wrap : entity work.Wrap_Data_Ram
+	generic map ( 
+		DATA_SRAM_SIZE => DATA_SRAM_SIZE_PASS
+	)
 	PORT MAP (
 		address 		=> w_DataRamAddress,
 		clock 		=> i_CLOCK_50,

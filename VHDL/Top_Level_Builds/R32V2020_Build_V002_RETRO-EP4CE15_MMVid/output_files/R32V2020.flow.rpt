@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Sat Mar 07 16:03:59 2020
+Sun Mar 08 16:32:04 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -37,26 +37,26 @@ refer to the applicable agreement for further details.
 
 
 
-+----------------------------------------------------------------------------------+
-; Flow Summary                                                                     ;
-+------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sat Mar 07 16:03:50 2020       ;
-; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
-; Revision Name                      ; R32V2020                                    ;
-; Top-level Entity Name              ; R32V2020_A4CE15_top                         ;
-; Family                             ; Cyclone IV E                                ;
-; Device                             ; EP4CE15F23C8                                ;
-; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 5,726 / 15,408 ( 37 % )                     ;
-;     Total combinational functions  ; 5,495 / 15,408 ( 36 % )                     ;
-;     Dedicated logic registers      ; 1,533 / 15,408 ( 10 % )                     ;
-; Total registers                    ; 1533                                        ;
-; Total pins                         ; 58 / 344 ( 17 % )                           ;
-; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 127,104 / 516,096 ( 25 % )                  ;
-; Embedded Multiplier 9-bit elements ; 12 / 112 ( 11 % )                           ;
-; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
-+------------------------------------+---------------------------------------------+
++---------------------------------------------------------------------------------------+
+; Flow Summary                                                                          ;
++------------------------------------+--------------------------------------------------+
+; Flow Status                        ; MIF/HEX Update Failed - Sun Mar 08 16:32:04 2020 ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition      ;
+; Revision Name                      ; R32V2020                                         ;
+; Top-level Entity Name              ; R32V2020_A4CE15_top                              ;
+; Family                             ; Cyclone IV E                                     ;
+; Device                             ; EP4CE15F23C8                                     ;
+; Timing Models                      ; Final                                            ;
+; Total logic elements               ; 5,609 / 15,408 ( 36 % )                          ;
+;     Total combinational functions  ; 5,364 / 15,408 ( 35 % )                          ;
+;     Dedicated logic registers      ; 1,448 / 15,408 ( 9 % )                           ;
+; Total registers                    ; 1448                                             ;
+; Total pins                         ; 58 / 344 ( 17 % )                                ;
+; Total virtual pins                 ; 0                                                ;
+; Total memory bits                  ; 356,480 / 516,096 ( 69 % )                       ;
+; Embedded Multiplier 9-bit elements ; 12 / 112 ( 11 % )                                ;
+; Total PLLs                         ; 1 / 4 ( 25 % )                                   ;
++------------------------------------+--------------------------------------------------+
 
 
 +-----------------------------------------+
@@ -64,38 +64,45 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 03/07/2020 16:01:39 ;
+; Start date & time ; 03/08/2020 16:01:41 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                ;
-+-------------------------------------+----------------------------------------+---------------+---------------------+------------+
-; Assignment Name                     ; Value                                  ; Default Value ; Entity Name         ; Section Id ;
-+-------------------------------------+----------------------------------------+---------------+---------------------+------------+
-; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                 ; Auto          ; --                  ; --         ;
-; COMPILER_SIGNATURE_ID               ; 10995770589188.158361489820772         ; --            ; --                  ; --         ;
-; ENABLE_SIGNALTAP                    ; Off                                    ; --            ; --                  ; --         ;
-; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                    ; On            ; --                  ; --         ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --                  ; --         ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --                  ; --         ;
-; NUM_PARALLEL_PROCESSORS             ; 4                                      ; --            ; --                  ; --         ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                      ; --            ; --                  ; --         ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                      ; --            ; --                  ; --         ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                             ; --            ; --                  ; --         ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                             ; --            ; --                  ; --         ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; R32V2020_A4CE15_top ; Top        ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; R32V2020_A4CE15_top ; Top        ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; R32V2020_A4CE15_top ; Top        ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --            ; --                  ; --         ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --                  ; --         ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                           ; --            ; --                  ; --         ;
-; SMART_RECOMPILE                     ; On                                     ; Off           ; --                  ; --         ;
-; TOP_LEVEL_ENTITY                    ; R32V2020_A4CE15_top                    ; R32V2020      ; --                  ; --         ;
-; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                  ; --            ; --                  ; --         ;
-+-------------------------------------+----------------------------------------+---------------+---------------------+------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                            ;
++-------------------------------------+--------------------------------------------------------------------+---------------+---------------------+------------+
+; Assignment Name                     ; Value                                                              ; Default Value ; Entity Name         ; Section Id ;
++-------------------------------------+--------------------------------------------------------------------+---------------+---------------------+------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                             ; Auto          ; --                  ; --         ;
+; COMPILER_SIGNATURE_ID               ; 10995770589188.158369770024372                                     ; --            ; --                  ; --         ;
+; ENABLE_SIGNALTAP                    ; Off                                                                ; --            ; --                  ; --         ;
+; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                                ; On            ; --                  ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                                                 ; --            ; --                  ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                                                  ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/BlockRam_Data/BlockRam_Data_8KB.cmp               ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/BlockRam_Data/BlockRam_Data_2KB.cmp               ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/BlockRom_Instruction/BlockRom_Instruction_4K.cmp  ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/BlockRom_Instruction/BlockRom_Instruction_16K.cmp ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/BlockRom_Instruction/BlockRom_Instruction_32K.cmp ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/BlockRom_Instruction/BlockRom_Instruction_64K.cmp ; --            ; --                  ; --         ;
+; MISC_FILE                           ; ../../Components/BlockRom_Instruction/BlockRom_Instruction_8K.cmp  ; --            ; --                  ; --         ;
+; NUM_PARALLEL_PROCESSORS             ; 4                                                                  ; --            ; --                  ; --         ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                                  ; --            ; --                  ; --         ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                                  ; --            ; --                  ; --         ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                         ; --            ; --                  ; --         ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                         ; --            ; --                  ; --         ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family)                             ; --            ; R32V2020_A4CE15_top ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                             ; --            ; R32V2020_A4CE15_top ; Top        ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                             ; --            ; R32V2020_A4CE15_top ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                                ; --            ; --                  ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                              ; --            ; --                  ; --         ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                       ; --            ; --                  ; --         ;
+; SMART_RECOMPILE                     ; On                                                                 ; Off           ; --                  ; --         ;
+; TOP_LEVEL_ENTITY                    ; R32V2020_A4CE15_top                                                ; R32V2020      ; --                  ; --         ;
+; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                                              ; --            ; --                  ; --         ;
++-------------------------------------+--------------------------------------------------------------------+---------------+---------------------+------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -103,11 +110,13 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:05     ; 1.0                     ; 4885 MB             ; 00:01:33                           ;
-; Fitter               ; 00:00:58     ; 1.1                     ; 5682 MB             ; 00:01:24                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4696 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:08     ; 1.7                     ; 4868 MB             ; 00:00:09                           ;
-; Total                ; 00:02:14     ; --                      ; --                  ; 00:03:08                           ;
+; Analysis & Synthesis ; 00:01:11     ; 1.0                     ; 4885 MB             ; 00:01:40                           ;
+; Fitter               ; 00:00:51     ; 1.1                     ; 5669 MB             ; 00:01:22                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4696 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:09     ; 1.6                     ; 4855 MB             ; 00:00:10                           ;
+; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4729 MB             ; 00:00:01                           ;
+; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4728 MB             ; 00:00:01                           ;
+; Total                ; 00:02:16     ; --                      ; --                  ; 00:03:17                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -120,6 +129,8 @@ refer to the applicable agreement for further details.
 ; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -130,6 +141,8 @@ quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
 
 
 

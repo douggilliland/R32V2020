@@ -58,12 +58,20 @@ architecture struct of R32V2020_A4CE15_top is
 	signal	w_Blu_Lo		:		std_logic;
 --	signal	w_hActive	:		std_logic := '0';
 
+	constant Data_RAM_Size : Integer := 8192;
+	constant Inst_RAM_Size : Integer := 32768;
+
 --attribute syn_keep: boolean;
 --attribute syn_keep of w_Switch: signal is true;
 
 begin
 
+
 	R32V2020_top : entity work.R32V2020_top
+	generic map ( 
+		DATA_SRAM_SIZE_PASS => Data_RAM_Size,
+		INST_SRAM_SIZE => Inst_RAM_Size
+	)
 		port map (
 		n_reset		=> i_n_reset,
 		i_CLOCK_50	=> i_CLOCK_50,
