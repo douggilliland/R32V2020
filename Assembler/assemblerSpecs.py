@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import unittest
 import assembler
@@ -79,14 +79,14 @@ class TwosCompSpecs(unittest.TestCase):
 
 class RegisterParsingAndValidationSpecs(unittest.TestCase):
   def test_rNs_are_valid_registers_from_0_to_15(self):
-    for i in xrange(0, 16):
+    for i in range(0, 16):
       self.assertTrue(assembler.isValidRegister('r' + str(i)))
 
   def test_r16_is_not_a_valid_register(self):
     self.assertFalse(assembler.isValidRegister('r16'))
 
   def test_rNs_just_parse_as_N(self):
-    for i in xrange(0, 16):
+    for i in range(0, 16):
       self.assertEqual(assembler.parseRegister('r' + str(i)), i)
 
   def test_ZERO_is_a_valid_register(self):
@@ -146,11 +146,11 @@ class RegisterParsingAndValidationSpecs(unittest.TestCase):
       self.assertEqual(assembler.parseRegister(valid), 7)
 
   def test_GP0_through_GP7_are_valid_registers(self):
-    for i in xrange(0, 8):
+    for i in range(0, 8):
       self.assertTrue(assembler.isValidRegister('GP' + str(i)))
 
   def test_GPN_is_an_alias_for_rN_plus_8(self):
-    for i in xrange(0, 8):
+    for i in range(0, 8):
       self.assertEqual(assembler.parseRegister('GP' + str(i)), i+8)
 
   def test_GP8_is_not_a_valid_register(self):
