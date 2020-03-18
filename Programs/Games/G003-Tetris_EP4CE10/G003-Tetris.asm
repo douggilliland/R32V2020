@@ -219,7 +219,7 @@ printScore_tetris:
 	pull	PC
 	
 ;
-; printScore_tetris
+; newScore
 ;
 
 newScore:

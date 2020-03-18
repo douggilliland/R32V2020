@@ -2,9 +2,9 @@
 ; This program requires a build of R32V2020 that has memory mapped video
 ; Example: R32V2020_Build_V002_A4_CE6_MMVid
 
-title: 	.string "FakeTris 0.01"
-score:	.string "Score : "
-scoreValue:	.long	0x0
+00000000	title: 	.string "FakeTris 0.01"
+00000001	score:	.string "Score : "
+00000002	scoreValue:	.long	0x0
 
 start:
 00000000	D4000105	bsr		clearScreen_mmXGA
@@ -77,21 +77,21 @@ storeToScreen:
 00000039	C0FFFFDC	bra		loopProg
 
 ; 0x20
-sot:			.string "SoT"
+00000003	sot:			.string "SoT"
 ; 0x24
-randoNumber:	.long	0x0
+00000004	randoNumber:	.long	0x0
 ; 0x28
-currentTetrisSprite:	.string	"UUUUUUUUUUUUUUUU"
+00000005	currentTetrisSprite:	.string	"UUUUUUUUUUUUUUUU"
 ; Tetris shapes drawn from
 ;	https://raw.githubusercontent.com/OneLoneCoder/videos/master/OneLoneCoder_Tetris.cpp
-tetrisShape0:	.string "..X...X...X...X."
-tetrisShape1:	.string "..X..XX...X....."
-tetrisShape2:	.string ".....XX..XX....."
-tetrisShape3:	.string "..X..XX..X......"
-tetrisShape4:	.string ".X...XX...X....."
-tetrisShape5:	.string ".X...X...XX....."
-tetrisShape6:	.string "..X...X..XX....."
-eot:			.string "EnT"
+00000006	tetrisShape0:	.string "..X...X...X...X."
+00000007	tetrisShape1:	.string "..X..XX...X....."
+00000008	tetrisShape2:	.string ".....XX..XX....."
+00000009	tetrisShape3:	.string "..X..XX..X......"
+0000000a	tetrisShape4:	.string ".X...XX...X....."
+0000000b	tetrisShape5:	.string ".X...X...XX....."
+0000000c	tetrisShape6:	.string "..X...X..XX....."
+0000000d	eot:			.string "EnT"
 
 ;
 ; pickNewTetrisSymbol
@@ -219,7 +219,7 @@ printScore_tetris:
 00000090	A1704000	pull	PC
 
 ;
-; printScore_tetris
+; newScore
 ;
 
 newScore:
@@ -238,9 +238,9 @@ newScore:
 ; Character set
 ;	https://github.com/douggilliland/R32V2020/wiki/Memory-Mapped-Display#Extended_Character_Set_Bitmaps
 
-memMappedXGAConstants:	.string "MMX"
-screenX:		.LONG	0x0
-screenY:		.LONG	0x0
+0000000e	memMappedXGAConstants:	.string "MMX"
+0000000f	screenX:		.LONG	0x0
+00000010	screenY:		.LONG	0x0
 ;screenAdr:		.LONG	0x0
 
 ;
@@ -379,8 +379,8 @@ setScreenCharLoc_mmXGA:
 000000e9	A0409000	push	r9
 000000ea	A0406000	push	DAR
 000000eb	33908000	sr8		r9,r8
-000000ec	2B9900FF	andi	r9,r9,0x0ff
-000000ed	2B8800FF	andi	r8,r8,0x0ff
+000000ec	2B99003F	andi	r9,r9,0x03f		; mask to 64 cols
+000000ed	2B88001F	andi	r8,r8,0x01f		; makk to 32 rows
 000000ee	426000D0	lix		DAR,screenX.lower
 000000ef	65608000	sdl		r8
 000000f0	426000D4	lix		DAR,screenY.lower
@@ -465,10 +465,10 @@ looper:
 00000114	A1704000	pull	PC
 ; Sprites handler
 
-spritesStartHere:	.string "Sprites"
-currentSpriteX:	.LONG	0x0
-currentSpriteY:	.LONG	0x0
-spriteMemLoc:	.LONG	0x0
+00000011	spritesStartHere:	.string "Sprites"
+00000012	currentSpriteX:	.LONG	0x0
+00000013	currentSpriteY:	.LONG	0x0
+00000014	spriteMemLoc:	.LONG	0x0
 
 ;
 ; putSprite_mmXGA - Put a sprite character to the screen
@@ -647,8 +647,8 @@ gotCharIn:
 ;--------------------------------------------------------------------
 ; timers.asm
 
-longTimeWait:	.long 0x0
-longTimeDelta:	.long 0x0
+00000015	longTimeWait:	.long 0x0
+00000016	longTimeDelta:	.long 0x0
 
 ;
 ; setTimer_mS - sets a software timer in mSec from the current mSec time
