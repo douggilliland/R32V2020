@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Sun Mar 08 16:32:04 2020
+Wed Mar 18 20:37:51 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -37,26 +37,26 @@ refer to the applicable agreement for further details.
 
 
 
-+---------------------------------------------------------------------------------------+
-; Flow Summary                                                                          ;
-+------------------------------------+--------------------------------------------------+
-; Flow Status                        ; MIF/HEX Update Failed - Sun Mar 08 16:32:04 2020 ;
-; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition      ;
-; Revision Name                      ; R32V2020                                         ;
-; Top-level Entity Name              ; R32V2020_A4CE15_top                              ;
-; Family                             ; Cyclone IV E                                     ;
-; Device                             ; EP4CE15F23C8                                     ;
-; Timing Models                      ; Final                                            ;
-; Total logic elements               ; 5,609 / 15,408 ( 36 % )                          ;
-;     Total combinational functions  ; 5,364 / 15,408 ( 35 % )                          ;
-;     Dedicated logic registers      ; 1,448 / 15,408 ( 9 % )                           ;
-; Total registers                    ; 1448                                             ;
-; Total pins                         ; 58 / 344 ( 17 % )                                ;
-; Total virtual pins                 ; 0                                                ;
-; Total memory bits                  ; 356,480 / 516,096 ( 69 % )                       ;
-; Embedded Multiplier 9-bit elements ; 12 / 112 ( 11 % )                                ;
-; Total PLLs                         ; 1 / 4 ( 25 % )                                   ;
-+------------------------------------+--------------------------------------------------+
++----------------------------------------------------------------------------------+
+; Flow Summary                                                                     ;
++------------------------------------+---------------------------------------------+
+; Flow Status                        ; Successful - Wed Mar 18 20:37:51 2020       ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                      ; R32V2020                                    ;
+; Top-level Entity Name              ; R32V2020_A4CE15_top                         ;
+; Family                             ; Cyclone IV E                                ;
+; Device                             ; EP4CE15F23C8                                ;
+; Timing Models                      ; Final                                       ;
+; Total logic elements               ; 5,609 / 15,408 ( 36 % )                     ;
+;     Total combinational functions  ; 5,364 / 15,408 ( 35 % )                     ;
+;     Dedicated logic registers      ; 1,448 / 15,408 ( 9 % )                      ;
+; Total registers                    ; 1448                                        ;
+; Total pins                         ; 58 / 344 ( 17 % )                           ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 356,480 / 516,096 ( 69 % )                  ;
+; Embedded Multiplier 9-bit elements ; 12 / 112 ( 11 % )                           ;
+; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
++------------------------------------+---------------------------------------------+
 
 
 +-----------------------------------------+
@@ -116,7 +116,10 @@ refer to the applicable agreement for further details.
 ; Timing Analyzer      ; 00:00:09     ; 1.6                     ; 4855 MB             ; 00:00:10                           ;
 ; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4729 MB             ; 00:00:01                           ;
 ; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4728 MB             ; 00:00:01                           ;
-; Total                ; 00:02:16     ; --                      ; --                  ; 00:03:17                           ;
+; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4724 MB             ; 00:00:01                           ;
+; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4723 MB             ; 00:00:01                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 4703 MB             ; 00:00:03                           ;
+; Total                ; 00:02:23     ; --                      ; --                  ; 00:03:22                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -131,6 +134,9 @@ refer to the applicable agreement for further details.
 ; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -143,6 +149,9 @@ quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32
 quartus_sta R32V2020 -c R32V2020
 quartus_cdb R32V2020 -c R32V2020 --update_mif
 quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_cdb R32V2020 -c R32V2020 --update_mif
+quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 
 
 
