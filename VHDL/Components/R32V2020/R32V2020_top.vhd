@@ -35,7 +35,7 @@ entity R32V2020_top is
 		o_vid_Blu_Lo		: out std_logic := '0';
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
-		--o_hActive			: out std_logic := '0';
+		o_hActive			: out std_logic := '0';
 		-- Seven Segment LED pins
 		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
@@ -275,6 +275,7 @@ begin
 		o_VideoOut					=> o_VideoVect,
 		o_hSync						=> o_hSync,
 		o_vSync						=> o_vSync,
+		o_hActive					=> o_hActive,
 		-- I2C
 		io_I2C_SCL					=> io_I2C_SCL,
 		io_I2C_SDA					=> io_I2C_SDA,

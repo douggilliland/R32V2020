@@ -27,6 +27,7 @@ entity R32V2020_A4CE15_top is
 		o_vid_Blu_Lo		: out std_logic;
 		o_hSync				: out std_logic;
 		o_vSync				: out std_logic;
+		o_hActive			: out std_logic;
 		-- Not using the SD RAM but reserving pins and making inactive
 		n_sdRamCas			: out std_logic := '1';		-- CAS on schematic
 		n_sdRamRas			: out std_logic := '1';		-- RAS
@@ -89,7 +90,7 @@ begin
 		o_vid_Blu_Lo	=> o_vid_Blu_Lo,
 		o_hSync			=> o_hSync,
 		o_vSync			=> o_vSync,
---		o_hActive		=> w_hActive,
+		o_hActive		=> o_hActive,
 		-- sd Card
 		o_sdCS			=> o_sdCS,
 		o_sdMOSI			=> o_sdMOSI,
