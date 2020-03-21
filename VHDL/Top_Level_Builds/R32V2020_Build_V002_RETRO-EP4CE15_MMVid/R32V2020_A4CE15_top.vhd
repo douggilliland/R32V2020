@@ -91,14 +91,14 @@ begin
 		o_vSync			=> o_vSync,
 --		o_hActive		=> w_hActive,
 		-- sd Card
-		o_sdCS				=> o_sdCS,
-		o_sdMOSI				=> o_sdMOSI,
-		i_sdMISO				=> i_sdMISO,
-		o_sdSCLK				=> o_sdSCLK,
-		o_driveLED			=> o_driveLED,
+		o_sdCS			=> o_sdCS,
+		o_sdMOSI			=> o_sdMOSI,
+		i_sdMISO			=> i_sdMISO,
+		o_sdSCLK			=> o_sdSCLK,
+		o_driveLED		=> o_driveLED,
 		-- PS/2 Keyboard pins
-		i_ps2Clk				=> i_ps2Clk,
-		i_ps2Data			=> i_ps2Data
+		i_ps2Clk			=> i_ps2Clk,
+		i_ps2Data		=> i_ps2Data
 		);
 		
 	end;

@@ -14,18 +14,18 @@ entity R32V2020_top is
 		constant INST_SRAM_SIZE : integer := 8192
 	);
 	port(
-		n_reset				: in std_logic := '1';
-		i_CLOCK_50			: in std_logic;
+		n_reset				: in 	std_logic := '1';
+		i_CLOCK_50			: in 	std_logic;
 		-- Switches, LEDs, Buzzer pins
-		i_switch				: in std_logic_vector(2 downto 0) := "111";
-		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
+		i_switch				: in 	std_logic_vector(2 downto 0) := "111";
+		i_dipSwitch			: in 	std_logic_vector(7 downto 0) := x"00";
 		--o_LED				: out std_logic_vector(3 downto 0);
 		o_BUZZER				: out std_logic := '0';
 		-- Serial port pins with handshake lines
-		i_SerRxd				: in std_logic := '1';
-		o_SerTxd				: out std_logic := '1';
-		i_SerCts				: in std_logic := '0';
-		o_SerRts				: out std_logic := '1';
+		i_SerRxd				: in 	std_logic	:= '1';
+		o_SerTxd				: out std_logic	:= '1';
+		i_SerCts				: in 	std_logic	:= '0';
+		o_SerRts				: out std_logic	:= '1';
 		-- VGA pins - Up to 6-bits
 		o_vid_Red_Hi		: out std_logic := '0';
 		o_vid_Red_Lo		: out std_logic := '0';
@@ -44,28 +44,28 @@ entity R32V2020_top is
 		-- 8 bit I/O Latch
 		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- I2C Clock and Data
-		io_I2C_SCL			: inout std_logic := '1';
-		io_I2C_SDA			: inout std_logic := '1';
-		i_I2C_INT			: in std_logic := '0';
+		io_I2C_SCL			: inout	std_logic := '1';
+		io_I2C_SDA			: inout	std_logic := '1';
+		i_I2C_INT			: in		std_logic := '0';
 		-- EEPROM I2C connections
 		io_EEP_I2C_SCL		: inout std_logic := '1';
 		io_EEP_I2C_SDA		: inout std_logic := '1';
 		-- SPIbus
-		spi_sclk				: out std_logic := '1';
+		spi_sclk				: out	std_logic := '1';
       spi_csN				: out std_logic := '1';
       spi_mosi				: out std_logic := '1';
-      spi_miso				: in std_logic := '1';
+      spi_miso				: in	std_logic := '1';
 		-- Music generator
 		o_Note				: out std_logic := '0';
 		-- sd cARD
-		o_sdCS				: out std_logic := '1';
-		o_sdMOSI				: out std_logic := '0';
-		i_sdMISO				: in std_logic := '0';
+		o_sdCS				: out	std_logic := '1';
+		o_sdMOSI				: out	std_logic := '0';
+		i_sdMISO				: in	std_logic := '0';
 		o_sdSCLK				: out std_logic := '0';
 		o_driveLED			: out std_logic := '0';
 		-- PS/2 Keyboard pins
-		i_ps2Clk				: in std_logic := '1';
-		i_ps2Data			: in std_logic := '1'		
+		i_ps2Clk				: in	std_logic := '1';
+		i_ps2Data			: in	std_logic := '1'		
 		);
 end R32V2020_top;
 
