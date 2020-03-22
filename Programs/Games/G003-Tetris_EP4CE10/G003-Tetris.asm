@@ -2,7 +2,7 @@
 ; This program requires a build of R32V2020 that has memory mapped video
 ; Example: R32V2020_Build_V002_A4_CE6_MMVid 
 
-title: 	.string "FakeTris 0.01"
+title: 	.string "FakeTris 0.02"
 score:	.string "Score : "
 scoreValue:	.long	0x0
 
