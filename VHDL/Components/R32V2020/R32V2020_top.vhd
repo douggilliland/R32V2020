@@ -23,9 +23,9 @@ entity R32V2020_top is
 		o_BUZZER				: out std_logic := '0';
 		-- Serial port pins with handshake lines
 		i_SerRxd				: in 	std_logic	:= '1';
-		o_SerTxd				: out std_logic	:= '1';
+		o_SerTxd				: out std_logic;
 		i_SerCts				: in 	std_logic	:= '0';
-		o_SerRts				: out std_logic	:= '1';
+		o_SerRts				: out std_logic;
 		-- VGA pins - Up to 6-bits
 		o_vid_Red_Hi		: out std_logic := '0';
 		o_vid_Red_Lo		: out std_logic := '0';

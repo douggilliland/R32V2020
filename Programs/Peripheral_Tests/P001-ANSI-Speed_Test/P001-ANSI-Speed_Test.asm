@@ -24,7 +24,7 @@ menuItem_03:	.string "03 - Screen scroll speed"
 ;
 
 main:
-	bsr		clearScreen_ANSI_UART
+	bsr		clearScreen_ANSI
 	lix		r8,prompt.lower
 	bsr		printLinebuffer_ANSI_UART
 	bsr		printMenu

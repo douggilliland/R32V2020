@@ -24,6 +24,10 @@ waitUartRxStat:
 ;
 ; putChar_UART - Put a character to the UART
 ; passed character in r8 is sent out the UART
+; -- status reg
+; --     7              6                5         4          3        2         1         0
+; --    irq   |   parity error      | overrun | frame err | n_cts  | n_dcd |  tx empty | rx full
+
 ;
 
 putChar_UART:
@@ -40,11 +44,11 @@ waitUartTxStat:
 ;	will be exercised. 
 ; For cards with RS-232 serial this would be a serious concern
 ; It's more likely that PuTTY needed to be run in HW handshake mode.
-handshakeStuck:
-	lix		r8,missingHandshake.lower
-	bsr		printString_ANSI
-	pull	r8
-	bra		getOut
+; handshakeStuck:
+	; lix		r8,missingHandshake.lower
+	; bsr		printString_ANSI
+	; pull	r8
+	; bra		getOut
 uartRdy:
 	lix 	PAR,0x1801
 	pull	r8

@@ -20,7 +20,9 @@ entity R32V2020_A4CE22_top is
 		o_BUZZER				: buffer std_logic := '0';
 		-- Serial port pins
 		i_SerRxd				: in std_logic := '1';
+		i_SerCts				: in std_logic := '0';
 		o_SerTxd				: out std_logic := '1';
+		o_SerRts				: out std_logic := '1';
 		-- VGA pins
 		o_vid_Red			: out std_logic_Vector(4 downto 0) := "00000";
 		o_vid_Grn			: out std_logic_Vector(5 downto 0) := "000000";
@@ -77,6 +79,8 @@ architecture struct of R32V2020_A4CE22_top is
 	signal	w_Anode_Activate	:		std_logic_vector(7 downto 0);
 	signal	w_LEDRing_out		:		std_logic_vector(11 downto 0);
 	signal	w_Switch				:		std_logic_vector(2 downto 0);
+	constant Data_RAM_Size 		: 		Integer := 8192;
+	constant Inst_RAM_Size 		: 		Integer := 32768;
 	
 begin
 
@@ -109,6 +113,10 @@ begin
 								'0';
 	
 	R32V2020_top : entity work.R32V2020_top
+	generic map ( 
+		DATA_SRAM_SIZE_PASS => Data_RAM_Size,
+		INST_SRAM_SIZE => Inst_RAM_Size
+	)
 		port map (
 		n_reset		=> n_reset,
 		i_CLOCK_50	=> i_CLOCK_50,
@@ -120,6 +128,8 @@ begin
 		-- Serial port pins
 		i_SerRxd		=> i_SerRxd,
 		o_SerTxd		=> o_SerTxd,
+		i_SerCts		=> i_SerCts,
+		o_SerRts		=> o_SerRts,
 		-- VGA pins
 		o_vid_Red_Hi	=> w_Red(1),
 		o_vid_Red_Lo	=> w_Red(0),
