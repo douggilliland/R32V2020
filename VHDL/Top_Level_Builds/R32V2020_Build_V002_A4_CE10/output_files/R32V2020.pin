@@ -106,23 +106,23 @@ VCCA1                        : 35        : power  :                   : 2.5V    
 GNDA1                        : 36        : gnd    :                   :         :           :                
 VCCD_PLL1                    : 37        : power  :                   : 1.2V    :           :                
 o_sdCS                       : 38        : output : 3.3-V LVCMOS      :         : 3         : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : 39        :        :                   :         : 3         :                
+o_driveLED                   : 39        : output : 3.3-V LVCMOS      :         : 3         : N              
 VCCIO3                       : 40        : power  :                   : 3.3V    : 3         :                
 GND                          : 41        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 42        :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 43        :        :                   :         : 3         :                
-o_LatchIO[3]                 : 44        : output : 3.3-V LVCMOS      :         : 3         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 44        :        :                   :         : 3         :                
 VCCINT                       : 45        : power  :                   : 1.2V    :           :                
-o_LatchIO[4]                 : 46        : output : 3.3-V LVCMOS      :         : 3         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 46        :        :                   :         : 3         :                
 VCCIO3                       : 47        : power  :                   : 3.3V    : 3         :                
 GND                          : 48        : gnd    :                   :         :           :                
-o_LatchIO[6]                 : 49        : output : 3.3-V LVCMOS      :         : 3         : N              
-o_LatchIO[2]                 : 50        : output : 3.3-V LVCMOS      :         : 3         : N              
-o_LatchIO[7]                 : 51        : output : 3.3-V LVCMOS      :         : 3         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 49        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 50        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 51        :        :                   :         : 3         :                
 o_Note                       : 52        : output : 3.3-V LVCMOS      :         : 3         : Y              
-o_LatchIO[1]                 : 53        : output : 3.3-V LVCMOS      :         : 3         : N              
-o_LatchIO[5]                 : 54        : output : 3.3-V LVCMOS      :         : 4         : N              
-o_LatchIO[0]                 : 55        : output : 3.3-V LVCMOS      :         : 4         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 53        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 54        :        :                   :         : 4         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 55        :        :                   :         : 4         :                
 VCCIO4                       : 56        : power  :                   : 3.3V    : 4         :                
 GND                          : 57        : gnd    :                   :         :           :                
 i_dipSwitch[0]               : 58        : input  : 3.3-V LVCMOS      :         : 4         : Y              
@@ -136,8 +136,8 @@ i_dipSwitch[4]               : 65        : input  : 3.3-V LVCMOS      :         
 i_dipSwitch[5]               : 66        : input  : 3.3-V LVCMOS      :         : 4         : Y              
 i_dipSwitch[6]               : 67        : input  : 3.3-V LVCMOS      :         : 4         : Y              
 i_dipSwitch[7]               : 68        : input  : 3.3-V LVCMOS      :         : 4         : Y              
-o_LEDRing_out[11]            : 69        : output : 3.3-V LVCMOS      :         : 4         : Y              
-o_LEDRing_out[10]            : 70        : output : 3.3-V LVCMOS      :         : 4         : Y              
+o_SerRts                     : 69        : output : 3.3-V LVCMOS      :         : 4         : Y              
+i_SerCts                     : 70        : input  : 3.3-V LVCMOS      :         : 4         : Y              
 o_LEDRing_out[9]             : 71        : output : 3.3-V LVCMOS      :         : 4         : Y              
 o_LEDRing_out[0]             : 72        : output : 3.3-V LVCMOS      :         : 4         : Y              
 o_LEDRing_out[1]             : 73        : output : 3.3-V LVCMOS      :         : 5         : Y              
@@ -153,7 +153,7 @@ GND                          : 82        : gnd    :                   :         
 o_LEDRing_out[4]             : 83        : output : 3.3-V LVCMOS      :         : 5         : Y              
 o_LEDRing_out[5]             : 84        : output : 3.3-V LVCMOS      :         : 5         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 85        :        :                   :         : 5         :                
-n_reset                      : 86        : input  : 3.3-V LVCMOS      :         : 5         : Y              
+i_n_reset                    : 86        : input  : 3.3-V LVCMOS      :         : 5         : Y              
 i_switch[0]                  : 87        : input  : 3.3-V LVCMOS      :         : 5         : Y              
 GND+                         : 88        :        :                   :         : 5         :                
 GND+                         : 89        :        :                   :         : 5         :                
@@ -168,7 +168,7 @@ MSEL2                        : 97        :        :                   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : 98        :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 99        :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 100       :        :                   :         : 6         :                
-o_driveLED                   : 101       : output : 3.3-V LVCMOS      :         : 6         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 101       :        :                   :         : 6         :                
 VCCINT                       : 102       : power  :                   : 1.2V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 103       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 104       :        :                   :         : 6         :                
