@@ -1,5 +1,5 @@
 Analysis & Synthesis report for R32V2020
-Sun Jun 14 18:32:13 2020
+Sun Jun 14 18:38:59 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -27,9 +27,9 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
  19. General Register Statistics
  20. Inverted Register Statistics
  21. Multiplexer Restructuring Statistics (Restructuring Performed)
- 22. Source assignments for R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_me34:auto_generated
+ 22. Source assignments for R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m014:auto_generated
  23. Source assignments for R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|altsyncram_fdp2:altsyncram1
- 24. Source assignments for R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_lh34:auto_generated
+ 24. Source assignments for R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_l314:auto_generated
  25. Source assignments for R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|altsyncram_k9q2:altsyncram1
  26. Source assignments for R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_2sq3:auto_generated
  27. Source assignments for R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|altsyncram:rxBuffer_rtl_0|altsyncram_3ce1:auto_generated
@@ -95,7 +95,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Jun 14 18:32:13 2020       ;
+; Analysis & Synthesis Status        ; Successful - Sun Jun 14 18:38:59 2020       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE6_top                          ;
@@ -212,7 +212,7 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
 ;     Processor 3            ;   0.0%      ;
 ;     Processor 4            ;   0.0%      ;
 +----------------------------+-------------+
@@ -280,16 +280,16 @@ refer to the applicable agreement for further details.
 ; altrom.inc                                                                              ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altrom.inc                                                                                                                  ;             ;
 ; altram.inc                                                                              ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altram.inc                                                                                                                  ;             ;
 ; altdpram.inc                                                                            ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altdpram.inc                                                                                                                ;             ;
-; db/altsyncram_me34.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_me34.tdf                                             ;             ;
-; ../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_ins.HEX ; yes             ; Auto-Found Memory Initialization File        ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_ins.HEX                                               ;             ;
+; db/altsyncram_m014.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_m014.tdf                                             ;             ;
+; ../../../Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_ins.HEX                          ; yes             ; Auto-Found Memory Initialization File        ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_ins.HEX                                                                     ;             ;
 ; db/altsyncram_71s3.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_71s3.tdf                                             ;             ;
 ; db/altsyncram_fdp2.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_fdp2.tdf                                             ;             ;
 ; sld_mod_ram_rom.vhd                                                                     ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd                                                                                                         ;             ;
 ; sld_jtag_endpoint_adapter.vhd                                                           ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd                                                                                               ;             ;
 ; sld_jtag_endpoint_adapter_impl.sv                                                       ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter_impl.sv                                                                                           ;             ;
 ; sld_rom_sr.vhd                                                                          ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_rom_sr.vhd                                                                                                              ;             ;
-; db/altsyncram_lh34.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_lh34.tdf                                             ;             ;
-; ../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_dat.HEX ; yes             ; Auto-Found Memory Initialization File        ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_dat.HEX                                               ;             ;
+; db/altsyncram_l314.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_l314.tdf                                             ;             ;
+; ../../../Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_dat.HEX                          ; yes             ; Auto-Found Memory Initialization File        ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_dat.HEX                                                                     ;             ;
 ; db/altsyncram_6ts3.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_6ts3.tdf                                             ;             ;
 ; db/altsyncram_k9q2.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_k9q2.tdf                                             ;             ;
 ; db/altsyncram_2sq3.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_2sq3.tdf                                             ;             ;
@@ -314,6 +314,10 @@ refer to the applicable agreement for further details.
 ; altshift.inc                                                                            ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altshift.inc                                                                                                                ;             ;
 ; db/mult_bdt.tdf                                                                         ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/mult_bdt.tdf                                                    ;             ;
 ; db/mult_7dt.tdf                                                                         ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/mult_7dt.tdf                                                    ;             ;
+; db/altsyncram_me34.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_me34.tdf                                             ;             ;
+; ../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_ins.HEX ; yes             ; Auto-Found Memory Initialization File        ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_ins.HEX                                               ;             ;
+; db/altsyncram_lh34.tdf                                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_lh34.tdf                                             ;             ;
+; ../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_dat.HEX ; yes             ; Auto-Found Memory Initialization File        ; C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_dat.HEX                                               ;             ;
 +-----------------------------------------------------------------------------------------+-----------------+----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
 
 
@@ -368,7 +372,7 @@ refer to the applicable agreement for further details.
 ;                   |sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr|                                                                  ; 23 (23)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr                                                                                                                          ; sld_rom_sr                        ; work         ;
 ;       |BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|                                                                             ; 0 (0)               ; 0 (0)                     ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM                                                                                                                                                                                                                                                              ; BlockRom_Instruction_8K           ; work         ;
 ;          |altsyncram:altsyncram_component|                                                                                              ; 0 (0)               ; 0 (0)                     ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component                                                                                                                                                                                                                              ; altsyncram                        ; work         ;
-;             |altsyncram_me34:auto_generated|                                                                                            ; 0 (0)               ; 0 (0)                     ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_me34:auto_generated                                                                                                                                                                                               ; altsyncram_me34                   ; work         ;
+;             |altsyncram_m014:auto_generated|                                                                                            ; 0 (0)               ; 0 (0)                     ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m014:auto_generated                                                                                                                                                                                               ; altsyncram_m014                   ; work         ;
 ;       |Debouncer:DebounceResetSwitch|                                                                                                   ; 3 (3)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|Debouncer:DebounceResetSwitch                                                                                                                                                                                                                                                                                    ; Debouncer                         ; work         ;
 ;       |PeripheralInterface:Peripherals|                                                                                                 ; 2749 (175)          ; 807 (27)                  ; 16512       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals                                                                                                                                                                                                                                                                                  ; PeripheralInterface               ; work         ;
 ;          |Debouncer:DebounceSwitch1|                                                                                                    ; 4 (4)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Debouncer:DebounceSwitch1                                                                                                                                                                                                                                                        ; Debouncer                         ; work         ;
@@ -448,7 +452,7 @@ refer to the applicable agreement for further details.
 ;                      |sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|                                                            ; 16 (16)             ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr                                                                                                             ; sld_rom_sr                        ; work         ;
 ;          |BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|                                                                              ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1                                                                                                                                                                                                                                      ; BlockRam_Data_2KB                 ; work         ;
 ;             |altsyncram:altsyncram_component|                                                                                           ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component                                                                                                                                                                                                      ; altsyncram                        ; work         ;
-;                |altsyncram_lh34:auto_generated|                                                                                         ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_lh34:auto_generated                                                                                                                                                                       ; altsyncram_lh34                   ; work         ;
+;                |altsyncram_l314:auto_generated|                                                                                         ; 0 (0)               ; 0 (0)                     ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_l314:auto_generated                                                                                                                                                                       ; altsyncram_l314                   ; work         ;
 ;    |sld_hub:auto_hub|                                                                                                                   ; 175 (1)             ; 114 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                           ; sld_hub                           ; altera_sld   ;
 ;       |alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric| ; 174 (0)             ; 114 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric                                                                                                                                                                                           ; alt_sld_fab_with_jtag_input       ; altera_sld   ;
 ;          |alt_sld_fab:instrumentation_fabric|                                                                                           ; 174 (0)             ; 114 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |R32V2020_A4CE6_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                                                                                        ; alt_sld_fab                       ; alt_sld_fab  ;
@@ -461,18 +465,18 @@ refer to the applicable agreement for further details.
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                                                                                                                                              ;
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------------------------------------------------------------+
-; Name                                                                                                                                                                                  ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF                                                                                     ;
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------------------------------------------------------------+
-; R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|altsyncram_fdp2:altsyncram1|ALTSYNCRAM           ; AUTO ; True Dual Port   ; 128          ; 32           ; 128          ; 32           ; 4096  ; None                                                                                    ;
-; R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_me34:auto_generated|ALTSYNCRAM                               ; AUTO ; ROM              ; 2048         ; 32           ; --           ; --           ; 65536 ; ../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_ins.HEX ;
-; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_2sq3:auto_generated|ALTSYNCRAM      ; AUTO ; True Dual Port   ; 2048         ; 8            ; 2048         ; 8            ; 16384 ; None                                                                                    ;
-; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|altsyncram:rxBuffer_rtl_0|altsyncram_3ce1:auto_generated|ALTSYNCRAM                                       ; AUTO ; Simple Dual Port ; 16           ; 8            ; 16           ; 8            ; 128   ; None                                                                                    ;
-; R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|altsyncram_k9q2:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port   ; 256          ; 32           ; 256          ; 32           ; 8192  ; None                                                                                    ;
-; R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_lh34:auto_generated|ALTSYNCRAM       ; AUTO ; Single Port      ; 512          ; 32           ; --           ; --           ; 16384 ; ../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_dat.HEX ;
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                                                                                                                     ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------------------------------------------------------+
+; Name                                                                                                                                                                                  ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF                                                            ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------------------------------------------------------+
+; R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|altsyncram_fdp2:altsyncram1|ALTSYNCRAM           ; AUTO ; True Dual Port   ; 128          ; 32           ; 128          ; 32           ; 4096  ; None                                                           ;
+; R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m014:auto_generated|ALTSYNCRAM                               ; AUTO ; ROM              ; 2048         ; 32           ; --           ; --           ; 65536 ; ../../../Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_ins.HEX ;
+; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Mem_Mapped_XVGA:XVGA|DisplayRam2k:DisplayRAM|altsyncram:altsyncram_component|altsyncram_2sq3:auto_generated|ALTSYNCRAM      ; AUTO ; True Dual Port   ; 2048         ; 8            ; 2048         ; 8            ; 16384 ; None                                                           ;
+; R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART|altsyncram:rxBuffer_rtl_0|altsyncram_3ce1:auto_generated|ALTSYNCRAM                                       ; AUTO ; Simple Dual Port ; 16           ; 8            ; 16           ; 8            ; 128   ; None                                                           ;
+; R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component|altsyncram_6ts3:auto_generated|altsyncram_k9q2:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port   ; 256          ; 32           ; 256          ; 32           ; 8192  ; None                                                           ;
+; R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_l314:auto_generated|ALTSYNCRAM       ; AUTO ; Single Port      ; 512          ; 32           ; --           ; --           ; 16384 ; ../../../Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_dat.HEX ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -835,7 +839,7 @@ Encoding Type:  One-Hot
 
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Source assignments for R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_me34:auto_generated ;
+; Source assignments for R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m014:auto_generated ;
 +---------------------------------+--------------------+------+-------------------------------------------------------------------------------------------------------+
 ; Assignment                      ; Value              ; From ; To                                                                                                    ;
 +---------------------------------+--------------------+------+-------------------------------------------------------------------------------------------------------+
@@ -853,7 +857,7 @@ Encoding Type:  One-Hot
 
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Source assignments for R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_lh34:auto_generated ;
+; Source assignments for R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_l314:auto_generated ;
 +---------------------------------+--------------------+------+-------------------------------------------------------------------------------------------------------------------------------+
 ; Assignment                      ; Value              ; From ; To                                                                                                                            ;
 +---------------------------------+--------------------+------+-------------------------------------------------------------------------------------------------------------------------------+
@@ -902,62 +906,62 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component ;
-+------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------+
-; Parameter Name                     ; Value                                                                                   ; Type                        ;
-+------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------+
-; BYTE_SIZE_BLOCK                    ; 8                                                                                       ; Untyped                     ;
-; AUTO_CARRY_CHAINS                  ; ON                                                                                      ; AUTO_CARRY                  ;
-; IGNORE_CARRY_BUFFERS               ; OFF                                                                                     ; IGNORE_CARRY                ;
-; AUTO_CASCADE_CHAINS                ; ON                                                                                      ; AUTO_CASCADE                ;
-; IGNORE_CASCADE_BUFFERS             ; OFF                                                                                     ; IGNORE_CASCADE              ;
-; WIDTH_BYTEENA                      ; 1                                                                                       ; Untyped                     ;
-; OPERATION_MODE                     ; ROM                                                                                     ; Untyped                     ;
-; WIDTH_A                            ; 32                                                                                      ; Signed Integer              ;
-; WIDTHAD_A                          ; 11                                                                                      ; Signed Integer              ;
-; NUMWORDS_A                         ; 2048                                                                                    ; Signed Integer              ;
-; OUTDATA_REG_A                      ; UNREGISTERED                                                                            ; Untyped                     ;
-; ADDRESS_ACLR_A                     ; NONE                                                                                    ; Untyped                     ;
-; OUTDATA_ACLR_A                     ; NONE                                                                                    ; Untyped                     ;
-; WRCONTROL_ACLR_A                   ; NONE                                                                                    ; Untyped                     ;
-; INDATA_ACLR_A                      ; NONE                                                                                    ; Untyped                     ;
-; BYTEENA_ACLR_A                     ; NONE                                                                                    ; Untyped                     ;
-; WIDTH_B                            ; 1                                                                                       ; Signed Integer              ;
-; WIDTHAD_B                          ; 1                                                                                       ; Signed Integer              ;
-; NUMWORDS_B                         ; 0                                                                                       ; Signed Integer              ;
-; INDATA_REG_B                       ; CLOCK1                                                                                  ; Untyped                     ;
-; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                                                  ; Untyped                     ;
-; RDCONTROL_REG_B                    ; CLOCK1                                                                                  ; Untyped                     ;
-; ADDRESS_REG_B                      ; CLOCK1                                                                                  ; Untyped                     ;
-; OUTDATA_REG_B                      ; UNREGISTERED                                                                            ; Untyped                     ;
-; BYTEENA_REG_B                      ; CLOCK1                                                                                  ; Untyped                     ;
-; INDATA_ACLR_B                      ; NONE                                                                                    ; Untyped                     ;
-; WRCONTROL_ACLR_B                   ; NONE                                                                                    ; Untyped                     ;
-; ADDRESS_ACLR_B                     ; NONE                                                                                    ; Untyped                     ;
-; OUTDATA_ACLR_B                     ; NONE                                                                                    ; Untyped                     ;
-; RDCONTROL_ACLR_B                   ; NONE                                                                                    ; Untyped                     ;
-; BYTEENA_ACLR_B                     ; NONE                                                                                    ; Untyped                     ;
-; WIDTH_BYTEENA_A                    ; 1                                                                                       ; Signed Integer              ;
-; WIDTH_BYTEENA_B                    ; 1                                                                                       ; Signed Integer              ;
-; RAM_BLOCK_TYPE                     ; AUTO                                                                                    ; Untyped                     ;
-; BYTE_SIZE                          ; 8                                                                                       ; Signed Integer              ;
-; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                                               ; Untyped                     ;
-; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                                                    ; Untyped                     ;
-; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                                                    ; Untyped                     ;
-; INIT_FILE                          ; ../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_ins.HEX ; Untyped                     ;
-; INIT_FILE_LAYOUT                   ; PORT_A                                                                                  ; Untyped                     ;
-; MAXIMUM_DEPTH                      ; 0                                                                                       ; Signed Integer              ;
-; CLOCK_ENABLE_INPUT_A               ; NORMAL                                                                                  ; Untyped                     ;
-; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                                                  ; Untyped                     ;
-; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                                                                                  ; Untyped                     ;
-; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                                                  ; Untyped                     ;
-; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                                                         ; Untyped                     ;
-; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                                                         ; Untyped                     ;
-; ENABLE_ECC                         ; FALSE                                                                                   ; Untyped                     ;
-; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                                                   ; Untyped                     ;
-; WIDTH_ECCSTATUS                    ; 3                                                                                       ; Signed Integer              ;
-; DEVICE_FAMILY                      ; Cyclone IV E                                                                            ; Untyped                     ;
-; CBXI_PARAMETER                     ; altsyncram_me34                                                                         ; Untyped                     ;
-+------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------+
++------------------------------------+----------------------------------------------------------------+------------------------------------------------------+
+; Parameter Name                     ; Value                                                          ; Type                                                 ;
++------------------------------------+----------------------------------------------------------------+------------------------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                                                              ; Untyped                                              ;
+; AUTO_CARRY_CHAINS                  ; ON                                                             ; AUTO_CARRY                                           ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                                            ; IGNORE_CARRY                                         ;
+; AUTO_CASCADE_CHAINS                ; ON                                                             ; AUTO_CASCADE                                         ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                                            ; IGNORE_CASCADE                                       ;
+; WIDTH_BYTEENA                      ; 1                                                              ; Untyped                                              ;
+; OPERATION_MODE                     ; ROM                                                            ; Untyped                                              ;
+; WIDTH_A                            ; 32                                                             ; Signed Integer                                       ;
+; WIDTHAD_A                          ; 11                                                             ; Signed Integer                                       ;
+; NUMWORDS_A                         ; 2048                                                           ; Signed Integer                                       ;
+; OUTDATA_REG_A                      ; UNREGISTERED                                                   ; Untyped                                              ;
+; ADDRESS_ACLR_A                     ; NONE                                                           ; Untyped                                              ;
+; OUTDATA_ACLR_A                     ; NONE                                                           ; Untyped                                              ;
+; WRCONTROL_ACLR_A                   ; NONE                                                           ; Untyped                                              ;
+; INDATA_ACLR_A                      ; NONE                                                           ; Untyped                                              ;
+; BYTEENA_ACLR_A                     ; NONE                                                           ; Untyped                                              ;
+; WIDTH_B                            ; 1                                                              ; Signed Integer                                       ;
+; WIDTHAD_B                          ; 1                                                              ; Signed Integer                                       ;
+; NUMWORDS_B                         ; 0                                                              ; Signed Integer                                       ;
+; INDATA_REG_B                       ; CLOCK1                                                         ; Untyped                                              ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                         ; Untyped                                              ;
+; RDCONTROL_REG_B                    ; CLOCK1                                                         ; Untyped                                              ;
+; ADDRESS_REG_B                      ; CLOCK1                                                         ; Untyped                                              ;
+; OUTDATA_REG_B                      ; UNREGISTERED                                                   ; Untyped                                              ;
+; BYTEENA_REG_B                      ; CLOCK1                                                         ; Untyped                                              ;
+; INDATA_ACLR_B                      ; NONE                                                           ; Untyped                                              ;
+; WRCONTROL_ACLR_B                   ; NONE                                                           ; Untyped                                              ;
+; ADDRESS_ACLR_B                     ; NONE                                                           ; Untyped                                              ;
+; OUTDATA_ACLR_B                     ; NONE                                                           ; Untyped                                              ;
+; RDCONTROL_ACLR_B                   ; NONE                                                           ; Untyped                                              ;
+; BYTEENA_ACLR_B                     ; NONE                                                           ; Untyped                                              ;
+; WIDTH_BYTEENA_A                    ; 1                                                              ; Signed Integer                                       ;
+; WIDTH_BYTEENA_B                    ; 1                                                              ; Signed Integer                                       ;
+; RAM_BLOCK_TYPE                     ; AUTO                                                           ; Untyped                                              ;
+; BYTE_SIZE                          ; 8                                                              ; Signed Integer                                       ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                      ; Untyped                                              ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                           ; Untyped                                              ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                           ; Untyped                                              ;
+; INIT_FILE                          ; ../../../Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_ins.HEX ; Untyped                                              ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                                         ; Untyped                                              ;
+; MAXIMUM_DEPTH                      ; 0                                                              ; Signed Integer                                       ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                                         ; Untyped                                              ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                         ; Untyped                                              ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                                                         ; Untyped                                              ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                         ; Untyped                                              ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                                ; Untyped                                              ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                                ; Untyped                                              ;
+; ENABLE_ECC                         ; FALSE                                                          ; Untyped                                              ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                          ; Untyped                                              ;
+; WIDTH_ECCSTATUS                    ; 3                                                              ; Signed Integer                                       ;
+; DEVICE_FAMILY                      ; Cyclone IV E                                                   ; Untyped                                              ;
+; CBXI_PARAMETER                     ; altsyncram_m014                                                ; Untyped                                              ;
++------------------------------------+----------------------------------------------------------------+------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -1034,62 +1038,62 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component ;
-+------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------+
-; Parameter Name                     ; Value                                                                                   ; Type                                                ;
-+------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------+
-; BYTE_SIZE_BLOCK                    ; 8                                                                                       ; Untyped                                             ;
-; AUTO_CARRY_CHAINS                  ; ON                                                                                      ; AUTO_CARRY                                          ;
-; IGNORE_CARRY_BUFFERS               ; OFF                                                                                     ; IGNORE_CARRY                                        ;
-; AUTO_CASCADE_CHAINS                ; ON                                                                                      ; AUTO_CASCADE                                        ;
-; IGNORE_CASCADE_BUFFERS             ; OFF                                                                                     ; IGNORE_CASCADE                                      ;
-; WIDTH_BYTEENA                      ; 1                                                                                       ; Untyped                                             ;
-; OPERATION_MODE                     ; SINGLE_PORT                                                                             ; Untyped                                             ;
-; WIDTH_A                            ; 32                                                                                      ; Signed Integer                                      ;
-; WIDTHAD_A                          ; 9                                                                                       ; Signed Integer                                      ;
-; NUMWORDS_A                         ; 512                                                                                     ; Signed Integer                                      ;
-; OUTDATA_REG_A                      ; CLOCK0                                                                                  ; Untyped                                             ;
-; ADDRESS_ACLR_A                     ; NONE                                                                                    ; Untyped                                             ;
-; OUTDATA_ACLR_A                     ; NONE                                                                                    ; Untyped                                             ;
-; WRCONTROL_ACLR_A                   ; NONE                                                                                    ; Untyped                                             ;
-; INDATA_ACLR_A                      ; NONE                                                                                    ; Untyped                                             ;
-; BYTEENA_ACLR_A                     ; NONE                                                                                    ; Untyped                                             ;
-; WIDTH_B                            ; 1                                                                                       ; Signed Integer                                      ;
-; WIDTHAD_B                          ; 1                                                                                       ; Signed Integer                                      ;
-; NUMWORDS_B                         ; 0                                                                                       ; Signed Integer                                      ;
-; INDATA_REG_B                       ; CLOCK1                                                                                  ; Untyped                                             ;
-; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                                                  ; Untyped                                             ;
-; RDCONTROL_REG_B                    ; CLOCK1                                                                                  ; Untyped                                             ;
-; ADDRESS_REG_B                      ; CLOCK1                                                                                  ; Untyped                                             ;
-; OUTDATA_REG_B                      ; UNREGISTERED                                                                            ; Untyped                                             ;
-; BYTEENA_REG_B                      ; CLOCK1                                                                                  ; Untyped                                             ;
-; INDATA_ACLR_B                      ; NONE                                                                                    ; Untyped                                             ;
-; WRCONTROL_ACLR_B                   ; NONE                                                                                    ; Untyped                                             ;
-; ADDRESS_ACLR_B                     ; NONE                                                                                    ; Untyped                                             ;
-; OUTDATA_ACLR_B                     ; NONE                                                                                    ; Untyped                                             ;
-; RDCONTROL_ACLR_B                   ; NONE                                                                                    ; Untyped                                             ;
-; BYTEENA_ACLR_B                     ; NONE                                                                                    ; Untyped                                             ;
-; WIDTH_BYTEENA_A                    ; 4                                                                                       ; Signed Integer                                      ;
-; WIDTH_BYTEENA_B                    ; 1                                                                                       ; Signed Integer                                      ;
-; RAM_BLOCK_TYPE                     ; AUTO                                                                                    ; Untyped                                             ;
-; BYTE_SIZE                          ; 8                                                                                       ; Signed Integer                                      ;
-; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                                               ; Untyped                                             ;
-; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                                                    ; Untyped                                             ;
-; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                                                    ; Untyped                                             ;
-; INIT_FILE                          ; ../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_dat.HEX ; Untyped                                             ;
-; INIT_FILE_LAYOUT                   ; PORT_A                                                                                  ; Untyped                                             ;
-; MAXIMUM_DEPTH                      ; 0                                                                                       ; Signed Integer                                      ;
-; CLOCK_ENABLE_INPUT_A               ; BYPASS                                                                                  ; Untyped                                             ;
-; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                                                  ; Untyped                                             ;
-; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                                                                                  ; Untyped                                             ;
-; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                                                  ; Untyped                                             ;
-; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                                                         ; Untyped                                             ;
-; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                                                         ; Untyped                                             ;
-; ENABLE_ECC                         ; FALSE                                                                                   ; Untyped                                             ;
-; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                                                   ; Untyped                                             ;
-; WIDTH_ECCSTATUS                    ; 3                                                                                       ; Signed Integer                                      ;
-; DEVICE_FAMILY                      ; Cyclone IV E                                                                            ; Untyped                                             ;
-; CBXI_PARAMETER                     ; altsyncram_lh34                                                                         ; Untyped                                             ;
-+------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------+
++------------------------------------+----------------------------------------------------------------+------------------------------------------------------------------------------+
+; Parameter Name                     ; Value                                                          ; Type                                                                         ;
++------------------------------------+----------------------------------------------------------------+------------------------------------------------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                                                              ; Untyped                                                                      ;
+; AUTO_CARRY_CHAINS                  ; ON                                                             ; AUTO_CARRY                                                                   ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                                            ; IGNORE_CARRY                                                                 ;
+; AUTO_CASCADE_CHAINS                ; ON                                                             ; AUTO_CASCADE                                                                 ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                                            ; IGNORE_CASCADE                                                               ;
+; WIDTH_BYTEENA                      ; 1                                                              ; Untyped                                                                      ;
+; OPERATION_MODE                     ; SINGLE_PORT                                                    ; Untyped                                                                      ;
+; WIDTH_A                            ; 32                                                             ; Signed Integer                                                               ;
+; WIDTHAD_A                          ; 9                                                              ; Signed Integer                                                               ;
+; NUMWORDS_A                         ; 512                                                            ; Signed Integer                                                               ;
+; OUTDATA_REG_A                      ; CLOCK0                                                         ; Untyped                                                                      ;
+; ADDRESS_ACLR_A                     ; NONE                                                           ; Untyped                                                                      ;
+; OUTDATA_ACLR_A                     ; NONE                                                           ; Untyped                                                                      ;
+; WRCONTROL_ACLR_A                   ; NONE                                                           ; Untyped                                                                      ;
+; INDATA_ACLR_A                      ; NONE                                                           ; Untyped                                                                      ;
+; BYTEENA_ACLR_A                     ; NONE                                                           ; Untyped                                                                      ;
+; WIDTH_B                            ; 1                                                              ; Signed Integer                                                               ;
+; WIDTHAD_B                          ; 1                                                              ; Signed Integer                                                               ;
+; NUMWORDS_B                         ; 0                                                              ; Signed Integer                                                               ;
+; INDATA_REG_B                       ; CLOCK1                                                         ; Untyped                                                                      ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                         ; Untyped                                                                      ;
+; RDCONTROL_REG_B                    ; CLOCK1                                                         ; Untyped                                                                      ;
+; ADDRESS_REG_B                      ; CLOCK1                                                         ; Untyped                                                                      ;
+; OUTDATA_REG_B                      ; UNREGISTERED                                                   ; Untyped                                                                      ;
+; BYTEENA_REG_B                      ; CLOCK1                                                         ; Untyped                                                                      ;
+; INDATA_ACLR_B                      ; NONE                                                           ; Untyped                                                                      ;
+; WRCONTROL_ACLR_B                   ; NONE                                                           ; Untyped                                                                      ;
+; ADDRESS_ACLR_B                     ; NONE                                                           ; Untyped                                                                      ;
+; OUTDATA_ACLR_B                     ; NONE                                                           ; Untyped                                                                      ;
+; RDCONTROL_ACLR_B                   ; NONE                                                           ; Untyped                                                                      ;
+; BYTEENA_ACLR_B                     ; NONE                                                           ; Untyped                                                                      ;
+; WIDTH_BYTEENA_A                    ; 4                                                              ; Signed Integer                                                               ;
+; WIDTH_BYTEENA_B                    ; 1                                                              ; Signed Integer                                                               ;
+; RAM_BLOCK_TYPE                     ; AUTO                                                           ; Untyped                                                                      ;
+; BYTE_SIZE                          ; 8                                                              ; Signed Integer                                                               ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                      ; Untyped                                                                      ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                                           ; Untyped                                                                      ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                           ; Untyped                                                                      ;
+; INIT_FILE                          ; ../../../Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_dat.HEX ; Untyped                                                                      ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                                         ; Untyped                                                                      ;
+; MAXIMUM_DEPTH                      ; 0                                                              ; Signed Integer                                                               ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS                                                         ; Untyped                                                                      ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                         ; Untyped                                                                      ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                                                         ; Untyped                                                                      ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                         ; Untyped                                                                      ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                                ; Untyped                                                                      ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                                ; Untyped                                                                      ;
+; ENABLE_ECC                         ; FALSE                                                          ; Untyped                                                                      ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                          ; Untyped                                                                      ;
+; WIDTH_ECCSTATUS                    ; 3                                                              ; Signed Integer                                                               ;
+; DEVICE_FAMILY                      ; Cyclone IV E                                                   ; Untyped                                                                      ;
+; CBXI_PARAMETER                     ; altsyncram_l314                                                ; Untyped                                                                      ;
++------------------------------------+----------------------------------------------------------------+------------------------------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -2097,7 +2101,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:34     ;
+; Top            ; 00:00:29     ;
 +----------------+--------------+
 
 
@@ -2107,7 +2111,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sun Jun 14 18:30:57 2020
+    Info: Processing started: Sun Jun 14 18:37:49 2020
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/blockrom_instruction/blockrom_instruction_64k.vhd
@@ -2310,7 +2314,7 @@ Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|BlockRom_Inst
     Info (12134): Parameter "indata_aclr_a" = "UNUSED"
     Info (12134): Parameter "indata_aclr_b" = "NONE"
     Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_ins.HEX"
+    Info (12134): Parameter "init_file" = "../../../Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_ins.HEX"
     Info (12134): Parameter "init_file_layout" = "PORT_A"
     Info (12134): Parameter "maximum_depth" = "0"
     Info (12134): Parameter "numwords_a" = "2048"
@@ -2340,10 +2344,10 @@ Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|BlockRom_Inst
     Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
     Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=NO"
     Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_me34.tdf
-    Info (12023): Found entity 1: altsyncram_me34 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_me34.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_me34" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_me34:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Critical Warning (127005): Memory depth (2048) in the design file differs from memory depth (684) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction_8K.vhd Line: 60
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_m014.tdf
+    Info (12023): Found entity 1: altsyncram_m014 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_m014.tdf Line: 27
+Info (12128): Elaborating entity "altsyncram_m014" for hierarchy "R32V2020_top:R32V2020_top|BlockRom_Instruction_8K:\GEN_8KB_INST_ROM:Instr_ROM|altsyncram:altsyncram_component|altsyncram_m014:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
+Critical Warning (127005): Memory depth (2048) in the design file differs from memory depth (437) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction_8K.vhd Line: 60
 Info (12128): Elaborating entity "BlockRam_Stack" for hierarchy "R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 221
 Info (12128): Elaborating entity "altsyncram" for hierarchy "R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
 Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
@@ -2443,7 +2447,7 @@ Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|Wrap_Data_Ram
     Info (12134): Parameter "indata_aclr_a" = "UNUSED"
     Info (12134): Parameter "indata_aclr_b" = "NONE"
     Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "../../../../Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_dat.HEX"
+    Info (12134): Parameter "init_file" = "../../../Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_dat.HEX"
     Info (12134): Parameter "init_file_layout" = "PORT_A"
     Info (12134): Parameter "maximum_depth" = "0"
     Info (12134): Parameter "numwords_a" = "512"
@@ -2473,10 +2477,10 @@ Info (12133): Instantiated megafunction "R32V2020_top:R32V2020_top|Wrap_Data_Ram
     Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
     Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=NO"
     Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_lh34.tdf
-    Info (12023): Found entity 1: altsyncram_lh34 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_lh34.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_lh34" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_lh34:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Critical Warning (127005): Memory depth (512) in the design file differs from memory depth (89) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Peripheral_Tests/P001-ANSI-Speed_Test/P001-ANSI-Speed_Test_dat.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data_2KB.vhd Line: 63
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_l314.tdf
+    Info (12023): Found entity 1: altsyncram_l314 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V002_A4_CE6_MMVid/db/altsyncram_l314.tdf Line: 27
+Info (12128): Elaborating entity "altsyncram_l314" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data_2KB:\GEN_2KB_DATA_SRAM:Data_RAM_1|altsyncram:altsyncram_component|altsyncram_l314:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
+Critical Warning (127005): Memory depth (512) in the design file differs from memory depth (61) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/Programs/Games/G002-Tetris_EP4CE6/G002-Tetris_dat.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data_2KB.vhd Line: 63
 Info (12128): Elaborating entity "BlockRam_Data2" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 152
 Info (12128): Elaborating entity "altsyncram" for hierarchy "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data2.vhd Line: 63
 Info (12130): Elaborated megafunction instantiation "R32V2020_top:R32V2020_top|Wrap_Data_Ram:Data_RAM_Wrap|BlockRam_Data2:Data_RAM_2|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data2.vhd Line: 63
@@ -2698,7 +2702,7 @@ Info (12128): Elaborating entity "SoundTable01" for hierarchy "R32V2020_top:R32V
 Info (12128): Elaborating entity "Loadable_7S8D_LED" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|Loadable_7S8D_LED:SevenSegDisplay" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 350
 Info (12128): Elaborating entity "bufferedUART" for hierarchy "R32V2020_top:R32V2020_top|PeripheralInterface:Peripherals|bufferedUART:UART" File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 438
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2020.06.14.18:31:25 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2020.06.14.18:38:16 Progress: Loading sld4e341988/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -2817,9 +2821,9 @@ Info (21057): Implemented 6228 device resources after synthesis - the final reso
     Info (21065): Implemented 1 PLLs
     Info (21062): Implemented 12 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 23 warnings
-    Info: Peak virtual memory: 4891 megabytes
-    Info: Processing ended: Sun Jun 14 18:32:13 2020
-    Info: Elapsed time: 00:01:16
-    Info: Total CPU time (on all processors): 00:01:44
+    Info: Peak virtual memory: 4883 megabytes
+    Info: Processing ended: Sun Jun 14 18:38:59 2020
+    Info: Elapsed time: 00:01:10
+    Info: Total CPU time (on all processors): 00:01:42
 
 
