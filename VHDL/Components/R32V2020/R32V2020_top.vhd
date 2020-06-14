@@ -10,8 +10,9 @@ use work.R32V2020_Pkg.all;
 
 entity R32V2020_top is
 	generic(
-		constant DATA_SRAM_SIZE_PASS : integer := 2048;
-		constant INST_SRAM_SIZE : integer := 8192
+		constant DATA_SRAM_SIZE_PASS 	: integer := 2048;
+		constant INST_SRAM_SIZE_PASS 	: integer := 8192;
+		constant STACK_SRAM_SIZE_PASS	: integer := 128
 	);
 	port(
 		n_reset				: in 	std_logic := '1';
@@ -159,7 +160,7 @@ begin
 	);
 
 	-- Instruction ROM
-	GEN_4KB_INST_ROM: if (INST_SRAM_SIZE=4096) generate
+	GEN_4KB_INST_ROM: if (INST_SRAM_SIZE_PASS=4096) generate
 	begin
 		Instr_ROM : entity work.BlockRom_Instruction_4K
 		PORT MAP (
@@ -170,7 +171,7 @@ begin
 		);
 	end generate GEN_4KB_INST_ROM;
 	
-	GEN_8KB_INST_ROM: if (INST_SRAM_SIZE=8192) generate
+	GEN_8KB_INST_ROM: if (INST_SRAM_SIZE_PASS=8192) generate
 	begin
 		Instr_ROM : entity work.BlockRom_Instruction_8K
 		PORT MAP (
@@ -181,7 +182,7 @@ begin
 		);
 	end generate GEN_8KB_INST_ROM;
 	
-	GEN_16KB_INST_ROM: if (INST_SRAM_SIZE=16384) generate
+	GEN_16KB_INST_ROM: if (INST_SRAM_SIZE_PASS=16384) generate
 	begin
 		Instr_ROM : entity work.BlockRom_Instruction_16K
 		PORT MAP (
@@ -192,7 +193,7 @@ begin
 		);
 	end generate GEN_16KB_INST_ROM;
 	
-	GEN_32KB_INST_ROM: if (INST_SRAM_SIZE=32768) generate
+	GEN_32KB_INST_ROM: if (INST_SRAM_SIZE_PASS=32768) generate
 	begin
 		Instr_ROM : entity work.BlockRom_Instruction_32K
 		PORT MAP (
@@ -203,7 +204,7 @@ begin
 		);
 	end generate GEN_32KB_INST_ROM;
 	
-	GEN_64KB_INST_ROM: if (INST_SRAM_SIZE=65536) generate
+	GEN_64KB_INST_ROM: if (INST_SRAM_SIZE_PASS=65536) generate
 	begin
 		Instr_ROM : entity work.BlockRom_Instruction_64K
 		PORT MAP (
@@ -215,14 +216,17 @@ begin
 	end generate GEN_64KB_INST_ROM;
 	
 	-- Stack RAM
-	Stack_RAM : entity work.BlockRam_Stack
-	PORT MAP	(
-		address	=> w_StackRamAddress(6 downto 0),
-		clock		=> i_CLOCK_50,
-		data		=> w_dataToStackRam,
-		wren		=> w_writeStackRamEn,
-		q			=> w_dataFromStackRam
-	);
+	GEN_Stack_RAM_128 : if (STACK_SRAM_SIZE_PASS=128) generate 
+	begin
+		Stack_RAM : entity work.BlockRam_Stack
+		PORT MAP	(
+			address	=> w_StackRamAddress(6 downto 0),
+			clock		=> i_CLOCK_50,
+			data		=> w_dataToStackRam,
+			wren		=> w_writeStackRamEn,
+			q			=> w_dataFromStackRam
+		);
+	end generate GEN_Stack_RAM_128;
 
 	-- Data RAM
 	Data_RAM_Wrap : entity work.Wrap_Data_Ram

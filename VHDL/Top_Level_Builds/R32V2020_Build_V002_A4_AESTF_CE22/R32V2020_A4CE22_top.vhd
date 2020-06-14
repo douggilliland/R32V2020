@@ -79,8 +79,11 @@ architecture struct of R32V2020_A4CE22_top is
 	signal	w_Anode_Activate	:		std_logic_vector(7 downto 0);
 	signal	w_LEDRing_out		:		std_logic_vector(11 downto 0);
 	signal	w_Switch				:		std_logic_vector(2 downto 0);
+	
+	-- Configure the Memory sizes here
 	constant Data_RAM_Size 		: 		Integer := 8192;
 	constant Inst_RAM_Size 		: 		Integer := 32768;
+	constant	Stack_RAM_Size		: 		Integer := 128;
 	
 begin
 
@@ -114,8 +117,9 @@ begin
 	
 	R32V2020_top : entity work.R32V2020_top
 	generic map ( 
-		DATA_SRAM_SIZE_PASS => Data_RAM_Size,
-		INST_SRAM_SIZE => Inst_RAM_Size
+		DATA_SRAM_SIZE_PASS 	=> Data_RAM_Size,
+		INST_SRAM_SIZE_PASS 	=> Inst_RAM_Size,
+		STACK_SRAM_SIZE_PASS	=> Stack_RAM_Size
 	)
 		port map (
 		n_reset		=> n_reset,

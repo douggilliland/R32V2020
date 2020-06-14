@@ -81,7 +81,7 @@ n_reset => debouncer:DebounceResetSwitch.i_PinIn
 i_CLOCK_50 => debouncer:DebounceResetSwitch.i_CLOCK_50
 i_CLOCK_50 => r32v2020:R32V2020_CPU.i_CLOCK_50
 i_CLOCK_50 => blockrom_instruction_32k:GEN_32KB_INST_ROM:Instr_ROM.clock
-i_CLOCK_50 => blockram_stack:Stack_RAM.clock
+i_CLOCK_50 => blockram_stack:GEN_Stack_RAM_128:Stack_RAM.clock
 i_CLOCK_50 => wrap_data_ram:Data_RAM_Wrap.clock
 i_CLOCK_50 => peripheralinterface:Peripherals.i_CLOCK_50
 i_switch[0] => peripheralinterface:Peripherals.i_switch[0]
@@ -8000,7 +8000,7 @@ q_a[30] <= ram_block1a30.PORTADATAOUT
 q_a[31] <= ram_block1a31.PORTADATAOUT
 
 
-|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM
+|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM
 address[0] => altsyncram:altsyncram_component.address_a[0]
 address[1] => altsyncram:altsyncram_component.address_a[1]
 address[2] => altsyncram:altsyncram_component.address_a[2]
@@ -8076,7 +8076,7 @@ q[30] <= altsyncram:altsyncram_component.q_a[30]
 q[31] <= altsyncram:altsyncram_component.q_a[31]
 
 
-|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component
+|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component
 wren_a => altsyncram_71s3:auto_generated.wren_a
 rden_a => ~NO_FANOUT~
 wren_b => ~NO_FANOUT~
@@ -8172,7 +8172,7 @@ eccstatus[1] <= <GND>
 eccstatus[2] <= <GND>
 
 
-|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated
+|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated
 address_a[0] => altsyncram_fdp2:altsyncram1.address_a[0]
 address_a[1] => altsyncram_fdp2:altsyncram1.address_a[1]
 address_a[2] => altsyncram_fdp2:altsyncram1.address_a[2]
@@ -8248,7 +8248,7 @@ q_a[31] <= altsyncram_fdp2:altsyncram1.q_a[31]
 wren_a => altsyncram_fdp2:altsyncram1.wren_a
 
 
-|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|altsyncram_fdp2:altsyncram1
+|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|altsyncram_fdp2:altsyncram1
 address_a[0] => ram_block3a0.PORTAADDR
 address_a[0] => ram_block3a1.PORTAADDR
 address_a[0] => ram_block3a2.PORTAADDR
@@ -8955,7 +8955,7 @@ wren_b => ram_block3a30.PORTBWE
 wren_b => ram_block3a31.PORTBWE
 
 
-|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2
+|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2
 tck_usr <= sld_jtag_endpoint_adapter:jtag_signal_adapter.adapted_tck
 address[0] <= ram_rom_addr_reg[0].DB_MAX_OUTPUT_PORT_TYPE
 address[1] <= ram_rom_addr_reg[1].DB_MAX_OUTPUT_PORT_TYPE
@@ -9070,7 +9070,7 @@ ir_out[7] <= sld_jtag_endpoint_adapter:jtag_signal_adapter.ir_out[7]
 tdo <= sld_jtag_endpoint_adapter:jtag_signal_adapter.tdo
 
 
-|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter
+|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter
 raw_tck => sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst.raw_tck
 raw_tms => sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst.raw_tms
 tdi => sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst.tdi
@@ -9153,7 +9153,7 @@ adapted_ir_out[6] => sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_im
 adapted_ir_out[7] => sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst.adapted_ir_out[7]
 
 
-|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst
+|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst
 raw_tck => adapted_tck.DATAIN
 raw_tms => adapted_tms.DATAIN
 tdi => adapted_tdi.DATAIN
@@ -9236,7 +9236,7 @@ adapted_ir_out[6] => ir_out[6].DATAIN
 adapted_ir_out[7] => ir_out[7].DATAIN
 
 
-|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr
+|R32V2020_A4CE22_top|R32V2020_top:R32V2020_top|BlockRam_Stack:\GEN_Stack_RAM_128:Stack_RAM|altsyncram:altsyncram_component|altsyncram_71s3:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr
 ROM_DATA[0] => Mux3.IN131
 ROM_DATA[1] => Mux2.IN131
 ROM_DATA[2] => Mux1.IN131
