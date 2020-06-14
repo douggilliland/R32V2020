@@ -16,13 +16,14 @@ entity R32V2020_A4CE6_top is
 		-- Switches, LEDs, Buzzer pins
 		i_switch				: in std_logic_vector(2 downto 0) := "111";
 		i_dipSwitch			: in std_logic_vector(7 downto 0) := x"00";
-		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
+		o_LEDRing_out		: out std_logic_vector(9 downto 0) := x"00"&"00";
 		--o_LED				: out std_logic_vector(3 downto 0);
 		o_BUZZER				: out std_logic := '0';
 		-- Serial port pins
 		i_SerRxd				: in std_logic := '1';
 		o_SerTxd				: out std_logic := '1';
-		--o_SerRts				: out std_logic;
+		i_SerCts				: in 	std_logic	:= '0';
+		o_SerRts				: out std_logic;
 		-- VGA pins
 		o_VideoVect			: out std_logic_vector(2 downto 0) := "000"; -- rgb
 		o_hSync				: out std_logic := '1';
@@ -32,7 +33,7 @@ entity R32V2020_A4CE6_top is
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
 		-- LED Ring
 		-- 8 bit I/O Latch
-		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
+		-- o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- I2C Clock and Data
 		io_I2C_SCL			: inout std_logic := '1';
 		io_I2C_SDA			: inout std_logic := '1';
@@ -69,6 +70,7 @@ architecture struct of R32V2020_A4CE6_top is
 	signal	w_Blu_Hi		:		std_logic := '0';
 	signal	w_Blu_Lo		:		std_logic := '0';
 --	signal	w_hActive	:		std_logic := '0';
+	signal 	w_LEDRing_out : 	std_logic_vector(11 downto 0) := x"000";
 
 --attribute syn_keep: boolean;
 --attribute syn_keep of w_Switch: signal is true;
@@ -78,6 +80,8 @@ begin
 	o_VideoVect(2) <= w_Red_Hi or w_Red_Lo;
 	o_VideoVect(1) <= w_Grn_Hi or w_Grn_Lo;
 	o_VideoVect(0) <= w_Blu_Hi or w_Blu_Lo;
+
+	o_LEDRing_out <= w_LEDRing_out(9 downto 0);
 
 	R32V2020_top : entity work.R32V2020_top
 		port map (
@@ -106,9 +110,9 @@ begin
 		o_Anode_Activate	=> o_Anode_Activate,
 		o_LED7Seg_out		=> o_LED7Seg_out,
 		-- LED Ring
-		o_LEDRing_out		=> o_LEDRing_out,
+		o_LEDRing_out		=> w_LEDRing_out,
 		-- 8 bit I/O Latch
-		o_LatchIO			=> o_LatchIO,
+		-- o_LatchIO			=> o_LatchIO,
 		-- I2C Clock and Data
 		io_I2C_SCL			=> io_I2C_SCL,
 		io_I2C_SDA			=> io_I2C_SDA,

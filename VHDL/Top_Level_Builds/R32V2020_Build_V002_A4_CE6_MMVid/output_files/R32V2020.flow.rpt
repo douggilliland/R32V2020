@@ -1,5 +1,5 @@
 Flow report for R32V2020
-Sun Sep 29 17:50:02 2019
+Sun Jun 14 18:33:09 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sun Sep 29 17:50:02 2019       ;
+; Flow Status                        ; Successful - Sun Jun 14 18:33:01 2020       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE6_top                          ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE6E22C6                                 ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 6,007 / 6,272 ( 96 % )                      ;
-;     Total combinational functions  ; 5,760 / 6,272 ( 92 % )                      ;
-;     Dedicated logic registers      ; 1,635 / 6,272 ( 26 % )                      ;
-; Total registers                    ; 1635                                        ;
-; Total pins                         ; 70 / 92 ( 76 % )                            ;
+; Total logic elements               ; 5,749 / 6,272 ( 92 % )                      ;
+;     Total combinational functions  ; 5,503 / 6,272 ( 88 % )                      ;
+;     Dedicated logic registers      ; 1,455 / 6,272 ( 23 % )                      ;
+; Total registers                    ; 1455                                        ;
+; Total pins                         ; 62 / 92 ( 67 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 127,104 / 276,480 ( 46 % )                  ;
+; Total memory bits                  ; 110,720 / 276,480 ( 40 % )                  ;
 ; Embedded Multiplier 9-bit elements ; 12 / 30 ( 40 % )                            ;
 ; Total PLLs                         ; 1 / 2 ( 50 % )                              ;
 +------------------------------------+---------------------------------------------+
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/29/2019 14:41:10 ;
+; Start date & time ; 06/14/2020 18:30:59 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                     ; Value                                                          ; Default Value ; Entity Name        ; Section Id ;
 +-------------------------------------+----------------------------------------------------------------+---------------+--------------------+------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                         ; Auto          ; --                 ; --         ;
-; COMPILER_SIGNATURE_ID               ; 198690285320223.156978247002316                                ; --            ; --                 ; --         ;
+; COMPILER_SIGNATURE_ID               ; 10995770589188.159217385813520                                 ; --            ; --                 ; --         ;
 ; ENABLE_SIGNALTAP                    ; Off                                                            ; --            ; --                 ; --         ;
 ; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                            ; On            ; --                 ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                             ; --            ; --                 ; --         ;
@@ -105,61 +105,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:03     ; 1.0                     ; 4888 MB             ; 00:01:30                           ;
-; Fitter               ; 00:00:41     ; 1.1                     ; 5668 MB             ; 00:01:07                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4693 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:07     ; 1.5                     ; 4850 MB             ; 00:00:07                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:01                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4696 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:01                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4692 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4692 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4696 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4694 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4696 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4696 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4694 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:01                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4693 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4693 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4694 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:01                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4696 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4694 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4716 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4694 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4716 MB             ; 00:00:01                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4694 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4695 MB             ; 00:00:03                           ;
-; MIF/HEX Update       ; 00:00:01     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4717 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4695 MB             ; 00:00:03                           ;
-; Total                ; 00:03:26     ; --                      ; --                  ; 00:04:38                           ;
+; Analysis & Synthesis ; 00:01:13     ; 1.0                     ; 4891 MB             ; 00:01:41                           ;
+; Fitter               ; 00:00:41     ; 1.1                     ; 5679 MB             ; 00:01:07                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4693 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:07     ; 1.4                     ; 4847 MB             ; 00:00:08                           ;
+; Total                ; 00:02:04     ; --                      ; --                  ; 00:02:58                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -172,56 +122,6 @@ refer to the applicable agreement for further details.
 ; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -232,56 +132,6 @@ quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 
 
 
