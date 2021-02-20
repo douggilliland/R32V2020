@@ -1,8 +1,6 @@
 -----------------------------------------------------------------------
 -- Master State Machine for the R32V2020 CPU
--- State Machine implements a 6-bit, 1 hot state machine
--- Uses a three-bit gray-code counter which is decoded for states
--- States are 0>1>3>7>5>4
+-- State Machine implements a 5-bit, 1 hot state machine
 -- clr resets the state machine and holds it in clear
 -- One-Hot-State bits are used as clock enables for the pipeline stages
 
