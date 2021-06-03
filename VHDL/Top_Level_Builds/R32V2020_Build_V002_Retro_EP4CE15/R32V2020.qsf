@@ -41,7 +41,7 @@ set_global_assignment -name DEVICE EP4CE15F23C8
 set_global_assignment -name TOP_LEVEL_ENTITY R32V2020_RETRO_EP4_top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:01:55  MARCH 31, 2019"
-set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -192,6 +192,13 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdRamData[5]
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data_8KB.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data_2KB.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction_64K.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction_32K.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction_16K.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction_8K.vhd
+set_global_assignment -name VHDL_FILE ../../Components/BlockRom_Instruction/BlockRom_Instruction_4K.vhd
 set_global_assignment -name VHDL_FILE ../../Components/BlockRam_Data/BlockRam_Data2.vhd
 set_global_assignment -name VHDL_FILE ../../Components/PS2KB/Wrap_Keyboard.vhd
 set_global_assignment -name VHDL_FILE ../../Components/SDCARD/sd_controller_NealC.vhd
