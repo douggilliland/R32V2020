@@ -1,6 +1,6 @@
- -- Copyright (C) 2018  Intel Corporation. All rights reserved.
+ -- Copyright (C) 2020  Intel Corporation. All rights reserved.
  -- Your use of Intel Corporation's design tools, logic functions 
- -- and other software and tools, and its AMPP partner logic 
+ -- and other software and tools, and any partner logic 
  -- functions, and any output files from any of the foregoing 
  -- (including device programming or simulation files), and any 
  -- associated documentation or information are expressly subject 
@@ -10,7 +10,8 @@
  -- agreement, including, without limitation, that your use is for
  -- the sole purpose of programming logic devices manufactured by
  -- Intel and sold by Intel or its authorized distributors.  Please
- -- refer to the applicable agreement for further details.
+ -- refer to the applicable agreement for further details, at
+ -- https://fpgasoftware.intel.com/eula.
  -- 
  -- This is a Quartus Prime output file. It is for reporting purposes only, and is
  -- not intended for use as a Quartus Prime input file. This file cannot be used
@@ -63,7 +64,7 @@
  -- Pin directions (input, output or bidir) are based on device operating in user mode.
  ---------------------------------------------------------------------------------
 
-Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 CHIP  "R32V2020"  ASSIGNED TO AN: EP4CE10E22C6
 
 Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
@@ -106,7 +107,7 @@ VCCA1                        : 35        : power  :                   : 2.5V    
 GNDA1                        : 36        : gnd    :                   :         :           :                
 VCCD_PLL1                    : 37        : power  :                   : 1.2V    :           :                
 o_sdCS                       : 38        : output : 3.3-V LVCMOS      :         : 3         : Y              
-o_driveLED                   : 39        : output : 3.3-V LVCMOS      :         : 3         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 39        :        :                   :         : 3         :                
 VCCIO3                       : 40        : power  :                   : 3.3V    : 3         :                
 GND                          : 41        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 42        :        :                   :         : 3         :                
@@ -173,7 +174,7 @@ VCCINT                       : 102       : power  :                   : 1.2V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : 103       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 104       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 105       :        :                   :         : 6         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : 106       :        :                   :         : 6         :                
+o_driveLED                   : 106       : output : 3.3-V LVCMOS      :         : 6         : N              
 VCCA2                        : 107       : power  :                   : 2.5V    :           :                
 GNDA2                        : 108       : gnd    :                   :         :           :                
 VCCD_PLL2                    : 109       : power  :                   : 1.2V    :           :                
