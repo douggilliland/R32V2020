@@ -1,6 +1,6 @@
 Flow report for R32V2020
-Sun Sep 29 19:46:49 2019
-Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Thu Jun 03 19:46:51 2021
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
 ---------------------
@@ -21,9 +21,9 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2018  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -33,27 +33,28 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
 
 
 
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sun Sep 29 19:46:49 2019       ;
-; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Flow Status                        ; Successful - Thu Jun 03 19:46:43 2021       ;
+; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE6_top                          ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE10E22C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 7,457 / 10,320 ( 72 % )                     ;
-;     Total combinational functions  ; 6,315 / 10,320 ( 61 % )                     ;
-;     Dedicated logic registers      ; 2,878 / 10,320 ( 28 % )                     ;
-; Total registers                    ; 2878                                        ;
+; Total logic elements               ; 7,185 / 10,320 ( 70 % )                     ;
+;     Total combinational functions  ; 6,080 / 10,320 ( 59 % )                     ;
+;     Dedicated logic registers      ; 2,707 / 10,320 ( 26 % )                     ;
+; Total registers                    ; 2707                                        ;
 ; Total pins                         ; 70 / 92 ( 76 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 245,888 / 423,936 ( 58 % )                  ;
+; Total memory bits                  ; 229,504 / 423,936 ( 54 % )                  ;
 ; Embedded Multiplier 9-bit elements ; 12 / 46 ( 26 % )                            ;
 ; Total PLLs                         ; 1 / 2 ( 50 % )                              ;
 +------------------------------------+---------------------------------------------+
@@ -64,7 +65,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/29/2019 19:00:31 ;
+; Start date & time ; 06/03/2021 19:44:29 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
@@ -76,7 +77,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                     ; Value                                                                                                                                       ; Default Value ; Entity Name        ; Section Id       ;
 +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------+--------------------+------------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                                                                                                      ; Auto          ; --                 ; --               ;
-; COMPILER_SIGNATURE_ID               ; 198690285320223.156979803113076                                                                                                             ; --            ; --                 ; --               ;
+; COMPILER_SIGNATURE_ID               ; 10995770589187.162276386920720                                                                                                              ; --            ; --                 ; --               ;
 ; ENABLE_SIGNALTAP                    ; On                                                                                                                                          ; --            ; --                 ; --               ;
 ; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                                                                                                         ; On            ; --                 ; --               ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                                                                                                          ; --            ; --                 ; --               ;
@@ -133,14 +134,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:24     ; 1.0                     ; 4912 MB             ; 00:01:55                           ;
-; Partition Merge      ; 00:00:03     ; 1.0                     ; 4721 MB             ; 00:00:04                           ;
-; Fitter               ; 00:00:53     ; 1.1                     ; 5713 MB             ; 00:01:25                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4698 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:08     ; 1.5                     ; 4866 MB             ; 00:00:10                           ;
-; MIF/HEX Update       ; 00:00:02     ; 1.0                     ; 4722 MB             ; 00:00:02                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4701 MB             ; 00:00:03                           ;
-; Total                ; 00:02:36     ; --                      ; --                  ; 00:03:42                           ;
+; Analysis & Synthesis ; 00:01:12     ; 1.0                     ; 4899 MB             ; 00:01:48                           ;
+; Fitter               ; 00:00:53     ; 1.1                     ; 5621 MB             ; 00:01:21                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4700 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:07     ; 1.4                     ; 4865 MB             ; 00:00:08                           ;
+; Total                ; 00:02:15     ; --                      ; --                  ; 00:03:20                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -150,12 +148,9 @@ refer to the applicable agreement for further details.
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
 ; Analysis & Synthesis ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Partition Merge      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; MIF/HEX Update       ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -163,12 +158,9 @@ refer to the applicable agreement for further details.
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
-quartus_cdb --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020 --merge=on
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
-quartus_cdb R32V2020 -c R32V2020 --update_mif
-quartus_asm --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 
 
 
