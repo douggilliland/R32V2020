@@ -71,7 +71,7 @@ begin
 	R32V2020_top : entity work.R32V2020_top
 	generic map ( 
 		DATA_SRAM_SIZE_PASS => Data_RAM_Size,
-		INST_SRAM_SIZE => Inst_RAM_Size
+		INST_SRAM_SIZE_PASS => Inst_RAM_Size
 	)
 		port map (
 		n_reset		=> i_n_reset,

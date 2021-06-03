@@ -1,6 +1,6 @@
 Analysis & Synthesis report for R32V2020
-Sat Mar 07 11:13:49 2020
-Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Thu Jun 03 19:32:24 2021
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
 ---------------------
@@ -17,9 +17,9 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2018  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -29,15 +29,16 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
 
 
 
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Sat Mar 07 11:13:49 2020           ;
-; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Analysis & Synthesis Status        ; Failed - Thu Jun 03 19:32:24 2021           ;
+; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE6_top                          ;
 ; Family                             ; Cyclone IV E                                ;
@@ -161,8 +162,8 @@ refer to the applicable agreement for further details.
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Mar 07 11:13:35 2020
+    Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+    Info: Processing started: Thu Jun 03 19:32:11 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/vga/bit_mapped_xga/videoclk_xga_1024x768.vhd
@@ -190,10 +191,10 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
     Info (12022): Found design unit 1: SoundTable01-behavior File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/SoundGen/SoundTable01.VHD Line: 24
     Info (12023): Found entity 1: SoundTable01 File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/SoundGen/SoundTable01.VHD Line: 16
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/blockram_data/wrap_data_ram.vhd
-    Info (12022): Found design unit 1: Wrap_Data_Ram-SYN File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 31
-    Info (12023): Found entity 1: Wrap_Data_Ram File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 13
+    Info (12022): Found design unit 1: Wrap_Data_Ram-SYN File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 37
+    Info (12023): Found entity 1: Wrap_Data_Ram File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/BlockRam_Data/Wrap_Data_Ram.vhd Line: 16
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/r32v2020/r32v2020_top.vhd
-    Info (12022): Found design unit 1: R32V2020_top-struct File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 68
+    Info (12022): Found design unit 1: R32V2020_top-struct File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 73
     Info (12023): Found entity 1: R32V2020_top File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/R32V2020_top.vhd Line: 11
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/spi/reverse-u16/spi.vhd
     Info (12022): Found design unit 1: spi-rtl File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/SPI/ReVerSE-U16/spi.vhd Line: 34
@@ -231,8 +232,8 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
     Info (12022): Found design unit 1: OpCode_Cat_Decoder-struct File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/OpCode_Cat_Decoder.vhd Line: 23
     Info (12023): Found entity 1: OpCode_Cat_Decoder File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/OpCode_Cat_Decoder.vhd Line: 10
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/r32v2020/onehotstatemachine.vhd
-    Info (12022): Found design unit 1: OneHotStateMachine-rtl File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd Line: 21
-    Info (12023): Found entity 1: OneHotStateMachine File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd Line: 12
+    Info (12022): Found design unit 1: OneHotStateMachine-rtl File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd Line: 19
+    Info (12023): Found entity 1: OneHotStateMachine File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd Line: 10
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/r32v2020/flowcontrol.vhd
     Info (12022): Found design unit 1: FlowControl-description File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd Line: 30
     Info (12023): Found entity 1: FlowControl File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd Line: 11
@@ -299,12 +300,11 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
 Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/doug gilliland/r32v2020/vhdl/components/displayram/displayram8kb.vhd
     Info (12022): Found design unit 1: displayram8kb-SYN File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/DisplayRAM/DisplayRam8KB.vhd Line: 59
     Info (12023): Found entity 1: DisplayRam8KB File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/DisplayRAM/DisplayRam8KB.vhd Line: 42
-Error (10482): VHDL error at Bit_Mapped_XGA.vhd(73): object "dataOutA" is used but not declared File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 73
-Error (10558): VHDL error at Bit_Mapped_XGA.vhd(73): cannot associate formal port "q_a" of mode "out" with an expression File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 73
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 0 warnings
-    Error: Peak virtual memory: 4790 megabytes
-    Error: Processing ended: Sat Mar 07 11:13:50 2020
-    Error: Elapsed time: 00:00:15
-    Error: Total CPU time (on all processors): 00:00:30
+Error (10482): VHDL error at Bit_Mapped_XGA.vhd(46): object "dispRamDataOut" is used but not declared File: C:/Users/HPz420/Documents/GitHub/Doug Gilliland/R32V2020/VHDL/Components/VGA/Bit_Mapped_XGA/Bit_Mapped_XGA.vhd Line: 46
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 1 error, 0 warnings
+    Error: Peak virtual memory: 4787 megabytes
+    Error: Processing ended: Thu Jun 03 19:32:24 2021
+    Error: Elapsed time: 00:00:13
+    Error: Total CPU time (on all processors): 00:00:33
 
 

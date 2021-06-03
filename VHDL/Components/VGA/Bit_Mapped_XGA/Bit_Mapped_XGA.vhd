@@ -27,7 +27,7 @@ end Bit_Mapped_XGA;
 architecture struct of Bit_Mapped_XGA is
 
 	signal dispAddrB 			: std_logic_vector(14 downto 0);
-	signal dispRamDataOut 	: std_logic_vector(7 downto 0);
+	signal dispRamDataOutB 	: std_logic_vector(7 downto 0);
 	signal charAddr 			: std_logic_vector(14 downto 0);
 	signal charData 			: std_logic_vector(7 downto 0);
 	signal dispRamDataOutA	: std_logic_vector(7 downto 0);
