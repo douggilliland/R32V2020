@@ -1,6 +1,6 @@
 Flow report for R32V2020
-Sun Jun 14 18:01:18 2020
-Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Thu Jun 03 20:00:17 2021
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
 ---------------------
@@ -21,9 +21,9 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2018  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -33,24 +33,25 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
 
 
 
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sun Jun 14 18:01:10 2020       ;
-; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Flow Status                        ; Successful - Thu Jun 03 20:00:11 2021       ;
+; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; R32V2020_A4CE6_top                          ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE6E22C6                                 ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 5,859 / 6,272 ( 93 % )                      ;
-;     Total combinational functions  ; 5,665 / 6,272 ( 90 % )                      ;
-;     Dedicated logic registers      ; 1,633 / 6,272 ( 26 % )                      ;
-; Total registers                    ; 1633                                        ;
+; Total logic elements               ; 5,871 / 6,272 ( 94 % )                      ;
+;     Total combinational functions  ; 5,662 / 6,272 ( 90 % )                      ;
+;     Dedicated logic registers      ; 1,631 / 6,272 ( 26 % )                      ;
+; Total registers                    ; 1631                                        ;
 ; Total pins                         ; 70 / 92 ( 76 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 143,488 / 276,480 ( 52 % )                  ;
@@ -64,7 +65,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/14/2020 17:52:47 ;
+; Start date & time ; 06/03/2021 19:58:45 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; R32V2020            ;
 +-------------------+---------------------+
@@ -76,7 +77,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                     ; Value                                                              ; Default Value ; Entity Name        ; Section Id ;
 +-------------------------------------+--------------------------------------------------------------------+---------------+--------------------+------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION     ; Always                                                             ; Auto          ; --                 ; --         ;
-; COMPILER_SIGNATURE_ID               ; 10995770589188.159217156714240                                     ; --            ; --                 ; --         ;
+; COMPILER_SIGNATURE_ID               ; 10995770589187.162276472520560                                     ; --            ; --                 ; --         ;
 ; ENABLE_SIGNALTAP                    ; Off                                                                ; --            ; --                 ; --         ;
 ; INFER_RAMS_FROM_RAW_LOGIC           ; Off                                                                ; On            ; --                 ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                                 ; --            ; --                 ; --         ;
@@ -106,14 +107,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:07     ; 1.0                     ; 4877 MB             ; 00:01:33                           ;
-; Fitter               ; 00:00:23     ; 1.1                     ; 5569 MB             ; 00:00:33                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4697 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:07     ; 1.2                     ; 4830 MB             ; 00:00:07                           ;
-; Fitter               ; 00:00:25     ; 1.1                     ; 5576 MB             ; 00:00:34                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4695 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:07     ; 1.2                     ; 4829 MB             ; 00:00:07                           ;
-; Total                ; 00:02:13     ; --                      ; --                  ; 00:02:58                           ;
+; Analysis & Synthesis ; 00:00:57     ; 1.0                     ; 4872 MB             ; 00:01:32                           ;
+; Fitter               ; 00:00:21     ; 1.1                     ; 5567 MB             ; 00:00:31                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4702 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:05     ; 1.2                     ; 4830 MB             ; 00:00:05                           ;
+; Total                ; 00:01:25     ; --                      ; --                  ; 00:02:10                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -126,9 +124,6 @@ refer to the applicable agreement for further details.
 ; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; DESKTOP-2UF8LNB  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -137,9 +132,6 @@ refer to the applicable agreement for further details.
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 quartus_fit --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
-quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
-quartus_sta R32V2020 -c R32V2020
-quartus_fit --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
 quartus_asm --read_settings_files=off --write_settings_files=off R32V2020 -c R32V2020
 quartus_sta R32V2020 -c R32V2020
 
