@@ -1,8 +1,24 @@
--- PeripheralInterface
--- Controls the peripherals
+-- PeripheralInterface - Controls the peripherals
 -- Uses the Memory Mapped version of the display
 -- Supports a superset of peripheral interfaces
 -- Not all of the peripheral interfaces are used by the FPGA cards due to I/O pin limitations
+-- https://github.com/douggilliland/R32V2020/wiki/Peripheral-Interfaces
+--
+-- Address Map
+-- 	x0000-x07FF (2KB) - Display RAM
+-- 	x0800-x0FFF (2KB)	- PS/2 Keyboard
+-- 	x1000-x17FF (2KB)	- SD Card
+-- 	x1800-x1FFF (2KB)	- 6850 ACIA UART
+--		x2000-x27FF (2KB)	- Pushbutton Switches
+-- 	x2800-x2FFF (2KB)	- Individual LEDs
+-- 	x3000-x37FF (2KB)	- Seven Segment Display
+-- 	x3800-x3FFF (2KB)	- Timers
+-- 	x4000-x47FF (2KB)	- Music/Note
+-- 	x4800-x4FFF (2KB)	- LED Ring
+-- 	x5000-x57FF (2KB)	- I/O Latch
+-- 	x5800-x5FFF (2KB)	- External I2C Address
+-- 	x6000-x67FF (2KB)	- SPI Address
+-- 	x6800-x6FFF (2KB)	- EEPROM I2C Address
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -13,15 +29,17 @@ use work.R32V2020_Pkg.all;
 
 entity PeripheralInterface is
 	port(
-		n_reset						: in std_logic := '1';
 		i_CLOCK_50					: in std_logic := '1';
-		i_OneHotState				: in std_logic_vector(3 downto 0) := "0000";
+		i_OneHotState				: in std_logic_vector(3 downto 0) := "0000";			-- State machine
+		i_n_reset					: in std_logic := '1';
+
 		-- Peripheral Memory Mapped Space Address/Data/Control lines
 		i_peripheralAddress		: in std_logic_vector(31 downto 0) := x"00000000";
 		i_dataToPeripherals		: in std_logic_vector(31 downto 0) := x"00000000";
 		o_dataFromPeripherals	: out std_logic_vector(31 downto 0) := x"00000000";
 		i_peripheralRdStrobe		: in std_logic := '1';
  		i_peripheralWrStrobe		: in std_logic := '1';
+
 		-- Physical connections to/from the FPGA pins
 		i_switch						: in std_logic_vector(2 downto 0) := "111";			-- Switches
 		i_DIP_switch				: in std_logic_vector(7 downto 0) := x"00";			-- DIP Switches
@@ -31,36 +49,44 @@ entity PeripheralInterface is
 		o_LED7Seg_out				: out std_logic_vector(7 downto 0) := x"11";			-- Seven Segment LED
 		o_LEDRing_out				: buffer std_logic_vector(11 downto 0) := x"000";	-- LED Ring
 		o_LatchIO					: out std_logic_vector(7 downto 0) := x"11";			-- Output Latch
-		-- Serial port
+
+		-- Serial port with hardware handshakes
 		i_rxd							: in std_logic := '1';										-- Serial receive (from UART)
 		o_txd							: out std_logic := '1';										-- Serial transmit (to UART)
+		i_cts							: in std_logic := '0';										-- Serial Hardware Handshake (from UART)
 		o_rts							: out std_logic := '1';										-- Serial Hardware Handshake (to UART)
-		i_cts							: in std_logic := '0';
+
 		-- Video
 		o_VideoOut					: out std_logic_vector(5 downto 0);						-- VGA lines r,g,b
 		o_hSync						: out std_logic := '1';
 		o_vSync						: out std_logic := '1';
-		o_hActive					: out std_logic := '0';
+		o_hActive					: out std_logic := '0';										-- Background color
+
 		-- External I2C connections
 		io_I2C_SCL					: inout std_logic := '1';
 		io_I2C_SDA					: inout std_logic := '1';
 		io_I2C_INT					: in std_logic := '1';
+
 		-- EEPROM I2C connections
 		io_EEP_I2C_SCL				: inout std_logic := '1';
 		io_EEP_I2C_SDA				: inout std_logic := '1';
+
 		-- SPI connections
 		spi_sclk						: out std_logic := '1';
       spi_csN						: out std_logic;
       spi_mosi						: out std_logic := '1';
       spi_miso						: in std_logic := '1';
+
 		-- Music generator
 		o_Note						: out std_logic := '0';
+
 		-- sd cARD
 		o_sdCS						: out std_logic := '1';
 		o_sdMOSI						: out std_logic := '0';
 		i_sdMISO						: in std_logic := '0';
 		o_sdSCLK						: out std_logic := '0';
 		o_driveLED					: out std_logic := '0';
+
 		-- PS/2 keyboard
 		i_PS2_CLK					: in std_logic := '1';										-- PS/2 Clock
 		i_PS2_DATA					: in std_logic := '1'										-- PS/2 Data
@@ -70,10 +96,10 @@ entity PeripheralInterface is
 architecture struct of PeripheralInterface is
 
 	attribute syn_keep: boolean;
+	
 	-- Peripheral Signals
 	signal w_dispRamCS 			:	std_logic := '0';
 	signal w_kbCS 					:	std_logic := '0';
-	signal w_kbdDat				:	std_logic_vector(7 downto 0);
 	signal w_aciaCS 				:	std_logic := '0';
 	signal w_SwitchesCS			:	std_logic := '0';
 	signal w_LEDsCS				:	std_logic := '0';
@@ -85,6 +111,8 @@ architecture struct of PeripheralInterface is
 	signal w_I2CCS					:	std_logic := '0';
 	signal w_SPICS					:	std_logic := '0';
 	signal w_EEPI2CCS				:	std_logic := '0';
+	-- Video clock
+	signal w_Video_Clk			: 	std_logic := '0';
 	-- Serial Port controls	
 	signal w_serialClkCount		:	std_logic_vector(15 downto 0); 
 	signal w_serialClkCount_d	: 	std_logic_vector(15 downto 0);
@@ -92,6 +120,8 @@ architecture struct of PeripheralInterface is
 	signal w_serialClock			:	std_logic;
 	-- Serial Port
 	signal w_aciaData				:	std_logic_vector(7 downto 0);
+	-- Keyboard
+	signal w_kbdDat				:	std_logic_vector(7 downto 0);
 	-- SD card
 	signal w_sdCardData			:	std_logic_vector(7 downto 0);
 	signal w_SDCARDCS				:	std_logic := '0';
@@ -122,8 +152,6 @@ architecture struct of PeripheralInterface is
 	signal w_spi_busy				: 	std_logic := '0';
 	-- Music/Tone generator
 	signal w_BUZZER				: 	std_logic := '0';
-	-- Video clock
-	signal w_Video_Clk			: 	std_logic := '0';
 
 	-- Address decoder addresses
 	-- Provides for up to 32 "chip selects"
@@ -163,10 +191,11 @@ begin
 	w_SPICS			<= '1' when i_peripheralAddress(15 downto 11) = SPIIO_BASE	else '0';	-- x6000-x67FF (2KB)	- SPI Address
 	w_EEPI2CCS		<= '1' when i_peripheralAddress(15 downto 11) = EEPIO_BASE	else '0';	-- x6800-x6FFF (2KB)	- EEPROM I2C Address
 	
+	-- Read data multiplexer
 	o_dataFromPeripherals <=
-		x"000000"		& w_dispRamDataOutA 			when	w_dispRamCS 	= '1' else
-		x"000000"		& w_kbdDat			 					when	w_kbCS			= '1' else
-		x"000000"		& w_sdCardData	 						when	w_SDCARDCS		= '1' else
+		x"000000"			& w_dispRamDataOutA 				when	w_dispRamCS 	= '1' else
+		x"000000"			& w_kbdDat			 				when	w_kbCS			= '1' else
+		x"000000"			& w_sdCardData	 					when	w_SDCARDCS		= '1' else
 		x"000000"			& w_aciaData 						when	w_aciaCS 		= '1' else
 		x"00000"	& (not i_DIP_switch) & '0' & w_switch 	when	w_SwitchesCS 	= '1' else
 		x"000000"			& w_LatData							when	w_LEDsCS 		= '1' else
@@ -177,10 +206,11 @@ begin
 		x"0000000"&"000" 	& w_spi_busy						when	(w_SPICS = '1' and i_peripheralAddress(1) = '1') else
 		x"DEAD1234";	-- Read of a non-existing interface
 
+	-- Neal Crook's version of Grant Searle's SD card controller
 	sd_Card	:	entity work.sd_controller_NealC
 	port map (
 		clk		=> i_CLOCK_50,
-		n_reset	=> n_reset,
+		n_reset	=> i_n_reset,
 		n_rd		=> w_SDCARDCS and i_peripheralRdStrobe,
 		n_wr		=> w_SDCARDCS and i_peripheralWrStrobe,
 		dataIn	=> i_dataToPeripherals(7 downto 0),
@@ -197,7 +227,7 @@ begin
 	kbdWrap : entity work.Wrap_Keyboard
 	port map (
 		i_CLOCK_50				=> i_CLOCK_50,
-		i_n_reset				=> n_reset,
+		i_n_reset				=> i_n_reset,
 		i_kbCS					=> w_kbCS,
 		i_peripheralAddress	=>	i_peripheralAddress,
 		i_rd_Kbd					=> w_kbCS and i_peripheralRdStrobe,
@@ -210,16 +240,16 @@ begin
 	-- 50 MHz divided by 6 is 50/6 = 8.33 MHz
 	-- 50/50 duty cycle (3 clocks high/3 clocks low)
 	-- Could use PLL to get a symmetric 10 MHz clock - might be less deterministic
-    process(i_CLOCK_50,w_SPI_Clk_Count, n_reset)
+    process(i_CLOCK_50,w_SPI_Clk_Count, i_n_reset)
     begin
 		if rising_edge(i_CLOCK_50) then
-			if ((w_SPI_Clk_Count = 5) or (n_reset = '0')) then
+			if ((w_SPI_Clk_Count = 5) or (i_n_reset = '0')) then
 				w_SPI_Clk_Count <= "000000";
 			else
 				w_SPI_Clk_Count <= w_SPI_Clk_Count + 1;
 				w_SPI_Clk <= '0';
 			end if;
-			if ((w_SPI_Clk_Count <= 2) or (n_reset = '0')) then
+			if ((w_SPI_Clk_Count <= 2) or (i_n_reset = '0')) then
 				w_SPI_Clk <= '0';				-- 1 MHz clock edge
 			else
 				w_SPI_Clk <= '1';
@@ -230,7 +260,7 @@ begin
 	-- SPIbus Master interface
 	spiMaster : entity work.spi
 	port map (
-		RESET		=> not n_reset,
+		RESET		=> not i_n_reset,
 		CPU_CLK	=> i_CLOCK_50,					-- 50 MHz Clock
 		SPI_CLK	=> w_SPI_Clk,					-- SPI data transmission synchronization clock
 		-- CPU interface lines
@@ -269,7 +299,7 @@ begin
 	-- External I2c Interface
 	i2cIF	: entity work.i2c
 	port map (
-		i_RESET			=> not n_reset,								-- Reset pushbutton switch
+		i_RESET			=> not i_n_reset,								-- Reset pushbutton switch
 		CPU_CLK			=> i_CLOCK_50,									-- 50 MHz
 		i_ENA				=> i2c_4X_CLK,									-- One CPU clock wide every 400 Khz
 		i_ADRSEL			=> i_peripheralAddress(0),					-- Command/Data address select line
@@ -283,7 +313,7 @@ begin
 	-- EEPROM I2c Interface
 	eepi2cIF	: entity work.i2c
 	port map (
-		i_RESET			=> not n_reset,								-- Reset pushbutton switch
+		i_RESET			=> not i_n_reset,								-- Reset pushbutton switch
 		CPU_CLK			=> i_CLOCK_50,									-- 50 MHz
 		i_ENA				=> i2c_4X_CLK,									-- One CPU clock wide every 400 Khz
 		i_ADRSEL			=> i_peripheralAddress(0),					-- Command/Data address select line
@@ -296,9 +326,10 @@ begin
 
 -- Memory Mapped Video Display 64x32
 -- On XVGA display
+--	http://www.tinyvga.com/vga-timing/1024x768@60Hz
 	XVGA : entity work.Mem_Mapped_XVGA
 		port map (
-			n_reset		=> n_reset,
+			n_reset		=> i_n_reset,
 			Video_Clk	=> w_Video_Clk,
 			CLK_50		=> i_CLOCK_50,
 			n_dispRamCS	=> not w_dispRamCS,
@@ -311,9 +342,11 @@ begin
 			vSync			=> o_vSync
 			);
 	
+	-- 65 MHz Video clock
+	-- http://www.tinyvga.com/vga-timing/1024x768@60Hz
 	clockGen : ENTITY work.VideoClk_XVGA_1024x768
 	PORT map (
-		areset	=> not n_reset,
+		areset	=> not i_n_reset,
 		inclk0	=> i_CLOCK_50,
 		c0			=> w_Video_Clk
 	);
@@ -325,7 +358,7 @@ begin
 	-- Elapsed time clock (50 MHz clocks)
 	timers : entity work.Timer_Unit
 	port map (
-		n_reset						=> n_reset,
+		n_reset						=> i_n_reset,
 		i_CLOCK_50					=> i_CLOCK_50,
 		i_OneHotState				=> i_OneHotState,
  		i_peripheralWrStrobe		=> w_TimersCS and i_peripheralWrStrobe,
@@ -340,7 +373,7 @@ begin
     clk 		=> i_CLOCK_50,
     d 		=> i_dataToPeripherals(7 downto 0),
     ld 		=> w_NoteCS and i_peripheralWrStrobe,
-    clr  	=> not n_reset,
+    clr  	=> not i_n_reset,
     o_Note	=> o_Note
 	);
 	
@@ -350,7 +383,7 @@ begin
 	SevenSegDisplay : entity work.Loadable_7S8D_LED
     Port map ( 
 		i_CLOCK_50Mhz 			=> i_CLOCK_50,
-      i_reset					=> not n_reset,
+      i_reset					=> not i_n_reset,
 		i_displayed_number	=> w_displayed_number,
       o_Anode_Activate		=> o_Anode_Activate,
       o_LED7Seg_out			=> o_LED7Seg_out		-- Cathode patterns of 7-segment display
@@ -365,7 +398,7 @@ begin
     clk 	=> i_CLOCK_50,
     d   	=> i_dataToPeripherals,
     ld  	=> w_7SEGCS and i_peripheralWrStrobe,
-    clr 	=> not n_reset,
+    clr 	=> not i_n_reset,
     q		=> w_displayed_number
 	);
 	
@@ -377,7 +410,7 @@ begin
     clk 	=> i_CLOCK_50,
     d 	=> i_dataToPeripherals(7 downto 0),
     ld 	=> w_LEDsCS and i_peripheralWrStrobe,
-    clr  => not n_reset,
+    clr  => not i_n_reset,
     q    => w_LatData
 	);
 	
@@ -387,7 +420,7 @@ begin
     clk 	=> i_CLOCK_50,
     d 	=> i_dataToPeripherals(7 downto 0),
     ld 	=> w_LatchIOCS and i_peripheralWrStrobe,
-    clr  => not n_reset,
+    clr  => not i_n_reset,
     q    => o_LatchIO
 	);
 	
@@ -399,7 +432,7 @@ begin
     clk 					=> i_CLOCK_50,
     d 					=> i_dataToPeripherals(15 downto 0),
     ld 					=> w_LEDRingCS and i_peripheralWrStrobe,
-    clr  				=> not n_reset,
+    clr  				=> not i_n_reset,
     q(11 downto 0)	=> w_LEDRing_out
 	);
 	

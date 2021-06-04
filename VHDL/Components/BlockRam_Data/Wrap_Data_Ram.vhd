@@ -1,9 +1,11 @@
--- Wrap_Data_Ram.vhd
--- Wrapper for the Data RAM 
+--
+-- Wrap_Data_Ram.vhd - Wrapper for the Data RAM 
 -- Provides chip Selects and data routing for byte, short, long read/writes
+--
 -- 2 RAM spaces
 --		Main Data RAM
 --		SPI Buffer RAM
+--
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -14,7 +16,8 @@ library work;
 use work.R32V2020_Pkg.all;
 
 ENTITY Wrap_Data_Ram IS
-	generic(
+	generic
+	(
 		constant DATA_SRAM_SIZE : integer := 4096
 	);
 	PORT
@@ -153,8 +156,8 @@ BEGIN
 	PORT MAP (
 		address 		=> address(9 downto 2),
 		clock 		=> clock,
-		data 			=> uuWrDataByte&umWrDataByte&lmWrDataByte&llWrDataByte,
-		byteena		=> uuByteWrEn&umByteWrEn&lmByteWrEn&llByteWrEn,
+		data 			=> uuWrDataByte & umWrDataByte & lmWrDataByte & llWrDataByte,
+		byteena		=> uuByteWrEn & umByteWrEn & lmByteWrEn & llByteWrEn,
 		rden			=> rden and address(13),
 		wren 			=> wren and address(13),
 		q 				=> dataOutFromRAM2

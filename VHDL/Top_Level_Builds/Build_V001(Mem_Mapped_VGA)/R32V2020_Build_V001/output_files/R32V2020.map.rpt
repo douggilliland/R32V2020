@@ -1,6 +1,6 @@
 Analysis & Synthesis report for R32V2020
-Thu Jun 06 17:48:32 2019
-Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Thu Jun 03 20:06:14 2021
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
 ---------------------
@@ -10,17 +10,16 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis IP Cores Summary
-  6. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2018  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -30,15 +29,16 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
 
 
 
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Thu Jun 06 17:48:32 2019           ;
-; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Analysis & Synthesis Status        ; Failed - Thu Jun 03 20:06:14 2021           ;
+; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; R32V2020                                    ;
 ; Top-level Entity Name              ; top                                         ;
 ; Family                             ; Cyclone IV E                                ;
@@ -157,406 +157,56 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis IP Cores Summary                                                                                                          ;
-+--------+--------------+---------+--------------+--------------+-----------------------------+--------------------------------------------------+
-; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance             ; IP Include File                                  ;
-+--------+--------------+---------+--------------+--------------+-----------------------------+--------------------------------------------------+
-; Altera ; RAM: 1-PORT  ; 18.1    ; N/A          ; N/A          ; |top|BlockRam_Data:Data_RAM ; ../../Components/BlockRam_Data/BlockRam_Data.vhd ;
-+--------+--------------+---------+--------------+--------------+-----------------------------+--------------------------------------------------+
-
-
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Thu Jun 06 17:48:12 2019
+    Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+    Info: Processing started: Thu Jun 03 20:06:01 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off R32V2020 -c R32V2020
+Warning (125092): Tcl Script File ../../Components/BlockRam_Data/BlockRam_Data.qip not found
+    Info (125063): set_global_assignment -name QIP_FILE ../../Components/BlockRam_Data/BlockRam_Data.qip
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/ps2kb/ps2_keyboard_to_ascii.vhd
-    Info (12022): Found design unit 1: ps2_keyboard_to_ascii-behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii.vhd Line: 39
-    Info (12023): Found entity 1: ps2_keyboard_to_ascii File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard_to_ascii.vhd Line: 27
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/ps2kb/ps2_keyboard.vhd
-    Info (12022): Found design unit 1: ps2_keyboard-logic File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 38
-    Info (12023): Found entity 1: ps2_keyboard File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/ps2_keyboard.vhd Line: 26
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/ps2kb/debounce.vhd
-    Info (12022): Found design unit 1: debounce-logic File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/debounce.vhd Line: 36
-    Info (12023): Found entity 1: debounce File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PS2KB/debounce.vhd Line: 27
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/top.vhd
-    Info (12022): Found design unit 1: top-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 31
-    Info (12023): Found entity 1: top File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/registerfile.vhd
-    Info (12022): Found design unit 1: RegisterFile-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 50
-    Info (12023): Found entity 1: RegisterFile File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 21
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/r32v2020.vhd
-    Info (12022): Found design unit 1: R32V2020-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 35
-    Info (12023): Found entity 1: R32V2020 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/opcodedecoder.vhd
-    Info (12022): Found design unit 1: OpCodeDecoder-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 71
-    Info (12023): Found entity 1: OpCodeDecoder File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/opcode_cat_decoder.vhd
-    Info (12022): Found design unit 1: OpCode_Cat_Decoder-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCode_Cat_Decoder.vhd Line: 23
-    Info (12023): Found entity 1: OpCode_Cat_Decoder File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCode_Cat_Decoder.vhd Line: 10
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/onehotstatemachine.vhd
-    Info (12022): Found design unit 1: OneHotStateMachine-rtl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd Line: 21
-    Info (12023): Found entity 1: OneHotStateMachine File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OneHotStateMachine.vhd Line: 12
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/flowcontrol.vhd
-    Info (12022): Found design unit 1: FlowControl-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd Line: 27
-    Info (12023): Found entity 1: FlowControl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/ccrcontrol.vhd
-    Info (12022): Found design unit 1: CCRControl-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/CCRControl.vhd Line: 26
-    Info (12023): Found entity 1: CCRControl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/CCRControl.vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/r32v2020/alu.vhd
-    Info (12022): Found design unit 1: ALU-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 34
-    Info (12023): Found entity 1: ALU File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 11
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/soundgen/counterloadable.vhd
-    Info (12022): Found design unit 1: counterLoadable-behv File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SoundGen/CounterLoadable.vhd Line: 25
-    Info (12023): Found entity 1: counterLoadable File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SoundGen/CounterLoadable.vhd Line: 12
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/blockram_data/blockram_data.vhd
-    Info (12022): Found design unit 1: blockram_data-SYN File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 55
-    Info (12023): Found entity 1: BlockRam_Data File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 42
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registers/reg_8.vhd
-    Info (12022): Found design unit 1: REG_8-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_8.vhd Line: 15
-    Info (12023): Found entity 1: REG_8 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_8.vhd Line: 6
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/seven_seg_4_digit/loadable_7s4d_led.vhd
-    Info (12022): Found design unit 1: Loadable_7S4D_LED-Behavioral File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd Line: 18
-    Info (12023): Found entity 1: Loadable_7S4D_LED File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd Line: 10
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/vga/mem_mapped_svga/videoclk_svga_800x600.vhd
-    Info (12022): Found design unit 1: VideoClk_SVGA_800x600-SYN File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd Line: 55
-    Info (12023): Found entity 1: VideoClk_SVGA_800x600 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd Line: 42
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/vga/mem_mapped_svga/video_svga_64x32.vhd
-    Info (12022): Found design unit 1: Video_SVGA_64x32-rtl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/Video_SVGA_64x32.vhd Line: 34
-    Info (12023): Found entity 1: Video_SVGA_64x32 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/Video_SVGA_64x32.vhd Line: 20
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/vga/mem_mapped_svga/mem_mapped_svga.vhd
-    Info (12022): Found design unit 1: Mem_Mapped_SVGA-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/Mem_Mapped_SVGA.vhd Line: 20
-    Info (12023): Found entity 1: Mem_Mapped_SVGA File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/Mem_Mapped_SVGA.vhd Line: 6
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/vga/mem_mapped_svga/element_test_bed (mem_mapped_svga).vhd
-    Info (12022): Found design unit 1: Element_Test_Bed-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/Element_Test_Bed (Mem_Mapped_SVGA).vhd Line: 17
-    Info (12023): Found entity 1: Element_Test_Bed File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/Element_Test_Bed (Mem_Mapped_SVGA).vhd Line: 8
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/vga/mem_mapped_svga/displayram2k.vhd
-    Info (12022): Found design unit 1: displayram2k-SYN File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/DisplayRam2k.vhd Line: 58
-    Info (12023): Found entity 1: DisplayRam2k File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/DisplayRam2k.vhd Line: 42
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/vga/mem_mapped_svga/charrom.vhd
-    Info (12022): Found design unit 1: CharRom-behavior File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/CharRom.VHD Line: 14
-    Info (12023): Found entity 1: CharRom File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/VGA/Mem_Mapped_SVGA/CharRom.VHD Line: 6
-Info (15248): File "C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/CounterLoadable.vhd" is a duplicate of already analyzed file "C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/SoundGen/CounterLoadable.vhd" (same filename, same library name and same md5 digest). Skipping analysis of this file.
-Info (12021): Found 0 design units, including 0 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/counter/counterloadable.vhd
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/counter/counter_32.vhd
-    Info (12022): Found design unit 1: COUNT_32-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/COUNTER_32.vhd Line: 17
-    Info (12023): Found entity 1: COUNT_32 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/COUNTER_32.vhd Line: 6
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/counter/counter.vhd
-    Info (12022): Found design unit 1: counter-behv File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/Counter.vhd Line: 28
-    Info (12023): Found entity 1: counter File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/COUNTER/Counter.vhd Line: 15
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/multiplexers/mux_16x32.vhd
-    Info (12022): Found design unit 1: MUX_16x32-sim File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Multiplexers/MUX_16x32.vhd Line: 27
-    Info (12023): Found entity 1: MUX_16x32 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Multiplexers/MUX_16x32.vhd Line: 5
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registers/reg_32_ld_at_reset.vhd
-    Info (12022): Found design unit 1: REG_32_LD_At_Reset-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32_LD_At_Reset.vhd Line: 15
-    Info (12023): Found entity 1: REG_32_LD_At_Reset File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32_LD_At_Reset.vhd Line: 6
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registers/reg_32_constant.vhd
-    Info (12022): Found design unit 1: REG_32_CONSTANT-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32_CONSTANT.vhd Line: 16
-    Info (12023): Found entity 1: REG_32_CONSTANT File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32_CONSTANT.vhd Line: 6
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registers/reg_32.vhd
-    Info (12022): Found design unit 1: REG_32-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 15
-    Info (12023): Found entity 1: REG_32 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_32.vhd Line: 6
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registers/reg_1.vhd
-    Info (12022): Found design unit 1: REG_1-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_1.vhd Line: 13
-    Info (12023): Found entity 1: REG_1 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_1.vhd Line: 4
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/blockrom_instruction/blockrom_instruction.vhd
-    Info (12022): Found design unit 1: blockrom_instruction-SYN File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 53
-    Info (12023): Found entity 1: BlockRom_Instruction File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 42
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/blockram_stack/blockram_stack.vhd
-    Info (12022): Found design unit 1: blockram_stack-SYN File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 54
-    Info (12023): Found entity 1: BlockRam_Stack File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 42
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/uart/buffereduart.vhd
-    Info (12022): Found design unit 1: bufferedUART-rtl File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 48
-    Info (12023): Found entity 1: bufferedUART File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/UART/bufferedUART.vhd Line: 27
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/peripheralinterface/peripheralinterface.vhd
-    Info (12022): Found design unit 1: PeripheralInterface-struct File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 34
-    Info (12023): Found entity 1: PeripheralInterface File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 9
-Info (12021): Found 2 design units, including 1 entities, in source file /users/hpz420/documents/github/r32v2020/vhdl/components/registers/reg_16.vhd
-    Info (12022): Found design unit 1: REG_16-description File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_16.vhd Line: 15
-    Info (12023): Found entity 1: REG_16 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/Registers/REG_16.vhd Line: 6
-Info (12127): Elaborating entity "top" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at top.vhd(38): object "w_clkInstrRomData" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 38
-Info (12128): Elaborating entity "R32V2020" for hierarchy "R32V2020:RISC_CPU" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 64
-Warning (10036): Verilog HDL or VHDL warning at R32V2020.vhd(39): object "w_Op_NOP" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 39
-Warning (10036): Verilog HDL or VHDL warning at R32V2020.vhd(41): object "w_Op_RES" assigned a value but never read File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 41
-Info (12128): Elaborating entity "OneHotStateMachine" for hierarchy "R32V2020:RISC_CPU|OneHotStateMachine:StateMachine" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 147
-Info (12128): Elaborating entity "OpCodeDecoder" for hierarchy "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 155
-Info (12128): Elaborating entity "OpCode_Cat_Decoder" for hierarchy "R32V2020:RISC_CPU|OpCodeDecoder:opcodeDecoder|OpCode_Cat_Decoder:opc_Cat_Decoder" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/OpCodeDecoder.vhd Line: 201
-Info (12128): Elaborating entity "FlowControl" for hierarchy "R32V2020:RISC_CPU|FlowControl:FlowControl" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 216
-Warning (10541): VHDL Signal Declaration warning at FlowControl.vhd(22): used implicit default value for signal "o_save_CCR_bits" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/FlowControl.vhd Line: 22
-Info (12128): Elaborating entity "CCRControl" for hierarchy "R32V2020:RISC_CPU|CCRControl:CCR_Store" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 235
-Info (12128): Elaborating entity "ALU" for hierarchy "R32V2020:RISC_CPU|ALU:ALU" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 254
-Info (10041): Inferred latch for "w_ALUResult[0]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[1]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[2]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[3]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[4]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[5]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[6]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[7]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[8]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[9]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[10]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[11]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[12]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[13]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[14]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[15]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[16]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[17]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[18]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[19]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[20]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[21]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[22]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[23]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[24]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[25]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[26]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[27]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[28]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[29]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[30]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[31]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (10041): Inferred latch for "w_ALUResult[32]" at ALU.vhd(56) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/ALU.vhd Line: 56
-Info (12128): Elaborating entity "RegisterFile" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/R32V2020.vhd Line: 288
-Info (12128): Elaborating entity "REG_32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_32:conditionCodeRegister" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 115
-Info (12128): Elaborating entity "COUNT_32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|COUNT_32:stackAddress" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 125
-Info (12128): Elaborating entity "REG_16" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|REG_16:r8Upper" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 174
-Info (12128): Elaborating entity "MUX_16x32" for hierarchy "R32V2020:RISC_CPU|RegisterFile:RegisterFile|MUX_16x32:muxA" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/RegisterFile.vhd Line: 302
-Info (12128): Elaborating entity "BlockRom_Instruction" for hierarchy "BlockRom_Instruction:Instr_ROM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 91
-Info (12128): Elaborating entity "altsyncram" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
-Info (12130): Elaborated megafunction instantiation "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
-Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
-    Info (12134): Parameter "address_aclr_a" = "NONE"
-    Info (12134): Parameter "address_aclr_b" = "NONE"
-    Info (12134): Parameter "address_reg_b" = "CLOCK1"
-    Info (12134): Parameter "byte_size" = "8"
-    Info (12134): Parameter "byteena_aclr_a" = "UNUSED"
-    Info (12134): Parameter "byteena_aclr_b" = "NONE"
-    Info (12134): Parameter "byteena_reg_b" = "CLOCK1"
-    Info (12134): Parameter "clock_enable_core_a" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_core_b" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_input_a" = "NORMAL"
-    Info (12134): Parameter "clock_enable_input_b" = "NORMAL"
-    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_output_b" = "NORMAL"
-    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
-    Info (12134): Parameter "ecc_pipeline_stage_enabled" = "FALSE"
-    Info (12134): Parameter "enable_ecc" = "FALSE"
-    Info (12134): Parameter "implement_in_les" = "OFF"
-    Info (12134): Parameter "indata_aclr_a" = "UNUSED"
-    Info (12134): Parameter "indata_aclr_b" = "NONE"
-    Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "../../../Programs/C038-Uart_to_Screen_Loopback_Stack/C038-Uart_to_Screen_Loopback_Stack_ins.HEX"
-    Info (12134): Parameter "init_file_layout" = "PORT_A"
-    Info (12134): Parameter "maximum_depth" = "0"
-    Info (12134): Parameter "numwords_a" = "512"
-    Info (12134): Parameter "numwords_b" = "0"
-    Info (12134): Parameter "operation_mode" = "ROM"
-    Info (12134): Parameter "outdata_aclr_a" = "NONE"
-    Info (12134): Parameter "outdata_aclr_b" = "NONE"
-    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
-    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
-    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
-    Info (12134): Parameter "ram_block_type" = "AUTO"
-    Info (12134): Parameter "rdcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "rdcontrol_reg_b" = "CLOCK1"
-    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "DONT_CARE"
-    Info (12134): Parameter "read_during_write_mode_port_a" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "stratixiv_m144k_allow_dual_clocks" = "ON"
-    Info (12134): Parameter "width_a" = "32"
-    Info (12134): Parameter "width_b" = "1"
-    Info (12134): Parameter "width_byteena_a" = "1"
-    Info (12134): Parameter "width_byteena_b" = "1"
-    Info (12134): Parameter "width_eccstatus" = "3"
-    Info (12134): Parameter "widthad_a" = "9"
-    Info (12134): Parameter "widthad_b" = "1"
-    Info (12134): Parameter "wrcontrol_aclr_a" = "UNUSED"
-    Info (12134): Parameter "wrcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
-    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=INST"
-    Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_9g64.tdf
-    Info (12023): Found entity 1: altsyncram_9g64 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_9g64.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_9g64" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_9g64:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_pu63.tdf
-    Info (12023): Found entity 1: altsyncram_pu63 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_pu63.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_pu63" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_9g64:auto_generated|altsyncram_pu63:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_9g64.tdf Line: 35
-Critical Warning (127005): Memory depth (512) in the design file differs from memory depth (68) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Programs/C038-Uart_to_Screen_Loopback_Stack/C038-Uart_to_Screen_Loopback_Stack_ins.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRom_Instruction/BlockRom_Instruction.vhd Line: 60
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_9g64:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_9g64.tdf Line: 36
-Info (12130): Elaborated megafunction instantiation "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_9g64:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_9g64.tdf Line: 36
-Info (12133): Instantiated megafunction "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_9g64:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_9g64.tdf Line: 36
-    Info (12134): Parameter "CVALUE" = "00000000000000000000000000000000"
-    Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
-    Info (12134): Parameter "IS_READABLE" = "1"
-    Info (12134): Parameter "NODE_NAME" = "1229869908"
-    Info (12134): Parameter "NUMWORDS" = "512"
-    Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
-    Info (12134): Parameter "WIDTH_WORD" = "32"
-    Info (12134): Parameter "WIDTHAD" = "9"
-Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_9g64:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 302
-Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_9g64:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
-Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "BlockRom_Instruction:Instr_ROM|altsyncram:altsyncram_component|altsyncram_9g64:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 828
-Info (12128): Elaborating entity "BlockRam_Stack" for hierarchy "BlockRam_Stack:Stack_RAM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 100
-Info (12128): Elaborating entity "altsyncram" for hierarchy "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
-Info (12130): Elaborated megafunction instantiation "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
-Info (12133): Instantiated megafunction "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Stack/BlockRam_Stack.vhd Line: 61
-    Info (12134): Parameter "address_aclr_a" = "UNUSED"
-    Info (12134): Parameter "address_aclr_b" = "NONE"
-    Info (12134): Parameter "address_reg_b" = "CLOCK1"
-    Info (12134): Parameter "byte_size" = "8"
-    Info (12134): Parameter "byteena_aclr_a" = "UNUSED"
-    Info (12134): Parameter "byteena_aclr_b" = "NONE"
-    Info (12134): Parameter "byteena_reg_b" = "CLOCK1"
-    Info (12134): Parameter "clock_enable_core_a" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_core_b" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_input_b" = "NORMAL"
-    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_output_b" = "NORMAL"
-    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
-    Info (12134): Parameter "ecc_pipeline_stage_enabled" = "FALSE"
-    Info (12134): Parameter "enable_ecc" = "FALSE"
-    Info (12134): Parameter "implement_in_les" = "OFF"
-    Info (12134): Parameter "indata_aclr_a" = "UNUSED"
-    Info (12134): Parameter "indata_aclr_b" = "NONE"
-    Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "UNUSED"
-    Info (12134): Parameter "init_file_layout" = "PORT_A"
-    Info (12134): Parameter "maximum_depth" = "0"
-    Info (12134): Parameter "numwords_a" = "256"
-    Info (12134): Parameter "numwords_b" = "0"
-    Info (12134): Parameter "operation_mode" = "SINGLE_PORT"
-    Info (12134): Parameter "outdata_aclr_a" = "NONE"
-    Info (12134): Parameter "outdata_aclr_b" = "NONE"
-    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
-    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
-    Info (12134): Parameter "power_up_uninitialized" = "TRUE"
-    Info (12134): Parameter "ram_block_type" = "AUTO"
-    Info (12134): Parameter "rdcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "rdcontrol_reg_b" = "CLOCK1"
-    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "DONT_CARE"
-    Info (12134): Parameter "read_during_write_mode_port_a" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "stratixiv_m144k_allow_dual_clocks" = "ON"
-    Info (12134): Parameter "width_a" = "32"
-    Info (12134): Parameter "width_b" = "1"
-    Info (12134): Parameter "width_byteena_a" = "1"
-    Info (12134): Parameter "width_byteena_b" = "1"
-    Info (12134): Parameter "width_eccstatus" = "3"
-    Info (12134): Parameter "widthad_a" = "8"
-    Info (12134): Parameter "widthad_b" = "1"
-    Info (12134): Parameter "wrcontrol_aclr_a" = "UNUSED"
-    Info (12134): Parameter "wrcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
-    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=STAK"
-    Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_vur3.tdf
-    Info (12023): Found entity 1: altsyncram_vur3 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_vur3.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_vur3" for hierarchy "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_vur3:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_ldp2.tdf
-    Info (12023): Found entity 1: altsyncram_ldp2 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_ldp2.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_ldp2" for hierarchy "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_vur3:auto_generated|altsyncram_ldp2:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_vur3.tdf Line: 36
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_vur3:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_vur3.tdf Line: 37
-Info (12130): Elaborated megafunction instantiation "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_vur3:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_vur3.tdf Line: 37
-Info (12133): Instantiated megafunction "BlockRam_Stack:Stack_RAM|altsyncram:altsyncram_component|altsyncram_vur3:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_vur3.tdf Line: 37
-    Info (12134): Parameter "CVALUE" = "00000000000000000000000000000000"
-    Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
-    Info (12134): Parameter "IS_READABLE" = "1"
-    Info (12134): Parameter "NODE_NAME" = "1398030667"
-    Info (12134): Parameter "NUMWORDS" = "256"
-    Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
-    Info (12134): Parameter "WIDTH_WORD" = "32"
-    Info (12134): Parameter "WIDTHAD" = "8"
-Info (12128): Elaborating entity "BlockRam_Data" for hierarchy "BlockRam_Data:Data_RAM" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 110
-Info (12128): Elaborating entity "altsyncram" for hierarchy "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
-Info (12130): Elaborated megafunction instantiation "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
-Info (12133): Instantiated megafunction "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
-    Info (12134): Parameter "address_aclr_a" = "UNUSED"
-    Info (12134): Parameter "address_aclr_b" = "NONE"
-    Info (12134): Parameter "address_reg_b" = "CLOCK1"
-    Info (12134): Parameter "byte_size" = "8"
-    Info (12134): Parameter "byteena_aclr_a" = "UNUSED"
-    Info (12134): Parameter "byteena_aclr_b" = "NONE"
-    Info (12134): Parameter "byteena_reg_b" = "CLOCK1"
-    Info (12134): Parameter "clock_enable_core_a" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_core_b" = "USE_INPUT_CLKEN"
-    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_input_b" = "NORMAL"
-    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
-    Info (12134): Parameter "clock_enable_output_b" = "NORMAL"
-    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
-    Info (12134): Parameter "ecc_pipeline_stage_enabled" = "FALSE"
-    Info (12134): Parameter "enable_ecc" = "FALSE"
-    Info (12134): Parameter "implement_in_les" = "OFF"
-    Info (12134): Parameter "indata_aclr_a" = "UNUSED"
-    Info (12134): Parameter "indata_aclr_b" = "NONE"
-    Info (12134): Parameter "indata_reg_b" = "CLOCK1"
-    Info (12134): Parameter "init_file" = "../../../Programs/C038-Uart_to_Screen_Loopback_Stack/C038-Uart_to_Screen_Loopback_Stack_dat.HEX"
-    Info (12134): Parameter "init_file_layout" = "PORT_A"
-    Info (12134): Parameter "maximum_depth" = "0"
-    Info (12134): Parameter "numwords_a" = "256"
-    Info (12134): Parameter "numwords_b" = "0"
-    Info (12134): Parameter "operation_mode" = "SINGLE_PORT"
-    Info (12134): Parameter "outdata_aclr_a" = "NONE"
-    Info (12134): Parameter "outdata_aclr_b" = "NONE"
-    Info (12134): Parameter "outdata_reg_a" = "CLOCK0"
-    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
-    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
-    Info (12134): Parameter "ram_block_type" = "AUTO"
-    Info (12134): Parameter "rdcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "rdcontrol_reg_b" = "CLOCK1"
-    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "DONT_CARE"
-    Info (12134): Parameter "read_during_write_mode_port_a" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_NO_NBE_READ"
-    Info (12134): Parameter "stratixiv_m144k_allow_dual_clocks" = "ON"
-    Info (12134): Parameter "width_a" = "32"
-    Info (12134): Parameter "width_b" = "1"
-    Info (12134): Parameter "width_byteena_a" = "1"
-    Info (12134): Parameter "width_byteena_b" = "1"
-    Info (12134): Parameter "width_eccstatus" = "3"
-    Info (12134): Parameter "widthad_a" = "8"
-    Info (12134): Parameter "widthad_b" = "1"
-    Info (12134): Parameter "wrcontrol_aclr_a" = "UNUSED"
-    Info (12134): Parameter "wrcontrol_aclr_b" = "NONE"
-    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK1"
-    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=DATA"
-    Info (12134): Parameter "lpm_type" = "altsyncram"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_sm54.tdf
-    Info (12023): Found entity 1: altsyncram_sm54 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_sm54.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_sm54" for hierarchy "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_sm54:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_0433.tdf
-    Info (12023): Found entity 1: altsyncram_0433 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_0433.tdf Line: 27
-Info (12128): Elaborating entity "altsyncram_0433" for hierarchy "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_sm54:auto_generated|altsyncram_0433:altsyncram1" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_sm54.tdf Line: 37
-Critical Warning (127005): Memory depth (256) in the design file differs from memory depth (3) in the Memory Initialization File "C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Programs/C038-Uart_to_Screen_Loopback_Stack/C038-Uart_to_Screen_Loopback_Stack_dat.HEX" -- setting initial value for remaining addresses to 0 File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/BlockRam_Data/BlockRam_Data.vhd Line: 62
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_sm54:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_sm54.tdf Line: 38
-Info (12130): Elaborated megafunction instantiation "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_sm54:auto_generated|sld_mod_ram_rom:mgl_prim2" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_sm54.tdf Line: 38
-Info (12133): Instantiated megafunction "BlockRam_Data:Data_RAM|altsyncram:altsyncram_component|altsyncram_sm54:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter: File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Top_Level_Builds/R32V2020_Build_V001/db/altsyncram_sm54.tdf Line: 38
-    Info (12134): Parameter "CVALUE" = "00000000000000000000000000000000"
-    Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
-    Info (12134): Parameter "IS_READABLE" = "1"
-    Info (12134): Parameter "NODE_NAME" = "1145132097"
-    Info (12134): Parameter "NUMWORDS" = "256"
-    Info (12134): Parameter "SHIFT_COUNT_BITS" = "6"
-    Info (12134): Parameter "WIDTH_WORD" = "32"
-    Info (12134): Parameter "WIDTHAD" = "8"
-Info (12128): Elaborating entity "PeripheralInterface" for hierarchy "PeripheralInterface:Peripherals" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 121
-Error (10344): VHDL expression error at PeripheralInterface.vhd(128): expression has 8 elements, but must have 4 elements File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 128
-Error (10344): VHDL expression error at PeripheralInterface.vhd(129): expression has 4 elements, but must have 7 elements File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 129
-Error (10344): VHDL expression error at PeripheralInterface.vhd(128): expression has 4 elements, but must have 8 elements File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 128
-Error (10504): VHDL error at PeripheralInterface.vhd(129): slice that is assigned to target slice has 7 elements, but must have same number of elements as target slice (4) File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/PeripheralInterface/PeripheralInterface.vhd Line: 129
-Error (12152): Can't elaborate user hierarchy "PeripheralInterface:Peripherals" File: C:/Users/HPz420/Documents/GitHub/R32V2020/VHDL/Components/R32V2020/top.vhd Line: 121
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 5 errors, 6 warnings
-    Error: Peak virtual memory: 4833 megabytes
-    Error: Processing ended: Thu Jun 06 17:48:33 2019
-    Error: Elapsed time: 00:00:21
-    Error: Total CPU time (on all processors): 00:00:36
+Warning (12019): Can't analyze file -- file ../../Components/PS2KB/ps2_keyboard_to_ascii.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/PS2KB/ps2_keyboard.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/PS2KB/debounce.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/top.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/RegisterFile.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/R32V2020.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/OpCodeDecoder.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/OpCode_Cat_Decoder.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/OneHotStateMachine.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/FlowControl.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/CCRControl.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/R32V2020/ALU.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/SoundGen/CounterLoadable.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/Registers/REG_8.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/Seven_Seg_4_Digit/Loadable_7S4D_LED.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/VGA/Mem_Mapped_SVGA/VideoClk_SVGA_800x600.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/VGA/Mem_Mapped_SVGA/Video_SVGA_64x32.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/VGA/Mem_Mapped_SVGA/Mem_Mapped_SVGA.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/VGA/Mem_Mapped_SVGA/Element_Test_Bed (Mem_Mapped_SVGA).vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/VGA/Mem_Mapped_SVGA/DisplayRam2k.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/VGA/Mem_Mapped_SVGA/CharRom.VHD is missing
+Warning (12019): Can't analyze file -- file ../../Components/COUNTER/CounterLoadable.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/COUNTER/COUNTER_32.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/COUNTER/Counter.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/Multiplexers/MUX_16x32.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/Registers/REG_32_LD_At_Reset.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/Registers/REG_32_CONSTANT.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/Registers/REG_32.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/Registers/REG_1.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/BlockRom_Instruction/BlockRom_Instruction.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/BlockRam_Stack/BlockRam_Stack.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/UART/bufferedUART.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/PeripheralInterface/PeripheralInterface.vhd is missing
+Warning (12019): Can't analyze file -- file ../../Components/Registers/REG_16.vhd is missing
+Error (12007): Top-level design entity "top" is undefined
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 1 error, 35 warnings
+    Error: Peak virtual memory: 4714 megabytes
+    Error: Processing ended: Thu Jun 03 20:06:14 2021
+    Error: Elapsed time: 00:00:13
+    Error: Total CPU time (on all processors): 00:00:34
 
 

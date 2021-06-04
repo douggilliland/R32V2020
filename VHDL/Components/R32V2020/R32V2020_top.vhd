@@ -1,4 +1,5 @@
 -- Top Level Entity for top of R32V2020 RISC CPU design
+-- Board level interfaces are above this level
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -12,16 +13,11 @@ entity R32V2020_top is
 	generic(
 		constant DATA_SRAM_SIZE_PASS 	: integer := 2048;
 		constant INST_SRAM_SIZE_PASS 	: integer := 8192;
-		constant STACK_SRAM_SIZE_PASS	: integer := 128
+		constant STACK_SRAM_SIZE_PASS	: integer := 1024
 	);
 	port(
-		n_reset				: in 	std_logic := '1';
 		i_CLOCK_50			: in 	std_logic;
-		-- Switches, LEDs, Buzzer pins
-		i_switch				: in 	std_logic_vector(2 downto 0) := "111";
-		i_dipSwitch			: in 	std_logic_vector(7 downto 0) := x"00";
-		--o_LED				: out std_logic_vector(3 downto 0);
-		o_BUZZER				: out std_logic := '0';
+		i_n_reset			: in 	std_logic := '1';
 		-- Serial port pins with handshake lines
 		i_SerRxd				: in 	std_logic	:= '1';
 		o_SerTxd				: out std_logic;
@@ -37,11 +33,16 @@ entity R32V2020_top is
 		o_hSync				: out std_logic := '1';
 		o_vSync				: out std_logic := '1';
 		o_hActive			: out std_logic := '0';
+		-- Switches, LEDs, Buzzer pins
+		i_switch				: in 	std_logic_vector(2 downto 0) := "111";
+		i_dipSwitch			: in 	std_logic_vector(7 downto 0) := x"00";
+		o_LED					: out std_logic_vector(3 downto 0);
+		o_BUZZER				: out std_logic := '0';
+		-- LED Ring
+		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
 		-- Seven Segment LED pins
 		o_Anode_Activate 	: out std_logic_vector(7 downto 0) := x"00";
 		o_LED7Seg_out		: out std_logic_vector(7 downto 0) := x"00";
-		-- LED Ring
-		o_LEDRing_out		: out std_logic_vector(11 downto 0) := x"000";
 		-- 8 bit I/O Latch
 		o_LatchIO			: out std_logic_vector(7 downto 0) := x"00";
 		-- I2C Clock and Data
@@ -72,6 +73,10 @@ end R32V2020_top;
 
 architecture struct of R32V2020_top is
 
+signal	w_n_reset					: std_logic := '1';
+signal	w_OneHotState				: std_logic_vector(3 downto 0) := "0000";
+signal	o_VideoVect					: std_logic_vector(5 downto 0) := "000000";
+
 -- Instruction Space Controls
 signal	w_InstructionRomAddress	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_InstructionRomData		: std_logic_vector(31 downto 0) := x"00000000";
@@ -95,17 +100,11 @@ signal	w_longData					: std_logic := '0';
 signal	w_shortData					: std_logic := '0';
 signal	w_ByteData					: std_logic := '0';
 
-
 -- Peripheral Space Controls
 signal	w_peripheralAddress		: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_dataFromPeripherals	: std_logic_vector(31 downto 0) := x"00000000";
 signal	w_peripheralRdEn			: std_logic := '0';
 signal	w_peripheralWrEn			: std_logic := '0';
-
-signal	w_OneHotState				: std_logic_vector(3 downto 0) := "0000";
-signal	resetLow						: std_logic := '1';
-
-signal	o_VideoVect					: std_logic_vector(5 downto 0) := "000000";
 
 --attribute syn_keep: boolean;
 --attribute syn_keep of w_Switch: signal is true;
@@ -119,17 +118,18 @@ begin
 	o_vid_Blu_Hi <= o_VideoVect(1);
 	o_vid_Blu_Lo <= o_VideoVect(0);
 	
+	-- Debounce the reset switch
 	DebounceResetSwitch	: entity work.Debouncer
 	port map (
 		i_CLOCK_50	=> i_CLOCK_50,
-		i_PinIn		=> n_reset,
-		o_PinOut		=> resetLow
+		i_PinIn		=> i_n_reset,
+		o_PinOut		=> w_n_reset
 	);
 
 	-- CPU Element
 	R32V2020_CPU : 	entity work.R32V2020
 	port map (
-		n_reset 						=> resetLow,
+		n_reset 						=> w_n_reset,
 		-- Clock
 		i_CLOCK_50 					=> i_CLOCK_50,
 		o_OneHotState				=> w_OneHotState,
@@ -216,17 +216,17 @@ begin
 	end generate GEN_64KB_INST_ROM;
 	
 	-- Stack RAM
-	GEN_Stack_RAM_128 : if (STACK_SRAM_SIZE_PASS=128) generate 
+	GEN_Stack_RAM_1K : if (STACK_SRAM_SIZE_PASS=1024) generate 
 	begin
 		Stack_RAM : entity work.BlockRam_Stack
 		PORT MAP	(
-			address	=> w_StackRamAddress(6 downto 0),
+			address	=> w_StackRamAddress(9 downto 0),
 			clock		=> i_CLOCK_50,
 			data		=> w_dataToStackRam,
 			wren		=> w_writeStackRamEn,
 			q			=> w_dataFromStackRam
 		);
-	end generate GEN_Stack_RAM_128;
+	end generate GEN_Stack_RAM_1K;
 
 	-- Data RAM
 	Data_RAM_Wrap : entity work.Wrap_Data_Ram
@@ -250,7 +250,7 @@ begin
 	-- Peripherals
 	Peripherals : entity work.PeripheralInterface
 	port MAP (
-		n_reset						=> resetLow,
+		i_n_reset					=> w_n_reset,
 		i_CLOCK_50					=> i_CLOCK_50,
 		-- State pins
 		i_OneHotState				=> w_OneHotState,

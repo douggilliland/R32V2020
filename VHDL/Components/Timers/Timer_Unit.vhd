@@ -46,16 +46,16 @@ begin
 
 	-- Elapsed Time Counter
 	ETC : entity work.COUNT_32
-    Port map (
-    clk 		=> i_CLOCK_50,
-    clr 		=> not n_reset,
-    d   		=> x"00000000",
-    enable	=> '1',
-    inc 		=> '1',
-    dec		=> '0',
-    q   		=> w_ElapsedTimeCount
-	 );
-	 
+	Port map (
+		clk 		=> i_CLOCK_50,
+		clr 		=> not n_reset,
+		d   		=> x"00000000",
+		enable	=> '1',
+		inc 		=> '1',
+		dec		=> '0',
+		q   		=> w_ElapsedTimeCount
+	);
+	
 	process (i_CLOCK_50, n_reset)
 	begin
 		if (n_reset='0') then
@@ -68,12 +68,12 @@ begin
 			if (i_OneHotState(0) = '1') then 
 				q_CPUCycleCounter <= q_CPUCycleCounter + 1;
 			end if;
-			if (q_MicrosecondScaler < 40) then
+			if (q_MicrosecondScaler < 49) then
 				q_MicrosecondScaler <= q_MicrosecondScaler + 1;
 			else	-- Microsecond terminal count
 				q_MicrosecondScaler <= (others => '0');
 				q_MicrosecondCounter <= q_MicrosecondCounter + 1;
-				if (q_MillisecondScaler < 1000) then	-- millisecond scaler
+				if (q_MillisecondScaler < 999) then	-- millisecond scaler
 					q_MillisecondScaler <= q_MillisecondScaler + 1;
 				else
 					q_MillisecondScaler <= (others => '0');

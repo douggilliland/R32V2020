@@ -1,5 +1,6 @@
 -- XGA
 -- 800x600
+--	http://www.tinyvga.com/vga-timing/1024x768@60Hz
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -19,15 +20,15 @@ entity Mem_Mapped_XVGA is
 		VoutVect		: out std_logic_vector(5 downto 0);
 		hSync			: out	std_logic;
 		vSync			: out	std_logic
-		);
+	);
 end Mem_Mapped_XVGA;
 
 architecture struct of Mem_Mapped_XVGA is
 
-	signal dispAddrB 			: std_logic_vector(10 downto 0);
-	signal dispRamDataOutB 	: std_logic_vector(7 downto 0);
 	signal charAddr 			: std_logic_vector(10 downto 0);
 	signal charData 			: std_logic_vector(7 downto 0);
+	signal dispAddrB 			: std_logic_vector(10 downto 0);
+	signal dispRamDataOutB 	: std_logic_vector(7 downto 0);
 	signal video				: std_logic;
 	signal hAct					: std_logic;
 
