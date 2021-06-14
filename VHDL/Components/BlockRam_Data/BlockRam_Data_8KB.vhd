@@ -66,9 +66,9 @@ BEGIN
 		byte_size => 8,
 		clock_enable_input_a => "BYPASS",
 		clock_enable_output_a => "BYPASS",
-		init_file => "../../../../Programs/Games/G003-Tetris_EP4CE10/G003-Tetris_dat.HEX",
+		init_file => "../../../../Programs/Peripheral_Tests/C076-Front_Panel_RW/C076-Front_Panel_RW_dat.HEX",
 		intended_device_family => "Cyclone IV E",
-		lpm_hint => "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=DTRM",
+		lpm_hint => "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=DATA",
 		lpm_type => "altsyncram",
 		numwords_a => 2048,
 		operation_mode => "SINGLE_PORT",
@@ -114,9 +114,9 @@ END SYN;
 -- Retrieval info: PRIVATE: INIT_TO_SIM_X NUMERIC "0"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 -- Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "1"
--- Retrieval info: PRIVATE: JTAG_ID STRING "DTRM"
+-- Retrieval info: PRIVATE: JTAG_ID STRING "DATA"
 -- Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
--- Retrieval info: PRIVATE: MIFfilename STRING "../../../../Programs/Games/G003-Tetris_EP4CE10/G003-Tetris_dat.HEX"
+-- Retrieval info: PRIVATE: MIFfilename STRING "../../../../Programs/Peripheral_Tests/C076-Front_Panel_RW/C076-Front_Panel_RW_dat.HEX"
 -- Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "2048"
 -- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 -- Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "3"
@@ -134,9 +134,9 @@ END SYN;
 -- Retrieval info: CONSTANT: BYTE_SIZE NUMERIC "8"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
--- Retrieval info: CONSTANT: INIT_FILE STRING "../../../../Programs/Games/G003-Tetris_EP4CE10/G003-Tetris_dat.HEX"
+-- Retrieval info: CONSTANT: INIT_FILE STRING "../../../../Programs/Peripheral_Tests/C076-Front_Panel_RW/C076-Front_Panel_RW_dat.HEX"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
--- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=DTRM"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=DATA"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
 -- Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "2048"
 -- Retrieval info: CONSTANT: OPERATION_MODE STRING "SINGLE_PORT"

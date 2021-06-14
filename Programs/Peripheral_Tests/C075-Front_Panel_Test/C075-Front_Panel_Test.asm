@@ -25,9 +25,9 @@ prompt:			.string "Front Panel Test "
 ;
 
 main:
-	bsr		clearScreen			; Not required for this example
-	lix		r8,prompt.lower
-	bsr		printString
+	; bsr		clearScreen			; Not required for this example
+	; lix		r8,prompt.lower
+	; bsr		printString
 ; Code to initialize I2CIO8 card then read/write loop
 	bsr		init_Regs_FrontPanel_01	; initialize the MCP23017 on the I2CIO8
 ; loopMain:
@@ -317,25 +317,52 @@ init_Regs_FrontPanel_01:
 	bsr		wrReg_MCP23017
 
 	;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
-;	lix		r9,0x48		; I2C write command at slave address = 0x24
+	lix		r9,0x48		; I2C write command at slave address = 0x24
 	lix		r10,0x15	; MCP23017_OLATB_REGADR
-	lix		r11,0x55	; MCP23017_GPPU_ENABLE
+	lix		r11,0x00	; defaultVal
 	bsr		wrReg_MCP23017
 	;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
-;	lix		r9,0x48		; I2C write command at slave address = 0x25
+	lix		r9,0x4A		; I2C write command at slave address = 0x24
 	lix		r10,0x15	; MCP23017_OLATB_REGADR
-	lix		r11,0xAA	; MCP23017_GPPU_ENABLE
+	lix		r11,0x00	; defaultVal
 	bsr		wrReg_MCP23017
 	;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
-;	lix		r9,0x48		; I2C write command at slave address = 0x26
+	lix		r9,0x4C		; I2C write command at slave address = 0x24
 	lix		r10,0x15	; MCP23017_OLATB_REGADR
-	lix		r11,0xDE	; MCP23017_GPPU_ENABLE
+	lix		r11,0x00	; defaultVal
+	bsr		wrReg_MCP23017
+	;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
+	lix		r9,0x4E		; I2C write command at slave address = 0x24
+	lix		r10,0x15	; MCP23017_OLATB_REGADR
+	lix		r11,0x00	; defaultVal
+	bsr		wrReg_MCP23017
+	
+	lix		r8,1000
+	bsr		delay_mS
+looper:
+	lix		PAR,0x3802		; address of the mSec counter
+	lpl		r11				; read the counter peripheral into r11
+
+	;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
+	lix		r9,0x48		; I2C write command at slave address = 0x24
+	lix		r10,0x15	; MCP23017_OLATB_REGADR
+	bsr		wrReg_MCP23017
+	;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
+	lix		r9,0x4A		; I2C write command at slave address = 0x25
+	lix		r10,0x15	; MCP23017_OLATB_REGADR
+	sr8		r11,r11
+	bsr		wrReg_MCP23017
+	;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
+	lix		r9,0x4C		; I2C write command at slave address = 0x26
+	lix		r10,0x15	; MCP23017_OLATB_REGADR
+	sr8		r11,r11
 	bsr		wrReg_MCP23017
 	;	wrReg_MCP23017(chipAddr,MCP23017_GPPUA_REGADR,defaultVal);        // Pull-up to switches
-;	lix		r9,0x48		; I2C write command at slave address = 0x27
+	lix		r9,0x4E		; I2C write command at slave address = 0x27
 	lix		r10,0x15	; MCP23017_OLATB_REGADR
-	lix		r11,0xAD	; MCP23017_GPPU_ENABLE
+	sr8		r11,r11
 	bsr		wrReg_MCP23017
+	bra		looper
 	pull	r11
 	pull	r10
 	pull	r9

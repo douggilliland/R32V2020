@@ -3,8 +3,8 @@
 -- Provides chip Selects and data routing for byte, short, long read/writes
 --
 -- 2 RAM spaces
---		Main Data RAM
---		SPI Buffer RAM
+--		Data_RAM_1 - Main Data RAM
+--		Data_RAM_2 - SPI Buffer RAM
 --
 
 library ieee;

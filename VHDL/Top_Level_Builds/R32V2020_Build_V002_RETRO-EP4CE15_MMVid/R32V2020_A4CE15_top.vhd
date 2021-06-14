@@ -45,6 +45,10 @@ entity R32V2020_A4CE15_top is
 		i_sdMISO				: in std_logic;
 		o_sdSCLK				: out std_logic;
 		o_driveLED			: out std_logic;		-- D5 LED on FPGA card
+		-- I2C Clock and Data
+		io_I2C_SCL			: inout	std_logic := '1';
+		io_I2C_SDA			: inout	std_logic := '1';
+		i_I2C_INT			: in		std_logic := '0';
 		-- Keyboard
 		i_ps2Clk				: in std_logic;
 		i_ps2Data			: in std_logic;
@@ -111,6 +115,10 @@ begin
 		i_sdMISO			=> i_sdMISO,
 		o_sdSCLK			=> o_sdSCLK,
 		o_driveLED		=> o_driveLED,
+		-- I2C Clock and Data
+		io_I2C_SCL		=> io_I2C_SCL,
+		io_I2C_SDA		=> io_I2C_SDA,
+		i_I2C_INT		=> i_I2C_INT,
 		-- PS/2 Keyboard pins
 		i_ps2Clk			=> i_ps2Clk,
 		i_ps2Data		=> i_ps2Data

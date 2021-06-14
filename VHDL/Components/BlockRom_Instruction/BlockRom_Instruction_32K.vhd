@@ -63,9 +63,9 @@ BEGIN
 		address_aclr_a => "NONE",
 		clock_enable_input_a => "NORMAL",
 		clock_enable_output_a => "BYPASS",
-		init_file => "../../../../Programs/Games/G003-Tetris_EP4CE10/G003-Tetris_ins.HEX",
+		init_file => "../../../../Programs/Peripheral_Tests/C076-Front_Panel_RW/C076-Front_Panel_RW_ins.HEX",
 		intended_device_family => "Cyclone IV E",
-		lpm_hint => "ENABLE_RUNTIME_MOD=NO",
+		lpm_hint => "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=INST",
 		lpm_type => "altsyncram",
 		numwords_a => 8192,
 		operation_mode => "ROM",
@@ -103,10 +103,10 @@ END SYN;
 -- Retrieval info: PRIVATE: INIT_FILE_LAYOUT STRING "PORT_A"
 -- Retrieval info: PRIVATE: INIT_TO_SIM_X NUMERIC "0"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
--- Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
--- Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
+-- Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "1"
+-- Retrieval info: PRIVATE: JTAG_ID STRING "INST"
 -- Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
--- Retrieval info: PRIVATE: MIFfilename STRING "../../../../Programs/Games/G003-Tetris_EP4CE10/G003-Tetris_ins.HEX"
+-- Retrieval info: PRIVATE: MIFfilename STRING "../../../../Programs/Peripheral_Tests/C076-Front_Panel_RW/C076-Front_Panel_RW_ins.HEX"
 -- Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "8192"
 -- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 -- Retrieval info: PRIVATE: RegAddr NUMERIC "1"
@@ -121,9 +121,9 @@ END SYN;
 -- Retrieval info: CONSTANT: ADDRESS_ACLR_A STRING "NONE"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "NORMAL"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
--- Retrieval info: CONSTANT: INIT_FILE STRING "../../../../Programs/Games/G003-Tetris_EP4CE10/G003-Tetris_ins.HEX"
+-- Retrieval info: CONSTANT: INIT_FILE STRING "../../../../Programs/Peripheral_Tests/C076-Front_Panel_RW/C076-Front_Panel_RW_ins.HEX"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
--- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=NO"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=YES,INSTANCE_NAME=INST"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
 -- Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "8192"
 -- Retrieval info: CONSTANT: OPERATION_MODE STRING "ROM"
