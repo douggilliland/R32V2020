@@ -1,0 +1,707 @@
+;
+; Uses Front Panel card
+;	http://land-boards.com/blwiki/index.php?title=Front_Panel_For_8_Bit_Computers
+; Controller for a Front Panel
+; 32 LEDs, 32 pushbuttons
+;		16 - Address LEDS/pushbuttons
+;		8  - Data LEDS/pushbuttons
+;		8  - Status LEDs
+;		8  - Control pusbuttons
+;	Card has a 4x MCP23017 I/O Expander ICs
+;	PORTA = 8xPushbuttons
+;	PORTB = 8xLEDs
+;
+
+00000000	prompt:			.string "Front Panel Test "
+; Not using the following data values but included for future use
+; i2c_addr_wr:	.long 0x48
+; i2c_addr_rd:	.long 0x49
+; i2c_reg_addr:	.long 0x00
+; i2c_wr_val:		.long 0x00
+
+;
+; main
+; Read I2C and write it back out
+;
+
+main:
+00000000	D400010A	bsr		clearScreen			; Not required for this example
+00000001	42800000	lix		r8,prompt.lower
+00000002	D40000FC	bsr		printString
+; Code to initialize I2CIO8 card then read/write loop
+00000003	D4000002	bsr		init_Regs_FrontPanel_01	; initialize the MCP23017 on the I2CIO8
+; loopMain:
+; bsr		readI2CDat_MCP23017	; read headers
+; sr1		r8,r8				; shift header data down to LEDs
+; sr1		r8,r8
+; sr1		r8,r8
+; sr1		r8,r8
+; xor		r8,r8,MINUS1		; invert headers
+; bsr		wrI2CAdrDat_MCP23017	; write to LEDs
+; lix		r8,10
+; bsr		delay_mS
+; bra		loopMain
+loopForever:
+00000004	C0000000	bra		loopForever
+
+;
+; init_Regs_FrontPanel_01 - Set IO Dir
+;
+;	wrReg_MCP23017(chipAddr,MCP23017_IODIRA_REGADR,MCP23017_IODIR_ALL_INS);     // IO: Port A is switches = inputs
+;	wrReg_MCP23017(chipAddr,MCP23017_IODIRB_REGADR,MCP23017_IODIR_ALL_OUTS);    // IO: Port B is LEDs = outputs
+;	wrReg_MCP23017(chipAddr,MCP23017_IPOLA_REGADR,MCP23017_IPOL_INVERT);        // IP: Invert input pins on Port A
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENA_REGADR,MCP23017_GPINTEN_ENABLE);  // GPINT: Enable interrupts for switches
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENB_REGADR,MCP23017_GPINTEN_DISABLE); // GPINT: Disable interrupts for LED outputs
+;	wrReg_MCP23017(chipAddr,MCP23017_DEFVALA_REGADR,MCP23017_DEFVALA_DEFVAL);   // Default value for pin (interrupt)
+;	wrReg_MCP23017(chipAddr,MCP23017_INTCONA_REGADR,MCP23017_INTCON_PREVPIN);    // Int for change from default value
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONA_REGADR,MCP23017_IOCON_DEFVAL);
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONB_REGADR,MCP23017_IOCON_DEFVAL);      // Int for change from previous pin
+;	wrReg_MCP23017(chipAddr,MCP23017_GPPUA_REGADR,MCP23017_GPPU_ENABLE);        // Pull-up to switches
+;	readRegister_MCP23017(chipAddr,MCP23017_INTCAPA_REGADR);                            // Clears interrupt
+;
+; #define MCP23017_IODIRA_REGADR   0x00
+; #define MCP23017_IODIRB_REGADR   0x01
+; #define MCP23017_IPOLA_REGADR    0x02
+; #define MCP23017_IPOLB_REGADR    0x03
+; #define MCP23017_GPINTENA_REGADR 0x04
+; #define MCP23017_GPINTENB_REGADR 0x05
+; #define MCP23017_DEFVALA_REGADR  0x06
+; #define MCP23017_DEFVALB_REGADR  0x07
+; #define MCP23017_INTCONA_REGADR  0x08
+; #define MCP23017_INTCONB_REGADR  0x09
+; #define MCP23017_IOCONA_REGADR   0x0a
+; #define MCP23017_IOCONB_REGADR   0x0b
+; #define MCP23017_GPPUA_REGADR    0x0c
+; #define MCP23017_GPPUB_REGADR    0x0d
+; #define MCP23017_INTFA_REGADR    0x0e
+; #define MCP23017_INTFB_REGADR    0x0f
+; #define MCP23017_INTCAPA_REGADR  0x10
+; #define MCP23017_INTCAPB_REGADR  0x11
+; #define MCP23017_GPIOA_REGADR    0x12
+; #define MCP23017_GPIOB_REGADR    0x13
+; #define MCP23017_OLATA_REGADR    0x14
+; #define MCP23017_OLATB_REGADR    0x15
+; #define MCP23017_IODIR_DEFVAL    0xff       // Initially set all channels to inputs
+; #define MCP23017_IODIR_ALL_INS   0xff
+; #define MCP23017_IODIR_ALL_OUTS  0x00
+
+; #define MCP23017_IPOL_INVERT     0xFF       // Input polarity = invert jumpers
+; #define MCP23017_GPINTEN_DISABLE 0x00       // Disable GPIO for interrupt on change
+; #define MCP23017_GPINTEN_ENABLE  0xFF       // Enable GPIO for interrupt on change
+; #define MCP23017_DEFVALA_DEFVAL  0x00       // Default vales of interrupt state
+; #define MCP23017_INTCON_DEFVAL   0xFF       // Int for different from default value
+; #define MCP23017_INTCON_PREVPIN  0x00       // Int for change from previous pin
+; #define MCP23017_IOCON_DEFVAL    0x04       // Disable sequential,  active-low
+; #define MCP23017_GPPU_DISABLE    0x00       // Disable pull-ups
+; #define MCP23017_GPPU_ENABLE     0xFF       // Enable pull-ups
+
+; #define MCP23017_0  0x24    // Base address of the first MCP23017 (status/control bits)
+; #define MCP23017_1  0x25    // Base address of the second MCP23017 (address bus a8-a15)
+; #define MCP23017_2  0x26    // Base address of the third MCP23017 (address bus a0-a7)
+; #define MCP23017_3  0x27    // Base address of the fourth MCP23017 (data bus d0-d7)
+
+;
+; init_Regs_FrontPanel_01 - Initialize the Front Panel MCP23017 Registers
+;
+init_Regs_FrontPanel_01:
+00000005	A0408000	push	r8
+00000006	A0409000	push	r9
+00000007	A040A000	push	r10
+00000008	A040B000	push	r11
+; Init MCP32017 #1 registers
+; wrReg_MCP23017(chipAddr,MCP23017_IODIRA_REGADR,MCP23017_IODIR_ALL_INS)
+00000009	42900048	lix		r9,0x48		; I2C write command at slave address = 0x24
+0000000a	42A00000	lix		r10,0x00	; MCP23017_IODIRA_REGADR
+0000000b	42B000FF	lix		r11,0xFF	; MCP23017_IODIR_ALL_INS
+0000000c	D400008A	bsr		wrReg_MCP23017
+; wrReg_MCP23017(chipAddr,MCP23017_IODIRB_REGADR,MCP23017_IODIR_ALL_OUTS)
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+0000000d	42A00001	lix		r10,0x01	; MCP23017_IODIRB_REGADR
+0000000e	42B00000	lix		r11,0x00	; MCP23017_IODIR_ALL_OUTS
+0000000f	D4000087	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IPOLA_REGADR,MCP23017_IPOL_INVERT);        // IP: Invert input pins on Port A
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+00000010	42A00002	lix		r10,0x02	; MCP23017_IPOLA_REGADR
+00000011	42B000FF	lix		r11,0xFF	; MCP23017_IPOL_INVERT
+00000012	D4000084	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENA_REGADR,MCP23017_GPINTEN_ENABLE);  // GPINT: Enable interrupts for switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+00000013	42A00004	lix		r10,0x04	; MCP23017_GPINTENA_REGADR
+00000014	42B000FF	lix		r11,0xFF	; MCP23017_GPINTEN_ENABLE
+00000015	D4000081	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENB_REGADR,MCP23017_GPINTEN_DISABLE); // GPINT: Disable interrupts for LED outputs
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+00000016	42A00005	lix		r10,0x05	; MCP23017_GPINTENB_REGADR
+00000017	42B00000	lix		r11,0x00	; MCP23017_GPINTEN_DISABLE
+00000018	D400007E	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_DEFVALA_REGADR,MCP23017_DEFVALA_DEFVAL);   // Default value for pin (interrupt)
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+00000019	42A00006	lix		r10,0x06	; MCP23017_DEFVALA_REGADR
+0000001a	42B00000	lix		r11,0x00	; MCP23017_DEFVALA_DEFVAL
+0000001b	D400007B	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_INTCONA_REGADR,MCP23017_INTCON_PREVPIN);    // Int for change from default value
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+0000001c	42A00008	lix		r10,0x08	; MCP23017_INTCONA_REGADR
+0000001d	42B00000	lix		r11,0x00	; MCP23017_INTCON_PREVPIN
+0000001e	D4000078	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONA_REGADR,MCP23017_IOCON_DEFVAL);
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+0000001f	42A0000A	lix		r10,0x0a	; MCP23017_IOCONA_REGADR
+00000020	42B00004	lix		r11,0x04	; MCP23017_IOCON_DEFVAL
+00000021	D4000075	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONB_REGADR,MCP23017_IOCON_DEFVAL);      // Int for change from previous pin
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+00000022	42A0000B	lix		r10,0x0b	; MCP23017_IOCONB_REGADR
+00000023	42B00004	lix		r11,0x04	; MCP23017_IOCON_DEFVAL
+00000024	D4000072	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPPUA_REGADR,MCP23017_GPPU_ENABLE);        // Pull-up to switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+00000025	42A0000C	lix		r10,0x0c	; MCP23017_GPPUA_REGADR
+00000026	42B000FF	lix		r11,0xFF	; MCP23017_GPPU_ENABLE
+00000027	D400006F	bsr		wrReg_MCP23017
+
+; Init MCP32017 #2 registers
+; wrReg_MCP23017(chipAddr,MCP23017_IODIRA_REGADR,MCP23017_IODIR_ALL_INS)
+00000028	4290004A	lix		r9,0x4A		; I2C write command at slave address = 0x25
+00000029	42A00000	lix		r10,0x00	; MCP23017_IODIRA_REGADR
+0000002a	42B000FF	lix		r11,0xFF	; MCP23017_IODIR_ALL_INS
+0000002b	D400006B	bsr		wrReg_MCP23017
+; wrReg_MCP23017(chipAddr,MCP23017_IODIRB_REGADR,MCP23017_IODIR_ALL_OUTS)
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+0000002c	42A00001	lix		r10,0x01	; MCP23017_IODIRB_REGADR
+0000002d	42B00000	lix		r11,0x00	; MCP23017_IODIR_ALL_OUTS
+0000002e	D4000068	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IPOLA_REGADR,MCP23017_IPOL_INVERT);        // IP: Invert input pins on Port A
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+0000002f	42A00002	lix		r10,0x02	; MCP23017_IPOLA_REGADR
+00000030	42B000FF	lix		r11,0xFF	; MCP23017_IPOL_INVERT
+00000031	D4000065	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENA_REGADR,MCP23017_GPINTEN_ENABLE);  // GPINT: Enable interrupts for switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+00000032	42A00004	lix		r10,0x04	; MCP23017_GPINTENA_REGADR
+00000033	42B000FF	lix		r11,0xFF	; MCP23017_GPINTEN_ENABLE
+00000034	D4000062	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENB_REGADR,MCP23017_GPINTEN_DISABLE); // GPINT: Disable interrupts for LED outputs
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+00000035	42A00005	lix		r10,0x05	; MCP23017_GPINTENB_REGADR
+00000036	42B00000	lix		r11,0x00	; MCP23017_GPINTEN_DISABLE
+00000037	D400005F	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_DEFVALA_REGADR,MCP23017_DEFVALA_DEFVAL);   // Default value for pin (interrupt)
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+00000038	42A00006	lix		r10,0x06	; MCP23017_DEFVALA_REGADR
+00000039	42B00000	lix		r11,0x00	; MCP23017_DEFVALA_DEFVAL
+0000003a	D400005C	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_INTCONA_REGADR,MCP23017_INTCON_PREVPIN);    // Int for change from default value
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+0000003b	42A00008	lix		r10,0x08	; MCP23017_INTCONA_REGADR
+0000003c	42B00000	lix		r11,0x00	; MCP23017_INTCON_PREVPIN
+0000003d	D4000059	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONA_REGADR,MCP23017_IOCON_DEFVAL);
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+0000003e	42A0000A	lix		r10,0x0a	; MCP23017_IOCONA_REGADR
+0000003f	42B00004	lix		r11,0x04	; MCP23017_IOCON_DEFVAL
+00000040	D4000056	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONB_REGADR,MCP23017_IOCON_DEFVAL);      // Int for change from previous pin
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+00000041	42A0000B	lix		r10,0x0b	; MCP23017_IOCONB_REGADR
+00000042	42B00004	lix		r11,0x04	; MCP23017_IOCON_DEFVAL
+00000043	D4000053	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPPUA_REGADR,MCP23017_GPPU_ENABLE);        // Pull-up to switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+00000044	42A0000C	lix		r10,0x0c	; MCP23017_GPPUA_REGADR
+00000045	42B000FF	lix		r11,0xFF	; MCP23017_GPPU_ENABLE
+00000046	D4000050	bsr		wrReg_MCP23017
+
+; Init MCP32017 #3 registers
+; wrReg_MCP23017(chipAddr,MCP23017_IODIRA_REGADR,MCP23017_IODIR_ALL_INS)
+00000047	4290004C	lix		r9,0x4C		; I2C write command at slave address = 0x26
+00000048	42A00000	lix		r10,0x00	; MCP23017_IODIRA_REGADR
+00000049	42B000FF	lix		r11,0xFF	; MCP23017_IODIR_ALL_INS
+0000004a	D400004C	bsr		wrReg_MCP23017
+; wrReg_MCP23017(chipAddr,MCP23017_IODIRB_REGADR,MCP23017_IODIR_ALL_OUTS)
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+0000004b	42A00001	lix		r10,0x01	; MCP23017_IODIRB_REGADR
+0000004c	42B00000	lix		r11,0x00	; MCP23017_IODIR_ALL_OUTS
+0000004d	D4000049	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IPOLA_REGADR,MCP23017_IPOL_INVERT);        // IP: Invert input pins on Port A
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+0000004e	42A00002	lix		r10,0x02	; MCP23017_IPOLA_REGADR
+0000004f	42B000FF	lix		r11,0xFF	; MCP23017_IPOL_INVERT
+00000050	D4000046	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENA_REGADR,MCP23017_GPINTEN_ENABLE);  // GPINT: Enable interrupts for switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+00000051	42A00004	lix		r10,0x04	; MCP23017_GPINTENA_REGADR
+00000052	42B000FF	lix		r11,0xFF	; MCP23017_GPINTEN_ENABLE
+00000053	D4000043	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENB_REGADR,MCP23017_GPINTEN_DISABLE); // GPINT: Disable interrupts for LED outputs
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+00000054	42A00005	lix		r10,0x05	; MCP23017_GPINTENB_REGADR
+00000055	42B00000	lix		r11,0x00	; MCP23017_GPINTEN_DISABLE
+00000056	D4000040	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_DEFVALA_REGADR,MCP23017_DEFVALA_DEFVAL);   // Default value for pin (interrupt)
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+00000057	42A00006	lix		r10,0x06	; MCP23017_DEFVALA_REGADR
+00000058	42B00000	lix		r11,0x00	; MCP23017_DEFVALA_DEFVAL
+00000059	D400003D	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_INTCONA_REGADR,MCP23017_INTCON_PREVPIN);    // Int for change from default value
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+0000005a	42A00008	lix		r10,0x08	; MCP23017_INTCONA_REGADR
+0000005b	42B00000	lix		r11,0x00	; MCP23017_INTCON_PREVPIN
+0000005c	D400003A	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONA_REGADR,MCP23017_IOCON_DEFVAL);
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+0000005d	42A0000A	lix		r10,0x0a	; MCP23017_IOCONA_REGADR
+0000005e	42B00004	lix		r11,0x04	; MCP23017_IOCON_DEFVAL
+0000005f	D4000037	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONB_REGADR,MCP23017_IOCON_DEFVAL);      // Int for change from previous pin
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+00000060	42A0000B	lix		r10,0x0b	; MCP23017_IOCONB_REGADR
+00000061	42B00004	lix		r11,0x04	; MCP23017_IOCON_DEFVAL
+00000062	D4000034	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPPUA_REGADR,MCP23017_GPPU_ENABLE);        // Pull-up to switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+00000063	42A0000C	lix		r10,0x0c	; MCP23017_GPPUA_REGADR
+00000064	42B000FF	lix		r11,0xFF	; MCP23017_GPPU_ENABLE
+00000065	D4000031	bsr		wrReg_MCP23017
+
+; Init MCP32017 #4 registers
+; wrReg_MCP23017(chipAddr,MCP23017_IODIRA_REGADR,MCP23017_IODIR_ALL_INS)
+00000066	4290004E	lix		r9,0x4E		; I2C write command at slave address = 0x27
+00000067	42A00000	lix		r10,0x00	; MCP23017_IODIRA_REGADR
+00000068	42B000FF	lix		r11,0xFF	; MCP23017_IODIR_ALL_INS
+00000069	D400002D	bsr		wrReg_MCP23017
+; wrReg_MCP23017(chipAddr,MCP23017_IODIRB_REGADR,MCP23017_IODIR_ALL_OUTS)
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+0000006a	42A00001	lix		r10,0x01	; MCP23017_IODIRB_REGADR
+0000006b	42B00000	lix		r11,0x00	; MCP23017_IODIR_ALL_OUTS
+0000006c	D400002A	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IPOLA_REGADR,MCP23017_IPOL_INVERT);        // IP: Invert input pins on Port A
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+0000006d	42A00002	lix		r10,0x02	; MCP23017_IPOLA_REGADR
+0000006e	42B000FF	lix		r11,0xFF	; MCP23017_IPOL_INVERT
+0000006f	D4000027	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENA_REGADR,MCP23017_GPINTEN_ENABLE);  // GPINT: Enable interrupts for switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+00000070	42A00004	lix		r10,0x04	; MCP23017_GPINTENA_REGADR
+00000071	42B000FF	lix		r11,0xFF	; MCP23017_GPINTEN_ENABLE
+00000072	D4000024	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPINTENB_REGADR,MCP23017_GPINTEN_DISABLE); // GPINT: Disable interrupts for LED outputs
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+00000073	42A00005	lix		r10,0x05	; MCP23017_GPINTENB_REGADR
+00000074	42B00000	lix		r11,0x00	; MCP23017_GPINTEN_DISABLE
+00000075	D4000021	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_DEFVALA_REGADR,MCP23017_DEFVALA_DEFVAL);   // Default value for pin (interrupt)
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+00000076	42A00006	lix		r10,0x06	; MCP23017_DEFVALA_REGADR
+00000077	42B00000	lix		r11,0x00	; MCP23017_DEFVALA_DEFVAL
+00000078	D400001E	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_INTCONA_REGADR,MCP23017_INTCON_PREVPIN);    // Int for change from default value
+;	lix		r9,0x48		; I2C write command at slave address =
+00000079	42A00008	lix		r10,0x08	; MCP23017_INTCONA_REGADR
+0000007a	42B00000	lix		r11,0x00	; MCP23017_INTCON_PREVPIN
+0000007b	D400001B	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONA_REGADR,MCP23017_IOCON_DEFVAL);
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+0000007c	42A0000A	lix		r10,0x0a	; MCP23017_IOCONA_REGADR
+0000007d	42B00004	lix		r11,0x04	; MCP23017_IOCON_DEFVAL
+0000007e	D4000018	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_IOCONB_REGADR,MCP23017_IOCON_DEFVAL);      // Int for change from previous pin
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+0000007f	42A0000B	lix		r10,0x0b	; MCP23017_IOCONB_REGADR
+00000080	42B00004	lix		r11,0x04	; MCP23017_IOCON_DEFVAL
+00000081	D4000015	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPPUA_REGADR,MCP23017_GPPU_ENABLE);        // Pull-up to switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+00000082	42A0000C	lix		r10,0x0c	; MCP23017_GPPUA_REGADR
+00000083	42B000FF	lix		r11,0xFF	; MCP23017_GPPU_ENABLE
+00000084	D4000012	bsr		wrReg_MCP23017
+
+;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x24
+00000085	42A00015	lix		r10,0x15	; MCP23017_OLATB_REGADR
+00000086	42B00055	lix		r11,0x55	; MCP23017_GPPU_ENABLE
+00000087	D400000F	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x25
+00000088	42A00015	lix		r10,0x15	; MCP23017_OLATB_REGADR
+00000089	42B000AA	lix		r11,0xAA	; MCP23017_GPPU_ENABLE
+0000008a	D400000C	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_OLATB_REGADR,defaultVal);        // Pull-up to switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x26
+0000008b	42A00015	lix		r10,0x15	; MCP23017_OLATB_REGADR
+0000008c	42B000DE	lix		r11,0xDE	; MCP23017_GPPU_ENABLE
+0000008d	D4000009	bsr		wrReg_MCP23017
+;	wrReg_MCP23017(chipAddr,MCP23017_GPPUA_REGADR,defaultVal);        // Pull-up to switches
+;	lix		r9,0x48		; I2C write command at slave address = 0x27
+0000008e	42A00015	lix		r10,0x15	; MCP23017_OLATB_REGADR
+0000008f	42B000AD	lix		r11,0xAD	; MCP23017_GPPU_ENABLE
+00000090	D4000006	bsr		wrReg_MCP23017
+00000091	A1B04000	pull	r11
+00000092	A1A04000	pull	r10
+00000093	A1904000	pull	r9
+00000094	A1804000	pull	r8
+00000095	A1704000	pull	PC
+
+;
+; wrReg_MCP23017(chipAddr,regAddr,regVal)
+; r8 = Control values
+; Pass values
+; r9 = chipAddr
+; r10 = regAddr
+; r11 = regVal
+;
+
+wrReg_MCP23017:
+00000096	A0408000	push	r8
+00000097	42800001	lix		r8,0x01		; I2C_Ctrl = START
+00000098	D400003F	bsr		write_I2C_Ctrl_Reg
+00000099	20890000	add		r8,r9,r0	; I2C write command at slave address = 0x24
+0000009a	D400002E	bsr		write_I2C_Data_Address_Reg
+0000009b	42800000	lix		r8,0x00		; I2C_Ctrl = IDLE
+0000009c	D400003B	bsr		write_I2C_Ctrl_Reg
+0000009d	42800005	lix		r8,0x05		; MCP23017 IOCON
+0000009e	208A0000	add		r8,r10,r0	; Register number
+0000009f	D4000029	bsr		write_I2C_Data_Address_Reg
+000000a0	42800003	lix		r8,0x03		; I2C_Ctrl = STOP
+000000a1	D4000036	bsr		write_I2C_Ctrl_Reg
+000000a2	208B0000	add		r8,r11,r0	; Register value
+000000a3	D4000025	bsr		write_I2C_Data_Address_Reg
+000000a4	A1804000	pull	r8
+000000a5	A1704000	pull	PC
+
+;
+; wrI2CAdrDat_MCP23017 - Write address to the I2C bus
+; Address 0x5800 -> DATA (write/read) or SLAVE ADDRESS (write)
+; Address 0x5801 -> Command/Status Register (write/read)
+; r8 is the value to write
+;
+
+wrI2CAdrDat_MCP23017:
+000000a6	A0408000	push	r8
+000000a7	42800001	lix		r8,0x01		; I2C_Ctrl = START
+000000a8	D400002F	bsr		write_I2C_Ctrl_Reg
+000000a9	42800040	lix		r8,0x40		; I2C write command at slave address = 0x20
+000000aa	D400001E	bsr		write_I2C_Data_Address_Reg
+000000ab	42800000	lix		r8,0x00		; I2C_Ctrl = IDLE
+000000ac	D400002B	bsr		write_I2C_Ctrl_Reg
+000000ad	4280000A	lix		r8,0x0A		; MCP23017 OLAT
+000000ae	D400001A	bsr		write_I2C_Data_Address_Reg
+000000af	42800003	lix		r8,0x03		; I2C_Ctrl = STOP
+000000b0	D4000027	bsr		write_I2C_Ctrl_Reg
+000000b1	A1804000	pull	r8			; Data to write is in r8
+000000b2	D4000016	bsr		write_I2C_Data_Address_Reg
+000000b3	A1704000	pull	PC
+
+;
+; readI2CDat_MCP23017 - Read data from the I2C bus
+; Address 0x5800 -> DATA (write/read) or SLAVE ADDRESS (write)
+; Address 0x5801 -> Command/Status Register (write/read)
+; r8 is the value to write
+;
+
+readI2CDat_MCP23017:
+; write the GPIO address register
+000000b4	42800001	lix		r8,0x01		; I2C_Ctrl = START
+000000b5	D4000022	bsr		write_I2C_Ctrl_Reg
+000000b6	42800040	lix		r8,0x40		; I2C write command at slave address = 0x20
+000000b7	D4000011	bsr		write_I2C_Data_Address_Reg
+000000b8	42800003	lix		r8,0x03		; I2C_Ctrl = STOP
+000000b9	D400001E	bsr		write_I2C_Ctrl_Reg
+000000ba	42800009	lix		r8,0x09		; MCP23017 - GPIO register address
+000000bb	D400000D	bsr		write_I2C_Data_Address_Reg
+; Read the GPIO line value
+000000bc	42800001	lix		r8,0x01		; I2C_Ctrl = START
+000000bd	D400001A	bsr		write_I2C_Ctrl_Reg
+000000be	42800041	lix		r8,0x41		; I2C read command at slave address = 0x20
+000000bf	D4000009	bsr		write_I2C_Data_Address_Reg
+000000c0	42800000	lix		r8,0x00		; I2C_Ctrl = IDLE
+000000c1	D4000016	bsr		write_I2C_Ctrl_Reg
+000000c2	D400000C	bsr		read_I2C_Data_Reg
+000000c3	A0408000	push	r8
+000000c4	42800003	lix		r8,0x03		; I2C_Ctrl = STOP
+000000c5	D4000012	bsr		write_I2C_Ctrl_Reg
+000000c6	A1804000	pull	r8
+000000c7	A1704000	pull	PC
+
+;
+; write_I2C_Data_Address_Reg
+;
+
+write_I2C_Data_Address_Reg:
+000000c8	A0405000	push	PAR
+000000c9	42505800	lix		PAR,0x5800	; I2C Address/register
+000000ca	85508000	spl		r8			; Write control register
+000000cb	D4000011	bsr		i2c_ack
+;	lix		r8,20
+;	bsr		delay_uS
+000000cc	A1504000	pull	PAR
+000000cd	A1704000	pull	PC
+
+;
+; read_I2C_Data_Reg - Read I2C data into r8
+;
+
+read_I2C_Data_Reg:
+000000ce	A0405000	push	PAR
+000000cf	42505800	lix		PAR,0x5800	; I2C Data Address
+000000d0	42800054	lix		r8,0x54		; not sure why this is here
+000000d1	85508000	spl		r8
+000000d2	D400000A	bsr		i2c_ack
+000000d3	42505800	lix		PAR,0x5800	; I2C Data Address
+000000d4	84805000	lpl		r8
+000000d5	A1504000	pull	PAR
+000000d6	A1704000	pull	PC
+
+;
+; write_I2C_Ctrl_Reg
+; Command Register (write):
+;	bit 7-2	= Reserved
+;	bit 1-0	=
+;		00: IDLE
+;		01: START
+;		10: nSTART
+;		11: STOP
+;
+
+write_I2C_Ctrl_Reg:
+000000d7	A0405000	push	PAR
+000000d8	42505801	lix		PAR,0x5801	; I2C Control register
+000000d9	85508000	spl		r8			; Write control register
+000000da	A1504000	pull	PAR
+000000db	A1704000	pull	PC
+
+;
+; i2c_ack - wait for transfer to complete
+; Status Register (read):
+;	bit 7-2	= Reserved
+;	bit 1 	= ERROR 	(I2C transaction error)
+;	bit 0 	= BUSY 	(I2C bus busy)
+;
+
+i2c_ack:
+000000dc	A0405000	push	PAR
+000000dd	42505801	lix		PAR,0x5801	; Control register
+i2c_ack_loop:
+000000de	84805000	lpl		r8
+000000df	2A881000	and		r8,r8,r1	; busy bit is least significant bit
+000000e0	C4FFFFFE	be1		i2c_ack_loop
+000000e1	A1504000	pull	PAR
+000000e2	A1704000	pull	PC
+
+;
+; readUartStatus
+;
+
+readUartStatus:
+000000e3	D4000004	bsr		waitGetCharFromUART
+putCharToANSIScreenAndUART:
+000000e4	D4000031	bsr		putCharToANSIScreen	; put the character to the screen
+000000e5	D400000B	bsr		putCharToUART
+000000e6	C0FFFFFD	bra		readUartStatus
+
+;
+; waitGetCharFromUART
+; returns character received in r8
+; function is blocking until a character is received from the UART
+;
+
+waitGetCharFromUART:
+000000e7	A0405000	push	PAR
+000000e8	42501800	lix		PAR,0x1800	; UART Status
+waitUartRxStat:
+000000e9	84805000	lpl		r8			; Read Status into r8
+000000ea	2A881000	and 	r8,r8,ONE
+000000eb	C3FFFFFE	bez 	waitUartRxStat
+000000ec	42501801	lix 	PAR,0x1801
+000000ed	84805000	lpl		r8
+000000ee	A1504000	pull	PAR
+000000ef	A1704000	pull	PC
+
+;
+; putCharToUART - Put a character to the UART
+; passed character in r8 is sent out the UART
+;
+
+putCharToUART:
+000000f0	A0409000	push	r9
+000000f1	A0405000	push	PAR
+000000f2	A040A000	push	r10
+000000f3	42A00002	lix		r10,0x2
+000000f4	42501800	lix		PAR,0x1800	; UART Status
+waitUartTxStat:
+000000f5	84905000	lpl		r9			; Read Status into r9
+000000f6	2A99A000	and 	r9,r9,r10
+000000f7	C3FFFFFE	bez 	waitUartTxStat
+000000f8	42501801	lix 	PAR,0x1801
+000000f9	85508000	spl		r8			; echo the character
+000000fa	A1A04000	pull	r10
+000000fb	A1504000	pull	PAR
+000000fc	A1904000	pull	r9
+000000fd	A1704000	pull	PC
+
+;
+; printString - Print a screen to the current screen position
+; pass value : r8 points to the start of the string in Data memory
+; strings are bytes packed into long words
+; strings are null terminated
+;
+
+printString:
+000000fe	A0408000	push	r8				; save r8
+000000ff	A0406000	push	DAR
+00000100	20680000	add		DAR,r8,ZERO		; set the start of the string
+nextChar:
+00000101	60806000	ldb		r8				; get the character
+00000102	38380000	cmp		r8,ZERO			; Null terminated string
+00000103	D1000004	beq		donePrStr		; done if null
+00000104	D4000011	bsr		putCharToANSIScreen	; write out the character
+00000105	20661000	add		DAR,DAR,r1		; Point to next character
+00000106	C0FFFFFB	bra		nextChar
+donePrStr:
+00000107	A1604000	pull	DAR				; restore DAR
+00000108	A1804000	pull	r8				; restore r8
+00000109	A1704000	pull	PC				; rts
+
+;
+; clearScreen - Clear the screen routine
+; ANSI Terminal has an escape sequence which clears the screen and homes cursor
+;
+
+clearScreen:
+0000010a	A0408000	push	r8				; save r8
+0000010b	4280001B	lix		r8,0x1b			; ESC
+0000010c	D4000009	bsr		putCharToANSIScreen
+0000010d	4280005B	lix		r8,0x5b			; [
+0000010e	D4000007	bsr		putCharToANSIScreen
+0000010f	42800032	lix		r8,0x32			; 2
+00000110	D4000005	bsr		putCharToANSIScreen
+00000111	4280004A	lix		r8,0x4A			; J
+00000112	D4000003	bsr		putCharToANSIScreen
+00000113	A1804000	pull	r8
+00000114	A1704000	pull	PC				; rts
+
+;
+; putCharToANSIScreen - Put a character to the screen
+; Character to put to screen is in r8
+; Return address (-1) is on the stack - need to increment before return
+;
+
+putCharToANSIScreen:
+00000115	A0409000	push	r9
+00000116	A0405000	push	PAR
+00000117	A040A000	push	r10
+00000118	42A00002	lix		r10,0x2		; TxReady bit
+00000119	42500000	lix		PAR,0x0		; UART Status
+waitScreenTxStat:
+0000011a	84905000	lpl		r9			; Read Status into r9
+0000011b	2A99A000	and 	r9,r9,r10
+0000011c	C3FFFFFE	bez 	waitScreenTxStat
+0000011d	42500001	lix 	PAR,0x1
+0000011e	85508000	spl		r8			; echo the character
+0000011f	A1A04000	pull	r10
+00000120	A1504000	pull	PAR
+00000121	A1904000	pull	r9
+00000122	A1704000	pull	PC
+
+;
+; makeBuzz - Make the buzzer buzz
+;
+
+makeBuzz:
+00000123	A0408000	push	r8
+00000124	42800000	lix		r8,0			; first note is 0
+00000125	D4000007	bsr 	setNote
+00000126	D400000D	bsr		enableBuzzer
+00000127	428000FA	lix		r8,250			; count for 1 Sec
+00000128	D4000023	bsr		delay_mS		; call delay_ms
+00000129	D4000016	bsr		disableBuzzer
+0000012a	A1804000	pull	r8
+0000012b	A1704000	pull	PC
+
+;
+; setNote - Set the note
+; pass note in r8
+;
+
+setNote:
+0000012c	A0408000	push	r8
+0000012d	A0405000	push	PAR
+0000012e	42504000	lix		PAR,0x4000
+0000012f	85508000	spl		r8
+00000130	A1504000	pull	PAR
+00000131	A1804000	pull	r8
+00000132	A1704000	pull	PC
+
+;
+; enableBuzzer
+;
+
+enableBuzzer:
+00000133	A0409000	push	r9
+00000134	A0408000	push	r8
+00000135	A0405000	push	PAR
+00000136	42900010	lix		r9,0x0010		; Buzzer Enable line
+00000137	42502800	lix		PAR,0x2800
+00000138	84805000	lpl		r8
+00000139	28889000	or		r8,r8,r9
+0000013a	85508000	spl		r8
+0000013b	A1504000	pull	PAR
+0000013c	A1804000	pull	r8
+0000013d	A1904000	pull	r9
+0000013e	A1704000	pull	PC
+
+;
+; disableBuzzer
+;
+
+disableBuzzer:
+0000013f	A0409000	push	r9
+00000140	A0408000	push	r8
+00000141	A0405000	push	PAR
+00000142	4290FFEF	lix		r9,0xffef		; Buzzer Disable line
+00000143	42502800	lix		PAR,0x2800
+00000144	84805000	lpl		r8
+00000145	2A889000	and		r8,r8,r9
+00000146	85508000	spl		r8
+00000147	A1504000	pull	PAR
+00000148	A1804000	pull	r8
+00000149	A1904000	pull	r9
+0000014a	A1704000	pull	PC
+
+; delay_mS - delay for the number of mSecs passed in r8
+; pass mSec delay in r8
+; Routine uses r9
+
+delay_mS:
+0000014b	A0409000	push	r9
+0000014c	A0405000	push	PAR
+0000014d	42503802	lix		PAR,0x3802		; address of the mSec counter
+0000014e	84905000	lpl		r9				; read the peripheral counter into r9
+0000014f	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_mS:
+00000150	84905000	lpl		r9				; check the elapsed time counter
+00000151	38389000	cmp		r8,r9
+00000152	CCFFFFFE	blt		loop_delay_mS
+00000153	A1504000	pull	PAR
+00000154	A1904000	pull	r9
+00000155	A1704000	pull	PC
+
+;
+; delay_uS - delay for the number of uSecs
+; pass mSec delay in r8
+; Uses routine uses r9 (saved and restored)
+;
+
+delay_uS:
+00000156	A0409000	push	r9
+00000157	A0405000	push	PAR
+00000158	42503801	lix		PAR,0x3801		; address of the uSec counter
+00000159	84905000	lpl		r9				; read the peripheral counter into r9
+0000015a	20898000	add		r8,r9,r8		; terminal counter to wait until is in r8
+loop_delay_uS:
+0000015b	84905000	lpl		r9				; check the elapsed time counter
+0000015c	38389000	cmp		r8,r9
+0000015d	CCFFFFFE	blt		loop_delay_uS
+0000015e	A1504000	pull	PAR
+0000015f	A1904000	pull	r9
+00000160	A1704000	pull	PC
