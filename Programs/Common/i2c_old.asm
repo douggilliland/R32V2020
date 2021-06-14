@@ -2,17 +2,15 @@
 ; i2c.asm
 
 ;
-; write_I2C_Data_Address_Reg - Writes r8 to the data register
+; write_I2C_Data_Address_Reg
 ;
 
 write_I2C_Data_Address_Reg:
+	push	PAR
 	lix		PAR,0x5800	; I2C Address/register
-	spl		r8			; Write r8 to the data register
-	lix		PAR,0x5801	; Control register
-loop_wrDA:				; hang around while busy
-	lpl		r8
-	andi	r8,r8,0x1	; busy bit is least significant bit
-	be1		loop_wrDA
+	spl		r8			; Write control register
+	bsr		i2c_ack
+	pull	PAR
 	pull	PC
 
 ;
@@ -20,16 +18,14 @@ loop_wrDA:				; hang around while busy
 ;
 
 read_I2C_Data_Reg:
+	push	PAR
 	lix		PAR,0x5800	; I2C Data Address
 	lix		r8,0x54
 	spl		r8
-	lix		PAR,0x5801	; Control register
-loop_rdDA:				; hang around while busy
-	lpl		r8
-	and		r8,r8,r1	; busy bit is least significant bit
-	be1		loop_rdDA
+	bsr		i2c_ack
 	lix		PAR,0x5800	; I2C Data Address
 	lpl		r8
+	pull	PAR
 	pull	PC
 	
 ;
@@ -44,8 +40,10 @@ loop_rdDA:				; hang around while busy
 ;
 
 write_I2C_Ctrl_Reg:
+	push	PAR
 	lix		PAR,0x5801	; I2C Control register
 	spl		r8			; Write control register
+	pull	PAR
 	pull	PC
 
 ;
@@ -67,3 +65,4 @@ i2c_ack_loop:
 	pull	r8
 	pull	PAR
 	pull	PC
+
