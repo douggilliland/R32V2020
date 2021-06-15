@@ -83,13 +83,13 @@ readI2CDat_MCP23008:
 	; I2C_Ctrl = START
 	lix		r8,0x01
 	bsr		write_I2C_Ctrl_Reg
-	; I2C write command at slave address = 0x20
+	; WRITE I2C SLAVE ADDRESS
 	lix		r8,0x40
 	bsr		write_I2C_Data_Address_Reg
 	; I2C_Ctrl = STOP
 	lix		r8,0x03
 	bsr		write_I2C_Ctrl_Reg	
-	; MCP23008 - GPIO register address
+	; WRITE MCP REGISTER NUMBER TO I2C DATA REG (9 = GPIO)
 	lix		r8,0x09		
 	bsr		write_I2C_Data_Address_Reg
 	; I2C_Ctrl = START
